@@ -259,16 +259,15 @@
 
 
 
-#morphforge/simulationanalysis/summaries/__init__.py
-#morphforge/simulationanalysis/summaries/mmsummariser.py
-#morphforge/simulationanalysis/summaries/reportlabconfig.py
-#morphforge/simulationanalysis/summaries/stdlimits.py
-#morphforge/simulationanalysis/summaries/summariser_library.py
-#morphforge/simulationanalysis/summaries/simsummariser.py
-#morphforge/simulationanalysis/viewers/mayavi2/__init__.py
-#morphforge/simulationanalysis/viewers/mayavi2/mayavi2viewer.py
-#morphforge/simulationanalysis/viewers/__init__.py
-#morphforge/simulationanalysis/__init__.py
+!src/morphforge/simulationanalysis/
+!src/morphforge/simulationanalysis/summaries/
+!src/morphforge/simulationanalysis/summaries/__init__.py
+!src/morphforge/simulationanalysis/summaries/mmsummariser.py
+!src/morphforge/simulationanalysis/summaries/reportlabconfig.py
+!src/morphforge/simulationanalysis/summaries/stdlimits.py
+!src/morphforge/simulationanalysis/summaries/summariser_library.py
+!src/morphforge/simulationanalysis/summaries/simsummariser.py
+!src/morphforge/simulationanalysis/__init__.py
 
 !src/morphforge/stdimports/
 !src/morphforge/stdimports/__init__.py
