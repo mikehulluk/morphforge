@@ -31,7 +31,6 @@ from visitorbaseclasses import SectionIndexerDF
 from visitorbaseclasses import SectionIndexerWithOffsetDF
 
 from visitorfactory import SectionVistorFactory
-from visitorfactory import MorphAreaCalc
 from morphologyoperators import  SectionVisitorDFNeuronBuilder
 
 
@@ -44,7 +43,6 @@ __all__ = [
 "SectionListerDF",
 "SectionVisitorDFNeuronBuilder",
 "SectionVistorFactory",
-"MorphAreaCalc",
 
 "DictBuilderSectionVisitorHomo",
 "SectionIndexerDF",
