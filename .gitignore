@@ -24,6 +24,9 @@
 
 
 !src/morphforge/
+!src/morphforge/__init__.py
+
+# Core package:
 !src/morphforge/core/
 !src/morphforge/core/mgrs/
 !src/morphforge/core/mgrs/__init__.py
