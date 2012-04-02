@@ -268,3 +268,6 @@
 !src/morphforgeexamples/morphology/
 !src/morphforgeexamples/morphology/__init__.py
 !src/morphforgeexamples/morphology/morphology*.py
+!src/morphforgeexamples/simulation/
+!src/morphforgeexamples/simulation/__init__.py
+!src/morphforgeexamples/simulation/simulation10.py
