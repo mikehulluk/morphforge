@@ -39,6 +39,7 @@
 !src/morphforge/core/monkey_patching.py
 !src/morphforge/core/objectnumberer.py
 !src/morphforge/core/plugindict.py
+!src/morphforge/core/quantities/
 !src/morphforge/core/quantities/__init__.py
 !src/morphforge/core/quantities/common_neuroscience_defs.py
 !src/morphforge/core/quantities/test_unit_reading.py
