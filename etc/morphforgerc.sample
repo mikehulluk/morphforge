@@ -1,0 +1,17 @@
+[Locations]
+rootdir= /home/michaeltest/hw/morphforge/src/
+tmpdir=/tmp/morphforge/tmp/
+
+[Neuron]
+nrnprefix=/opt/nrn/
+nrnbin=%(nrnprefix)s/x86_64/bin
+
+modlunitpath=%(nrnbin)s/modlunit
+nocmodlpath=%(nrnbin)s/nocmodl
+libtoolpath=%(nrnprefix)s/share/nrn/libtool
+compileIncludes=%(nrnprefix)s/include/nrn:%(nrnprefix)s/x86_64/lib
+nrnLinkDirs=%(nrnprefix)s/x86_64/lib:%(nrnprefix)s/x86_64/lib
+rpath=%(nrnprefix)s/x86_64/libs
+rndAloneLinkStatement=%(nrnprefix)s/x86_64/lib/libnrniv.la
+additional_link_libraries=%(rootdir)/morphforgecontrib/simulation/neuron_gsl/cpp/libgslwrapper
+

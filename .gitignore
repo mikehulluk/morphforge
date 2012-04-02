@@ -6,6 +6,10 @@
 !.gitignore
 
 
+# Sample morphforgerc file
+!etc/
+!etc/morphforgerc.sample
+
 # Import parts of mhlibs
 !src/
 !src/mhlibs/

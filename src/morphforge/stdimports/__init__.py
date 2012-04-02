@@ -45,7 +45,6 @@ from morphforge.simulation.neuron import *
 
  
 # Simulation Analysis
-from morphforge.simulationanalysis.viewers import *
 from morphforge.simulationanalysis.summaries import *
 
 
