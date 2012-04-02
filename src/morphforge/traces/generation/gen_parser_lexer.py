@@ -1,0 +1,83 @@
+#-------------------------------------------------------------------------------
+# Copyright (c) 2012 Michael Hull.
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+# 
+#  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#-------------------------------------------------------------------------------
+import ply
+import ply.lex
+import ply.yacc
+
+class TraceGeneratorParserLexer(object):
+    reserved = {
+       'AT' : 'AT',
+       'FOR' : 'FOR',
+       'UNTIL' : 'UNTIL',
+       'THEN' : 'THEN',
+       
+       'FLAT' : 'FLAT',
+       'RAMPTO' : 'RAMPTO',
+       'ms' : 'MS',
+       "d": "D",
+    }
+
+    tokens = ["CURLY_LBRACE",
+              "CURLY_RBRACE",
+              "COLON",
+              "LPAREN",
+              "RPAREN",
+              "FLOAT",
+              
+              "ID" ] + list(reserved.values())
+
+    t_CURLY_LBRACE = "{"
+    t_CURLY_RBRACE = "}"
+    t_COLON = ":"
+    t_LPAREN ="\("
+    t_RPAREN ="\)"
+    t_ignore  = ' \t'
+
+
+    def t_FLOAT(self, t):
+        r"""[-]?[0-9]+(\.[0-9]*([eE][+-]?[0-9]+)?)?"""
+        t.value = float(t.value)    
+        return t
+
+
+    def t_ID(self, t):
+        r'[a-zA-Z_][a-zA-Z_0-9]*'
+        t.type = self.reserved.get(t.value,'ID')    # Check for reserved words
+        return t
+
+    def t_error(self, t):
+        print "Illegal character '%s'" % t.value[0]
+        assert False
+        #t.lexer.skip(1)
+
+
+    def __init__(self,**kwargs):
+        self.lexer = ply.lex.lex(module=self, **kwargs)
+        
+
+
+    # Forward to lexer:
+    def input(self,*args,**kwargs):
+        return self.lexer.input(*args,**kwargs)
+    def token(self,*args,**kwargs):
+        return self.lexer.token(*args,**kwargs)
