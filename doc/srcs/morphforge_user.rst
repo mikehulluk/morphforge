@@ -17,6 +17,13 @@ Setting up and Running Morphforge
     piece of code; which I have developed informally alongside my Ph.D. 
     Please contribute any tests you write to improve the testsuite!
 
+.. warning::
+
+    morphforge needs to read and write lots of files to interact with simulators; so **there is a lot of code which deletes files/directories from the filesystem!**
+    There is always the danger that a path gets mis-set somewhere in the code and the **wrong thing might be deleted** by mistake. I have never had a problem with
+    this  (I have been running this package on my computer for the last 2 years with absolutely no problems), but it is a still possiblity, especially under different OSes.
+
+    **Until lots of people have tested it on different platforms, I recommend to run it within a limited environment, such as a VirtualBox**
     
     
 .. note::
