@@ -11,7 +11,7 @@ Setting up and Running Morphforge
     
 .. warning:: 
 
-    **Use as your own risk!** This package is provided as-is and should
+    **Use at your own risk!** This package is provided as-is and should
     currently be considered *alpha* quality! **There may be bugs- 
     you have been warned!** I hope there are relatively few, but it is a large 
     piece of code; which I have developed informally alongside my Ph.D. 
