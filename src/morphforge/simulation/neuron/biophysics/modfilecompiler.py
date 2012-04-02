@@ -55,7 +55,7 @@ class ModBuilderParams(object):
     
     #TODO: Find src of this:    
     rpath = RCReader.get("Neuron", "rpath")
-    rndAloneLinkStatemant = RCReader.get("Neuron", "rndAloneLinkStatemant")
+    rndAloneLinkStatement = RCReader.get("Neuron", "rndAloneLinkStatement")
     
     
     modlunitpath = RCReader.get("Neuron","modlunitpath")
@@ -80,7 +80,7 @@ class ModBuilderParams(object):
                     "stdLibStr":stdLibStr, 
                     "stdLibDirStr":stdLibDirStr, 
                     "rpath":cls.rpath, 
-                    "randSt": cls.rndAloneLinkStatemant,
+                    "randSt": cls.rndAloneLinkStatement,
                     'additional_flags':additional_link_flags
                     }
         return """--mode=link gcc -module  -g -O2  -shared  -o %(la)s  -rpath %(rpath)s  %(lo)s  %(stdLibDirStr)s  %(randSt)s  %(stdLibStr)s  %(additional_flags)s """ % linkDict 
