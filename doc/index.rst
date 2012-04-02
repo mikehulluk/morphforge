@@ -36,37 +36,39 @@ The framework is under active development, with a NEURON backend, currently supp
 
 
 
-
-Simple Example
------------------
-
-.. code-block:: python
- 
-	#Example Code
-
-
-pops up the following graphs in matplotlib:
-
-
 .. todo::
-	
-	Images
+
+    Simple Example
+    -----------------
+
+    .. code-block:: python
+     
+        #Example Code
+
+
+    pops up the following graphs in matplotlib:
+
+
+    .. todo::
+        
+        Images
 
 
 
 
-Examples of other features:
+    Examples of other features:
 
-    * :doc:`Example 1 <srcs_generated_examples/morphology10>`
-    * :doc:`Example 2 <srcs_generated_examples/simulation10>`
-	
-    * :doc:`All Examples <srcs/examples/examples>`
+        * :doc:`Example 1 <srcs_generated_examples/morphology10>`
+        * :doc:`Example 2 <srcs_generated_examples/simulation10>`
+        
+        * :doc:`All Examples <srcs/examples/examples>`
+
 
 
 License
 --------
 
-Morphforge code is released under a BSD-3 clause license. You are welcome to use it for any purpose; fork and make changes, but
+Morphforge code is released under a BSD 2-clause license. You are welcome to use it for any purpose; fork and make changes, but
 if you have any code that the community might benefit from, please contribute it back!
 
 The morphforge documentation is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 2.0 UK: England & Wales License.
