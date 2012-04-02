@@ -250,6 +250,15 @@
 !src/morphforge/simulation/__init__.py
 
 
+!src/morphforge/componentlibraries/
+!src/morphforge/componentlibraries/__init__.py
+!src/morphforge/componentlibraries/builderbaseclass.py
+!src/morphforge/componentlibraries/celllibrary.py
+!src/morphforge/componentlibraries/channellibrary.py
+!src/morphforge/componentlibraries/morphologylibrary.py
+
+
+
 #morphforge/simulationanalysis/summaries/__init__.py
 #morphforge/simulationanalysis/summaries/mmsummariser.py
 #morphforge/simulationanalysis/summaries/reportlabconfig.py
