@@ -4,3 +4,18 @@
 
 # Allow specific files:
 !.gitignore
+
+
+# Import parts of mhlibs
+!src/
+!src/mhlibs/
+!src/mhlibs/__init__.py
+
+!src/mhlibs/quantities_plot/
+!src/mhlibs/quantities_plot/__init__.py
+!src/mhlibs/quantities_plot/quantities_plot_new.py
+!src/mhlibs/scripttools/
+!src/mhlibs/scripttools/__init__.py
+!src/mhlibs/scripttools/plotmanager.py
+!src/mhlibs/scripttools/simulationindextools.py
+!src/mhlibs/scripttools/utils.py
