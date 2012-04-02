@@ -27,6 +27,11 @@ Setting up and Running Morphforge
     
     Mike Hull, Edinburgh/Bristol, UK. (April 2012)
     
+    P.S. I have started a googlegroup for morphforge at http://groups.google.com/group/morphforge . Sign up for 
+    latest development news.
+    
+
+
     
     
 
@@ -99,8 +104,9 @@ morphforge-contrib
 Contact Information
 --------------------
  
- * Me
- * Mailing list
+ * Email me: ?ike?ulluk@googlemail.com where ?s can be found at the top of the page!
+ * Mailing list: http://groups.google.com/group/morphforge
+ * GitHub: https://github.com/mikehulluk/morphforge
 
  
 

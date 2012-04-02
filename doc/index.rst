@@ -6,7 +6,10 @@ morphforge
 Overview
 ---------
 
-morphforge is a high level, simulator independent, Python library for building simulations of small populations of multi-compartmental neurons, in which membrane voltage is calculated from the sum of individual ionic currents flowing across a membrane. It was built as part of Mike Hulls Ph.D thesis; investigating the role of electrical coupling in small populations of interneurons neurons in Xenopus laevis tadpoles.
+morphforge is a high level, simulator independent, Python library for building simulations of small populations of multi-compartmental neurons, in which membrane voltage is calculated from the sum of individual ionic currents flowing across a membrane. 
+It was built as part of `Mike Hull's <http://www.anc.ed.ac.uk/dtc/index.php?option=com_people&func=showall&userid=359>`_ Ph.D thesis; investigating the role of electrical coupling in small populations of interneurons in Xenopus laevis tadpoles.
+
+
 
 The use-case of the API is to allows the user to quickly construct simulations of small populations of neurons and synaptic connections, with particular focus on:  
 
@@ -36,10 +39,17 @@ The framework is under active development, with a NEURON backend, currently supp
 
 
 
+
+
+Simple Example
+-----------------
+
 .. todo::
 
-    Simple Example
-    -----------------
+    THIS!
+    
+
+.. todoblah::
 
     .. code-block:: python
      
