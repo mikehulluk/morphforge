@@ -270,6 +270,9 @@
 #morphforge/simulationanalysis/viewers/__init__.py
 #morphforge/simulationanalysis/__init__.py
 
+!src/morphforge/stdimports/
+!src/morphforge/stdimports/__init__.py
+
 
 
 # Example scripts:
