@@ -246,6 +246,7 @@
 !src/morphforge/simulation/simulationmetadatabundle/postsimulation/postsimulationaction.py
 !src/morphforge/simulation/simulationmetadatabundle/__init__.py
 !src/morphforge/simulation/simulationmetadatabundle/simbundle.py
+!src/morphforge/simulation/shortcuts/
 !src/morphforge/simulation/shortcuts/__init__.py
 !src/morphforge/simulation/__init__.py
 
