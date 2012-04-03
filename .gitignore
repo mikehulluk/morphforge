@@ -256,6 +256,7 @@
 !src/morphforge/simulation/simulationmetadatabundle/builders
 !src/morphforge/simulation/simulationmetadatabundle/builders/__init__.py
 !src/morphforge/simulation/simulationmetadatabundle/builders/builders.py
+!src/morphforge/simulation/simulationmetadatabundle/postsimulation/
 !src/morphforge/simulation/simulationmetadatabundle/postsimulation/__init__.py
 !src/morphforge/simulation/simulationmetadatabundle/postsimulation/postsimulationaction.py
 !src/morphforge/simulation/simulationmetadatabundle/__init__.py
