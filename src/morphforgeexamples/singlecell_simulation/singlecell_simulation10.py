@@ -63,7 +63,7 @@ mySim.recordall( leakChannels, where=somaLoc)
 # Run the simulation
 results = mySim.Run()
 
-#SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/outBlha.pdf", make_graphs=True)
+SimulationSummariser(simulationresult=results, filename="outBlha.pdf", make_graphs=True)
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=False )
 #import pylab
