@@ -95,6 +95,7 @@ class ModBuilderParams(object):
 
 
 def SimpleExec(cmd, remaining):
+    print 'Executing: %s %s'%(cmd,remaining)
     output = subprocess.Popen([cmd + " " + remaining], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
     if SettingsMgr.SimulatorIsVerbose():
         print output
