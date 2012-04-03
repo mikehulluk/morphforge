@@ -16,7 +16,8 @@ and stimulate it with a current clamp"""
  
 
 from morphforge.stdimports import *
-from morphforgecontrib.stdimports import *
+#from morphforgecontrib.stdimports import *
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 
 
 # Create the morphology for the cell:
@@ -65,6 +66,7 @@ results = mySim.Run()
 #SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/outBlha.pdf", make_graphs=True)
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=False )
-#pylab.show()
+import pylab
+pylab.show()
 
 
