@@ -1,5 +1,5 @@
 
-19. Two cells connected by a gap junction
+21. Two cells connected by a gap junction
 =========================================
 
 

@@ -67,7 +67,7 @@ Code
 	# Run the simulation
 	results = mySim.Run()
 	
-	#SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/outBlha.pdf", make_graphs=True)
+	SimulationSummariser(simulationresult=results, filename="outBlha.pdf", make_graphs=True)
 	# Display the results:
 	TagViewer([results], timeranges=[(95, 200)*pq.ms], show=False )
 	#import pylab
@@ -82,35 +82,35 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 85703
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//dc/dc9b6341cdc7ee771d8983c234ec7f8b.bundle
-	Setting Random Seed: 70159
-	Time for Building Mod-Files:  0.000668048858643
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_a2d2ff7f838ea7ab5d497051e4e86a49.so
+    	Setting Random Seed: 15919
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//52/522007e4c05d114a4ac9abd9aa833201.bundle
+	Setting Random Seed: 8374
+	Time for Building Mod-Files:  0.0207109451294
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_c13fa0a8998fb81175e7d2e0b21af153.so
 		1 
 		1 
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.00986313819885
-	Time for Extracting Data: (3 records) 0.00323700904846
-	Simulation Time Elapsed:  0.325742006302
+	Time for Simulation:  0.0131168365479
+	Time for Extracting Data: (3 records) 0.00168490409851
+	Simulation Time Elapsed:  0.357455015182
 	Suceeded
-	Setting Random Seed: 70159
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3895b10>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x383e310>
+	Setting Random Seed: 8374
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x393ab10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38e3310>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3842950>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38e7950>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3863dd0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3908dd0>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
-	Saving File _output/figures/singlecell_simulation10/eps/fig000_None.eps
-	Saving File _output/figures/singlecell_simulation10/pdf/fig000_None.pdf
-	Saving File _output/figures/singlecell_simulation10/png/fig000_None.png
-	Saving File _output/figures/singlecell_simulation10/svg/fig000_None.svg
+	Saving File _output/figures/singlecell_simulation010/eps/fig000_None.eps
+	Saving File _output/figures/singlecell_simulation010/pdf/fig000_None.pdf
+	Saving File _output/figures/singlecell_simulation010/png/fig000_None.png
+	Saving File _output/figures/singlecell_simulation010/svg/fig000_None.svg
 	
 
 
@@ -119,11 +119,11 @@ Figures
 ~~~~~~~~
 
 
-.. figure:: /srcs_generated_examples/images/singlecell_simulation10_out1.png
+.. figure:: /srcs_generated_examples/images/singlecell_simulation010_out1.png
     :width: 3in
     :figwidth: 4in
 
-    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation10_out1.png>`
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation010_out1.png>`
 
 
 

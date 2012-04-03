@@ -1,5 +1,5 @@
 
-18. Two cells connected with an AMPA synapse
+20. Two cells connected with an AMPA synapse
 ============================================
 
 

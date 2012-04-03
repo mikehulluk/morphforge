@@ -1,5 +1,5 @@
 
-17. Configuring the TagViewer
+18. Configuring the TagViewer
 =============================
 
 

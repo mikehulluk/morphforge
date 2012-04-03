@@ -1,10 +1,10 @@
 
-24. Defining a new type of channel
+19. Writing an new *maths* channel
 ==================================
 
 
 
-Defining a new type of channel
+Writing an new *maths* channel
 
 
 Code
@@ -12,10 +12,7 @@ Code
 
 .. code-block:: python
 
-	
-	
-	
-	
+	"""Writing an new *maths* channel"""
 
 
 Output

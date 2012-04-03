@@ -45,7 +45,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 97757
+    	Setting Random Seed: 83717
 	
 
 
@@ -54,18 +54,18 @@ Figures
 ~~~~~~~~
 
 
-.. figure:: /srcs_generated_examples/images/morphology20_out1.png
+.. figure:: /srcs_generated_examples/images/morphology020_out1.png
     :width: 3in
     :figwidth: 4in
 
-    Download :download:`Figure </srcs_generated_examples/images/morphology20_out1.png>`
+    Download :download:`Figure </srcs_generated_examples/images/morphology020_out1.png>`
 
 
-.. figure:: /srcs_generated_examples/images/morphology20_out2.png
+.. figure:: /srcs_generated_examples/images/morphology020_out2.png
     :width: 3in
     :figwidth: 4in
 
-    Download :download:`Figure </srcs_generated_examples/images/morphology20_out2.png>`
+    Download :download:`Figure </srcs_generated_examples/images/morphology020_out2.png>`
 
 
 
