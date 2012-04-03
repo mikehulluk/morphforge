@@ -66,9 +66,10 @@ for a in areas:
 
 
 ## Molar Quanities:
-#molar = pq.UnitQuantity("Mol", pq.mol / pq.liter)
-#nMolar = pq.UnitQuantity('nMol', pq.nano * molar, symbol="nMolar")
-#uMolar = pq.UnitQuantity('uMol', pq.micro * molar, symbol="uMol")
+# http://en.wikipedia.org/wiki/Mole_(unit)#Related_units
+Molar = pq.UnitQuantity("Mol", pq.mol / pq.liter)
+nMolar = pq.UnitQuantity('nMol', pq.nano * Molar, symbol="nMolar")
+uMolar = pq.UnitQuantity('uMol', pq.micro * Molar, symbol="uMolar")
 
 
 # Specials:

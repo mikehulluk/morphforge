@@ -352,3 +352,33 @@
 !doc/srcs_generated_examples/*.rst
 
 
+
+
+
+#morphforgecontrib
+!src/morphforgecontrib/
+!src/morphforgecontrib/simulation/
+!src/morphforgecontrib/simulation/membranemechanisms/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/core/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/core/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/core/mmalphabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/core/mmalphabetabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/core/mmleak.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/hocmodbuilders/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/hocmodbuilders/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/hocmodbuilders/mmwriter_alphabetabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/hocmodbuilders/mmwriter_leak.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/hocmodbuilders/mmwriter_alphabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/mm_neuron_alphabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/mm_neuron_alphabetabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/neuron/mm_neuron_leak.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/mmleak.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/mmalphabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/mmalphabetabeta.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/util.py
+!src/morphforgecontrib/simulation/membranemechanisms/hh_style/__init__.py

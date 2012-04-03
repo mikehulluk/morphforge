@@ -71,14 +71,9 @@ class LocMgr(object):
     def getRootPath(cls):
         # Load it from the .rc file:
         if not "rootdir" in cls.locations:
-            cls.locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../../" ) )
+            cls.locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../" ) )
+            cls.ValidateExists(cls.locations["rootdir"])
             
-            #from rcmgr import RCMgr
-            #cls.locations["rootdir"] = RCMgr.get("Locations", "rootdir")
-            try:
-                cls.ValidateExists(cls.locations["rootdir"])
-            except:
-                raise Exception("The Root Directory Specified (%s) does not exist. Please create it." % cls.locations["rootdir"])
         return cls.ValidateExists(cls.locations["rootdir"]) 
 
     @classmethod
