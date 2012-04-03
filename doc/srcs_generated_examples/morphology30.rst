@@ -45,7 +45,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 32614
+    	Setting Random Seed: 71096
 	Morphology Vertices:
 	[[ 1.  2.  3.  4.]
 	 [ 5.  6.  7.  8.]]

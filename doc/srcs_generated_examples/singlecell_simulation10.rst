@@ -1,5 +1,5 @@
 
-8. Single compartment with leak channels response to current injection
+9. Single compartment with leak channels response to current injection
 ======================================================================
 
 
@@ -20,7 +20,8 @@ Code
 	 
 	
 	from morphforge.stdimports import *
-	from morphforgecontrib.stdimports import *
+	#from morphforgecontrib.stdimports import *
+	from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 	
 	
 	# Create the morphology for the cell:
@@ -69,6 +70,7 @@ Code
 	#SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/outBlha.pdf", make_graphs=True)
 	# Display the results:
 	TagViewer([results], timeranges=[(95, 200)*pq.ms], show=False )
+	#import pylab
 	#pylab.show()
 	
 	
@@ -80,36 +82,35 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 16720
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//46/463f110ab3ff6e45b20768a66ce616c6.bundle
-	Setting Random Seed: 57232
-	Time for Building Mod-Files:  0.0592141151428
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_513f173ceab2f0d74a008de097f4cfcf.so
+    	Setting Random Seed: 85703
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//dc/dc9b6341cdc7ee771d8983c234ec7f8b.bundle
+	Setting Random Seed: 70159
+	Time for Building Mod-Files:  0.000668048858643
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_a2d2ff7f838ea7ab5d497051e4e86a49.so
 		1 
 		1 
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0188381671906
-	Time for Extracting Data: (3 records) 0.00119209289551
-	Simulation Time Elapsed:  0.541245222092
+	Time for Simulation:  0.00986313819885
+	Time for Extracting Data: (3 records) 0.00323700904846
+	Simulation Time Elapsed:  0.325742006302
 	Suceeded
-	Setting Random Seed: 57232
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x4fe9a10>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e4c590>
+	Setting Random Seed: 70159
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3895b10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x383e310>
 	Setting Time Range [  95.  200.] ms
-	[array(1.0) * s, array(1.0) * kg*m**2/(s**3*A)]
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e53950>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3842950>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e6c290>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3863dd0>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
-	Saving File _output/figures/simulation10/eps/fig000_None.eps
-	Saving File _output/figures/simulation10/pdf/fig000_None.pdf
-	Saving File _output/figures/simulation10/png/fig000_None.png
-	Saving File _output/figures/simulation10/svg/fig000_None.svg
+	Saving File _output/figures/singlecell_simulation10/eps/fig000_None.eps
+	Saving File _output/figures/singlecell_simulation10/pdf/fig000_None.pdf
+	Saving File _output/figures/singlecell_simulation10/png/fig000_None.png
+	Saving File _output/figures/singlecell_simulation10/svg/fig000_None.svg
 	
 
 
@@ -118,11 +119,11 @@ Figures
 ~~~~~~~~
 
 
-.. figure:: /srcs_generated_examples/images/simulation10_out1.png
+.. figure:: /srcs_generated_examples/images/singlecell_simulation10_out1.png
     :width: 3in
     :figwidth: 4in
 
-    Download :download:`Figure </srcs_generated_examples/images/simulation10_out1.png>`
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation10_out1.png>`
 
 
 

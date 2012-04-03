@@ -44,7 +44,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 89437
+    	Setting Random Seed: 96558
 	M1:
 	<SectionObject: [0.000000,0.000000,0.000000, r=10.000000] -> [20.000000,0.000000,0.000000, r=10.000000], Length: 20.00, Region:NoRegionGiven, >
 	M2:

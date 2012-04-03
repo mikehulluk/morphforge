@@ -66,7 +66,7 @@ results = mySim.Run()
 #SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/outBlha.pdf", make_graphs=True)
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=False )
-import pylab
-pylab.show()
+#import pylab
+#pylab.show()
 
 

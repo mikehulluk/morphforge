@@ -55,7 +55,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 3497
+    	Setting Random Seed: 42527
 	Vertex Data
 	[[ -1.61e+00   6.23e+00  -7.44e-02   1.56e+01]
 	 [ -9.08e+00   3.01e+01  -1.14e+00   4.70e+00]
