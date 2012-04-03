@@ -70,7 +70,7 @@ setup(
     maintainer	="Mike Hull",
     maintainer_email = "mikehulluk@googlemail.com",
     url	="https://github.com/mikehulluk/morphforge",
-    description_short = "A high-level python library for simulating small networks of multicompartmental nuerons",
+    description = "A high-level python library for simulating small networks of multicompartmental nuerons",
     long_description = open("README.txt").read(),
     download_url = "https://github.com/mikehulluk/morphforge",
     license="BSD 2-Clause",
