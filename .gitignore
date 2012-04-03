@@ -299,9 +299,12 @@
 !src/morphforgeexamples/morphology/
 !src/morphforgeexamples/morphology/__init__.py
 !src/morphforgeexamples/morphology/morphology*.py
-!src/morphforgeexamples/simulation/
-!src/morphforgeexamples/simulation/__init__.py
-!src/morphforgeexamples/simulation/simulation10.py
+!src/morphforgeexamples/singlecell_simulation/
+!src/morphforgeexamples/multicell_simulation/
+!src/morphforgeexamples/singlecell_simulation/__init__.py
+!src/morphforgeexamples/multicell_simulation/__init__.py
+!src/morphforgeexamples/singlecell_simulation/singlecell_simulation*.py
+!src/morphforgeexamples/multicell_simulation/multicell_simulation*.py
 
 
 

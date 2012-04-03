@@ -1,0 +1,1 @@
+"""Two cells connected by a gap junction"""
