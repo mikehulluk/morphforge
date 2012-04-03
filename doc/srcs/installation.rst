@@ -8,7 +8,7 @@ Overview
 .. warning::
 
     I have only tested morphforge on Python 2.7 on Ubuntu 11.10.
-    It should work fine on other *nix, although it is hardwired 
+    It should work fine on other -nix, although it is hardwired 
     to expected certain paths in mod-file compilation, so there
     might be a problem runnning NEURON simulations on OSX. This
     is not insurmountable, I just haven't done it!
@@ -25,7 +25,7 @@ morphforge has the following hard dependancies:
  * quantities
  * Cheetah
  * Reportlab (currently hard dep, will be made soft dependancy) 
- * To use the NEURON backend, you will need NEURON compiled with python.
+ * To use the NEURON backend, you will need NEURON compiled with python. (This also requires libreadline-dev and libncurses5-dev )
  * To build the documentatation, you will need Sphinx and make
 
 
@@ -38,9 +38,10 @@ install what you need:
 
 
     # Most dependancies satisfied by package manager:
-    sudo apt-get install git ipython python-numpy python-scipy python-matplotlib python-scipy python-ply
-    $ python-cheetah python-reportlab python-sphinx make
+    $ sudo apt-get install git ipython python-numpy python-scipy python-matplotlib python-scipy python-ply
+     python-cheetah python-reportlab python-sphinx make
 
+    
 
     # Python-Quantities (by Darren Dale):
     # (See https://github.com/python-quantities/python-quantities)
