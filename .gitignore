@@ -5,10 +5,19 @@
 # Allow specific files:
 !.gitignore
 
+!setup.py
+!README.txt
+!AUTHORS.txt
+!LICENSE.txt
 
-# Sample morphforgerc file
 !etc/
 !etc/morphforgerc.sample
+
+
+
+
+
+
 
 # Import parts of mhlibs
 !src/
