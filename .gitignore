@@ -358,7 +358,7 @@
 
 
 
-#morphforgecontrib
+#morphforgecontrib hh_style channels:
 !src/morphforgecontrib/
 !src/morphforgecontrib/__init__.py
 !src/morphforgecontrib/simulation/
@@ -389,3 +389,17 @@
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/mmalphabetabeta.py
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/summarisers/util.py
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/__init__.py
+
+
+
+# morphforgecontrib.morphology
+!src/morphforgecontrib/morphology/
+!src/morphforgecontrib/morphology/__init__.py
+!src/morphforgecontrib/morphology/util/
+!src/morphforgecontrib/morphology/util/__init__.py
+!src/morphforgecontrib/morphology/util/util.py
+
+
+
+
+
