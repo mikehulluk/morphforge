@@ -71,8 +71,10 @@ class LocMgr(object):
     def getRootPath(cls):
         # Load it from the .rc file:
         if not "rootdir" in cls.locations:
-            from rcmgr import RCMgr
-            cls.locations["rootdir"] = RCMgr.get("Locations", "rootdir")
+            cls.locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../../" ) )
+            
+            #from rcmgr import RCMgr
+            #cls.locations["rootdir"] = RCMgr.get("Locations", "rootdir")
             try:
                 cls.ValidateExists(cls.locations["rootdir"])
             except:
@@ -127,8 +129,12 @@ class LocMgr(object):
     
     @classmethod
     def loadFromRCReader(cls, subsection, default):
+        from rcmgr import RCMgr
+        if not RCMgr.hasConfig():
+            return default
+        
         if not subsection in cls.locations:
-            from rcmgr import RCMgr
+            
             if RCMgr.has("Locations", subsection): 
                 cls.locations[subsection] = RCMgr.get("Locations", subsection)
             else:
@@ -141,7 +147,10 @@ class LocMgr(object):
     
     @classmethod
     def getTmpPath(cls):
-        loc = cls.loadFromRCReader("tmpdir", Join(cls.getRootPath(), "tmp"))
+        try:
+            loc = cls.loadFromRCReader("tmpdir", Join(cls.getRootPath(), "tmp"))
+        except:
+            loc = Join(cls.getRootPath(), "tmp")
         return cls.EnsureMakeDirs(loc)
     
     

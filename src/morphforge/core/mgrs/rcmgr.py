@@ -31,6 +31,11 @@ class RCMgr(object):
     rcConfParser = None
     
     @classmethod
+    def hasConfig(cls):
+        return os.path.exists(cls.rcFilename)
+        
+     
+    @classmethod
     def getConfig(cls):
         if not cls.rcConfParser:
             cls.rcConfParser = ConfigParser.SafeConfigParser()
