@@ -146,15 +146,11 @@ class TraceApproximator(object):
 
 
        x = np.arange(len(d))
-       #print d.shape
-       #print x.shape
 
        edge_filter = np.hstack((np.ones(min_level_size) * -1, np.ones(min_level_size))) / (2 * min_level_size)
        edges = np.fabs(np.convolve(d, edge_filter, mode='same'))
 
 
-       #print edges.shape
-       #pylab.show()
 
        edge_indices = np.where(edges > convolution_threshold)[0]
 

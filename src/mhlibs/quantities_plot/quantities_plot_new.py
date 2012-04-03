@@ -24,7 +24,6 @@
 #-------------------------------------------------------------------------------
 from matplotlib.ticker import FuncFormatter
 import quantities as pq
-import pylab
 
 from decimal import Decimal
 
@@ -272,6 +271,7 @@ class QuantitiesFigureNew(object):
 
     def __init__(self, subplot_class, *args, **kwargs):
         """Subplot_class is a class so, that we can change the subclass type that is generated. """
+        import pylab
         self.fig = pylab.figure(*args,**kwargs)
         self.subplot_class = subplot_class
         

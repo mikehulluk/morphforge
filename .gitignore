@@ -172,6 +172,7 @@
 !src/morphforge/traces/generation/generator_parser.py
 !src/morphforge/traces/__init__.py
 !src/morphforge/traces/eventset.py
+!src/morphforge/traces/linkage/
 !src/morphforge/traces/linkage/__init__.py
 !src/morphforge/traces/linkage/tracelinkage.py
 !src/morphforge/traces/trace.py

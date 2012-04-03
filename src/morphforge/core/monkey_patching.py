@@ -22,9 +22,6 @@
 #-------------------------------------------------------------------------------
 from morphforge.core.mgrs import SettingsMgr, LogMgr
 
-import matplotlib.pylab as mpl
-import pylab as pl
-import matplotlib
 
 from mhlibs.scripttools.plotmanager import PlotManager
 
@@ -41,6 +38,7 @@ class SavedFigures(object):
 
 
 def saveAllNewActiveFigures():
+    import matplotlib
     
     active_figures=[manager.canvas.figure for manager in matplotlib._pylab_helpers.Gcf.get_all_fig_managers()]
     active_new_figures = [ a for a in active_figures if not a.number in SavedFigures.nums]
@@ -58,21 +56,26 @@ def saveAllNewActiveFigures():
     
     
     
+# Monkey-Patch pylab, unless we are on read-the-docs
+import os
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if not on_rtd:
 
+    # Matplotlib:
+    import pylab 
+    import matplotlib
 
-# Matplotlib:
+    mplShow = matplotlib.pylab.show
+    def show(*args, **kwargs):
+        saveAllNewActiveFigures()
+        if SettingsMgr.showGUI():
+            LogMgr.info("mpl.show() call made")
+            mplShow(*args, **kwargs)
 
-mplShow = mpl.show
-def show(*args, **kwargs):
-    saveAllNewActiveFigures()
-    if SettingsMgr.showGUI():
-        LogMgr.info("mpl.show() call made")
-        mplShow(*args, **kwargs)
-
-    else:
-        LogMgr.info("mpl.show() call not made")
-mpl.show = show
-pl.show = show
+        else:
+            LogMgr.info("mpl.show() call not made")
+    matplotlib.pylab.show = show
+    pylab.show = show
 
 
 
@@ -85,18 +88,6 @@ if SettingsMgr.DecorateSimulations():
     from mhlibs.simulation_manager.simulation_hooks import db_writer_hook
     db_writer_hook.SimulationDecorator.Init()
 
-    # Catch all displayed images and save them:
-    
-    #mplShow = mpl.show
-    #
-    #def showAndSave():
-    #    print 'Show and save'
-    #    mplShow()
-    #    PlotManager.SaveFigure()    
-    #mplShow = showAndSave
-    #pl = showAndSave
-        
-    
 
     
     
@@ -113,23 +104,6 @@ def MonkeyPatchMayaVi():
     my_pass(mlab)
     
 
-
-#    mvishow = mlab.show
-#
-#    def show(*args, **kwargs):
-#        
-#        # Can be used as a decorator:
-#        if args:
-#            
-#        if SettingsMgr.showGUI():
-#            LogMgr.info("mayavi-show() call made")
-#            def deocator_wrapper(*args, **kwargs):
-#            return lambda : mvishow(*args, **kwargs)
-#        else:
-#            LogMgr.info("mayavi-show() call not made")
-#            
-#            return  args[0] if args else None 
-#    mlab.show = show    
 
 
 # Set-up the defaul priting:

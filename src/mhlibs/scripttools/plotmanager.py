@@ -22,7 +22,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-import pylab
 from utils import CleanFilename, EnsureDirectoryExists, ScriptUtils
 
 class FigTypes:
@@ -48,6 +47,7 @@ class PlotManager():
     
     @classmethod
     def SaveFigure(cls, figname="", figure=None, filenameTmpl=None, figtypes=None  ):
+        import pylab
 #        assert False
         if not filenameTmpl:
             filenameTmpl = cls.defaultFilenameTmpl

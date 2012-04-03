@@ -16,7 +16,6 @@
 
 from morphforge.core import Join
 
-import pylab
 import os
 
 
@@ -57,6 +56,7 @@ class ReportLabConfig(object):
     
     
     def saveMPLToRLImage(self, figure, figDesc):
+        import pylab
         from reportlab.platypus import Image
         imFilename = Join( self.imageDir, "%s_%d.%s"% (figDesc,len(self.images), self.imageExt) )
         self.images.append(imFilename)

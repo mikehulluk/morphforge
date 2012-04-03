@@ -27,9 +27,6 @@ from morphforge.morphology.visitor import DictBuilderSectionVisitorHomo
 import numpy
 import numpy as np
 
-import pylab
-from matplotlib.path import Path
-from matplotlib import patches
 
 
 
@@ -70,6 +67,9 @@ class MatPlotLibViewer(object):
     
     
     def buildDrawSubPlot(self, rotatedSectionDict, fig, i, plotLims):
+        import pylab
+        from matplotlib.path import Path
+        from matplotlib import patches
         
         
         subplotnum = self.figurePositions[i]
@@ -147,6 +147,7 @@ class MatPlotLibViewer(object):
         
         
     def buildPlot(self, usePCA):
+        import pylab
         
         
         self.normaliser = MorphologyForRenderingOperator(self.morph, usePCA=usePCA)
