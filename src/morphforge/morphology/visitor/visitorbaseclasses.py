@@ -11,7 +11,7 @@
 #-------------------------------------------------------------------------------
 """ Visitor Base Classes: Here be Dragons!"""
 
-import scipy 
+import numpy 
 
 from morphforge.core import ExactlyOneNotNone
 
@@ -164,7 +164,7 @@ class NumpyBuilderSectionVisitor(SectionVisitorDF):
         
     def buildIndexerAndArray(self):
         self.sectionIndexer = SectionIndexerDF(self.morph)()
-        self.array = scipy.zeros((len(self.sectionIndexer), self.ndims,), self.datatype) 
+        self.array = numpy.zeros((len(self.sectionIndexer), self.ndims,), self.datatype) 
         
         
     def VisitSection(self, section):

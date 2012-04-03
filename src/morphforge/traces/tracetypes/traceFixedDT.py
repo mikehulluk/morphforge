@@ -19,13 +19,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core.quantities import unit #, NpPqWrappers
+from morphforge.core.quantities import unit
 
 import numpy as np
-#import operator
 
 import quantities as pq
-from scipy.interpolate import interp1d  
 
 
 from tracePointBased import Trace_PointBased

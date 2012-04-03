@@ -22,7 +22,6 @@
 #-------------------------------------------------------------------------------
 from morphforge.traces.trace import Trace
 import quantities as pq
-from scipy.interpolate.interpolate import interp1d
 import numpy as np
 
 

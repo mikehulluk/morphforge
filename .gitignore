@@ -6,6 +6,7 @@
 !.gitignore
 
 !setup.py
+!requirements.txt
 !README.txt
 !AUTHORS.txt
 !LICENSE.txt

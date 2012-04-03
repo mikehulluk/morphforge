@@ -13,8 +13,6 @@ from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl, CloneTrace
 from morphforge.traces import Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 import numpy as np
 
-import scipy.integrate
-from morphforge.core.quantities.fromcore import unit
 
 
 
@@ -30,6 +28,7 @@ TraceMethodCtrl.register(Trace_FixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr.
 
 # For VariableDT traces
 def variableDTMean(tr):
+    import scipy.integrate
     # Calculate the mean with simpsons rule:
     integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude ) 
     mean = integral / tr.getDuration().rescale('s').magnitude * tr._data.units
