@@ -19,8 +19,7 @@ from morphforge.core import Join
 import os
 
 
-from reportlab.lib import colors
-
+grey = '#808080'
 
 class ReportLabConfig(object):
     
@@ -46,11 +45,11 @@ class ReportLabConfig(object):
     
     defaultTableStyle = [('ALIGN', (1,1), (-1,-1), 'LEFT'),
                          ('VALIGN',(0,0),(-1,-1),'TOP'),
-                     ('LINEABOVE', (0,0), (-1,0), 2, colors.grey),
-                     ('LINEBELOW', (0,0), (-1,0), 1, colors.grey),
+                     ('LINEABOVE', (0,0), (-1,0), 2, grey),
+                     ('LINEBELOW', (0,0), (-1,0), 1, grey),
                      ('FONT', (0,0), (-1,0), 'Times-Bold'),
                      ('FONT', (0,1), (-1,-1), 'Times-Roman'),
-                     ('LINEBELOW', (0,-1), (-1,-1), 2, colors.grey),
+                     ('LINEBELOW', (0,-1), (-1,-1), 2, grey),
                     ]
     
     
