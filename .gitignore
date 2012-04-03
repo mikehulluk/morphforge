@@ -398,6 +398,8 @@
 !src/morphforgecontrib/morphology/util/
 !src/morphforgecontrib/morphology/util/__init__.py
 !src/morphforgecontrib/morphology/util/util.py
+!src/morphforgecontrib/morphology/util/axontrimmer.py
+!src/morphforgecontrib/morphology/util/morphologytranslator.py
 
 
 
