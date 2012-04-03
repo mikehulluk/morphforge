@@ -44,7 +44,6 @@ pkgs = [
 "morphforge/simulation/shortcuts",
 "morphforge/simulationanalysis",
 "morphforge/simulationanalysis/summaries",
-"morphforge/simulationanalysis/viewers",
 "morphforge/stdimports",
 "morphforge/constants",
 "morphforge/traces",
