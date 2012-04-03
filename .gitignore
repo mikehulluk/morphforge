@@ -16,7 +16,10 @@
 
 
 
-
+# Some scripts needed for simulations
+!src/
+!src/bin/
+!src/bin/SimulateBundle.py
 
 
 
