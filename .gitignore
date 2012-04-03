@@ -358,7 +358,7 @@
 
 
 
-#morphforgecontrib hh_style channels:
+#morphforgecontrib.hh_style channels:
 !src/morphforgecontrib/
 !src/morphforgecontrib/__init__.py
 !src/morphforgecontrib/simulation/
@@ -391,6 +391,11 @@
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/__init__.py
 
 
+# morphforgecontrib.neuron channels
+!src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/
+!src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/core.py
+!src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/neuron.py
 
 # morphforgecontrib.morphology
 !src/morphforgecontrib/morphology/
