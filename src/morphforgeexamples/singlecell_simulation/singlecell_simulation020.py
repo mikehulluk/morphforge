@@ -20,7 +20,7 @@ to make it consistent with other simulations some parameters need to change!
 MIKE: TODO!
 
 
-Anyway, we create 3 channels, and apply them over the neuron. The morphforge backend takes care of building/compiling .mod-files from these,
+Anyway, we create 3 channels and apply them over the neuron. The morphforge backend takes care of building/compiling .mod-files from these,
 and runs the simulation.
 
 """

@@ -16,7 +16,9 @@ Code
 
 	
 	
-	
+	"""Creating morphologies from python dictionaries.
+	In this example, we create 2 :py:class:`MorphologyTree` objects from python 
+	dictionaries, and then demonstrate iterating over the sections"""
 	 
 	from morphforge.morphology import MorphologyTree
 	
@@ -44,7 +46,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 97740
+    	Setting Random Seed: 15436
 	M1:
 	<SectionObject: [0.000000,0.000000,0.000000, r=10.000000] -> [20.000000,0.000000,0.000000, r=10.000000], Length: 20.00, Region:NoRegionGiven, >
 	M2:

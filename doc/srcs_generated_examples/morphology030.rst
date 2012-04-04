@@ -18,7 +18,9 @@ Code
 	
 	
 	
-	
+	"""Load  SWC data from a string directly into a MorphologyArray.
+	We can load .swc from any file-like object, so we can use StringIO to load directly from strings.
+	"""
 	
 	
 	from morphforge.core.misc import StripCommentsAndBlankLines
@@ -45,7 +47,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 13430
+    	Setting Random Seed: 68581
 	Morphology Vertices:
 	[[ 1.  2.  3.  4.]
 	 [ 5.  6.  7.  8.]]
