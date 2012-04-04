@@ -106,7 +106,7 @@ mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location 
 # Run the simulation
 results = mySim.Run()
 
-SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/SimulationOutput.pdf", make_graphs=True)
+SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=True )
