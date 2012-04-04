@@ -133,22 +133,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 10158
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//fa/fa353c958bbc3c307cede369b98f9952.bundle
-	Setting Random Seed: 6918
-	Time for Building Mod-Files:  0.000707149505615
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_a3422dbb8c62cad6016cec66396d4a87.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_aa143b8ef1a37a124441741a0d6a5d2c.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_0373e8b82a5592182c757192e83fd3ea.so
-		1 
-		1 
-		1 
-		1 
-	Time for Simulation:  0.0378499031067
-	Time for Extracting Data: (1 records) 0.000425100326538
-	Simulation Time Elapsed:  0.284263849258
-	Suceeded
-	Setting Random Seed: 6918
+    	Setting Random Seed: 19402
 	[0.07, 0.0, 0.0, 0.0, 20.0]
 	
 	[1.0, 0.0, 1.0, -30.0, -10]
@@ -161,8 +146,8 @@ Output
 	
 	[0.125, 0, 0, 0, 80]
 	
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2f8c690>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2f3b350>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x267a850>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2629390>
 	Setting Time Range [  95.  200.] ms
 	Saving File _output/figures/singlecell_simulation020/eps/fig000_None.eps
 	Saving File _output/figures/singlecell_simulation020/pdf/fig000_None.pdf

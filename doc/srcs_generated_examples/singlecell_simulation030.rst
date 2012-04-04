@@ -1,10 +1,10 @@
 
-11. Hodgkin-Huxley '52 neuron simulation with automatic summary
-===============================================================
+11. Hodgkin-Huxley '52 neuron simulation with automatic summary pdf generation
+==============================================================================
 
 
 
- Hodgkin-Huxley '52 neuron simulation with automatic summary .pdf generation. 
+ Hodgkin-Huxley '52 neuron simulation with automatic summary pdf generation. 
 
 AS BEFORE: A simulation of the HodgkinHuxley52 neuron. Same Caveeat! 
 MIKE: TODO!
@@ -25,7 +25,7 @@ Code
 
 	
 	
-	""" Hodgkin-Huxley '52 neuron simulation with automatic summary .pdf generation. 
+	""" Hodgkin-Huxley '52 neuron simulation with automatic summary pdf generation. 
 	
 	AS BEFORE: A simulation of the HodgkinHuxley52 neuron. Same Caveeat! 
 	MIKE: TODO!
@@ -135,7 +135,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 9803
+    	Setting Random Seed: 4479
 	[0.07, 0.0, 0.0, 0.0, 20.0]
 	
 	[1.0, 0.0, 1.0, -30.0, -10]
@@ -148,21 +148,21 @@ Output
 	
 	[0.125, 0, 0, 0, 80]
 	
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3c668d0>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c10390>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x34eaa50>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34953d0>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c149d0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3499a10>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c43e50>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34c7f10>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c4eed0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34cf1d0>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c48d10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34ccd50>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1 ms (millisecond)
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3c57290>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34da2d0>
 	Setting Time Range [  95.  200.] ms
 	Saving File _output/figures/singlecell_simulation030/eps/fig000_None.eps
 	Saving File _output/figures/singlecell_simulation030/pdf/fig000_None.pdf

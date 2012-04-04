@@ -1,10 +1,10 @@
 
-9. [*] The response of a single compartment neuron with leak channels to step current injection
-===============================================================================================
+9. The response of a single compartment neuron with leak channels to step current injection
+===========================================================================================
 
 
 
-[*] The response of a single compartment neuron with leak channels to step current injection.
+The response of a single compartment neuron with leak channels to step current injection.
 In this example, we build a single section neuron, with passive channels,
 and stimulate it with a step current clamp of 200pA for 100ms starting at t=100ms.  
 We also create a summary pdf of the simulation. 
@@ -17,7 +17,7 @@ Code
 .. code-block:: python
 
 	
-	"""[*] The response of a single compartment neuron with leak channels to step current injection.
+	"""The response of a single compartment neuron with leak channels to step current injection.
 	In this example, we build a single section neuron, with passive channels,
 	and stimulate it with a step current clamp of 200pA for 100ms starting at t=100ms.  
 	We also create a summary pdf of the simulation. 
@@ -87,14 +87,29 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 25210
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x38cfad0>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3878350>
+    	Setting Random Seed: 89933
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//bb/bbf0028ba2a0424680cb813ac5fd9d4b.bundle
+	Setting Random Seed: 27763
+	Time for Building Mod-Files:  0.161846160889
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_e6a1c9496e8e65aa950509b29828a683.so
+		1 
+		1 
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.0252041816711
+	Time for Extracting Data: (3 records) 0.0017101764679
+	Simulation Time Elapsed:  0.804562091827
+	Suceeded
+	Setting Random Seed: 27763
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x4148b10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x40f1390>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x387c990>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x40f59d0>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38abe10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x4124e50>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
 	Saving File _output/figures/singlecell_simulation010/eps/fig000_The response of a neuron to step current injection.eps
