@@ -153,7 +153,7 @@ class Section(object):
         
         R = self.d_r 
         r = self.p_r
-        lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + self.getLength() )  
+        lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + self.getLength()**2 )  
         
         if include_end_if_terminal==True and self.isLeaf() :
            return lateral_area + ( math.pi * R**2 ) 
