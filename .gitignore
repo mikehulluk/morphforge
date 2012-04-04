@@ -296,6 +296,7 @@
 
 # Example scripts:
 !src/morphforgeexamples/
+!src/morphforgeexamples/Makefile
 !src/morphforgeexamples/morphology/
 !src/morphforgeexamples/morphology/__init__.py
 !src/morphforgeexamples/morphology/morphology*.py

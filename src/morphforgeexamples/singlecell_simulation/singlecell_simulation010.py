@@ -16,7 +16,6 @@ and stimulate it with a current clamp"""
  
 
 from morphforge.stdimports import *
-#from morphforgecontrib.stdimports import *
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 
 
@@ -50,12 +49,13 @@ shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacita
 # Get a location on the cell:
 somaLoc = myCell.getLocation("soma")
 
-# Create the simulous:
-mySim.createCurrentClamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+# Create the stimulus and record the injected current:
+cc = mySim.createCurrentClamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+#mySim.record(cc, what=StdRec.Current, comment="Injected Current")
 
 
 # Define what to record:
-mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) #, description='Membrane Voltage')
+mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) 
 mySim.recordall( leakChannels, where=somaLoc)
 
 
@@ -63,7 +63,7 @@ mySim.recordall( leakChannels, where=somaLoc)
 # Run the simulation
 results = mySim.Run()
 
-SimulationSummariser(simulationresult=results, filename="outBlha.pdf", make_graphs=True)
+SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=True )
