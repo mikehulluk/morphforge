@@ -112,8 +112,8 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     $ cd hw  
     
     # Clone the repo:
-    $ git clone git@github.com:mikehulluk/morphforge.git
-    
+    $ git clone git://github.com/mikehulluk/morphforge.git
+        
     # Add something like this to the end of your login script (eg ~/.bashrc):
     $ export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/morphforge/src/"
     $ source ~/.bashrc
