@@ -115,7 +115,7 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     $ git clone git://github.com/mikehulluk/morphforge.git
         
     # Add something like this to the end of your login script (eg ~/.bashrc):
-    $ export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/morphforge/src/"
+    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/morphforge/src/"
     $ source ~/.bashrc
 
     # Try it out:
@@ -181,7 +181,18 @@ More information about .~/morphforgerc configuration can be found :doc:`here </s
 Running the Examples
 --------------------
 
-The examples can be found in the directory below, and can be checked that 
+
+If everything is set up correctly, you should now be able to run your first example:
+
+.. code-block:: bash
+
+    $ cd ~/hw/morphforge/src/morphforgeexamples/
+    $ python singlecell_simulation010.py
+    # < If everything is OK, the script should run and you should be 
+    # presented with some graphs!
+
+
+All examples can be found in this directory and can be checked that 
 they are running using :program:`make`:
 
 .. code-block:: bash
