@@ -1,10 +1,10 @@
 
-20. Two cells connected with an AMPA synapse
-============================================
+21. [*] Two cells connected with an AMPA synapse
+================================================
 
 
 
-Two cells connected with an AMPA synapse
+[*] Two cells connected with an AMPA synapse
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Two cells connected with an AMPA synapse"""
 	
 
 

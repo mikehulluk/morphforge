@@ -1,18 +1,18 @@
 
-Overview
-=========
+[*] Overview
+============
 
 
-Morphology
-==========
+[*] Morphology
+==============
 
 Trimming
 ~~~~~~~~~
 
 
 
-Simulation
-==========
+[*] Simulation
+===============
 
 Channels
 ~~~~~~~~~

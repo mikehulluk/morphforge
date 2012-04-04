@@ -1,1 +1,1 @@
-"""Two cells connected by a gap junction"""
+"""[*] Two cells connected by a gap junction"""

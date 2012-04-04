@@ -1,1 +1,1 @@
-"""Specifying the compartmentalisation of neurons"""
+"""[*] Specifying the compartmentalisation of neurons"""

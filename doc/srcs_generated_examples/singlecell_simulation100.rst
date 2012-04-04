@@ -1,10 +1,10 @@
 
-18. Configuring the TagViewer
-=============================
+18. [*] Configuring the TagViewer
+=================================
 
 
 
-Configuring the TagViewer
+[*] Configuring the TagViewer
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Configuring the TagViewer"""
 
 
 Output

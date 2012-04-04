@@ -1,11 +1,10 @@
 
-6. Load from NeuroHDF
-=====================
+6. [*] Load from NeuroHDF
+=========================
 
 
 
-
-Load from NeuroHDF
+[*] Load from NeuroHDF
 
 .. todo::
 
@@ -21,7 +20,13 @@ Code
 
 	
 	
+	"""[*] Load from NeuroHDF
 	
+	.. todo::
+	
+	    This!
+	  
+	"""
 
 
 Output

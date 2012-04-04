@@ -1,3 +1,3 @@
-"""Defining a new type of channel"""
+"""[*] Defining a new type of channel"""
 
 

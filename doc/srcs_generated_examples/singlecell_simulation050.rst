@@ -1,10 +1,10 @@
 
-13. Using 2 channels from MOD files and comparing the outputs
-=============================================================
+13. [*] Using 2 channels from MOD files and comparing the outputs
+=================================================================
 
 
 
-Using 2 channels from MOD files and comparing the outputs
+[*] Using 2 channels from MOD files and comparing the outputs
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Using 2 channels from MOD files and comparing the outputs"""
 
 
 Output

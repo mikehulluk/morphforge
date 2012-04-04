@@ -1,10 +1,10 @@
 
-19. Writing an new *maths* channel
-==================================
+19. [*] Writing an new *maths* channel
+======================================
 
 
 
-Writing an new *maths* channel
+[*] Writing an new *maths* channel
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	"""Writing an new *maths* channel"""
+	"""[*] Writing an new *maths* channel"""
 
 
 Output

@@ -1,10 +1,10 @@
 
-12. Investigating the rheobase of a neuron with a parameter sweep
-=================================================================
+12. [*] Investigating the rheobase of a neuron with a parameter sweep
+=====================================================================
 
 
 
-Investigating the rheobase of a neuron with a parameter sweep
+[*] Investigating the rheobase of a neuron with a parameter sweep
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Investigating the rheobase of a neuron with a parameter sweep"""
 
 
 Output

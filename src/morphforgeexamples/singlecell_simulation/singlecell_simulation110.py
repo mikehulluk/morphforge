@@ -1,1 +1,1 @@
-"""Writing an new *maths* channel"""
+"""[*] Writing an new *maths* channel"""

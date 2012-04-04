@@ -17,68 +17,92 @@ Overview
 Package Dependancies
 --------------------
 
-morphforge has the following hard dependancies:
- * numpy
- * scipy
- * matplotlib
- * Python-PLY
- * quantities
- * Cheetah
- * Reportlab (currently hard dep, will be made soft dependancy) 
- * To use the NEURON backend, you will need NEURON compiled with python. (This also requires libreadline-dev and libncurses5-dev )
- * To build the documentatation, you will need Sphinx and make
+morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it.
 
+morphforge has the following hard dependancies:
+
+ * numpy
+ * matplotlib
+ * `python-lex-yacc (python-ply) <http://www.dabeaz.com/ply/>`_
+ * `quantities <https://github.com/python-quantities/python-quantities>`_
+ * `cheetah <http://www.cheetahtemplate.org/>`_
+ 
+
+And the following soft-dependancies 
+
+ * scipy
+ * Reportlab
+ * NEURON (including the python bindings) (Note: NEURON needs the *readline* and *ncurses* development libraries)
+    * `Manual Compilation Instructions <http://www.davison.webfactional.com/notes/installation-neuron-python/>`_
+    * `Debian Package <http://neuralensemble.org/people/eilifmuller/>`_
+
+
+If you want to build the documentation locally, you will need
+ * `Sphinx <http://sphinx.pocoo.org/>`_
+ * make 
+
+
+Installing the packages on a debian-based system (Ubuntu)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 If you are using a debian based system, the following should 
-install what you need:
+install what you need.
+
+
+
+.. code-block:: bash
+
+    $ mkdir ~/hw
+    $ cd hw  
+    
+    # Most dependancies satisfied by package manager:
+    $ sudo apt-get install git ipython python-numpy python-scipy 
+      python-matplotlib python-scipy python-ply python-cheetah 
+      python-reportlab python-sphinx make libncurses5-dev 
+      libreadline-dev python-pip
+      
+    # Install python-quantities
+    # and check it installed OK:
+    $ pip install quantities
+    $ python -c 'import quantities'
+    $ # <No output displayed means everything is OK>
+    
+    
+
+    
 
 
 .. code-block:: bash
 
 
-    # Most dependancies satisfied by package manager:
-    $ sudo apt-get install git ipython python-numpy python-scipy python-matplotlib python-scipy python-ply
-     python-cheetah python-reportlab python-sphinx make
-
-    
-
-    # Python-Quantities (by Darren Dale):
-    # (See https://github.com/python-quantities/python-quantities)
-    # Install to ~/opt/
-    $ mkdir ~/opt
-    $ mkdir ~/srcs
-    $ cd ~/srcs/
-    $ git clone https://github.com/python-quantities/python-quantities.git
-    $ cd python-quantities/
-    $ python setup.py install --prefix=~/opt/
-    
-    # Add something like this to the end of your login script (eg ~/.bashrc):
-    # export PYTHONPATH="$PYTHONPATH:/home/michaeltest/opt/lib/python2.7/site-packages/"
-    $ source ~/.bashrc 
-    
-    #Check it imports correctly:
-    $ cd ~
-    $ ipython
-    # typing 'import quantities' should return sucessfully
-    
-    
-    # NEURON with Python bindings (Eilif Muller)
+    # Install NEURON with Python bindings (thanks to Eilif Muller)
     # Download from here: http://neuralensemble.org/people/eilifmuller/
     # Install the deb package.
-    
-    #TODO: Test compile a mod-file!! 
-    # There is some dependancy that can be a bit tricky to track down, because 
-    # the error is cryptic. I think it is 
-    # libreadline-dev and one other!
-    
-    
+    $ python -c 'import neuron'
+    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+    See http://www.neuron.yale.edu/credits.html
+    $ #<If you see the above banner, everything is good!>
+
+.. code-block:: bash
+
+    # Check all NEURON dependancies satisfied for building mod files:
+    $ mkdir ~/mf_jnk   
+    $ cd ~/mf_jnk
+    $ cp /opt/nrn/share/nrn/examples/nrniv/netcon/ampa.mod .
+    $ nrnivmodl
+    <.... lots of output...>
+    Successfully created x86_64/special
+    $ #<Great, NEURON can build .modfiles!>
+   
+
 
 Cloning the Repository 
 ----------------------
 
-In the following code, the user is 'michaeltest', and we are going to 
-install morphforge into a directory '/home/michaeltest/hw/morphforge'
+In the following code, the user is :file:`michaeltest`, and we are going to 
+install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
 
 
 .. code-block:: bash
@@ -94,22 +118,82 @@ install morphforge into a directory '/home/michaeltest/hw/morphforge'
     $ source ~/.bashrc
 
     # Try it out:
-    $ ipython
-    # Trying the command: "import morphforge" will raise the exception:
-    >>> Exception: The resource file: /home/michaeltest/.morphforgerc does not exist!
+    $ cd ~
+    $ python -c 'import morphforge'
     
 
 
 Configuring .morphforgerc
 -------------------------
 
+morphforge needs to know the locations of various directories and tools 
+for interacting with simulators. This is controlled through a config 
+file in the home directory, :file:`~/.morphforgerc` , which is in the python 
+`ConfigParser <http://docs.python.org/library/configparser.html>`_ syntax.
+
+To get going, you should specify a temporary directory, and specify the
+locations of various tools and locations for compiling mod-files. A 
+sample :download:`.morphforgerc.sample </../etc/morphforgerc.sample>`,
+you might need to edit the platform-architecture from **i686** to **x86_64**.
+You can find the location of binaries using a commmand like:
+
+.. code-block:: bash
+
+    $ which nocmodl 
+    /opt/nrn/x86_64/bin//nocmodl
+
+In which case your ~/.morphforgerc file should look something like:
+
+.. code-block:: bash
+
+    $ cat ~/.morphforgerc
+    [Locations]
+    tmpdir= /home/michaeltest/mftmp/
+    rootdir=/home/michaeltest/hw/morphforge/src/
+    
+    [Neuron]
+    nrnprefix=/opt/nrn/
+    nrnbin=%(nrnprefix)s/x86_64/bin
+
+    modlunitpath=%(nrnbin)s/modlunit
+    nocmodlpath=%(nrnbin)s/nocmodl
+    libtoolpath=%(nrnprefix)s/share/nrn/libtool
+    compileIncludes=%(nrnprefix)s/include/nrn:%(nrnprefix)s/x86_64/lib
+    nrnLinkDirs=%(nrnprefix)s/x86_64/lib:%(nrnprefix)s/x86_64/lib
+    rpath=%(nrnprefix)s/x86_64/libs
+    rndAloneLinkStatement=%(nrnprefix)s/x86_64/lib/libnrniv.la
+
+    additional_link_libraries=%(rootdir)s/morphforgecontrib/simulation/neuron_gsl/cpp/libgslwrapper
+    ld_library_path_suffix=%(rootdir)s/morphforgecontrib/simulation/neuron_gsl/cpp/
+ 
+More information about .~/morphforgerc configuration can be found :doc:`here </srcs/morphforgerc>`
+
+
+.. warning::
+    
+    morphforge will overwrite files in the directory specified by 
+    :file:`tmpdir` without asking. Make sure there is nothing important
+    in there!
+        
+
 
 Running the Examples
 --------------------
 
+The examples can be found in the directory below, and can be checked that 
+they are running using :program:`make`:
+
+.. code-block:: bash
+
+    $ cd ~/hw/morphforge/src/morphforgeexamples/
+    $ make examples 
+    
+    
 
 Running the Tests
 -----------------
 
+.. todo::
 
+    Upload the tests to the repo and document how to run them.
 

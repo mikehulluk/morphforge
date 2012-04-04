@@ -1,1 +1,1 @@
-"""Configuring the TagViewer"""
+"""[*] Configuring the TagViewer"""

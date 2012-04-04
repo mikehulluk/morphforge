@@ -1,11 +1,10 @@
 
-5. Interactive plotting in 3D in matplotlib
+5. [*] Interactive plotting in 3D in mayavi
 ===========================================
 
 
 
-
-Interactive plotting in 3D in matplotlib
+[*] Interactive plotting in 3D in mayavi
 
 .. todo::
 
@@ -21,7 +20,13 @@ Code
 
 	
 	
+	"""[*] Interactive plotting in 3D in mayavi
 	
+	.. todo::
+	
+	    This!
+	  
+	"""
 
 
 Output

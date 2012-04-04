@@ -1,1 +1,1 @@
-"""Applying different channel densities over a cell"""
+"""[*] Applying different channel densities over a cell"""

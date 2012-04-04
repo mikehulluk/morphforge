@@ -61,20 +61,7 @@ This package provides the building blocks for defining a neuron's morphology.
 It contains submodules for creating, manipulating, viewing, and storing
 morphologies.
 
-
-A neuron is approximated as a tree of cylinders, in which the two ends of the
-cylinder can have different radii.  Each of these cylinder is a 'Section', and
-can have 'Region's associated with it.  (Regions are useful for setting up
-membrane properties later).  We can specify specific 'MorphLocation's on the
-morphology, which are a 'Section' and distance along the section specified
-between 0-1, as is done in NEURON.
-
-Since the morphology is a tree, we often traverse it. Algorithms for this can
-be accessed either directly through the 'parent' and 'children' attributes of
-the Section objects, but since this is a common task, visitor classes can be
-defined without defining explicit traversal code [see the visitor module]
-
-Visualisation is provided through matplotlib and MayaVi in the ui module. """
+"""
 
 from morphforge.morphology.core import MorphologyTree
 from morphforge.morphology.core import MorphologyArray

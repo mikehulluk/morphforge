@@ -1,10 +1,10 @@
 
-16. Applying different channel densities over a cell
-====================================================
+16. [*] Applying different channel densities over a cell
+========================================================
 
 
 
-Applying different channel densities over a cell
+[*] Applying different channel densities over a cell
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Applying different channel densities over a cell"""
 	
 
 

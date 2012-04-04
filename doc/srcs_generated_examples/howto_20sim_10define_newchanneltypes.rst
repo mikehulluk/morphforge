@@ -1,10 +1,10 @@
 
-24. Defining a new type of channel
-==================================
+25. [*] Defining a new type of channel
+======================================
 
 
 
-Defining a new type of channel
+[*] Defining a new type of channel
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	
+	"""[*] Defining a new type of channel"""
 	
 	
 	

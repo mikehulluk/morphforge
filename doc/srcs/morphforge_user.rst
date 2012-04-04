@@ -4,26 +4,30 @@ Setting up and Running Morphforge
 
 .. warning::
 
-    As of April 2012; morphforge is **currently undergoing major API 
+ *  As of April 2012; morphforge is **currently undergoing major API 
     changes**! Although the package is unlikely to change conceptually, 
-    please be aware that **class/method/parameter/package names
-    will probably change from commit-to-commit**, as the package is tidied!
+    please be aware that class/method/parameter/package names
+    will probably change from commit-to-commit, as the package is tidied!
     
-.. warning:: 
+ *  This package is provided as-is and should currently be considered *alpha*
+    quality! **YOU HAVE BEEN WARNED: THIS IS NEW SOFTWARE -THERE MAY BE BUGS!** I hope there are
+    relatively few, but it is a large piece of code; which I have developed
+    informally alongside my Ph.D.  Please contribute any tests you write to
+    improve the testsuite!
 
-    **Use at your own risk!** This package is provided as-is and should
-    currently be considered *alpha* quality! **There may be bugs- 
-    you have been warned!** I hope there are relatively few, but it is a large 
-    piece of code; which I have developed informally alongside my Ph.D. 
-    Please contribute any tests you write to improve the testsuite!
+ *  morphforge needs to read and write lots of files to interact with
+    simulators; so **there is a lot of code which deletes files/directories from
+    the filesystem!** There is always the danger that a path gets mis-set
+    somewhere in the code and the **wrong thing might be deleted** by mistake. I
+    have never had a problem with this  (I have been running this package on my
+    computer for the last 2 years with absolutely no problems), but it is a
+    still possiblity, especially under different operating systems.
 
 .. warning::
 
-    morphforge needs to read and write lots of files to interact with simulators; so **there is a lot of code which deletes files/directories from the filesystem!**
-    There is always the danger that a path gets mis-set somewhere in the code and the **wrong thing might be deleted** by mistake. I have never had a problem with
-    this  (I have been running this package on my computer for the last 2 years with absolutely no problems), but it is a still possiblity, especially under different OSes.
-
-    **Until lots of people have tested it on different platforms, I recommend to run it within a limited environment, such as a VirtualBox**
+    **Until lots of people have tested it on different platforms, I recommend
+    running *morphforge* within a sandboxed environment; such as a VirtualBox,
+    in case there are any issues that cause files to be delete unexpectedly!**
     
     
 .. note::
@@ -34,8 +38,8 @@ Setting up and Running Morphforge
     
     Mike Hull, Edinburgh/Bristol, UK. (April 2012)
     
-    P.S. I have started a googlegroup for morphforge at http://groups.google.com/group/morphforge . Sign up for 
-    latest development news.
+    P.S. I have started a googlegroup for morphforge at http://groups.google.com/group/morphforge. Sign up for 
+    latest development news!
     
 
 
@@ -121,6 +125,8 @@ Contact Information
 
 Developer Notes
 ---------------
+
+
 
 .. toctree::
    :maxdepth: 2

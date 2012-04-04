@@ -1,10 +1,10 @@
 
-22. Small CPG network [Sautoius et al
-=====================================
+23. [*] Small CPG network [Sautoius et al
+=========================================
 
 
 
-Small CPG network [Sautoius et al.?]
+[*] Small CPG network [Sautoius et al.?]
 
 
 Code
@@ -12,7 +12,7 @@ Code
 
 .. code-block:: python
 
-	"""Small CPG network [Sautoius et al.?]"""
+	"""[*] Small CPG network [Sautoius et al.?]"""
 
 
 Output

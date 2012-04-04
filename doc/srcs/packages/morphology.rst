@@ -1,7 +1,7 @@
 
 
-Morphology
-----------
+[*] Morphology
+--------------
 
 
 .. automodule:: morphforge.morphology

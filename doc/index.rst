@@ -78,13 +78,8 @@ Simple Example
 License
 --------
 
-Morphforge code is released under a BSD 2-clause license. You are welcome to use it for any purpose; fork and make changes, but
+Morphforge code and documentation is released under a BSD 2-clause license. You are welcome to use it for any purpose; fork and make changes, but
 if you have any code that the community might benefit from, please contribute it back!
-
-The morphforge documentation is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 2.0 UK: England & Wales License.
-
-
-
 
 
 

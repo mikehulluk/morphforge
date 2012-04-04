@@ -1,1 +1,1 @@
-"""Visualising all the internal states of a neuron"""
+"""[*] Visualising all the internal states of a neuron"""

@@ -1,1 +1,1 @@
-"""Two cells connected with an AMPA synapse"""
+"""[*] Two cells connected with an AMPA synapse"""
