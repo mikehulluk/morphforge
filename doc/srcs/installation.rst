@@ -57,14 +57,14 @@ install what you need.
     $ cd hw  
     
     # Most dependancies satisfied by package manager:
-    $ sudo apt-get install git ipython python-numpy python-scipy 
-      python-matplotlib python-scipy python-ply python-cheetah 
-      python-reportlab python-sphinx make libncurses5-dev 
+    $ sudo apt-get install git ipython python-numpy python-scipy \
+      python-matplotlib python-scipy python-ply python-cheetah \
+      python-reportlab python-sphinx make libncurses5-dev \
       libreadline-dev python-pip
       
     # Install python-quantities
     # and check it installed OK:
-    $ pip install quantities
+    $ sudo pip install quantities
     $ python -c 'import quantities'
     $ # <No output displayed means everything is OK>
     
@@ -91,6 +91,7 @@ install what you need.
     $ mkdir ~/mf_jnk   
     $ cd ~/mf_jnk
     $ cp /opt/nrn/share/nrn/examples/nrniv/netcon/ampa.mod .
+    $ export PATH="$PATH:/opt/nrn/ARCH/bin"  # (where ARCH is your architecture.)
     $ nrnivmodl
     <.... lots of output...>
     Successfully created x86_64/special
