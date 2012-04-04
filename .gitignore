@@ -311,6 +311,15 @@
 !src/morphforgeexamples/advanced_examples/howto*
 
 
+# Test Data:
+!src/test_data/
+!src/test_data/test_mods/
+!src/test_data/test_mods/exampleChannels3a.mod
+!src/test_data/test_mods/exampleChannels3b.mod
+!src/test_data/swc_srcs/
+!src/test_data/swc_srcs/28o_spindle20aFI.CNG.swc
+
+
 
 
 
