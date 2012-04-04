@@ -380,6 +380,11 @@
 !src/morphforgecontrib/simulation/
 !src/morphforgecontrib/simulation/__init__.py
 !src/morphforgecontrib/simulation/membranemechanisms/
+
+!src/morphforgecontrib/simulation/membranemechanisms/common/
+!src/morphforgecontrib/simulation/membranemechanisms/common/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/common/neuron.py
+
 !src/morphforgecontrib/simulation/membranemechanisms/__init__.py
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/
 !src/morphforgecontrib/simulation/membranemechanisms/hh_style/__init__.py
