@@ -4,6 +4,11 @@ Installation
 Overview
 --------
 
+.. note::
+
+    Microsoft Windows is not supported; I have never tried it.
+    But Ubuntu VirtualBox under Windows will!
+
 
 .. warning::
 
