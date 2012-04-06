@@ -57,17 +57,34 @@ class MorphologyArray(MorphologyBase):
         M = self._vertices.shape[0]
                 
         self._section_types = np.array(section_types) if section_types else np.zeros( len(connectivity) )
-
+        
+        self._dummy_vertex_index= dummy_vertex_index
+        
 
         # Some Error Checking:
         assert N == M-1
         
+        
+        if self.is_directed():
+            # Lets check connectivity forms a tree:
+            pass
+        
                 
         # If we store the data in arrays, then we no longer store which
         # is our dummy vertex, which we will need for generating trees
-        self._dummy_vertex_index= dummy_vertex_index
         
     
+    def get_leaf_vertices_indices(self):
+        vertex_connections = np.zeros( len(self._vertices) )
+        for i,j in self._connectivity:
+            vertex_connections[i] = vertex_connections[i] + 1
+            vertex_connections[j] = vertex_connections[j] + 1
+        leaf_vertices = np.where( vertex_connections== 1)[0]
+        return leaf_vertices  
+
+    
+    def is_directed(self):
+        return self._dummy_vertex_index is not None
     
     def get_vertex_by_index(self, i):
         return self._vertices[i,:]

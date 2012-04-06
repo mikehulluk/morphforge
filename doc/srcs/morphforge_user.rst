@@ -57,8 +57,8 @@ Installing Morphforge
 
 
 
-Whats in the ToolBox
------------------------
+The ToolBox at a glance
+---------------------------------
 
 
 .. toctree::
@@ -87,30 +87,18 @@ Examples
 
 
 
-More about the Toolbox
------------------------
+What else is in the toolbox
+----------------------------
 
 
 .. toctree::
    :maxdepth: 2
-
-
-   /srcs/packages/core.rst
-   /srcs/packages/simulationanalysis.rst
-   /srcs/packages/traces.rst
-   /srcs/packages/componentlibraries.rst
-
-
-morphforge-contrib
-------------------
-
-.. toctree::
-   :maxdepth: 2
-
+   
+   /srcs/packages/package_morphforge
    /srcs/packages/package_morphforgecontrib
 
 
-
+For more indepth API information, please see the :doc:`Morphforge Reference Guide </srcs/morphforge_developer>` 
 
 Contact Information
 --------------------
@@ -120,18 +108,6 @@ Contact Information
  * GitHub: https://github.com/mikehulluk/morphforge
 
  
-
-
-
-Developer Notes
----------------
-
-
-
-.. toctree::
-   :maxdepth: 2
-
-   /srcs/morphforge_developer.rst
 
 
 

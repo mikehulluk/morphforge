@@ -369,6 +369,13 @@
 !doc/srcs_generated_examples/images
 !doc/srcs_generated_examples/images/*.png
 !doc/srcs_generated_examples/*.rst
+!doc/srcs/morphforgerc.rst
+!doc/srcs/packages/package_morphforge.rst
+!doc/srcs/ref/
+!doc/srcs/ref/*.rst
+!doc/srcs/tests/
+!doc/srcs/tests/*.rst
+
 
 
 

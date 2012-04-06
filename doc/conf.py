@@ -32,6 +32,8 @@ sys.path.append('../src/')
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
 
+autodoc_default_flags =['undoc-members']
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
