@@ -1,43 +1,49 @@
 
 
-.PHONY: examples morphologies singlecell multicell
+all: morphology assorted multicell_simulation singlecell_simulation advanced_examples
+clean: morphology_clean assorted_clean multicell_simulation_clean singlecell_simulation_clean advanced_examples_clean
 
 
-examples: morphologies singlecell multicell
+.PHONY: force_look
+	
+# Builing all the examples
+###########################
+
+morphology: force_look
+	$(MAKE) -C morphology/ 
+
+assorted: force_look
+	$(MAKE) -C assorted/ 
+
+multicell_simulation: force_look
+	$(MAKE) -C multicell_simulation/ 
+
+singlecell_simulation: force_look
+	$(MAKE) -C singlecell_simulation/ 
+
+advanced_examples: force_look
+	$(MAKE) -C advanced_examples/ 
 
 
-morphologies: 
-	export MF_PLOT="OFF"
-	python morphology/morphology010.py > out1.txt
-	python morphology/morphology020.py > out2.txt
-	python morphology/morphology030.py > out3.txt
-	python morphology/morphology040.py > out4.txt
-	python morphology/morphology050.py > out5.txt
-	python morphology/morphology060.py > out6.txt
-	python morphology/morphology070.py > out7.txt
-	python morphology/morphology080.py > out8.txt
 
-singlecell: 
-	export MF_PLOT="OFF"
-	python singlecell_simulation/singlecell_simulation010.py > out1.txt
-	python singlecell_simulation/singlecell_simulation020.py > out1.txt
-	python singlecell_simulation/singlecell_simulation030.py > out1.txt
-	python singlecell_simulation/singlecell_simulation040.py > out1.txt
-	python singlecell_simulation/singlecell_simulation050.py > out1.txt
-	python singlecell_simulation/singlecell_simulation060.py > out1.txt
-	python singlecell_simulation/singlecell_simulation070.py > out1.txt
-	python singlecell_simulation/singlecell_simulation080.py > out1.txt
-	python singlecell_simulation/singlecell_simulation090.py > out1.txt
-	python singlecell_simulation/singlecell_simulation100.py > out1.txt
-	python singlecell_simulation/singlecell_simulation110.py > out1.txt
-	python singlecell_simulation/singlecell_simulation120.py > out1.txt
+# Cleaning:
+############
 
-multicell: 
-	export MF_PLOT="OFF"
-	python multicell_simulation/multicell_simulation010.py > out1.txt
-	python multicell_simulation/multicell_simulation020.py > out2.txt
-	python multicell_simulation/multicell_simulation030.py > out3.txt
+morphology_clean: force_look
+	$(MAKE) -C morphology/ clean	
+	
+assorted_clean: force_look
+	$(MAKE) -C assorted/ clean
+	
+multicell_simulation_clean: force_look
+	$(MAKE) -C multicell_simulation/ clean
+	
+singlecell_simulation_clean: force_look
+	$(MAKE) -C singlecell_simulation/ clean
+	
+advanced_examples_clean: force_look
+	$(MAKE) -C advanced_examples/ clean
+	
+	
 
-
-clean:
-	rm out*.txt
+	

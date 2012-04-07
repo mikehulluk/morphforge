@@ -32,3 +32,4 @@ for section in m2:
     print "Section:"
     print " - Proximal:",section.p_x,section.p_y, section.p_z, section.p_r
     print " - Distal:  ",section.d_x,section.d_y, section.d_z, section.d_r
+
