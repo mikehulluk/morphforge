@@ -20,7 +20,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
-from morphforge.morphology.core.morphlocation import MorphLocation
+from morphforge.morphology.core import MorphLocation
 import itertools
 
 

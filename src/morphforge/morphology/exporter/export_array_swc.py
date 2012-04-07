@@ -29,7 +29,7 @@
 import numpy as np
 from cStringIO import StringIO
 from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
-from morphforge.morphology.core.morphologyarray import MorphologyArray
+from morphforge.morphology.core.array import MorphologyArray
 
 class ExportArray_SWC():
     

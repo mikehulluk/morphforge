@@ -18,7 +18,7 @@ We can load .swc from any file-like object, so we can use StringIO to load direc
 
 
 from morphforge.core.misc import StripCommentsAndBlankLines
-from morphforge.morphology.core.morphologyarray import MorphologyArray
+from morphforge.morphology.core import MorphologyArray
 from StringIO import StringIO
 
 swcSrc = """

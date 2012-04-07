@@ -73,14 +73,17 @@
 !src/morphforge/morphology/builders/morphologybuilder.py
 !src/morphforge/morphology/core/
 !src/morphforge/morphology/core/__init__.py
-!src/morphforge/morphology/core/morphlocation.py
-!src/morphforge/morphology/core/morphologyarray.py
-!src/morphforge/morphology/core/morphologybase.py
+!src/morphforge/morphology/core/base.py
+!src/morphforge/morphology/core/tree.py
+!src/morphforge/morphology/core/array.py
+ src/morphforge/morphology/core/morphlocation.py
+ src/morphforge/morphology/core/morphologyarray.py
+ src/morphforge/morphology/core/morphologybase.py
 !src/morphforge/morphology/core/morphologyconsistency.py
-!src/morphforge/morphology/core/morphologytree.py
+ src/morphforge/morphology/core/morphologytree.py
 !src/morphforge/morphology/core/morphpath.py
-!src/morphforge/morphology/core/region.py
-!src/morphforge/morphology/core/section.py
+ src/morphforge/morphology/core/region.py
+ src/morphforge/morphology/core/section.py
 !src/morphforge/morphology/md5/
 !src/morphforge/morphology/md5/__init__.py
 !src/morphforge/morphology/md5/md5calcs.py

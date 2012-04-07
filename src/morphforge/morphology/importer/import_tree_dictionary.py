@@ -27,10 +27,10 @@
 
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
 from morphforge.core.misc import MergeDictionaries, Flatten, CheckValidName
-from morphforge.morphology.core.region import Region
-from morphforge.morphology.core.section import Section
+from morphforge.morphology.core import Region
+from morphforge.morphology.core import Section
 import math
-from morphforge.morphology.core.morphologytree import MorphologyTree
+from morphforge.morphology.core import MorphologyTree
 
 
 class DictionaryLoader(object):

@@ -25,7 +25,7 @@
 #-------------------------------------------------------------------------------
 
 
-from morphforge.morphology.core.morphologytree import MorphologyTree
+from morphforge.morphology.core import MorphologyTree
 from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 
 

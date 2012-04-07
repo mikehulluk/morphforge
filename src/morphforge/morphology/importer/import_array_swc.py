@@ -29,11 +29,11 @@
 
 
 import numpy as np
-from morphforge.morphology.core.morphologyarray import MorphologyArray
+from morphforge.morphology.core import MorphologyArray
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
 from StringIO import StringIO
 from morphforge.morphology.errors import MorphologyImportError
-from morphforge.morphology.core.morphologytree import MorphologyTree
+from morphforge.morphology.core import MorphologyTree
 
 
 class NewSWCLoader(object):

@@ -1,9 +1,11 @@
-from morphforge.morphology.core.section import Section
+
+
+from morphforge.morphology.core import Section
 import collections
 from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
-from morphforge.morphology.core.morphologyarray import MorphologyArray
+from morphforge.morphology.core.array import MorphologyArray
 from morphforge.morphology.conversion import AutoRegionToIntMapTable
-from morphforge.morphology.core.region import Region
+from morphforge.morphology.core import Region
 import copy
 
 class MorphologyConverter():
@@ -109,8 +111,8 @@ class MorphologyConverter():
                     index_to_section_map[conn] = newsection
                     indices_to_visit.append( conn )
         
-        from morphforge.morphology.core.morphologytree import MorphologyTree
-        tree = MorphologyTree("SimpleSomaMorph", dummysection=dummySection, )
+        from morphforge.morphology.core import MorphologyTree
+        tree = MorphologyTree(name=array.name, dummysection=dummySection, )
         
         
         # A sanity check:

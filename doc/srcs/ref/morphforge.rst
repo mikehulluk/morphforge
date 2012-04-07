@@ -5,6 +5,9 @@ morphforge
 
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :titlesonly:
+   :hidden:
 
-   morphforge_morphology
+   morphology <morphforge_morphology>
+   simulation <morphforge_simulation>

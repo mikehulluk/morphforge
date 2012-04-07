@@ -21,45 +21,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-"""
-The morphology package provides an object model for representing neuronal morphologies, as well as tools for import, export, traversal, and rendering.
-
-
-Blah 
-######
-
-In morphforge, morphologies are represented as a tree of joined cylinders. If we wanted to represent
-the following morphology:
-
-.. image:: /img_srcs/morphology_overview_bio.svg
-    :align: center
-
-Then we might break it up into a set of nodes and connections as follows:
-
-.. image:: /img_srcs/morphology_overview.svg
-    :align: center
-
-In this scheme, each *node* has a position :math:`$(x,y,z)$`, and a radius denoted by the green line. 
-Each node, except one, has a single parent.    
-
-
-
-Hello
-######
-
-.. image:: /img_srcs/morphology_overview_simpledetails.svg
-    :align: center
-
-
-
-.. image:: /img_srcs/morphology_overview_simplecylinders.svg
-    :align: center
- 
- 
- 
-This package provides the building blocks for defining a neuron's morphology.
-It contains submodules for creating, manipulating, viewing, and storing
-morphologies.
+"""A package for handling neuron morphology models.
+  
+This package provides an object model for representing neuronal morphologies, 
+as well as tools for import, export, traversal, and rendering.
 
 """
 

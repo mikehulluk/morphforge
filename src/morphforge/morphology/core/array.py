@@ -21,9 +21,19 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
+"""Vertex-based object-model of morphologies.
+
+
+In this scheme, each *node* has a position :math:`$(x,y,z)$`, and a radius denoted by the green line. 
+Each node, except one, has a single parent.    
+
+
+.. image:: /img_srcs/morphology_overview_simpledetails.svg
+    :align: center
+"""
 
 import numpy as np
-from morphforge.morphology.core.morphologybase import MorphologyBase
+from morphforge.morphology.core.base import MorphologyBase
 
 
 

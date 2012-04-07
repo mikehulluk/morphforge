@@ -1,8 +1,5 @@
 
 
-morphforge
-==========
-
 Overview
 ---------
 
@@ -49,7 +46,7 @@ Simple Example
     THIS!
     
 
-.. todoblah::
+
 
     .. code-block:: python
      
@@ -68,8 +65,9 @@ Simple Example
 
     Examples of other features:
 
-        * :doc:`Example 1 <srcs_generated_examples/morphology10>`
-        * :doc:`Example 2 <srcs_generated_examples/simulation10>`
+        * :doc:`Example 1 <srcs_generated_examples/morphology010>`
+        * :doc:`Example 2 <srcs_generated_examples/singlecell_simulation010>`
+        * :doc:`Example 3 <srcs_generated_examples/multicell_simulation010>`
         
         * :doc:`All Examples <srcs/examples/examples>`
 
@@ -90,10 +88,11 @@ Enough talk! Tell me more about :doc:`srcs/morphforge_user`
 
 
 
-.. notoctree::
-	:maxdepth: 0
-	
-	srcs/morphforge_user
+.. toctree::
+    :hidden:
+    
+    srcs/morphforge_user
+    srcs/morphforge_developer
 
 
 

@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.core import FilterExpectSingle, Flatten, CheckType, CheckValidName
-from section import Section        
+#from section import Section        
 from morphforge.morphology.md5 import getMD5OfMorphology
 
 
@@ -103,6 +103,7 @@ class MorphConsistencyChecker(object):
         
         
     def CheckSectionInfraStructure(self,section, morph, dummysection):
+        from tree import Section
         CheckType(self.morph._dummysection, Section)
         
         # Check the parent/children connections:

@@ -30,9 +30,9 @@ sys.path.append('../src/')
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
 
-autodoc_default_flags =['undoc-members']
+autodoc_default_flags =['undoc-members', 'members']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -225,3 +225,19 @@ man_pages = [
 html_theme = "haiku"
 
 todo_include_todos=True
+
+
+
+# AutoDoc:
+def maybe_skip_member(app, what, name, obj, skip, options):
+    
+    # Since we add 'toSWC', etc to MorphologyTree, we 
+    # don't want this to show up in the documentation.
+    if 'members' in options:
+        if name.startswith('to') or name.startswith('from'):
+            return True
+        
+    return False
+
+def setup(app):
+    app.connect('autodoc-skip-member', maybe_skip_member)
