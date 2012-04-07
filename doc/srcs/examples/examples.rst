@@ -59,4 +59,16 @@ More Advanced Topics
    
    /srcs_generated_examples/howto*
       
+      
+      
+      
+      
+Assorted Examples:
+===================
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   
+   /srcs_generated_examples/assorted_*
    

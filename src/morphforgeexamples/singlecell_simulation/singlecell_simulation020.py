@@ -53,7 +53,7 @@ leakChannels = env.MembraneMechanism(
                          MM_LeakChannel, 
                          name="LkChl", 
                          conductance=unit("0.3:mS/cm2"), 
-                         reversalpotential=unit("0:mV"),
+                         reversalpotential=unit("0:mV") - unit("65:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
                         )
 
@@ -64,12 +64,21 @@ sodiumStateVars = { "m": {
                         "alpha":[0.07, 0.0, 0.0, 0.0, 20.0] ,
                         "beta": [1.0, 0.0, 1.0, -30.0, -10]} 
                   } 
+sodiumStateVars['m']['alpha'][0] += sodiumStateVars['m']['alpha'][1] * 65
+sodiumStateVars['m']['beta'][0]  += sodiumStateVars['m']['beta'][1] * 65
+sodiumStateVars['m']['alpha'][3] +=  65  
+sodiumStateVars['m']['beta'][3] +=  65
+sodiumStateVars['h']['alpha'][0] += sodiumStateVars['h']['alpha'][1] * 65
+sodiumStateVars['h']['beta'][0]  += sodiumStateVars['h']['beta'][1] * 65
+sodiumStateVars['h']['alpha'][3] +=  65
+sodiumStateVars['h']['beta'][3] +=  65
+
 sodiumChannels = env.MembraneMechanism( 
                         MM_AlphaBetaChannel,
                         name="NaChl", ion="na",
                         equation="m*m*m*h",
                         conductance=unit("120:mS/cm2"),
-                        reversalpotential=unit("115.0:mV"),
+                        reversalpotential=unit("115.0:mV") - unit("65:mV"),
                         statevars=sodiumStateVars,
                         mechanism_id="HH_NA_CURRENT"
                         )
@@ -77,12 +86,18 @@ kStateVars = { "n": {
                       "alpha":[0.1,-0.01,-1,-10,-10],
                       "beta": [0.125,0,0,0,80]},
                    }
+
+kStateVars['n']['alpha'][0] += kStateVars['n']['alpha'][1] * 65
+kStateVars['n']['beta'][0] += kStateVars['n']['beta'][1] * 65
+kStateVars['n']['alpha'][3] +=  65
+kStateVars['n']['beta'][3] +=  65
+
 kChannels = env.MembraneMechanism( 
                         MM_AlphaBetaChannel,
                         name="KChl", ion="k",
                         equation="n*n*n*n",
                         conductance=unit("36:mS/cm2"),
-                        reversalpotential=unit("-12.0:mV"),
+                        reversalpotential=unit("-12.0:mV") - unit("65:mV"),
                         statevars=kStateVars,
                         mechanism_id="HH_K_CURRENT"
                         )
@@ -107,7 +122,14 @@ mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location 
 # Run the simulation
 results = mySim.Run()
 
-SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
+
+
+SimulationSummariser(simulationresult=results, filename="/home/michael/Desktop/SimulationOutput.pdf", make_graphs=True)
+
+
+
+
+
 
 # Display the results:
 TagViewer([results], timeranges=[(95, 200)*pq.ms], show=True )

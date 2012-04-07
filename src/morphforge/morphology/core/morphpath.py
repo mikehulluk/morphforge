@@ -44,10 +44,10 @@ class MorphPathSimple(object):
         assert not self.morphloc2.section in self._connecting_sections
         
          
-    def getLength(self):
-        s1Length =  (1,-self.morphloc1.sectionpos)* self.morphloc1.section.getLength()
-        s2Length =  self.morphloc2.sectionpos * self.morphloc2.section.getLength()    
-        connecting_section_lengths = [ s.getLength() for s in self._connecting_sections]
+    def get_length(self):
+        s1Length =  (1,-self.morphloc1.sectionpos)* self.morphloc1.section.get_length()
+        s2Length =  self.morphloc2.sectionpos * self.morphloc2.section.get_length()    
+        connecting_section_lengths = [ s.get_length() for s in self._connecting_sections]
         return s1Length + s2Length + sum(connecting_section_lengths)
     
         

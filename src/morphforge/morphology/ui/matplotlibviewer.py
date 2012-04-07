@@ -154,13 +154,13 @@ class MatPlotLibViewer(object):
         
         # Find the Point that is the furthest distance way from 
         # the centre when the cell is centred and rotated:
-        rotator = lambda s: self.normaliser(s.getDistalNPA3())
+        rotator = lambda s: self.normaliser(s.get_distal_npa3())
         
         rotatedSectionDict = DictBuilderSectionVisitorHomo(morph=self.morph, functor=rotator ) ()
         
         # Add in the parents manually:
         p = self.morph._dummysection 
-        rotatedSectionDict[ p ] = self.normaliser( p.getDistalNPA3() )
+        rotatedSectionDict[ p ] = self.normaliser( p.get_distal_npa3() )
  
         
         

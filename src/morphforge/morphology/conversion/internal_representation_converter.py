@@ -31,7 +31,7 @@ class MorphologyConverter():
             index = section_index[seg]
             
             # Store the vertices:
-            vertices[ index ] = seg.getDistalNPA4()
+            vertices[ index ] = seg.get_distal_npa4()
             
             # Store the link to the parent:
             if not seg.is_dummy_section():

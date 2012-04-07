@@ -71,9 +71,9 @@ that there can be many root nodes in a tree, for example:
 .. note::
 
     There is an assumption that the root nodes in the models are found made 
-    at the somata of cells. The terms 'Proxmial' and 'Distal' on Section objects 
-    refer to the ends closest and furthest away from the dummyroot section
-    respectively.     
+    at the somata of cells. The terms 'Proxmial' and 'Distal' on Section
+    objects refer to the ends closest and furthest away from the dummyroot
+    section respectively.     
 
 
 .. note::
@@ -107,7 +107,8 @@ specifying channel distributions over a morphology.
 
 .. note::
     
-    This way of specifying Regions is very similar to the 'type' field in the .swc file format.
+    This way of specifying Regions is very similar to the 'type' field in the
+    .swc file format.
      
 Finally, each Section can be assigned an 'ID-Tag'. This is simply a string that
 can be used to refer to a particular section easily later. An IDTag can not be
@@ -143,20 +144,21 @@ from morphologyconsistency import MorphologyConsistencyMgr
 
 
 class Section(object):
-    d_x = property(lambda self: self._d_pos[0], None, doc="Distal x coordinate")  #coordinate
-    d_y = property(lambda self: self._d_pos[1], None, doc="Distal y coordinate")  #coordinate
-    d_z = property(lambda self: self._d_pos[2], None, doc="Distal z coordinate")  #coordinate
-    d_r = property(lambda self: self._d_r, None, doc="Distal radius")       #radius
-    
-    p_x = property(lambda self: self.parent._d_pos[0], None, doc="Proximal x coordinate")  #coordinate
-    p_y = property(lambda self: self.parent._d_pos[1], None, doc="Proximal y coordinate")  #coordinate
-    p_z = property(lambda self: self.parent._d_pos[2], None, doc="Proximal z coordinate")  #coordinate
-    p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")       #radius
 
-    #  TODO: Make Readonly:
-    region = property(lambda self: self._region, None)
+    # Properties:
+    d_x = property(lambda self: self._d_pos[0], None, doc="Distal x coordinate")
+    d_y = property(lambda self: self._d_pos[1], None, doc="Distal y coordinate")
+    d_z = property(lambda self: self._d_pos[2], None, doc="Distal z coordinate")
+    d_r = property(lambda self: self._d_r, None, doc="Distal radius")
+    
+    p_x = property(lambda self: self.parent._d_pos[0], None, doc="Proximal x coordinate")
+    p_y = property(lambda self: self.parent._d_pos[1], None, doc="Proximal y coordinate")
+    p_z = property(lambda self: self.parent._d_pos[2], None, doc="Proximal z coordinate")
+    p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")       
+
+    region = property(lambda self: self._region, None, )
     idTag = property(lambda self: self._idTag, None)
-    parent = property(lambda self: self._parent, None)
+    parent = property(lambda self: self._parent, None, )
     children = property(lambda self: self._children, None)
     
 
@@ -175,49 +177,58 @@ class Section(object):
         
         # Post Processing: tidy up loose ends:
         if region:
-            region.addSection(self)
+            region.add_section(self)
         if not self.is_dummy_section():
             if not self in self.parent.children:
                 self.parent.children.append(self)
         
+
+    # Adding new sections:
     def create_distal_section(self, x, y, z, r, region, idTag=None):
+        """Creates and returns a new Section object from its distal end.
+        The parameters are the same as for the constructor.
+        """
         return Section(parent=self, x=x, y=y, z=z, r=r, region=region, idTag=idTag)
 
+    
     def is_a_root_section(self):
         if self.is_dummy_section(): 
             return False
         return self.parent.is_dummy_section() == True
         
     def is_dummy_section(self):
-        return  self.parent == None
+        return self.parent == None
     
-    def isLeaf(self):
+    def is_leaf(self):
         return len( self.children ) == 0
     
     
 
-    def getNPA4(self, position):
+    def get_npa3(self, position):
         assert 0 <= position <= 1 
-        
-        return self.getProximalNPA4() + self.getDistalVectorNP4() * position  
+        return self.get_proximal_npa3() + self.get_proximal_to_distal_vector_npa3() * position  
+
+    def get_npa4(self, position):
+        assert 0 <= position <= 1 
+        return self.get_proximal_npa4() + self.get_proximal_to_distal_vector_npa4() * position  
     
 
-    def getDistalNPA3(self):
+    def get_distal_npa3(self):
         """Returns the 3 coordinates of the distal end of the section.  """
         return self._d_pos
     
-    def getDistalNPA4(self):
+    def get_distal_npa4(self):
         """Returns the 3 coordinates and the radius of the distal end of the
             section.  """
         return numpy.array((self.d_x, self.d_y, self.d_z, self.d_r))
 
-    def getProximalNPA3(self):
+    def get_proximal_npa3(self):
         """ Returns the 3 coordinates of the proximal end of the section.  """
         assert not self.is_dummy_section()
         return self.parent._d_pos
     
-    def getProximalNPA4(self):
-        """ Returns the 3 coordinates and the radius of the proximal end of the section.  """
+    def get_proximal_npa4(self):
+        """Returns the 3 coordinates and the radius of the proximal end of the section.  """
         assert not self.is_dummy_section()
         return numpy.array((self.p_x, self.p_y, self.p_z, self.p_r))
 
@@ -231,48 +242,55 @@ class Section(object):
         endString = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
         rgString = "Region:" + self.region.name +", " if self.region else ""
         idString = "idTag:" + self.idTag + ", " if self.idTag else ""
-        lnString = "Length: %2.2f, " % self.getLength()
+        lnString = "Length: %2.2f, " % self.get_length()
         return "<" +endString + lnString + rgString + idString +">" 
     
-
-
-    def getDistalVectorNP3(self):
-        """ Returns the vector that joins the proximal end of the section to the distal end.  """
-        return self.getDistalNPA3() - self.getProximalNPA3()
+    def get_proximal_to_distal_vector_npa3(self):
+        """Returns the vector that joins the proximal end of the section to the distal end.  """
+        return self.get_distal_npa3() - self.get_proximal_npa3()
     
-    def getDistalVectorNP4(self):
-        """ Returns the vector that joins the proximal end of the section to the distal end.  """
-        return self.getDistalNPA4() - self.getProximalNPA4()
+    def get_proximal_to_distal_vector_npa4(self):
+        """Returns the vector that joins the proximal end of the section to the distal end.  """
+        return self.get_distal_npa4() - self.get_proximal_npa4()
     
-    def getVectorfromParentNP4(self):
-        """ Returns the directional vector and the radious difference in the section.  """
-        return self.getDistalNPA4() - self.getProximalNPA4()
     
 
-    def getLength(self):
+    def get_length(self):
         assert not self.is_dummy_section(), "Getting Length of dummy section!"
-        return numpy.linalg.norm( self.getDistalVectorNP3() )  
+        return numpy.linalg.norm( self.get_proximal_to_distal_vector_npa3() )  
     
     
-    def getArea(self,include_end_if_terminal=False):
+    def get_area(self,include_end_if_terminal=False):
         """ Returns the area of the section.  """
         # http://mathworld.wolfram.com/ConicalFrustum.html
         assert not self.is_dummy_section(), "Getting area of dummy section!"
         
+        # We need to consider this; since there are 2 ends that might be 
+        # open
+        assert not include_end_if_terminal
         
         R = self.d_r 
         r = self.p_r
-        lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + self.getLength()**2 )  
+        l = self.get_length()
+        lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + l**2 )  
         
-        if include_end_if_terminal==True and self.isLeaf() :
+        if include_end_if_terminal and self.is_leaf() :
            return lateral_area + ( math.pi * R**2 ) 
         else:
             return lateral_area
             
         
+    def get_volume(self):
+        """Returns the volume of the section."""
+        raise NotImplementedError()
 
 
 
+    # Deprecated:
+    def getVectorfromParentNP4(self):
+        """ Deprecated: Returns the directional vector and the radious difference in the section.  """
+        assert False, 'Deprecated'
+        return self.get_distal_npa4() - self.get_proximal_npa4()
 
 
 
@@ -309,7 +327,7 @@ class Region(object):
     def __iter__(self):
         return iter(self.sections)
     
-    def addSection(self, section):
+    def add_section(self, section):
         """Adding a section to the region."""
         
         if section in self.sections: 
@@ -318,7 +336,7 @@ class Region(object):
         self.sections.append(section)
         
     
-    def setMorph(self, morph):
+    def set_morphology(self, morph):
 
         if not morph: 
             raise ValueError()
@@ -332,6 +350,11 @@ class Region(object):
 
 
 class MorphLocation(object):
+    """A MorphLocations represents a location (more accurately a disk) on a
+    morphology. It is specied by a Section, and the proportion of the distance
+    along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0
+    (most distal) (like NEURON).
+    """
     
     # Read-only's:
     @property
@@ -347,9 +370,10 @@ class MorphLocation(object):
         self._sectionpos = sectionpos
         assert 0.0 <= sectionpos <= 1.0
     
-    def getPt3D(self,):
-        local_vector = self.sectionpos * self.section.getDistalVectorNP3()
-        return self.section.getProximalNPA3() + local_vector
+    def get_3d_position(self,):
+        """Returns the 3D position of the morphology location"""
+        local_vector = self.sectionpos * self.section.get_proximal_to_distal_vector_npa3()
+        return self.section.get_proximal_npa3() + local_vector
 
 
 
@@ -361,15 +385,6 @@ class MorphLocation(object):
 
 
 class MorphologyTree(MorphologyBase):
-    """
-    
-    
-
-    
-    
-    
-    """
-    
         
     def to_tree(self):
         return self
@@ -426,7 +441,7 @@ class MorphologyTree(MorphologyBase):
         assert MorphologyConsistencyMgr.getChecker(self).disable()
         self._dummysection = dummysection
         for r in self.getRegions(): 
-            r.setMorph(self)
+            r.set_morphology(self)
         assert MorphologyConsistencyMgr.getChecker(self).enable()
         
         assert self.ensureConsistency(), "Morphology is not consistent"

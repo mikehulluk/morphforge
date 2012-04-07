@@ -21,5 +21,5 @@ def CellLocationDistanceFromSoma(celllocation):
     morph = celllocation.cell.morphology
     sectDistDict = SectionVistorFactory.DictSectionProximalDistFromSoma(morph, somaCentre=False)()
     sectionDist = sectDistDict[celllocation.morphlocation.section]
-    celllocdist = sectionDist + celllocation.morphlocation.section.getLength() * celllocation.morphlocation.sectionpos
+    celllocdist = sectionDist + celllocation.morphlocation.section.get_length() * celllocation.morphlocation.sectionpos
     return celllocdist 

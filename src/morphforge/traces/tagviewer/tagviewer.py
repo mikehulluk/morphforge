@@ -56,7 +56,7 @@ def resolveTimeRange(timeRange):
 class TagViewer(object):
     
     defaultPlotSpecs = (   
-                PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-60*mV,40*mV)  ),
+                PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV)  ),
                 PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  ),
                 PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp ), 
                 PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" ),

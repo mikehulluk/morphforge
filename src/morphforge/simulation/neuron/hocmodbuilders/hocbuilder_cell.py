@@ -46,7 +46,7 @@ begintemplate $cell_template_name
             
             
             // Section Geometry:
-            L = $section.getLength
+            L = $section.get_length
             #set p_d = $section.p_r * 2.0
             #set d_d = $section.d_r * 2.0 
             diam(0.0) = $p_d

@@ -232,7 +232,7 @@ class DictionaryLoader(object):
                 
             # Calculate the angle of the current section:
             if parentSection:
-                joiningVec = newSection.getDistalNPA3() - parentSection.getDistalNPA3()
+                joiningVec = newSection.get_distal_npa3() - parentSection.get_distal_npa3()
                 angle = math.radians(math.atan2(joiningVec[1], joiningVec[0]))
             sectionAnglesDict[newSection] = angle
             

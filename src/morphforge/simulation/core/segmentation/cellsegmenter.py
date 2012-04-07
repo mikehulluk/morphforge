@@ -76,7 +76,7 @@ class DefaultCellSegementer(AbstCellSegementer):
         
         # Segment the cell:
         for section in cell.morphology:
-            nSegs = int( section.getLength() / self.maxSegmentLength ) + 1
+            nSegs = int( section.get_length() / self.maxSegmentLength ) + 1
             self.nSegmentMap[section] = nSegs
             self.cellSegments[section] = [ CellSegment(cell=cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ] 
     
@@ -117,7 +117,7 @@ class IDBasedCellSegementer(AbstCellSegementer):
         for section in cell.morphology:
             sectSize = self.section_id_segment_sizes.get(section.idTag, self.defaultSegmentLength )
             
-            nSegs = int( section.getLength() / sectSize ) + 1
+            nSegs = int( section.get_length() / sectSize ) + 1
             
             self.nSegmentMap[section] = nSegs
             self.cellSegments[section] = [ CellSegment(cell=cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ]

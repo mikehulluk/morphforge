@@ -85,9 +85,9 @@ class MayaViRenderer(object):
             maxInterpolPts = 10
             
             def interpolateSection(section):
-                sStart = section.getDistalNPA4()
-                sEnd = section.getProximalNPA4()
-                length = section.getLength()
+                sStart = section.get_distal_npa4()
+                sEnd = section.get_proximal_npa4()
+                length = section.get_length()
                 rad = min(section.d_r, section.p_r)  
                 n = min( max( int( lToRRatio * length / rad ), 1 ), maxInterpolPts)
                 jVecSteps = ( sEnd-sStart ) / n

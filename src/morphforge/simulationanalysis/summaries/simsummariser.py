@@ -125,7 +125,7 @@ class SimulationSummariser(object):
         data = [tableHeader, ]
         
         for cell in self.simulation.getCells():
-            a = sum([ s.getArea() for s in cell.morphology]) * unit("1:um2")
+            a = sum([ s.get_area() for s in cell.morphology]) * unit("1:um2")
             nSections = len( cell.morphology )
             nSegments = sum( [cell.getSegmenter().getNumSegments(section) for section in cell.morphology] )
             activeMechs = cell.getBiophysics().getAllMechanismsAppliedToCell()
@@ -181,7 +181,7 @@ class SimulationSummariser(object):
             localElements.append( Paragraph("Overview", self.reportlabconfig.styles['Heading3'] ) )
             data = [ 
                     ["Name", "value" ], 
-                    ["Total Area", sum([s.getArea() for s in cell.morphology]) * unit("1:um2") ],
+                    ["Total Area", sum([s.get_area() for s in cell.morphology]) * unit("1:um2") ],
                     ["Regions", ", ".join([ rgn.name for rgn in cell.getRegions() ]) ],
                     ["idTags", ",".join( cell.morphology.getIDTags() )],
                     ]
@@ -195,7 +195,7 @@ class SimulationSummariser(object):
             localElements.append( Paragraph("MorphologyTree", self.reportlabconfig.styles['Heading3'] ) )
             data = [ ["Region", "nSegments", "Area" ],     ]
             for region in cell.getRegions():
-                data.append( [region.name, "%d"%len(region.sections), sum([s.getArea() for s in region.sections] ) ] )
+                data.append( [region.name, "%d"%len(region.sections), sum([s.get_area() for s in region.sections] ) ] )
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
             
             
@@ -226,7 +226,7 @@ class SimulationSummariser(object):
                 rgn = section.region.name if section.region else "-"
                 idTag = section.idTag if section.idTag else "-"
                 nSegments = cell.getSegmenter().getNumSegments(section)
-                data.append( [ section_id, parent_id, rgn, idTag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.getLength(), section.getArea(), nSegments ] )
+                data.append( [ section_id, parent_id, rgn, idTag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), nSegments ] )
                 
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
             
@@ -254,13 +254,13 @@ class SimulationSummariser(object):
             cell1Distance = CellLocationDistanceFromSoma( gj.celllocation1 ) 
             cell2Distance = CellLocationDistanceFromSoma( gj.celllocation2 )
             
-            print "GJ1:", gj.celllocation1.morphlocation.getPt3D()
-            print "GJ2:", gj.celllocation2.morphlocation.getPt3D()
+            print "GJ1:", gj.celllocation1.morphlocation.get_3d_position()
+            print "GJ2:", gj.celllocation2.morphlocation.get_3d_position()
             
-            prePostDist = np.linalg.norm( (gj.celllocation1.morphlocation.getPt3D() - gj.celllocation2.morphlocation.getPt3D() ) )
+            prePostDist = np.linalg.norm( (gj.celllocation1.morphlocation.get_3d_position() - gj.celllocation2.morphlocation.get_3d_position() ) )
             print "[Pre-Post Dist [If geometry is correct, should be 0.0]", prePostDist
             
-            r = "[%s %s]"%( str(gj.celllocation1.morphlocation.getPt3D()), str(gj.celllocation2.morphlocation.getPt3D()) )
+            r = "[%s %s]"%( str(gj.celllocation1.morphlocation.get_3d_position()), str(gj.celllocation2.morphlocation.get_3d_position()) )
             print r
             print  "Cell1Section:", gj.celllocation1.morphlocation.section
             print  "Cell2Section:", gj.celllocation2.morphlocation.section

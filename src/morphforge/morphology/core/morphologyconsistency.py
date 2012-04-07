@@ -130,7 +130,7 @@ class MorphConsistencyChecker(object):
         
     def CheckSectionContents(self, section, morph,dummysection):
         # Check the Radii:
-        if not section.isLeaf():
+        if not section.is_leaf():
             
             if section.d_r < 0.0001:
                 assert False, 'Very thin distal segment diameter: %f'%section.d_r

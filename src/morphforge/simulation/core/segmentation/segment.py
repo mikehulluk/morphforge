@@ -49,13 +49,13 @@ class CellSegment(object):
     
         
     def getProximalNP4A(self):
-        return self.section.getNPA4( self.getSectionPos(0.0) )
+        return self.section.get_npa4( self.getSectionPos(0.0) )
         
     def getDistalNP4A(self):
-        return self.section.getNPA4( self.getSectionPos(1.0) )
+        return self.section.get_npa4( self.getSectionPos(1.0) )
         
     def getDistanceFromProximalSectionEnd(self, pSegment=0.5):
-        return self.getSectionPos(pSegment) * self.section.getLength()
+        return self.getSectionPos(pSegment) * self.section.get_length()
     
     
     
