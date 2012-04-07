@@ -90,9 +90,9 @@ class MorphConsistencyChecker(object):
     
     def CheckSection(self, section, morph, dummysection=False, recurse=True):
         if dummysection:
-            assert section.isDummySection()
+            assert section.is_dummy_section()
         else:
-            assert not section.isDummySection()
+            assert not section.is_dummy_section()
 
         self.CheckSectionInfraStructure(section=section, morph=morph,dummysection=dummysection)
         self.CheckSectionContents(section=section, morph=morph,dummysection=dummysection)
@@ -109,10 +109,10 @@ class MorphConsistencyChecker(object):
         # Check the parent/children connections:
         if dummysection:
             self.CheckDummySection(section)
-            assert section.isDummySection()
+            assert section.is_dummy_section()
             #assert len(section.children)==1
         else:
-            assert not section.isDummySection()
+            assert not section.is_dummy_section()
             assert section in section.parent.children
         
         # Check the regions are in the morphology list:
@@ -121,7 +121,7 @@ class MorphConsistencyChecker(object):
             assert section in section.region.sections
    
     def CheckDummySection(self, dummysection):
-        assert dummysection.isDummySection() 
+        assert dummysection.is_dummy_section() 
         assert dummysection.parent == None
         assert dummysection.region == None 
 

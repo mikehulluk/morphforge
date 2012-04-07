@@ -191,7 +191,7 @@ If everything is set up correctly, you should now be able to run your first exam
 
 .. code-block:: bash
 
-    $ cd ~/hw/morphforge/src/morphforgeexamples/
+    $ cd ~/hw/morphforge/src/morphforgeexamples/singlecell_simulation/
     $ python singlecell_simulation010.py
     # < If everything is OK, the script should run and you should be 
     # presented with some graphs!

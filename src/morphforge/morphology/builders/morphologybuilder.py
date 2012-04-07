@@ -45,7 +45,7 @@ class MorphologyBuilder(object):
             
         somaRegion = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)
-        dummysection.extrudeChildSection(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idTag="soma")
+        dummysection.create_distal_section(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idTag="soma")
         cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})      
         return cell
     
@@ -57,10 +57,10 @@ class MorphologyBuilder(object):
         
         axonSectionLength = float(axonLength) / float(axonSections)
         dummyRoot = Section(region=None, x=0.0, y=0.0, z=0.0, r=somaRad)
-        soma = dummyRoot.extrudeChildSection(region=somaRegion, x=somaRad * 2.0, y=0.0, z=0.0, r=somaRad, idTag="soma")
+        soma = dummyRoot.create_distal_section(region=somaRegion, x=somaRad * 2.0, y=0.0, z=0.0, r=somaRad, idTag="soma")
         prevSection = soma
         for x in range(1, axonSections):
-            axon = prevSection.extrudeChildSection(region=axonRegion, x=x * axonSectionLength + 2.0 * somaRad, y=0, z=0, r=axonRad, idTag="axon_%d" % x)
+            axon = prevSection.create_distal_section(region=axonRegion, x=x * axonSectionLength + 2.0 * somaRad, y=0, z=0, r=axonRad, idTag="axon_%d" % x)
             prevSection = axon
         cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummyRoot, metadata={})
         return cell

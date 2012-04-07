@@ -62,11 +62,11 @@ class SectionVisitorDF(object):
         
     def VisitSectionInternal(self, section):
         """ Implements:  1. Visit the node. 2. Traverse the subtrees. """
-        if section.isDummySection():
+        if section.is_dummy_section():
             if self.isVisitDummy(): 
                 assert False
                 self.dummysectionfunctor(section)
-        elif section.isARootSection():
+        elif section.is_a_root_section():
             if self.isVisitRoot():
                 self.rootsectionfunctor(section)
         else: 

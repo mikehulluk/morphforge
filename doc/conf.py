@@ -34,6 +34,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx.ext.doctes
 
 autodoc_default_flags =['undoc-members', 'members']
 
+add_module_names = False
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -77,7 +78,7 @@ exclude_patterns = ['_build']
 #default_role = None
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
-#add_function_parentheses = True
+add_function_parentheses = True
 
 # If true, the current module name will be prepended to all description
 # unit titles (such as .. function::).
@@ -109,9 +110,9 @@ html_theme = 'default'
 #html_theme_path = []
 
 # The name for this set of Sphinx documents.  If None, it defaults to
-# "<project> v<release> documentation".
-#html_title = None
-
+# .
+html_title = "morphforge"
+html_add_permalinks = False
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
 
@@ -236,7 +237,8 @@ def maybe_skip_member(app, what, name, obj, skip, options):
     if 'members' in options:
         if name.startswith('to') or name.startswith('from'):
             return True
-        
+    if name == "__weakref__":
+        return True
     return False
 
 def setup(app):

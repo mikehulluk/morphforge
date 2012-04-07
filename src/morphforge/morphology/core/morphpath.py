@@ -37,7 +37,7 @@ class MorphPathSimple(object):
             current_section = self.morphloc2.section.parent
             while current_section != self.morphloc1.section:
                 self._connecting_sections.append( current_section )
-                assert not current_section.isARootSection()
+                assert not current_section.is_a_root_section()
         
          
         assert not self.morphloc1.section in self._connecting_sections

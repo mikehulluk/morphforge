@@ -42,7 +42,7 @@ class MorphLocator(object):
                 continue
                 
                 
-            if section.isARootSection():
+            if section.is_a_root_section():
                 
                 if distance < distToSectionDistal[section]:
                     #assert False, 'Not implemented'

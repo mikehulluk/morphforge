@@ -222,7 +222,7 @@ class DictionaryLoader(object):
             
             # Create the new section:
             if parentSection:
-                newSection = parentSection.extrudeChildSection(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idTag=sectionIdTag)
+                newSection = parentSection.create_distal_section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idTag=sectionIdTag)
             else:
                 newSection = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idTag=sectionIdTag)
                 sectionDict[None] = newSection

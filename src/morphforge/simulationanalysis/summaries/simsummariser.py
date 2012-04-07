@@ -222,7 +222,7 @@ class SimulationSummariser(object):
             for section in cell.morphology: 
                 
                 section_id = si[section]
-                parent_id = si[section.parent] if not section.isARootSection() else "[NA]"
+                parent_id = si[section.parent] if not section.is_a_root_section() else "[NA]"
                 rgn = section.region.name if section.region else "-"
                 idTag = section.idTag if section.idTag else "-"
                 nSegments = cell.getSegmenter().getNumSegments(section)

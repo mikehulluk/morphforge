@@ -62,7 +62,7 @@ class CellSegment(object):
     
     def getParentSegment(self):
         if self.segmentno == 0:
-            if self.section.isRootSection():
+            if self.section.is_a_root_section():
                 assert False, 'Need to check here!'
                 return None
             else:

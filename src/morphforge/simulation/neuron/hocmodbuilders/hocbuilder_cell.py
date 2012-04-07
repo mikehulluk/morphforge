@@ -74,7 +74,7 @@ begintemplate $cell_template_name
         
         // Non-root sections:
         #for $section in $cell.morphology:
-        #if $section.isARootSection(): #continue
+        #if $section.is_a_root_section(): #continue
         // Make a Connection
         connect internalsections[ $section_indexer[ $section.parent ] ](1.0),  internalsections[ $section_indexer[ $section ] ](0.0)   
         #end for

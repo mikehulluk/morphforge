@@ -83,7 +83,7 @@ class MeshBuilderRings(object):
         for s in morph:
           
             # Get the offset of the proximal point circle:
-            if s.isARootSection():
+            if s.is_a_root_section():
                 proximal_points = get_point_circle_about( s.getProximalNPA3(), s.getDistalVectorNP3(), s.p_r,n=n )
                 vertices = np.vstack( (vertices, proximal_points ) )
                 

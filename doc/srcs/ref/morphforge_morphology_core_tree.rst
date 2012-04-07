@@ -8,7 +8,8 @@ Overview
     :no-members:
 
 
-
+Members
+~~~~~~~~
 
 MorphologyTree
 ===============
@@ -26,3 +27,8 @@ Region
 ======
 
 .. autoclass:: morphforge.morphology.core.tree.Region
+
+MorphLocation
+=============
+
+.. autoclass:: morphforge.morphology.core.tree.MorphLocation

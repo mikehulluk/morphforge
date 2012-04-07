@@ -28,68 +28,134 @@
 
 """Tree-based object-model of morphologies.
 
-In the tree based representation, a morphology if considered as a set of :py:class:`~.Section`. A :py:class:`~.Section` is an unbranching length neurons, which can be connected
-to other sections at its end points. If it does connect to other sections at the end points, then it shares the same position and radius information at
-those endpoints.
+In the tree based representation, a morphology is considered as a set of
+:py:class:`~.Section`. A :py:class:`~.Section` is an unbranching length
+neurons, which can be connected to other sections at its end points. If it does
+connect to other sections at the end points, then it shares the same position
+and radius information at that point.
+
+
+
+.. image:: /img_srcs/new_morphology_overview_simplecylinders_tree_simple.svg
+    :align: center
+
+For example, Figure 1 shows a morphology composed of 4 sections. Each end of
+each frustra is specified as a point in 3D space and a radius:
+:math:`(X,Y,Z);R`.  However, since positions and radii are shared, at join
+points, only stores a reference to its parent (orange arrow), and its distal
+coordinate (red dots).  Therefore 
+
+
+.. math::
+
+    Section1^{distal}(x,y,z,r)=Section2^{proximal}(x,y,z,r) = (10,0,0,20) 
+    
+    Section2^{distal}(x,y,z,r)=Section3^{proximal}(x,y,z,r) = (20,0,0,10)
+    
+    ...
+
+Some care need to be taken around the start of the tree. In order for
+`Section1` to have some length, We introduce a special Section, with no parent
+(and hence no length), called the Dummy-Section, shown as a blue dot. This
+section is just used for its position & radius coordinate; it does not
+represent any volume or surface area.
+
+The dummy section is always the root of the tree. Sections whose parents are
+the Dummy-Section, are 'Root' sections. (shown in light green).  This means
+that there can be many root nodes in a tree, for example:
+
+.. image:: /img_srcs/new_morphology_overview_simplecylinders_tree_complex.svg
+    :align: center
+
+
+.. note::
+
+    There is an assumption that the root nodes in the models are found made 
+    at the somata of cells. The terms 'Proxmial' and 'Distal' on Section objects 
+    refer to the ends closest and furthest away from the dummyroot section
+    respectively.     
+
+
+.. note::
+    
+    This object model is heavily based on the .swc file format. DummyNode
+    correspond to lines in the .swc format with a parent ID of -1. 
+
+
+To construct the morphology in the top figure; the code would look like:
+
+
+.. code-block:: python
+
+    askjdls
+    asljf
+
+
 
 .. todo::
+
+    This is not the way morphologies are recommended to be built. 
+    It may be more convenient to use the 'DictionaryLoader'
     
-    Diagram to illustrate this
-    
-
-
-For example, consider the simple Morphology in Figure X.  We can construct this using the follwoing code:
-
-.. code-block::
-
-    sRoot = MOrpholo
     
 
-For simulation; morphforge will convert morphologies to this format.    
+
+Regions provide a way to group sections together, for example as 'axon',
+'soma'.  Each Section in a morphology can optionally be assigned to a single
+Region.  Regions are used by the :py:mod:`morphforge.simulation` layer for
+specifying channel distributions over a morphology. 
+
+.. note::
     
+    This way of specifying Regions is very similar to the 'type' field in the .swc file format.
+     
+Finally, each Section can be assigned an 'ID-Tag'. This is simply a string that
+can be used to refer to a particular section easily later. An IDTag can not be
+repeated in a morphology.  For example, when constructing a morphology, we
+might tag the main soma section, so that is it simple to add current clamps for
+exampl in simulations. 
+
+
+.. todo::
+
+    Reference some example.    
     
 """
 
 
+
+
+
+
+
 import numpy
 import math
+import itertools
 
 from morphforge.core import FilterExpectSingle
-from morphforge.morphology.visitor import SectionListerDF
+from morphforge.core import CheckValidName
 
-    
-#from section import Section
-        
-import itertools
-from morphologyconsistency import MorphologyConsistencyMgr
 from morphforge.morphology.core.base import MorphologyBase
-#from morphforge.morphology.conversion import MorphologyConverter
+from morphforge.morphology.visitor import SectionListerDF
+from morphologyconsistency import MorphologyConsistencyMgr
+
 
 
 
 class Section(object):
-    d_x = property(lambda self: self._d_pos[0], None)  #coordinate
-    d_y = property(lambda self: self._d_pos[1], None)  #coordinate
-    d_z = property(lambda self: self._d_pos[2], None)  #coordinate
-    d_r = property(lambda self: self._d_r, None)       #radius
+    d_x = property(lambda self: self._d_pos[0], None, doc="Distal x coordinate")  #coordinate
+    d_y = property(lambda self: self._d_pos[1], None, doc="Distal y coordinate")  #coordinate
+    d_z = property(lambda self: self._d_pos[2], None, doc="Distal z coordinate")  #coordinate
+    d_r = property(lambda self: self._d_r, None, doc="Distal radius")       #radius
     
-    p_x = property(lambda self: self.parent._d_pos[0], None)  #coordinate
-    p_y = property(lambda self: self.parent._d_pos[1], None)  #coordinate
-    p_z = property(lambda self: self.parent._d_pos[2], None)  #coordinate
-    p_r = property(lambda self: self.parent._d_r, None)       #radius
+    p_x = property(lambda self: self.parent._d_pos[0], None, doc="Proximal x coordinate")  #coordinate
+    p_y = property(lambda self: self.parent._d_pos[1], None, doc="Proximal y coordinate")  #coordinate
+    p_z = property(lambda self: self.parent._d_pos[2], None, doc="Proximal z coordinate")  #coordinate
+    p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")       #radius
 
-    def setRegion(self, region):
-        assert False, 'Deprecated as of 15-Sept-2011'
-        self._region = region
-
-    def setIDTag(self, idTag):
-        assert False, 'Deprecated as of 15-Sept-2011'
-        assert not self._idTag
-        self._idTag = idTag
-       
     #  TODO: Make Readonly:
-    region = property(lambda self: self._region, setRegion)
-    idTag = property(lambda self: self._idTag, setIDTag)
+    region = property(lambda self: self._region, None)
+    idTag = property(lambda self: self._idTag, None)
     parent = property(lambda self: self._parent, None)
     children = property(lambda self: self._children, None)
     
@@ -110,19 +176,19 @@ class Section(object):
         # Post Processing: tidy up loose ends:
         if region:
             region.addSection(self)
-        if not self.isDummySection():
+        if not self.is_dummy_section():
             if not self in self.parent.children:
                 self.parent.children.append(self)
         
-    def extrudeChildSection(self, x, y, z, r, region, idTag=None):
+    def create_distal_section(self, x, y, z, r, region, idTag=None):
         return Section(parent=self, x=x, y=y, z=z, r=r, region=region, idTag=idTag)
 
-    def isARootSection(self):
-        if self.isDummySection(): 
+    def is_a_root_section(self):
+        if self.is_dummy_section(): 
             return False
-        return self.parent.isDummySection() == True
+        return self.parent.is_dummy_section() == True
         
-    def isDummySection(self):
+    def is_dummy_section(self):
         return  self.parent == None
     
     def isLeaf(self):
@@ -147,12 +213,12 @@ class Section(object):
 
     def getProximalNPA3(self):
         """ Returns the 3 coordinates of the proximal end of the section.  """
-        assert not self.isDummySection()
+        assert not self.is_dummy_section()
         return self.parent._d_pos
     
     def getProximalNPA4(self):
         """ Returns the 3 coordinates and the radius of the proximal end of the section.  """
-        assert not self.isDummySection()
+        assert not self.is_dummy_section()
         return numpy.array((self.p_x, self.p_y, self.p_z, self.p_r))
 
 
@@ -184,14 +250,14 @@ class Section(object):
     
 
     def getLength(self):
-        assert not self.isDummySection(), "Getting Length of dummy section!"
+        assert not self.is_dummy_section(), "Getting Length of dummy section!"
         return numpy.linalg.norm( self.getDistalVectorNP3() )  
     
     
     def getArea(self,include_end_if_terminal=False):
         """ Returns the area of the section.  """
         # http://mathworld.wolfram.com/ConicalFrustum.html
-        assert not self.isDummySection(), "Getting area of dummy section!"
+        assert not self.is_dummy_section(), "Getting area of dummy section!"
         
         
         R = self.d_r 
@@ -221,7 +287,6 @@ class Section(object):
 
 
 
-from morphforge.core import CheckValidName
 
 class Region(object):
     """
@@ -356,7 +421,7 @@ class MorphologyTree(MorphologyBase):
         """
         assert not self.isDummySectionSet(), "Setting of MorphologyTree Twice"
         assert isinstance(dummysection, Section), "Setting the tree with something that is not a Section object"
-        assert dummysection.isDummySection(), "Dummysection is not a dummy section!"
+        assert dummysection.is_dummy_section(), "Dummysection is not a dummy section!"
         
         assert MorphologyConsistencyMgr.getChecker(self).disable()
         self._dummysection = dummysection

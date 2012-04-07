@@ -68,7 +68,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r 
         X,Y,Z,R = self.transfuctor( x,y,z,r )
         
-        newSection = newParent.extrudeChildSection(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
+        newSection = newParent.create_distal_section(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
         self.orig2newMapping[section] = newSection
         
 

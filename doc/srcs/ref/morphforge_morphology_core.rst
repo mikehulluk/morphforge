@@ -12,16 +12,6 @@ morphforge.morphology.core
    morphforge_morphology_core_base
 
 
-    
-Overview
-~~~~~~~~
-
-
-.. automodule:: morphforge.morphology.core
-    :no-members:
-    
-
-
 Submodules
 ~~~~~~~~~~
 
@@ -33,4 +23,16 @@ Submodules
     tree
     base
         
+        
+
+    
+Overview
+~~~~~~~~
+
+
+.. automodule:: morphforge.morphology.core
+    :no-members:
+    
+
+
     

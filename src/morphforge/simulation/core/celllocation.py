@@ -36,7 +36,7 @@ class CellLocation(object):
             assert not morphlocation
             self.morphlocation = MorphLocation(section=section, sectionpos=sectionpos)
         
-        assert not self.morphlocation.section.isDummySection()
+        assert not self.morphlocation.section.is_dummy_section()
            
 
 

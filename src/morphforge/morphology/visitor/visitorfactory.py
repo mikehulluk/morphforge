@@ -90,10 +90,10 @@ class SectionVistorFactory(object):
         
 
         def DictSectionProximalDistFromSoma(s):
-            if s.isDummySection():
+            if s.is_dummy_section():
                 assert False
                 
-            if s.isARootSection():
+            if s.is_a_root_section():
                 return 0.0
             else:
                 #ml2 = MorphLocation(section=s, sectionpos=1.0)
@@ -118,7 +118,7 @@ class SectionVistorFactory(object):
         assert not somaCentre
 
         def DictSectionDistalDistFromSoma(s):
-            if s.isARootSection():
+            if s.is_a_root_section():
                 return s.getLength()
             else:
                 return DictSectionDistalDistFromSoma(s.parent) + s.getLength()

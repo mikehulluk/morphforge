@@ -44,7 +44,7 @@ class MorphologyTranslator(object):
             oldParent = sectionOld.parent
             newParent = sectionMappingTable[ oldParent ]
             
-            sectionNew = newParent.extrudeChildSection( 
+            sectionNew = newParent.create_distal_section( 
                                           region = regionMappingTable[ oldParent.region ],
                                           x= sectionOld.d_x + offset[0], 
                                           y= sectionOld.d_y + offset[1],

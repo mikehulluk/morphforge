@@ -34,11 +34,11 @@ class MorphologyConverter():
             vertices[ index ] = seg.getDistalNPA4()
             
             # Store the link to the parent:
-            if not seg.isDummySection():
+            if not seg.is_dummy_section():
                 connectivity.append( (index,section_index[seg.parent]  ) )
             
             # Store the type:
-            if not seg.isDummySection():
+            if not seg.is_dummy_section():
                 region = seg.region
                 if region:
                     section_types.append( region_number_to_name_bidict.regionNameToInt(region.name) )
@@ -107,7 +107,7 @@ class MorphologyConverter():
                             name_to_region_map[rgn_name] = Region(rgn_name)
                         rgn = name_to_region_map[rgn_name]    
                         
-                    newsection =  section.extrudeChildSection(region=rgn, x=x,y=y,z=z,r=r )
+                    newsection =  section.create_distal_section(region=rgn, x=x,y=y,z=z,r=r )
                     index_to_section_map[conn] = newsection
                     indices_to_visit.append( conn )
         

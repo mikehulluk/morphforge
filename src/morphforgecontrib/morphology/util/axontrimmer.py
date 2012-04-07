@@ -50,7 +50,7 @@ class AxonTrimmer(object):
             oldParent = sectionOld.parent
             newParent = sectionMappingTable[ oldParent ]
             
-            sectionNew = newParent.extrudeChildSection( 
+            sectionNew = newParent.create_distal_section( 
                                           region = regionMappingTable[ oldParent.region ],
                                           x= sectionOld.d_x, 
                                           y= sectionOld.d_y,
