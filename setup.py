@@ -1,6 +1,23 @@
 
 from distutils.core import setup
 
+
+import os
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if not on_rtd:
+    print
+    print """This setup.py is not complete, it is only here"""
+    print """so that the docs can be built on read-the-docs."""
+    print """Please see the morphforge documentation for more"""
+    print """information"""
+    print     
+    assert False 
+
+
+    
+
+
+
 pkgs = [
 'mhlibs',
 'mhlibs.quantities_plot',
