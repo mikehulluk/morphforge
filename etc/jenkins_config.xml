@@ -1,30 +1,68 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson>
-  <version>1.409.1</version>
-  <numExecutors>2</numExecutors>
-  <mode>NORMAL</mode>
-  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
-  <securityRealm class="hudson.security.SecurityRealm$None"/>
-  <jdks/>
-  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
-  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
-  <clouds/>
-  <slaves/>
-  <quietPeriod>5</quietPeriod>
-  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
-  <views>
-    <hudson.model.AllView>
-      <owner class="hudson" reference="../../.."/>
-      <name>All</name>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-    </hudson.model.AllView>
-  </views>
-  <primaryView>All</primaryView>
-  <slaveAgentPort>0</slaveAgentPort>
-  <label></label>
-  <nodeProperties/>
-  <globalNodeProperties/>
-  <disabledAdministrativeMonitors/>
-</hudson>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec></refspec>
+        <url>file:///home/michael/hw/morphforge/</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/mh_dev</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>* * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd $WORKSPACE
+virtualenv -q ve
+. ./ve/bin/activate
+pip install -E ./ve quantities
+export PYTHONPATH=&quot;$PYTHONPATH:$WORKSPACE/src/&quot;
+cp $WORKSPACE/etc/morphforgerc.sample.x86_64 $WORKSPACE/.morphforgerc
+python -c &apos;import morphforge&apos;
+
+make clean
+make examples</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
