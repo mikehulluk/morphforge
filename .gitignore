@@ -313,6 +313,7 @@
 !src/morphforgeexamples/advanced_examples/__init__.py
 !src/morphforgeexamples/advanced_examples/howto*
 
+!Makefile
 !src/morphforgeexamples/advanced_examples/Makefile
 !src/morphforgeexamples/morphology/Makefile
 !src/morphforgeexamples/multicell_simulation/Makefile
