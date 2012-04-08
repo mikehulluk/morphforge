@@ -18,11 +18,13 @@ def build_simulation(modfilename):
     env = NeuronSimulationEnvironment()
     
     # Create the simulation:
-    mySim = env.Simulation(name="TestSim1")
-    myCell = mySim.createCell(name="Cell1", morphology=m1)
+    mySim = env.Simulation()
+    myCell = mySim.createCell(morphology=m1)
     somaLoc = myCell.getLocation("soma")
     
-    modChls = env.MembraneMechanism( SimulatorSpecificChannel, modfilename =  modfilename, mechanism_id='ID1')
+    modChls = env.MembraneMechanism( SimulatorSpecificChannel, 
+                                     modfilename =  modfilename, 
+                                     mechanism_id='ID1')
                                           
     # Apply the mechanisms to the cells
     ApplyMechanismEverywhereUniform(myCell, modChls )
