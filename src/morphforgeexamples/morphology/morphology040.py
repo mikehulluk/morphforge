@@ -10,9 +10,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-"""
-Converting between the Morphology representations
-  
+"""Converting between the morphology representations
 """
 
 from morphforge.core import LocMgr, Join 
@@ -32,12 +30,8 @@ print mArray._vertices
 # Convert back
 mTree2 = mArray.to_tree()
 
-import difflib
-diff = difflib.unified_diff(
-                     mTree.toSWCStr(),
-                     mTree2.toSWCStr()
-                     )
-assert mTree.toSWCStr() == mTree.toSWCStr()
+# Round-trip: check that the SWC outputs are the same:
+assert mTree.toSWCStr() == mTree2.toSWCStr()
 print 'Finished OK'
 
 
