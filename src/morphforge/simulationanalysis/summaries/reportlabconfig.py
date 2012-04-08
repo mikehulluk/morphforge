@@ -17,6 +17,7 @@
 from morphforge.core import Join
 
 import os
+from morphforge.core.mgrs.locmgr import LocMgr
 
 
 grey = '#808080'
@@ -31,7 +32,7 @@ class ReportLabConfig(object):
         ## Setup space to store images:
         self.images = []
         self.imageExt = "png"
-        self.imageDir = "/tmp/ss/"
+        self.imageDir = os.path.normcase( os.path.join( LocMgr.getTmpPath(), 'reportlab_image_build') )
         self.imagesize = (5,3)
         if not os.path.exists(self.imageDir):
             os.makedirs(self.imageDir)
