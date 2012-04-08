@@ -19,17 +19,21 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
+
+import numpy as np
+import itertools
+
 from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 from morphforge.morphology.core import MorphLocation
-import itertools
+from morphforge.morphology.core import MorphPath
 
 
 class MorphLocator(object):
     
     @classmethod
-    def getLocationsAtDistanceAwayFromSoma(cls, morphology, distance, section_predicate=None):
+    def getLocationsAtDistanceAwayFromDummy(cls, morphology, distance, section_predicate=None):
         
-        distToSectionDistal = SectionVistorFactory.DictSectionDistalDistFromSoma(morph=morphology, somaCentre=False)()
+        distToSectionDistal = SectionVistorFactory.DictSectionDistalDistFromSoma(morph=morphology)()
         
         
         # Section predicates: allows us to generate only on a path, region, etc
@@ -66,15 +70,20 @@ class MorphLocator(object):
                     pass
             
             
-        #print 'Distance', distance, len(locations) 
-        #assert len( locations ) == 1       
+        dummy = MorphLocation( morphology.getDummySection().children[0], 0.0)
+        # Some sanity checking:
+        for loc in locations:
+            p = MorphPath( loc, dummy  )
+            assert np.fabs( p.get_length() - distance) < 0.01    
+        
+        
         return locations
         
         
         
         
     @classmethod
-    def getLocationsAtDistancesAwayFromSoma(cls, morphology, distances, section_predicate=None):
+    def getLocationsAtDistancesAwayFromDummy(cls, morphology, distances, section_predicate=None):
         return list( itertools.chain( *[cls.getLocationsAtDistanceAwayFromSoma(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
         
         

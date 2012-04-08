@@ -39,12 +39,24 @@ class CellLocation(object):
         assert not self.morphlocation.section.is_dummy_section()
            
 
-
     def get_cell(self):
         return self._cell
 
     cell = property(get_cell, None, None)
 
+    
+    # We want to be able to treat CellLocations as locations,
+    # so that we can measure between them for example:
+    
+    @property
+    def section(self):
+        return self.morphlocation.section
+    @property
+    def sectionpos(self):
+        return self.morphlocation.sectionpos
+    
+    def get_3d_position(self):
+        return self.morphlocation.get_3d_position()
 
 
     def getLocationDescriptionStr(self):

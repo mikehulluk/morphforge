@@ -37,9 +37,12 @@ def ApplyMechanismUniform( cell, mechanism, targetter, parameter_multipliers={},
             assert False
         vals[k] = vals[k] * v
     
-     # Make it easy to over-ride
+    # Make it easy to over-ride
     for k,v in parameter_overrides.iteritems():
-        assert k in vals
+        if not k in vals:
+            print 'Invalid Parameter:',k
+            print 'Available Params:', vals
+            assert False
         vals[k] = v
     
     cell.getBiophysics().addMechanism(mechanism=mechanism, 

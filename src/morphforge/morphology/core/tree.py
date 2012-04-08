@@ -110,7 +110,7 @@ specifying channel distributions over a morphology.
     This way of specifying Regions is very similar to the 'type' field in the
     .swc file format.
      
-Finally, each Section can be assigned an 'ID-Tag'. This is simply a string that
+Each Section can be assigned an 'ID-Tag'. This is simply a string that
 can be used to refer to a particular section easily later. An IDTag can not be
 repeated in a morphology.  For example, when constructing a morphology, we
 might tag the main soma section, so that is it simple to add current clamps for
@@ -120,6 +120,13 @@ exampl in simulations.
 .. todo::
 
     Reference some example.    
+   
+   
+ 
+ 
+.. todo::
+    
+    MorphLocations and MorphPaths
     
 """
 
@@ -130,6 +137,7 @@ exampl in simulations.
 
 
 import numpy
+import numpy as np
 import math
 import itertools
 
@@ -365,10 +373,11 @@ class MorphLocation(object):
         return self._sectionpos
         
 
-    def __init__(self, section, sectionpos):
+    def __init__(self, section, sectionpos, position_info=None):
         self._section = section
         self._sectionpos = sectionpos
         assert 0.0 <= sectionpos <= 1.0
+        
     
     def get_3d_position(self,):
         """Returns the 3D position of the morphology location"""
@@ -539,7 +548,136 @@ class MorphologyTree(MorphologyBase):
     
         
         
- 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+class MorphPath(object):
+    
+    DirDistal = 'DirDistal'
+    DirProximal = 'DirProximal'
+        
+    
+    # Find the paths back to the dummy_section()::
+    @classmethod
+    def get_sections_to_root(cls,sect):
+        sects = set([])
+        current_sect = sect.parent
+        while not current_sect.is_dummy_section():
+            sects.add(current_sect)
+            current_sect = current_sect.parent
+        return sects
+    
+
+    def __init__(self, morphloc1, morphloc2):
+         
+        # Check they are on the same morphology!
+        s1 = morphloc1.section
+        s2 = morphloc2.section
+        while not s1.is_dummy_section(): s1 = s1.parent
+        while not s2.is_dummy_section(): s2 = s2.parent
+        assert s1 is s2  
+         
+         
+        
+        # Remap dummy sections to being proximal on the 
+        #first child section, to reduce special case handling:
+        if morphloc1.section.is_dummy_section():
+            morphloc1 = MorphLocation( morphloc1.section.children[0], 0.0) 
+        if morphloc2.section.is_dummy_section():
+            morphloc2 = MorphLocation( morphloc2.section.children[0], 0.0)
+            
+        
+        
+        
+        self.morphloc1 = morphloc1
+        self.morphloc2 = morphloc2
+        
+        # TO SET:
+        self.morphloc1_dir = None
+        self.morphloc2_dir = None
+        self._connecting_sections = []
+        
+        
+        if morphloc1.section == morphloc2.section:
+            
+            # Points in the same section:
+            self._connecting_sections = []
+            if morphloc1.sectionpos < morphloc2.sectionpos:
+                self.morphloc1_dir, self.morphloc2_dir =  self.DirDistal, self.DirProximal
+            else:
+                self.morphloc1_dir, self.morphloc2_dir =  self.DirProximal, self.DirDistal
+            
+        else:
+            
+            s1_sects = MorphPath.get_sections_to_root(morphloc1.section)
+            s2_sects = MorphPath.get_sections_to_root(morphloc2.section)
+            
+            
+            # Is one a direct parent of the other?
+            if morphloc1.section in s2_sects:
+                self._connecting_sections = set.symmetric_difference( s1_sects,s2_sects)
+                self.morphloc1_dir, self.morphloc2_dir =  self.DirDistal, self.DirProximal
+            elif morphloc2.section in s1_sects:
+                self._connecting_sections = set.symmetric_difference( s1_sects,s2_sects)
+                self.morphloc1_dir, self.morphloc2_dir =  self.DirProximal, self.DirDistal                
+                
+            else:
+                assert False
+                
+            
+            # Remove the original sections,  from the list of
+            # connecting sections:
+            self._connecting_sections.discard( morphloc1.section)
+            self._connecting_sections.discard( morphloc2.section)
+
+            
+
+         
+        assert not self.morphloc1.section in self._connecting_sections
+        assert not self.morphloc2.section in self._connecting_sections
+        
+         
+    def get_length(self):
+        
+        #Handle the special case of both being on the same section: 
+        if self.morphloc1.section == self.morphloc2.section:
+            return self.morphloc1.section.get_length() * np.fabs( self.morphloc1.sectionpos - self.morphloc2.sectionpos )  
+        
+        
+        def s_len(loc, dir):
+            if dir == MorphPath.DirDistal:
+                return (1.0-loc.sectionpos) * loc.section.get_length()
+            elif dir == MorphPath.DirProximal:
+                return loc.sectionpos * loc.section.get_length()
+            else:
+                assert False
+        
+        s1Length =  s_len(self.morphloc1, self.morphloc1_dir )  
+        s2Length =  s_len(self.morphloc2, self.morphloc2_dir )
+        connecting_section_lengths = [ s.get_length() for s in self._connecting_sections]
+        l = s1Length + s2Length + sum(connecting_section_lengths)
+        return l
+    
+        
+    #def isSectionInPath(self, section):
+    #    return section in self._connecting_sections
+    
+    #def isSectionOnEndpoint(self, section):
+    #    return section in ( self.morphloc1.section, self.morphloc2.section )
+     
  
  
         

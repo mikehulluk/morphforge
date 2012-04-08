@@ -85,8 +85,8 @@ In general, you will only need to use one of the two representations, depending 
 
 
 
-from tree import MorphologyTree, Section, Region, MorphLocation
+from tree import MorphologyTree, Section, Region, MorphLocation, MorphPath
 from array import MorphologyArray
 
 
-__all__ = ['MorphologyTree','Section','Region','MorphLocation','MorphologyArray']
+__all__ = ['MorphologyTree','Section','Region','MorphLocation','MorphologyArray', 'MorphPath']

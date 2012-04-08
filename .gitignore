@@ -232,6 +232,9 @@
 !src/morphforge/simulation/core/simulation.py
 !src/morphforge/simulation/core/simulationenvironment.py
 !src/morphforge/simulation/core/cell.py
+!src/morphforge/simulation/core/util/
+!src/morphforge/simulation/core/util/__init__.py
+!src/morphforge/simulation/core/util/celllocator.py
 !src/morphforge/simulation/neuron/
 !src/morphforge/simulation/neuron/biophysics/
 !src/morphforge/simulation/neuron/biophysics/__init__.py

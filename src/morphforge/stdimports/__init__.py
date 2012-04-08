@@ -42,7 +42,7 @@ from morphforge.morphology.util.morphlocator import MorphLocator
 # SIMULATION
 from morphforge.simulation.core import *
 from morphforge.simulation.neuron import *
-
+from morphforge.simulation.core.util.celllocator import CellLocator
  
 # Simulation Analysis
 from morphforge.simulationanalysis.summaries import *

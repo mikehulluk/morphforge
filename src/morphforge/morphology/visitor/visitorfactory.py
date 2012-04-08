@@ -114,8 +114,7 @@ class SectionVistorFactory(object):
     
     
     @classmethod
-    def DictSectionDistalDistFromSoma(cls, morph=None, somaCentre=False):
-        assert not somaCentre
+    def DictSectionDistalDistFromSoma(cls, morph=None):
 
         def DictSectionDistalDistFromSoma(s):
             if s.is_a_root_section():
