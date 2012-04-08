@@ -305,15 +305,15 @@
 !src/morphforgeexamples/morphology/morphology*.py
 !src/morphforgeexamples/singlecell_simulation/
 !src/morphforgeexamples/multicell_simulation/
-!src/morphforgeexamples/singlecell_simulation/__init__.py
-!src/morphforgeexamples/multicell_simulation/__init__.py
 !src/morphforgeexamples/singlecell_simulation/singlecell_simulation*.py
 !src/morphforgeexamples/multicell_simulation/multicell_simulation*.py
 !src/morphforgeexamples/advanced_examples/
-!src/morphforgeexamples/advanced_examples/__init__.py
 !src/morphforgeexamples/advanced_examples/howto*
+!src/morphforgeexamples/assorted/
+!src/morphforgeexamples/assorted/assorted*
 
 !Makefile
+!src/morphforgeexamples/assorted/Makefile
 !src/morphforgeexamples/advanced_examples/Makefile
 !src/morphforgeexamples/morphology/Makefile
 !src/morphforgeexamples/multicell_simulation/Makefile
