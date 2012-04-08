@@ -52,7 +52,8 @@ from morphforge.simulationanalysis.summaries import *
  
 from morphforge.componentlibraries import * 
 
-import morphforge.simulation.shortcuts as shortcuts
+
+from morphforge.simulation.shortcuts import *
 
 
 import morphforge.simulation.neuron.objects.obj_cclamp

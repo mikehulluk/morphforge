@@ -313,6 +313,12 @@
 !src/morphforgeexamples/advanced_examples/__init__.py
 !src/morphforgeexamples/advanced_examples/howto*
 
+!src/morphforgeexamples/advanced_examples/Makefile
+!src/morphforgeexamples/morphology/Makefile
+!src/morphforgeexamples/multicell_simulation/Makefile
+!src/morphforgeexamples/singlecell_simulation/Makefile
+
+
 
 # Test Data:
 !src/test_data/
