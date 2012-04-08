@@ -3,6 +3,9 @@ from distutils.core import setup
 
 
 import os
+import itertools
+import glob
+
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if not on_rtd:
     print
@@ -15,64 +18,22 @@ if not on_rtd:
 
 
     
-
-
+locs = [
+        "srcs/morphforge/__init__.py",
+        "srcs/morphforge/*/__init__.py",
+        "srcs/morphforge/*/*/__init__.py",
+        "srcs/morphforge/*/*/*/__init__.py",
+        "srcs/morphforge/*/*/*/*/__init__.py",
+        ]
+glob_pkgs =itertools.chain( *[glob.glob(loc) for loc in locs] ) 
+glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs] 
 
 pkgs = [
 'mhlibs',
 'mhlibs.quantities_plot',
 'mhlibs.scripttools',
+] + glob_pkgs
 
-'morphforge',
-"morphforge/componentlibraries",
-"morphforge/core",
-"morphforge/core/mgrs",
-"morphforge/core/quantities",
-"morphforge/morphology",
-"morphforge/morphology/builders",
-"morphforge/morphology/core",
-"morphforge/morphology/md5",
-"morphforge/morphology/ui",
-"morphforge/morphology/visitor",
-"morphforge/morphology/util",
-"morphforge/morphology/conversion",
-"morphforge/morphology/errors",
-"morphforge/morphology/importer",
-"morphforge/morphology/exporter",
-"morphforge/morphology/conventions",
-"morphforge/morphology/mesh",
-"morphforge/morphology/comparison",
-"morphforge/simulation",
-"morphforge/simulation/core",
-"morphforge/simulation/core/biophysics",
-"morphforge/simulation/core/networks",
-"morphforge/simulation/core/result",
-"morphforge/simulation/core/segmentation",
-"morphforge/simulation/core/stimulation",
-"morphforge/simulation/neuron",
-"morphforge/simulation/neuron/biophysics",
-"morphforge/simulation/neuron/hocmodbuilders",
-"morphforge/simulation/neuron/objects",
-"morphforge/simulation/neuron/simulationdatacontainers",
-"morphforge/simulation/neuron/networks",
-"morphforge/simulation/simulationmetadatabundle",
-"morphforge/simulation/simulationmetadatabundle/builders",
-"morphforge/simulation/simulationmetadatabundle/postsimulation",
-"morphforge/simulation/shortcuts",
-"morphforge/simulationanalysis",
-"morphforge/simulationanalysis/summaries",
-"morphforge/stdimports",
-"morphforge/constants",
-"morphforge/traces",
-"morphforge/traces/tags",
-"morphforge/traces/std_methods",
-"morphforge/traces/std_operators",
-"morphforge/traces/tracetypes",
-"morphforge/traces/io",
-"morphforge/traces/tagviewer",
-"morphforge/traces/generation",
-"morphforge/traces/linkage",
-]
 
 
 setup(
