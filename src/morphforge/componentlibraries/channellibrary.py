@@ -15,7 +15,8 @@ class ChannelLibrary(object):
     
     
     @classmethod
-    def registerChannel(cls, modelsrc, celltype , channeltype , chlFunctor):
+    def registerChannel(cls,channeltype , chlFunctor,  modelsrc=None, celltype=None ):
+        assert modelsrc or celltype
         key = modelsrc, celltype , channeltype
         assert not key in cls.channels
         cls.channels[ key ] = chlFunctor
@@ -23,11 +24,11 @@ class ChannelLibrary(object):
         
         
     @classmethod        
-    def getChannelFunctor(cls, modelsrc, celltype,  channeltype):
+    def getChannelFunctor(cls, channeltype, modelsrc=None, celltype=None,):
         return cls.channels [ (modelsrc, celltype, channeltype) ]
     
     @classmethod        
-    def getChannel(cls, modelsrc, celltype,  channeltype, env):
+    def getChannel(cls, channeltype, env, modelsrc=None, celltype=None, ):
         functor = cls.channels [ (modelsrc, celltype, channeltype) ]
         return functor(env=env)
     

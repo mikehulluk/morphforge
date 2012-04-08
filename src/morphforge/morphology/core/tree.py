@@ -184,7 +184,7 @@ class Section(object):
         
         
         # Post Processing: tidy up loose ends:
-        if region:
+        if region is not None:
             region.add_section(self)
         if not self.is_dummy_section():
             if not self in self.parent.children:
@@ -283,15 +283,24 @@ class Section(object):
         lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + l**2 )  
         
         if include_end_if_terminal and self.is_leaf() :
-           return lateral_area + ( math.pi * R**2 ) 
+            assert False
+            #return lateral_area + ( math.pi * R**2 ) 
         else:
             return lateral_area
             
         
     def get_volume(self):
         """Returns the volume of the section."""
-        raise NotImplementedError()
+        assert not self.is_dummy_section(), "Getting volume of dummy section!"
+        
+        R = self.d_r 
+        r = self.p_r
+        l = self.get_length()
+        return (1.0/3.0) * math.pi * l * ( R*R + R*r + r*r)
 
+
+    area = property(get_area)
+    volume = property(get_volume)
 
 
     # Deprecated:
@@ -334,6 +343,10 @@ class Region(object):
     
     def __iter__(self):
         return iter(self.sections)
+    
+    def __len__(self):
+#        assert False
+        return len(self.sections)
     
     def add_section(self, section):
         """Adding a section to the region."""
@@ -505,7 +518,7 @@ class MorphologyTree(MorphologyBase):
         """
         assert self.ensureConsistency()
         
-        if not self._regions:
+        if self._regions is None:
             allRegions = [ section.region for section in self]
             self._regions = list(set(allRegions))
             if self._regions.__contains__(None): 

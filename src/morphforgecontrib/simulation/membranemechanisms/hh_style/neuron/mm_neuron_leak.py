@@ -43,7 +43,7 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
 
 class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
     def __init__(self, **kwargs):
-        super( MM_Neuron_Leak_ConductanceDensityRecord, self).__init__( modvar='cond', **kwargs)
+        super( MM_Neuron_Leak_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
     def getUnit(self):
         return unit("S/cm2")
     def getStdTags(self):

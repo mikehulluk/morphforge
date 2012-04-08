@@ -58,7 +58,7 @@ class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Recor
 
 class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, **kwargs):
-        super( MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord, self).__init__( modvar='cond', **kwargs)
+        super( MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
     def getUnit(self):
         return unit("S/cm2")
     def getStdTags(self):

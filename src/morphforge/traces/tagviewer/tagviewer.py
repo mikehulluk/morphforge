@@ -53,21 +53,50 @@ def resolveTimeRange(timeRange):
     return timeRange
 
 
+
+
+class DefaultPlotSpec:
+    Voltage =            PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV)  )
+    CurrentDensity =     PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  )
+    Current =             PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp )
+    Conductance =        PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" )
+    ConductanceDensity = PlotSpec_DefaultNew( s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2  )
+    StateVariable =      PlotSpec_DefaultNew( s="StateVariable", ylabel="StateVariable" ) 
+    StateVariableTau =   PlotSpec_DefaultNew( s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  )
+    StateVariableInf =   PlotSpec_DefaultNew( s="StateSteadyState", ylabel="Steady State" )            
+    Event =              PlotSpec_DefaultNew( s="Event", ylabel="Events" )
+
+    
+
+
+
 class TagViewer(object):
     
-    defaultPlotSpecs = (   
-                PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV)  ),
-                PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  ),
-                PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp ), 
-                PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" ),
-                PlotSpec_DefaultNew( s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2  ),
-                PlotSpec_DefaultNew( s="StateVariable", ylabel="StateVariable" ), 
-                PlotSpec_DefaultNew( s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  ),
-                PlotSpec_DefaultNew( s="StateSteadyState", ylabel="Steady State" ),                 
-                PlotSpec_DefaultNew( s="Event", ylabel="Events" ),
-
-                )
+            
     
+#    defaultPlotSpecs = (   
+#                PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV)  ),
+#                PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  ),
+#                PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp ), 
+#                PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" ),
+#                PlotSpec_DefaultNew( s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2  ),
+#                PlotSpec_DefaultNew( s="StateVariable", ylabel="StateVariable" ), 
+#                PlotSpec_DefaultNew( s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  ),
+#                PlotSpec_DefaultNew( s="StateSteadyState", ylabel="Steady State" ),                 
+#                PlotSpec_DefaultNew( s="Event", ylabel="Events" ),
+#
+#                )
+    defaultPlotSpecs = (  
+        DefaultPlotSpec.Voltage,       
+        DefaultPlotSpec.CurrentDensity,     
+        DefaultPlotSpec.Current,  
+        DefaultPlotSpec.Conductance,   
+        DefaultPlotSpec.ConductanceDensity, 
+        DefaultPlotSpec.StateVariable,      
+        DefaultPlotSpec.StateVariableTau,   
+        DefaultPlotSpec.StateVariableInf,                    
+        DefaultPlotSpec.Event, 
+        )
 
 
     
@@ -129,7 +158,7 @@ class TagViewer(object):
         # Use the new PlotSpec architecture:
         # Filter out which plotspecs are actually going to display something,
         # and filter out the rest:
-        plotspecs = plotspecs or TagViewer.defaultPlotSpecs 
+        plotspecs = plotspecs if plotspecs is not None else TagViewer.defaultPlotSpecs 
         
         if additional_plotspecs:
             plotspecs = tuple( list(plotspecs) + list(additional_plotspecs) ) 

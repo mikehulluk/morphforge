@@ -102,7 +102,7 @@ ASSIGNED {
 #end for
 
 #if $conductanceequation:
-    cond (S/cm2)
+    g (S/cm2)
 #end if
 
 
@@ -121,7 +121,7 @@ BREAKPOINT {
 
 
 #if $conductanceequation:
-    cond = $conductanceequation
+    g = $conductanceequation
 #end if
 #if $chlsopenequation:
     chls_open = chlsopenequation 
@@ -237,7 +237,7 @@ class MM_ModFileWriterBase(object):
     def GenerateModFile(self):
         assert self.currentequation
 
-        self.rangevars = ",".join(  self.parameters.keys() + self.rates.keys() + self.internalstates.keys() +  ["i", "cond"] )
+        self.rangevars = ",".join(  self.parameters.keys() + self.rates.keys() + self.internalstates.keys() +  ["i", "g"] )
         
         
         if self.internalstates :
