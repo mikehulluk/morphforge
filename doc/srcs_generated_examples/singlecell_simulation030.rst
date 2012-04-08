@@ -126,23 +126,23 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 96776
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//a8/a8cddef9afe8e4d13ee3b38ce2ad9ea1.bundle
-	Setting Random Seed: 85924
-	Time for Building Mod-Files:  0.00100016593933
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6a9024390484a2ca23db81d9eb0ba1de.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_c9363fb7f2e9afde70041ff6f549790e.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9bf335229af6a5bc679edab09814d8de.so
+    	Setting Random Seed: 51563
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//db/db7bcf4f2baa261d9848606cc4aae2af.bundle
+	Setting Random Seed: 90669
+	Time for Building Mod-Files:  0.00086498260498
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_2f9e2a9e11812732bc7e3ddd24d8a4b8.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6c136979192dac6a0dc705dd0c699de9.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_90246d234361e93fd612c4505155a3ae.so
 		1 
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0784890651703
-	Time for Extracting Data: (2 records) 0.000677824020386
-	Simulation Time Elapsed:  0.334113836288
+	Time for Simulation:  0.0308659076691
+	Time for Extracting Data: (2 records) 0.000655889511108
+	Simulation Time Elapsed:  0.284793138504
 	Suceeded
-	Setting Random Seed: 85924
+	Setting Random Seed: 90669
 	[0.07, 0.0, 0.0, 65.0, 20.0]
 	
 	[1.0, 0.0, 1.0, 35.0, -10.0]
@@ -155,10 +155,10 @@ Output
 	
 	[0.125, 0, 0, 65, 80]
 	
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x319cf90>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3144990>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3d4b250>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3cf5350>
 	Setting Time Range [  50.  250.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3169e10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3d17dd0>
 	Setting Time Range [  50.  250.] ms
 	Setting Yunit 1 pA (picoampere)
 	Saving File _output/figures/singlecell_simulation030/eps/fig000_None.eps

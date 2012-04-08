@@ -87,34 +87,34 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 13884
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//cb/cbbe3a6de645e817a1f43ee7ad921b65.bundle
-	Setting Random Seed: 8809
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_27a24a6c6e585f71d3d88b5172de79d9.mod
+    	Setting Random Seed: 61025
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//73/730e944cb90fa1a0859a69375a330ee4.bundle
+	Setting Random Seed: 41132
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_5fd0cf466750d059d57ea03c56ddc796.mod
 	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_27a24a6c6e585f71d3d88b5172de79d9.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_27a24a6c6e585f71d3d88b5172de79d9.lo tmp_27a24a6c6e585f71d3d88b5172de79d9.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_27a24a6c6e585f71d3d88b5172de79d9.la  -rpath /opt/nrn/x86_64/libs  tmp_27a24a6c6e585f71d3d88b5172de79d9.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Time for Building Mod-Files:  0.452130079269
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_38182cdfb96724bab91b81e2b9014344.so
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_5fd0cf466750d059d57ea03c56ddc796.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_5fd0cf466750d059d57ea03c56ddc796.lo tmp_5fd0cf466750d059d57ea03c56ddc796.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_5fd0cf466750d059d57ea03c56ddc796.la  -rpath /opt/nrn/x86_64/libs  tmp_5fd0cf466750d059d57ea03c56ddc796.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  0.468131065369
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_172b3a516eeeb254c71e0750298c93f7.so
 		1 
 		1 
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.00867795944214
-	Time for Extracting Data: (3 records) 0.00119590759277
-	Simulation Time Elapsed:  0.680875062943
+	Time for Simulation:  0.0207469463348
+	Time for Extracting Data: (3 records) 0.00124192237854
+	Simulation Time Elapsed:  0.720676898956
 	Suceeded
-	Setting Random Seed: 8809
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2569c10>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2514950>
+	Setting Random Seed: 41132
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3e80a90>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e2b310>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x251ad10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e45e10>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x254ddd0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3e4ee10>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
 	Saving File _output/figures/singlecell_simulation010/eps/fig000_The response of a neuron to step current injection.eps

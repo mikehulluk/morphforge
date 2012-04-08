@@ -133,7 +133,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 98945
+    	Setting Random Seed: 53964
 	 --  <SectionObject: [0.000000,0.000000,0.000000, r=9.000000] -> [18.000000,0.000000,0.000000, r=9.000000], Length: 18.00, Region:soma, idTag:soma, >
 	 --  0.5
 	 --  [ 9.  0.  0.]
@@ -202,28 +202,13 @@ Output
 	 --  0.606666666667
 	 --  [ 1609.     0.     0.]
 	Distance to Soma Centre: 1600.0
-	 --  <SectionObject: [1668.000000,0.000000,0.000000, r=0.150000] -> [1818.000000,0.000000,0.000000, r=0.150000], Length: 150.00, Region:axon, idTag:axon_12, Setting Random Seed: 12225
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//75/7587a075a678c03b42f26f509396768d.bundle
-	Setting Random Seed: 98945
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_14c327b621d4a06cdf62e20a8f2f07b9.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_14c327b621d4a06cdf62e20a8f2f07b9.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_14c327b621d4a06cdf62e20a8f2f07b9.lo tmp_14c327b621d4a06cdf62e20a8f2f07b9.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_14c327b621d4a06cdf62e20a8f2f07b9.la  -rpath /opt/nrn/x86_64/libs  tmp_14c327b621d4a06cdf62e20a8f2f07b9.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_956e82eba5a3297b09299fa491f11333.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_956e82eba5a3297b09299fa491f11333.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_956e82eba5a3297b09299fa491f11333.lo tmp_956e82eba5a3297b09299fa491f11333.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_956e82eba5a3297b09299fa491f11333.la  -rpath /opt/nrn/x86_64/libs  tmp_956e82eba5a3297b09299fa491f11333.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_aa6d2cce6a81cdb32df1bd569c079bf0.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_aa6d2cce6a81cdb32df1bd569c079bf0.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_aa6d2cce6a81cdb32df1bd569c079bf0.lo tmp_aa6d2cce6a81cdb32df1bd569c079bf0.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_aa6d2cce6a81cdb32df1bd569c079bf0.la  -rpath /opt/nrn/x86_64/libs  tmp_aa6d2cce6a81cdb32df1bd569c079bf0.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Time for Building Mod-Files:  1.19311094284
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_e3f176b826ba202c0ba7b50dc935227f.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_0e9c29c18b9ffc9f8cfa77bbfde50cc4.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_50b2d6df061c3d73decff10b2f4637f2.so
+	 --  <SectionObject: [1668.000000,0.000000,0.000000, r=0.150000] -> [1818.000000,0.000000,0.000000, r=0.150000], Length: 150.00, Region:axon, idTag:axon_12, Setting Random Seed: 49096
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//53/5398f1bb8c7d6201dcbf1862f05014f7.bundle
+	Setting Random Seed: 53964
+	Time for Building Mod-Files:  0.000888109207153
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_50705c564a22bd64e1215d1823fc687a.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_e1d092c3391fa96414c59100b100aa1c.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_917736dee8b38abc9f74d55ff4a52f38.so
 		1 
 		1 
 		1 
@@ -258,9 +243,9 @@ Output
 		1 
 		1 
 		1 
-	Time for Simulation:  0.8560359478
-	Time for Extracting Data: (31 records) 0.00960493087769
-	Simulation Time Elapsed:  2.44409704208
+	Time for Simulation:  0.833641052246
+	Time for Extracting Data: (31 records) 0.00721597671509
+	Simulation Time Elapsed:  1.20682501793
 	Suceeded
 	>
 	 --  0.273333333333
@@ -310,10 +295,10 @@ Output
 	 --  0.606666666667
 	 --  [ 2809.     0.     0.]
 	Distance to Soma Centre: 2800.0
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3808390>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x361a950>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3a74390>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3886310>
 	Setting Time Range [  97.5  140. ] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3640dd0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38a7d90>
 	Setting Time Range [  97.5  140. ] ms
 	Setting Yunit 1 pA (picoampere)
 	Saving File _output/figures/singlecell_simulation060/eps/fig000_None.eps

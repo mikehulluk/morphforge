@@ -1,5 +1,5 @@
 
-25. [*] Defining a new type of channel
+26. [*] Defining a new type of channel
 ======================================
 
 

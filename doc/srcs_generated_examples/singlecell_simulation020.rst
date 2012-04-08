@@ -117,42 +117,11 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 53346
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//b0/b0a7f8162b5939b41041ec66ed5a4f4a.bundle
-	Setting Random Seed: 80520
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_24107a3909362c4bad4decdab973e591.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_24107a3909362c4bad4decdab973e591.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_24107a3909362c4bad4decdab973e591.lo tmp_24107a3909362c4bad4decdab973e591.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_24107a3909362c4bad4decdab973e591.la  -rpath /opt/nrn/x86_64/libs  tmp_24107a3909362c4bad4decdab973e591.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_3c7916bd99f54c4a22464bcd3c7c223b.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_3c7916bd99f54c4a22464bcd3c7c223b.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_3c7916bd99f54c4a22464bcd3c7c223b.lo tmp_3c7916bd99f54c4a22464bcd3c7c223b.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_3c7916bd99f54c4a22464bcd3c7c223b.la  -rpath /opt/nrn/x86_64/libs  tmp_3c7916bd99f54c4a22464bcd3c7c223b.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_38a8944c766fa751f7c9434c01ea48fb.mod
-	/home/michael/mftmp/simulation/nrn/build
-	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_38a8944c766fa751f7c9434c01ea48fb.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_38a8944c766fa751f7c9434c01ea48fb.lo tmp_38a8944c766fa751f7c9434c01ea48fb.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_38a8944c766fa751f7c9434c01ea48fb.la  -rpath /opt/nrn/x86_64/libs  tmp_38a8944c766fa751f7c9434c01ea48fb.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	Time for Building Mod-Files:  1.63297009468
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6a9024390484a2ca23db81d9eb0ba1de.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_c9363fb7f2e9afde70041ff6f549790e.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9bf335229af6a5bc679edab09814d8de.so
-		1 
-		1 
-		1 
-		1 
-		1 
-	Time for Simulation:  0.0373530387878
-	Time for Extracting Data: (2 records) 0.000810861587524
-	Simulation Time Elapsed:  1.94410085678
-	Suceeded
-	Setting Random Seed: 80520
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x39cce50>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38abf50>
+    	Setting Random Seed: 31242
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x36c8e90>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x36732d0>
 	Setting Time Range [  50.  250.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x38c3e10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3694ad0>
 	Setting Time Range [  50.  250.] ms
 	Setting Yunit 1 pA (picoampere)
 	Saving File _output/figures/singlecell_simulation020/eps/fig000_None.eps

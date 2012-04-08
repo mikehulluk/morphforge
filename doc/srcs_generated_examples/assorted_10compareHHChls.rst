@@ -1,5 +1,5 @@
 
-26. Comparing simulations: the Hodgkin-Huxley '52 channels
+27. Comparing simulations: the Hodgkin-Huxley '52 channels
 ==========================================================
 
 
@@ -164,37 +164,37 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 70392
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//ff/ff638e5fab08b9eb9f543129d74db489.bundle
-	Setting Random Seed: 68633
-	Time for Building Mod-Files:  0.000936985015869
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6a9024390484a2ca23db81d9eb0ba1de.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_c9363fb7f2e9afde70041ff6f549790e.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9bf335229af6a5bc679edab09814d8de.so
+    	Setting Random Seed: 175
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//e6/e6631c8c021ca356d08f9a7cf932afac.bundle
+	Setting Random Seed: 46948
+	Time for Building Mod-Files:  0.00104904174805
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_535b0b5b7e1a9e3a023f5a18354de13a.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_fe8a88a6bf07eb9deee436af601fce4b.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_94c1e788a7b29065034a80f39b59a2c9.so
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0240001678467
-	Time for Extracting Data: (1 records) 0.000460863113403
-	Simulation Time Elapsed:  0.263360977173
+	Time for Simulation:  0.029464006424
+	Time for Extracting Data: (1 records) 0.00058913230896
+	Simulation Time Elapsed:  0.273467063904
 	Suceeded
-	Setting Random Seed: 38590
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//15/1500d0a8d5c92d4e448c9e84120a24f4.bundle
-	Setting Random Seed: 68633
-	Time for Building Mod-Files:  6.19888305664e-06
+	Setting Random Seed: 95740
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//c5/c55c6f3ac16ae903747faa314f89d566.bundle
+	Setting Random Seed: 46948
+	Time for Building Mod-Files:  5.00679016113e-06
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.015820980072
-	Time for Extracting Data: (1 records) 0.000393867492676
-	Simulation Time Elapsed:  0.105957984924
+	Time for Simulation:  0.018079996109
+	Time for Extracting Data: (1 records) 0.000436067581177
+	Simulation Time Elapsed:  0.106323957443
 	Suceeded
-	Setting Random Seed: 68633
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2cbab10>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2cb6ed0>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2c82050>
+	Setting Random Seed: 46948
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2f6b9d0>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2f6b2d0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2f189d0>
 	Setting Time Range [  95.  200.] ms
 	Saving File _output/figures/assorted_10compareHHChls/eps/fig000_None.eps
 	Saving File _output/figures/assorted_10compareHHChls/pdf/fig000_None.pdf

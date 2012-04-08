@@ -1,5 +1,5 @@
 
-22. [*] Two cells connected by a gap junction
+23. [*] Two cells connected by a gap junction
 =============================================
 
 
