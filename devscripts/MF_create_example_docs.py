@@ -18,11 +18,17 @@ from morphforge.core.mgrs.locmgr import LocMgr
 
 root = os.path.normpath( os.path.join( LocMgr.getRootPath(), "..") )
 examples_src_dir = os.path.join(root, "src/morphforgeexamples/")
+
+
+#"/home/michael/hw/morphforge/doc"
+doc_src_dir = os.path.normpath( os.path.join(root, "doc") )
+
 examples_dst_dir =  os.path.join(root, "doc/srcs_generated_examples")
 examples_dst_dir_images =  os.path.join(root, "doc/srcs_generated_examples/images/")
 
 examples_build_dir = os.path.join( LocMgr.getTmpPath(), "mf_doc_build")
 examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
+
 
 dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples', 'assorted' ]
 example_srcs = list( itertools.chain( *[ Glob( Join(examples_src_dir, dir) + "/*.py") for dir in dirs] ) )  
@@ -105,7 +111,7 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
         im_newName = os.path.join(examples_dst_dir_images, "%s_%s"%(name_short, os.path.split(im)[-1]))
         shutil.copyfile(im, im_newName)
 
-        im_newName_short = im_newName.replace("/home/michael/hw/morphforge/doc","")
+        im_newName_short = im_newName.replace(doc_src_dir,"") #/home/michael/hw/morphforge/doc","")
         im_names.append(im_newName_short)
 
     title = "%d. "%(index+1) + [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0]

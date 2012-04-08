@@ -20,9 +20,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
+
+import os
+
 from morphforge.core.mgrs import SettingsMgr, LogMgr
-
-
 from mhlibs.scripttools.plotmanager import PlotManager
 
 
@@ -57,13 +58,16 @@ def saveAllNewActiveFigures():
     
     
 # Monkey-Patch pylab, unless we are on read-the-docs
-import os
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if not on_rtd:
 
     # Matplotlib:
-    import pylab 
+    
     import matplotlib
+    if not os.environ.get('DISPLAY',None):
+        matplotlib.use('Agg')
+
+    import pylab 
 
     mplShow = matplotlib.pylab.show
     def show(*args, **kwargs):

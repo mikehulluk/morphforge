@@ -86,7 +86,7 @@ def apply_hh_chls_NEURON_builtin(env, myCell):
 
     hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" )
     ApplyMechanismEverywhereUniform(myCell, hhChls )
-    
+        
 
 
 
