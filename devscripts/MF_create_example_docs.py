@@ -12,13 +12,17 @@ from os.path import join as Join
 from Cheetah.Template import Template
 
 
+ 
+from morphforge.core.mgrs.locmgr import LocMgr
 
-examples_src_dir = "/home/michael/hw/morphforge/src/morphforgeexamples/"
-examples_dst_dir = "/home/michael/hw/morphforge/doc/srcs_generated_examples"
-examples_dst_dir_images = "/home/michael/hw/morphforge/doc/srcs_generated_examples/images/"
 
-examples_build_dir = "/tmp/mf_build1"
-examples_build_dir_image_out = "/tmp/mf_build1/images/"
+root = os.path.normpath( os.path.join( LocMgr.getRootPath(), "..") )
+examples_src_dir = os.path.join(root, "src/morphforgeexamples/")
+examples_dst_dir =  os.path.join(root, "doc/srcs_generated_examples")
+examples_dst_dir_images =  os.path.join(root, "doc/srcs_generated_examples/images/")
+
+examples_build_dir = os.path.join( LocMgr.getTmpPath(), "mf_doc_build")
+examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
 
 dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples', 'assorted' ]
 example_srcs = list( itertools.chain( *[ Glob( Join(examples_src_dir, dir) + "/*.py") for dir in dirs] ) )  
