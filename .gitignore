@@ -13,6 +13,7 @@
 
 !etc/
 !etc/morphforgerc.sample
+!etc/morphforgerc.sample.x86_64
 
 
 # Devscripts:
@@ -438,6 +439,12 @@
 !src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/__init__.py
 !src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/core.py
 !src/morphforgecontrib/simulation/membranemechanisms/exisitingmodfile/neuron.py
+
+
+!src/morphforgecontrib/simulation/membranemechanisms/simulatorbuiltin/
+!src/morphforgecontrib/simulation/membranemechanisms/simulatorbuiltin/__init__.py
+!src/morphforgecontrib/simulation/membranemechanisms/simulatorbuiltin/sim_builtin_core.py
+!src/morphforgecontrib/simulation/membranemechanisms/simulatorbuiltin/sim_builtin_neuron.py
 
 # morphforgecontrib.morphology
 !src/morphforgecontrib/morphology/
