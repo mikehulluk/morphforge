@@ -92,9 +92,9 @@ Code
 	                            mechanism_id="HH_K_CURRENT"
 	                            )
 	    
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, leakChannels )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, kChannels )
+	    ApplyMechanismEverywhereUniform(myCell, leakChannels )
+	    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
+	    ApplyMechanismEverywhereUniform(myCell, kChannels )
 	    
 	    
 	
@@ -102,8 +102,8 @@ Code
 	def apply_hh_chls_NEURON_builtin(env, myCell):
 	
 	    hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, hhChls )
-	    
+	    ApplyMechanismEverywhereUniform(myCell, hhChls )
+	        
 	
 	
 	
@@ -125,7 +125,7 @@ Code
 	    chl_applicator_functor(env, myCell)
 	    
 	    # Setup passive channels:
-	    shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+	    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 	    
 	    
 	    
@@ -164,10 +164,37 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 7932
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x436e310>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x4369f90>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x431a610>
+    	Setting Random Seed: 70392
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//ff/ff638e5fab08b9eb9f543129d74db489.bundle
+	Setting Random Seed: 68633
+	Time for Building Mod-Files:  0.000936985015869
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6a9024390484a2ca23db81d9eb0ba1de.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_c9363fb7f2e9afde70041ff6f549790e.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9bf335229af6a5bc679edab09814d8de.so
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.0240001678467
+	Time for Extracting Data: (1 records) 0.000460863113403
+	Simulation Time Elapsed:  0.263360977173
+	Suceeded
+	Setting Random Seed: 38590
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//15/1500d0a8d5c92d4e448c9e84120a24f4.bundle
+	Setting Random Seed: 68633
+	Time for Building Mod-Files:  6.19888305664e-06
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.015820980072
+	Time for Extracting Data: (1 records) 0.000393867492676
+	Simulation Time Elapsed:  0.105957984924
+	Suceeded
+	Setting Random Seed: 68633
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2cbab10>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2cb6ed0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2c82050>
 	Setting Time Range [  95.  200.] ms
 	Saving File _output/figures/assorted_10compareHHChls/eps/fig000_None.eps
 	Saving File _output/figures/assorted_10compareHHChls/pdf/fig000_None.pdf

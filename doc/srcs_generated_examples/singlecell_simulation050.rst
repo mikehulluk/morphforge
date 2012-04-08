@@ -35,14 +35,16 @@ Code
 	    env = NeuronSimulationEnvironment()
 	    
 	    # Create the simulation:
-	    mySim = env.Simulation(name="TestSim1")
-	    myCell = mySim.createCell(name="Cell1", morphology=m1)
+	    mySim = env.Simulation()
+	    myCell = mySim.createCell(morphology=m1)
 	    somaLoc = myCell.getLocation("soma")
 	    
-	    modChls = env.MembraneMechanism( SimulatorSpecificChannel, modfilename =  modfilename, mechanism_id='ID1')
+	    modChls = env.MembraneMechanism( SimulatorSpecificChannel, 
+	                                     modfilename =  modfilename, 
+	                                     mechanism_id='ID1')
 	                                          
 	    # Apply the mechanisms to the cells
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, modChls )
+	    ApplyMechanismEverywhereUniform(myCell, modChls )
 	    
 	    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc, description='Membrane Voltage')
 	    mySim.createCurrentClamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
@@ -94,31 +96,31 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 27442
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//5a/5ac7ffb647202db607b728d3c48144a9.bundle
-	Setting Random Seed: 64154
-	Time for Building Mod-Files:  0.000705003738403
+    	Setting Random Seed: 97235
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//fa/fafe7214b98d8810f0fc17ea16e596db.bundle
+	Setting Random Seed: 34560
+	Time for Building Mod-Files:  0.000802993774414
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_b9e50529a8d1f686ed3955884ae081fa.so
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0171499252319
-	Time for Extracting Data: (1 records) 0.000407934188843
-	Simulation Time Elapsed:  0.105490922928
+	Time for Simulation:  0.0216898918152
+	Time for Extracting Data: (1 records) 0.00068187713623
+	Simulation Time Elapsed:  0.113047838211
 	Suceeded
-	Setting Random Seed: 43972
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//2f/2f80893bdedbaee7a56c589b7276ea12.bundle
-	Setting Random Seed: 64154
-	Time for Building Mod-Files:  0.000780820846558
+	Setting Random Seed: 79521
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//c9/c946cd28f294dd0da4f1086b650423ed.bundle
+	Setting Random Seed: 34560
+	Time for Building Mod-Files:  0.00071907043457
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_5e54856fc3939091ebcff35b32cc9ab3.so
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0243318080902
-	Time for Extracting Data: (1 records) 0.000430822372437
-	Simulation Time Elapsed:  0.116508960724
+	Time for Simulation:  0.0189611911774
+	Time for Extracting Data: (1 records) 0.000419139862061
+	Simulation Time Elapsed:  0.111765861511
 	Suceeded
 	15c15
 	<         SUFFIX exampleChannels3a
@@ -128,10 +130,10 @@ Output
 	<         el = -64.3 (mV)
 	---
 	>         el = -44.3 (mV)
-	Setting Random Seed: 64154
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x349ac10>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x349a490>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x34435d0>
+	Setting Random Seed: 34560
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3fd7e50>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3fd7850>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3f81990>
 	Setting Time Range [  95.  200.] ms
 	Saving File _output/figures/singlecell_simulation050/eps/fig000_None.eps
 	Saving File _output/figures/singlecell_simulation050/pdf/fig000_None.pdf

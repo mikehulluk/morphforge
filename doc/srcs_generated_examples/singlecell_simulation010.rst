@@ -52,8 +52,8 @@ Code
 	                         mechanism_id = 'HULL12_DIN_LK_ID'
 	                        )
 	    
-	shortcuts.ApplyMechanismEverywhereUniform(myCell, leakChannels )
-	shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+	ApplyMechanismEverywhereUniform(myCell, leakChannels )
+	ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 	
 	
 	# Get a location on the cell:
@@ -87,14 +87,34 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 78041
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x329ed10>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3245590>
+    	Setting Random Seed: 13884
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//cb/cbbe3a6de645e817a1f43ee7ad921b65.bundle
+	Setting Random Seed: 8809
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_27a24a6c6e585f71d3d88b5172de79d9.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_27a24a6c6e585f71d3d88b5172de79d9.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_27a24a6c6e585f71d3d88b5172de79d9.lo tmp_27a24a6c6e585f71d3d88b5172de79d9.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_27a24a6c6e585f71d3d88b5172de79d9.la  -rpath /opt/nrn/x86_64/libs  tmp_27a24a6c6e585f71d3d88b5172de79d9.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  0.452130079269
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_38182cdfb96724bab91b81e2b9014344.so
+		1 
+		1 
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.00867795944214
+	Time for Extracting Data: (3 records) 0.00119590759277
+	Simulation Time Elapsed:  0.680875062943
+	Suceeded
+	Setting Random Seed: 8809
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2569c10>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2514950>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3249a90>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x251ad10>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1.0 mA/cm2
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x3283910>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x254ddd0>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 0.001 S/cm2
 	Saving File _output/figures/singlecell_simulation010/eps/fig000_The response of a neuron to step current injection.eps

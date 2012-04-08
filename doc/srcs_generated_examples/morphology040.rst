@@ -1,12 +1,10 @@
 
-4. Converting between the Morphology representations
+4. Converting between the morphology representations
 ====================================================
 
 
 
-
-Converting between the Morphology representations
-  
+Converting between the morphology representations
 
 
 
@@ -17,9 +15,7 @@ Code
 
 	
 	
-	"""
-	Converting between the Morphology representations
-	  
+	"""Converting between the morphology representations
 	"""
 	
 	from morphforge.core import LocMgr, Join 
@@ -39,12 +35,8 @@ Code
 	# Convert back
 	mTree2 = mArray.to_tree()
 	
-	import difflib
-	diff = difflib.unified_diff(
-	                     mTree.toSWCStr(),
-	                     mTree2.toSWCStr()
-	                     )
-	assert mTree.toSWCStr() == mTree.toSWCStr()
+	# Round-trip: check that the SWC outputs are the same:
+	assert mTree.toSWCStr() == mTree2.toSWCStr()
 	print 'Finished OK'
 	
 	
@@ -58,7 +50,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 24984
+    	Setting Random Seed: 18126
 	Vertex Data
 	[[ -1.61e+00   6.23e+00  -7.44e-02   1.56e+01]
 	 [ -9.08e+00   3.01e+01  -1.14e+00   4.70e+00]

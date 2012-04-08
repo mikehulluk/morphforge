@@ -117,11 +117,11 @@ Code
 	    potFastChannels = get_Kf_Channels(env)
 	    potSlowChannels = get_Ks_Channels(env)
 	    
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, leakChannels )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, potFastChannels )
-	    shortcuts.ApplyMechanismEverywhereUniform(myCell, potSlowChannels )
-	    shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
+	    ApplyMechanismEverywhereUniform(myCell, leakChannels )
+	    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
+	    ApplyMechanismEverywhereUniform(myCell, potFastChannels )
+	    ApplyMechanismEverywhereUniform(myCell, potSlowChannels )
+	    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
 	    
 	    
 	    # Get a location on the cell:
@@ -152,61 +152,30 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 40822
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//05/051a9bf722ab7d14e7d0835bfb6ef170.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.000871181488037
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_fdc4ba95dc89091b81dc90c2ba3ba022.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_0919e1fe75db0337ee796d940e1177c4.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6ee6f46dc50d08c0551cd862973f6285.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9ce35968d17de56ec8939b8f6347a0df.so
-		1 
-		1 
-		1 
-		1 
-		1 
-	Time for Simulation:  0.0111880302429
-	Time for Extracting Data: (2 records) 0.00065803527832
-	Simulation Time Elapsed:  0.25253200531
-	Suceeded
-	Setting Random Seed: 46302
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//94/947de9b9ad344ff45859f32452e85573.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.0103888511658
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_05b1f64c76d243a3eda29c1ec0cc24df.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_397ca329e4aa94e3e97428a6e3776b09.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_060f20cafd1dde78cb4d3dd4ae9b2273.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_7d2dbe52212dab25eb6f4308c83f9e3d.so
-		1 
-		1 
-		1 
-		1 
-		1 
-	Time for Simulation:  0.0147869586945
-	Time for Extracting Data: (2 records) 0.000805854797363
-	Simulation Time Elapsed:  0.299121856689
-	Suceeded
-	Setting Random Seed: 48411
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//8d/8d6f55390041676cd7f180931f484e1f.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.000919818878174
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_05b1f64c76d243a3eda29c1ec0cc24df.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_397ca329e4aa94e3e97428a6e3776b09.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_060f20cafd1dde78cb4d3dd4ae9b2273.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_7d2dbe52212dab25eb6f4308c83f9e3d.so
-		1 
-		1 
-		1 
-		1 
-		1 
-	Time for Simulation:  0.0137829780579
-	Time for Extracting Data: (2 records) 0.000650882720947
-	Simulation Time Elapsed:  0.282911062241
-	Suceeded
-	Setting Random Seed: 73163
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//09/09325c10dcb79185c2d2968473603eff.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.00092601776123
+    	Setting Random Seed: 70572
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//20/208a511afda2f610fafdfcf7d32e6d1d.bundle
+	Setting Random Seed: 84582
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_8a5052bb0948c4071523c883ab271a58.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_8a5052bb0948c4071523c883ab271a58.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_8a5052bb0948c4071523c883ab271a58.lo tmp_8a5052bb0948c4071523c883ab271a58.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_8a5052bb0948c4071523c883ab271a58.la  -rpath /opt/nrn/x86_64/libs  tmp_8a5052bb0948c4071523c883ab271a58.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_e5d8e6d43ea610b4174c6fea4508880e.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_e5d8e6d43ea610b4174c6fea4508880e.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_e5d8e6d43ea610b4174c6fea4508880e.lo tmp_e5d8e6d43ea610b4174c6fea4508880e.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_e5d8e6d43ea610b4174c6fea4508880e.la  -rpath /opt/nrn/x86_64/libs  tmp_e5d8e6d43ea610b4174c6fea4508880e.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_46e759c0cc38a7b15143679384e5e34a.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_46e759c0cc38a7b15143679384e5e34a.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_46e759c0cc38a7b15143679384e5e34a.lo tmp_46e759c0cc38a7b15143679384e5e34a.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_46e759c0cc38a7b15143679384e5e34a.la  -rpath /opt/nrn/x86_64/libs  tmp_46e759c0cc38a7b15143679384e5e34a.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_7dea6d7a67753b3f01dbada35329f51e.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_7dea6d7a67753b3f01dbada35329f51e.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_7dea6d7a67753b3f01dbada35329f51e.lo tmp_7dea6d7a67753b3f01dbada35329f51e.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_7dea6d7a67753b3f01dbada35329f51e.la  -rpath /opt/nrn/x86_64/libs  tmp_7dea6d7a67753b3f01dbada35329f51e.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  2.0056040287
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_393746b359f54aff05ab3e0408ba1884.so
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9e4b8d7484635a4df0ee77398c6aa7ae.so
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6219b16f7c219a561b5ead6f0baf8317.so
@@ -216,14 +185,125 @@ Output
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0134210586548
-	Time for Extracting Data: (2 records) 0.000910043716431
-	Simulation Time Elapsed:  0.272053003311
+	Time for Simulation:  0.010085105896
+	Time for Extracting Data: (2 records) 0.00104904174805
+	Simulation Time Elapsed:  2.27730202675
 	Suceeded
-	Setting Random Seed: 75943
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//66/66353ed61ca3ed75698a9ee7a204d4d3.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.000902891159058
+	Setting Random Seed: 34245
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//06/06264df7fb831496abfd38be585307c2.bundle
+	Setting Random Seed: 84582
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_4f6fe0120f9e61e1a3468fe11a57efbf.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_4f6fe0120f9e61e1a3468fe11a57efbf.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_4f6fe0120f9e61e1a3468fe11a57efbf.lo tmp_4f6fe0120f9e61e1a3468fe11a57efbf.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_4f6fe0120f9e61e1a3468fe11a57efbf.la  -rpath /opt/nrn/x86_64/libs  tmp_4f6fe0120f9e61e1a3468fe11a57efbf.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_a41413b875f3390b837f982b58669ec9.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_a41413b875f3390b837f982b58669ec9.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_a41413b875f3390b837f982b58669ec9.lo tmp_a41413b875f3390b837f982b58669ec9.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_a41413b875f3390b837f982b58669ec9.la  -rpath /opt/nrn/x86_64/libs  tmp_a41413b875f3390b837f982b58669ec9.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_177c0b67aa73f5b755294b186c984ea2.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_177c0b67aa73f5b755294b186c984ea2.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_177c0b67aa73f5b755294b186c984ea2.lo tmp_177c0b67aa73f5b755294b186c984ea2.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_177c0b67aa73f5b755294b186c984ea2.la  -rpath /opt/nrn/x86_64/libs  tmp_177c0b67aa73f5b755294b186c984ea2.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_4cdeb79ebe462071890b8e64403246df.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_4cdeb79ebe462071890b8e64403246df.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_4cdeb79ebe462071890b8e64403246df.lo tmp_4cdeb79ebe462071890b8e64403246df.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_4cdeb79ebe462071890b8e64403246df.la  -rpath /opt/nrn/x86_64/libs  tmp_4cdeb79ebe462071890b8e64403246df.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  2.04093122482
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_fdc4ba95dc89091b81dc90c2ba3ba022.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_0919e1fe75db0337ee796d940e1177c4.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6ee6f46dc50d08c0551cd862973f6285.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9ce35968d17de56ec8939b8f6347a0df.so
+		1 
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.0104310512543
+	Time for Extracting Data: (2 records) 0.000874042510986
+	Simulation Time Elapsed:  2.30545806885
+	Suceeded
+	Setting Random Seed: 19233
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//1e/1e6d21cb7ce88efc99be67a633ad920f.bundle
+	Setting Random Seed: 84582
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_748df108386ac777eb81130ee03c4916.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_748df108386ac777eb81130ee03c4916.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_748df108386ac777eb81130ee03c4916.lo tmp_748df108386ac777eb81130ee03c4916.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_748df108386ac777eb81130ee03c4916.la  -rpath /opt/nrn/x86_64/libs  tmp_748df108386ac777eb81130ee03c4916.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_2ab949fc78e07201eb410ddfa2ecefb7.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_2ab949fc78e07201eb410ddfa2ecefb7.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_2ab949fc78e07201eb410ddfa2ecefb7.lo tmp_2ab949fc78e07201eb410ddfa2ecefb7.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_2ab949fc78e07201eb410ddfa2ecefb7.la  -rpath /opt/nrn/x86_64/libs  tmp_2ab949fc78e07201eb410ddfa2ecefb7.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_4ce796a44d1498a870b3f55e9947ee1d.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_4ce796a44d1498a870b3f55e9947ee1d.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_4ce796a44d1498a870b3f55e9947ee1d.lo tmp_4ce796a44d1498a870b3f55e9947ee1d.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_4ce796a44d1498a870b3f55e9947ee1d.la  -rpath /opt/nrn/x86_64/libs  tmp_4ce796a44d1498a870b3f55e9947ee1d.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_1da8243ad24371220e34b644f0452479.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_1da8243ad24371220e34b644f0452479.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_1da8243ad24371220e34b644f0452479.lo tmp_1da8243ad24371220e34b644f0452479.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_1da8243ad24371220e34b644f0452479.la  -rpath /opt/nrn/x86_64/libs  tmp_1da8243ad24371220e34b644f0452479.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  2.11959886551
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_412e286992de17d5b0002b924fec5db8.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_38bcfdecaf2f70f8f53a31878615c9dc.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_fcd6c4a8a5712bde3584e642ea391fbb.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_5c7a63adbd0f95dc1cee4901d68f221a.so
+		1 
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.0153949260712
+	Time for Extracting Data: (2 records) 0.000941038131714
+	Simulation Time Elapsed:  2.38706493378
+	Suceeded
+	Setting Random Seed: 63249
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//b2/b27681224762117a63f5b5341fc95c2a.bundle
+	Setting Random Seed: 84582
+	Time for Building Mod-Files:  0.000849008560181
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_fdc4ba95dc89091b81dc90c2ba3ba022.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_0919e1fe75db0337ee796d940e1177c4.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_6ee6f46dc50d08c0551cd862973f6285.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9ce35968d17de56ec8939b8f6347a0df.so
+		1 
+		1 
+		1 
+		1 
+		1 
+	Time for Simulation:  0.0151770114899
+	Time for Extracting Data: (2 records) 0.000777959823608
+	Simulation Time Elapsed:  0.262201786041
+	Suceeded
+	Setting Random Seed: 10940
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//b3/b367cbf0e5988380fb6a3b2f8b6e5097.bundle
+	Setting Random Seed: 84582
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_a153e4cdc7cd470c652ffd2a5435b530.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_a153e4cdc7cd470c652ffd2a5435b530.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_a153e4cdc7cd470c652ffd2a5435b530.lo tmp_a153e4cdc7cd470c652ffd2a5435b530.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_a153e4cdc7cd470c652ffd2a5435b530.la  -rpath /opt/nrn/x86_64/libs  tmp_a153e4cdc7cd470c652ffd2a5435b530.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_24ecbe6e1478a563ead5546413b1bc40.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_24ecbe6e1478a563ead5546413b1bc40.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_24ecbe6e1478a563ead5546413b1bc40.lo tmp_24ecbe6e1478a563ead5546413b1bc40.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_24ecbe6e1478a563ead5546413b1bc40.la  -rpath /opt/nrn/x86_64/libs  tmp_24ecbe6e1478a563ead5546413b1bc40.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_0ea49cbe64d88d0216837871aed5580b.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_0ea49cbe64d88d0216837871aed5580b.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_0ea49cbe64d88d0216837871aed5580b.lo tmp_0ea49cbe64d88d0216837871aed5580b.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_0ea49cbe64d88d0216837871aed5580b.la  -rpath /opt/nrn/x86_64/libs  tmp_0ea49cbe64d88d0216837871aed5580b.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_203fcb3e1f0f58fe469ec321a57b0a26.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_203fcb3e1f0f58fe469ec321a57b0a26.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_203fcb3e1f0f58fe469ec321a57b0a26.lo tmp_203fcb3e1f0f58fe469ec321a57b0a26.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_203fcb3e1f0f58fe469ec321a57b0a26.la  -rpath /opt/nrn/x86_64/libs  tmp_203fcb3e1f0f58fe469ec321a57b0a26.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  2.09443187714
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_decfebebc30dbe70a288187722b50c03.so
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_8a12703ee976afeed0fd6812981515c2.so
 	loading membrane mechanisms from /home/michael/mftmp/modout/mod_9603c34f339b5684aa756f5d11d336d6.so
@@ -233,37 +313,57 @@ Output
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0207209587097
-	Time for Extracting Data: (2 records) 0.000671148300171
-	Simulation Time Elapsed:  0.267033815384
+	Time for Simulation:  0.0160281658173
+	Time for Extracting Data: (2 records) 0.00114703178406
+	Simulation Time Elapsed:  2.36702513695
 	Suceeded
-	Setting Random Seed: 88713
-	Loading Bundle from  /home/michael/mftmp//sim/simpickles//f7/f7d2a52dbbe82b3d1f070ed5eea7c3f7.bundle
-	Setting Random Seed: 59929
-	Time for Building Mod-Files:  0.0137820243835
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_80210b4fdca37683f41e7723111635d8.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_5ac54391adaf63faba9bad67293a6558.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_45628929208a99958cff7109db79709d.so
-	loading membrane mechanisms from /home/michael/mftmp/modout/mod_736714d5c2e6395750154819b6070c87.so
+	Setting Random Seed: 99169
+	Loading Bundle from  /home/michael/mftmp//sim/simpickles//16/16cf048ac66a47450dc2ac8bc7c3b1d4.bundle
+	Setting Random Seed: 84582
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_9253dd1065b513482b53ae6cf9e09593.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_9253dd1065b513482b53ae6cf9e09593.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_9253dd1065b513482b53ae6cf9e09593.lo tmp_9253dd1065b513482b53ae6cf9e09593.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_9253dd1065b513482b53ae6cf9e09593.la  -rpath /opt/nrn/x86_64/libs  tmp_9253dd1065b513482b53ae6cf9e09593.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_60bd2ff05f494358dd22f4276817b946.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_60bd2ff05f494358dd22f4276817b946.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_60bd2ff05f494358dd22f4276817b946.lo tmp_60bd2ff05f494358dd22f4276817b946.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_60bd2ff05f494358dd22f4276817b946.la  -rpath /opt/nrn/x86_64/libs  tmp_60bd2ff05f494358dd22f4276817b946.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_f5d6ae90cf020d7b655baab9ef4f97cb.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_f5d6ae90cf020d7b655baab9ef4f97cb.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_f5d6ae90cf020d7b655baab9ef4f97cb.lo tmp_f5d6ae90cf020d7b655baab9ef4f97cb.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_f5d6ae90cf020d7b655baab9ef4f97cb.la  -rpath /opt/nrn/x86_64/libs  tmp_f5d6ae90cf020d7b655baab9ef4f97cb.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Executing: /opt/nrn/x86_64/bin/modlunit /home/michael/mftmp/tmp_c5386ca8e9479647617773e07428f294.mod
+	/home/michael/mftmp/simulation/nrn/build
+	Executing: /opt/nrn/x86_64/bin/nocmodl tmp_c5386ca8e9479647617773e07428f294.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/x86_64/lib"    -g -O2 -c -o tmp_c5386ca8e9479647617773e07428f294.lo tmp_c5386ca8e9479647617773e07428f294.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_c5386ca8e9479647617773e07428f294.la  -rpath /opt/nrn/x86_64/libs  tmp_c5386ca8e9479647617773e07428f294.lo  -L/opt/nrn/x86_64/lib -L/opt/nrn/x86_64/lib  /opt/nrn/x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	Time for Building Mod-Files:  2.060516119
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_cf23dc6c4f01eb78afa6bb5dd06e6212.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_bed6dca2f55d3d5fe49ede8bd89119d1.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_246cdf0c0eed636fc64337986835d33b.so
+	loading membrane mechanisms from /home/michael/mftmp/modout/mod_27a1b034383793475c8956a861916ec3.so
 		1 
 		1 
 		1 
 		1 
 		1 
-	Time for Simulation:  0.0141699314117
-	Time for Extracting Data: (2 records) 0.000611066818237
-	Simulation Time Elapsed:  0.296205997467
+	Time for Simulation:  0.0138709545135
+	Time for Extracting Data: (2 records) 0.000982999801636
+	Simulation Time Elapsed:  2.31628108025
 	Suceeded
-	Setting Random Seed: 59929
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2655a90>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x26505d0>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2650ed0>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2646090>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x2645050>
-	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x264b5d0>
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2600550>
+	Setting Random Seed: 84582
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3981210>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x39767d0>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x39764d0>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3971d10>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3971d50>
+	<morphforge.simulation.core.result.simulationresult.SimulationResult object at 0x3975f50>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x392a910>
 	Setting Time Range [  95.  200.] ms
-	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x2623cd0>
+	Plotting For PlotSpec: <morphforge.traces.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0x394ad90>
 	Setting Time Range [  95.  200.] ms
 	Setting Yunit 1 pA (picoampere)
 	Saving File _output/figures/singlecell_simulation040/eps/fig000_None.eps

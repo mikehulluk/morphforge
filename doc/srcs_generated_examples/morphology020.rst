@@ -18,7 +18,6 @@ Code
 
 	
 	
-	
 	"""Loading from SWC and rendering with Matplotlib.
 	This example shows loading in a morphology from an SWC file and then viewing it in matplotlib, 
 	using Principle Component Analysis (PCA) to align the features of the morphology to the plot 
@@ -28,7 +27,6 @@ Code
 	from morphforge.core import LocMgr, Join 
 	from morphforge.morphology.ui import MatPlotLibViewer
 	from morphforge.morphology.core import MorphologyTree
-	
 	
 	testSrcsPath = LocMgr().getTestSrcsPath()
 	srcSWCFile = Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
@@ -45,7 +43,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 19314
+    	Setting Random Seed: 71371
 	
 
 

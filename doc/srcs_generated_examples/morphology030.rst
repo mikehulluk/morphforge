@@ -16,8 +16,6 @@ Code
 
 	
 	
-	
-	
 	"""Load  SWC data from a string directly into a MorphologyArray.
 	We can load .swc from any file-like object, so we can use StringIO to load directly from strings.
 	"""
@@ -31,6 +29,7 @@ Code
 	1 0 1.0 2.0 3.0 4.0 -1
 	2 0 5.0 6.0 7.0 8.0 1
 	"""
+	
 	m = MorphologyArray.fromSWC(StringIO(swcSrc))
 	
 	print 'Morphology Vertices:'
@@ -47,7 +46,7 @@ Output
 
 .. code-block:: bash
 
-    	Setting Random Seed: 73278
+    	Setting Random Seed: 30094
 	Morphology Vertices:
 	[[ 1.  2.  3.  4.]
 	 [ 5.  6.  7.  8.]]
