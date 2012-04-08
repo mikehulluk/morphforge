@@ -403,6 +403,14 @@
 #morphforgecontrib.hh_style channels:
 !src/morphforgecontrib/
 !src/morphforgecontrib/__init__.py
+
+
+!src/morphforgecontrib/data_library/
+!src/morphforgecontrib/data_library/__init__.py
+!src/morphforgecontrib/data_library/stdmodels.py
+!src/morphforgecontrib/data_library/hh52/
+!src/morphforgecontrib/data_library/hh52/__init__.py
+
 !src/morphforgecontrib/simulation/
 !src/morphforgecontrib/simulation/__init__.py
 !src/morphforgecontrib/simulation/membranemechanisms/
