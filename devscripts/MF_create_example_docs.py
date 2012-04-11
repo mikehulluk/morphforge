@@ -114,9 +114,12 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
         im_newName_short = im_newName.replace(doc_src_dir,"") #/home/michael/hw/morphforge/doc","")
         im_names.append(im_newName_short)
 
-    title = "%d. "%(index+1) + [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0]
-    title = title or 'Missing Docstring'
-
+    title =  [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0]
+    
+    title = title or '<Missing Docstring>'
+    
+    # Prefix the title:
+    title = "%d. "%(index+1) +title
     # Create the rst:
     context = {
                 'title':title,

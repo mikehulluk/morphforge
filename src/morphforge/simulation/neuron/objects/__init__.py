@@ -25,6 +25,11 @@
 from obj_cell import MembraneVoltageRecord, MNeuronCell
 from obj_basesetup import MNeuronBaseSetup
 
+
+# For dynamic imports
+#import obj_cclamp
+#import obj_vclamp
+
 __all__ = [
 "MembraneVoltageRecord",
 "MNeuronCell",

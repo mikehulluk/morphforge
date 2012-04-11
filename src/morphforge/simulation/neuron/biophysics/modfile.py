@@ -27,12 +27,20 @@ from morphforge.core import getStringMD5Checksum, LocMgr, LogMgr, require
 
 from os.path import join as Join
 from morphforge.core.misc import ExpectSingle
-
+import re
 
 class ModFile(object):
 
-
-    
+    @classmethod
+    def ExtractNRNSuffixFromText(cls, txt):
+        
+        r = re.compile(r""".* ^[^:]* SUFFIX \s* (?P<suffix>[a-zA-Z0-9_]+) (\s+:.*)? $ .*""", re.VERBOSE | re.MULTILINE |re.DOTALL)
+        m = r.match(txt)
+        assert m, "Can't extract suffix from mod-file" 
+        nrnsuffix = m.groupdict()['suffix'] 
+        return nrnsuffix 
+        
+        
     @require("modtxt", str, unicode)
     def __init__(self, modtxt, name=None, additional_compile_flags="", additional_link_flags="", additional_LD_LIBRARY_PATH=""):
         self.name = name
@@ -40,10 +48,11 @@ class ModFile(object):
         
         # if no name is provided:
         if self.name == None:
-            import re
-            c = re.compile("""SUFFIX \W ([a-zA-Z]*) \W """, re.VERBOSE)
-            m = c.findall(modtxt)
-            self.name = ExpectSingle(m)
+            self.name = ModFile.ExtractNRNSuffixFromText(self.modtxt)
+            #import re
+            #c = re.compile("""SUFFIX \W ([a-zA-Z]*) \W """, re.VERBOSE)
+            #m = c.findall(modtxt)
+            #self.name = ExpectSingle(m)
             
             #assert m and len(m) == 1
             #self.name = m[0]
