@@ -155,11 +155,11 @@ In which case your ~/.morphforgerc file should look something like:
     $ cat ~/.morphforgerc
     [Locations]
     tmpdir= /home/michaeltest/mftmp/
-    rootdir=/home/michaeltest/hw/morphforge/src/
     
     [Neuron]
     nrnprefix=/opt/nrn/
     nrnbin=%(nrnprefix)s/x86_64/bin
+    rootdir=/home/michaeltest/hw/morphforge/src/
 
     modlunitpath=%(nrnbin)s/modlunit
     nocmodlpath=%(nrnbin)s/nocmodl
