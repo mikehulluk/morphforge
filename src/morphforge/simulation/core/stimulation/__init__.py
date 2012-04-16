@@ -22,14 +22,75 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-#from stimulation import CurrentClamp, VoltageClamp
+from morphforge.core.quantities.fromcore import convertToUnit
+from morphforge.constants.stdrecordables import StdRec
 
-from currentclamps import CurrentClamp, CurrentClampStepChange
-from voltageclamps import VoltageClamp, VoltageClampStepChange
+
+
+
+class Stimulation(object):
+    def __init__(self, name, celllocation):
+        self.name = name
+        self.celllocation = celllocation
+        
+
+
+class CurrentClamp(Stimulation):
+    class Recordables(object):
+        Current = StdRec.Current
+        
+
+class VoltageClamp(Stimulation):
+    class Recordables():
+        Current = StdRec.Current
+        
+
+
+
+
+
+
+class CurrentClampStepChange(CurrentClamp):
+            
+    def __init__(self, name, amp, dur, delay, celllocation, **kwargs):
+        super(CurrentClamp, self).__init__(name=name, celllocation=celllocation)
+        self.amp = convertToUnit(amp, defaultUnit="nA")
+        self.dur = convertToUnit(dur, defaultUnit="ms")
+        self.delay = convertToUnit(delay, defaultUnit="ms")
+
+
+
+
+
+
+class VoltageClampStepChange(VoltageClamp):
+    
+    def __init__(self, name, dur1, amp1, celllocation, dur2=0, dur3=0, amp2=0, amp3=0, rs=0.1):
+        super(VoltageClamp, self).__init__(name=name, celllocation=celllocation)
+        
+        self.dur1 = convertToUnit(dur1, defaultUnit="ms")
+        self.dur2 = convertToUnit(dur2, defaultUnit="ms")
+        self.dur3 = convertToUnit(dur3, defaultUnit="ms")
+        
+        self.amp1 = convertToUnit(amp1, defaultUnit="mV")
+        self.amp2 = convertToUnit(amp2, defaultUnit="mV")
+        self.amp3 = convertToUnit(amp3, defaultUnit="mV")
+        self.rs = convertToUnit( rs, defaultUnit="MOhm")
+
+
+
+
+
+
+
+
+
+
 
 __all__ = [
     "CurrentClamp",
     "VoltageClamp",
     "CurrentClampStepChange",
     "VoltageClampStepChange",
+    "Stimulation"
 ]

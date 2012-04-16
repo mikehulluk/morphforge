@@ -234,9 +234,10 @@ class LocMgr(object):
     
     @classmethod
     def getPLYParseTabLocation(cls, subdir=None):
-        username = os.getuid()
+        #username = os.getuid()
         
-        dir_name = '/tmp/morphforge_%d/parsetabs/'%username
+        #dir_name = '/tmp/morphforge_%d/parsetabs/'%username
+        dir_name = os.path.join( cls.getTmpPath(), "parsetabs/")
         
         if not subdir:
             assert False

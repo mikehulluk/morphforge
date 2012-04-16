@@ -49,13 +49,7 @@ class ModFile(object):
         # if no name is provided:
         if self.name == None:
             self.name = ModFile.ExtractNRNSuffixFromText(self.modtxt)
-            #import re
-            #c = re.compile("""SUFFIX \W ([a-zA-Z]*) \W """, re.VERBOSE)
-            #m = c.findall(modtxt)
-            #self.name = ExpectSingle(m)
-            
-            #assert m and len(m) == 1
-            #self.name = m[0]
+
            
         self.additional_compile_flags  = additional_compile_flags
         self.additional_link_flags = additional_link_flags

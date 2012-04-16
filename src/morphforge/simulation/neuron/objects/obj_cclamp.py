@@ -30,7 +30,7 @@ from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.core.stimulation.currentclamps import CurrentClampStepChange
+from morphforge.simulation.core.stimulation import CurrentClampStepChange
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 

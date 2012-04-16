@@ -25,6 +25,9 @@ Single Cell Simulation Examples
  
  * Trace & Event Sets?
 
+ * Sin-wave current clamp injection
+
+
 .. toctree::
    :maxdepth: 1
    :glob:
