@@ -25,6 +25,7 @@ import quantities as pq
 import numpy as np
 
 
+
 class Trace_PointBased(Trace):
   
     def __init__(self, time, data, name=None, comment=None, tags=None):
@@ -54,6 +55,7 @@ class Trace_PointBased(Trace):
         return self._time[-1]
 
     def getValues(self, timeArray):
+        from scipy.interpolate.interpolate import interp1d
         timeUnits = self._time.units
         dataUnits = self._data.units
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)

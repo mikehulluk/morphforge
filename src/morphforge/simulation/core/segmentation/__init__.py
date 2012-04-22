@@ -22,6 +22,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from cellsegmenter import AbstCellSegementer, DefaultCellSegementer 
+from cellsegmenter import AbstCellSegmenter, CellSegmenter_MaxCompartmentLength 
 
-__all__ = ['AbstCellSegementer','DefaultCellSegementer']
+__all__ = ['AbstCellSegmenter','CellSegmenter_MaxCompartmentLength']

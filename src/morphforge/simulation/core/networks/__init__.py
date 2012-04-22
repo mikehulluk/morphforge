@@ -39,6 +39,13 @@ class Synapse(object):
         self.preSynapticTrigger.synapse = self
     
 
+    def getPreSynapticMechanism(self):
+        return self.preSynapticTrigger
+    
+    def getPostSynapticMechanism(self):
+        return self.postSynapticMech
+    
+
     def getPreSynapticCell(self):
         return self.preSynapticTrigger.getPreSynapticCell()
     def getPostSynapticCell(self):
@@ -55,7 +62,13 @@ class GapJunction(object):
         self.celllocation2 = celllocation2 
         self.resistance = resistance
      
-     
+    
+    
+class PreSynapticTypes:
+    Cell = "Cell"  
+    FixedTiming = "Timing"
+
+
 
 
 class PreSynapticMechanism(object):
@@ -65,6 +78,11 @@ class PreSynapticMechanism(object):
     def getPreSynapticCell(self):
         raise NotImplementedError()         
 
+
+
+    def get_type(self):
+        raise NotImplementedError()
+        
 
 
 

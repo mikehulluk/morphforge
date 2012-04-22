@@ -72,7 +72,8 @@ class MorphologyArray(MorphologyBase):
         
 
         # Some Error Checking:
-        assert N == M-1
+         
+        assert N == M-1, 'N != M-1 (N:%d, M:%d)'%(N,M) 
         
         
         if self.is_directed():

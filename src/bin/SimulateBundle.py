@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python 
 
 import time 
 tStart = time.time()
@@ -7,6 +7,17 @@ import sys
 from morphforge.core import LogMgr, mfrandom
 from morphforge.simulation.simulationmetadatabundle import SimMetaDataBundle
 
+
+
+# Lets not buffer any output:
+class flushfile(file):
+    def __init__(self, f):
+        self.f = f
+    def write(self, x):
+        self.f.write(x)
+        self.f.flush()
+#sys.stdout = flushfile(sys.stdout)
+#sys.stderr = flushfile(sys.stderr)     
 
 
 

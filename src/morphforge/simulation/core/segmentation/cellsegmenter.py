@@ -26,7 +26,7 @@ from morphforge.simulation.core.segmentation.segment import CellSegment
 
 
 
-class AbstCellSegementer(object):
+class AbstCellSegmenter(object):
    
     def __init__(self, cell=None):
         self.cell = cell
@@ -53,78 +53,75 @@ class AbstCellSegementer(object):
     
                 
     
-class DefaultCellSegementer(AbstCellSegementer):
+class CellSegmenterStd(AbstCellSegmenter):
 
-    def __init__(self, cell=None, maxSegmentLength=5):
-        AbstCellSegementer.__init__(self, cell)
-        self.maxSegmentLength = maxSegmentLength
-
-        # Initialised when connectToCell is called:
-        self.nSegmentMap = None
+    def __init__(self, cell=None, ):
+        AbstCellSegmenter.__init__(self, cell)
         self.cellSegments = None        
-
         
         if self.cell:
             self.connectToCell(cell)
+
             
     def connectToCell(self, cell):
         assert not self.cell 
         self.cell = cell
         
-        self.nSegmentMap = {}
+        
         self.cellSegments = {}
         
         # Segment the cell:
         for section in cell.morphology:
-            nSegs = int( section.get_length() / self.maxSegmentLength ) + 1
-            self.nSegmentMap[section] = nSegs
+            nSegs = self._getNSegments(section)
+            
             self.cellSegments[section] = [ CellSegment(cell=cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ] 
     
     def getNumSegments(self, section):
-        return self.nSegmentMap[section]
+        return len(self.cellSegments[section] )
         
     def getSegments(self, section):
         return self.cellSegments[section]
-           
-           
-           
-           
-           
 
-class IDBasedCellSegementer(AbstCellSegementer):
 
-    def __init__(self, cell=None, section_id_segment_sizes=None, defaultSegmentLength=5):
-        AbstCellSegementer.__init__(self, cell)
-        
-        self.defaultSegmentLength = defaultSegmentLength
-        self.section_id_segment_sizes =section_id_segment_sizes if section_id_segment_sizes is not None else {}
+    def _getNSegments(self, section):
+        raise NotImplementedError()
 
-        # Initialised when connectToCell is called:
-        self.nSegmentMap = None
-        self.cellSegments = None        
-
-        if self.cell:
-            self.connectToCell(cell)
-            
-    def connectToCell(self, cell):
-        assert not self.cell 
-        self.cell = cell
-        
-        self.nSegmentMap = {}
-        self.cellSegments = {}
-        
-        # Segment the cell:
-        for section in cell.morphology:
-            sectSize = self.section_id_segment_sizes.get(section.idTag, self.defaultSegmentLength )
-            
-            nSegs = int( section.get_length() / sectSize ) + 1
-            
-            self.nSegmentMap[section] = nSegs
-            self.cellSegments[section] = [ CellSegment(cell=cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ]
-             
     
-    def getNumSegments(self, section):
-        return self.nSegmentMap[section]
-        
-    def getSegments(self, section):
-        return self.cellSegments[section]
+    
+    
+    
+    
+    
+    
+    
+    
+class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
+
+    def __init__(self, cell=None, maxSegmentLength=5):
+        CellSegmenterStd.__init__(self, cell)
+        self.maxSegmentLength = maxSegmentLength
+
+    def _getNSegments(self, section):
+        return int( section.get_length() / self.maxSegmentLength ) + 1
+
+
+
+class CellSegmenter_SingleSegment(CellSegmenterStd):
+   
+    def _getNSegments(self, section):
+        return 1          
+           
+           
+           
+
+class CellSegmenter_MaxLengthByID(CellSegmenterStd):
+
+    def __init__(self, cell=None, section_id_segment_maxsizes=None, defaultSegmentLength=5):
+        self.defaultSegmentLength = defaultSegmentLength
+        self.section_id_segment_sizes =section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
+
+        CellSegmenterStd.__init__(self, cell)
+
+    def _getNSegments(self, section):
+        max_size = self.section_id_segment_sizes.get(section.idTag, self.defaultSegmentLength )
+        return  int(section.get_length() / max_size )  +1

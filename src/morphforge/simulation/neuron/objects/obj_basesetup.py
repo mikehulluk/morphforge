@@ -42,7 +42,7 @@ class MNeuronBaseSetup(NeuronObject):
         if self.simsettings["cvode"]: 
             hocFile.addToSection(MHOCSections.InitHeader, """cvode_active(1)""")
         
-        hocFile.addToSection(MHOCSections.Run, """run()""")
+        
         
         # For testing: should be done properly:
         hocFile.addToSection(MHOCSections.InitSimParams, """tstop=%s"""%( self.simsettings["tstop"].rescale("ms").magnitude ))

@@ -29,12 +29,15 @@ from Cheetah.Template import Template
 
 
 class HocModUtils(object):
-        
+    
+    initial_buffer_size = 50000    
+    
     recordModTmpl = """
     objref $recVecName
     $recVecName = new Vector()
+    ${recVecName}.buffer_size(%d)
     ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].${modvariable}_${neuron_suffix} ( $sectionpos ) )
-    """
+    """%initial_buffer_size
     
     @classmethod
     def CreateRecordFromModFile( cls, hocFile, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
@@ -66,8 +69,9 @@ class HocModUtils(object):
     recordHocTmpl = """
         objref $recVecName
         $recVecName = new Vector()
+        ${recVecName}.buffer_size(%d)
         ${recVecName}.record(& ${objname}.${objvar} )
-        """
+        """%initial_buffer_size
     @classmethod
     def CreateRecordFromObject(cls, hocFile, vecname, objname, objvar, recordobj ):
     

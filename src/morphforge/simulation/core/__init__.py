@@ -29,7 +29,7 @@ from result import SimulationResult, SimulationResultSet
 from cell import Cell
 from celllocation import CellLocation
 from simulationenvironment import SimulationEnvironment
-from segmentation import AbstCellSegementer, DefaultCellSegementer
+from segmentation import AbstCellSegmenter, CellSegmenter_MaxCompartmentLength
 from biophysics import CellBiophysics, MembraneMechanism, MembraneMechanismApplicator, MembraneMechanismApplicator_Uniform, Targeter
 from biophysics import MembraneMechanismTargeter_Everywhere, MembraneMechanismTargeter_Region, MembraneMechanismTargeter_Section, MembraneMechanismTargeter_SectionPath
 from biophysics import PassiveTargeter_Everywhere, PassiveTargeter_EverywhereDefault
@@ -52,8 +52,8 @@ __all__ = [
 "Cell",
 "CellLocation",
 "SimulationEnvironment",
-"AbstCellSegementer",
-"DefaultCellSegementer",
+"AbstCellSegmenter",
+"CellSegmenter_MaxCompartmentLength",
 "CellBiophysics",
 "MembraneMechanism",
 "MembraneMechanismApplicator",

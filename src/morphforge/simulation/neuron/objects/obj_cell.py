@@ -37,12 +37,19 @@ from Cheetah.Template import Template
 from morphforge.constants.standardtags import StandardTags
 
 
+
+
+
 class MembraneVoltageRecord(NeuronRecordable):
+    
+    initial_buffer_size = 50000
+    
     tmplObjRef = """
 objref $recVecName
 $recVecName = new Vector()
+${recVecName}.buffer_size(%d)
 ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectionpos ) )
-    """
+    """%initial_buffer_size
 
     def __init__(self, cell, location=None, **kwargs):
         
@@ -51,7 +58,6 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         self.cell = cell
         self.location = location if location is not None else cell.getLocation("soma")
         
-        #assert self.location is not None
         
         
     def getUnit(self):
@@ -73,6 +79,9 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
         
         
+        
+        #nameHoc = hocFile[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
+        #HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
         
         
         tmplDict = {

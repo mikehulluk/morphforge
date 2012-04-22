@@ -65,6 +65,7 @@ class Trace(object):
         raise NotImplementedError()
 
     def getValueAtTime(self, time):
+        print type(self)
         raise NotImplementedError()
 
     def time_within_trace(self, times):

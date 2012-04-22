@@ -33,7 +33,7 @@ from morphforge.simulation.simulationmetadatabundle.builders import MetaDataBund
 from objects import MNeuronBaseSetup
 from simulationdatacontainers import MHocFile, MHocFileData, MModFileSet
 
-
+import sys
 from morphforge.simulation.neuron.constants import NeuronSimulationConstants
 import os
 from morphforge.core.mgrs.logmgr import LogMgr
@@ -41,6 +41,12 @@ import time
 
 
 
+def RandomWalk(t_steps, std_dev):
+    nums = (np.random.rand(t_steps)-0.5) * std_dev
+    walk = np.cumsum(nums)
+    return walk
+    
+    
 class MNeuronSimulation(Simulation):
   
     def __init__(self, name=None, environment=None, **kwargs):
@@ -96,8 +102,49 @@ class MNeuronSimulation(Simulation):
         return self.result
 
 
+
+
+    def run_return_random_walks(self):
+        from morphforge.traces import  Trace_VariableDT
+        # Create the HOC and ModFiles:
+        hocData = MHocFile()
+        modFiles = MModFileSet()
+        for o in self.simulation_objects:
+            o.buildHOC(hocData)
+            o.buildMOD(modFiles)
+        
+        
+        timeArray = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
+        traces = []
+        records = hocData[MHocFileData.Recordables]
+        for r, hocDetails in records.iteritems():
+            
+            dataArray = RandomWalk(len(timeArray), 0.05 ) * r.getUnit()
+            
+            tr = Trace_VariableDT(name=r.name, comment=r.getDescription(), time=timeArray, data=dataArray, tags=r.getTags() )
+            traces.append(tr)
+                   
+        self.result = SimulationResult(traces, self)
+        return self.result
+
+
     def _RunNoSpawn(self):
         from morphforge.traces import  Trace_VariableDT
+        
+        
+        # Generate Random data:
+        if False:
+            return self.run_return_random_walks()
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -115,7 +162,7 @@ class MNeuronSimulation(Simulation):
             #print 'BUILDING MOD:', o
             o.buildMOD(modFiles)
         
-        #print 'At A *************************************'    
+            
         
         tModBuildStart = time.time()
         modFiles.buildAll()
@@ -131,10 +178,29 @@ class MNeuronSimulation(Simulation):
             nrn(h.nrn_load_dll, mf.getBuiltFilenameFull())
     
     
-        # Write the HOC file and run it:
+        # Write the HOC file:
         tSimStart = time.time()
         hocFilename = WriteToFile( str(hocData), suffix=".hoc")
         nrn(h.load_file, hocFilename )
+        
+        # Run the simulation
+        class Event(object):
+            def __init__(self):
+                self.interval = 5.0
+                self.fih = h.FInitializeHandler(0.01, self.callback)
+
+            def callback(self) :
+                print self, "t=", h.t , "ms"
+                sys.stdout.flush()
+                if h.t + self.interval  < h.tstop:
+                    h.cvode.event(h.t + self.interval, self.callback)
+        
+        e = Event()
+        print "Running Simulation"
+        h.run()
+        #nrn( h.run )
+        assert h.t+1 >= h.tstop 
+        
         print "Time for Simulation: ", time.time() - tSimStart
     
     
@@ -145,18 +211,14 @@ class MNeuronSimulation(Simulation):
         traces = []
         records = hocData[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
-            #if not 'description' in r.__dict__:
-            #    print 'Description field missing in recordable'
-            #    r.description=r.name	
-
+            
             dataArray = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.getUnit()
             
-            #tr = Trace_VariableDT(name=r.name, comment=r.description, time=timeArray, data=dataArray, tags=r.getTags() )
             tr = Trace_VariableDT(name=r.name, comment=r.getDescription(), time=timeArray, data=dataArray, tags=r.getTags() )
-            #tr =  TraceConverter.reduce_to_variable_dt_trace(tr, 0.01)
             traces.append(tr)
-            #traces.append(Trace_FixedDT(name=r.name, comment=r.description, time=timeArray, data=dataArray, tags=r.getTags() ))
         print "Time for Extracting Data: (%d records)"%(len(records)),  time.time() - tTraceReadStart
+        
+        
             
         self.result = SimulationResult(traces, self)
         return self.result

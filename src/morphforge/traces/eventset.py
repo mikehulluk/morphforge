@@ -39,7 +39,10 @@ class EventSet(object):
 
     
     
-    def __init__(self, events, name=None, comment=None, tags=None,):
+    def __init__(self, events=None, name=None, comment=None, tags=None,):
+        
+        if events is None:
+            events = []
         
         self.events = [ (Event(e) if not isinstance(e,Event) else e ) for e in events  ]
         
@@ -57,16 +60,24 @@ class EventSet(object):
     def __iter__(self):
         return iter(self.events)
     
+    def add_event(self, ev):
+        if ev is None:
+            return
+        self.events.append(ev)
     
     # Iterators:
     @property
     def times(self):
         for e in self.events:
             yield e.getTime()
-            
+    
+    #@property
+    #def times(self, unit="ms"):
+    #    return np.array( [float(t.rescale(unit)) for t in self._times] )
 
     def summarise_timings_in_comment(self):
         times_a = np.array( [ float( s.rescale('ms').magnitude) for s in self.times] )
         self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)'%( len(self), np.mean(times_a), np.std(times_a) )
 
+    
 

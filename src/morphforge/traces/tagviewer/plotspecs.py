@@ -117,7 +117,8 @@ class PlotSpecRegular(PlotSpec):
         
         plot_kwargs = {}
         
-        plot_kwargs['label'] = self.legend_labeller(eventset)
+        if self.legend_labeller is not None:
+            plot_kwargs['label'] = self.legend_labeller(eventset)
         
         
         if 'label' in plot_kwargs:

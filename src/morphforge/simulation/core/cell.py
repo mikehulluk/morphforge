@@ -40,7 +40,7 @@ class Cell(object):
     
     
     def __init__(self,    morphology, simulation, name= None, segmenter=None, initial_voltage=None, cell_tags = [], **kwargs):
-        from morphforge.simulation.core.segmentation.cellsegmenter import DefaultCellSegementer
+        from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
         
         
         
@@ -49,7 +49,7 @@ class Cell(object):
         self.name = name if name else ObjectLabeller.getNextUnamedObjectName(Cell, 'AnonCell_')
         self.morphology = morphology 
         
-        self.cellSegmenter = segmenter if segmenter else DefaultCellSegementer()
+        self.cellSegmenter = segmenter if segmenter else CellSegmenter_MaxCompartmentLength()
         self.cellSegmenter.connectToCell(self)
         
         
@@ -63,6 +63,7 @@ class Cell(object):
         if self.name:
             self.cell_tags = self.cell_tags +  [self.name]
         
+        self.population=None
         
         
     def getLocation(self, idTag, sectionpos=0.5):

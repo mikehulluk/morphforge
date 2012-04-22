@@ -61,7 +61,7 @@ t_COMMA =           r""","""
     
     
 def t_TAG(t):
-    r'[a-zA-Z_][a-zA-Z_0-9.]*'
+    r'[a-zA-Z_][a-zA-Z0-9_.:-]*'
     t.type = reserved.get(t.value,'TAG')
     return t
 

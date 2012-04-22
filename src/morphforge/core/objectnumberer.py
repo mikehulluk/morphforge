@@ -32,7 +32,9 @@ class ObjectLabeller(object):
         return newcnt
     
     @classmethod
-    def getNextUnamedObjectName(cls, objType, prefix=None):
+    def getNextUnamedObjectName(cls, objType, prefix=None, num_fmt_string=None):
+        if num_fmt_string is None:
+            num_fmt_string = "%04d"
         if not prefix:
             prefix = "Unamed" + str(objType.__name__)
-        return prefix + "%04d"%ObjectLabeller.incrementCountForObject(objType) 
+        return prefix + num_fmt_string%ObjectLabeller.incrementCountForObject(objType) 

@@ -99,8 +99,14 @@ def WindowFixedTrace(trace, timeWindow):
         tw0 = timeWindow[0]
         tw1 = timeWindow[1]
         
-        traceNew1 = trace.getValueAtTime(tw0)
-        traceNew2 = trace.getValueAtTime(tw1)
+        #getValues( timeWindow )
+        
+        #traceNew1 = trace.getValueAtTime(tw0)
+        #traceNew2 = trace.getValueAtTime(tw1)
+        
+        traceNew1 = trace.getValues( timeWindow[0] )#[0]
+        traceNew2 = trace.getValues( timeWindow[1] )#[0]
+        
         data_unts = traceNew1.units
         time_unts = timeWindow[0].units
         
