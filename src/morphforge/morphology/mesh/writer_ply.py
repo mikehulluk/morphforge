@@ -31,9 +31,9 @@ element vertex $mesh.nVertices
 property float x           
 property float y           
 property float z   
-property uchar red
-property uchar green
-property uchar blue
+property float red
+property float green
+property float blue
 element face $mesh.nTriangles
 property list uchar int vertex_index 
 end_header                 

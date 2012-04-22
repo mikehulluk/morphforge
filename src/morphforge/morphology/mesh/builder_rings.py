@@ -40,7 +40,7 @@ def build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
     
     i_p,i_d = find_closest_points( pts1, pts2 )
     
-    #i_p,i_d = get_best_joining_offset( pts1, pts2 )
+
     
     for i in range(0,n):
         v_p1 = pts1_offset + (i_p + i) % n
@@ -69,11 +69,7 @@ class MeshBuilderRings(object):
         
         default_color= np.array( ((128,128,128),)  )
         
-#         = { 
-#              morph.getRegion('axon123'):   np.array( [[0,0,255]] ) , 
-#              morph.getRegion('dendrite2'): np.array( [[255,0,0]] ) 
-#              }
-        
+
         if region_color_map:
             for r in morph.getRegions():
                 assert r in region_color_map
