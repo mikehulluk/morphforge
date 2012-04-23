@@ -59,7 +59,7 @@ def build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
 class MeshBuilderRings(object):
     
     @classmethod
-    def build(cls, morph,region_color_map=None, n=20):
+    def build(cls, morph,region_color_map=None, n=20 ):
 
         section_distal_offsets = {}
                 

@@ -21,6 +21,8 @@ class MorphologyTranslator(object):
     
     @classmethod
     def Translate(cls, morphology, offset):
+        print offset
+        #assert False
         
         #distToParent = SectionVistorFactory.DictSectionProximalDistFromSoma(morph=morphology, somaCentre=False)()
         
@@ -36,7 +38,7 @@ class MorphologyTranslator(object):
 
         # Create New Sections:
         dummyRootOld = morphology.getDummySection()
-        dummyRootNew = Section(region=None, x=dummyRootOld.d_x + offset[0], y=dummyRootOld.d_y+ offset[1], z=dummyRootOld.d_z + offset[2], r=dummyRootOld.d_r)
+        dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x + offset[0], y=dummyRootOld.d_y+ offset[1], z=dummyRootOld.d_z + offset[2], r=dummyRootOld.d_r)
         sectionMappingTable[dummyRootOld] = dummyRootNew
         for sectionOld in morphology:
             #if distToParent[sectionOld] > distToParentMax: continue
@@ -45,7 +47,7 @@ class MorphologyTranslator(object):
             newParent = sectionMappingTable[ oldParent ]
             
             sectionNew = newParent.create_distal_section( 
-                                          region = regionMappingTable[ oldParent.region ],
+                                          region = regionMappingTable[ sectionOld.region ],
                                           x= sectionOld.d_x + offset[0], 
                                           y= sectionOld.d_y + offset[1],
                                           z= sectionOld.d_z + offset[2], 

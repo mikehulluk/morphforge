@@ -182,6 +182,7 @@ class MNeuronSimulation(Simulation):
         tSimStart = time.time()
         hocFilename = WriteToFile( str(hocData), suffix=".hoc")
         nrn(h.load_file, hocFilename )
+        self.hocfilename = hocFilename
         
         # Run the simulation
         class Event(object):
@@ -221,6 +222,7 @@ class MNeuronSimulation(Simulation):
         
             
         self.result = SimulationResult(traces, self)
+        self.result.hocfilename = self.hocfilename
         return self.result
     
 

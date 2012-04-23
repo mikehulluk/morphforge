@@ -31,14 +31,14 @@ element vertex $mesh.nVertices
 property float x           
 property float y           
 property float z   
-property float red
-property float green
-property float blue
+property uchar red
+property uchar green
+property uchar blue
 element face $mesh.nTriangles
 property list uchar int vertex_index 
 end_header                 
 #for i in range($mesh.nVertices):
-$mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $int($mesh.vertex_colors[i,0]) $int($mesh.vertex_colors[i,1]) $int($mesh.vertex_colors[i,2])
+$mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv( $mesh.vertex_colors[i,0] ) $conv( $mesh.vertex_colors[i,1]) $conv( $mesh.vertex_colors[i,2])
 #end for
 #for t in $mesh.triangles:
 3 $t[0] $t[1] $t[2]
@@ -46,14 +46,10 @@ $mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $int($mesh.vertex_co
     
     
     @classmethod
-    def write(cls, mesh, filename):
+    def build_string(cls, mesh):
 
-        t = Template( cls.ply_tmpl, {'mesh':mesh} ).respond()
+        conv_color =lambda f: int(f*255)
+        t = Template( cls.ply_tmpl, {'mesh':mesh,'conv':conv_color} ).respond()
         t = t[:-1] # Trim the last, blank line.
         
-        if filename:
-            f = open(filename,'w')
-            f.write(t)
-            f.close()
-        else:
-            return t
+        return t

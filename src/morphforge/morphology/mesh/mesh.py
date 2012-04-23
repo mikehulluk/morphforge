@@ -23,6 +23,19 @@ class TriangleMesh(object):
           raise ValueError("Mesh contains NaNs")
         if np.isnan(self.vertex_colors).any():
           raise ValueError("Mesh contains NaNs")
+
+        assert vertices.shape == self.vertex_colors.shape
+        assert vertices.shape[1] == 3
+
+        print self.vertex_colors.dtype
+        if self.vertex_colors.dtype in ['float64']:
+            assert np.logical_and( self.vertex_colors>=0.0, self.vertex_colors <=1.0).all()
+        elif self.vertex_colors.dtype in ['int32']:
+            assert np.logical_and( self.vertex_colors>=0, self.vertex_colors <=255).all()
+            self.vertex_colors = self.vertex_colors / 255.0
+
+        else:
+            assert False
     
     def downshrink(self):
         self.vertices /=1000.0

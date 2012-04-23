@@ -332,7 +332,7 @@ class Region(object):
     
     
     def __str__(self):
-        s = "<RegionObject: Name: %s, nSections: %d>" % (self.name, len(self.sections) )
+        s = "<RegionObject: Name: %s, nSections: %d (ID:%s)>" % (self.name, len(self.sections), id(self) )
         return s
     def __init__(self, name):
         CheckValidName(name)

@@ -22,6 +22,7 @@ class AxonTrimmer(object):
     
     @classmethod
     def TrimAxonFromMorphology(cls, morphology, distToParentMax):
+
         
         distToParent = SectionVistorFactory.DictSectionProximalDistFromSoma(morph=morphology, somaCentre=False)()
         print sorted( distToParent.values()  )
@@ -35,11 +36,10 @@ class AxonTrimmer(object):
             rNew = Region(name = rOld.name )
             regionMappingTable[rOld] = rNew
              
-        print 'Region Mapping', regionMappingTable
         
         # Create New Sections:
         dummyRootOld = morphology.getDummySection()
-        dummyRootNew = Section(region=None, x=dummyRootOld.d_x, y=dummyRootOld.d_y, z=dummyRootOld.d_z, r=dummyRootOld.d_r)
+        dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x, y=dummyRootOld.d_y, z=dummyRootOld.d_z, r=dummyRootOld.d_r)
         sectionMappingTable[dummyRootOld] = dummyRootNew
         for sectionOld in morphology:
             print 'DistToParent', distToParent[sectionOld]
@@ -51,7 +51,7 @@ class AxonTrimmer(object):
             newParent = sectionMappingTable[ oldParent ]
             
             sectionNew = newParent.create_distal_section( 
-                                          region = regionMappingTable[ oldParent.region ],
+                                          region = regionMappingTable[ sectionOld.region ],
                                           x= sectionOld.d_x, 
                                           y= sectionOld.d_y,
                                           z= sectionOld.d_z, 
@@ -61,6 +61,14 @@ class AxonTrimmer(object):
             sectionMappingTable[sectionOld] = sectionNew
             
         m = MorphologyTree("TrimmedNeuron",dummysection = dummyRootNew,metadata={} )
+
+        #for s in morphology:
+        #    assert s.region is not None
+        #for s in m:
+        #    #print s.region, sectionMappingTable
+        #    if not s.is_dummy_section():
+        #        assert s.region is not None
+
         return m
                  
         

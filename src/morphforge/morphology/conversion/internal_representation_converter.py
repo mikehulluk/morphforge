@@ -112,7 +112,7 @@ class MorphologyConverter():
                     indices_to_visit.append( conn )
         
         from morphforge.morphology.core import MorphologyTree
-        tree = MorphologyTree(name=array.name, dummysection=dummySection, )
+        tree = MorphologyTree(name=array.name, dummysection=dummySection, region_number_to_name_bidict=region_number_to_name_bidict )
         
         
         # A sanity check:
