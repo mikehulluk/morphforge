@@ -633,3 +633,17 @@
 !src/morphforgecontrib/indev/blender/
 !src/morphforgecontrib/indev/blender/import_swc.py
 !src/morphforgecontrib/indev/__init__.py
+!src/morphforgecontrib/simulation/stimulation/currentclamps/sinwave/
+!src/morphforgecontrib/simulation/stimulation/currentclamps/sinwave/*.py
+
+!src/morphforgecontrib/mhdev/
+!src/morphforgecontrib/mhdev/*
+!src/morphforgecontrib/mhdev/simulation/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/mmcalciumalphabetabeta/
+!src/morphforgecontrib/mhdev/simulation/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/mmcalciumalphabetabeta/
+

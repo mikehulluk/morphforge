@@ -159,6 +159,7 @@ NET_RECEIVE(weight (uS)) {
         x = x.replace("__C2__", ":").replace("__C1__","")
     else:
         x = x.replace("__C1__", ":").replace("__C2__","")
+        assert False
 
     seedVal = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     commentVal = "//" if  mfrandom.MFRandom._seed is not None else ""
