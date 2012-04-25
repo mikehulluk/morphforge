@@ -13,6 +13,12 @@
 from morphforge.core import mfrandom
 import random
 
+
+
+class NMDAOoptions:
+    EnableVDep = True
+
+
 def getExp2SynNMDAModfile():
     
     x= """
@@ -111,8 +117,8 @@ INITIAL {
 
 FUNCTION vdep(Vin)
 {
-    :vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
-    vdep = 1.0 
+    __C1__ vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
+    __C2__ vdep = 1.0 
 }
 
 
@@ -149,6 +155,11 @@ NET_RECEIVE(weight (uS)) {
 }
 
 """
+    if NMDAOoptions.EnableVDep:
+        x = x.replace("__C2__", ":").replace("__C1__","")
+    else:
+        x = x.replace("__C1__", ":").replace("__C2__","")
+
     seedVal = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     commentVal = "//" if  mfrandom.MFRandom._seed is not None else ""
     return x.replace('$randomseed', "%d"%seedVal ).replace("$COMMENT",commentVal)
