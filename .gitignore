@@ -637,13 +637,13 @@
 !src/morphforgecontrib/simulation/stimulation/currentclamps/sinwave/*.py
 
 !src/morphforgecontrib/mhdev/
-!src/morphforgecontrib/mhdev/*
+!src/morphforgecontrib/mhdev/*.py
 !src/morphforgecontrib/mhdev/simulation/
 !src/morphforgecontrib/mhdev/simulation/membranemechanisms/
 !src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/
 !src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/mmcalciumalphabetabeta/
-!src/morphforgecontrib/mhdev/simulation/
-!src/morphforgecontrib/mhdev/simulation/membranemechanisms/
-!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/
-!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/mmcalciumalphabetabeta/
+!src/morphforgecontrib/mhdev/simulation/*.py
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/*.py
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/*.py
+!src/morphforgecontrib/mhdev/simulation/membranemechanisms/hh_style/mmcalciumalphabetabeta/*.py
 
