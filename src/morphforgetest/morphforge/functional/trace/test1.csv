@@ -1,0 +1,14 @@
+
+# Sample Test csv file
+
+# META COLUMN 0 UNIT ms
+# META COLUMN 1 NAME trace1 
+# META COLUMN 1 UNIT mV
+# META COLUMN 1 DESCRIPTION Description of the trace
+# META COLUMN 1 TAGS 
+
+0.2 3.0
+0.25 2.3
+0.26 4.5
+0.36 6.5
+
