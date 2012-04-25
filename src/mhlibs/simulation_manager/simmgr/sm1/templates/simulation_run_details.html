@@ -1,0 +1,134 @@
+
+{% extends "base.html" %}
+
+
+{% block additional_header %}
+<script type="text/javascript">
+<!-- 
+
+// Dajax callback functions:
+function pass(data){
+    //alert(data.message);
+}
+</script>
+{% endblock %}
+
+
+
+
+
+
+{%block title %}
+Simulation Run Details: {{simulationrun.simulation_file.get_short_filename }}
+{% endblock %}
+
+{% block contents %}
+
+
+<div class='menu'>
+<ul>
+<li><a onclick="Dajaxice.sm1.setSimulationFileForResubmit(pass, {'simulation_file_id':{{simulationrun.simulation_file.id}} });">Queue for Resim</a> </li>
+</ul>
+
+<div class="section">
+<h2>Overview </h2>
+
+<table class="details">
+<tr><th>File:</th> <td><a href="/do/editsimulationfile/{{simulationrun.simulation_file.id }}">{{simulationrun.simulation_file.full_filename }}</a></td></tr>
+<tr><th>Description: </th> <td>{{simulationrun.simulation_file.get_description }}</td></tr>
+<tr><th>When: </th> <td>{{simulationrun.execution_date }}</td></tr>
+<tr><th>Time: </th> <td>{{simulationrun.execution_time }} seconds</td></tr>
+</table>
+</div> 
+
+
+<div class="section {{simulationrun.get_status}}">
+    <h2 onclick="Effect.toggle('id_ResultContents', 'blind',{ duration: 0.3 }); return false;">Result [{{simulationrun.get_status}}]</h2>
+    <div id="id_ResultContents" style="display:none">
+    <div>
+    <table>
+    <tr><th>Return Code: </th> <td>{{simulationrun.return_code }}</td></tr>
+    <tr><th>Exception: </th> <td>{{simulationrun.exception_type }}</td></tr>
+    <tr><th>Exception Traceback: </th> <td><pre class="codeblock">{{simulationrun.exception_traceback }}</pre></td></tr>
+    </table>
+    </div>
+    </div>
+
+</div>
+
+
+
+<div class="section ">
+<h2 onclick="Effect.toggle('id_Versioning', 'blind',{ duration: 0.3 }); return false;"> Versioning </h2>
+    <div id="id_Versioning" style="display:none">
+    <div>
+<table>
+  <tr><th>SimFile MD5: </th> <td>{{simulationrun.simulation_md5sum }} 
+      (Now: {{simulationrun.simulation_file.get_current_checksum}})</td></tr>
+<tr><th>Lib MD5: </th> <td>{{simulationrun.library_md5sum }}</td></tr>
+</table>
+    </div></div>
+
+</div>
+
+
+
+
+<div class="section">
+    {% if simulationrun.is_script_uptodate %}
+        <h2 onclick="Effect.toggle('id_CodeBlock', 'blind',{ duration: 0.3 }); return false;" >Simulation File Contents (Up to date)</h2>
+    {% else %}
+        <h2 onclick="Effect.toggle('id_CodeBlock', 'blind',{ duration: 0.3 }); return false;" style='color:red='>Simulation File Contents (Out of date)</h2>
+    {% endif %}
+
+    <div class="filecontents" id="id_CodeBlock" style="display:none">
+        <div>
+        {{simulationrun.simulation_file.get_html_code|safe }}
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+<h2 onclick="Effect.toggle('id_OutputBlock', 'blind',{ duration: 0.3 }); return false;" >Simulation Output</h2>
+<div id="id_OutputBlock" style="display:none">
+{%if simulationrun.exception_traceback %}
+<h3> Exception Traceback </h3>
+<pre class="codeblock">
+
+{{simulationrun.exception_traceback}}
+</pre>
+{% endif %}
+
+
+<h3> StdOut </h3>
+<pre class="codeblock">
+{{simulationrun.std_out}}
+</pre>
+
+
+<h3> StdErr </h3>
+<pr class="codeblock">
+{{simulationrun.std_err}}
+</pre>
+
+</div>
+</div>
+
+
+
+<div class="section ">
+<h2 onclick="Effect.toggle('id_Images', 'blind',{ duration: 0.3 }); return false;"> Images </h2>
+    <div id="id_Images" > <!--style="display:none"> -->
+    <div>
+        {{ simulationrun.output_images }}
+        Images
+    </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

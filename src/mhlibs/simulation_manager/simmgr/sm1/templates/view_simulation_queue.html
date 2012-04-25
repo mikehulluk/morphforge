@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+{% block contents %}
+<META HTTP-EQUIV="REFRESH" CONTENT="1">
+
+<div class="section">
+<h1> Latest Runs</h1>
+
+
+<table>
+
+
+
+<tr>
+  <th/>
+  <th> File </th>
+  <th> Last Run </th>
+  <th> Result </th>
+  <th> Description </th>
+</tr>
+{% for latest_run in latest_runs %}
+<tr class="{{ latest_run.simulation_file.get_status}}">
+    <td> <a href="/simulationfiles/{{latest_run.simulation_file.id}}"> {{latest_run.simulation_file.get_short_filename }} </a> </td>
+    <td> <a href="/simulationfileruns/{{latest_run.simulation_file.get_latest_run.id}}">{{latest_run.simulation_file.get_latest_run.execution_date}} </td>
+    <td> {{latest_run.simulation_file.get_latest_run.get_status}} </td>
+    <td> {{latest_run.simulation_file.get_description}} </td>
+</tr>
+
+{% endfor %}
+
+
+</table>
+</div>
+
+
+
+
+<h1> Simulation Queue </h1>
+<!-- <a href="/do/update_potential_simulation_files">Update Potential Simulation Files</a> -->
+
+
+
+<div class="section">
+<h2> Active </h2>
+<table >
+  <tr>
+    <th>  </th>
+    <th> Filename </th>
+    <th> Simulation Time </th>
+  </tr>
+
+  {% for queuedsim in simulation_queue_executing %}
+  <tr>
+    <td> {{queuedsim.simulation_file.get_last_executiontime }} </td>
+    <td> {{queuedsim.simulation_file.get_short_filename}} </td>
+    <td> {{queuedsim.get_simulation_time}} </td>
+  </tr>
+  {%endfor %}
+</table>
+
+
+</div>
+
+
+
+
+<div class="section">
+<h2> Waiting </h2>
+
+
+<form action="/do/removesimulationsfromqueue" method="post">
+{% csrf_token %}
+
+<table >
+  <tr>
+    <th>  </th>
+    <th> Filename </th>
+  </tr>
+
+  {% for queuedsim in simulation_queue %}
+  <tr>
+    <td> <input type="checkbox" name="queuedsimid_{{queuedsim.id}}"> </td>
+    <td> {{queuedsim.simulation_file.get_last_executiontime }} </td>
+    <td> {{queuedsim.simulation_file.get_short_filename}} </td>
+  </tr>
+  {%endfor %}
+</table>
+<input type="submit" value="Remove from queue"/>
+</form>
+
+</div>
+{% endblock %}

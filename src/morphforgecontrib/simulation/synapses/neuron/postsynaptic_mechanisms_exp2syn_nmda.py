@@ -25,6 +25,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 
+import postsynaptic_mechanisms_exp2syn_nmda_modfile
 
 
 class Neuron_PSM_Exp2SynNMDA_CurrentRecord(Neuron_PSM_Std_CurrentRecord):
@@ -100,7 +101,8 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
     def buildMOD(self, modFileSet):
-        import postsynaptic_mechanisms_exp2syn_nmda_modfile
+        
+
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile.getExp2SynNMDAModfile(), name='UnusedParameterXXXExpSyn2')
         modFileSet.append(modfile)
         
