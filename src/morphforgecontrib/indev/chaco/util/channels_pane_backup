@@ -1,0 +1,529 @@
+from __future__ import division
+
+from traits.api import HasTraits,Instance,Int,Array,Float,Property,on_trait_change,Range, DelegatesTo
+from traitsui.api import View,Item,Group
+from chaco.api import Plot,ArrayPlotData
+from chaco.tools.api import PanTool, ZoomTool
+from enable.component_editor import ComponentEditor
+from enable.component_editor import ComponentEditor
+from traitsui.api import Item, Tabbed, View
+from traitsui.api import ApplyButton
+
+import numpy as np
+from numpy.random import randn
+from scipy.interpolate import UnivariateSpline
+
+from morphforge.stdimports import * 
+
+
+# Major library imports
+from numpy import linspace
+from scipy.special import jn
+from enable.example_support import DemoFrame, demo_main
+from chaco.example_support import COLOR_PALETTE
+# library imports
+from enable.tools.api import DragTool
+from enable.api import Component, ComponentEditor, Window
+from traits.api import HasTraits, Instance, Int, Tuple
+from traits.ui.api import Item, Group, View
+# Chaco imports
+from chaco.api import add_default_axes, add_default_grids, \
+        OverlayPlotContainer, PlotLabel, ScatterPlot, create_line_plot
+from chaco.tools.api import PanTool, ZoomTool
+from morphforge.stdimports import *
+from morphforgecontrib.membranemechanisms.inftauinterpolated import MM_InfTauInterpolatedChannel
+
+
+from mhlibs.eqnset.equationset.eqnset_loader import EquationSetLoader
+
+from misc import VGroup, HGroup
+
+
+
+from morphforge.stdimports import *
+from mhlibs.eqnset.equationset.eqnset_loader import EquationSetLoader
+from mhlibs.eqnset.equationset.nmodl_writer import NMODLWriter
+#from morphforge.indev.eqnset.neuron_mapping import NeuronCurrent
+from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+#from morphforgecontrib.membranemechanisms.eqnset import MM_EqnSet_Channel,\
+from morphforgecontrib.membranemechanisms.eqnset import EqnSetPlotter
+from morphforgecontrib.membranemechanisms.eqnset.core import TransmembraneCurrent
+from morphforgecontrib.membranemechanisms.eqnset import EqnSetChl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class PointDraggingTool(DragTool):
+   
+    component = Instance(Component)
+    # The pixel distance from a point that the cursor is still considered
+    # to be 'on' the point
+    threshold = Int(5)
+    # The index of the point being dragged
+    _drag_index = Int(-1)
+    # The original dataspace values of the index and value datasources
+    # corresponding to _drag_index
+    _orig_value = Tuple
+
+
+    def __init__(self, *args,**kwargs):
+        DragTool.__init__(self,*args, **kwargs)
+        self.on_change_functor = None # o#n_change_functor
+        #assert False
+
+
+    def is_draggable(self, x, y):
+        # Check to see if (x,y) are over one of the points in self.component
+        if self._lookup_point(x, y) is not None:
+            return True
+        else:
+            return False
+    def normal_mouse_move(self, event):
+        plot = self.component
+       
+        ndx = plot.map_index((event.x, event.y), self.threshold)
+        if ndx is None:
+            if plot.index.metadata.has_key('selections'):
+                del plot.index.metadata['selections']
+        else:
+            plot.index.metadata['selections'] = [ndx]
+        plot.invalidate_draw()
+        plot.request_redraw()
+    def drag_start(self, event):
+        plot = self.component
+        ndx = plot.map_index((event.x, event.y), self.threshold)
+        if ndx is None:
+            return
+        self._drag_index = ndx
+        self._orig_value = (plot.index.get_data()[ndx], plot.value.get_data()[ndx])
+    def dragging(self, event):
+        plot = self.component
+        data_x, data_y = plot.map_data((event.x, event.y))
+
+        data_x = self._orig_value[0]
+
+        plot.index._data[self._drag_index] = data_x
+        plot.value._data[self._drag_index] = data_y
+        plot.index.data_changed = True
+        plot.value.data_changed = True
+        plot.request_redraw()
+    def drag_cancel(self, event):
+        plot = self.component
+        plot.index._data[self._drag_index] = self._orig_value[0]
+        plot.value._data[self._drag_index] = self._orig_value[1]
+        plot.index.data_changed = True
+        plot.value.data_changed = True
+        plot.request_redraw()
+    def drag_end(self, event):
+        plot = self.component
+        if plot.index.metadata.has_key('selections'):
+            del plot.index.metadata['selections']
+        plot.invalidate_draw()
+        plot.request_redraw()
+
+        # Notify about the change:
+        if self.on_change_functor:
+            self.on_change_functor()
+
+    def _lookup_point(self, x, y):
+        """ Finds the point closest to a screen point if it is within self.threshold
+       
+        Parameters
+        ==========
+        x : float
+            screen x-coordinate
+        y : float
+            screen y-coordinate
+        Returns
+        =======
+        (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
+        If no data points are within *self.threshold* of *(x,y)*, returns None.
+        """
+        if hasattr(self.component, 'get_closest_point'):
+            # This is on BaseXYPlots
+            return self.component.get_closest_point((x,y), threshold=self.threshold)
+        return None
+#===============================================================================
+# # Create the Chaco plot.
+#===============================================================================
+def _create_plot_component(title, initial_values=None,on_change_functor=None ):
+   
+    container = OverlayPlotContainer(padding = 25, fill_padding = True,
+                                     bgcolor = "lightgray", use_backbuffer=True)
+
+
+    if initial_values:
+        x = initial_values[0]
+        y = initial_values[1]
+    else:
+        # Create the initial X-series of data
+        numpoints = 30
+        low = -5
+        high = 15.0
+        x = linspace(low, high, numpoints)
+        y = jn(0, x)
+
+    lineplot = create_line_plot((x,y), color=tuple(COLOR_PALETTE[0]), width=2.0)
+    lineplot.selected_color = "none"
+    
+    scatter = ScatterPlot(index = lineplot.index,
+                       value = lineplot.value,
+                       index_mapper = lineplot.index_mapper,
+                       value_mapper = lineplot.value_mapper,
+                       color = tuple(COLOR_PALETTE[0]),
+                       marker_size = 2)
+    scatter.index.sort_order = "ascending"
+    scatter.bgcolor = "white"
+    scatter.border_visible = True
+   
+    add_default_grids(scatter)
+    add_default_axes(scatter)
+    scatter.tools.append(PanTool(scatter, drag_button="right"))
+   
+    # The ZoomTool tool is stateful and allows drawing a zoom
+    # box to select a zoom region.
+    zoom = ZoomTool(scatter, tool_mode="box", always_on=False, drag_button=None)
+    scatter.overlays.append(zoom)
+
+    point_dragging_tool = PointDraggingTool(scatter)
+    point_dragging_tool.on_change_functor = on_change_functor
+    scatter.tools.append(point_dragging_tool)
+
+
+    container.add(lineplot)
+    container.add(scatter)
+    # Add the title at the top
+    container.overlays.append(PlotLabel(title,
+                              component=container,
+                              font = "swiss 16",
+                              overlay_position="top"))
+  
+    container.mx = lineplot.index.get_data()
+    container.my = lineplot.value.get_data()
+    return container
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class HHGeneralPanel(HasTraits):
+    vrev = Range(-100.,50.,-70.)
+    gbar = Range(0.,20,3)
+
+    view = View(Group(
+                  Item('gbar',show_label=True),
+                  Item('vrev',show_label=True),
+                ),
+                resizable=True,title='HHGeneral')
+
+    def __init__(self, vrev, gbar ):
+        self.parentchlpane = None
+        HasTraits.__init__(self,vrev=vrev, gbar=gbar)
+
+    @on_trait_change('gbar, vrev')
+    def on_change(self):
+        if self.parentchlpane:
+            self.parentchlpane.notify_chl_changed()
+
+
+class HHGeneralStatePanel(HasTraits):
+        
+    plottau = Instance(OverlayPlotContainer)
+    plotinf = Instance(OverlayPlotContainer)
+    
+    #plotalpha = Instance(OverlayPlotContainer)
+    #plotbeta = Instance(OverlayPlotContainer)
+    view = View(
+            VGroup(
+            HGroup(
+                Item('plottau',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
+                Item('plotinf',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
+                padding=0, 
+                ),
+            #HGroup(
+            #    Item('plotalpha',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
+            #    Item('plotbeta',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
+            #    padding=0, 
+            #    ), 
+            ),
+            resizable=True,  
+                )
+            
+
+    def on_change_inftau(self, ):
+        
+        self.parentchlpane.notify_chl_changed()
+
+
+
+    def __init__(self, initial_tau=None, initial_inf=None):
+        HasTraits.__init__(self)
+        self.parentchlpane = None
+
+        self.initial_tau = initial_tau
+        self.initial_inf = initial_inf
+
+
+    def _plottau_default(self,):
+        return _create_plot_component(title='tau', on_change_functor=self.onchange_inftau, initial_values = self.initial_tau)
+    def _plotinf_default(self,):
+        return _create_plot_component(title='inf', on_change_functor=self.onchange_inftau, initial_values = self.initial_inf)
+
+    #def _plotalpha_default(self,):
+    #    return _create_plot_component(title='alpha', on_change_functor=None, initial_values = None)
+    #def _plotbeta_default(self,):
+    #    return _create_plot_component(title='beta', on_change_functor=None, initial_values = None)
+
+
+
+
+
+#class HHChannelPane(HasTraits):
+#
+#    def __init__(self, sim_config, chlname, **kwargs):
+#        HasTraits.__init__(self, **kwargs)
+#        self.sim_config = sim_config
+#        self.chlname = chlname
+
+
+
+
+
+class HHChannelPaneLk(HasTraits):
+    general = Instance( HHGeneralPanel )
+    view = View( 
+            VGroup(
+              Item('general', style='custom', show_label=True ),
+              padding=0
+              ) )
+                    
+    def __init__(self,  sim_config, general_pane=None,chlname=None, **kwargs):
+        HasTraits.__init__(self )
+
+        self.sim_config = sim_config
+        self.sim_config.add_simulation_chl_functor( self )
+
+        self.general=general_pane 
+
+        self.general.parentchlpane = self
+        self.chlname=chlname
+
+    def notify_chl_changed(self):
+        self.sim_config.resimulate()
+
+
+
+    def getMechanism(self,env):
+        lk = env.MembraneMechanism(  MM_LeakChannel, 
+                                     name='Leak', 
+                                     mechanism_id='LKID',#self.mechanism_id,
+                                     conductance = '%2.2f:mS/cm2'%self.general.gbar,
+                                     reversalpotential = '%2.2f:mV'%self.general.vrev,)
+        return lk
+
+    #def getMechanism(self,env):
+    #    eqnset = EquationSetLoader.load( 'std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath() ) 
+    #    leakChannels = env.MembraneMechanism( EqnSetChl, eqnset=eqnset, chlname="LeakChls", mechanism_id='std_lk_chl', 
+    #                                  parameters= { 
+    #                                      'gl':unit("%2.2f:mS/cm2"%self.general.gbar), 
+    #                                      'eRev': unit("%2.2f:mV"%self.general.vrev)  })
+    #    return leakChannels 
+
+
+
+
+
+class HHChannelPaneInfTau1(HasTraits):
+    general = Instance( HHGeneralPanel )
+    state = Instance( HHGeneralStatePanel )
+    view = View( 
+            VGroup(
+              Item('general', style='custom', show_label=True ),
+              Item('state', style='custom', show_label=True ),
+              padding=0
+              ) )
+                    
+    def __init__(self,  sim_config, general_pane=None, state_pane=None, eqn=None, mechanism_id=None, chlname=None, state_var_name=None, **kwargs):
+        HasTraits.__init__(self )
+
+        self.sim_config = sim_config
+        self.sim_config.add_simulation_chl_functor( self )
+
+        self.general=general_pane 
+        self.state= state_pane 
+
+        self.general.parentchlpane = self
+        self.state.parentchlpane = self
+
+        self.eqn = eqn
+        self.mechanism_id = mechanism_id 
+        self.state_var_name = state_var_name
+        self.chlname = chlname
+
+    def notify_chl_changed(self):
+        self.sim_config.resimulate()
+
+
+
+
+    def getMechanism(self,env):
+
+
+        inf_data = zip( self.state.plotinf.mx.tolist(), self.state.plotinf.my.tolist() ) 
+        tau_data = zip( self.state.plottau.mx.tolist(), self.state.plottau.my.tolist() ) 
+
+        gbar = self.general.gbar
+        vrev = self.general.vrev
+        
+        ks_vars = {self.state_var_name: { 'inf': inf_data, 'tau': tau_data, } }
+        ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel, 
+                                      name='InfTau1', 
+                                      ion='ks',
+                                      equation=self.eqn,
+                                      mechanism_id=self.mechanism_id,
+                                      conductance = '%2.2f:mS/cm2'%gbar,
+                                      reversalpotential = '%2.2f:mV'%vrev,
+                                      statevars = ks_vars )
+        return ks
+       
+
+
+
+
+class HHChannelExistingChannel(HasTraits):
+                    
+    def __init__(self,  sim_config, mechanism_functor, chlname, **kwargs):
+        HasTraits.__init__(self )
+
+        self.sim_config = sim_config
+        self.sim_config.add_simulation_chl_functor( self )
+
+        self.mechanism_functor = mechanism_functor
+        self.chlname = chlname
+
+    def notify_chl_changed(self):
+        self.sim_config.resimulate()
+
+
+    def getMechanism(self,env):
+        return self.mechanism_functor(env=env)
+
+
+
+
+
+
+
+
+import pylab
+
+
+
+def buildPaneFromExistingChannelInfTau1State(existing_channel_functor, sim_config,chlname):
+
+
+    # Setup the channel, so we can look at inf_tau: 
+    env = NeuronSimulationEnvironment()
+    chl =  existing_channel_functor(env)
+
+    state_name = ExpectSingle( chl.statevars.keys() )
+    aP = chl.statevars[state_name][0]
+    bP = chl.statevars[state_name][1]
+    nPts = 10
+    intV = np.linspace( -100, 60, nPts )
+    alphaV = ( aP[0] + aP[1]*intV)/( aP[2] + np.exp( (aP[3]+intV)/aP[4] ) ) 
+    betaV  = ( bP[0] + bP[1]*intV)/( bP[2] + np.exp( (bP[3]+intV)/bP[4] ) ) 
+
+    tauV = 1.0/(alphaV + betaV)
+    infV = alphaV/(alphaV + betaV)
+
+    #pylab.plot(intV, tauV)
+    #pylab.figure()
+    #pylab.plot(intV, infV)
+    #pylab.show()
+
+    
+
+    #print chl
+
+    #assert False
+    general=HHGeneralPanel( 
+            gbar=float(chl.conductance.rescale('mS/cm2').magnitude), 
+            vrev=float(chl.reversalpotential.rescale("mV").magnitude)
+            )
+    state=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV] )  
+
+    return HHChannelPaneInfTau1( sim_config=sim_config, 
+                                 general_pane=general, 
+                                 state_pane=state, 
+                                 eqn = chl.eqn,
+                                 mechanism_id = chl.mechanism_id,
+                                 state_var_name = state_name,
+                                 chlname = chlname
+                                )
+
+def buildPaneFromExistingChannelLk(lkFunctor ,sim_config, chlname):
+
+    env = NeuronSimulationEnvironment()
+    lkChl = lkFunctor(env=env)
+
+
+    #chl = existing_channel
+    general=HHGeneralPanel(
+            gbar=float(lkChl.conductance.rescale('mS/cm2').magnitude), 
+            vrev=float(lkChl.reversalpotential.rescale("mV").magnitude)
+            )
+    state=HHGeneralStatePanel()  
+
+    return HHChannelPaneLk( sim_config=sim_config, 
+                            general_pane=general, 
+                            state_pane=state, 
+                            chlname=chlname,
+                                )
+
+
+
+def buildPaneFromExistingChannel(existing_channel_functor, sim_config, chlname):
+    return HHChannelExistingChannel( sim_config=sim_config, 
+                                     mechanism_functor = existing_channel_functor,
+                                     chlname = chlname
+                                     )
+
+
+def buildPaneFromExistingChannelWithInfTau(existing_channel_functor, sim_config):
+
+    return HHChannelExistingChannel( sim_config=sim_config, 
+                                     mechanism_functor = existing_channel_functor )

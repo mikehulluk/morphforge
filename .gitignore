@@ -912,3 +912,11 @@
 !src/morphforgetest/morphforge/__init__.py
 !src/morphforgetest/morphforgecontrib/
 !src/morphforgetest/__init__.py
+
+
+
+# TO DELETE TEMP FILES:
+!.project
+!.pydevproject
+!src/morphforgecontrib/indev/chaco/util/channels_pane_backup
+!src/morphforgecontrib/indev/chaco/util/testMike3.backup
