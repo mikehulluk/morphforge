@@ -1,23 +1,36 @@
 
 
 
-.PHONY: clean test doc examples force_look
+.PHONY: clean test doc examples force_look env env_NEURON_GSL
 
-all:
+all: 
+
+
+
+# Some things that need to be built for the environment:
+env: env_NEURON_GSL
+
+env_NEURON_GSL: force_look
+	$(MAKE) -C src/morphforgecontrib/simulation/neuron_gsl/cpp/
+
+
+
 
 examples:
 	$(MAKE) -C src/morphforgeexamples/
 
 doc: force_look
 	python ./devscripts/MF_create_example_docs.py
-	$(MAKE) -C doc/	all
+	$(MAKE) -C doc/ all
 
 clean:
 	$(MAKE) -C src/morphforgeexamples/ clean
-	$(MAKE) -C doc/	clean
+	$(MAKE) -C doc/ clean
+	$(MAKE) -C src/morphforgecontrib/simulation/neuron_gsl/cpp clean
 	find . -name "*.pyc" -exec rm {} \;
 	find . -name "*.bak" -exec rm {} \;
 	find . -name "parser.out" -exec rm {} \;
+	rm -rf dist/
 
 
 
