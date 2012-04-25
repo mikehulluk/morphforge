@@ -1,10 +1,12 @@
 # Chl Comparison New
 
-from util import get_chl_info_dir
+#from util import get_chl_info_dir
 import shutil
 import os
 from os.path import join as Join
 from Cheetah.Template import Template
+from mhlibs.test_data.neuroml import NeuroMLDataLibrary
+from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplementedException
 html_output_dir = "/home/michael/Desktop/chl_comp"
 from morphforge.core import LocMgr
 
@@ -19,6 +21,11 @@ from morphforge.stdimports import  ApplyMechanismEverywhereUniform, pq
 import random as R
 from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_SingleSegment
 import numpy as np
+import traceback
+import StringIO
+        
+        
+
 
 def simulate_chl_vclamp(chl, voltage_level):
     env = NeuronSimulationEnvironment()
@@ -294,12 +301,21 @@ def compareNeuroMLChl( xmlFile ):
         c.finished_ok=True
 
 
+
+    except NeuroUnitsImportNeuroMLNotImplementedException, e:
+        print 'Exception caught:', e
+
+        s = StringIO.StringIO()
+        traceback.print_exc(file=s)
+        c.exception_long=s.getvalue()
+        c.exception="%s (%s)"%(str(e), str(type(e)))
+        c.same_chl = False
+        c.finished_ok=False
         
 
     except Exception,e:
         print 'Exception caught:', e
-        import traceback
-        import StringIO
+
         s = StringIO.StringIO()
         traceback.print_exc(file=s)
         c.exception_long=s.getvalue()
@@ -390,7 +406,13 @@ def main():
     root_html = Join(html_output_dir,"index.html")
 
     data = []
-    for xmlfile in get_chl_info_dir():
+    for xmlfile in NeuroMLDataLibrary.getChannelMLV1FilesWithSingleChannel():
+
+
+        #class NeuroMLDataLibrary(object):
+#
+#            def getChannelMLV1Files(self):
+
 
         #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Golgi_NaF_CML.xml":
         #        continue

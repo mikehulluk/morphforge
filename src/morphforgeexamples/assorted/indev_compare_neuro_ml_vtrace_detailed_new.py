@@ -74,9 +74,12 @@ from morphforge.stdimports import *
 import random as R
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
 from morphforge.simulation.neuron.neuronsimulationsettings import NeuronSimulationSettings
-from neurounits.importers.neuroml.core import parse_channelml_file,\
-    MorphforgeNotImplementedException
+
+#from neurounits.importers.neuroml.core import parse_channelml_file,  MorphforgeNotImplementedException
+
 from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_SingleSegment
+from mhlibs.test_data.neuroml import NeuroMLDataLibrary
+from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplementedException
 #from morphforgecontrib.mhdev.junk import NEURONHACKRevVoltageSetter
 
 
@@ -144,28 +147,12 @@ class SimMode:
 
 
 def testfile(xmlfile):
-    #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Gran_KA_98.xml":
-    #    return
-
-    
-    #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/MainenEtAl_PyramidalCell_NeuroML/K_ChannelML.xml":
-    #    return 
-
-    #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/CA1PyramidalCell_NeuroML/na3.xml":
-    #    return
-
-    if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Golgi_NaF_CML.xml":
+   
+    if xmlfile != "/home/michael/hw_to_come/mf_test_data/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Golgi_NaF_CML.xml":
         return
 
 
 
-
-
-    #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/MainenEtAl_PyramidalCell_NeuroML/K_ChannelML.xml":
-    #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/SolinasEtAl_GolgiCell_NeuroML/CaHVA_CML.xml":
-    #    return
-
-    
     
     f = QuantitiesFigure()
     
@@ -293,28 +280,6 @@ def testfile_voltage(xmlfile, voltage):
 
 
 
-
-
-
-
-
-subdirs = [
-    "CA1PyramidalCell_NeuroML",
-    "GranCellLayer_NeuroML",
-    "GranuleCell_NeuroML",
-    "MainenEtAl_PyramidalCell_NeuroML",
-    "SolinasEtAl_GolgiCell_NeuroML",
-    "Thalamocortical_NeuroML",
-    "VervaekeEtAl-GolgiCellNetwork_NeuroML",
-]
-
-simSrcDir = "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/"
-
-
-chls = {}
-
-
-
 i=0
 
 ok = []
@@ -323,23 +288,11 @@ fail2 = []
 fail3 = []
 
 
-for subdir in subdirs:
-    
-    xmlFiles = glob.glob( Join(simSrcDir, subdir) + '/*.xml')
-    
-    for xmlfile in xmlFiles:
-        
-        
-        new_chls = parse_channelml_file(xmlfile)
-        if len(new_chls) == 0:
-            continue
-        
-        
-        i = i +1
-        
-        #if i < 70:
-        #    continue
-        
+
+
+
+for xmlfile in NeuroMLDataLibrary.getChannelMLV1FilesWithSingleChannel():
+
         
         
         #print i, xmlfile
@@ -369,7 +322,7 @@ for subdir in subdirs:
             ok.append(xmlfile)
             
         
-        except MorphforgeNotImplementedException:
+        except NeuroUnitsImportNeuroMLNotImplementedException:
             fail1.append(xmlfile)
             
     

@@ -920,3 +920,9 @@
 !.pydevproject
 !src/morphforgecontrib/indev/chaco/util/channels_pane_backup
 !src/morphforgecontrib/indev/chaco/util/testMike3.backup
+
+
+
+!src/mhlibs/test_data/
+!src/mhlibs/test_data/__init__.py
+!src/mhlibs/test_data/neuroml.py
