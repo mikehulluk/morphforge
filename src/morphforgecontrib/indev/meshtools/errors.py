@@ -1,0 +1,5 @@
+
+
+
+class MultiMeshParseError(Exception):
+    pass

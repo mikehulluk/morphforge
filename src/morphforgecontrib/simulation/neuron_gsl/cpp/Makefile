@@ -8,3 +8,7 @@ libgslwrapper.so.1.0.1: gsl_wrapper.o
 
 gsl_wrapper.o: gsl_wrapper.c gsl_wrapper.h
 	gcc -c -fPIC gsl_wrapper.c -o gsl_wrapper.o
+
+
+clean:
+	rm -f libgslwrapper.so.1.0.1 gsl_wrapper.o  libgslwrapper.so.1 libgslwrapper.so

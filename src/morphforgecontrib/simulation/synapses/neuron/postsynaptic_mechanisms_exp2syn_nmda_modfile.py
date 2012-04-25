@@ -111,8 +111,8 @@ INITIAL {
 
 FUNCTION vdep(Vin)
 {
-    vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
-    :vdep = 1.0 
+    :vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
+    vdep = 1.0 
 }
 
 

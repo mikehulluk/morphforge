@@ -17,6 +17,7 @@ clean:
 	$(MAKE) -C doc/	clean
 	find . -name "*.pyc" -exec rm {} \;
 	find . -name "*.bak" -exec rm {} \;
+	find . -name "parser.out" -exec rm {} \;
 
 
 

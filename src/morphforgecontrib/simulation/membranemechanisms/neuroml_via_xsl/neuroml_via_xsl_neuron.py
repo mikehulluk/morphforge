@@ -28,7 +28,7 @@ from lxml import etree
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import MM_Neuron_RecGen
 from morphforge.core.quantities.fromcore import unit
 from morphforge.core.misc import ExpectSingle
-from neurounits.importers.neuroml.core import parse_channelml_file
+from neurounits.importers.neuroml import ChannelMLReader
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
     MHOCSections
 
@@ -61,7 +61,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         
         
         # ISSUE 'A': Extract out the reversal potential; and set it manually since the XSL method does not work:
-        self.chlData = ExpectSingle( parse_channelml_file(xml_filename).values() )
+        self.chlData = ChannelMLReader.LoadChlRaw(xml_filename)
         
 
             

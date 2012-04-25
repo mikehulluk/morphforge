@@ -50,7 +50,7 @@ class MM_Neuron_InfTauInterpolated_CurrentDensityRecord(MM_Neuron_InfTauInterpol
 
 class MM_Neuron_InfTauInterpolated_ConductanceDensityRecord(MM_Neuron_InfTauInterpolated_Record):
     def __init__(self, **kwargs):
-        super( MM_Neuron_InfTauInterpolated_ConductanceDensityRecord, self).__init__( modvar='cond', **kwargs)
+        super( MM_Neuron_InfTauInterpolated_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
     def getUnit(self):
         return unit("S/cm2")
     def getStdTags(self):

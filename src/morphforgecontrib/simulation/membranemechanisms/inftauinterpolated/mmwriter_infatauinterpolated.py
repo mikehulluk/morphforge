@@ -151,8 +151,9 @@ $(cell_name).internalsections [ $section_index ] {
          
         txt =  baseWriter.GenerateModFile()
 
-        additional_compile_flags = "-I/home/michael/hw/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
-        additional_link_flags = "-L/home/michael/hw/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
+        # TODO: Remove hard dependancy here
+        additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
+        additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
         modFile =  ModFile(name=alphaBetaChl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
         modFileSet.append(modFile)
         
