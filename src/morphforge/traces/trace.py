@@ -54,7 +54,7 @@ class Trace(object):
         if TraceMethodCtrl.has_method(self.__class__, name):
             func = TraceMethodCtrl.get_method(self.__class__, name)
             return functools.partial(func, self)
-        raise AttributeError('No Such method for trace type: %s.%s:' % (self.__class__, name))
+        raise AttributeError('No Such method for trace type: %s.%s.' % (self.__class__, name))
       
 
     # Subclasses must implement these:

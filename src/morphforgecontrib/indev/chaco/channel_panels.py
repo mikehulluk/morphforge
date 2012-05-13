@@ -276,7 +276,8 @@ class HHChannelPaneInfTau2(HasTraits):
                                                           inf=self.state2.plotinf.my.tolist(), 
                                                           tau=self.state2.plottau.my.tolist()),
                 }
-        
+        self.state1.label='m'
+        self.state1.label='h'
         ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel, 
                                       name='InfTau1', 
                                       ion='ks',

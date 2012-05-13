@@ -87,12 +87,12 @@ class TracePlot(HasTraits):
         self.plot.tools.append(broadcaster)
 
 
-        
-
-
     def update_display(self):
-        pass
+        pass        
 
+
+
+#class SimulationRunWindow(HasTraits):
 
 
 

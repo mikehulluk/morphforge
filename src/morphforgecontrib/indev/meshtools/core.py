@@ -56,10 +56,13 @@ class Context(object):
             except KeyError:
                 pass
 
-        raise "Can't find file: %s"%filename
+        raise ValueError("Can't find file: %s"%filename)
 
     def getFileObjWrite(self, filename):
         filename = os.path.join(self.op_dir,filename)
+        d = os.path.dirname(filename)
+        if not os.path.exists(d):
+            os.makedirs(d)
         self.op_files.append(filename)
         return open(filename,"w")
 

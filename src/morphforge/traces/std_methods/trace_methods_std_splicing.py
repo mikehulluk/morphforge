@@ -57,6 +57,13 @@ def WindowFixedTrace(trace, timeWindow):
     
     assert isinstance(timeWindow, tuple)
     assert len(timeWindow) == 2 
+    
+    if timeWindow[0] is None:
+        timeWindow = ( trace._time[0], timeWindow[1] )
+    if timeWindow[1] is None:
+        timeWindow = ( timeWindow[0], trace._time[-1] )
+        
+        
     timeWindow[0].rescale('ms').magnitude
     timeWindow[1].rescale('ms').magnitude
     if not isinstance(trace, Trace_PointBased): raise ValueError()

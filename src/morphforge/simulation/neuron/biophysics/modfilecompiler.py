@@ -156,7 +156,7 @@ def _BuildModFileLocal(modFileShort, modfile=None):
     op1 = SimpleExec(ModBuilderParams.libtoolpath, ModBuilderParams.getCompileStr(cFilename, loFilename,additional_compile_flags=compile_flags))
     op2 = SimpleExec(ModBuilderParams.libtoolpath, ModBuilderParams.getLinkStr(loFilename, laFilename, additional_link_flags=link_flags))
     
-    if SettingsMgr.SimulatorIsVerbose():
+    if SettingsMgr.SimulatorIsVerbose() or True:
         print "OP1:", op1
         print "OP2:", op2
     
@@ -245,10 +245,12 @@ class ModFileCompiler(object):
         
         if not Exists(outputFilename):
             LogMgr.info("Does not exist: building: %s" % outputFilename)
+
             modTxtFilename = WriteToFile(modfile.modtxt, suffix=".mod")
             ModFileCompiler.CheckModFileUnits(modTxtFilename)
             modDynFilename = BuildModFile(modTxtFilename, modfile=modfile)
             Move(modDynFilename, outputFilename) 
+
             
         else:
             LogMgr.info("Already Built") 

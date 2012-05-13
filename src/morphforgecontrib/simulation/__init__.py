@@ -11,3 +11,5 @@
 #-------------------------------------------------------------------------------
 #import indev
 import membranemechanisms
+
+import synapses_neurounit

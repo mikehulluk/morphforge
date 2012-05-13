@@ -50,6 +50,7 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
         timeAxis = cls.get_new_time_axis(lhs,rhs)
         return Trace_FixedDT(timeAxis, lhs.getValues(timeAxis) / rhs.getValues(timeAxis) )
 
+
 # FixedDT (+-*/) FixedDT
 TraceOperatorCtrl.add_trace_operator( operator_type = operator.__add__, 
                                       lhs_type = Trace_FixedDT, rhs_type = Trace_FixedDT,

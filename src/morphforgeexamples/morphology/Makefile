@@ -1,6 +1,6 @@
 
 srcs := $(wildcard *.py)
-outputs := $(patsubst %.py,%.py.out,$(srcs))
+outputs := $(patsubst Figure%.py,Figure%.py.out,$(srcs))
 
 
 
