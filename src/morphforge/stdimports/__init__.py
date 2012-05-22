@@ -22,7 +22,7 @@ from morphforge.core import  *
 
 
 from morphforge.traces import *
-from morphforge.traces.eventset import EventSet
+from morphforge.traces.eventset import EventSet, Event
 from morphforge.traces.tagviewer import TagViewer, PlotSpec_DefaultNew
 
 

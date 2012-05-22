@@ -103,10 +103,10 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                ( type(rhs) == Trace_FixedDT and type(lhs) == float )
         
         if type(lhs) == Trace_FixedDT:
-            assert isinstance(lhs._data, pq.Dimensionless)
+            #assert isinstance(lhs._data, pq.Dimensionless)
             return Trace_FixedDT( lhs._time,  lhs._data / rhs)
         else:
-            assert isinstance(rhs._data, pq.Dimensionless)
+            #assert isinstance(rhs._data, pq.Dimensionless)
             return Trace_FixedDT( rhs._time,  rhs._data / lhs)
 
 TraceOperatorCtrl.add_trace_operator( operator_type = operator.__add__, 

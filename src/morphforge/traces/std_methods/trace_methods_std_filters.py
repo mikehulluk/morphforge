@@ -89,3 +89,7 @@ def filterlowpassrc(tr, tau):
 
 
 TraceMethodCtrl.register(Trace_FixedDT, 'filterlowpassrc', filterlowpassrc, can_fallback_to_fixed_trace=True )
+
+
+
+
