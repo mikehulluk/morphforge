@@ -54,7 +54,7 @@ class Simulation(object):
     
     def createGapJunction(self, **kwargs):
         gj = self.environment.GapJunction( simulation = self, **kwargs )
-        self.addGapJunctionBackendSpecific( gj )
+        self.addGapJunction( gj )
         return gj
     
     

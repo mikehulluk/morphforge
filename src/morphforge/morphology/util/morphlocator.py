@@ -84,6 +84,6 @@ class MorphLocator(object):
         
     @classmethod
     def getLocationsAtDistancesAwayFromDummy(cls, morphology, distances, section_predicate=None):
-        return list( itertools.chain( *[cls.getLocationsAtDistanceAwayFromSoma(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
+        return list( itertools.chain( *[cls.getLocationsAtDistanceAwayFromDummy(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
         
         

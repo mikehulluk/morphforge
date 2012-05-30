@@ -200,14 +200,19 @@ class QuantitiesAxisNew(object):
     def _update_labels(self):
         
         # X-label
-        if self.units_in_label:
+        if not self.labelX:
+            self.ax.set_xlabel(self.labelX)
+
+        elif self.units_in_label:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[0]) if self.xyUnitDisplay[0] is not None else "??" 
             self.ax.set_xlabel( "%s %s"%( self.labelX, unit_str ) )
         else:
             self.ax.set_xlabel(self.labelX)
         
         # Y-label
-        if self.units_in_label:
+        if not self.labelY:
+            self.ax.set_ylabel(self.labelY)
+        elif self.units_in_label:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[1]) if self.xyUnitDisplay[1] is not None else "??"
             self.ax.set_ylabel( "%s %s"%( self.labelY, unit_str ) )
         else:
@@ -283,6 +288,13 @@ class QuantitiesFigureNew(object):
         # intercepts certain calls:
         return self.subplot_class( subplot_ax )
 
+    def add_axes(self, *args, **kwargs):
+        subplot_ax = self.fig.add_axes(*args, **kwargs)
+        assert subplot_ax
+        
+        # Create a proxy object, that acts like an axes object, but 
+        # intercepts certain calls:
+        return self.subplot_class( subplot_ax )
     def __getattr__(self, name):
         return getattr(self.fig, name)
     

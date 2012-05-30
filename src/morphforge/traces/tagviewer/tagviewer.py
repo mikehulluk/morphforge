@@ -109,6 +109,7 @@ class TagViewer(object):
                  post_ax_functors= None,
                  figtitle = None,
                  show=True,
+                 save=True,
                  linkage = None, 
                  timerange=None,
                  additional_plotspecs = None,
@@ -184,7 +185,8 @@ class TagViewer(object):
         
         
         # Save the figure:
-        PM.SaveFigure( figtitle )
+        if save:
+            PM.SaveFigure( figtitle )
         
         
         if SettingsMgr.tagViewerAutoShow() and show:

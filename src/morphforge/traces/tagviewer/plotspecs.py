@@ -76,13 +76,14 @@ def default_legend_labeller(tr):
 
 class PlotSpecRegular(PlotSpec):
     
-    def __init__(self, yrange=None, title=None, legend_labeller=default_legend_labeller, colors=None, yunit=None):
+    def __init__(self, yrange=None, title=None, legend_labeller=default_legend_labeller, colors=None, yunit=None, event_marker_size=None):
         self.title = title
         self.yrange = yrange 
         self.legend_labeller = legend_labeller
         self.colors = colors
         
         self.yunit = yunit
+        self.event_marker_size = event_marker_size
     
 
         
@@ -116,7 +117,9 @@ class PlotSpecRegular(PlotSpec):
         
         
         plot_kwargs = {}
-        
+        if self.event_marker_size:
+            plot_kwargs['markersize'] = self.event_marker_size        
+
         if self.legend_labeller is not None:
             plot_kwargs['label'] = self.legend_labeller(eventset)
         
