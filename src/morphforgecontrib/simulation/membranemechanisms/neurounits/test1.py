@@ -93,8 +93,8 @@ leakChannels = env.MembraneMechanism( EqnSetChl,
                                       mechanism_id='ID1',
                                       eqnset=EquationSetLoader.load( 'std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath() ) , 
                                       parameters= {'gl':unit("5:pS/um2"), 'eRev': unit("-70:mV")} )
-shortcuts.ApplyMechanismEverywhereUniform(myCell, leakChannels )
-shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+ApplyMechanismEverywhereUniform(myCell, leakChannels )
+ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
         
 
@@ -141,7 +141,7 @@ hhChannels = env.MembraneMechanism( NeuroUnitEqnsetMechanism,
                                                           } 
                                       
                                       )
-shortcuts.ApplyMechanismEverywhereUniform(myCell, hhChannels )
+ApplyMechanismEverywhereUniform(myCell, hhChannels )
 
 
 

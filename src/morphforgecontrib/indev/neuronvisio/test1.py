@@ -40,7 +40,7 @@ for chltype in channeltypes:
     #mechBuilder =  ChannelLibrary.getChannelFunctor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
     mech =  ChannelLibrary.getChannel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env )
     
-    shortcuts.ApplyMechanismEverywhereUniform(
+    ApplyMechanismEverywhereUniform(
                             cell=cell, 
                             mechanism= mech, 
                             parameter_multipliers={}, 
@@ -49,8 +49,8 @@ for chltype in channeltypes:
     cell.chls[chltype] = mech  
 
 
-shortcuts.ApplyPassiveEverywhereUniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
-shortcuts.ApplyPassiveEverywhereUniform(cell, PassiveProperty.AxialResistance, unit('40:ohmcm') )
+ApplyPassiveEverywhereUniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+ApplyPassiveEverywhereUniform(cell, PassiveProperty.AxialResistance, unit('40:ohmcm') )
 
 
 

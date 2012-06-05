@@ -13,8 +13,9 @@
 
 
 from morphforge.core.quantities import unit
+from morphforge.stdimports import ApplyMechanismEverywhereUniform
 
-from morphforge.simulation import shortcuts
+#from morphforge.simulation import shortcuts
 
 def getVCSomaCurrentTrace(env, V,mechBuilder, morphology):
     sim = buildVCSomaSimulation(env, V,mechBuilder, morphology)
@@ -26,7 +27,7 @@ def buildVCSomaSimulation(env, V,mechBuilder, morphology):
     sim = env.Simulation(name="SimXX")
     myCell = sim.createCell( name = "Cell1", morphology = morphology )
         
-    shortcuts.ApplyMechanismEverywhereUniform(cell=myCell, mechanism = mechBuilder(env=sim.environment) )
+    ApplyMechanismEverywhereUniform(cell=myCell, mechanism = mechBuilder(env=sim.environment) )
 
     somaLoc = myCell.getLocation("soma")
     voltageRec = myCell.getRecordable( what=myCell.Recordables.MembraneVoltage, name="SomaVoltage", location = somaLoc)

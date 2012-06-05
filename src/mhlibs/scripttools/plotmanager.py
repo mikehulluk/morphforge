@@ -47,6 +47,14 @@ class PlotManager():
     
     @classmethod
     def SaveFigure(cls, figname="", figure=None, filenameTmpl=None, figtypes=None  ):
+
+        import sys
+        #print sys.modules.keys()
+        if 'mplpaperconfig' in sys.modules.keys():
+            PlotManager.defaultFigTypes = [FigTypes.SVG]
+
+        #assert False
+
         import pylab
 #        assert False
         if not filenameTmpl:
@@ -73,6 +81,7 @@ class PlotManager():
             substDict = {"modulename":modulename, "fignum":PlotManager.figNum, "figname":figname,"figtype":figtype}    
             fName = filenameTmpl.format(**substDict)
             
+            fName=fName.replace(":","=")
             assert not ":" in fName, 'For windows compatibility'
             
             fName = CleanFilename(fName)

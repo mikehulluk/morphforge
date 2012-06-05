@@ -61,4 +61,4 @@ if gethostname() in ["michael-DQ57TM"]:
 
 
 #from morphforgecontrib.simulation.plotting import Plot2Dimensional
-
+from morphforgecontrib.simulation.util.voltageclampchannel import getVCSomaCurrentTrace

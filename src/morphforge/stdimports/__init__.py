@@ -63,3 +63,11 @@ import morphforge.simulation.neuron.objects.obj_vclamp
 from morphforge.morphology.conventions import SWCRegionCodes
 
 
+
+try:
+    import pylab
+    import numpy as np
+except:
+    pass
+
+

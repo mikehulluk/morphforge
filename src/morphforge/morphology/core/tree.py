@@ -270,21 +270,27 @@ class Section(object):
 
     def get_area(self,include_end_if_terminal=False):
         """ Returns the area of the section.  """
+        #include_end_if_terminal=False
         # http://mathworld.wolfram.com/ConicalFrustum.html
         assert not self.is_dummy_section(), "Getting area of dummy section!"
 
         # We need to consider this; since there are 2 ends that might be
         # open
-        assert not include_end_if_terminal
+        #assert not include_end_if_terminal
 
         R = self.d_r
         r = self.p_r
         l = self.get_length()
         lateral_area =  math.pi * (R+r) * math.sqrt( (R-r)**2 + l**2 )
 
-        if include_end_if_terminal and self.is_leaf() :
-            assert False
-            #return lateral_area + ( math.pi * R**2 )
+        if include_end_if_terminal and (self.is_leaf()  or self.is_a_root_section() ):
+            A = lateral_area
+            if self.is_leaf():
+                A+= math.pi*R*R
+            if self.is_a_root_section() and len(self._parent._children)==1:
+                A+= math.pi*r*r
+            return A
+
         else:
             return lateral_area
 

@@ -299,12 +299,12 @@ class SimulationSummariser(object):
             
             f = QuantitiesFigure(figsize=self.reportlabconfig.imagesize)
             width,height =self.reportlabconfig.imagesize
-            ax = f.add_subplot(111, xUnit="ms", ylabel="?", xlabel="time")
+            ax = f.add_subplot(111,  ylabel="?", xlabel="time")
             for trName in keyTraces:
                 tr = self.simulation.result.getTrace(trName)
                 ax.plotTrace( tr )
             ax.legend()
-            localElements.append( self.reportlabconfig.saveMPLToRLImage( f, "KeyTrace") )
+            #localElements.append( self.reportlabconfig.saveMPLToRLImage( f, "KeyTrace") )
             
         
         localElements.append( PageBreak() ) 

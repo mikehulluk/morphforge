@@ -47,8 +47,9 @@ ${synnamepost}.popening = $pOpening
 
 class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):   
    
-    def __init__(self, simulation, **kwargs):
+    def __init__(self, simulation,vdep, **kwargs):
         PostSynapticMech_Exp2Syn.__init__( self,  **kwargs)
+        assert vdep==None
         
         
 

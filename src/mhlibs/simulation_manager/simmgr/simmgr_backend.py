@@ -29,6 +29,7 @@ from simmgr.sm1.models import SimulationQueueEntryState
 #Setup the environment,
 os.environ['MF_BATCH']='TRUE'
 os.environ['MF_TIMEOUT'] = '180'
+os.environ['MF_TEST_COVERAGE'] = ''
 
 
 def simulate( simulation_queue_entry):
@@ -68,8 +69,8 @@ while True:
   time.sleep(1)
   print 'Checking for Queued Simulations'
 
-  #queued_objects = SimulationQueueEntry.objects.filter(status=SimulationQueueEntryState.Waiting).order_by('submit_time')
-  queued_objects = SimulationQueueEntry.objects.order_by('submit_time')
+  queued_objects = SimulationQueueEntry.objects.filter(status=SimulationQueueEntryState.Waiting).order_by('submit_time')
+  #queued_objects = SimulationQueueEntry.objects.order_by('submit_time')
 
   # Nothing to simulate:
   if not queued_objects:

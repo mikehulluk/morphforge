@@ -57,6 +57,7 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
     t_closing = synapse_parameters["t_closing"]
     erev = synapse_parameters["erev"]
     popening = synapse_parameters['popening']
+    vdep = synapse_parameters['vdep']
     
     
     env = sim.environment
@@ -75,7 +76,8 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
                                                 tauOpen = t_opening, 
                                                 tauClosed=t_closing, 
                                                 eRev=erev,
-                                                popening=popening  ),
+                                                popening=popening,
+                                                vdep=vdep),
                             )
 
     return syn 
@@ -99,6 +101,7 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
     t_closing = synapse_parameters["t_closing"]
     erev = synapse_parameters["erev"]
     popening = synapse_parameters['popening']
+    vdep = synapse_parameters['vdep']
     
     env = sim.environment
     syn = sim.createSynapse(
@@ -114,6 +117,7 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
                                                 tauOpen = t_opening, 
                                                 tauClosed=t_closing, 
                                                 eRev=erev,
+                                                vdep=vdep,
                                                 popening=popening  ),
                             )
 

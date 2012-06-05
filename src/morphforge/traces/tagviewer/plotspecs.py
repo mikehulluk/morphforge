@@ -135,7 +135,7 @@ class PlotSpecRegular(PlotSpec):
         
         
         from morphforge.stdimports import pq
-        p= ax.plot( data[:,0] * pq.ms, data[:,1] * pq.dimensionless ,'x', **plot_kwargs )
+        p= ax.plot( data[:,0] * pq.ms, data[:,1] * pq.dimensionless ,'o',ms=2, **plot_kwargs )
         return p
         
         
@@ -216,40 +216,10 @@ class PlotSpec_Selector_StringTags(PlotSpec_MixinTraceSelector):
     def addeventset_predicate(self, trace):
         return self.selector(trace)
 
-
-
-#class PlotSpec_ANDTags(PlotSpec_MixinTraceSelector):
-#    def __init__(self, tags, **kwargs):
-#        super(PlotSpec_ANDTags,self).__init__(**kwargs)
-#        self.tags = tags
-#        
-#    def addtrace_predicate(self, trace):
-#        
-#        for tag in self.tags:
-#            if not tag in trace.tags:
-#                return False
-#        return True
-#    
-#    def addeventset_predicate(self, eventset):
-#        
-#        for tag in self.tags:
-#            if not tag in eventset.tags:
-#                return False
-#        return True
-#    
-#    
-#    def get_selector_ylabel(self):
-#         return "-".join(self.tags)
      
 
 
 class PlotSpec_DefaultNew(PlotSpec_Selector_StringTags, PlotSpecRegular):
     def __init__(self, **kwargs):
         super(PlotSpec_DefaultNew,self).__init__(**kwargs)
-
-
-
-#class PlotSpec_Default(PlotSpec_ANDTags, PlotSpecRegular):
-#    def __init__(self, **kwargs):
-#        super(PlotSpec_Default,self).__init__(**kwargs)
 

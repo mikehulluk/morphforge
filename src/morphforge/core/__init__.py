@@ -39,7 +39,7 @@ from misc import require, requiresubclass, CheckType, getFileMD5Checksum, getStr
 from misc import CleanName, TimerPredictor, isIterable
 
 
-
+from mockcontrol import MockControl
 
 from objectnumberer import ObjectLabeller
 
@@ -89,6 +89,7 @@ __all__ = [
     "Basename",
     "PluginDict",
     "MFRandom",
+    "MockControl",
 ]
 
 

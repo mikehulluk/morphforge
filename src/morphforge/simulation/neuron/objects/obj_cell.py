@@ -90,6 +90,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
                     "sectionindex":section_index,
                     "sectionpos":self.location.morphlocation.sectionpos,
                     }
+        print tmplDict
         
         hocFile.addToSection( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmplDict).respond() )
         
@@ -113,7 +114,6 @@ class MNeuronCell(Cell, NeuronObject):
     def buildMOD(self, modFileSet):
         mechanisms = set( [ mta.mechanism for mta in self.getBiophysics().appliedmechanisms ] )
         for m in mechanisms:
-            #print ' -- Building', m
             m.createModFile( modFileSet)
      
     def getRecordable(self, what, **kwargs): 

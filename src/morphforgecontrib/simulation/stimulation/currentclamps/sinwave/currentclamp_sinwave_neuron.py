@@ -19,6 +19,7 @@ from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from Cheetah.Template import Template
+from morphforge.core import ObjectLabeller
 
 
 
@@ -96,7 +97,7 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
 
     def buildHOC(self, hocFile):
         objNameHoc = hocFile[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, name=objNameHoc, objvar="i", recordobj=self )
+        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
 
     def buildMOD(self, modFileSet):
         pass
@@ -109,8 +110,9 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
         
 class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
     
-    def __init__(self, simulation,  amp, freq, delay,bias, celllocation, name):
-        assert False, "Resolve the multiple inheritance of the name!"
+    def __init__(self, simulation,  amp, freq, delay,bias, celllocation, name=None):
+        #assert False, "Resolve the multiple inheritance of the name!"
+        name = name if name else ObjectLabeller.getNextUnamedObjectName(Neuron_CurrentClamp_SinWave)
         
         NeuronObject.__init__(self, simulation=simulation, name=name)
         CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )

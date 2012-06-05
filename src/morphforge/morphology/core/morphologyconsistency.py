@@ -31,6 +31,7 @@ class MorphologyConsistencyMgr(object):
     
     @classmethod
     def Check(cls, morph):
+        #return
         return cls.getChecker(morph).Check()
     
     

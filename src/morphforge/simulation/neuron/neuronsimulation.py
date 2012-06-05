@@ -25,7 +25,7 @@
 import numpy as np
 
 from morphforge.core import ExecCommandGetRetCode, WriteToFile, Exists
-from morphforge.core import RCMgr
+from morphforge.core import RCMgr, MockControl
 from morphforge.simulation.core import Simulation, SimulationResult
 
 from morphforge.simulation.simulationmetadatabundle.builders import MetaDataBundleBuilder 
@@ -57,6 +57,7 @@ class MNeuronSimulation(Simulation):
         
 
     def Run(self, doSpawn=True):
+        #return 
         if doSpawn:
             return self._RunSpawn()
         else:
@@ -133,7 +134,7 @@ class MNeuronSimulation(Simulation):
         
         
         # Generate Random data:
-        if False:
+        if MockControl.is_mock_simulation:
             return self.run_return_random_walks()
             
         

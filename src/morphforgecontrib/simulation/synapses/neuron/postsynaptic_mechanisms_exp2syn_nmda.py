@@ -103,7 +103,7 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
     def buildMOD(self, modFileSet):
         
 
-        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile.getExp2SynNMDAModfile(), name='UnusedParameterXXXExpSyn2')
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile.getExp2SynNMDAModfile(vdep=self.vdep), name='UnusedParameterXXXExpSyn2')
         modFileSet.append(modfile)
         
         

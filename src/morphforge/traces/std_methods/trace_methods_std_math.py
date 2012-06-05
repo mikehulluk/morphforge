@@ -87,7 +87,7 @@ TraceMethodCtrl.register(Trace_VariableDT, 'min', getMin)
 # Gradients:
 ############
 def gradientFixed(self, *args):
-    assert False, 'ToCheck'
+    #assert False, 'ToCheck'
     return CloneTrace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.getDTNew(), comment='+ (Filtered)')
 
 TraceMethodCtrl.register(Trace_FixedDT, 'gradient', gradientFixed)

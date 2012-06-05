@@ -60,5 +60,5 @@ class ReportLabConfig(object):
         from reportlab.platypus import Image
         imFilename = Join( self.imageDir, "%s_%d.%s"% (figDesc,len(self.images), self.imageExt) )
         self.images.append(imFilename)
-        pylab.savefig(imFilename, dpi=72)
+        pylab.savefig(imFilename)
         return Image(imFilename) 

@@ -51,6 +51,10 @@ class NeuronSynapse(NeuronObject, Synapse):
 
         
     def getRecordable(self, what, **kwargs):
+        if what== StandardTags.Conductance:
+            what=Synapse.Recordables.SynapticConductance
+        if what== StandardTags.Current:
+            what=Synapse.Recordables.SynapticCurrent
         
         if what in [ Synapse.Recordables.SynapticCurrent, Synapse.Recordables.SynapticConductance, StandardTags.NMDAVoltageDependancy,StandardTags.NMDAVoltageDependancySS]:
             return self.postSynapticMech.getRecordable(what=what, **kwargs)

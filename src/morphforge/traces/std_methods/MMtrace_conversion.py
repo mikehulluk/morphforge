@@ -27,6 +27,8 @@ from morphforge.core.quantities.fromcore import unit
 import numpy as np
 
 from morphforge.traces.tracetypes import Trace_FixedDT
+from morphforge.traces.tracetypes import Trace_Piecewise
+from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionFlat
 
 class TraceConverter(object):
     

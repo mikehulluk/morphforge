@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -32,11 +32,11 @@ class TagSelector(object):
     # Operator Overloading:
     def __and__(self, rhs):
         assert isinstance(rhs, TagSelector)
-        return TagSelectorAnd(lhs=self, rhs=rhs) 
+        return TagSelectorAnd(lhs=self, rhs=rhs)
 
     def __or__(self, rhs):
         assert isinstance(rhs, TagSelector)
-        return TagSelectorOr(lhs=self, rhs=rhs) 
+        return TagSelectorOr(lhs=self, rhs=rhs)
 
     def select(self, trs):
         return [tr for tr in trs if self(tr)]
@@ -46,44 +46,44 @@ class TagSelector(object):
 class TagSelectorAny(TagSelector):
     def __init__(self,tags):
         self.tags = set( tags )
-    
+
     def __call__(self,tr):
         return not set(self.tags).isdisjoint(tr.tags)
-    
+
 
 class TagSelectorAll(TagSelector):
     def __init__(self,tags):
         self.tags = set( tags )
-    
-    def __call__(self,tr):
-        return self.tags.issubset( set( tr.tags) )  
 
-    
-    
+    def __call__(self,tr):
+        return self.tags.issubset( set( tr.tags) )
+
+
+
 
 class TagSelectorBinary(TagSelector):
     def __init__(self, lhs,rhs):
         self.lhs = lhs
         self.rhs = rhs
-        
-class TagSelectorOr(TagSelectorBinary):    
+
+class TagSelectorOr(TagSelectorBinary):
     def __call__(self,tr):
         return self.lhs(tr) or self.rhs(tr)
 
 class TagSelectorAnd(TagSelectorBinary):
     def __call__(self,tr):
-        return self.lhs(tr) and self.rhs(tr)   
-    
-    
+        return self.lhs(tr) and self.rhs(tr)
+
+
 class TagSelectorNot(TagSelector):
     def __init__(self, rhs):
         self.rhs = rhs
     def __call__(self, tr):
         return not self.rhs(tr)
-    
 
 
-    
+
+
 
 
 class TagSelect(TagSelectorAll):
@@ -91,5 +91,5 @@ class TagSelect(TagSelectorAll):
         assert isinstance( s, basestring)
         TagSelectorAll.__init__(self, tags=[s])
 
-    
+
 

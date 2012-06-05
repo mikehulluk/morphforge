@@ -25,7 +25,7 @@
 from plotmanager import PlotManager, FigTypes
 
 
-from simulationindextools import SimulationMgr
+#from simulationindextools import SimulationMgr
 from utils import ScriptUtils 
 
 PM = PlotManager

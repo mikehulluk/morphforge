@@ -38,6 +38,8 @@ class NeuronPopulation(object):
         self.nrns = [] 
         for i in range(n):
             cell_name = name_tmpl.substitute({'i':i})
+            #print cell_name
+            #assert False
             cell_tags = user_tags + ['Index%d'%i]
             n = neuron_functor(sim=sim, name=cell_name, cell_tags=cell_tags )
             n.population = self

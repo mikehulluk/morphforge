@@ -18,13 +18,13 @@ import traceback
 import datetime
 import inspect
 import signal
-from scripttools.plotmanager import PlotManager
+from mhlibs.scripttools.plotmanager import PlotManager
 
 
 
 
-sys.path.append( '/home/michael/hw/morphforge/src/mhlibs/simulation_manager/' ) 
-sys.path.append( '/home/michael/hw/morphforge/src/mhlibs/simulation_manager/simmgr/' ) 
+sys.path.append( '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/' ) 
+sys.path.append( '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/' ) 
 
 from django.core.management import setup_environ
 from simmgr import settings
@@ -42,7 +42,7 @@ class SimulationDBWriter(object):
         print 'Script: ', sim_run_info.script_name
 
         # We don't neeed to update this file every time:
-        if sim_run_info.script_name == '/home/michael/hw/morphforge/src/bin/SimulateBundle.py':
+        if sim_run_info.script_name == '/home/michael/hw_to_come/morphforge/src/bin/SimulateBundle.py':
           return 
 
         # Find the previous SimulationFile object:

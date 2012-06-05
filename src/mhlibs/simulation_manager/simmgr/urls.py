@@ -54,8 +54,8 @@ p = (
 
 
 p = p + (
-    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw/morphforge/src/mhlibs/simulation_manager/simmgr/static/'}),
-    (r'^site_media/javascript/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw/morphforge/src/mhlibs/simulation_manager/simmgr/static/javascript/'}),
+    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/static/'}),
+    (r'^site_media/javascript/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/static/javascript/'}),
     )
 
 

@@ -29,11 +29,12 @@ class PostSynapticMech_Exp2Syn(PostSynapticMech):
         self.popening = popening
 
 class PostSynapticMech_Exp2SynNMDA(PostSynapticMech):
-    def __init__(self, celllocation, tauOpen, tauClosed, eRev, popening=1.0):
+    def __init__(self, celllocation, tauOpen, tauClosed, eRev, popening=1.0, vdep=True):
         super(PostSynapticMech_Exp2SynNMDA, self).__init__(celllocation)
         self.tauOpen = tauOpen
         self.tauClosed = tauClosed
         self.eRev = eRev
         self.popening = popening
+        self.vdep=vdep
         #extracellular_mg = extracellular_mg
         
