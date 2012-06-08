@@ -84,8 +84,9 @@ if not on_rtd:
 
     # patch mpl.savefig
     #  - Make sure that the directory actually exists:
-    mplsavefig = matplotlib.pylab.show
+    mplsavefig = matplotlib.pylab.savefig
     def savefig(filename, *args, **kwargs):
+        print 'Custom Savefig:'
         dirname = os.path.dirname(filename)
         if dirname and not os.path.exists(dirname):
             os.makedirs(dirname)

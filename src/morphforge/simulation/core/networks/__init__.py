@@ -38,6 +38,7 @@ class Synapse(object):
         self.postSynapticMech.synapse = self
         self.preSynapticTrigger.synapse = self
 
+        self.population = None
 
     def getPreSynapticMechanism(self):
         return self.preSynapticTrigger
@@ -61,6 +62,12 @@ class GapJunction(object):
         self.celllocation1 = celllocation1
         self.celllocation2 = celllocation2
         self.resistance = resistance
+
+
+
+    @property
+    def connected_cells(self):
+        return [ self.celllocation1.cell, self.celllocation2.cell ]
 
 
 

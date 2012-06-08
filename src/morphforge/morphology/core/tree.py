@@ -246,7 +246,10 @@ class Section(object):
 
 
     def __repr__(self):
-        def EndSummary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r)
+        if self.is_dummy_section():
+            return "DummySection"
+
+        def EndSummary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
         endString = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
         rgString = "Region:" + self.region.name +", " if self.region else ""
         idString = "idTag:" + self.idTag + ", " if self.idTag else ""
@@ -306,6 +309,7 @@ class Section(object):
 
 
     area = property(get_area)
+    surface_area = property(get_area)
     volume = property(get_volume)
 
 
@@ -371,6 +375,9 @@ class Region(object):
             raise ValueError()
         self.morph = morph
 
+    @property
+    def surface_area(self):
+        return sum( s.surface_area for s in self)
 
 
 
@@ -527,9 +534,14 @@ class MorphologyTree(MorphologyBase):
         if self._regions is None:
             allRegions = [ section.region for section in self]
             self._regions = list(set(allRegions))
+            self._regions.sort(key=lambda r:r.name)
             if self._regions.__contains__(None):
                 self._regions.remove(None)
         return self._regions
+
+    @property
+    def regions(self):
+        return self.getRegions()
 
     def getRegionNames(self):
         return [ r.name for r in self.getRegions()]
@@ -567,6 +579,9 @@ class MorphologyTree(MorphologyBase):
 
 
 
+    @property
+    def surface_area(self):
+        return sum( s.surface_area for s in self)
 
 
 

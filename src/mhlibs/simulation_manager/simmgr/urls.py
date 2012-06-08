@@ -45,6 +45,7 @@ p = (
 
     (r'^$', 'sm1.views.index'),
 
+    (r'^viewsimulationoutputsummaries', 'sm1.views.view_simulation_output_summaries'),
     (r'^mh/add_default_locations', 'sm1.views.mh_adddefault_locations'),
 
     (r'^viewsimulationfailures$', 'sm1.views.view_simulation_failures'),
@@ -58,6 +59,10 @@ p = p + (
     (r'^site_media/javascript/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/static/javascript/'}),
     )
 
+
+p = p+ ( 
+        (r'^simimages/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/sm1/data/images/'}),
+        )
 
 
 urlpatterns = patterns('', *p)

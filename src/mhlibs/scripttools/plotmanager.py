@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice,
 #  this list of conditions and the following disclaimer.  - Redistributions in
 #  binary form must reproduce the above copyright notice, this list of
 #  conditions and the following disclaimer in the documentation and/or other
 #  materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -23,6 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from utils import CleanFilename, EnsureDirectoryExists, ScriptUtils
+import os
 
 class FigTypes:
     EPS = "eps"
@@ -34,17 +35,18 @@ class FigTypes:
 class PlotManager():
     figNum=0
     figures_saved = []
-    def __init__(self):
-        pass
-    
-    
+    figures_saved_filenames = []
+    #def __init__(self):
+    #    pass
+
+
     #defaultFilenameTmpl = """figures/${modulename}/fig${fignum:02d}_${figname}.${figtype}"""
     defaultFilenameTmpl = """_output/figures/{modulename}/{figtype}/fig{fignum:03d}_{figname}.{figtype}"""
     #defaultDirTmpl = """figures/{modulename}/"""
     defaultFigTypes = [FigTypes.EPS, FigTypes.PDF, FigTypes.PNG, FigTypes.SVG]
-    
-    
-    
+
+
+
     @classmethod
     def SaveFigure(cls, figname="", figure=None, filenameTmpl=None, figtypes=None  ):
 
@@ -61,38 +63,48 @@ class PlotManager():
             filenameTmpl = cls.defaultFilenameTmpl
         if not figtypes:
             figtypes = cls.defaultFigTypes
-        
-        
+
+
         assert isinstance( figtypes, list )
-        
+
         # Get the figure:
         f = figure if figure else pylab.gcf()
-        
-        f.subplots_adjust(bottom=0.15) 
-        
+
+        f.subplots_adjust(bottom=0.15)
+
         # Find the module this function was called from:
         modulename = ScriptUtils.getCallingScriptFile(includeExt=False)
-        
-        
+
+
         #For each filetype:
         for figtype in figtypes:
-            
+
             # Create the filename:
-            substDict = {"modulename":modulename, "fignum":PlotManager.figNum, "figname":figname,"figtype":figtype}    
+            substDict = {"modulename":modulename, "fignum":PlotManager.figNum, "figname":figname,"figtype":figtype}
             fName = filenameTmpl.format(**substDict)
-            
+
             fName=fName.replace(":","=")
             assert not ":" in fName, 'For windows compatibility'
-            
+
             fName = CleanFilename(fName)
             EnsureDirectoryExists(fName)
-           
-            
+
+
             # Save the figure:
             f.savefig(fName)
-            cls.figures_saved.append( f.number )
+            PlotManager.figures_saved.append( f.number )
+            pwd = os.getcwd()
+            PlotManager.figures_saved_filenames.append( os.path.join(pwd, fName ) )
             print 'Saving File', fName
-        
+            #print 'Figs Saved', len( cls.figures_saved )
+
         #Increment the fignum:
         PlotManager.figNum = PlotManager.figNum + 1
-        
+
+    #@classmethod
+    #def save_active_figures(cls):
+    #    import matplotlib._pylab_helpers
+    #    figures=[manager.canvas.figure for manager in matplotlib._pylab_helpers.Gcf.get_all_fig_managers()]
+    #    for f in figures:
+    #        cls.SaveFigure(figure=f)
+

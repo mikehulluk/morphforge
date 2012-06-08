@@ -38,11 +38,48 @@ def index(request):
 
 
 
+def view_simulation_output_summaries(request):
+    sims = SimulationFile.objects.all()
+    sim_and_dir = [ (s,os.path.dirname(s.full_filename)) for s in sims]
+    sim_and_dir.sort()
+
+    sim_dirs = sorted( set([ s[1] for s in sim_and_dir] ) )
+    
+    print sim_dirs
+
+    common_prefix = os.path.commonprefix(sim_dirs)
+    print common_prefix
+
+    op = []
+    for sd in sim_dirs:
+        sd_short = '.../'+sd.replace(common_prefix,"")
+        sims_o = sorted( [s[0] for s in sim_and_dir if s[1]==sd ], key= lambda s:s.full_filename )
+        op.append( (sd_short, sims_o) ) 
+
+    c = {'simulation_files': [
+            ('jlkd/',sims)
+            ]
+            }
+
+    c = {'simulation_files': op }
+    csrfContext = RequestContext(request, c)
+    return render_to_response('simulation_output_summaries.html',csrfContext )
+
+
+
+
 
 def simulationfilerun_details(request, id):
     simrun =  SimulationFileRun.objects.get(id=id)
-    r = RequestContext(request, {'simulationrun':simrun} )
+    #images = simrun.output_images.all()
+    #for i in images:
+    #    i.hash_thumbnailname_short()
+    r = RequestContext(request, {'simulationrun':simrun,})#'images':images} )
     return render_to_response('simulation_run_details.html',r)
+
+
+
+
 
 def simulationfile_details(request, id):
     sim =  SimulationFile.objects.get(id=id)

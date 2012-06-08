@@ -103,17 +103,37 @@ class PotentialSimulationFile(models.Model):
 
 
 
-  
 
 
-ds = re.compile(r"""^ \s* (?P<quotes> \"{3} | \"{1} | ' | ''' ) (?P<ds>.*?) (?P=quotes) """, re.VERBOSE | re.MULTILINE| re.DOTALL)
+
+#ds = re.compile(r"""^ \s* (?P<quotes> \"{3} | \"{1} | ' | ''' ) (?P<ds>.*?) (?P=quotes) """, re.VERBOSE | re.MULTILINE| re.DOTALL)
+#def extract_docstring_from_file(f):
+#    fd = open(f)
+#    m = ds.match( fd.read() )
+#    fd.close()
+#    if not m: 
+#        return None
+#    return m.groupdict().get('ds',None)
+
 def extract_docstring_from_file(f):
-    fd = open(f)
-    m = ds.match( fd.read() )
-    fd.close()
-    if not m: 
-        return None
-    return m.groupdict().get('ds',None)
+    import tokenize, token
+    f=open(f)
+    for tok, text, (srow, scol), (erow,ecol), l in tokenize.generate_tokens(f.readline):
+        if tok in [tokenize.COMMENT, tokenize.NL]:
+            continue
+        elif tok in [ tokenize.NAME,tokenize.ENDMARKER] :
+            return None
+        elif tok == tokenize.STRING:
+            t = text.strip()
+            if t.startswith('"""'):
+                t = t[3:]
+            if t.endswith('"""'):
+                t = t[:-3]
+            return t.strip()
+        else:
+            print 'tok',tok, token.tok_name[tok]
+            assert False
+    return None
 
 
 
@@ -202,7 +222,7 @@ class SimulationFileRun(models.Model):
   return_code = models.IntegerField()
   std_out = models.CharField(max_length=10000000)
   std_err = models.CharField(max_length=10000000)
-  output_images = models.CharField(max_length=5000)
+  #output_images = models.CharField(max_length=50000)
   exception_type = models.CharField(max_length=10000,null=True, blank=False)
   exception_traceback = models.CharField(max_length=10000,null=True, blank=False)
 
@@ -238,6 +258,18 @@ class SimulationFileRun(models.Model):
         if self.return_code != 0:
             return SimRunStatus.NonZeroExitCode
         return SimRunStatus.Sucess
+
+class SimulationFileRunOutputImage(models.Model):
+    original_name = models.CharField(max_length=10000)
+    hash_name = models.CharField(max_length=10000)
+    hash_thumbnailname = models.CharField(max_length=10000)
+    simulation = models.ForeignKey(SimulationFileRun, related_name='output_images')
+
+    def hash_name_short(self):
+        return self.hash_name.split("/")[-1]
+    def hash_thumbnailname_short(self):
+        return self.hash_thumbnailname.split("/")[-1]
+
 
 
 class SimulationQueueEntryState(models.Model):

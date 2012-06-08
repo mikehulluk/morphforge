@@ -274,3 +274,32 @@ width: 1000px;
 
 
 
+
+.SummaryFileGroup
+{
+border: 1px solid black;
+padding: 5px;
+margin: 5px;
+
+}
+
+.SummaryFile
+{
+border: 1px solid black;
+padding: 5px;
+margin: 5px;
+margin-bottom: 25px;
+background-color:linen;
+
+}
+.SummaryFileDescription
+{
+border: 1px solid black;
+padding: 5px;
+margin: 5px;
+color: chocolate;
+font-family:"monospace";
+font-weight: bold;
+background-color:lavender;
+
+}

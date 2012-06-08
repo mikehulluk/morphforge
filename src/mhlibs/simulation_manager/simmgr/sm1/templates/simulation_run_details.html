@@ -4,7 +4,7 @@
 
 {% block additional_header %}
 <script type="text/javascript">
-<!-- 
+<!--
 
 // Dajax callback functions:
 function pass(data){
@@ -39,7 +39,7 @@ Simulation Run Details: {{simulationrun.simulation_file.get_short_filename }}
 <tr><th>When: </th> <td>{{simulationrun.execution_date }}</td></tr>
 <tr><th>Time: </th> <td>{{simulationrun.execution_time }} seconds</td></tr>
 </table>
-</div> 
+</div>
 
 
 <div class="section {{simulationrun.get_status}}">
@@ -63,7 +63,7 @@ Simulation Run Details: {{simulationrun.simulation_file.get_short_filename }}
     <div id="id_Versioning" style="display:none">
     <div>
 <table>
-  <tr><th>SimFile MD5: </th> <td>{{simulationrun.simulation_md5sum }} 
+  <tr><th>SimFile MD5: </th> <td>{{simulationrun.simulation_md5sum }}
       (Now: {{simulationrun.simulation_file.get_current_checksum}})</td></tr>
 <tr><th>Lib MD5: </th> <td>{{simulationrun.library_md5sum }}</td></tr>
 </table>
@@ -121,7 +121,15 @@ Simulation Run Details: {{simulationrun.simulation_file.get_short_filename }}
 <h2 onclick="Effect.toggle('id_Images', 'blind',{ duration: 0.3 }); return false;"> Images </h2>
     <div id="id_Images" > <!--style="display:none"> -->
     <div>
-        {{ simulationrun.output_images }}
+
+        {{simulationrun.output_images}}
+
+        {% for i in simulationrun.output_images.all %}
+        <a href="/simimages/{{i.hash_name_short}}"> 
+            <img src="/simimages/{{i.hash_thumbnailname_short}}"/> 
+        </a>
+
+        {% endfor %}
         Images
     </div>
     </div>

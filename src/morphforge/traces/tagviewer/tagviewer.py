@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.core import Flatten, isIterable
-from morphforge.simulation.core import SimulationResult, SimulationResultSet
+from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from plotspecs import PlotSpec_DefaultNew
@@ -86,7 +86,6 @@ class TagViewer(object):
 
     def __init__(self,
                  input,
-                 tags=None,
                  fig_kwargs = {'figsize': (12, 8)},
                  timeranges=(None,),
                  plotspecs = None,
@@ -116,7 +115,7 @@ class TagViewer(object):
         self.allEventSetObjs = []
         trace_extractors = {
             SimulationResult:       lambda i: self.allTraceObjs.extend( i.traces ),
-            SimulationResultSet:    lambda i: self.allTraceObjs.extend( Flatten( [s.traces for s in i] ) ),
+            #SimulationResultSet:    lambda i: self.allTraceObjs.extend( Flatten( [s.traces for s in i] ) ),
             Trace_FixedDT:          lambda i: self.allTraceObjs.append( i ),
             Trace_VariableDT:       lambda i: self.allTraceObjs.append( i ),
             Trace_Piecewise:        lambda i: self.allTraceObjs.append( i ),
@@ -124,20 +123,8 @@ class TagViewer(object):
                             }
 
         for i in input:
-            print i
             tr_extractor = trace_extractors[ type(i) ]
             tr_extractor(i)
-
-
-
-
-        # Work Around: if tags are supplied, then lets convert them into a PlotSpec:
-        if tags:
-            assert False
-            assert not plotspecs
-            plotspecs = [ PlotSpec_Default(tags=t) for t in tags ]
-
-
 
 
         # Use the new PlotSpec architecture:

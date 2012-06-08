@@ -25,7 +25,7 @@
 from stimulation import CurrentClamp, VoltageClamp
 from stimulation import CurrentClampStepChange, VoltageClampStepChange
 from simulation import Simulation
-from result import SimulationResult, SimulationResultSet
+from result import SimulationResult
 from cell import Cell
 from celllocation import CellLocation
 from simulationenvironment import SimulationEnvironment
@@ -48,7 +48,7 @@ __all__ = [
 "VoltageClampStepChange",
 "Simulation",
 "SimulationResult",
-"SimulationResultSet",
+#"SimulationResultSet",
 "Cell",
 "CellLocation",
 "SimulationEnvironment",

@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -29,58 +29,81 @@ from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.quantities.fromcore import unit
 
 class Cell(object):
-    
-    
-    
+
+
+
     class Recordables:
         MembraneVoltage = StdRec.MembraneVoltage
-    
-    
 
-    
-    
-    def __init__(self,    morphology, simulation, name= None, segmenter=None, initial_voltage=None, cell_tags = [], **kwargs):
+
+
+    @property
+    def cell_type(self):
+        return self._cell_type
+    @property
+    def cell_type_str(self):
+        return self._cell_type if self._cell_type else "<?>"
+
+
+    def __init__(self,    morphology, simulation, name= None, segmenter=None, initial_voltage=None, cell_tags = [], cell_type=None, **kwargs):
         from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
-        
-        
-        
+
+
+
 
         self.simulation = simulation
         self.name = name if name else ObjectLabeller.getNextUnamedObjectName(Cell, 'AnonCell_')
-        self.morphology = morphology 
-        
+        self.morphology = morphology
+        self._cell_type = cell_type
+
         self.cellSegmenter = segmenter if segmenter else CellSegmenter_MaxCompartmentLength()
         self.cellSegmenter.connectToCell(self)
-        
-        
+
+
         self.biophysics = CellBiophysics()
-    
+
         self.initial_voltage = initial_voltage or unit("-51:mV")
-        
-        
-        self.cell_tags = cell_tags 
-        
+
+
+        self.cell_tags = cell_tags
+
         if self.name:
             self.cell_tags = self.cell_tags +  [self.name]
-        
+
         self.population=None
-        
-        
+
+
     def getLocation(self, idTag, sectionpos=0.5):
         from celllocation import CellLocation
         return CellLocation(cell=self, section=self.morphology.getSection(idTag=idTag), sectionpos=sectionpos)
-    
+
     def getRegion(self, rgnName):
         return self.morphology.getRegion(rgnName)
-    
+
     def getRegions(self):
         return self.morphology.getRegions()
-    
-    def getBiophysics(self):        
+
+    def getBiophysics(self):
         return self.biophysics
-    
+
     def getSegmenter(self):
         return self.cellSegmenter
 
-    
 
+
+    # Make the object a bit more pythonic:
+    @property
+    def segmenter(self):
+        return self.cellSegmenter
+
+    @property
+    def presynaptic_connections(self):
+        return [ s for s in self.simulation.synapses if s.getPreSynapticCell() == self]
+
+    @property
+    def postsynaptic_connections(self):
+        return [ s for s in self.simulation.synapses if s.getPostSynapticCell() == self]
+
+    @property
+    def electrical_connections(self):
+        return [ s for s in self.simulation.gapjunctions if self in s.connected_cells]

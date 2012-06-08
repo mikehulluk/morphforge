@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -27,17 +27,17 @@ from morphforge.simulation.core.segmentation.segment import CellSegment
 
 
 class AbstCellSegmenter(object):
-   
+
     def __init__(self, cell=None):
         self.cell = cell
- 
+
     def connectToCell(self, cell):
         raise NotImplementedError()
-    
-    
+
+
     def getNumSegments(self, section):
         raise NotImplementedError()
-    
+
     def getSegments(self, section):
         raise NotImplementedError()
 
@@ -45,56 +45,62 @@ class AbstCellSegmenter(object):
         for section in self.cell.morphology:
             for seg in self.getSegments(section):
                 yield seg
-    
+
     def getNumSegmentTotal(self):
-        return sum( [ self.getNumSegments(section) for section in self.cell.morphology] ) 
-    
-    
-    
-                
-    
+        return sum( [ self.getNumSegments(section) for section in self.cell.morphology] )
+
+    def getNumSegmentRegion(self, region):
+        return sum( [ self.getNumSegments(section) for section in region] )
+
+
+
+
 class CellSegmenterStd(AbstCellSegmenter):
 
     def __init__(self, cell=None, ):
         AbstCellSegmenter.__init__(self, cell)
-        self.cellSegments = None        
-        
+        self._cellSegments = None
+
         if self.cell:
             self.connectToCell(cell)
 
-            
+
     def connectToCell(self, cell):
-        assert not self.cell 
+        assert not self.cell
         self.cell = cell
-        
-        
-        self.cellSegments = {}
-        
-        # Segment the cell:
-        for section in cell.morphology:
-            nSegs = self._getNSegments(section)
-            
-            self.cellSegments[section] = [ CellSegment(cell=cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ] 
-    
+
+
     def getNumSegments(self, section):
-        return len(self.cellSegments[section] )
-        
+        return self._getNSegments(section) 
+
     def getSegments(self, section):
+        assert False, 'What is using the cell segment objects??'
         return self.cellSegments[section]
 
 
     def _getNSegments(self, section):
         raise NotImplementedError()
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+    @property 
+    def cellSegments(self):
+        assert False, 'To remove, as off Jun-2012'
+        if self._cellSegments is None:
+            self._cellSegments = {}
+
+            # Segment the cell:
+            for section in self.cell.morphology:
+                nSegs = self._getNSegments(section)
+                self._cellSegments[section] = [ CellSegment(cell=self.cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ]
+        return self._cellSegments
+
+
+
+
+
+
+
 class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
     def __init__(self, cell=None, maxSegmentLength=5):
@@ -107,12 +113,12 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
 
 class CellSegmenter_SingleSegment(CellSegmenterStd):
-   
+
     def _getNSegments(self, section):
-        return 1          
-           
-           
-           
+        return 1
+
+
+
 
 class CellSegmenter_MaxLengthByID(CellSegmenterStd):
 

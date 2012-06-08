@@ -22,14 +22,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import Flatten
+#from morphforge.core import Flatten
+assert False
 
-class SimulationResultSet(object):
-    
-    def __init__(self, simulationresults=None):
-        self.simulationtresults = Flatten(simulationresults) if simulationresults else []
-    
-    def __iter__(self):
-        return iter(self.simulationtresults)
-    def __len__(self):
-        return len(self.simulationtresults)
+#class SimulationResultSet(object):
+#    
+#    def __init__(self, simulationresults=None):
+#        self.simulationtresults = Flatten(simulationresults) if simulationresults else []
+#    
+#    def __iter__(self):
+#        return iter(self.simulationtresults)
+#    def __len__(self):
+#        return len(self.simulationtresults)

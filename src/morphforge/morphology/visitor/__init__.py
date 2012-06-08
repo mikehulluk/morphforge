@@ -23,7 +23,7 @@
 from visitorbaseclasses import SectionVisitorDF
 from visitorbaseclasses import SectionVisitorDFOverrider
 from visitorbaseclasses import ListBuilderSectionVisitor
-from visitorbaseclasses import NumpyBuilderSectionVisitor
+#from visitorbaseclasses import NumpyBuilderSectionVisitor
 from visitorbaseclasses import SectionIndexerDF
 from visitorbaseclasses import SectionListerDF
 from visitorbaseclasses import DictBuilderSectionVisitorHomo
@@ -38,7 +38,7 @@ __all__ = [
 "SectionVisitorDF",
 "SectionVisitorDFOverrider",
 "ListBuilderSectionVisitor",
-"NumpyBuilderSectionVisitor",
+#"NumpyBuilderSectionVisitor",
 "SectionIndexerDF",
 "SectionListerDF",
 "SectionVisitorDFNeuronBuilder",

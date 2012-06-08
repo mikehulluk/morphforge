@@ -23,10 +23,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from simulationresult import SimulationResult
-from simulationresultset import SimulationResultSet
+#from simulationresultset import SimulationResultSet
 
 __all__ = [
     "SimulationResult",
-    "SimulationResultSet"
+    #"SimulationResultSet"
 ]
 
