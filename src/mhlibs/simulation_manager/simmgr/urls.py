@@ -34,19 +34,25 @@ p = (
     (r'^simulationfileruns/(\d+)', 'sm1.views.simulationfile_details'),
     (r'^viewpotentialsimulationfiles$', 'sm1.views.viewpotentialsimulationfiles'),
     (r'^viewsimulationqueue$', 'sm1.views.viewsimulationqueue'),
+
+    # Untracked/tracked Simulations:
     (r'^do/update_potential_simulation_files', 'sm1.views.doupdatepotentialsimulationfiles'),
     (r'^do/potential_to_actual_simulation', 'sm1.views.dopotentialtoactualsimulationfiles'),
+    (r'^do/actual_to_potential_simulation', 'sm1.views.doactualtopotentialsimulationfiles'),
+    (r'^do/addpotentialsimulationlocation', 'sm1.views.doaddpotentialsimulationlocation'),
+    (r'^do/track_all_simulation_files', 'sm1.views.dotrackallsimulationfiles'),
+
+
     (r'^do/queuesimulations', 'sm1.views.doqueuesimulations'),
     (r'^do/removesimulationsfromqueue', 'sm1.views.doremovesimulationsfromqueue'),
     (r'^do/editsimulationfile/(\d+)', 'sm1.views.doeditsimulationfile'),
 
     (r'^simulationfiles/(\d+)$', 'sm1.views.simulationfile_details'),
-    (r'^do/addpotentialsimulationlocation', 'sm1.views.doaddpotentialsimulationlocation'),
 
     (r'^$', 'sm1.views.index'),
 
     (r'^viewsimulationoutputsummaries', 'sm1.views.view_simulation_output_summaries'),
-    (r'^mh/add_default_locations', 'sm1.views.mh_adddefault_locations'),
+    #(r'^mh/add_default_locations', 'sm1.views.mh_adddefault_locations'),
 
     (r'^viewsimulationfailures$', 'sm1.views.view_simulation_failures'),
 

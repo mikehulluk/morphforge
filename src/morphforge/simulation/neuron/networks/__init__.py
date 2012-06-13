@@ -58,6 +58,9 @@ class NeuronSynapse(NeuronObject, Synapse):
         
         if what in [ Synapse.Recordables.SynapticCurrent, Synapse.Recordables.SynapticConductance, StandardTags.NMDAVoltageDependancy,StandardTags.NMDAVoltageDependancySS]:
             return self.postSynapticMech.getRecordable(what=what, **kwargs)
+        if what in ['g']:
+            return self.postSynapticMech.getRecordable(what=what, **kwargs)
+
         
         assert False
         

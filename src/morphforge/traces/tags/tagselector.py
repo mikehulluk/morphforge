@@ -29,6 +29,10 @@ class TagSelector(object):
         from tagselectorstringparser import parseString
         return parseString(s, )
 
+
+    def filter(self, traces):
+        return [ tr for tr in traces if self.__call__(tr) ]
+
     # Operator Overloading:
     def __and__(self, rhs):
         assert isinstance(rhs, TagSelector)

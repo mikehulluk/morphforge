@@ -35,6 +35,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_HOC_default
 from neurounits.neurounitparser import NeuroUnitParser
+from morphforge.core import ObjectLabeller
 
 
 
@@ -77,25 +78,27 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
 
 
 class NeuroUnitEqnsetMechanism(MembraneMechanism):
-    def __init__(self, name, eqnset ,mechanism_id, default_parameters={}, recordables_map= None, recordables_data=None):
+    def __init__(self, eqnset ,mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
         MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
 
         if isinstance( eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
-        self.name = name
+        self.name = name if name is not None else ObjectLabeller.getNextUnamedObjectName( NeuroUnitEqnsetMechanism)
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
         self.recordables_data =recordables_data or {}
 
         for param in eqnset.parameters:
+            print'CHECKING'
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
             print "iiii",default_parameters[param.symbol], type( default_parameters[param.symbol])
             assert param.symbol in default_parameters
             assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol] ).rescale("")
+            print 'OK\n'
 
     def getDefaults(self):
         return self._parameters
@@ -110,7 +113,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
         MM_Neuron_Base.__init__(self)
         NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
 
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.getNextUnamedObjectName(Neuron_NeuroUnitEqnsetMechanism,prefix="" ))
 
 
 

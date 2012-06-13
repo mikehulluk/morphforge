@@ -20,7 +20,7 @@ import signal
 from mhlibs.scripttools.plotmanager import PlotManager
 import hashlib
 import shutil
-
+import pipes
 
 sys.path.append( '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/' )
 sys.path.append( '/home/michael/hw_to_come/morphforge/src/mhlibs/simulation_manager/simmgr/' )
@@ -86,7 +86,7 @@ class SimulationDBWriter(object):
             shutil.copyfile(image_filename, opfile1)
 
             f_thumb = image_filename.replace(".svg","thumb.png")
-            os.system('convert %s -resize 400x300 %s'%(image_filename,f_thumb))
+            os.system('convert %s -resize 400x300 %s'%(pipes.quote(image_filename),pipes.quote(f_thumb)))
             h = hashlib.md5( open(f_thumb).read() ).hexdigest()
             opfile2 = output_file_dir + '/' + h + ".png"
             shutil.copyfile(f_thumb, opfile2)
@@ -193,6 +193,7 @@ class SimulationDecorator(object):
             print "----------------------------------"
             print "".join( traceback.format_tb(tb) )
             cls.exception_details  = exception_type, exception, ''.join( traceback.format_tb(tb) ) # traceback.format_exc()
+            cls.exit_handler()
         except Exception as e:
             print 'INTERNAL ERROR, exception raised in top level handler!'
             print e

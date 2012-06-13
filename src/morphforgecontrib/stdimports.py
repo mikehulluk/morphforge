@@ -62,3 +62,8 @@ if gethostname() in ["michael-DQ57TM"]:
 
 #from morphforgecontrib.simulation.plotting import Plot2Dimensional
 from morphforgecontrib.simulation.util.voltageclampchannel import getVCSomaCurrentTrace
+
+
+
+from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
+from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic

@@ -160,7 +160,7 @@ class LocMgr(object):
     
     @classmethod
     def getDefaultModBuildDir(cls):
-        loc = cls.loadFromRCReader("tmp_nrn_mod_builddir", Join(cls.getTmpPath(), "modbuild/"))
+        loc = cls.loadFromRCReader("tmp_nrn_mod_builddir", Join(cls.getTmpPath(), "modbuild_%d/"%os.getpid()) )
         return cls.EnsureMakeDirs(loc)
         
         
@@ -256,7 +256,7 @@ class LocMgr(object):
     
     @classmethod
     def getTestSrcsPath(cls):
-        return cls.ValidateExists(Join(cls.getRootPath(), "test_data"))
+        return cls.ValidateExists(Join(cls.getRootPath(), "../test_data"))
     
     @classmethod
     def getTestEqnSetsPath(cls):

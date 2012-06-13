@@ -303,3 +303,11 @@ font-weight: bold;
 background-color:lavender;
 
 }
+
+
+
+.interactive a:hover{
+background-color:yellow;
+cursor:pointer;
+
+}

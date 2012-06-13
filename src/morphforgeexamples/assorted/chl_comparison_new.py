@@ -237,7 +237,7 @@ def compareNeuroMLChl( xmlFile ):
         chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlFile,  mechanism_id="Blhkjl")
         c.chl_neurounits = chl_neuro
         
-        from neurounits.tools.writepdf import WriteToPDF
+        #from neurounits.tools.writepdf import WriteToPDF
         op_pdf_file = Join(op_dir, 'Op1.pdf')
         #WriteToPDF(eqnset = chl_neuro.eqnset, filename = op_pdf_file)
         c.chl_neurounits_pdf = op_pdf_file

@@ -176,12 +176,6 @@ class Simulation(object):
         for recordable_value in membrane_mech.Recordables.all:
             self.record(membrane_mech, what=recordable_value, description='[%s-%s]'%(membrane_mech.name, recordable_value) ,  **kwargs )
 
-
-
-
-
-
-
     def getCell(self,cellname=None):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """
         if cellname:
@@ -191,3 +185,4 @@ class Simulation(object):
 
 
 
+        

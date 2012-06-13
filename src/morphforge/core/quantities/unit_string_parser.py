@@ -83,6 +83,29 @@ parser = yacc.yacc(tabmodule = 'unitsparser_parsetab.py', outputdir=LocMgr.getPL
 
 
 def parse(s):
+
+    # Upgraded on 9th Jun 2012 to use neurounits.
+    print "Parsing Unit:", s
+    if s == 'ohmcm':
+        s = 'ohm cm'
+
+    # To resolve....
+    if s== 'nMol':
+        s = 'nanomolar'
+    if s== 'uMol':
+        s = 'micromolar'
+
+    # In the case of units, lets rewrite '**' to nothing and '*' to space:
+    s = s.replace("**", "")
+    s = s.replace("*", " ")
+
+
+    if s.strip() == "":
+        return pq.dimensionless
+    print s
+    import neurounits
+    return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit() #, backend=neurounits.units_backends.)
+
     r = parser.parse(s, lexer=lexer, )
     return r
 
