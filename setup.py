@@ -31,7 +31,7 @@ glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs
 pkgs = [
 'mhlibs',
 'mhlibs.quantities_plot',
-'mhlibs.scripttools',
+'mreorg.scriptplots',
 ] + glob_pkgs
 
 

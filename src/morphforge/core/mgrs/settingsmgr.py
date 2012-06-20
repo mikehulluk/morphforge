@@ -40,6 +40,7 @@ class SettingsMgr(object):
     # Query Settings:
     @classmethod
     def showGUI(cls):
+        assert False
         if os.environ.get('MF_PLOT',None) == 'OFF':
             return False
         if os.environ.get('MF_BATCH',None):
@@ -66,16 +67,19 @@ class SettingsMgr(object):
 
     @classmethod
     def setCoverageRun(cls):
+        assert False
         from logmgr import LogMgr
         LogMgr.info("Setting Coverage Run")
         cls._showGui = False
     
     @classmethod
     def allowEvalInLoading(cls):
+        assert False
         return False
     
     @classmethod
     def DecorateSimulations(cls):
+        assert False
         if os.environ.get('MF_BATCH',None):
             return True
         return False

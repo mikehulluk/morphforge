@@ -16,14 +16,14 @@ from morphforge.stdimports import *
 import scipy.stats as stats
 
 import numpy as np
-import pylab
+#import pylab
 from mhlibs.quantities_plot import QuantitiesFigure
-from mhlibs.quantities_plot.quantities_plot_new import QuantitiesFigureNew
+#from mhlibs.quantities_plot.quantities_plot_new import QuantitiesFigureNew
 
 
 import itertools
 from morphforge.traces.std_methods.MMtrace_conversion import TraceConverter
-from mhlibs.scripttools import PM
+from mreorg.scriptplots import PM
 from morphforge.traces.tagviewer.tagviewer import TagViewer
 
 

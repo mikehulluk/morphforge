@@ -21,119 +21,24 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-import os
-
-from morphforge.core.mgrs import SettingsMgr, LogMgr
-from mhlibs.scripttools.plotmanager import PlotManager
-
-
-# Used to supress pyflakes errors:
-def my_pass(*args,**kwargs):
-    pass
 
 
 
-
-class SavedFigures(object):
-    nums = set()
-
-
-def saveAllNewActiveFigures():
-    import matplotlib
-
-    active_figures=[manager.canvas.figure for manager in matplotlib._pylab_helpers.Gcf.get_all_fig_managers()]
-    active_new_figures = [ a for a in active_figures if not a.number in SavedFigures.nums]
-
-    # Add to the list of saved figures
-    [SavedFigures.nums.add(a.number) for a in active_figures ]
-
-    # Save the new figures:
-    for a in active_new_figures:
-        if a.number in PlotManager.figures_saved:
-            continue
-
-        PlotManager.SaveFigure(figname='AutoSaveFigure_%d'%a.number, figure=a)
-
-
-
-
-# Monkey-Patch pylab, unless we are on read-the-docs
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-if not on_rtd:
-
-    # Matplotlib:
-    import matplotlib
-    if not os.environ.get('DISPLAY',None):
-        matplotlib.use('Agg')
-
-
-    # patch mpl.show()
-    import pylab
-    mplShow = matplotlib.pylab.show
-    def show(*args, **kwargs):
-        saveAllNewActiveFigures()
-        if SettingsMgr.showGUI():
-            LogMgr.info("mpl.show() call made")
-            mplShow(*args, **kwargs)
-
-        else:
-            LogMgr.info("mpl.show() call not made")
-    matplotlib.pylab.show = show
-    pylab.show = show
-
-
-    # patch mpl.savefig
-    #  - Make sure that the directory actually exists:
-    mplsavefig = matplotlib.pylab.savefig
-    def savefig(filename, *args, **kwargs):
-        print 'Custom Savefig:'
-        dirname = os.path.dirname(filename)
-        if dirname and not os.path.exists(dirname):
-            os.makedirs(dirname)
-        return mplsavefig(filename, *args, **kwargs)
-    matplotlib.pylab.savefig = savefig
-    pylab.savefig = savefig
-
-
-
-
-# Shall we automatically start coverage testing:
-if "MF_TEST_COVERAGE" in os.environ:
-    #assert False
-    coverage_opdir = '/tmp/morphforge_coverage_output'
-    if not os.path.exists(coverage_opdir):
-        os.makedirs(coverage_opdir)
-    os.environ['COVERAGE_PROCESS_START']="/home/michael/hw_to_come/morphforge/etc/.coveragerc"
-    import coverage
-    coverage.process_startup()
-
-
-
-
-
-
-
-# Decorate simulations; to record running times and
-# catch unhandled exceptioms:
-if SettingsMgr.DecorateSimulations():
-    print 'Decorating Simulation'
-    from mhlibs.simulation_manager.simulation_hooks import db_writer_hook
-    db_writer_hook.SimulationDecorator.Init()
-
-
-
-
+# Import the 
+import mreorg.requiredpreimport
+import mreorg
+# By default, lets save all figures:
+mreorg.ScriptFlags.MREORG_SAVEALL = True
 
 
 
 # MayaVI
 def MonkeyPatchMayaVi():
     print 'Monkey Patching Mayavi'
-
     #import enthought.mayavi.mlab as mlab
     import mayavi
     from mayavi import mlab
-    my_pass(mlab)
+    #my_pass(mlab)
 
 
 

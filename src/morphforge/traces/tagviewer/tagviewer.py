@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import Flatten, isIterable
+from morphforge.core import isIterable
 from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -29,7 +29,7 @@ from morphforge.core.mgrs.settingsmgr import SettingsMgr
 from morphforge.traces import  Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
-from mhlibs.scripttools import PM
+from mreorg.scriptplots import PM
 
 
 
