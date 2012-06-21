@@ -24,7 +24,7 @@
 #-------------------------------------------------------------------------------
 
 from morphforge.core import LocMgr, SettingsMgr
-from morphforge.core.misc import FilterExpectSingle, ExpectSingle
+from morphforge.core.misc import SeqUtils
 
 
 
@@ -179,9 +179,9 @@ class Simulation(object):
     def getCell(self,cellname=None):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """
         if cellname:
-            return FilterExpectSingle(self.ss_cells, lambda s: s.name==cellname)
+            return SeqUtils.filter_expect_single(self.ss_cells, lambda s: s.name==cellname)
         else:
-            return ExpectSingle( self.ss_cells)
+            return SeqUtils.expect_single( self.ss_cells)
 
 
 

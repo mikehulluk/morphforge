@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import isIterable
+from morphforge.core import is_iterable
 from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -107,7 +107,7 @@ class TagViewer(object):
             timeranges = [timerange,]
 
 
-        if not isIterable( input ):
+        if not is_iterable( input ):
             input = [input]
 
 
@@ -117,7 +117,6 @@ class TagViewer(object):
         self.allEventSetObjs = []
         trace_extractors = {
             SimulationResult:       lambda i: self.allTraceObjs.extend( i.traces ),
-            #SimulationResultSet:    lambda i: self.allTraceObjs.extend( Flatten( [s.traces for s in i] ) ),
             Trace_FixedDT:          lambda i: self.allTraceObjs.append( i ),
             Trace_VariableDT:       lambda i: self.allTraceObjs.append( i ),
             Trace_Piecewise:        lambda i: self.allTraceObjs.append( i ),

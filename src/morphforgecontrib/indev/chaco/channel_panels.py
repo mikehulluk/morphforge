@@ -17,7 +17,7 @@ from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core imp
     InfTauInterpolation
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 from chaco_util import _create_plot_component
-from morphforge.core.misc import ExpectSingle
+from morphforge.core.misc import SeqUtils
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
@@ -340,7 +340,7 @@ def buildPaneFromExistingChannelInfTau1State(existing_channel_functor, sim_confi
     # Setup the channel, so we can look at inf_tau: 
     chl =  existing_channel_functor(NeuronSimulationEnvironment())
 
-    state_name = ExpectSingle( chl.statevars.keys() )
+    state_name = SeqUtils.expect_single( chl.statevars.keys() )
     
     state=buildStatePane(chl, state_name)
     general=HHGeneralPanel( 

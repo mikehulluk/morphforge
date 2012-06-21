@@ -1,7 +1,7 @@
 from morphforge.morphology.util.morphlocator import MorphLocator
 from morphforge.simulation.core.celllocation import CellLocation
 import itertools
-from morphforge.core.misc import ExpectSingle
+from morphforge.core.misc import SeqUtils
 
 class CellLocator(object):
     """Provides the same functionality as MorphLocator, except that it operates on cells."""
@@ -24,4 +24,4 @@ class CellLocator(object):
     @classmethod
     def getLocationAtDistanceAwayFromDummy(cls, cell, distance, section_predicate=None):
         """Utility Function"""
-        return ExpectSingle( cls.getLocationsAtDistanceAwayFromDummy(cell=cell, distance=distance, section_predicate=section_predicate) )
+        return SeqUtils.expect_single( cls.getLocationsAtDistanceAwayFromDummy(cell=cell, distance=distance, section_predicate=section_predicate) )

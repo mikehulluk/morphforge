@@ -14,12 +14,20 @@
 
 assert False, "Do not use this module ~ currently in development"
 
+from morphforge.core.misc import SeqUtils
 
-from morphforge.core import CleanName, FilterExpectSingle
+
+def _clean_name(name):
+    newName = ""
+    for c in name:
+        if c in string.ascii_letters + string.digits:
+            newName += c
+    return newName
+
 from morphforge.morphology.core import MorphologyTree , Section, Region
 
 import xml.dom.minidom as XML  
-from morphforge.core.misc import ExpectSingle
+from morphforge.core.misc import SeqUtils
 
 import collections
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
@@ -41,7 +49,7 @@ def FilterChildrenByTag(node, tag):
     return Filter( node.childNodes, isElementWithTag(tag) )
 
 def FilterExpectSingleChildrenByTag(node, tag):
-    return FilterExpectSingle( node.childNodes, isElementWithTag(tag) )
+    return SeqUtils.filter_expect_single( node.childNodes, isElementWithTag(tag) )
     
 
 
@@ -67,11 +75,11 @@ class SearchableSet(object):
     
     assert len(args) ==0
     if isinstance(k, collections.Callable):
-      return ExpectSingle( [ k(o) for o in self.data ] )
+      return SeqUtils.expect_single( [ k(o) for o in self.data ] )
   
   
     elif isinstance(k, basestring):
-      return ExpectSingle( [ o for o in self.data if getattr(o,k) == v ] )
+      return SeqUtils.expect_single( [ o for o in self.data if getattr(o,k) == v ] )
     else:
       print 'Unexpected Type of %s - %s'%(k, type(k) )
       assert False
@@ -106,7 +114,7 @@ class Level1NeuroMLRepresentation(object):
         # Read the XML:
         
         # Start with the declared Cables:
-        cablesNode = FilterExpectSingleChildrenByTag( cellNode, 'cables') #'FilterExpectSingle(cellNode.childNodes, isElementWithTag("cables"))
+        cablesNode = FilterExpectSingleChildrenByTag( cellNode, 'cables') 
         
         # Load the individual cable objects
         for cableNode in FilterChildrenByTag(cablesNode, "cable"):
@@ -143,7 +151,7 @@ class Level1NeuroMLRepresentation(object):
                 
         
         # Load the Segments Objects:
-        segmentsNode = FilterExpectSingle(cellNode.childNodes, isElementWithTag("segments"))
+        segmentsNode = SeqUtils.filter_expect_single(cellNode.childNodes, isElementWithTag("segments"))
         for segmentNode in Filter(segmentsNode.childNodes, isElementWithTag("segment")):
             
             #Attributes:
@@ -167,7 +175,7 @@ class Level1NeuroMLRepresentation(object):
             # Root node:
             if not parent_id:
                 assert proximalNode
-                proximalNode = ExpectSingle(proximalNode)
+                proximalNode = SeqUtils.expect_single(proximalNode)
                 p_X, p_Y, p_Z, p_d = float(proximalNode.getAttribute('x') ), float( proximalNode.getAttribute('y') ), float( proximalNode.getAttribute('z') ), float( proximalNode.getAttribute('diameter') ) 
                 pInfo = (p_X,p_Y,p_Z,p_d)
                 segment = NeuroMLSegment(segment_id=segment_id, 
@@ -272,7 +280,7 @@ class MorphMLLoader(object):
 
            
         # Do the action:
-        cellsNode = FilterExpectSingle(doc.childNodes, filterFunc=isElementWithTag("cells"))
+        cellsNode = SeqUtils.filter_expect_single(doc.childNodes, filterFunc=isElementWithTag("cells"))
 
         
         morphs = []
@@ -290,15 +298,15 @@ class MorphMLLoader(object):
         # Make all the regions:
         regionNames = list(set( Filter(cableIDToRegionName.values(), lambda e:e is not None )) )
         print 'RegionNames:', regionNames
-        regionNamesClean = [ CleanName(str(rgnName)) for rgnName in regionNames]
+        regionNamesClean = [ _clean_name(str(rgnName)) for rgnName in regionNames]
         
         rgns = [ Region(name=rgnName) for rgnName in regionNamesClean]
         rgnNameToRegionDict = dict([ (rgn.name, rgn) for rgn in rgns])
-        cableIDToRegionDict = dict([ (cableId, rgnNameToRegionDict[CleanName(rgnName)]) if rgnName is not None else (cableId,None) for cableId, rgnName in cableIDToRegionName.iteritems()  ])
+        cableIDToRegionDict = dict([ (cableId, rgnNameToRegionDict[_clean_name(rgnName)]) if rgnName is not None else (cableId,None) for cableId, rgnName in cableIDToRegionName.iteritems()  ])
         
         
         # Find the node without a parent:
-        rN = FilterExpectSingle(segmentListInfo.values(), lambda s: not s[3])
+        rN = SeqUtils.filter_expect_single(segmentListInfo.values(), lambda s: not s[3])
         
         
         #Recursively Construct by finding what should be attached to current structure:
@@ -340,7 +348,7 @@ class MorphMLLoader(object):
         
         # We are not too worried about cables, but we do need the region name out of them:
         cableIDToRegionName = {}
-        cablesNode = FilterExpectSingle(cellNode.childNodes, isElementWithTag("cables"))
+        cablesNode = SeqUtils.filter_expect_single(cellNode.childNodes, isElementWithTag("cables"))
         for cableNode in Filter(cablesNode.childNodes, isElementWithTag("cable")):
             id = cableNode.getAttribute("id")
             name = cableNode.getAttribute("name")
@@ -349,10 +357,10 @@ class MorphMLLoader(object):
             
             if group_nodes:
                 if regions:
-                    metaGroupNode = FilterExpectSingle(group_nodes, lambda e: getText(e) in regions)
+                    metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: getText(e) in regions)
                     rgnName = regions[ getText(metaGroupNode) ]
                 else:
-                    metaGroupNode = ExpectSingle(group_nodes)
+                    metaGroupNode = SeqUtils.expect_single(group_nodes)
                     rgnName = getText(metaGroupNode)
                     
                 assert not id in cableIDToRegionName
@@ -369,7 +377,7 @@ class MorphMLLoader(object):
             
         # Load the segments:
         segmentListInfo = {} # id -> (id, name, cable,parent,(px,py,pz,pDiam),(dx,dy,dz,dDiam) )
-        segmentsNode = FilterExpectSingle(cellNode.childNodes, isElementWithTag("segments"))
+        segmentsNode = SeqUtils.filter_expect_single(cellNode.childNodes, isElementWithTag("segments"))
         for segNode in Filter(segmentsNode.childNodes, isElementWithTag("segment")):
             print "Segment"
             id = segNode.getAttribute("id")
@@ -378,7 +386,7 @@ class MorphMLLoader(object):
             parent = segNode.getAttribute("parent")
             
             # Every point should have a distal End:
-            dNode = FilterExpectSingle(segNode.childNodes, isElementWithTag("distal"))
+            dNode = SeqUtils.filter_expect_single(segNode.childNodes, isElementWithTag("distal"))
             d_x, d_y, d_z = dNode.getAttribute("x"), dNode.getAttribute("y"), dNode.getAttribute("z")
             d_diam = dNode.getAttribute("diameter")
             
@@ -386,7 +394,7 @@ class MorphMLLoader(object):
             
             if not parent:
                 pass
-                pNode = FilterExpectSingle(segNode.childNodes, isElementWithTag("proximal"))
+                pNode = SeqUtils.filter_expect_single(segNode.childNodes, isElementWithTag("proximal"))
                 p_x, p_y, p_z = pNode.getAttribute("x"), pNode.getAttribute("y"), pNode.getAttribute("z")
                 p_diam = pNode.getAttribute("diameter")
                 

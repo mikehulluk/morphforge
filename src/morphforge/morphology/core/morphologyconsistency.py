@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import FilterExpectSingle, Flatten, CheckType, CheckValidName
+from morphforge.core import  SeqUtils,  check_cstyle_varname
 #from section import Section        
 from morphforge.morphology.md5 import getMD5OfMorphology
 
@@ -82,7 +82,7 @@ class MorphConsistencyChecker(object):
         # Disable further checking:
         self.disable()
         
-        CheckValidName(self.morph.name)
+        check_cstyle_varname(self.morph.name)
         self.CheckTree()
     
         # Enable further checking:
@@ -105,7 +105,7 @@ class MorphConsistencyChecker(object):
         
     def CheckSectionInfraStructure(self,section, morph, dummysection):
         from tree import Section
-        CheckType(self.morph._dummysection, Section)
+        assert isinstance( self.morph._dummysection, Section)
         
         # Check the parent/children connections:
         if dummysection:
@@ -141,11 +141,11 @@ class MorphConsistencyChecker(object):
             
     def CheckRegion(self,region,morph):
         
-        CheckValidName(region.name)
+        check_cstyle_varname(region.name)
         # Check no-other region has this name:
         #print "Checking region:", region.name
         #print "All Regions:", ",".join( [r.name for r in self.morph.getRegions()] )
-        assert FilterExpectSingle( self.morph.getRegions(), lambda rgn: rgn.name == region.name) == region
+        assert SeqUtils.filter_expect_single( self.morph.getRegions(), lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
         for s in region.sections:
             assert region == s.region
@@ -171,7 +171,7 @@ class MorphConsistencyChecker(object):
         self.CheckSection(self.morph._dummysection, self.morph, dummysection=True, recurse=True)
         
         # Check that there are not duplications of idTags in the tree:
-        idtags = Flatten( [s.idTag for s in self.morph if s.idTag]  )
+        idtags = SeqUtils.flatten( [s.idTag for s in self.morph if s.idTag]  )
         #print idtags
         assert len(idtags) == len( list(set(idtags) ) )
         

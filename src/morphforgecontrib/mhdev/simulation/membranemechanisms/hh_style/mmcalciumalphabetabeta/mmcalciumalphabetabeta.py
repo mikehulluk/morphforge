@@ -41,7 +41,7 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.beta2threshold = unit(beta2threshold)
         
         self.F = unit("96480:C/mol")
-        self.R = unit("8.314472:J/K/mol")
+        self.R = unit("8.314472:J/(K mol)")
         self.CaZ = unit("2:")
         self.T = unit(temperature)
         

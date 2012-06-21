@@ -4,8 +4,8 @@ from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 
 import morphforge.morphology.exporter.export_tree_swc 
 
-from morphforge.core.misc import StripCommentsAndBlankLines, ReadFile,\
-    WriteToFile, find_files_recursively
+from morphforge.core.misc import StripCommentsAndBlankLines \#, ReadFile,\
+    FileIO, find_files_recursively
 
 import os
 import numpy as np

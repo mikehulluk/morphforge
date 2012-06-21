@@ -141,8 +141,8 @@ import numpy as np
 import math
 import itertools
 
-from morphforge.core import FilterExpectSingle
-from morphforge.core import CheckValidName
+from morphforge.core import SeqUtils
+from morphforge.core import check_cstyle_varname
 
 from morphforge.morphology.core.base import MorphologyBase
 from morphforge.morphology.visitor import SectionListerDF
@@ -345,7 +345,7 @@ class Region(object):
         s = "<RegionObject: Name: %s, nSections: %d (ID:%s)>" % (self.name, len(self.sections), id(self) )
         return s
     def __init__(self, name):
-        CheckValidName(name)
+        check_cstyle_varname(name)
         self.name = name
         self.sections = []
         self.morph = None
@@ -550,12 +550,12 @@ class MorphologyTree(MorphologyBase):
         """ Returns a Region object relevant to this tree, given a filename"""
         assert self.ensureConsistency()
 
-        return FilterExpectSingle(self.getRegions(), lambda r: r.name == name)
+        return SeqUtils.filter_expect_single(self.getRegions(), lambda r: r.name == name)
 
     def getSection(self, idTag):
         """ Returns a Section object with a given id"""
         assert self.ensureConsistency()
-        return FilterExpectSingle(self, lambda s: s.idTag == idTag)
+        return SeqUtils.filter_expect_single(self, lambda s: s.idTag == idTag)
 
     def getIDTags(self):
         return [ section.idTag for section in self if section.idTag]

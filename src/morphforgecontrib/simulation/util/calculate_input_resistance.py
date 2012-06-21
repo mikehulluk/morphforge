@@ -307,8 +307,8 @@ class CellAnalysis_IVCurve(object):
 
 
         V = [self.getIVPointSteaddyState(c) for c in self.currents ]
-        i = FactoriseUnitsFromList(self.currents)
-        v = FactoriseUnitsFromList(V)
+        i = factorise_units_from_list(self.currents)
+        v = factorise_units_from_list(V)
 
 
         lowV = v<self.v_regressor_limit

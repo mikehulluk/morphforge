@@ -14,7 +14,7 @@ import string
 from morphforge.simulation.core.cell import Cell
 from morphforgecontrib.tags import StdTagFunctors
 from morphforge.core.objectnumberer import ObjectLabeller
-from morphforge.core.misc import isIterable
+from morphforge.core.misc import is_iterable
 
 class NeuronPopulation(object):
 
@@ -109,7 +109,7 @@ class SynapsePopulation(object):
         for s in synapses:
             if s is None:
                 continue
-            elif isIterable(s):
+            elif is_iterable(s):
                 self.synapses.extend(s)
             else:
                 print 'Not Iterable:',s

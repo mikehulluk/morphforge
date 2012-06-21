@@ -22,7 +22,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import LocMgr, WriteToFile, FilterExpectSingle
+from morphforge.core import LocMgr, FileIO
+from morphforge.core.misc import SeqUtils
 import pickle
 
 
@@ -40,7 +41,7 @@ class SimulationResult(object):
         self.tStop = tStop
     
     def getTrace(self, name):
-        return FilterExpectSingle(self.traces, lambda s: s.name == name) 
+        return SeqUtils.filter_expect_single(self.traces, lambda s: s.name == name) 
     
     
     def getTraces(self,):
@@ -50,7 +51,7 @@ class SimulationResult(object):
     # Loading & Saving:
     def saveToFile(self, filename):
         resString = pickle.dumps(self)
-        return WriteToFile(resString, filename=filename, filedirectory=LocMgr.get_simulation_tmp_dir())
+        return FileIO.write_to_file(resString, filename=filename, filedirectory=LocMgr.get_simulation_tmp_dir())
          
     @classmethod
     def loadFromFile(cls, filename):

@@ -22,8 +22,31 @@
 #-------------------------------------------------------------------------------
 
 from morphforge.morphology.core import MorphologyTree, Section, Region
-from morphforge.core.quantities import  convertToUnit 
 import numpy 
+import quantities as pq
+from morphforge.core.misc import is_float, is_int
+import morphforge
+from morphforge.core.quantities.fromcore import unit
+
+
+def _convert_to_unit(o, defaultUnit):
+    #assert False
+    assert not isinstance( defaultUnit, (pq.quantity.Quantity,) )
+
+    if isinstance(o, pq.quantity.Quantity):
+        return o.rescale(defaultUnit)
+    elif is_float(o) or is_int(o):
+        return o * morphforge.core.quantities.unit_string_parser.parse( defaultUnit ).rescale(defaultUnit)
+    elif isinstance(o, (str, unicode)) and ":" in o:
+        return unit(o).rescale(defaultUnit)
+    else:
+        raise ValueError()
+
+
+
+
+
+
 
 class MorphologyBuilder(object):
     """ Class to build simple neuron morphologies """
@@ -35,12 +58,12 @@ class MorphologyBuilder(object):
         
         if area:
             
-            area = convertToUnit(area, defaultUnit="um2" ).rescale("um2").magnitude
+            area = _convert_to_unit(area, defaultUnit="um2" ).rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
             
         else:
             assert isinstance(int,rad) or isinstance(float,rad)
-            rad = convertToUnit(rad, defaultUnit="um" ).rescale("um").magnitude
+            rad = _convert_to_unit(rad, defaultUnit="um" ).rescale("um").magnitude
             
             
         somaRegion = Region("soma")

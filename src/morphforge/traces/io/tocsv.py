@@ -100,7 +100,7 @@ class NeuroCSVWriter(object):
     @classmethod
     def generate_column_header(self, tr, index):
         d = {'label':tr.name,
-             'unit': quantity_unit_to_string( tr._data.units),
+             'unit': str( tr._data.units),
              'tags': ",".join( tr.tags ) 
              }
         s1 = "#! COLUMN%d: "%(index)

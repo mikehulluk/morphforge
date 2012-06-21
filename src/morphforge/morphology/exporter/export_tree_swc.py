@@ -31,7 +31,7 @@ from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 
 
 from Cheetah.Template import Template
-from morphforge.core import WriteToFile
+from morphforge.core import FileIO
 from morphforge.morphology.visitor import SectionIndexerWithOffsetDF
 from morphforge.morphology.conversion.region_to_int_bimap import AutoRegionToIntMapTable
 
@@ -82,7 +82,7 @@ class SWCTreeWriter(object):
     
     @classmethod
     def _toFileMulti(cls, filename, morphs, regionname_to_int_map=None):
-        return WriteToFile(s=cls._toStrMulti(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
+        return FileIO.write_to_file(txt=cls._toStrMulti(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
     
     @classmethod
     def _toStrMulti(cls, morphs, regionname_to_int_map=None ):

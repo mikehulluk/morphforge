@@ -27,7 +27,7 @@
 from Cheetah.Template import Template
 from morphforge.simulation.neuron import ModFile
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, MHocFileData
-from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
+#from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import ModFileSectioned, NeuronParameter
 
 

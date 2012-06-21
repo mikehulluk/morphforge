@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.core.objectnumberer import ObjectLabeller
-from morphforge.core.misc import CheckValidName
+from morphforge.core.misc import check_cstyle_varname
 
 
 
@@ -44,7 +44,7 @@ class MorphologyBase(object):
         self.region_number_to_name_bidict = region_number_to_name_bidict
         
         self._name = name or ObjectLabeller.getNextUnamedObjectName(MorphologyBase) 
-        CheckValidName(self._name)
+        check_cstyle_varname(self._name)
         
         self.metadata = metadata if metadata else {}
 

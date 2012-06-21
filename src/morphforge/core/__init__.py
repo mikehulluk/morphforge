@@ -34,9 +34,10 @@ from mfrandom import MFRandom
 
 from mgrs import LocMgr, LogMgr, SettingsMgr,  RCMgr 
 
-from misc import WriteToFile, MergeDictionaries, ReadFile, AppendToFile, FilterExpectSingle, Flatten, CheckValidName, ExactlyOneNotNone, FilterWithProb
-from misc import require, requiresubclass, CheckType, getFileMD5Checksum, getStringMD5Checksum, WriteStringToMD5SumName, ExecCommandGetRetCode, ExpectSingle
-from misc import CleanName, TimerPredictor, isIterable
+from misc import merge_dictionaries, FilterExpectSingle,  check_cstyle_varname, ExactlyOneNotNone, FilterWithProb
+from misc import getFileMD5Checksum, getStringMD5Checksum, ExecCommandGetRetCode
+from misc import is_iterable, FileIO
+from misc import SeqUtils
 
 
 from mockcontrol import MockControl
@@ -61,26 +62,17 @@ __all__ = [
     "LogMgr",
     "SettingsMgr",
     "RCMgr",
-    "WriteToFile",
-    "MergeDictionaries",
-    "ReadFile",
-    "AppendToFile",
+    "merge_dictionaries",
+    'FileIO',
     "FilterExpectSingle",
     "FilterWithProb",
-    "Flatten",
-    "CheckValidName",
+    'SeqUtils',
+    "check_cstyle_varname",
     "ExactlyOneNotNone",
-    "require",
-    "requiresubclass",
-    "CheckType",
     "getFileMD5Checksum",
     "getStringMD5Checksum",
-    "WriteStringToMD5SumName",
     "ExecCommandGetRetCode",
-    "ExpectSingle",
-    "CleanName",
-    "TimerPredictor",
-    "isIterable",
+    "is_iterable",
     "ObjectLabeller",
     "Split",
     "Join",

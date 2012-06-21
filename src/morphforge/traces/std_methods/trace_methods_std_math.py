@@ -9,7 +9,7 @@
 # 
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl, CloneTrace
+from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl, clone_trace
 from morphforge.traces import Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 import numpy as np
 
@@ -27,7 +27,7 @@ TraceMethodCtrl.register(Trace_FixedDT, 'var',    lambda tr: np.var(tr._data) )
 TraceMethodCtrl.register(Trace_FixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._data**2)) )
 
 # For VariableDT traces
-def variableDTMean(tr):
+def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
     integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude ) 
@@ -38,7 +38,7 @@ def variableDTMean(tr):
     #assert False, 'Check this'
     return mean
 
-TraceMethodCtrl.register(Trace_VariableDT, 'mean', variableDTMean)
+TraceMethodCtrl.register(Trace_VariableDT, 'mean', _variabledt_mean)
 # MISSING: VariableDT - stddev
 # MISSING: VariableDT - var
 # MISSING: VariableDT - rms
@@ -63,18 +63,18 @@ TraceMethodCtrl.register(Trace_Piecewise,  'ptp',  lambda tr: tr.max[1] - tr.min
 # Min & Max functions: 
 ######################
 #These also return the times of min/max:
-def getMax(tr):
+def _get_max(tr):
     indMax = np.argmax(tr._data)
     return tr._time[indMax], tr._data[indMax] 
 
-def getMin(tr):
+def _get_min(tr):
     indMin = np.argmin(tr._data)
     return tr._time[indMin], tr._data[indMin]
 
-TraceMethodCtrl.register(Trace_FixedDT, 'max', getMax)
-TraceMethodCtrl.register(Trace_FixedDT, 'min', getMin)
-TraceMethodCtrl.register(Trace_VariableDT, 'max', getMax)
-TraceMethodCtrl.register(Trace_VariableDT, 'min', getMin)
+TraceMethodCtrl.register(Trace_FixedDT, 'max', _get_max)
+TraceMethodCtrl.register(Trace_FixedDT, 'min', _get_min)
+TraceMethodCtrl.register(Trace_VariableDT, 'max', _get_max)
+TraceMethodCtrl.register(Trace_VariableDT, 'min', _get_min)
 # MISSING: Piecewise - min
 # MISSING: Piecewise - max
 
@@ -86,11 +86,11 @@ TraceMethodCtrl.register(Trace_VariableDT, 'min', getMin)
 
 # Gradients:
 ############
-def gradientFixed(self, *args):
+def _fixeddt_gradient(self, *args):
     #assert False, 'ToCheck'
-    return CloneTrace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.getDTNew(), comment='+ (Filtered)')
+    return clone_trace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.getDTNew(), comment='+ (Filtered)')
 
-TraceMethodCtrl.register(Trace_FixedDT, 'gradient', gradientFixed)
+TraceMethodCtrl.register(Trace_FixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient
 # MISSING: Piecewise - gradient
 

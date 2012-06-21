@@ -26,7 +26,7 @@
 
 
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
-from morphforge.core.misc import MergeDictionaries, Flatten, CheckValidName
+from morphforge.core.misc import merge_dictionaries, SeqUtils, check_cstyle_varname
 from morphforge.morphology.core import Region
 from morphforge.morphology.core import Section
 import math
@@ -98,7 +98,7 @@ class DictionaryLoader(object):
             children = sectionNode.get("sections", []) 
             if sectionNode.has_key("sections"): del sectionNode["sections"]  
             sectionID = len(sectionDictInt)
-            sectionDictInt[sectionID] = MergeDictionaries([{"parent": sectionNodeParentID}, sectionNode])
+            sectionDictInt[sectionID] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
             for c in children:  recursivelyAddSectionToList(c, sectionID, sectionDictInt)     
         
         #rootNode = morphDict["root"]
@@ -120,7 +120,7 @@ class DictionaryLoader(object):
                 yml["region"] = "NoRegionGiven"
         
         regionNames1 = [ yml["region"] for yml in yamlSectionDict.values() if yml.has_key("region") ]
-        regionNames2 = Flatten([ yml["regions"] for yml in yamlSectionDict.values() if yml.has_key("regions") ])
+        regionNames2 = SeqUtils.flatten([ yml["regions"] for yml in yamlSectionDict.values() if yml.has_key("regions") ])
         
         regionNames = list(set( regionNames1 + regionNames2) )
         regionDict = dict([ (n, Region(n)) for n in regionNames])
@@ -214,7 +214,7 @@ class DictionaryLoader(object):
             #Possible ID's:
             sectionIdTag = yamlSect["id"] if yamlSect.has_key("id") else None  
             if sectionIdTag:
-                CheckValidName(sectionIdTag)
+                check_cstyle_varname(sectionIdTag)
             if sectionIdTag in sectionIdTags: 
                 raise ValueError("Duplicate Section ID: %s" % sectionIdTag)
             if sectionIdTag:  sectionIdTags.append(sectionIdTag)

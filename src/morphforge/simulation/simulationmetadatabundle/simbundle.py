@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-from morphforge.core import WriteToFile
+from morphforge.core import FileIO
 from os.path import join as Join
 from morphforge.core import LocMgr, getStringMD5Checksum
 
@@ -100,7 +100,7 @@ class MixinSimLoc_AsFile(object):
         return self.simfilename
         
     def simLoc_Prepare(self):
-        WriteToFile(s=self.picklestring, filename=self.getFilename()) 
+        FileIO.write_to_file(txt=self.picklestring, filename=self.getFilename()) 
         self.picklestring = None
         
     def getSimulation(self):
@@ -138,7 +138,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
             bundlefilename = loc + "/" + self.getSimMD5Sum() + bundlesuffix
             #print "Bundle Filename", bundlefilename
 
-        WriteToFile(s=cPickle.dumps(self) , filename=bundlefilename)
+        FileIO.write_to_file(txt=cPickle.dumps(self) , filename=bundlefilename)
         return bundlefilename
         
     def writeToFileAndGetExecString(self, bundlefilename=None, simBinFile="SimulateBundle.py"):

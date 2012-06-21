@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice,
 #  this list of conditions and the following disclaimer.  - Redistributions in
 #  binary form must reproduce the above copyright notice, this list of
 #  conditions and the following disclaimer in the documentation and/or other
 #  materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -26,12 +26,12 @@
 from mgrs import LocMgr
 
 from os.path import exists as Exists
-from os.path import join as Join
+#from os.path import join as Join
 from subprocess import call
 
 import hashlib
-import string
-import re 
+#import string
+import re
 import random
 import os
 import fnmatch
@@ -60,76 +60,113 @@ def ExecCommandGetRetCode(cmd, args=None):
     args = args if args else []
     retcode = call(cmd + " " + " ".join(args), shell=True)
     return retcode
-    
-    
-
-## TODO: Refactor the classes below into a class:
-#class FileWriter():
-#    Write = "Write"
-#    Append = "Append"
-#    def __init__(self, s, filename=None, filelocation=None, filesuffix=None, mode=Write):
-#        pass
-#
 
 
 
 
 
-def WriteToFile(s, filename=None, filedirectory=None, suffix=None):
-    if not filename:
-        filename = LocMgr.get_temporary_filename( suffix=suffix, 
-                                                filedirectory=filedirectory)
 
-    with open(filename, "w") as f:
-        f.write(s)
-
-    return filename
-
-
-#def WriteStringToMD5SumName(s, filedirectory=None, suffix=""):
-#    filedirectory= filedirectory or LocMgr.get_tmp_path()
-#    md5Str = getStringMD5Checksum(s)
-#    fullFileName = Join(filedirectory, md5Str + suffix)
-#    if Exists(fullFileName):
-#        if getFileMD5Checksum(fullFileName) != md5Str:  
-#            raise ValueError("File exists with invalid checksum")
-#        return fullFileName
-#    return WriteToFile(s, filename=fullFileName)
-
-
-
-   
 def getFileMD5Checksum(f):
     return getStringMD5Checksum(open(f).read())
-    
+
 def getStringMD5Checksum(s):
     m = hashlib.md5()
     m.update(s)
     return m.hexdigest()
 
 
+class FileIO(object):
+    @classmethod
+    def append_to_file(cls, txt, filename):
+        assert Exists(filename)
+        with open(filename, "a") as f:
+            f.write(txt)
+        return filename
+
+    @classmethod
+    def write_to_file(cls, txt, filename=None, filedirectory=None, suffix=None):
+        if not filename:
+            filename = LocMgr.get_temporary_filename( suffix=suffix,
+                                                    filedirectory=filedirectory)
+        with open(filename, "w") as f:
+            f.write(txt)
+        return filename
+
+    @classmethod
+    def read_from_file(cls, filename):
+        with open(filename) as f:
+            c = f.read()
+        return c
 
 
-def AppendToFile(s, filename):
-    assert Exists(filename)
-    f = open(filename, "a")
-    f.write(s)
-    f.close()
-    return filename
-    
-    
-    
-    
-def ReadFile(filename):
-    f = open(filename)
-    c = f.read()
-    f.close()
-    return c
-    
 
 
 
-    
+
+
+
+
+
+
+
+
+
+
+class SeqUtils(object):
+    @classmethod
+    def flatten(cls, seq, ):
+        res = []
+        for item in seq:
+            if (isinstance(item, (tuple, list))):
+                res.extend(SeqUtils.Flatten(item))
+            else:
+                res.append(item)
+        return res
+
+    @classmethod
+    def expect_single(cls, l):
+        if len(l) != 1:
+            if len(l)==0:
+                print "ExpectSingle has none:", l
+            else:
+                print "ExpectSingle has multiple:", l
+            raise ValueError("")
+        return l[0]
+
+    @classmethod
+    def filter_expect_single(cls, seq, filter_func):
+        filteredSeq = [ s for s in seq if filter_func(s) ]
+        if len(filteredSeq) == 0:
+            print seq
+            raise ValueError("Unable to find any occurances")
+        if len(filteredSeq) > 1:
+            raise ValueError("Found too many occurances")
+        return filteredSeq[0]
+
+
+def FilterExpectSingle(seq, filterFunc):
+    assert False, 'deprecated'
+
+
+
+#def FilterExpectSingle(seq, filterFunc):
+#    filteredSeq = [ s for s in seq if filterFunc(s) ]
+#    if len(filteredSeq) == 0:
+#        print seq
+#        raise ValueError("Unable to find any occurances")
+#    if len(filteredSeq) > 1:
+#        raise ValueError("Found too many occurances")
+#    return filteredSeq[0]
+
+#def SeqUtils.expect_single(l):
+#    if len(l) != 1:
+#        if len(l)==0:
+#            print "ExpectSingle has none:", l
+#        else:
+#            print "ExpectSingle has multiple:", l
+#        raise ValueError("")
+#    return l[0]
+
 def ExactlyOneNotNone(*args):
     notNone = [a for a in args if a != None]
     if len(notNone) != 1: raise ValueError("Not One Not None")
@@ -137,10 +174,26 @@ def ExactlyOneNotNone(*args):
 
 
 
-    
 
 
-def MergeDictionaries(dictionaries):
+
+
+
+def FilterWithProb(lst,p):
+    return [ l for l in lst if random.random() < p ]
+
+
+
+
+
+def is_iterable(f):
+    try:
+        iter(f)
+        return True
+    except TypeError:
+        return False
+
+def merge_dictionaries(dictionaries):
     res = {}
     for d in dictionaries:
         for (k, v) in d.iteritems():
@@ -149,52 +202,8 @@ def MergeDictionaries(dictionaries):
     return res
 
 
-def FilterExpectSingle(seq, filterFunc):
-    filteredSeq = [ s for s in seq if filterFunc(s) ]
-    if len(filteredSeq) == 0:  
-        print seq
-        raise ValueError("Unable to find any occurances")
-    if len(filteredSeq) > 1:  
-        raise ValueError("Found too many occurances")
-    return filteredSeq[0]
-
-def ExpectSingle(l):
-    if len(l) != 1:
-        if len(l)==0:
-            print "ExpectSingle has none:", l
-        else:
-            print "ExpectSingle has multiple:", l 
-        raise ValueError("")
-    return l[0]
-    
-
-
-    
-def Flatten(seq):
-    res = []
-    for item in seq:
-        if (isinstance(item, (tuple, list))):
-            res.extend(Flatten(item))
-        else:
-            res.append(item)
-    return res
-
-
-
-
-
-def FilterWithProb(lst,p):
-    return [ l for l in lst if random.random() < p ] 
-
-
-
-
-
-
-
-
-def CheckValidName(name):
-    if not isinstance(name, basestring): 
+def check_cstyle_varname(name):
+    if not isinstance(name, basestring):
         print name, name.__class__
         raise ValueError("Invalid Name - Not String!")
     validRegex = "^[a-zA-Z][_a-zA-Z0-9]*$"
@@ -203,14 +212,14 @@ def CheckValidName(name):
     return name
 
 
-def CleanName(name):
-    newName = ""
-    for c in name:
-        if c in string.ascii_letters + string.digits:
-            newName += c
-    return newName
+#def CleanName(name):
+#    newName = ""
+#    for c in name:
+#        if c in string.ascii_letters + string.digits:
+#            newName += c
+#    return newName
 
-        
+
 #def deprecated(func):
 #    """This is a decorator which can be used to mark functions
 #    as deprecated. It will result in a warning being emmitted
@@ -300,7 +309,7 @@ def CleanName(name):
 #    if not isinstance(inst, cls):
 #        print "INST:", inst
 #        print "CLASS:", cls
-#        
+#
 #        raise  ValueError()
 #
 
@@ -345,8 +354,10 @@ def CleanName(name):
 
 
 
-
-def isFloat(f):
+# Deprecated:
+# =========================
+def is_float(f):
+    # We are getting rid of the only function calling this './morphforge/src/morphforge/core/quantities/fromcore.py'
     try:
         float(f)
         return True
@@ -354,20 +365,16 @@ def isFloat(f):
         return False
 
 
-def isInt(f):
+def is_int(f):
+    # We are getting rid of the only function calling this './morphforge/src/morphforge/core/quantities/fromcore.py'
     try:
         int(f)
         return True
     except:
         return False
+# ==========================
 
 
-def isIterable(f):
-    try: 
-        iter(f)
-        return True
-    except TypeError: 
-        return False
 
 
 
@@ -388,17 +395,17 @@ def isIterable(f):
 #
 #    def Str(self, nJobsComplete):
 #        tElapsed = datetime.datetime.now() - self.tStart
-#        tTotal = tElapsed / nJobsComplete * self.nJobsTotal  
+#        tTotal = tElapsed / nJobsComplete * self.nJobsTotal
 #        tFinish =  self.tStart + tTotal
-#        
+#
 #        l1 = """Time Elapsed:     """ +str(tElapsed)
 #        l2 = """Percent Complete: %2.3f""" %( float(nJobsComplete)/float(self.nJobsTotal) * 100.0 )
 #        l3 = """Total Time:       """ + str(tTotal)
 #        l4 = """Finish Time:      """ + tFinish.strftime(self.formatstring)
-#        
+#
 #        return "\n".join([l1,l2,l3,l4])
-#        
-    
+#
+
 def maxWithUniqueCheck(collection, key):
     assert len(collection)
     if len(collection) ==1: return collection[0]

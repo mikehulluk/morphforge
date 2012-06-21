@@ -28,7 +28,7 @@ import cPickle
 
 
 
-from morphforge.core import WriteToFile 
+from morphforge.core import FileIO 
 
 
 class PostSimulationAction(object):
@@ -49,6 +49,6 @@ class PostSimulationActionPickleSimulation(object):
         assert self.filename
         filename = self.filename #if self.filename else bundle.metadata[SimMetaDataBundle.ResultsFileLocation]
         resstring = cPickle.dumps(result)
-        WriteToFile(s=resstring, filename=filename) 
+        FileIO.write_to_file(txt=resstring, filename=filename) 
     
 

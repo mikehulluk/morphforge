@@ -23,12 +23,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-import os
+#import os
 
 
 class SettingsMgr(object):
     """ Doc String for Settings Manager"""
-    _showGui = True
+    #_showGui = True
     #_showAllPlots = True
     
     # Don't Start Logging until everything is Configured!
@@ -55,9 +55,9 @@ class SettingsMgr(object):
     def isLogging(cls):
         return cls._logging 
     
-    @classmethod
-    def mockSimulation(cls):
-        return cls._simulateWithMocks        
+    #@classmethod
+    #def mockSimulation(cls):
+    #    return cls._simulateWithMocks        
 
     #@classmethod
     #def clearAllTempAtStart(cls):

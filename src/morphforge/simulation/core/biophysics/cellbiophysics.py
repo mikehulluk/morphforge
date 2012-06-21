@@ -32,7 +32,7 @@ from morphforge.simulation.core.biophysics.membranemechanismtargetters import Pa
 MechanismTargetApplicator = collections.namedtuple('MechanismTargetApplicator', ['mechanism', 'targetter', 'applicator'],)
 PassiveTargetApplicator = collections.namedtuple('PassiveTargetApplicator', ['passiveproperty', 'targetter', 'value'],)
 
-from morphforge.core.misc import maxWithUniqueCheck, ExpectSingle
+from morphforge.core.misc import maxWithUniqueCheck, SeqUtils
 
 class CellBiophysics(object):
   
@@ -91,7 +91,7 @@ class CellBiophysics(object):
     
     def getMTAByMechanismIDForSection(self, id, section):
         assert False,'Deprecated? 2012-01-20'
-        return ExpectSingle( [ mta for mta in self.getResolvedMTAsForSection(section=section) if mta.mechanism.getMechanismID()==id ] )
+        return SeqUtils.expect_single( [ mta for mta in self.getResolvedMTAsForSection(section=section) if mta.mechanism.getMechanismID()==id ] )
     
     
     

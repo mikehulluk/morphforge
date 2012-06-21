@@ -28,7 +28,7 @@ Created on Oct 12, 2009
 
 
 import numpy
-from morphforge.core import Flatten
+from morphforge.core import SeqUtils
 from morphforge.morphology.visitor import ListBuilderSectionVisitor
 from morphforge.core.monkey_patching import MonkeyPatchMayaVi
 
@@ -97,7 +97,7 @@ class MayaViRenderer(object):
                 
             lbs = []
             for morph in self.morphs:
-                lb = Flatten( ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph ) () ) 
+                lb = SeqUtils.flatten( ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph ) () ) 
                 lbs.extend( lb )
                 
             

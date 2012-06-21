@@ -19,7 +19,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.traces.trace_methods_ctrl import CloneTrace
+from morphforge.traces.trace_methods_ctrl import clone_trace
 from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl
 from morphforge.traces import Trace_FixedDT
 
@@ -36,7 +36,7 @@ def butterworthfilter(self, filterorder, cutoff_frequency):
         b, a = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
         filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
 
-        return CloneTrace(self,
+        return clone_trace(self,
                           data=filteredsignal * self._data.units,
                           comment="+(Butterworth Filtered)"
                           )        
@@ -60,7 +60,7 @@ def besselfilter(self, filterorder, cutoff_frequency):
 
         time_shift = self.getDTNew() * max( len(a), len(b) ) 
         
-        return CloneTrace(self,
+        return clone_trace(self,
                           data=filteredsignal * self._data.units,
                           time = self._time - time_shift,
                           comment="+(Bessel Filtered)"
@@ -85,7 +85,7 @@ def filterlowpassrc(tr, tau):
     b = np.array( [0,k] )
     
     xp = scipy.signal.lfilter( b,a, tr._data.magnitude)
-    return CloneTrace(tr=tr, data=xp*tr._data.units, comment="+ (LP RC Filtered)")
+    return clone_trace(tr=tr, data=xp*tr._data.units, comment="+ (LP RC Filtered)")
 
 
 TraceMethodCtrl.register(Trace_FixedDT, 'filterlowpassrc', filterlowpassrc, can_fallback_to_fixed_trace=True )

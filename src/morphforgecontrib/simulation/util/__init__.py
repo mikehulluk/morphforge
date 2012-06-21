@@ -13,7 +13,7 @@ from voltageclampchannel import getVCSomaCurrentTrace
 from calculate_input_resistance import CellAnalysis_IVCurve, CellAnalysis_ReboundResponse, CellAnalysis_StepInputResponse
 
 import numpy as np
-from morphforge.core.misc import FilterExpectSingle
+from morphforge.core.misc import SeqUtils
 
 
 def execWithProb(p, func):
@@ -37,7 +37,7 @@ def record_from_mechanism( sim, mechanism_name, where, what, on_error_skip=False
     
     recs = []
     
-    mech = FilterExpectSingle( seq=mechs, filterFunc= lambda m:m.name==mechanism_name)
+    mech = SeqUtils.filter_expect_single( seq=mechs, filterFunc= lambda m:m.name==mechanism_name)
     r = sim.record( mech, what=what, where = where, user_tags = user_tags + [mech.name], **kwargs )
     
     return r

@@ -84,7 +84,7 @@ class TraceMethodCtrl(object):
 
 
 
-def CopyTraceAttrs(trOld, trNew, name=None, comment=None, tags=None, add_tags=None):
+def copy_trace_attrs(trOld, trNew, name=None, comment=None, tags=None, add_tags=None):
     # NewName:
     if name is not None:
         if name.startswith('+'):
@@ -122,7 +122,7 @@ def CopyTraceAttrs(trOld, trNew, name=None, comment=None, tags=None, add_tags=No
 
 
 
-def CloneTrace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
+def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
         
     new_data = data if data is not None else tr._data
     new_time = time if time is not None else tr._time
@@ -132,6 +132,6 @@ def CloneTrace(tr, data=None, time=None, name=None, comment=None, tags=None, add
     #if type(tr) == Trace_FixedDT 
     #trNew = Trace_FixedDT(time=new_time, data=new_data )
     trNew = type(tr)(time=new_time, data=new_data )
-    return CopyTraceAttrs(tr,trNew, name=name, comment=comment, tags=tags, add_tags=add_tags)
+    return copy_trace_attrs(tr,trNew, name=name, comment=comment, tags=tags, add_tags=add_tags)
     
 

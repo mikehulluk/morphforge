@@ -26,8 +26,8 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via
 
 from lxml import etree
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import MM_Neuron_RecGen
-from morphforge.core.quantities.fromcore import unit
-from morphforge.core.misc import ExpectSingle
+#from morphforge.core.quantities.fromcore import unit
+#from morphforge.core.misc import ExpectSingle
 from neurounits.importers.neuroml import ChannelMLReader
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
     MHOCSections

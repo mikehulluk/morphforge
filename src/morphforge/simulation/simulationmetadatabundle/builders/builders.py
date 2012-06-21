@@ -22,7 +22,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import WriteToFile, LocMgr, getStringMD5Checksum, Join
+from morphforge.core import FileIO, LocMgr, getStringMD5Checksum, Join
 
 
 import cPickle
@@ -74,7 +74,7 @@ class MetaDataBundleBuilder(object):
         simlocation = LocMgr.ensure_dir_exists(LocMgr.get_simulation_tmp_dir() + simmd5sum[0:2])
         simfilename = Join(simlocation, simmd5sum + cls.simsuffix)
 
-        WriteToFile(s=simstring, filename=simfilename)
+        FileIO.write_to_file(txt=simstring, filename=simfilename)
 
         b = SimMetaDataBundle(sim)
         return b
