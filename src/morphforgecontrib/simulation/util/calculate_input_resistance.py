@@ -293,7 +293,7 @@ class CellAnalysis_IVCurve(object):
         ax.axvspan(self.tSteaddyStateStart, self.tSteaddyStateStop, facecolor='g', alpha=0.25)
         ax.legend()
 
-        PM.SaveFigure(figname= title)
+        PM.save_figure(figname= title)
 
 
     def plotIVCurve(self, ax=None):
@@ -338,6 +338,6 @@ class CellAnalysis_IVCurve(object):
         ax.plot( i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s,b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)   )
         ax.legend()
 
-        PM.SaveFigure(figname= title)
+        PM.save_figure(figname= title)
 
 

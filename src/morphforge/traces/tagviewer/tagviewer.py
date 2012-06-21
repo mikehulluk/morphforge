@@ -157,7 +157,7 @@ class TagViewer(object):
 
         # Save the figure:
         if save:
-            PM.SaveFigure( figtitle )
+            PM.save_figure( figtitle )
 
 
         if SettingsMgr.tagViewerAutoShow() and show:
