@@ -21,7 +21,7 @@ class Context(object):
         self.dst_zip_file = dst_zip_file
         self.op_files = []
         self.op_dir = "/tmp/mf/meshbuilder/" 
-        LocMgr.EnsureMakeDirs(self.op_dir)
+        LocMgr.ensure_dir_exists(self.op_dir)
 
 
     def get_color(self, alias):

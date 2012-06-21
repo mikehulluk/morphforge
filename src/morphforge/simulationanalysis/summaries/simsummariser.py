@@ -98,7 +98,7 @@ class SimulationSummariser(object):
             
         # Build PDF:
         dname, fname = os.path.split(filename)
-        LocMgr.EnsureMakeDirs(dname)
+        LocMgr.ensure_dir_exists(dname)
         doc = SimpleDocTemplate(filename,
                                 pagesize=A4, 
                                 leftMargin=25,

@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice,
-#  this list of conditions and the following disclaimer.  
+#  this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice,
-#  this list of conditions and the following disclaimer in the documentation 
+#  this list of conditions and the following disclaimer in the documentation
 #  and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,17 +25,14 @@
 import os
 import time
 import socket
+import random
 
 
 
 from os.path import exists as Exists
-from os.path import normpath as Normpath
 from os.path import join as Join
 
-from shutil import move as Move
 
-import random
-from datetime import datetime 
 
 
 
@@ -43,251 +40,154 @@ from datetime import datetime
 class LocMgr(object):
 
     locations = {}
-    
-    def __init__(self):
-        pass
-        
-        
+
+
+
     @classmethod
-    def ValidateExists(cls, location):
+    def validate_exists(cls, location):
         """ Helper function to ensure that returned path actually does exist"""
-        if location and not Exists(location): raise ValueError("Directory does not exist: %s"% location)
+        if location and not Exists(location):
+            raise ValueError("Directory does not exist: %s"% location)
         return location
-    
+
     @classmethod
-    def EnsureMakeDirs(cls, location):
-        """ Helper function that will make directories if they don't exist. Useful for temporary locations""" 
-        
-        if location and not Exists(location): 
+    def ensure_dir_exists(cls, location):
+        """ Helper function that will make directories if they don't exist.
+
+        Useful for temporary locations"""
+
+        if location and not Exists(location):
             from logmgr import LogMgr
             LogMgr.info("Creating FS Location - " + location)
             if  not Exists(location): os.makedirs(location)
-        return cls.ValidateExists(location)
-        
-    
-    
-        
+        return cls.validate_exists(location)
+
+
     @classmethod
-    def getRootPath(cls):
+    def get_root_path(cls):
         # Load it from the .rc file:
         if not "rootdir" in cls.locations:
             cls.locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../" ) )
-            cls.ValidateExists(cls.locations["rootdir"])
-            
-        return cls.ValidateExists(cls.locations["rootdir"]) 
+            cls.validate_exists(cls.locations["rootdir"])
+        return cls.validate_exists(cls.locations["rootdir"])
+
 
     @classmethod
-    def getSubLibraryPath(cls, ):
-        return cls.ValidateExists(Join(cls.getRootPath(), "../sublibraries/"))
-    
-      
-    @classmethod
-    def getBinPath(cls):
-        return cls.ValidateExists(Join(cls.getRootPath(), "bin/"))  
-    
-    @classmethod
-    def getLogPath(cls):
-        return cls.EnsureMakeDirs(Join(cls.getTmpPath(), "log/"))
+    def get_bin_path(cls):
+        return cls.validate_exists(Join(cls.get_root_path(), "bin/"))
 
     @classmethod
-    def getDatabaseConfigFile(cls):
-        return cls.ValidateExists(Join(cls.getRootPath(), "etc/databases.yaml"))
-    
+    def get_log_path(cls):
+        return cls.ensure_dir_exists(Join(cls.get_tmp_path(), "log/"))
+
+
+
     @classmethod
-    def getDefaultDatabaseNameFile(cls):
-        return cls.ValidateExists(Join(cls.getRootPath(), "etc/current_db"))
-    
-    
-    
-    
-    
-    
-    @classmethod
-    def getTemporaryFilename(cls, suffix="", filedirectory=None):
+    def get_temporary_filename(cls, suffix="", filedirectory=None):
         from morphforge.core.misc import getStringMD5Checksum
 
         rndString = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
         fn = "tmp_%s%s" % (getStringMD5Checksum(rndString), suffix)
-        
-        filedirectory = filedirectory if filedirectory else cls.getTmpPath()
+
+        filedirectory = filedirectory if filedirectory else cls.get_tmp_path()
         return Join(filedirectory, fn)
-        
-    
-    
+
+
     @classmethod
-    def removeAllTemporaryFiles(cls):
-        curDataStr = datetime.today().strftime("%y_%m_%d_%H_%M_%S")
-        newDir = Join(cls.getTmpBackupPath(), "tmp_" + curDataStr)
-        Move(LocMgr.getTmpPath(), newDir)
-        
-        
-    
-    @classmethod
-    def loadFromRCReader(cls, subsection, default):
+    def get_path_from_rcfile(cls, subsection, default):
         from rcmgr import RCMgr
-        if not RCMgr.hasConfig():
+        if not RCMgr.has_config():
             return default
-        
+
         if not subsection in cls.locations:
-            
-            if RCMgr.has("Locations", subsection): 
+
+            if RCMgr.has("Locations", subsection):
                 cls.locations[subsection] = RCMgr.get("Locations", subsection)
             else:
                 cls.locations[subsection] = default
-                
-        cls.locations[subsection] = cls.locations[subsection].replace("${PID}", "%d" % os.getpid())
-        return cls.EnsureMakeDirs(cls.locations[subsection])
-    
-        
-    
-    @classmethod
-    def getTmpPath(cls):
-        try:
-            loc = cls.loadFromRCReader("tmpdir", Join(cls.getRootPath(), "tmp"))
-        except:
-            loc = Join(cls.getRootPath(), "tmp")
-        return cls.EnsureMakeDirs(loc)
-    
-    
-    @classmethod
-    def getTmpBackupPath(cls):
-        return cls.EnsureMakeDirs(Join(cls.getRootPath(), "tmpbackup"))
-    
-    @classmethod 
-    def getCoveragePath(cls):
-        return cls.EnsureMakeDirs(Join(cls.getTmpPath(), "coverage"))
-    
-    
-    @classmethod
-    def getDefaultModBuildDir(cls):
-        loc = cls.loadFromRCReader("tmp_nrn_mod_builddir", Join(cls.getTmpPath(), "modbuild_%d/"%os.getpid()) )
-        return cls.EnsureMakeDirs(loc)
-        
-        
-    @classmethod
-    def getDefaultModOutDir(cls):
-        loc = cls.loadFromRCReader("tmp_nrn_mod_buildout", Join(cls.getTmpPath(), "modout/"))
-        return cls.EnsureMakeDirs(loc)
-        
-    
-    @classmethod
-    def getDefaultOutputDir(cls):
-        loc = Join( cls.getRootPath(), "output")
-        return cls.EnsureMakeDirs(loc)
-    
-    
-    @classmethod
-    def getDefaultSummaryOutputDir(cls):
-        loc = Join( cls.getDefaultOutputDir(), "summaries")
-        return cls.EnsureMakeDirs(loc)
-    
-    @classmethod
-    def getDefaultChannelSummaryOutputDir(cls):
-        loc = Join( cls.getDefaultSummaryOutputDir(), "channels" )
-        return cls.EnsureMakeDirs(loc)
-    
-    
-    
-    
-    
-    
-    @classmethod
-    def getSimulationTmpDir(cls):
-        loc = cls.loadFromRCReader("tmp_simulationpicklesdir", Join(cls.getTmpPath(), "simulationdir"))
-        return cls.EnsureMakeDirs(loc)
-             
 
-    
+        cls.locations[subsection] = cls.locations[subsection].replace("${PID}", "%d" % os.getpid())
+        return cls.ensure_dir_exists(cls.locations[subsection])
+
+
+
     @classmethod
-    def getSimulationResultsTmpDir(cls):
-        loc = cls.loadFromRCReader("tmp_simulationpicklesdir", Join(cls.getTmpPath(), "simulationresults"))
-        return cls.EnsureMakeDirs(loc)
-    
-    
-    
+    def get_tmp_path(cls):
+        try:
+            loc = cls.get_path_from_rcfile("tmpdir", Join(cls.get_root_path(), "tmp"))
+        except:
+            loc = Join(cls.get_root_path(), "tmp")
+        return cls.ensure_dir_exists(loc)
+
+
+
+
     @classmethod
-    def getSimulationResultsDBDir(cls):
-        loc = cls.loadFromRCReader("simulationdbresultsdir", Join(cls.getRootPath(), "dbData/"))
-        return cls.EnsureMakeDirs(loc)
-    
+    def get_default_mod_builddir(cls):
+        loc = cls.get_path_from_rcfile("tmp_nrn_mod_builddir", Join(cls.get_tmp_path(), "modbuild_%d/"%os.getpid()) )
+        return cls.ensure_dir_exists(loc)
+
+
     @classmethod
-    def getJobSimDBDir(cls):
-        loc = cls.loadFromRCReader("jobsimdir", Join(cls.getRootPath(), "dbData/"))
-        return cls.EnsureMakeDirs(loc)
-    
-    
-    
+    def get_default_mod_outdir(cls):
+        loc = cls.get_path_from_rcfile("tmp_nrn_mod_buildout", Join(cls.get_tmp_path(), "modout/"))
+        return cls.ensure_dir_exists(loc)
+
+
     @classmethod
-    def BackupDirectory(cls, location):
-        assert Exists(location)
-        
-        cleanLoc = Normpath(location)
-        if cleanLoc.endswith("/"): cleanLoc = cleanLoc[:-1] 
-        
-        def backLoc(l, suffix): return l + "_backup%d" % suffix
-        
-        suffix = 1
-        while Exists(backLoc(cleanLoc, suffix)): suffix = suffix + 1
-        newLoc = backLoc(cleanLoc, suffix)
-        Move(location, newLoc)
-    
-    
+    def get_default_output_dir(cls):
+        loc = Join( cls.get_root_path(), "output")
+        return cls.ensure_dir_exists(loc)
+
+
     @classmethod
-    def getPLYParseTabLocation(cls, subdir=None):
-        #username = os.getuid()
-        
-        #dir_name = '/tmp/morphforge_%d/parsetabs/'%username
-        dir_name = os.path.join( cls.getTmpPath(), "parsetabs/")
-        
-        if not subdir:
-            assert False
-            return cls.EnsureMakeDirs(dir_name)
-        else:
-            return cls.EnsureMakeDirs( os.path.join( dir_name, subdir) )
+    def get_default_summary_output_dir(cls):
+        loc = Join( cls.get_default_output_dir(), "summaries")
+        return cls.ensure_dir_exists(loc)
+
+    @classmethod
+    def get_default_channel_summary_output_dir(cls):
+        loc = Join( cls.get_default_summary_output_dir(), "channels" )
+        return cls.ensure_dir_exists(loc)
+
+
+
+
+
+
+    @classmethod
+    def get_simulation_tmp_dir(cls):
+        loc = cls.get_path_from_rcfile("tmp_simulationpicklesdir", Join(cls.get_tmp_path(), "simulationdir"))
+        return cls.ensure_dir_exists(loc)
+
+
+
+    @classmethod
+    def get_simulation_results_tmp_dir(cls):
+        loc = cls.get_path_from_rcfile("tmp_simulationpicklesdir", Join(cls.get_tmp_path(), "simulationresults"))
+        return cls.ensure_dir_exists(loc)
+
+
+
+    @classmethod
+    def get_ply_parsetab_path(cls, subdir):
+        dir_name = os.path.join( cls.get_tmp_path(), "parsetabs/")
+        return cls.ensure_dir_exists( os.path.join( dir_name, subdir) )
 
 
 
 
     ## Test Data:
     ######################
-    
-    
-    
-    
-    @classmethod
-    def getTestSrcsPath(cls):
-        return cls.ValidateExists(Join(cls.getRootPath(), "../test_data"))
-    
-    @classmethod
-    def getTestEqnSetsPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "eqnset"))
-    
-    @classmethod
-    def getTestModsPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "test_mods"))
-    
-    @classmethod
-    def getTestParamDataPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "hoc_params"))
+
+
+
 
     @classmethod
-    def getYAMLMorphDataPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "morph_yamls"))
+    def get_test_srcs_path(cls):
+        return cls.validate_exists(Join(cls.get_root_path(), "../test_data"))
 
     @classmethod
-    def getYAMLMembranePropertiesPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "membrane_parameters"))
-     
-     
-    @classmethod
-    def getYAMLCellsPath(cls):
-        return cls.ValidateExists(Join(cls.getTestSrcsPath(), "cell_yamls"))
-     
+    def get_test_mods_path(cls):
+        return cls.validate_exists(Join(cls.get_test_srcs_path(), "test_mods"))
 
-    @classmethod
-    def getGraphDefaultOutputPath(cls):
-        return cls.EnsureMakeDirs(Join(cls.getTmpPath(), "graphs/"))
-
-    @classmethod
-    def getDocOutputPath(cls):
-        return cls.EnsureMakeDirs(Join(cls.getTmpPath(), "docOutput/"))

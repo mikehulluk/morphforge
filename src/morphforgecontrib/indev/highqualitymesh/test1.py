@@ -8,7 +8,7 @@ from morphforge.morphology.core import MorphologyTree
 from morphforgecontrib.indev.highqualitymesh.create_mesh import MeshFromGTS
 from morphforge.morphology.importer.import_array_swc import NewSWCLoader
 
-testSrcsPath = LocMgr().getTestSrcsPath()
+testSrcsPath = LocMgr().get_test_srcs_path()
 srcSWCFile = Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
 
 

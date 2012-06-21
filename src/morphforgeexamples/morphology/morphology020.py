@@ -20,7 +20,7 @@ from morphforge.core import LocMgr, Join
 from morphforge.morphology.ui import MatPlotLibViewer
 from morphforge.morphology.core import MorphologyTree
 
-testSrcsPath = LocMgr().getTestSrcsPath()
+testSrcsPath = LocMgr().get_test_srcs_path()
 srcSWCFile = Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
 
 m = MorphologyTree.fromSWC(src=open(srcSWCFile))

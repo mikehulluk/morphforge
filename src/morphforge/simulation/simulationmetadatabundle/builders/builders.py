@@ -50,7 +50,7 @@ class MetaDataBundleBuilder(object):
 
         from morphforge.simulation.simulationmetadatabundle.postsimulation import PostSimulationActionPickleSimulation
 
-        reslocation = LocMgr.getSimulationResultsTmpDir()
+        reslocation = LocMgr.get_simulation_results_tmp_dir()
 
 
         b = MetaDataBundleBuilder.prepareSimBundle(sim)
@@ -71,7 +71,7 @@ class MetaDataBundleBuilder(object):
         simstring = cPickle.dumps(sim)
         simmd5sum = getStringMD5Checksum(simstring)
 
-        simlocation = LocMgr.EnsureMakeDirs(LocMgr.getSimulationTmpDir() + simmd5sum[0:2])
+        simlocation = LocMgr.ensure_dir_exists(LocMgr.get_simulation_tmp_dir() + simmd5sum[0:2])
         simfilename = Join(simlocation, simmd5sum + cls.simsuffix)
 
         WriteToFile(s=simstring, filename=simfilename)

@@ -16,7 +16,7 @@ from Cheetah.Template import Template
 from morphforge.core.mgrs.locmgr import LocMgr
 
 
-root = os.path.normpath( os.path.join( LocMgr.getRootPath(), "..") )
+root = os.path.normpath( os.path.join( LocMgr.get_root_path(), "..") )
 examples_src_dir = os.path.join(root, "src/morphforgeexamples/")
 
 
@@ -26,7 +26,7 @@ doc_src_dir = os.path.normpath( os.path.join(root, "doc") )
 examples_dst_dir =  os.path.join(root, "doc/srcs_generated_examples")
 examples_dst_dir_images =  os.path.join(root, "doc/srcs_generated_examples/images/")
 
-examples_build_dir = os.path.join( LocMgr.getTmpPath(), "mf_doc_build")
+examples_build_dir = os.path.join( LocMgr.get_tmp_path(), "mf_doc_build")
 examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
 
 

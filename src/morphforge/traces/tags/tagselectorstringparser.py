@@ -179,7 +179,7 @@ def parseString( s):
     if not _ParseCache._lex:
         _ParseCache._lex = ply.lex.lex()
     if not _ParseCache._yacc:
-        _ParseCache._yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.EnsureMakeDirs('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1 )
+        _ParseCache._yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1 )
     return _ParseCache._yacc.parse(s, lexer=_ParseCache._lex.clone())
 
 

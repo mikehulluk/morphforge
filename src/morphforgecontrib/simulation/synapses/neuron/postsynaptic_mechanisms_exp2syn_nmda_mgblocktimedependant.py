@@ -115,7 +115,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
                "tauClosed": self.tauClosed,
                "eRev": self.eRev,
                "pOpening": self.popening,
-               'random_seed': MFRandom.getSeed(),
+               'random_seed': MFRandom.get_seed(),
                }
         
         hocFileObj.addToSection( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )

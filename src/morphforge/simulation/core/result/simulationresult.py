@@ -50,7 +50,7 @@ class SimulationResult(object):
     # Loading & Saving:
     def saveToFile(self, filename):
         resString = pickle.dumps(self)
-        return WriteToFile(resString, filename=filename, filedirectory=LocMgr.getSimulationTmpDir())
+        return WriteToFile(resString, filename=filename, filedirectory=LocMgr.get_simulation_tmp_dir())
          
     @classmethod
     def loadFromFile(cls, filename):

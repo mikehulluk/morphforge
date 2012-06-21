@@ -63,13 +63,13 @@ def ExecCommandGetRetCode(cmd, args=None):
     
     
 
-# TODO: Refactor the classes below into a class:
-class FileWriter():
-    Write = "Write"
-    Append = "Append"
-    def __init__(self, s, filename=None, filelocation=None, filesuffix=None, mode=Write):
-        pass
-
+## TODO: Refactor the classes below into a class:
+#class FileWriter():
+#    Write = "Write"
+#    Append = "Append"
+#    def __init__(self, s, filename=None, filelocation=None, filesuffix=None, mode=Write):
+#        pass
+#
 
 
 
@@ -77,7 +77,7 @@ class FileWriter():
 
 def WriteToFile(s, filename=None, filedirectory=None, suffix=None):
     if not filename:
-        filename = LocMgr.getTemporaryFilename( suffix=suffix, 
+        filename = LocMgr.get_temporary_filename( suffix=suffix, 
                                                 filedirectory=filedirectory)
 
     with open(filename, "w") as f:
@@ -86,15 +86,15 @@ def WriteToFile(s, filename=None, filedirectory=None, suffix=None):
     return filename
 
 
-def WriteStringToMD5SumName(s, filedirectory=None, suffix=""):
-    filedirectory= filedirectory or LocMgr.getTmpPath()
-    md5Str = getStringMD5Checksum(s)
-    fullFileName = Join(filedirectory, md5Str + suffix)
-    if Exists(fullFileName):
-        if getFileMD5Checksum(fullFileName) != md5Str:  
-            raise ValueError("File exists with invalid checksum")
-        return fullFileName
-    return WriteToFile(s, filename=fullFileName)
+#def WriteStringToMD5SumName(s, filedirectory=None, suffix=""):
+#    filedirectory= filedirectory or LocMgr.get_tmp_path()
+#    md5Str = getStringMD5Checksum(s)
+#    fullFileName = Join(filedirectory, md5Str + suffix)
+#    if Exists(fullFileName):
+#        if getFileMD5Checksum(fullFileName) != md5Str:  
+#            raise ValueError("File exists with invalid checksum")
+#        return fullFileName
+#    return WriteToFile(s, filename=fullFileName)
 
 
 
@@ -211,101 +211,98 @@ def CleanName(name):
     return newName
 
         
-def deprecated(func):
-    """This is a decorator which can be used to mark functions
-    as deprecated. It will result in a warning being emmitted
-    when the function is used."""
-    from mgrs import LogMgr
-    def newFunc(*args, **kwargs):
-        LogMgr.warning("Call to deprecated function %s." % func.__name__)
-        return func(*args, **kwargs)
-    newFunc.__name__ = func.__name__
-    newFunc.__doc__ = func.__doc__
-    newFunc.__dict__.update(func.__dict__)
-    return newFunc
+#def deprecated(func):
+#    """This is a decorator which can be used to mark functions
+#    as deprecated. It will result in a warning being emmitted
+#    when the function is used."""
+#    from mgrs import LogMgr
+#    def newFunc(*args, **kwargs):
+#        LogMgr.warning("Call to deprecated function %s." % func.__name__)
+#        return func(*args, **kwargs)
+#    newFunc.__name__ = func.__name__
+#    newFunc.__doc__ = func.__doc__
+#    newFunc.__dict__.update(func.__dict__)
+#    return newFunc
+#
 
-
-def require(arg_name, *allowed_types):
-    def make_wrapper(f):
-        if hasattr(f, "wrapped_args"):
-            wrapped_args = getattr(f, "wrapped_args")
-        else:
-            code = f.func_code
-            wrapped_args = list(code.co_varnames[:code.co_argcount])
-
-        try:
-            arg_index = wrapped_args.index(arg_name)
-        except ValueError:
-            raise NameError, arg_name
-
-        def wrapper(*args, **kwargs):
-            if len(args) > arg_index:
-                arg = args[arg_index]
-                if not isinstance(arg, allowed_types):
-                    type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
-                    raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
-            else:
-                if arg_name in kwargs:
-                    arg = kwargs[arg_name]
-                    if not isinstance(arg, allowed_types):
-                        type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
-                        raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
-
-            return f(*args, **kwargs)
-
-        wrapper.wrapped_args = wrapped_args
-        return wrapper
-
-    return make_wrapper
-
-
-
-
-def requiresubclass(arg_name, *allowed_types):
-    def make_wrapper(f):
-        if hasattr(f, "wrapped_args"):
-            wrapped_args = getattr(f, "wrapped_args")
-        else:
-            code = f.func_code
-            wrapped_args = list(code.co_varnames[:code.co_argcount])
-
-        try:
-            arg_index = wrapped_args.index(arg_name)
-        except ValueError:
-            raise NameError, arg_name
-
-        def wrapper(*args, **kwargs):
-            if len(args) > arg_index:
-                arg = args[arg_index]
-                if not (issubclass(arg.__class__, allowed_types) or isinstance(arg, allowed_types)):
-                    type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
-                    raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
-            else:
-                if arg_name in kwargs:
-                    arg = kwargs[arg_name]
-                    if not (issubclass(arg.__class__, allowed_types) or isinstance(arg, allowed_types)):
-                        type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
-                        raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
-
-            return f(*args, **kwargs)
-
-        wrapper.wrapped_args = wrapped_args
-        return wrapper
-
-    return make_wrapper
-
-
-
-def CheckType(inst, cls):
-    if not isinstance(inst, cls):
-        print "INST:", inst
-        print "CLASS:", cls
-        
-        raise  ValueError()
+#def require(arg_name, *allowed_types):
+#    def make_wrapper(f):
+#        if hasattr(f, "wrapped_args"):
+#            wrapped_args = getattr(f, "wrapped_args")
+#        else:
+#            code = f.func_code
+#            wrapped_args = list(code.co_varnames[:code.co_argcount])
+#
+#        try:
+#            arg_index = wrapped_args.index(arg_name)
+#        except ValueError:
+#            raise NameError, arg_name
+#
+#        def wrapper(*args, **kwargs):
+#            if len(args) > arg_index:
+#                arg = args[arg_index]
+#                if not isinstance(arg, allowed_types):
+#                    type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
+#                    raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
+#            else:
+#                if arg_name in kwargs:
+#                    arg = kwargs[arg_name]
+#                    if not isinstance(arg, allowed_types):
+#                        type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
+#                        raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
+#
+#            return f(*args, **kwargs)
+#
+#        wrapper.wrapped_args = wrapped_args
+#        return wrapper
+#
+#    return make_wrapper
+#
+#
+#
+#
+#def requiresubclass(arg_name, *allowed_types):
+#    def make_wrapper(f):
+#        if hasattr(f, "wrapped_args"):
+#            wrapped_args = getattr(f, "wrapped_args")
+#        else:
+#            code = f.func_code
+#            wrapped_args = list(code.co_varnames[:code.co_argcount])
+#
+#        try:
+#            arg_index = wrapped_args.index(arg_name)
+#        except ValueError:
+#            raise NameError, arg_name
+#
+#        def wrapper(*args, **kwargs):
+#            if len(args) > arg_index:
+#                arg = args[arg_index]
+#                if not (issubclass(arg.__class__, allowed_types) or isinstance(arg, allowed_types)):
+#                    type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
+#                    raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
+#            else:
+#                if arg_name in kwargs:
+#                    arg = kwargs[arg_name]
+#                    if not (issubclass(arg.__class__, allowed_types) or isinstance(arg, allowed_types)):
+#                        type_list = " or ".join(str(allowed_type) for allowed_type in allowed_types)
+#                        raise TypeError, "Expected '%s' to be %s; was %s." % (arg_name, type_list, type(arg))
+#
+#            return f(*args, **kwargs)
+#
+#        wrapper.wrapped_args = wrapped_args
+#        return wrapper
+#
+#    return make_wrapper
 
 
 
-
+#def CheckType(inst, cls):
+#    if not isinstance(inst, cls):
+#        print "INST:", inst
+#        print "CLASS:", cls
+#        
+#        raise  ValueError()
+#
 
 
 
@@ -315,29 +312,32 @@ def CheckType(inst, cls):
 
 
 
-class memoized(object):
-    """Decorator that caches a function's return value each time it is called.
-    If called later with the same arguments, the cached value is returned, and
-    not re-evaluated.
-    """
-    def __init__(self, func):
-        self.func = func
-        self.cache = {}
-    def __call__(self, *args):
-        try:
-            return self.cache[args]
-        except KeyError:
-            self.cache[args] = value = self.func(*args)
-            return value
-        except TypeError:
-            print "Not Caching"
-            # uncachable -- for instance, passing a list as an argument.
-            # Better to not cache than to blow up entirely.
-            return self.func(*args)
-    def __repr__(self):
-        """Return the function's docstring."""
-        return self.func.__doc__
 
+
+
+#class memoized(object):
+#    """Decorator that caches a function's return value each time it is called.
+#    If called later with the same arguments, the cached value is returned, and
+#    not re-evaluated.
+#    """
+#    def __init__(self, func):
+#        self.func = func
+#        self.cache = {}
+#    def __call__(self, *args):
+#        try:
+#            return self.cache[args]
+#        except KeyError:
+#            self.cache[args] = value = self.func(*args)
+#            return value
+#        except TypeError:
+#            print "Not Caching"
+#            # uncachable -- for instance, passing a list as an argument.
+#            # Better to not cache than to blow up entirely.
+#            return self.func(*args)
+#    def __repr__(self):
+#        """Return the function's docstring."""
+#        return self.func.__doc__
+#
 
 
 
@@ -375,29 +375,29 @@ def isIterable(f):
 
 
 
-import datetime
+#import datetime
 
-class TimerPredictor(object):
-    defaultformatstring = "%A %d. %B %H:%M"
-
-    def __init__(self, nJobsTotal):
-        self.nJobsTotal = nJobsTotal
-        self.tStart = datetime.datetime.now()
-        self.formatstring = TimerPredictor.defaultformatstring
-
-
-    def Str(self, nJobsComplete):
-        tElapsed = datetime.datetime.now() - self.tStart
-        tTotal = tElapsed / nJobsComplete * self.nJobsTotal  
-        tFinish =  self.tStart + tTotal
-        
-        l1 = """Time Elapsed:     """ +str(tElapsed)
-        l2 = """Percent Complete: %2.3f""" %( float(nJobsComplete)/float(self.nJobsTotal) * 100.0 )
-        l3 = """Total Time:       """ + str(tTotal)
-        l4 = """Finish Time:      """ + tFinish.strftime(self.formatstring)
-        
-        return "\n".join([l1,l2,l3,l4])
-        
+#class TimerPredictor(object):
+#    defaultformatstring = "%A %d. %B %H:%M"
+#
+#    def __init__(self, nJobsTotal):
+#        self.nJobsTotal = nJobsTotal
+#        self.tStart = datetime.datetime.now()
+#        self.formatstring = TimerPredictor.defaultformatstring
+#
+#
+#    def Str(self, nJobsComplete):
+#        tElapsed = datetime.datetime.now() - self.tStart
+#        tTotal = tElapsed / nJobsComplete * self.nJobsTotal  
+#        tFinish =  self.tStart + tTotal
+#        
+#        l1 = """Time Elapsed:     """ +str(tElapsed)
+#        l2 = """Percent Complete: %2.3f""" %( float(nJobsComplete)/float(self.nJobsTotal) * 100.0 )
+#        l3 = """Total Time:       """ + str(tTotal)
+#        l4 = """Finish Time:      """ + tFinish.strftime(self.formatstring)
+#        
+#        return "\n".join([l1,l2,l3,l4])
+#        
     
 def maxWithUniqueCheck(collection, key):
     assert len(collection)

@@ -227,7 +227,7 @@ def compareNeuroMLChl( xmlFile ):
     model, chl_type = os.path.splitext(xmlFile)[0].split("/")[-2:]
     print model, chl_type
 
-    op_dir = LocMgr.EnsureMakeDirs(Join(html_output_dir, model, chl_type) )
+    op_dir = LocMgr.ensure_dir_exists(Join(html_output_dir, model, chl_type) )
     op_html = Join(op_dir, "index.html")
     c = ComparisonResult( xmlfile=xmlFile, op_file = op_html, same_chl=True, exception=None)
 
@@ -401,7 +401,7 @@ def main():
     # Clear out the old directory:
     if os.path.exists(html_output_dir):
         shutil.rmtree(html_output_dir)
-    LocMgr.EnsureMakeDirs(html_output_dir)
+    LocMgr.ensure_dir_exists(html_output_dir)
 
     root_html = Join(html_output_dir,"index.html")
 

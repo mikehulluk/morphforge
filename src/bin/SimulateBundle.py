@@ -1,6 +1,6 @@
-#! /usr/bin/env python 
+#! /usr/bin/env python
 
-import time 
+import time
 tStart = time.time()
 
 import sys
@@ -17,35 +17,35 @@ class flushfile(file):
         self.f.write(x)
         self.f.flush()
 #sys.stdout = flushfile(sys.stdout)
-#sys.stderr = flushfile(sys.stderr)     
+#sys.stderr = flushfile(sys.stderr)
 
 
 
 def main():
-    
+
     bundleFilename = sys.argv[1]
     print "Loading Bundle from ", bundleFilename
     bundle = SimMetaDataBundle.loadFromFile(bundleFilename)
-    
+
     # Load the random number seed
     if bundle.random_seed is not None:
-        mfrandom.MFRandom.seed(bundle.random_seed) # = morphforge.core.mfrandom.MFRandom._seed
-    
-    
+        mfrandom.MFRandom.seed(bundle.random_seed) 
+
+
     result = bundle.getSimulation().Run(doSpawn=False)
     result.setSimulationTime(tStart, time.time())
 
     LogMgr.info("Simulation Ran OK. Post Processing:")
-    
+
     bundle.doPostProcessingActions()
     LogMgr.info("Bundle Completed OK")
-    
-    
-    
-    
-    
+
+
+
+
+
 try:
-    tStart = time.time()    
+    tStart = time.time()
     main()
     tEnd = time.time()
     print "Simulation Time Elapsed: ", tEnd - tStart

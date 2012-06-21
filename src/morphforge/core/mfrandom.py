@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -22,33 +22,38 @@
 #-------------------------------------------------------------------------------
 import numpy
 import random
- 
+
 
 
 class MFRandom(object):
-    
+    """ A class to centralise random numbers.
+
+    This is centralised so that a seed can be set in a single place in order
+    to make simulations repeatable. This is particularly relevant in the case
+    of NEURON simulations, which are spawned  in another process.
+    """
+
     _seed = None
-    
+
     @classmethod
     def seed(cls, seed):
-        
-        print 'Setting Random Seed:', seed
-        if seed is None:
-            return 
-        
+        """ Seed the random number generator
+
+        This method simply calls 'random.seed()' and 'numpy.random.seed()'
+        """
+
         MFRandom._seed = seed
-        
         cls._reseed()
-        
+
+    @classmethod
+    def get_seed(cls):
+        """ Returns the current seed used"""
+        return cls._seed
+
     @classmethod
     def _reseed(cls):
-        
         random.seed(cls._seed)
-        numpy.random.seed(cls._seed)        
-        
-    @classmethod
-    def getSeed(cls):
-        return cls._seed 
-    
-# Randomly Initialise the seed:
+        numpy.random.seed(cls._seed)
+
+# Randomly initialise the seed:
 MFRandom.seed( random.randint(0,100000) )

@@ -146,7 +146,7 @@ class TestMorphologyArrayComparison(object):
         change each [x,y,z,r] value in the vertices matrix
         individually, to check that it is not the same. 
         """
-        testSrcsPath = LocMgr().getTestSrcsPath()
+        testSrcsPath = LocMgr().get_test_srcs_path()
         srcSWCFile = Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
         
         m = MorphologyArray.fromSWC(srcSWCFile)
@@ -172,7 +172,7 @@ class TestMorphologyArrayComparison(object):
         and check that the morphology is considered different
         """
         
-        testSrcsPath = LocMgr().getTestSrcsPath()
+        testSrcsPath = LocMgr().get_test_srcs_path()
         srcSWCFile = Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
         
         m = MorphologyArray.fromSWC(srcSWCFile)

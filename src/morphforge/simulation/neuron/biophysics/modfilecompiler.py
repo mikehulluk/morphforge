@@ -182,8 +182,8 @@ def _BuildModFileLocal(modFileShort, modfile=None):
 
 def BuildModFile(modfilename, outputDir=None, buildDir=None, modfile=None):
     
-    buildDir = LocMgr().getDefaultModBuildDir() if not buildDir else buildDir 
-    outputDir = LocMgr().getDefaultModOutDir() if not outputDir else outputDir  
+    buildDir = LocMgr().get_default_mod_builddir() if not buildDir else buildDir 
+    outputDir = LocMgr().get_default_mod_outdir() if not outputDir else outputDir  
     
     if SettingsMgr.SimulatorIsVerbose():
         print " - Building: ", modfilename

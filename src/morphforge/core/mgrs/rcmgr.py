@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -29,14 +29,14 @@ import ConfigParser, os
 class RCMgr(object):
     rcFilename = os.path.expanduser("~/.morphforgerc")
     rcConfParser = None
-    
+
     @classmethod
-    def hasConfig(cls):
+    def has_config(cls):
         return os.path.exists(cls.rcFilename)
-        
-     
+
+
     @classmethod
-    def getConfig(cls):
+    def get_config(cls):
         if not cls.rcConfParser:
             cls.rcConfParser = ConfigParser.SafeConfigParser()
             if not os.path.exists(cls.rcFilename):
@@ -49,18 +49,19 @@ class RCMgr(object):
     #Expose the same interface as the config parser does:
     @classmethod
     def has(cls, section, option):
-        return cls.getConfig().has_option(section, option)
-        
+        return cls.get_config().has_option(section, option)
+
     @classmethod
     def get(cls, section, option):
-        return cls.getConfig().get(section, option)
+        return cls.get_config().get(section, option)
 
-    @classmethod
-    def getInt(cls, section, option):
-        return cls.getConfig().getint(section, option)
 
-    @classmethod
-    def getFloat(cls, section, option):
-        return cls.getConfig().getfloat(section, option)
+    #@classmethod
+    #def get_int(cls, section, option):
+    #    return cls.get_config().getint(section, option)
+
+    #@classmethod
+    #def get_float(cls, section, option):
+    #    return cls.get_config().getfloat(section, option)
 
 

@@ -285,7 +285,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    def getNextSimSumOutputLocation(self,):
 #        self.simulation_no += 1
-#        l = LocMgr.EnsureMakeDirs( 'out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
+#        l = LocMgr.ensure_dir_exists( 'out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
 #        return l 
 #
 #    def __init__(self):

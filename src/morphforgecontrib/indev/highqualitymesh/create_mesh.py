@@ -134,7 +134,7 @@ class MeshFromGTS(object):
 
         
         
-        working_dir = LocMgr.EnsureMakeDirs("/tmp/mf/mesh/")
+        working_dir = LocMgr.ensure_dir_exists("/tmp/mf/mesh/")
         fTemp1 = Join( working_dir, "pts.txt")
         fTemp2  =Join( working_dir, "pts.off")
         fTemp3  =Join( working_dir, "pts.stl")

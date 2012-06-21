@@ -25,7 +25,7 @@ from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from plotspecs import PlotSpec_DefaultNew
-from morphforge.core.mgrs.settingsmgr import SettingsMgr
+#from morphforge.core.mgrs.settingsmgr import SettingsMgr
 from morphforge.traces import  Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
@@ -68,6 +68,8 @@ class DefaultPlotSpec:
 
 
 class TagViewer(object):
+
+    MPL_AUTO_SHOW = True
 
 
     defaultPlotSpecs = (
@@ -160,7 +162,7 @@ class TagViewer(object):
             PM.save_figure( figtitle )
 
 
-        if SettingsMgr.tagViewerAutoShow() and show:
+        if TagViewer.MPL_AUTO_SHOW and show:
             import pylab
             pylab.show()
 

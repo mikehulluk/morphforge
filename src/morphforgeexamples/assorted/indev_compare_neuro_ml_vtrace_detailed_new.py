@@ -217,7 +217,7 @@ def testfile(xmlfile):
     
     root_dir = "/home/michael/Desktop/fOut/"
     
-    LocMgr.EnsureMakeDirs(root_dir)
+    LocMgr.ensure_dir_exists(root_dir)
     fName = root_dir + "_".join( xmlfile.split("/")[-3:] )
     import pylab
     pylab.savefig( fName + ".svg"  )

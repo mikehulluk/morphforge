@@ -32,7 +32,7 @@ class ReportLabConfig(object):
         ## Setup space to store images:
         self.images = []
         self.imageExt = "png"
-        self.imageDir = os.path.normcase( os.path.join( LocMgr.getTmpPath(), 'reportlab_image_build') )
+        self.imageDir = os.path.normcase( os.path.join( LocMgr.get_tmp_path(), 'reportlab_image_build') )
         self.imagesize = (5,3)
         if not os.path.exists(self.imageDir):
             os.makedirs(self.imageDir)

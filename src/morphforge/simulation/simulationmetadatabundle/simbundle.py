@@ -79,7 +79,7 @@ class MixinSimLoc_AsObject(object):
     
     
 class MixinSimLoc_AsFile(object):
-    def __init__(self, sim, location=LocMgr.getSimulationTmpDir(), suffix=".neuronsim.pickle"):
+    def __init__(self, sim, location=LocMgr.get_simulation_tmp_dir(), suffix=".neuronsim.pickle"):
         
         super(MixinSimLoc_AsFile, self).__init__()
         
@@ -94,7 +94,7 @@ class MixinSimLoc_AsFile(object):
             
     def getFilename(self):
         if not self.simfilename:
-            simlocationWithDir = LocMgr.EnsureMakeDirs(self.location + self.getSimMD5Sum()[0:1])
+            simlocationWithDir = LocMgr.ensure_dir_exists(self.location + self.getSimMD5Sum()[0:1])
             simfileShort = self.getSimMD5Sum() + self.suffix
             self.simfilename = Join(simlocationWithDir, simfileShort)
         return self.simfilename
@@ -130,11 +130,11 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
     
     
     def writeToFile(self, bundlefilename=None):
-        bundleloc = LocMgr.getSimulationTmpDir()
+        bundleloc = LocMgr.get_simulation_tmp_dir()
         bundlesuffix = ".bundle"
         
         if not bundlefilename:            
-            loc = bundlefilename = LocMgr.EnsureMakeDirs(bundleloc + "/" + self.getSimMD5Sum()[0:2])
+            loc = bundlefilename = LocMgr.ensure_dir_exists(bundleloc + "/" + self.getSimMD5Sum()[0:2])
             bundlefilename = loc + "/" + self.getSimMD5Sum() + bundlesuffix
             #print "Bundle Filename", bundlefilename
 
@@ -144,7 +144,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
     def writeToFileAndGetExecString(self, bundlefilename=None, simBinFile="SimulateBundle.py"):
         
         bundlefilename = self.writeToFile(bundlefilename=bundlefilename)
-        simCmd = Join(LocMgr.getBinPath(), simBinFile) + " " + bundlefilename
+        simCmd = Join(LocMgr.get_bin_path(), simBinFile) + " " + bundlefilename
         return bundlefilename, simCmd
         
         

@@ -37,10 +37,10 @@ def build_simulation(modfilename):
 
 
 
-mod3aFilename = Join(LocMgr.getTestModsPath(), "exampleChannels3a.mod")
+mod3aFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3a.mod")
 results3a = build_simulation( mod3aFilename )
 
-mod3bFilename = Join(LocMgr.getTestModsPath(), "exampleChannels3b.mod")
+mod3bFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3b.mod")
 results3b = build_simulation( mod3bFilename )
 
 TagViewer([results3a,results3b], timeranges=[(95, 200)*pq.ms] )
