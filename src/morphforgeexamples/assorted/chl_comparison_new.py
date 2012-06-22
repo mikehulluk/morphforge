@@ -15,8 +15,8 @@ import lxml.etree as etree
 import pylab
 
 from morphforge.stdimports import NeuronSimulationEnvironment,MorphologyTree, unit
-from morphforge.stdimports import PassiveProperty, ApplyPassiveEverywhereUniform, StdRec
-from morphforge.stdimports import  ApplyMechanismEverywhereUniform, pq
+from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform, StdRec
+from morphforge.stdimports import  apply_mechanism_everywhere_uniform, pq
 
 import random as R
 from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_SingleSegment
@@ -40,7 +40,7 @@ def simulate_chl_vclamp(chl, voltage_level):
     
     # Setup the HH-channels on the cell:
     #chl = chl_applicator_functor(env, myCell, mySim)
-    ApplyMechanismEverywhereUniform(myCell, chl )
+    apply_mechanism_everywhere_uniform(myCell, chl )
     
     
     
@@ -48,7 +48,7 @@ def simulate_chl_vclamp(chl, voltage_level):
     
     
     # Setup passive channels:
-    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
     
     
     

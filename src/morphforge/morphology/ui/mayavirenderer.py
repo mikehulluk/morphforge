@@ -30,7 +30,7 @@ Created on Oct 12, 2009
 import numpy
 from morphforge.core import SeqUtils
 from morphforge.morphology.visitor import ListBuilderSectionVisitor
-from morphforge.core.monkey_patching import MonkeyPatchMayaVi
+#from morphforge.core.monkey_patching import MonkeyPatchMayaVi
 
 import itertools
 
@@ -58,7 +58,7 @@ class MayaViRenderer(object):
         section as a sphere about its endpoint. Only works for neurons
         with very small section lengths compared to radii
         """ 
-        MonkeyPatchMayaVi()
+        #MonkeyPatchMayaVi()
         #import enthought.mayavi.mlab as mlab
         from mayavi import mlab
     
@@ -76,7 +76,7 @@ class MayaViRenderer(object):
         Draws the points as spheres, but also interpolates inbetween the points, so the structure looks 
         more 'whole'
         """
-        MonkeyPatchMayaVi()
+        #MonkeyPatchMayaVi()
         import enthought.mayavi.mlab as mlab
         from mayavi import mlab
         
@@ -127,7 +127,7 @@ class MayaViRenderer(object):
         
         #import morphforge
         from morphforge.morphology.mesh import MeshBuilderRings
-        MonkeyPatchMayaVi()
+        #MonkeyPatchMayaVi()
         #import enthought.mayavi.mlab as mlab
         from mayavi import mlab
         
@@ -158,7 +158,7 @@ class MayaViRenderer(object):
         
         #import morphforge
         from morphforge.morphology.mesh import MeshBuilderRings
-        MonkeyPatchMayaVi()
+        #MonkeyPatchMayaVi()
         #import enthought.mayavi.mlab as mlab
         from mayavi import mlab
         
@@ -201,7 +201,7 @@ class MayaViRenderer(object):
         website and only used to make sure that MayaVi is
         install propery for testing purposes.
         """
-        MonkeyPatchMayaVi()
+        #MonkeyPatchMayaVi()
         import enthought.mayavi.mlab as mlab
         from mayavi import mlab
         

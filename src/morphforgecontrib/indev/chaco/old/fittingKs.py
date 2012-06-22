@@ -344,7 +344,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #            mech_dict[chl.chlname] = mech
 #            if mech:
 #                # Apply the mechanism:
-#                shortcuts.ApplyMechanismEverywhereUniform(cell=cell, mechanism=mech)
+#                shortcuts.apply_mechanism_everywhere_uniform(cell=cell, mechanism=mech)
 #
 #
 #
@@ -430,7 +430,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        m1 = MorphologyBuilder.getSingleSectionSoma(area= float(self.surfacearea) * um2 )
 #        #m1 = getDINMorphology(axonDiam=0.4)
 #        myCell = sim.createCell(name="Cell1", morphology=m1)
-#        shortcuts.ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
+#        shortcuts.apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
 #        return myCell
 #
 

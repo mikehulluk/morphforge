@@ -26,7 +26,7 @@
 
 from morphforge.simulation.core.biophysics import * 
 
-def ApplyMechanismUniform( cell, mechanism, targetter, parameter_multipliers={}, parameter_overrides= {}):
+def apply_mechanism_uniform( cell, mechanism, targetter, parameter_multipliers={}, parameter_overrides= {}):
     vals = mechanism.getDefaults()
         
     # Make it easy to scale values
@@ -52,15 +52,15 @@ def ApplyMechanismUniform( cell, mechanism, targetter, parameter_multipliers={},
 
 
 
-def ApplyMechanismEverywhereUniform( cell, mechanism, parameter_multipliers={}, parameter_overrides= {}):
-    return ApplyMechanismUniform( cell=cell, 
+def apply_mechanism_everywhere_uniform( cell, mechanism, parameter_multipliers={}, parameter_overrides= {}):
+    return apply_mechanism_uniform( cell=cell, 
                                      mechanism=mechanism, 
                                      targetter=MembraneMechanismTargeter_Everywhere(), 
                                      parameter_multipliers=parameter_multipliers, 
                                      parameter_overrides= parameter_overrides)
 
-def ApplyMechanismRegionUniform( cell, mechanism, region, parameter_multipliers={}, parameter_overrides= {}):
-    return ApplyMechanismUniform( cell=cell, 
+def apply_mechanism_region_uniform( cell, mechanism, region, parameter_multipliers={}, parameter_overrides= {}):
+    return apply_mechanism_uniform( cell=cell, 
                                   mechanism=mechanism, 
                                   targetter=MembraneMechanismTargeter_Region(region), 
                                   parameter_multipliers=parameter_multipliers, 
@@ -68,7 +68,7 @@ def ApplyMechanismRegionUniform( cell, mechanism, region, parameter_multipliers=
 
 
 
-def ApplyPassiveEverywhereUniform( cell, passiveproperty, value):
+def apply_passive_everywhere_uniform( cell, passiveproperty, value):
     assert passiveproperty in PassiveProperty.all
     cell.getBiophysics().addPassive(passiveproperty=passiveproperty, 
                                         targetter= PassiveTargeter_Everywhere(), 

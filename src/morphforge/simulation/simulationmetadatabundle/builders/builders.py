@@ -22,7 +22,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import FileIO, LocMgr, getStringMD5Checksum, Join
+from morphforge.core import FileIO, LocMgr, Join
+from morphforge.core.misc import StrUtils
 
 
 import cPickle
@@ -69,7 +70,7 @@ class MetaDataBundleBuilder(object):
     def prepareSimBundle(cls, sim):
 
         simstring = cPickle.dumps(sim)
-        simmd5sum = getStringMD5Checksum(simstring)
+        simmd5sum = StrUtils.get_hash_md5(simstring)
 
         simlocation = LocMgr.ensure_dir_exists(LocMgr.get_simulation_tmp_dir() + simmd5sum[0:2])
         simfilename = Join(simlocation, simmd5sum + cls.simsuffix)

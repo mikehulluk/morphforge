@@ -35,9 +35,9 @@ def record_from_mechanism( sim, mechanism_name, where, what, on_error_skip=False
     
     mechs = where.cell.getBiophysics().getAllMechanismsAppliedToCell()
     
-    recs = []
+    #recs = []
     
-    mech = SeqUtils.filter_expect_single( seq=mechs, filterFunc= lambda m:m.name==mechanism_name)
+    mech = SeqUtils.filter_expect_single( seq=mechs, filter_func= lambda m:m.name==mechanism_name)
     r = sim.record( mech, what=what, where = where, user_tags = user_tags + [mech.name], **kwargs )
     
     return r

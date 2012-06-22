@@ -20,28 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.core import getStringMD5Checksum
 
-def getMD5OfRegion(r):
-    #assert False # Is this Cruft?? Added Jan 2011
-    return getStringMD5Checksum(r.name)
-
-def getMD5OfSection(s):
-    #assert False # Is this Cruft?? Added Jan 2011
-    sectionString = " %2.2f %2.2f %2.2f %2.2f "
-    regionsString = getMD5OfRegion(s.region) if s.region else ""
-    childrenString = ",".join( [getMD5OfSection(s) for s in s.children] )
-    idString = "" if not s.idTag else getStringMD5Checksum(s.idTag)
-    
-    return getStringMD5Checksum( sectionString + regionsString + childrenString + idString)
-
-
-def getMD5OfMorphology(m):
-    #assert False # Is this Cruft?? Added Jan 2011
-    treemd5 = getMD5OfSection(m._dummysection)
-    nameMD5 = getStringMD5Checksum(m.name)
-    assert not m.metadata
-    regionsMD5 = ",".join( [ getMD5OfRegion(r) for r in m.getRegions() ])
-    return getStringMD5Checksum(treemd5 + nameMD5 + regionsMD5)
 
 

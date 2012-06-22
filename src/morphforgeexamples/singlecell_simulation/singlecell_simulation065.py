@@ -127,11 +127,11 @@ naChls = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channel
 kChls  = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
 lkChls = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env) 
 
-ApplyMechanismEverywhereUniform(myCell, naChls )
-ApplyMechanismEverywhereUniform(myCell, kChls  )
-ApplyMechanismEverywhereUniform(myCell, lkChls )
+apply_mechanism_everywhere_uniform(myCell, naChls )
+apply_mechanism_everywhere_uniform(myCell, kChls  )
+apply_mechanism_everywhere_uniform(myCell, lkChls )
 
-ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 # Get a location on the cell:
 somaLoc = myCell.getLocation("soma")

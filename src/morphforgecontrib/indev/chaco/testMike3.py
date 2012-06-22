@@ -149,7 +149,7 @@ class SimulationConfig(HasTraits):
 
         #caFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
         #caChl = caFunctor(env)
-        #shortcuts.ApplyMechanismEverywhereUniform(cell=cell, mechanism=caChl)
+        #shortcuts.apply_mechanism_everywhere_uniform(cell=cell, mechanism=caChl)
 
 
 
@@ -160,7 +160,7 @@ class SimulationConfig(HasTraits):
             mech_dict[chl.chlname] = mech
             if mech:
                 # Apply the mechanism:
-                ApplyMechanismEverywhereUniform(cell=cell, mechanism=mech)
+                apply_mechanism_everywhere_uniform(cell=cell, mechanism=mech)
 
 
 
@@ -245,7 +245,7 @@ class MorphologyConfig(HasTraits):
         m1 = morphFunctor(axonDiam = 0.4)
         
         myCell = sim.createCell(name="Cell1", morphology=m1)
-        ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
+        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
         return myCell
 
 
@@ -376,31 +376,31 @@ class Double(HasTraits):
             if mechFunctor == lkFunctor:
                 
                 if coupled_leak:
-                    ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
+                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
                 else:
-                    ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
+                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
                     
 
             elif mechFunctor == naFunctor:
                 if disable_sodium:
                     continue
                 
-                ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5} )
-                ApplyMechanismRegionUniform(    cell=myCell, mechanism=mech, region=myCell.morphology.getRegion('axon'), parameter_multipliers={'gScale':5.0} )
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5} )
+                apply_mechanism_region_uniform(    cell=myCell, mechanism=mech, region=myCell.morphology.getRegion('axon'), parameter_multipliers={'gScale':5.0} )
                     
                 
             elif mechFunctor == kfFunctor:
                 if disable_kf:
                     continue
                 
-                ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
-                ApplyMechanismRegionUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.getRegion('soma'))
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
+                apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.getRegion('soma'))
                 
             elif mechFunctor == ksFunctor:
-                ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
                 
             else:
-                ApplyMechanismEverywhereUniform(cell=myCell, mechanism=mech)
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech)
                 """
 
 caMult = 1.0

@@ -44,8 +44,8 @@ leakChannels = env.MembraneMechanism( MM_LeakChannel,
                          mechanism_id = 'HULL12_DIN_LK_ID'
                         )
     
-ApplyMechanismEverywhereUniform(myCell, leakChannels )
-ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_mechanism_everywhere_uniform(myCell, leakChannels )
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 
 # Get a location on the cell:

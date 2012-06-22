@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -23,11 +23,11 @@
 from morphforge.core.quantities import unit
 from morphforge.traces.tracetypes import Trace_FixedDT
 
-def PrependConversionToFixedTraceToFunction(func, fixed_trace_dt):
+def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
     from morphforge.traces import TraceConverter
     def wrapped_func(self, *args, **kwargs):
-        trNew = TraceConverter.RebaseToFixedDT(self, dt=fixed_trace_dt)
-        return func(trNew, *args, **kwargs)
+        tr_new = TraceConverter.RebaseToFixedDT(self, dt=fixed_trace_dt)
+        return func(tr_new, *args, **kwargs)
     return wrapped_func
 
 
@@ -39,8 +39,8 @@ class TraceMethodCtrl(object):
     # A list of method names that can be used for anytrace
     # if a specific method is not available for a type of trace
     fallback_to_fixedtrace_methods = {}
-    
-    
+
+
     default_fallback_resolution = unit("0.1:ms")
 
     @classmethod
@@ -49,7 +49,7 @@ class TraceMethodCtrl(object):
         key = (trace_cls, method_name)
         assert not key in cls.registered_methods
         cls.registered_methods[key] = method_functor
-        
+
         # Can we fallback to fixed_dt traces to use this operation
         if can_fallback_to_fixed_trace:
             fallback_resolution = fallback_resolution or cls.default_fallback_resolution
@@ -72,66 +72,66 @@ class TraceMethodCtrl(object):
         # Fallback to FixedDT
         if method_name in cls.fallback_to_fixedtrace_methods:
             method = cls.registered_methods[ (Trace_FixedDT, method_name) ]
-            dt = cls.fallback_to_fixedtrace_methods[ method_name ] 
-            return PrependConversionToFixedTraceToFunction(method, fixed_trace_dt=dt)
+            dt = cls.fallback_to_fixedtrace_methods[ method_name ]
+            return _prepend_conversion_to_fixed_trace_to_function(method, fixed_trace_dt=dt)
 
         # Error!
         assert False
-            
-                
-            
 
 
 
 
-def copy_trace_attrs(trOld, trNew, name=None, comment=None, tags=None, add_tags=None):
+
+
+
+def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tags=None):
     # NewName:
     if name is not None:
         if name.startswith('+'):
-            new_name = trOld.name + name[1:]
+            new_name = tr_old.name + name[1:]
         elif name.endswith('+'):
-            new_name = name[:-1] + trOld.name 
+            new_name = name[:-1] + tr_old.name
         else:
             new_name = name
     else:
-        new_name = trOld.name
-    
+        new_name = tr_old.name
+
     # NewComment:
     if comment is not None:
         if comment.startswith('+'):
-            new_comment = trOld.comment + comment[1:]
+            new_comment = tr_old.comment + comment[1:]
         elif comment.endswith('+'):
-            new_comment = comment[:-1] + trOld.comment 
+            new_comment = comment[:-1] + tr_old.comment
         else:
             new_comment = comment
     else:
-        new_comment = trOld.comment
+        new_comment = tr_old.comment
 
     if tags:
         assert not add_tags
         new_tags= tags
     else:
-        new_tags = trOld.tags + ( add_tags if add_tags else [] )
-        
-    trNew.name = new_name
-    trNew.comment = new_comment
-    trNew.tags = new_tags
+        new_tags = tr_old.tags + ( add_tags if add_tags else [] )
 
-    return trNew
+    tr_new.name = new_name
+    tr_new.comment = new_comment
+    tr_new.tags = new_tags
+
+    return tr_new
 
 
 
 
 def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
-        
+
     new_data = data if data is not None else tr._data
     new_time = time if time is not None else tr._time
 
     # Create a new trace
-    
-    #if type(tr) == Trace_FixedDT 
+
+    #if type(tr) == Trace_FixedDT
     #trNew = Trace_FixedDT(time=new_time, data=new_data )
     trNew = type(tr)(time=new_time, data=new_data )
     return copy_trace_attrs(tr,trNew, name=name, comment=comment, tags=tags, add_tags=add_tags)
-    
+
 

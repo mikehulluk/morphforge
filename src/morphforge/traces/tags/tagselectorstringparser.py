@@ -175,7 +175,7 @@ class _ParseCache(object):
     _lex = None
     _yacc = None
 
-def parseString( s):
+def parse_tagselector_string(s):
     if not _ParseCache._lex:
         _ParseCache._lex = ply.lex.lex()
     if not _ParseCache._yacc:

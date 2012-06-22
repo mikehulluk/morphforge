@@ -44,15 +44,15 @@ def sim( glk_multiplier, gna_multiplier, tag):
     kChannels  = ChannelLibrary.getChannel(modelsrc=StandardModels.HH52, channeltype="K", env=env) 
      
     # Apply the channels uniformly over the cell
-    ApplyMechanismEverywhereUniform(myCell, lkChannels )
-    ApplyMechanismEverywhereUniform(myCell, naChannels )
-    ApplyMechanismEverywhereUniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, lkChannels )
+    apply_mechanism_everywhere_uniform(myCell, naChannels )
+    apply_mechanism_everywhere_uniform(myCell, kChannels )
     
     # Over-ride the parameters in the axon:
-    ApplyMechanismRegionUniform(cell=myCell, mechanism=lkChannels, region=morph.getRegion("axon"), parameter_multipliers={'gScale':glk_multiplier})
-    ApplyMechanismRegionUniform(cell=myCell, mechanism=naChannels, region=morph.getRegion("axon"), parameter_multipliers={'gScale':gna_multiplier})
+    apply_mechanism_region_uniform(cell=myCell, mechanism=lkChannels, region=morph.getRegion("axon"), parameter_multipliers={'gScale':glk_multiplier})
+    apply_mechanism_region_uniform(cell=myCell, mechanism=naChannels, region=morph.getRegion("axon"), parameter_multipliers={'gScale':gna_multiplier})
     
-    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
     
     
     for cell_location in CellLocator.getLocationsAtDistancesAwayFromDummy(cell=myCell, distances=range(9, 3000, 100) ):

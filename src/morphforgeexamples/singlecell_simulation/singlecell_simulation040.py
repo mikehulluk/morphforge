@@ -92,11 +92,11 @@ def simulate(current_inj_level):
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
     
-    ApplyMechanismEverywhereUniform(myCell, leakChannels )
-    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-    ApplyMechanismEverywhereUniform(myCell, potFastChannels )
-    ApplyMechanismEverywhereUniform(myCell, potSlowChannels )
-    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
+    apply_mechanism_everywhere_uniform(myCell, potFastChannels )
+    apply_mechanism_everywhere_uniform(myCell, potSlowChannels )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
     
     
     # Get a location on the cell:

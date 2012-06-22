@@ -32,7 +32,7 @@ import random
 from os.path import exists as Exists
 from os.path import join as Join
 
-
+#from morphforge.core.misc import StrUtils
 
 
 
@@ -84,10 +84,11 @@ class LocMgr(object):
 
     @classmethod
     def get_temporary_filename(cls, suffix="", filedirectory=None):
-        from morphforge.core.misc import getStringMD5Checksum
+        #from morphforge.core.misc import getStringMD5Checksum
 
         rndString = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
-        fn = "tmp_%s%s" % (getStringMD5Checksum(rndString), suffix)
+        from morphforge.core.misc import StrUtils
+        fn = "tmp_%s%s" % (StrUtils.get_hash_md5(rndString), suffix)
 
         filedirectory = filedirectory if filedirectory else cls.get_tmp_path()
         return Join(filedirectory, fn)

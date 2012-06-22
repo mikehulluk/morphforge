@@ -25,7 +25,6 @@ from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from plotspecs import PlotSpec_DefaultNew
-#from morphforge.core.mgrs.settingsmgr import SettingsMgr
 from morphforge.traces import  Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
@@ -35,19 +34,19 @@ from mreorg.scriptplots import PM
 
 
 
-def resolveTimeRange(timeRange):
-    # Sort out the timeRange:
-    if timeRange is not None:
-        if  isinstance(timeRange, (tuple, list, Quantity) ):
-            if len(timeRange) == 2:
-                if isinstance(timeRange[0], Quantity ):
+def _resolve_time_range(time_range):
+    # Sort out the time_range:
+    if time_range is not None:
+        if  isinstance(time_range, (tuple, list, Quantity) ):
+            if len(time_range) == 2:
+                if isinstance(time_range[0], Quantity ):
                     pass
                 else:
                     assert False
-                    timeRange = timeRange * ms
+                    time_range = time_range * ms
         else:
             assert False
-    return timeRange
+    return time_range
 
 
 
@@ -193,10 +192,10 @@ class TagViewer(object):
 
             print 'Plotting For PlotSpec:', plot_spec
 
-            for iT, timeRange in enumerate(self.timeranges):
+            for iT, time_range in enumerate(self.timeranges):
 
 
-                timeRange = resolveTimeRange(timeRange)
+                time_range = _resolve_time_range(time_range)
 
                 # Create the axis:
                 #if not time_axis:
@@ -204,7 +203,7 @@ class TagViewer(object):
 
 
                 # Leave the plotting to the PlotSpecification
-                plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=timeRange, linkage=self.linkage )
+                plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage )
 
                 # Save the Axis:
                 self.subaxes.append(ax)

@@ -36,7 +36,7 @@ from morphforge.traces.tracetypes import Trace_VariableDT,Trace_Piecewise, Trace
 
 
 
-def getPiecewiseLinearPoints(tr):
+def _get_piecewise_linear_points(tr):
     xUnit = tr._pieces[0].getMinTime().units
     yUnit = tr._pieces[0].getStartValue().units
     
@@ -55,7 +55,7 @@ def getPiecewiseLinearPoints(tr):
 # Plotting:
 TraceMethodCtrl.register(Trace_FixedDT,    'plotpoints', lambda tr: (tr._time, tr._data) )      
 TraceMethodCtrl.register(Trace_VariableDT, 'plotpoints', lambda tr: (tr._time, tr._data) )  
-TraceMethodCtrl.register(Trace_Piecewise,  'plotpoints', getPiecewiseLinearPoints)
+TraceMethodCtrl.register(Trace_Piecewise,  'plotpoints', _get_piecewise_linear_points)
 
 
 

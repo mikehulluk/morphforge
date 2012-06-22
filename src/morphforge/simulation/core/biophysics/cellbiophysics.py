@@ -32,7 +32,7 @@ from morphforge.simulation.core.biophysics.membranemechanismtargetters import Pa
 MechanismTargetApplicator = collections.namedtuple('MechanismTargetApplicator', ['mechanism', 'targetter', 'applicator'],)
 PassiveTargetApplicator = collections.namedtuple('PassiveTargetApplicator', ['passiveproperty', 'targetter', 'value'],)
 
-from morphforge.core.misc import maxWithUniqueCheck, SeqUtils
+from morphforge.core.misc import SeqUtils
 
 class CellBiophysics(object):
   
@@ -67,7 +67,7 @@ class CellBiophysics(object):
         res = []
         for mechID in mechanismIDs:
             mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.getMechanismID() == mechID]            
-            highestProrityMech = maxWithUniqueCheck( mechsOfIDnSection, key=lambda pta: pta.targetter.getPriority() )  
+            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.getPriority() )  
             res.append( highestProrityMech )
         return res 
     
@@ -110,7 +110,7 @@ class CellBiophysics(object):
         passivemechs = {}
         for passiveproperty in PassiveProperty.all:
             section_property_ptas = [ spta for spta in sectionptas if spta.passiveproperty == passiveproperty ]
-            highestProrityMech = maxWithUniqueCheck( section_property_ptas, key=lambda pta: pta.targetter.getPriority() )  
+            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.getPriority() )  
             passivemechs[passiveproperty] =  highestProrityMech
         return passivemechs
             

@@ -26,8 +26,8 @@ class TagSelector(object):
 
     @classmethod
     def fromString(cls, s):
-        from tagselectorstringparser import parseString
-        return parseString(s, )
+        from tagselectorstringparser import parse_tagselector_string
+        return parse_tagselector_string(s)
 
 
     def filter(self, traces):

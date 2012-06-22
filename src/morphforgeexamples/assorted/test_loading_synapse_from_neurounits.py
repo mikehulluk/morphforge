@@ -57,13 +57,13 @@ def simulate_chls_on_neuron():
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
     myCell1 = mySim.createCell(name="Cell1", morphology=m1)
-    ApplyMechanismEverywhereUniform( myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
-    ApplyPassiveEverywhereUniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform( myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
+    apply_passive_everywhere_uniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
     myCell2 = mySim.createCell(name="Cell2", morphology=m2)
-    ApplyMechanismEverywhereUniform( myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
-    ApplyPassiveEverywhereUniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform( myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
+    apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
     # Get a location on the cell:
     somaLoc1 = myCell1.getLocation("soma")

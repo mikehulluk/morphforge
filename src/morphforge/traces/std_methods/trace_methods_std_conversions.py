@@ -9,7 +9,7 @@
 # 
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-from morphforge.traces.trace_methods_ctrl import clone_trace, copy_trace_attrs
+from morphforge.traces.trace_methods_ctrl import copy_trace_attrs
 from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl
 from morphforge.traces import Trace_FixedDT, Trace_VariableDT, Trace_Piecewise
 from MMtrace_conversion import TraceConverter, TraceApproximator
@@ -17,15 +17,15 @@ from MMtrace_conversion import TraceConverter, TraceApproximator
 
 # Conversion to: FixedDT:
 #########################
-TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(trOld=tr, trNew=TraceConverter.RebaseToFixedDT(tr,dt) ) )
-TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(trOld=tr, trNew=TraceConverter.RebaseToFixedDT(tr,dt) ) )
-TraceMethodCtrl.register(Trace_Piecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(trOld=tr, trNew=TraceConverter.RebaseToFixedDT(tr,dt) ) )
+TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
+TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
+TraceMethodCtrl.register(Trace_Piecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
 
 
 # Conversion to VariableDT:
 ###########################
-TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_variable', lambda tr: copy_trace_attrs(trOld=tr, trNew=TraceConverter.reduce_to_variable_dt_trace() ) )
-TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_variable', lambda tr: copy_trace_attrs(trOld=tr, trNew=TraceConverter.reduce_to_variable_dt_trace() ) )
+TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace() ) )
+TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace() ) )
 # MISSING: PIECEWISE
 
 

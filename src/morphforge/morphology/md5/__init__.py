@@ -20,9 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
-""" Module used internally for checksumming morphologies, to ensure that they
-don't change"""
-
-from md5calcs import getMD5OfMorphology, getMD5OfRegion, getMD5OfSection
-__all__ = ['getMD5OfMorphology','getMD5OfRegion','getMD5OfSection']
-
+#""" Module used internally for checksumming morphologies, to ensure that they
+#don't change"""
+#
+#from md5calcs import getMD5OfMorphology, getMD5OfRegion, getMD5OfSection
+#__all__ = ['getMD5OfMorphology','getMD5OfRegion','getMD5OfSection']
+#

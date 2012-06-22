@@ -32,13 +32,13 @@ mreorg.ScriptFlags.MREORG_SAVEALL = True
 
 
 
-# MayaVI
-def MonkeyPatchMayaVi():
-    print 'Monkey Patching Mayavi'
-    #import enthought.mayavi.mlab as mlab
-    import mayavi
-    from mayavi import mlab
-    #my_pass(mlab)
+## MayaVI
+#def _MonkeyPatchMayaVi():
+#    print 'Monkey Patching Mayavi'
+#    #import enthought.mayavi.mlab as mlab
+#    import mayavi
+#    from mayavi import mlab
+#    #my_pass(mlab)
 
 
 

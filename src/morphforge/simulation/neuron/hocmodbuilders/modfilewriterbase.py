@@ -184,7 +184,7 @@ UNITSON
 class MM_ModFileWriterBase(object):
     defaultTitle = "Untitled mod-file"
     defaultComment = "Automatically generated modfile - morphforge @ "  
-    defaultUnits = { "mA":"milliamp", "mV":"millivolt", "S":"siemens", "pA":"picoamp", "um":"micrometer" }
+    default_units = { "mA":"milliamp", "mV":"millivolt", "S":"siemens", "pA":"picoamp", "um":"micrometer" }
     defaultCurrentName = "i"
     defaultupdatefunctionname = "rates" 
     
@@ -220,7 +220,7 @@ class MM_ModFileWriterBase(object):
         
         
         self.currentname = self.defaultCurrentName
-        self.units = units if units else self.defaultUnits    
+        self.units = units if units else self.default_units    
     
         self.currentequation = currentequation
     

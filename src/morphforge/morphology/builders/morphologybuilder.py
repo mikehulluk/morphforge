@@ -29,16 +29,16 @@ import morphforge
 from morphforge.core.quantities.fromcore import unit
 
 
-def _convert_to_unit(o, defaultUnit):
+def _convert_to_unit(o, default_unit):
     #assert False
-    assert not isinstance( defaultUnit, (pq.quantity.Quantity,) )
+    assert not isinstance( default_unit, (pq.quantity.Quantity,) )
 
     if isinstance(o, pq.quantity.Quantity):
-        return o.rescale(defaultUnit)
+        return o.rescale(default_unit)
     elif is_float(o) or is_int(o):
-        return o * morphforge.core.quantities.unit_string_parser.parse( defaultUnit ).rescale(defaultUnit)
+        return o * morphforge.core.quantities.unit_string_parser.parse( default_unit ).rescale(default_unit)
     elif isinstance(o, (str, unicode)) and ":" in o:
-        return unit(o).rescale(defaultUnit)
+        return unit(o).rescale(default_unit)
     else:
         raise ValueError()
 
@@ -58,12 +58,12 @@ class MorphologyBuilder(object):
         
         if area:
             
-            area = _convert_to_unit(area, defaultUnit="um2" ).rescale("um2").magnitude
+            area = _convert_to_unit(area, default_unit="um2" ).rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
             
         else:
             assert isinstance(int,rad) or isinstance(float,rad)
-            rad = _convert_to_unit(rad, defaultUnit="um" ).rescale("um").magnitude
+            rad = _convert_to_unit(rad, default_unit="um" ).rescale("um").magnitude
             
             
         somaRegion = Region("soma")

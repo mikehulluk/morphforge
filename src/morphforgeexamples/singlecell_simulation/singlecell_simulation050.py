@@ -27,7 +27,7 @@ def build_simulation(modfilename):
                                      mechanism_id='ID1')
                                           
     # Apply the mechanisms to the cells
-    ApplyMechanismEverywhereUniform(myCell, modChls )
+    apply_mechanism_everywhere_uniform(myCell, modChls )
     
     mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc, description='Membrane Voltage')
     mySim.createCurrentClamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)

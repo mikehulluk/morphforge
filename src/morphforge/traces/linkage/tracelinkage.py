@@ -10,18 +10,13 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 import re
-
-from morphforge.stdimports import *
-
 from collections import defaultdict
-
-
 from itertools import chain
 import __builtin__ as bi
 
 
 
-def getCollisionOfColorIndexForGroup(colorIndex, group, ps_to_traces_dict, allocatedTraceColors):
+def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict, allocatedTraceColors):
 
     collisions = 0
     for ps, ps_traces in ps_to_traces_dict.iteritems():
@@ -108,7 +103,7 @@ class StandardLinkages(object):
             #print 'Allocating', ''.join( g.name for g in grp)
             #Calculate how many collisions we would have for each allocation:
             def indexScore(i):
-                s = getCollisionOfColorIndexForGroup(colorIndex=i,
+                s = _get_collision_of_color_index_for_group(colorIndex=i,
                                                         group=grp,
                                                         ps_to_traces_dict=ps_to_traces_dict,
                                                         allocatedTraceColors=allocatedTraceColors )
@@ -127,10 +122,10 @@ class StandardLinkages(object):
             self.color_allocations[tr] = self.color_cycle[ allocatedTraceColors[tr] ]
         #assert False
 
-l = StandardLinkages( linkages_explicit = [ (trI1,trV1,trG1), (trI2,trV2,trG2) ] )
-
-#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=None)
-TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=l)
-TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")])  )
+#l = StandardLinkages( linkages_explicit = [ (trI1,trV1,trG1), (trI2,trV2,trG2) ] )
+#
+##TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=None)
+#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=l)
+#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")])  )
 
 

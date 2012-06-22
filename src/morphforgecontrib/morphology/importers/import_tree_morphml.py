@@ -280,7 +280,7 @@ class MorphMLLoader(object):
 
            
         # Do the action:
-        cellsNode = SeqUtils.filter_expect_single(doc.childNodes, filterFunc=isElementWithTag("cells"))
+        cellsNode = SeqUtils.filter_expect_single(doc.childNodes, filter_func=isElementWithTag("cells"))
 
         
         morphs = []

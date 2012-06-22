@@ -32,7 +32,7 @@ from morphforge.morphology.mesh import find_closest_points, get_point_circle_abo
 
   
 
-def build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
+def _build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
     
     assert len( pts1 ) == len( pts2 )
     n =  len( pts1 )
@@ -110,7 +110,7 @@ class MeshBuilderRings(object):
             vertex_colors = np.vstack( (vertex_colors,np.repeat(color, n, axis=0 )  ) ) 
             
             # Create the triangles to make a mesh
-            tris = build_triangle_mesh_between_rings(
+            tris = _build_triangle_mesh_between_rings(
                   vertices[ proximal_offset:proximal_offset+n, :], 
                   vertices[ distal_offset:distal_offset+n, :], 
                   pts1_offset = proximal_offset, 

@@ -42,10 +42,10 @@ kChannels = ChannelLibrary.getChannel(modelsrc=StandardModels.HH52, channeltype=
  
 
 # Apply the channels uniformly over the cell
-ApplyMechanismEverywhereUniform(myCell, lkChannels )
-ApplyMechanismEverywhereUniform(myCell, naChannels )
-ApplyMechanismEverywhereUniform(myCell, kChannels )
-ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_mechanism_everywhere_uniform(myCell, lkChannels )
+apply_mechanism_everywhere_uniform(myCell, naChannels )
+apply_mechanism_everywhere_uniform(myCell, kChannels )
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 # Get a location on the cell:
 somaLoc = myCell.getLocation("soma")

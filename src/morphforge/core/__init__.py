@@ -34,10 +34,10 @@ from mfrandom import MFRandom
 
 from mgrs import LocMgr, LogMgr, SettingsMgr,  RCMgr 
 
-from misc import merge_dictionaries, FilterExpectSingle,  check_cstyle_varname, ExactlyOneNotNone, FilterWithProb
-from misc import getFileMD5Checksum, getStringMD5Checksum, ExecCommandGetRetCode
+from misc import merge_dictionaries,  check_cstyle_varname#, ExactlyOneNotNone
+#from misc import ExecCommandGetRetCode
 from misc import is_iterable, FileIO
-from misc import SeqUtils
+from misc import SeqUtils, StrUtils
 
 
 from mockcontrol import MockControl
@@ -64,14 +64,13 @@ __all__ = [
     "RCMgr",
     "merge_dictionaries",
     'FileIO',
-    "FilterExpectSingle",
-    "FilterWithProb",
     'SeqUtils',
+    'StrUtils',
     "check_cstyle_varname",
-    "ExactlyOneNotNone",
-    "getFileMD5Checksum",
-    "getStringMD5Checksum",
-    "ExecCommandGetRetCode",
+    #"ExactlyOneNotNone",
+    #"getFileMD5Checksum",
+    #"getStringMD5Checksum",
+    #"ExecCommandGetRetCode",
     "is_iterable",
     "ObjectLabeller",
     "Split",

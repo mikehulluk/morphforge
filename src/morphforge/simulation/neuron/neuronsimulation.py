@@ -24,7 +24,8 @@
 #-------------------------------------------------------------------------------
 import numpy as np
 
-from morphforge.core import ExecCommandGetRetCode, Exists, FileIO
+from morphforge.core import Exists, FileIO
+import subprocess
 from morphforge.core import RCMgr, MockControl
 from morphforge.simulation.core import Simulation, SimulationResult
 
@@ -41,7 +42,7 @@ import time
 
 
 
-def RandomWalk(t_steps, std_dev):
+def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps)-0.5) * std_dev
     walk = np.cumsum(nums)
     return walk
@@ -84,7 +85,8 @@ class MNeuronSimulation(Simulation):
             os.environ['LD_LIBRARY_PATH'] = ":".join( [old_ld_path] + ld_path_additions )
 
             LogMgr.info("_RunSpawn() [Spawning subprocess]")
-            retCode = ExecCommandGetRetCode(simCmd)
+            #retCode = ExecCommandGetRetCode(simCmd)
+            retCode = subprocess.call( simCmd, shell=True)
             if retCode != 1: raise ValueError("Unable to simulate %s" % self.name)
             LogMgr.info("_RunSpawn() [Finished spawning subprocess]")
 
@@ -120,7 +122,7 @@ class MNeuronSimulation(Simulation):
         records = hocData[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            dataArray = RandomWalk(len(timeArray), 0.05 ) * r.getUnit()
+            dataArray = _random_walk(len(timeArray), 0.05 ) * r.getUnit()
 
             tr = Trace_VariableDT(name=r.name, comment=r.getDescription(), time=timeArray, data=dataArray, tags=r.getTags() )
             traces.append(tr)

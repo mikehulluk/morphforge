@@ -13,7 +13,7 @@ from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl
 from morphforge.traces import Trace_FixedDT
 
 import numpy as np
-def fft(tr, normalise=True):
+def _fft(tr, normalise=True):
     ft = np.fft.fft( tr._data )
     if normalise:
         ft /= ft.max()
@@ -21,7 +21,7 @@ def fft(tr, normalise=True):
     return ftfreq, ft
     
 
-def psd(tr, normalise=True):
+def _psd(tr, normalise=True):
     ft = np.fft.fft( tr._data )
     ft = ft.real()**2 + ft.imag()**2
     if normalise:
@@ -31,6 +31,6 @@ def psd(tr, normalise=True):
     return ftfreq, ft   
     
             
-TraceMethodCtrl.register(Trace_FixedDT, 'fft', fft, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(Trace_FixedDT, 'fft', _fft, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(Trace_FixedDT, 'psd', _psd, can_fallback_to_fixed_trace=True )
 
-TraceMethodCtrl.register(Trace_FixedDT, 'psd', fft, can_fallback_to_fixed_trace=True )

@@ -59,7 +59,7 @@ class TraceConverter(object):
         pts = zip(time_data.tolist(), data_data.tolist())
         
         
-        newpts = simplify_points(pts, ep)     
+        newpts = _simplify_points(pts, ep)     
         new_time, new_data = zip(*newpts)
         
         newTrace = Trace_VariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
@@ -75,7 +75,7 @@ class TraceConverter(object):
 
 import math
 
-def simplify_points (pts, tolerance): 
+def _simplify_points (pts, tolerance): 
     anchor = 0
     floater = len(pts) - 1
     stack = []

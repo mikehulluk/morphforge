@@ -13,7 +13,8 @@
 
 #import numpy
 
-from morphforge.core import ExactlyOneNotNone
+#from morphforge.core import ExactlyOneNotNone
+from morphforge.core import SeqUtils
 
 
 
@@ -44,7 +45,9 @@ class SectionVisitorDF(object):
             self.__call__()
 
     def __call__(self, morph=None):
-        self.morph = ExactlyOneNotNone(morph, self.morph)
+        #self.morph = ExactlyOneNotNone(morph, self.morph)
+        self.morph = SeqUtils.filter_expect_single( 
+                        [morph, self.morph], lambda s: s is not None)
         if not self.alreadycalled:
             self.pretraversefunctor()
             self.VisitSectionInternal(self.morph.getDummySection())

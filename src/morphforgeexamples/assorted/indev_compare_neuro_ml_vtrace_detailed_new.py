@@ -60,8 +60,8 @@ import glob
 #    MorphforgeNotImplementedException
 #from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
 #from morphforge.morphology.core.tree import MorphologyTree
-#from morphforge.simulation.shortcuts import ApplyMechanismEverywhereUniform,\
-#    ApplyPassiveEverywhereUniform
+#from morphforge.simulation.shortcuts import apply_mechanism_everywhere_uniform,\
+#    apply_passive_everywhere_uniform
 #from morphforge.simulation.core.biophysics.passiveproperties import PassiveProperty
 #from morphforge.core.quantities.fromcore import unit
 
@@ -105,7 +105,7 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
     
     
     # Setup passive channels:
-    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
     
     
     
@@ -238,7 +238,7 @@ def testfile_voltage(xmlfile, voltage):
     chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlfile,  mechanism_id="Blhkjl")
     def applicator_neuro( env, cell, sim): 
         
-        ApplyMechanismEverywhereUniform(cell, chl_neuro )
+        apply_mechanism_everywhere_uniform(cell, chl_neuro )
         sim.addRecordable( chl_neuro.getRecordable( 'h', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="h") )
         #sim.addRecordable( chl_neuro.getRecordable( 's', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="s") )
         sim.addRecordable( chl_neuro.getRecordable( 'h_inf', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="hinf") )
@@ -252,7 +252,7 @@ def testfile_voltage(xmlfile, voltage):
     chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlfile, xsl_filename=xsl_file,  mechanism_id="Blah")
     def applicator_xsl(env, cell, sim ): 
         
-        ApplyMechanismEverywhereUniform(cell, chl_xsl )
+        apply_mechanism_everywhere_uniform(cell, chl_xsl )
         sim.addRecordable( chl_xsl.getRecordable( 'h', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="h") )
         #sim.addRecordable( chl_xsl.getRecordable( 's', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="s") )
         sim.addRecordable( chl_xsl.getRecordable( 'hinf', celllocation=cell.getLocation("soma"), nrn_unit=unit(""),  name="hinf") )

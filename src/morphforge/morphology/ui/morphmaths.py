@@ -28,7 +28,7 @@ from morphforge.core import LogMgr
 #from morphforge.morphology.visitor import  SectionVistorFactory
 from morphforge.morphology.visitor.visitorfactory import SVVisitorFactory
 
-def PCA(X):
+def _pca(X):
     x_mean = array(map(sum, X.T)) / len(X)
     X_ = X - x_mean
     X_t = numpy.dot(X_.T, X_) / len(X)
@@ -47,7 +47,7 @@ def PCA(X):
 class PCAAxes(object):
     def __init__(self, morph):
         #from morphforge.morphology.visitor import  SVVisitorFactory
-        axes = PCA(SVVisitorFactory.Array3AllPoints(morph)())
+        axes = _pca(SVVisitorFactory.Array3AllPoints(morph)())
 
         e1 = axes[0][1] / norm(axes[0][1])
         e2 = axes[1][1] / norm(axes[1][1])
@@ -60,20 +60,8 @@ class PCAAxes(object):
 
 
 
-def _get_mean(X):
-    return array(map(numpy.sum, X.T)) / len(X)
-
-def getMin(X):
-    assert False, 'Deprecated'
-    return array(map(numpy.min, X.T))
-
-def getMax(X):
-    assert False, 'Deprecated'
-    return array(map(numpy.max, X.T))
-
-
-
-
+#def _get_mean(X):
+#    return array(map(numpy.sum, X.T)) / len(X)
 
 
 
@@ -104,7 +92,9 @@ class PointTranslater(object):
 class MorphologyMeanCenterer(PointTranslater):
     def __init__(self, morph, PtSrc=None):
         PtSrc = SVVisitorFactory.Array3AllPoints() if PtSrc == None else PtSrc
-        offset = _get_mean(PtSrc(morph)) * -1.0
+        X = PtSrc(morph)
+        offset = (array(map(numpy.sum, X.T)) / len(X) )
+        #_get_mean(PtSrc(morph)) * -1.0
         super(MorphologyMeanCenterer, self).__init__(offset)
 
 class MorphologyPCARotator(PointRotator):

@@ -23,7 +23,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 import cPickle as pickle
-from morphforge.core import getStringMD5Checksum
+#from morphforge.core import getStringMD5Checksum
+from morphforge.core.misc import StrUtils
 
 class MM_Neuron_Base(object):
     
@@ -51,7 +52,8 @@ class MM_Neuron_Base(object):
             #print 'At getNeuronSuffix'
             mod_file_changeables = self.getModFileChangeables()
             mod_file_changeables[None] = str( type(mod_file_changeables).__str__ ) 
-            md5 = getStringMD5Checksum ( pickle.dumps(mod_file_changeables ) )
+            #md5 = getStringMD5Checksum ( pickle.dumps(mod_file_changeables ) )
+            md5 = StrUtils.get_hash_md5( pickle.dumps(mod_file_changeables ) )
             self.cachedNeuronSuffix = 'MIKETMP%sChl'%md5
             #return 'MIKETMP%sChl'%md5
 

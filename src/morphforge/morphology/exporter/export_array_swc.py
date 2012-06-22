@@ -34,7 +34,7 @@ from morphforge.morphology.core.array import MorphologyArray
 class ExportArray_SWC():
     
     @classmethod
-    def export_single(cls, morphology, swc_vertex_offset = 1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):
+    def _export_single_swc(cls, morphology, swc_vertex_offset = 1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):
                 
         def vertexToData(v_index, v_index_parent, rgn):
             x,y,z,r = morphology._vertices[v_index,:]
@@ -58,8 +58,8 @@ class ExportArray_SWC():
         
         
 #Wrapper function to avoid binding error:        
-def export_single( morphology, **kwargs):        
-    return ExportArray_SWC.export_single(morphology=morphology, **kwargs)
+def _export_single_swc( morphology, **kwargs):        
+    return ExportArray_SWC._export_single_swc(morphology=morphology, **kwargs)
 
 
-MorphologyExporter.register("toSWC",export_single, allow_override=False, from_type=MorphologyArray )
+MorphologyExporter.register("toSWC",_export_single_swc, allow_override=False, from_type=MorphologyArray )

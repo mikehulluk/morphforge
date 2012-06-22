@@ -25,7 +25,8 @@
 
 from morphforge.core import FileIO
 from os.path import join as Join
-from morphforge.core import LocMgr, getStringMD5Checksum
+from morphforge.core import LocMgr
+from morphforge.core.misc import StrUtils
 
 
  
@@ -40,7 +41,7 @@ class SimMetaDataBundleBase(object):
     
     def __init__(self, sim):
         super(SimMetaDataBundleBase, self).__init__(sim=sim)
-        self.simmd5sum = getStringMD5Checksum(cPickle.dumps(sim))
+        self.simmd5sum = StrUtils.get_hash_md5(cPickle.dumps(sim))
         self.postsimulationactions = []
         
     def addPostProcessingAction(self, action):

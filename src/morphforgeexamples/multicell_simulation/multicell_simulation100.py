@@ -286,8 +286,8 @@ def make_cell( sim, cell_name, cell_chl_functor):
     m1 = mf.MorphologyBuilder.getSingleSectionSoma(area=mf.unit("1:um2") )
     myCell = sim.createCell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
-        mf.ApplyMechanismEverywhereUniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9,1.1)} )
-    mf.ApplyPassiveEverywhereUniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
+        mf.apply_mechanism_everywhere_uniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9,1.1)} )
+    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
     return myCell
 
 
@@ -329,9 +329,9 @@ def test_cell_current(cell_name, cell_chl_functor, current):
     cc = sim.createCurrentClamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, celllocation=myCell.getLocation("soma") )
 
     for chl in cell_chl_functor():
-        mf.ApplyMechanismEverywhereUniform(myCell, chl )
+        mf.apply_mechanism_everywhere_uniform(myCell, chl )
 
-    mf.ApplyPassiveEverywhereUniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
+    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
 
     sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)

@@ -99,9 +99,9 @@ class NewSWCLoader(object):
 MorphologyImporter.register("fromSWC", NewSWCLoader.load_swc_single, as_type=MorphologyArray)
 
 # To Tree:
-def load_swc_single_tree(*args,**kwargs):
+def _load_swc_single_tree(*args,**kwargs):
     return NewSWCLoader.load_swc_single(*args,**kwargs).to_tree()
-MorphologyImporter.register("fromSWC", load_swc_single_tree,  as_type=MorphologyTree)
+MorphologyImporter.register("fromSWC", _load_swc_single_tree,  as_type=MorphologyTree)
 
 
 

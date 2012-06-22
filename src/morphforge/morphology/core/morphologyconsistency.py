@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -21,20 +21,42 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.core import  SeqUtils,  check_cstyle_varname
-#from section import Section        
-from morphforge.morphology.md5 import getMD5OfMorphology
+#from morphforge.morphology.md5 import _get_md5_of_morphology
+#from morphforge.core import getStringMD5Checksum
+from morphforge.core.misc import StrUtils
 
+def _get_md5_of_region(r):
+    #assert False # Is this Cruft?? Added Jan 2011
+    return StrUtils.get_hash_md5(r.name)
+
+def _get_md5_of_section(s):
+    #assert False # Is this Cruft?? Added Jan 2011
+    sectionString = " %2.2f %2.2f %2.2f %2.2f "
+    regionsString = _get_md5_of_region(s.region) if s.region else ""
+    childrenString = ",".join( [_get_md5_of_section(s) for s in s.children] )
+    idString = "" if not s.idTag else StrUtils.get_hash_md5(s.idTag)
+
+    return StrUtils.get_hash_md5( sectionString + regionsString + childrenString + idString)
+
+
+def _get_md5_of_morphology(m):
+    #assert False # Is this Cruft?? Added Jan 2011
+    treemd5 = _get_md5_of_section(m._dummysection)
+    nameMD5 = StrUtils.get_hash_md5(m.name)
+    assert not m.metadata
+    regionsMD5 = ",".join( [ _get_md5_of_region(r) for r in m.getRegions() ])
+    return StrUtils.get_hash_md5(treemd5 + nameMD5 + regionsMD5)
 
 
 class MorphologyConsistencyMgr(object):
     morphologyConsistencyCheckers = {}
-    
+
     @classmethod
     def Check(cls, morph):
         #return
         return cls.getChecker(morph).Check()
-    
-    
+
+
     @classmethod
     def getChecker(cls, morph):
         if not morph in cls.morphologyConsistencyCheckers:
@@ -45,9 +67,9 @@ class MorphologyConsistencyMgr(object):
 
 
 class MorphConsistencyChecker(object):
-    
-        
-    
+
+
+
     def __init__(self, morph):
         from morphforge.morphology.core import MorphologyTree
         assert isinstance( morph, MorphologyTree)
@@ -57,38 +79,38 @@ class MorphConsistencyChecker(object):
         # If this is enabled, then enableStack will be 0.
         # We do this to prevent checking of the morph during
         # its construction
-        self.enableStack=0        
-        
+        self.enableStack=0
+
     def disable(self):
         self.enableStack += 1
         return True
-    
+
     def enable(self):
         self.enableStack -= 1
         assert self.enableStack >= 0
         return True
-        
-    
-    
+
+
+
     def Check(self):
         if self.enableStack > 0 :
-            #print "Already Checking" 
-            return 
-        
-        if self.enableStack != 0: 
+            #print "Already Checking"
             return
-        
-        
+
+        if self.enableStack != 0:
+            return
+
+
         # Disable further checking:
         self.disable()
-        
+
         check_cstyle_varname(self.morph.name)
         self.CheckTree()
-    
+
         # Enable further checking:
         self.enable()
-    
-    
+
+
     def CheckSection(self, section, morph, dummysection=False, recurse=True):
         if dummysection:
             assert section.is_dummy_section()
@@ -97,16 +119,16 @@ class MorphConsistencyChecker(object):
 
         self.CheckSectionInfraStructure(section=section, morph=morph,dummysection=dummysection)
         self.CheckSectionContents(section=section, morph=morph,dummysection=dummysection)
-        
+
         if recurse:
             for c in section.children:
-                self.CheckSection(c, morph=morph, dummysection=False, recurse=recurse) 
-        
-        
+                self.CheckSection(c, morph=morph, dummysection=False, recurse=recurse)
+
+
     def CheckSectionInfraStructure(self,section, morph, dummysection):
         from tree import Section
         assert isinstance( self.morph._dummysection, Section)
-        
+
         # Check the parent/children connections:
         if dummysection:
             self.CheckDummySection(section)
@@ -115,32 +137,32 @@ class MorphConsistencyChecker(object):
         else:
             assert not section.is_dummy_section()
             assert section in section.parent.children
-        
+
         # Check the regions are in the morphology list:
         if section.region:
             assert section.region in morph.getRegions()
             assert section in section.region.sections
-   
-    def CheckDummySection(self, dummysection):
-        assert dummysection.is_dummy_section() 
-        assert dummysection.parent == None
-        assert dummysection.region == None 
 
-      
-        
-        
+    def CheckDummySection(self, dummysection):
+        assert dummysection.is_dummy_section()
+        assert dummysection.parent == None
+        assert dummysection.region == None
+
+
+
+
     def CheckSectionContents(self, section, morph,dummysection):
         # Check the Radii:
         if not section.is_leaf():
-            
+
             if section.d_r < 0.0001:
                 assert False, 'Very thin distal segment diameter: %f'%section.d_r
-    
+
         # TODO: Check the radius of the near end of the dummysection segment.
-        
-            
+
+
     def CheckRegion(self,region,morph):
-        
+
         check_cstyle_varname(region.name)
         # Check no-other region has this name:
         #print "Checking region:", region.name
@@ -149,34 +171,34 @@ class MorphConsistencyChecker(object):
         assert region.morph == morph
         for s in region.sections:
             assert region == s.region
-        
-        
+
+
     def CheckTree(self):
         if not self.morph.isDummySectionSet(): return
 
         dummySection =  self.morph.getDummySection()
-        self.CheckDummySection(dummySection)        
+        self.CheckDummySection(dummySection)
 
-        
+
         # Check nothing changed in the tree:
-        morphmd5 = getMD5OfMorphology(self.morph)
+        morphmd5 = _get_md5_of_morphology(self.morph)
         if self.morphmd5cache:
             if morphmd5 != self.morphmd5cache:
                 raise Exception("MD5 of tree has changed!")
             else:
                 return
         self.morphmd5cache = morphmd5
-        
+
         # Check the tree is sensible:
         self.CheckSection(self.morph._dummysection, self.morph, dummysection=True, recurse=True)
-        
+
         # Check that there are not duplications of idTags in the tree:
         idtags = SeqUtils.flatten( [s.idTag for s in self.morph if s.idTag]  )
         #print idtags
         assert len(idtags) == len( list(set(idtags) ) )
-        
+
         # Check the regions
         for rgn in self.morph.getRegions():
             self.CheckRegion(rgn, self.morph)
-        
+
 

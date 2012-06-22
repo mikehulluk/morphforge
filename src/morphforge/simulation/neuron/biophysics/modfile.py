@@ -23,7 +23,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-from morphforge.core import getStringMD5Checksum, LocMgr, LogMgr#, require
+from morphforge.core import LocMgr, LogMgr#, require
+from morphforge.core.misc import StrUtils
 
 from os.path import join as Join
 #from morphforge.core.misc import ExpectSingle
@@ -64,7 +65,7 @@ class ModFile(object):
 
 
     def getMD5Hash(self):
-        return getStringMD5Checksum(self.modtxt)
+        return StrUtils.get_hash_md5(self.modtxt)
 
 
 

@@ -84,10 +84,10 @@ kChannels = env.MembraneMechanism(
 
 
 # Apply the channels uniformly over the cell
-ApplyMechanismEverywhereUniform(myCell, leakChannels )
-ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-ApplyMechanismEverywhereUniform(myCell, kChannels )
-ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_mechanism_everywhere_uniform(myCell, leakChannels )
+apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
+apply_mechanism_everywhere_uniform(myCell, kChannels )
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 # Get a location on the cell:
 somaLoc = myCell.getLocation("soma")

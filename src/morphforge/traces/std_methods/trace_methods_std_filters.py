@@ -26,7 +26,7 @@ from morphforge.traces import Trace_FixedDT
 import quantities as pq
 import numpy as np
 
-def butterworthfilter(self, filterorder, cutoff_frequency):
+def _butterworthfilter(self, filterorder, cutoff_frequency):
         cutoff_frequency.rescale("Hz")
         import scipy.signal
         frequency_hz = 1 / float(self.getDTNew().rescale('s'))
@@ -42,12 +42,12 @@ def butterworthfilter(self, filterorder, cutoff_frequency):
                           )        
 
         
-TraceMethodCtrl.register(Trace_FixedDT, 'filterbutterworth', butterworthfilter, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(Trace_FixedDT, 'filterbutterworth', _butterworthfilter, can_fallback_to_fixed_trace=True )
 
 
 
 
-def besselfilter(self, filterorder, cutoff_frequency):
+def _besselfilter(self, filterorder, cutoff_frequency):
         cutoff_frequency.rescale("Hz")
         import scipy.signal
         frequency_hz = 1 / float(self.getDTNew().rescale('s'))
@@ -67,14 +67,14 @@ def besselfilter(self, filterorder, cutoff_frequency):
                           )        
 
         
-TraceMethodCtrl.register(Trace_FixedDT, 'filterbessel', besselfilter,can_fallback_to_fixed_trace=True  )
+TraceMethodCtrl.register(Trace_FixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True  )
 
 
 
 
 
 
-def filterlowpassrc(tr, tau):
+def _filterlowpassrc(tr, tau):
     import scipy.signal
     assert isinstance(tr, Trace_FixedDT)
     dt = tr.getDTNew()
@@ -88,7 +88,7 @@ def filterlowpassrc(tr, tau):
     return clone_trace(tr=tr, data=xp*tr._data.units, comment="+ (LP RC Filtered)")
 
 
-TraceMethodCtrl.register(Trace_FixedDT, 'filterlowpassrc', filterlowpassrc, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(Trace_FixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True )
 
 
 

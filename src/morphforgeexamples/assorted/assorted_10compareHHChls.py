@@ -136,9 +136,9 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
     kChls  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
 
 
-    ApplyMechanismEverywhereUniform(myCell, naChls )
-    ApplyMechanismEverywhereUniform(myCell, lkChls )
-    ApplyMechanismEverywhereUniform(myCell, kChls )
+    apply_mechanism_everywhere_uniform(myCell, naChls )
+    apply_mechanism_everywhere_uniform(myCell, lkChls )
+    apply_mechanism_everywhere_uniform(myCell, kChls )
 
 
     mySim.record(naChls, what='m', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVariable] )
@@ -177,9 +177,9 @@ def apply_hh_chls_neuroml_xsl(env, myCell, mySim):
                                             mechanism_id="K"
                                             )
 
-    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-    ApplyMechanismEverywhereUniform(myCell, leakChannels )
-    ApplyMechanismEverywhereUniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels )
+    apply_mechanism_everywhere_uniform(myCell, kChannels )
 
 
 
@@ -213,9 +213,9 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mySim):
                                             mechanism_id="K"
                                             )
 
-    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-    ApplyMechanismEverywhereUniform(myCell, leakChannels )
-    ApplyMechanismEverywhereUniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels )
+    apply_mechanism_everywhere_uniform(myCell, kChannels )
 
 
     #for v in vars:
@@ -266,9 +266,9 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                             mechanism_id="HH_K_CURRENT"
                             )
 
-    ApplyMechanismEverywhereUniform(myCell, leakChannels )
-    ApplyMechanismEverywhereUniform(myCell, sodiumChannels )
-    ApplyMechanismEverywhereUniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
+    apply_mechanism_everywhere_uniform(myCell, kChannels )
 
 
 
@@ -276,7 +276,7 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
 def apply_hh_chls_NEURON_builtin(env, myCell,mySim):
 
     hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" )
-    ApplyMechanismEverywhereUniform(myCell, hhChls )
+    apply_mechanism_everywhere_uniform(myCell, hhChls )
 
 
 
@@ -299,7 +299,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     chl_applicator_functor(env, myCell, mySim)
 
     # Setup passive channels:
-    ApplyPassiveEverywhereUniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 
 
