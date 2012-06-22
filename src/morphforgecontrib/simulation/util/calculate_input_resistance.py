@@ -266,7 +266,7 @@ class CellAnalysis_IVCurve(object):
 
 
     def getIVPointSteaddyState(self, iInj):
-        return  self.getTrace(iInj).window( timeWindow=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
+        return  self.getTrace(iInj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
 
 
 

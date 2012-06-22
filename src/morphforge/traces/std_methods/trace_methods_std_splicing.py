@@ -46,49 +46,49 @@ TraceMethodCtrl.register(Trace_VariableDT, 'shift', _shift_pt_trace)
 # Windowing:
 ###############
 
-def _window_fixed_trace(trace, timeWindow):
+def _window_fixed_trace(trace, time_window):
 
     #Dirty Pre-processing
-    if isinstance(timeWindow, Quantity):
-        assert len(timeWindow) == 2
-        timeWindow = (timeWindow[0], timeWindow[1])
+    if isinstance(time_window, Quantity):
+        assert len(time_window) == 2
+        time_window = (time_window[0], time_window[1])
 
-    #print timeWindow, type(timeWindow)
+    #print time_window, type(time_window)
 
-    assert isinstance(timeWindow, tuple)
-    assert len(timeWindow) == 2
+    assert isinstance(time_window, tuple)
+    assert len(time_window) == 2
 
-    if timeWindow[0] is None:
-        timeWindow = ( trace._time[0], timeWindow[1] )
-    if timeWindow[1] is None:
-        timeWindow = ( timeWindow[0], trace._time[-1] )
+    if time_window[0] is None:
+        time_window = ( trace._time[0], time_window[1] )
+    if time_window[1] is None:
+        time_window = ( time_window[0], trace._time[-1] )
 
 
-    timeWindow[0].rescale('ms').magnitude
-    timeWindow[1].rescale('ms').magnitude
+    time_window[0].rescale('ms').magnitude
+    time_window[1].rescale('ms').magnitude
     if not isinstance(trace, Trace_PointBased): raise ValueError()
 
 
-    tDiff1 = timeWindow[0] - trace._time[0]
+    tDiff1 = time_window[0] - trace._time[0]
     if tDiff1 < 0:
-        print  "timeWindow[0]", timeWindow[0].rescale("s")
+        print  "time_window[0]", time_window[0].rescale("s")
         print  "trace.time[0]", trace._time[0].rescale("s")
         print
-        raise ValueError("Windowing outside of trace (min) WindowMin/TraceMin: %f %f  " % (timeWindow[0], trace._time[0]))
+        raise ValueError("Windowing outside of trace (min) WindowMin/TraceMin: %f %f  " % (time_window[0], trace._time[0]))
 
-    #if timeWindow[1] > trace._time[-1]:
-    if timeWindow[1] - trace._time[-1] > 0:
-        print  "timeWindow[1]", timeWindow[1].rescale("s")
+    #if time_window[1] > trace._time[-1]:
+    if time_window[1] - trace._time[-1] > 0:
+        print  "time_window[1]", time_window[1].rescale("s")
         print  "trace.time[-1]", trace._time[-1].rescale("s")
         print
 
         raise ValueError("Windowing outside of trace (max)")
 
-    timeIndices1 = numpy.nonzero(trace._time > timeWindow[0])
+    timeIndices1 = numpy.nonzero(trace._time > time_window[0])
     timeTraceNew = trace._time[timeIndices1]
     traceNew = trace._data[timeIndices1]
 
-    timeIndices2 = numpy.nonzero(timeTraceNew < timeWindow[1])
+    timeIndices2 = numpy.nonzero(timeTraceNew < time_window[1])
     timeTraceNew = timeTraceNew[timeIndices2]
     traceNew = traceNew[timeIndices2]
 
@@ -99,21 +99,21 @@ def _window_fixed_trace(trace, timeWindow):
     # Ensure we have at least 2 points:
     if len(timeTraceNew) < 2:
 
-        tw0 = timeWindow[0]
-        tw1 = timeWindow[1]
+        tw0 = time_window[0]
+        tw1 = time_window[1]
 
-        #getValues( timeWindow )
+        #getValues( time_window )
 
         #traceNew1 = trace.getValueAtTime(tw0)
         #traceNew2 = trace.getValueAtTime(tw1)
 
-        traceNew1 = trace.getValues( timeWindow[0] )#[0]
-        traceNew2 = trace.getValues( timeWindow[1] )#[0]
+        traceNew1 = trace.getValues( time_window[0] )#[0]
+        traceNew2 = trace.getValues( time_window[1] )#[0]
 
         data_unts = traceNew1.units
-        time_unts = timeWindow[0].units
+        time_unts = time_window[0].units
 
-        timeTraceNew = np.array([timeWindow[0].rescale(time_unts).magnitude, timeWindow[1].rescale(time_unts).magnitude, ]) * time_unts
+        timeTraceNew = np.array([time_window[0].rescale(time_unts).magnitude, time_window[1].rescale(time_unts).magnitude, ]) * time_unts
         traceNew = np.array([traceNew1.rescale(data_unts).magnitude, traceNew2.rescale(data_unts).magnitude, ]) * data_unts
 
 

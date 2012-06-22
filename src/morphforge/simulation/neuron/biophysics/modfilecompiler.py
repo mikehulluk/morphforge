@@ -101,9 +101,9 @@ def _simple_exec(cmd, remaining):
 
 
 
-def _build_modfile_local(modFileShort, modfile=None):
+def _build_modfile_local(mod_filename_short, modfile=None):
     print os.getcwd()
-    modFileBasename = modFileShort.replace(".mod", "")
+    modFileBasename = mod_filename_short.replace(".mod", "")
     cFilename = modFileBasename + ".c"
     laFilename = modFileBasename + ".la"
     loFilename = modFileBasename + ".lo"
@@ -128,7 +128,7 @@ def _build_modfile_local(modFileShort, modfile=None):
 
     #Run nocmodl: .mod -> .c
     cFilename = modFileBasename + ".c"
-    op  = _simple_exec(ModBuilderParams.nocmodlpath, modFileShort)
+    op  = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
     if not Exists(cFilename):
         print "Failed to compile modfile. Error:"
@@ -158,14 +158,14 @@ def _build_modfile_local(modFileShort, modfile=None):
         print "OP1:", op1
         print "OP2:", op2
 
-    # Copy the correct .so from the libDir to the buildDir:
+    # Copy the correct .so from the libDir to the build_dir:
     shutil.move(Join(libsDir, modFileBasename + ".so.0.0.0"), soFilename)
 
 
     #Clean up:
     if True:
         os.remove(cFilename)
-        os.remove(modFileShort)
+        os.remove(mod_filename_short)
         for f in [".la", ".lo"]:
             os.remove(modFileBasename + f)
         for f in [".la", ".lai", ".o", ".so", ".so.0" ]:
@@ -178,10 +178,10 @@ def _build_modfile_local(modFileShort, modfile=None):
 
 
 
-def _build_mod_file(modfilename, outputDir=None, buildDir=None, modfile=None):
+def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
 
-    buildDir = LocMgr().get_default_mod_builddir() if not buildDir else buildDir
-    outputDir = LocMgr().get_default_mod_outdir() if not outputDir else outputDir
+    build_dir = LocMgr().get_default_mod_builddir() if not build_dir else build_dir
+    output_dir = LocMgr().get_default_mod_outdir() if not output_dir else output_dir
 
     if SettingsMgr.SimulatorIsVerbose():
         print " - Building: ", modfilename
@@ -189,17 +189,17 @@ def _build_mod_file(modfilename, outputDir=None, buildDir=None, modfile=None):
     modfilenamebase = Basename(modfilename)
     sofilenamebase = modfilenamebase.replace(".mod", ".so")
 
-    shutil.copyfile(modfilename, Join(buildDir, modfilenamebase))
-    soFilenameOutput = Join(outputDir, sofilenamebase)
+    shutil.copyfile(modfilename, Join(build_dir, modfilenamebase))
+    soFilenameOutput = Join(output_dir, sofilenamebase)
 
     # Move to new directory to build:
     initialCWD = os.getcwd()
-    os.chdir(buildDir)
-    soFilenameBuildShort = _build_modfile_local(modFileShort=modfilenamebase,modfile=modfile)
+    os.chdir(build_dir)
+    soFilenameBuildShort = _build_modfile_local(mod_filename_short=modfilenamebase,modfile=modfile)
     os.chdir(initialCWD)
 
     # CopyFile to output location:
-    soFilenameBuild = Join(buildDir, soFilenameBuildShort)
+    soFilenameBuild = Join(build_dir, soFilenameBuildShort)
     if soFilenameBuild != soFilenameOutput:
         shutil.move(soFilenameBuild, soFilenameOutput)
     return soFilenameOutput
