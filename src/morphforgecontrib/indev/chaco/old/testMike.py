@@ -79,7 +79,7 @@ class SimulationManager(HasTraits):
         return container
 
 
-    def _createCellConfigComponent(self ):
+    def _create_cellConfigComponent(self ):
 
         x = arange(-5,15,100)
         tracedata = ArrayPlotData( x=x, y1=np.sin(x), y2=np.cos(x) )
@@ -109,7 +109,7 @@ class SimulationManager(HasTraits):
         #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
         addTitleOverlay( container, 'Configuration Pane')
 
-        container.add( self._createCellConfigComponent() )
+        container.add( self._create_cellConfigComponent() )
         container.add_trait ('self.surface_area_um2',self.surface_area_um2) 
         #traits_view = View( Item('self.surface_area_um2', editor=ComponentEditor(), show_label=False), width=500, height=500, resizable=True, title="Chaco Plot")
 

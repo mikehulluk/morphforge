@@ -31,13 +31,13 @@
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {}) 
 #        
 #        # Check the diameters
-#        self.assertAlmostEqual(SectionLength(m.getSection("somaID")), 3.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID1")), 5.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID1a")), 7.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID1b")), 9.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID2")), 11.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID2a")), 13.0, 4)
-#        self.assertAlmostEqual(SectionLength(m.getSection("processID2b")), 15.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("somaID")), 3.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID1")), 5.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID1a")), 7.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID1b")), 9.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID2")), 11.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID2a")), 13.0, 4)
+#        self.assertAlmostEqual(SectionLength(m.get_section("processID2b")), 15.0, 4)
 #        
 #        
 #    def testSectionFarEndDistToRootCentre(self):  
@@ -53,13 +53,13 @@
 #                                                                    ] } }          
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {}) 
 #                      
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("somaID")), 3.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID1")), 8.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID1a")), 15.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID1b")), 17.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID2")), 14.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID2a")), 27.0, 4)
-#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.getSection("processID2b")), 29.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("somaID")), 3.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID1")), 8.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID1a")), 15.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID1b")), 17.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID2")), 14.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID2a")), 27.0, 4)
+#        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("processID2b")), 29.0, 4)
 #        
 #        
 #    def testDistanceBetweenMorphLocations(self):
@@ -76,19 +76,19 @@
 #                  
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {}) 
 #        
-#        ML_somaNr = MorphLocation(m.getSection("somaID"), 0.0)
-#        ML_somaMid = MorphLocation(m.getSection("somaID"), 0.5)
-#        ML_somaFar = MorphLocation(m.getSection("somaID"), 1.0)
+#        ML_somaNr = MorphLocation(m.get_section("somaID"), 0.0)
+#        ML_somaMid = MorphLocation(m.get_section("somaID"), 0.5)
+#        ML_somaFar = MorphLocation(m.get_section("somaID"), 1.0)
 #        
-#        ML_p1Near = MorphLocation(m.getSection("processID1"), 0.0)
-#        ML_p1Mid = MorphLocation(m.getSection("processID1"), 0.5)
-#        ML_p1Far = MorphLocation(m.getSection("processID1"), 1.0)
+#        ML_p1Near = MorphLocation(m.get_section("processID1"), 0.0)
+#        ML_p1Mid = MorphLocation(m.get_section("processID1"), 0.5)
+#        ML_p1Far = MorphLocation(m.get_section("processID1"), 1.0)
 #        
 #        
-#        ML_p2bNear = MorphLocation(m.getSection("processID2b"), 0.0)
-#        ML_p2bNearThird = MorphLocation(m.getSection("processID2b"), 0.333333333333)
-#        ML_p2bFarThird = MorphLocation(m.getSection("processID2b"), 0.666666666666)
-#        ML_p2bFar = MorphLocation(m.getSection("processID2b"), 1.0)
+#        ML_p2bNear = MorphLocation(m.get_section("processID2b"), 0.0)
+#        ML_p2bNearThird = MorphLocation(m.get_section("processID2b"), 0.333333333333)
+#        ML_p2bFarThird = MorphLocation(m.get_section("processID2b"), 0.666666666666)
+#        ML_p2bFar = MorphLocation(m.get_section("processID2b"), 1.0)
 #        
 #        
 #        # Distance between the same point must be zero.
@@ -113,9 +113,9 @@
 #        
 #        
 #        #Distance between end/near points on adjacent sections:
-#        ML_p2Far = MorphLocation(m.getSection("processID2"), 1.0)
+#        ML_p2Far = MorphLocation(m.get_section("processID2"), 1.0)
 #        
-#        print "Soma ", m.getSection("somaID").getNPA3()
+#        print "Soma ", m.get_section("somaID").get_nPA3()
 #        print "SomaFar:", getMorphLocationCoords(ML_somaFar)
 #        print "ML_p1Near:", getMorphLocationCoords(ML_p1Near)
 #        
@@ -123,7 +123,7 @@
 #        self.assertAlmostEquals(DistanceBetweenMorphLocations(ML_p2Far, ML_p2bNear), 0.0, 4)
 #        
 #        #Distance between end points should be the lenght of the section between them:
-#        self.assertAlmostEquals(DistanceBetweenMorphLocations(ML_somaFar, ML_p2bNear), SectionLength(m.getSection("processID2")) , 4)
+#        self.assertAlmostEquals(DistanceBetweenMorphLocations(ML_somaFar, ML_p2bNear), SectionLength(m.get_section("processID2")) , 4)
 #        
 #        
 #    
@@ -132,7 +132,7 @@
 #        self.assertFalse(rootMorphLoc.section.isRoot())
 #        self.assertTrue(rootMorphLoc.section.parent.isRoot())
 #        self.assertTrue(rootMorphLoc.section == m.root.children[0])
-#        self.assertTrue(rootMorphLoc.section == m.getSection("somaID"))
+#        self.assertTrue(rootMorphLoc.section == m.get_section("somaID"))
 #        self.assertTrue(rootMorphLoc.sectionpos == 0.0)
 #        self.assertAlmostEquals(DistanceBetweenMorphLocations(rootMorphLoc, ML_somaNr), 0.0, 4)
 #        
@@ -151,19 +151,19 @@
 #        
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {})
 #        rootMorphLoc = getRootMorphLocation(m)
-#        ML_somaNr = MorphLocation(m.getSection("somaID"), 0.0)
-#        ML_somaMid = MorphLocation(m.getSection("somaID"), 0.5)
-#        ML_somaFar = MorphLocation(m.getSection("somaID"), 1.0)
+#        ML_somaNr = MorphLocation(m.get_section("somaID"), 0.0)
+#        ML_somaMid = MorphLocation(m.get_section("somaID"), 0.5)
+#        ML_somaFar = MorphLocation(m.get_section("somaID"), 1.0)
 #        
-#        ML_p1Near = MorphLocation(m.getSection("processID1"), 0.0)
-#        ML_p1Mid = MorphLocation(m.getSection("processID1"), 0.5)
-#        ML_p1Far = MorphLocation(m.getSection("processID1"), 1.0)
+#        ML_p1Near = MorphLocation(m.get_section("processID1"), 0.0)
+#        ML_p1Mid = MorphLocation(m.get_section("processID1"), 0.5)
+#        ML_p1Far = MorphLocation(m.get_section("processID1"), 1.0)
 #        
 #        
-#        ML_p2bNear = MorphLocation(m.getSection("processID2b"), 0.0)
-#        ML_p2bNearThird = MorphLocation(m.getSection("processID2b"), 0.333333333333)
-#        ML_p2bFarThird = MorphLocation(m.getSection("processID2b"), 0.666666666666)
-#        ML_p2bFar = MorphLocation(m.getSection("processID2b"), 1.0)
+#        ML_p2bNear = MorphLocation(m.get_section("processID2b"), 0.0)
+#        ML_p2bNearThird = MorphLocation(m.get_section("processID2b"), 0.333333333333)
+#        ML_p2bFarThird = MorphLocation(m.get_section("processID2b"), 0.666666666666)
+#        ML_p2bFar = MorphLocation(m.get_section("processID2b"), 1.0)
 #        
 #        #TODO more tsting here:
 #        if not (ML_p1Near and ML_p1Mid and ML_p1Far and ML_p2bNear and ML_p2bNearThird and ML_p2bFarThird and ML_p2bFar): print "Hello"

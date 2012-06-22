@@ -85,7 +85,7 @@ def simulate(current_inj_level):
     # Create a cell:
     morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
     morph = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.createCell(name="Cell1", morphology=morph)
+    myCell = mySim.create_cell(name="Cell1", morphology=morph)
     
     leakChannels = get_Lk_Channels(env)
     sodiumChannels = get_Na_Channels(env)
@@ -100,10 +100,10 @@ def simulate(current_inj_level):
     
     
     # Get a location on the cell:
-    somaLoc = myCell.getLocation("soma")
+    somaLoc = myCell.get_location("soma")
     
     # Create the stimulus and record the injected current:
-    cc = mySim.createCurrentClamp( amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+    cc = mySim.create_currentclamp( amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
     mySim.record(cc, what=StdRec.Current)
     
     # Define what to record:

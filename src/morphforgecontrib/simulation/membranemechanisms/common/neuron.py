@@ -36,14 +36,14 @@ class MM_Neuron_GeneralisedRecord( NeuronRecordableOnLocation):
     def getUnit(self):
         return self.unit
     
-    def getStdTags(self):
+    def get_std_tags(self):
         return self.tags
     
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass   
  
-    def buildHOC(self, hocFile):
-        HocModUtils.CreateRecordFromModFile( hocFile, 
+    def build_hoc(self, hocFile):
+        HocModUtils.create_record_from_modfile( hocFile, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
@@ -78,8 +78,8 @@ def build_HOC_default( cell, section, hocFile, mta , units, nrnsuffix):
     
     # Calculate the values of the variables for the section:
     variables = []
-    for variable_name in mta.mechanism.getVariables():
-        variable_value_with_unit = mta.applicator.getVariableValueForSection(variable_name=variable_name, section=section)
+    for variable_name in mta.mechanism.get_variables():
+        variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
         variable_unit = units[variable_name]
         variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude 
         variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
@@ -92,6 +92,6 @@ def build_HOC_default( cell, section, hocFile, mta , units, nrnsuffix):
                 }
     
     # Add the data to the HOC file
-    hocFile.addToSection( MHOCSections.InitCellMembranes,  Template(chlHoc,tmplDict ).respond() )
+    hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(chlHoc,tmplDict ).respond() )
 
         

@@ -148,7 +148,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             
             return 
         
-            V = StdLimits.getDefaultVoltageArray().rescale("mV")
+            V = StdLimits.get_defaultVoltageArray().rescale("mV")
             
             alpha,beta = cls.getResolvedInfTauInterpolatedCurves(V, chl, state)
             
@@ -284,7 +284,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 # Figures:
                 if make_graphs:
                     fig = cls.PlotStateCurveSummary(alphaBetaChl, state, figsize=(7,7))
-                    localElements.append( reportlabconfig.saveMPLToRLImage(fig, "somestate") )
+                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     fig.close()
 
                 
@@ -294,4 +294,4 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
 
-SummariserLibrary.registerSummariser(channelBaseClass=MM_InfTauInterpolatedChannel, summariserClass=Summarise_MM_InfTauInterpolatedChannel)
+SummariserLibrary.register_summariser(channelBaseClass=MM_InfTauInterpolatedChannel, summariserClass=Summarise_MM_InfTauInterpolatedChannel)

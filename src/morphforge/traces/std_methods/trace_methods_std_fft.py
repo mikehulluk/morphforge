@@ -17,7 +17,7 @@ def _fft(tr, normalise=True):
     ft = np.fft.fft( tr._data )
     if normalise:
         ft /= ft.max()
-    ftfreq = np.fft.fftfreq( tr._data.size, tr.getDTNew().rescale("s").magnitude )
+    ftfreq = np.fft.fftfreq( tr._data.size, tr.get_dt_new().rescale("s").magnitude )
     return ftfreq, ft
     
 
@@ -27,7 +27,7 @@ def _psd(tr, normalise=True):
     if normalise:
         ft /= ft.max()
         
-    ftfreq = np.fft.fftfreq( tr._data.size, tr.getDTNew().rescale("s").magnitude )
+    ftfreq = np.fft.fftfreq( tr._data.size, tr.get_dt_new().rescale("s").magnitude )
     return ftfreq, ft   
     
             

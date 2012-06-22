@@ -211,7 +211,7 @@ class PlotSpec_Selector_StringTags(PlotSpec_MixinTraceSelector):
         if isinstance(s, TagSelector):
             self.selector = s
         elif isinstance(s, basestring):
-            self.selector = TagSelector.fromString(s)
+            self.selector = TagSelector.from_string(s)
         else:
             assert False
 

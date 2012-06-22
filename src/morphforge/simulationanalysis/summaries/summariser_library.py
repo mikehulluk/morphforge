@@ -16,7 +16,7 @@ class SummariserLibrary():
     summarisers = { }
     
     @classmethod
-    def registerSummariser(cls, channelBaseClass, summariserClass ):
+    def register_summariser(cls, channelBaseClass, summariserClass ):
         # Check it has a toReportLab Method:
         # Todo: Replace this with 'hasattr'
         assert "toReportLab" in summariserClass.__dict__
@@ -29,7 +29,7 @@ class SummariserLibrary():
          
                    
     @classmethod
-    def getSummarisier(cls, obj):
+    def get_summarisier(cls, obj):
         possibleSummarisers = []
         for ChlType, summarisier in SummariserLibrary.summarisers.iteritems():
             if issubclass(type(obj), ChlType ):

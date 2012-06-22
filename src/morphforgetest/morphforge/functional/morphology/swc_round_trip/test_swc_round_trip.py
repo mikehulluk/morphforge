@@ -39,7 +39,7 @@ class TestSWCRoundTrip(object):
 
 
 
-    def getNeuroMorphFilenames(self):
+    def get_neuroMorphFilenames(self):
         f = "/home/michael/hw/morphforge/src/test_data/neuromorpho/"
         return list( find_files_recursively(f,"*.swc") )
 
@@ -49,7 +49,7 @@ class TestSWCRoundTrip(object):
 
 
 
-        for f in self.getNeuroMorphFilenames():
+        for f in self.get_neuroMorphFilenames():
 
             m = MorphologyArray.fromSWC(open(f))
 

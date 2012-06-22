@@ -17,9 +17,9 @@ from MMtrace_conversion import TraceConverter, TraceApproximator
 
 # Conversion to: FixedDT:
 #########################
-TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
-TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
-TraceMethodCtrl.register(Trace_Piecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.RebaseToFixedDT(tr,dt) ) )
+TraceMethodCtrl.register(Trace_FixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
+TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
+TraceMethodCtrl.register(Trace_Piecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
 
 
 # Conversion to VariableDT:
@@ -31,7 +31,7 @@ TraceMethodCtrl.register(Trace_VariableDT,  'convert_to_variable', lambda tr: co
 
 # Conversion to Piecewise:
 ##########################
-TraceMethodCtrl.register(Trace_FixedDT, 'convert_to_piecewise', TraceApproximator.FitPiecewiseLinearTrace )
+TraceMethodCtrl.register(Trace_FixedDT, 'convert_to_piecewise', TraceApproximator.fit_piecewise_linear_trace )
 # MISSING: VariableDT
 # MISSING: Piecewise
 

@@ -32,7 +32,7 @@ class Trace_FixedDT(Trace_PointBased):
 
 
     @classmethod
-    def isArrayFixedDT(cls, timeArray):
+    def is_array_fixed_dt(cls, timeArray):
         d = np.diff(timeArray.rescale('ms').magnitude)
         if np.ptp(d) > 0.01:
             return False
@@ -43,12 +43,12 @@ class Trace_FixedDT(Trace_PointBased):
         super(Trace_FixedDT, self).__init__(time=time, data=data, name=name, comment=comment, tags=tags)
         
         # Check we actually have an array with a fixed timestep:        
-        if not Trace_FixedDT.isArrayFixedDT(time):
+        if not Trace_FixedDT.is_array_fixed_dt(time):
             raise ValueError('A trace with a fixed dt was created, but has a non-constant time step was detected')
 
-        assert self.getN() >= 2, 'Points Based Trace has less than 2 points: %d' % self.getN()
+        assert self.get_n() >= 2, 'Points Based Trace has less than 2 points: %d' % self.get_n()
         
-    def getDTNew(self):
+    def get_dt_new(self):
         return self._time[1] - self._time[0]
      
     def __str__(self):

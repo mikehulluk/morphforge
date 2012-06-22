@@ -44,15 +44,15 @@ class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel ):
     class Recordables:
         all = []
     
-    def getVariables(self):
+    def get_variables(self):
         return []
         
-    def getDefaults(self):
+    def get_defaults(self):
         return {}
         
-    def getRecordable(self, what,  **kwargs):
+    def get_recordable(self, what,  **kwargs):
         raise ValueError( "Can't find Recordable: %s"%what)
     
     
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin(BuiltinChannel, BuiltinChannelNEURON)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(BuiltinChannel, BuiltinChannelNEURON)
 

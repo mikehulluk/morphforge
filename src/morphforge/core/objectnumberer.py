@@ -25,16 +25,16 @@ class ObjectLabeller(object):
     objectcount = {}
     
     @classmethod
-    def incrementCountForObject(cls, obj):
+    def increment_count_for_object(cls, obj):
         newcnt = cls.objectcount.get(obj,0) + 1
         
         cls.objectcount[obj] = newcnt
         return newcnt
     
     @classmethod
-    def getNextUnamedObjectName(cls, objType, prefix=None, num_fmt_string=None):
+    def get_next_unamed_object_name(cls, objType, prefix=None, num_fmt_string=None):
         if num_fmt_string is None:
             num_fmt_string = "%04d"
         if prefix is None:
             prefix = "Unamed" + str(objType.__name__)
-        return prefix + num_fmt_string%ObjectLabeller.incrementCountForObject(objType) 
+        return prefix + num_fmt_string%ObjectLabeller.increment_count_for_object(objType) 

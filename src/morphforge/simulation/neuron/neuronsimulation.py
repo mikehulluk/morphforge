@@ -60,16 +60,16 @@ class MNeuronSimulation(Simulation):
     def Run(self, doSpawn=True):
         #return
         if doSpawn:
-            return self._RunSpawn()
+            return self._run_spawn()
         else:
-            return self._RunNoSpawn()
+            return self._run_no_spawn()
 
 
-    def _RunSpawn(self):
+    def _run_spawn(self):
 
-        LogMgr.info("_RunSpawn() [Pickling Sim]")
-        b, resfilename = MetaDataBundleBuilder.buildStdPickler(self)
-        bundlefilename, simCmd = b.writeToFileAndGetExecString()
+        LogMgr.info("_run_spawn() [Pickling Sim]")
+        b, resfilename = MetaDataBundleBuilder.build_std_pickler(self)
+        bundlefilename, simCmd = b.write_to_file_and_get_exec_string()
 
         #if Exists(resfilename):
         #    os.unlink(resfilename)
@@ -84,17 +84,17 @@ class MNeuronSimulation(Simulation):
             old_ld_path = os.environ.get('LD_LIBRARY_PATH','')
             os.environ['LD_LIBRARY_PATH'] = ":".join( [old_ld_path] + ld_path_additions )
 
-            LogMgr.info("_RunSpawn() [Spawning subprocess]")
+            LogMgr.info("_run_spawn() [Spawning subprocess]")
             #retCode = ExecCommandGetRetCode(simCmd)
             retCode = subprocess.call( simCmd, shell=True)
             if retCode != 1: raise ValueError("Unable to simulate %s" % self.name)
-            LogMgr.info("_RunSpawn() [Finished spawning subprocess]")
+            LogMgr.info("_run_spawn() [Finished spawning subprocess]")
 
 
         # Load back the results:
-        LogMgr.info("_RunSpawn() [Loading results]")
-        self.result = SimulationResult.loadFromFile(resfilename)
-        LogMgr.info("_RunSpawn() [Finished loading results]")
+        LogMgr.info("_run_spawn() [Loading results]")
+        self.result = SimulationResult.load_from_file(resfilename)
+        LogMgr.info("_run_spawn() [Finished loading results]")
 
 
         # We have to do this so that the simulation object
@@ -113,8 +113,8 @@ class MNeuronSimulation(Simulation):
         hocData = MHocFile()
         modFiles = MModFileSet()
         for o in self.simulation_objects:
-            o.buildHOC(hocData)
-            o.buildMOD(modFiles)
+            o.build_hoc(hocData)
+            o.build_mod(modFiles)
 
 
         timeArray = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
@@ -124,14 +124,14 @@ class MNeuronSimulation(Simulation):
 
             dataArray = _random_walk(len(timeArray), 0.05 ) * r.getUnit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.getDescription(), time=timeArray, data=dataArray, tags=r.getTags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.getTags() )
             traces.append(tr)
 
         self.result = SimulationResult(traces, self)
         return self.result
 
 
-    def _RunNoSpawn(self):
+    def _run_no_spawn(self):
         from morphforge.traces import  Trace_VariableDT
 
 
@@ -161,14 +161,14 @@ class MNeuronSimulation(Simulation):
         modFiles = MModFileSet()
         for o in self.simulation_objects:
             #print 'BUILDING HOC:', o
-            o.buildHOC(hocData)
+            o.build_hoc(hocData)
             #print 'BUILDING MOD:', o
-            o.buildMOD(modFiles)
+            o.build_mod(modFiles)
 
 
 
         tModBuildStart = time.time()
-        modFiles.buildAll()
+        modFiles.build_all()
         print "Time for Building Mod-Files: ",  time.time() - tModBuildStart
 
 
@@ -178,7 +178,7 @@ class MNeuronSimulation(Simulation):
 
         # Insert the mod-files:
         for mf in modFiles:
-            nrn(h.nrn_load_dll, mf.getBuiltFilenameFull())
+            nrn(h.nrn_load_dll, mf.get_built_filename_full())
 
 
         # Write the HOC file:
@@ -218,7 +218,7 @@ class MNeuronSimulation(Simulation):
 
             dataArray = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.getUnit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.getDescription(), time=timeArray, data=dataArray, tags=r.getTags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.getTags() )
             traces.append(tr)
         print "Time for Extracting Data: (%d records)"%(len(records)),  time.time() - tTraceReadStart
 
@@ -233,22 +233,22 @@ class MNeuronSimulation(Simulation):
 
 
     # NEW API:
-    def addCellBackendSpecific(self, cell):
+    def add_cell_backend_specific(self, cell):
         self.simulation_objects.append(cell)
 
-    def addCurrentClampBackendSpecific(self, cc):
+    def add_currentclamp_backend_specific(self, cc):
         self.simulation_objects.append(cc)
 
-    def addVoltageClampBackendSpecific(self,vc):
+    def add_voltageclamp_backend_specific(self,vc):
         self.simulation_objects.append(vc)
 
-    def addSynapseBackendSpecific(self,synapse):
+    def add_synapse_backend_specific(self,synapse):
         self.simulation_objects.append(synapse)
 
-    def addGapJunctionBackendSpecific(self,gapJunction):
+    def add_gapjunction_backend_specific(self,gapJunction):
         self.simulation_objects.append(gapJunction)
 
-    def addRecordable(self, recordable):
+    def add_recordable(self, recordable):
         if recordable.name in self.recordableNames:
             assert False, 'Duplicate recordable name added'
         self.recordableNames.add( recordable.name )

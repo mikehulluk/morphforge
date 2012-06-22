@@ -62,7 +62,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
         def PlotAlphaBetaCurves(cls, ax1,ax2, calciumAlphaBetaBetaChannel, state):
             chl = calciumAlphaBetaBetaChannel
             
-            V = StdLimits.getDefaultVoltageArray().rescale("mV")
+            V = StdLimits.get_defaultVoltageArray().rescale("mV")
             
             alpha,beta = cls.getResolvedAlphaBetaCurves(V, chl, state)
             
@@ -79,7 +79,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             
             chl = calciumAlphaBetaBetaChannel
             
-            V = StdLimits.getDefaultVoltageArray().rescale("mV")
+            V = StdLimits.get_defaultVoltageArray().rescale("mV")
             
             alpha,beta = cls.getResolvedAlphaBetaCurves(V, chl, state)
             inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
@@ -111,7 +111,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
         
         @classmethod
         def PlotGHKMaxCurrentFlow(cls,calciumAlphaBetaBetaChannel, figsize ):
-            V = StdLimits.getDefaultVoltageArray().rescale("mV")
+            V = StdLimits.get_defaultVoltageArray().rescale("mV")
             # Plot the 
             fig = QuantitiesFigure(figsize=figsize)
             ax1 = fig.add_subplot(221, xUnit="mV",yUnit="pA/cm2", xlabel="Voltage", ylabel="")
@@ -162,7 +162,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             #GHK Max Current Flow
             localElements.append( Paragraph("MaxCurrentFlow From GHK", reportlabconfig.styles['Heading3']) )
             fig = cls.PlotGHKMaxCurrentFlow( calciumAlphaBetaBetaChannel, figsize=(4,4) ) 
-            localElements.append( reportlabconfig.saveMPLToRLImage(fig, "ghk") )
+            localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "ghk") )
             
             # Plot out the States:
             for state,params in calciumAlphaBetaBetaChannel.statevars.iteritems():
@@ -170,7 +170,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                 
                 if make_graphs:
                     fig = cls.PlotStateCurveSummary(chl, state, figsize=(5,5))
-                    localElements.append( reportlabconfig.saveMPLToRLImage(fig, "somestate") )
+                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     fig.close()
              
                 #Equations:
@@ -197,4 +197,4 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             return localElements
         
         
-SummariserLibrary.registerSummariser(channelBaseClass=MM_CalciumAlphaBetaBetaChannel, summariserClass=Summarise_MM_CalciumAlphaBetaBetaChannel)
+SummariserLibrary.register_summariser(channelBaseClass=MM_CalciumAlphaBetaBetaChannel, summariserClass=Summarise_MM_CalciumAlphaBetaBetaChannel)

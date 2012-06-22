@@ -314,7 +314,7 @@ class Section(object):
 
 
     # Deprecated:
-    def getVectorfromParentNP4(self):
+    def get_vectorfrom_parent_np4(self):
         """ Deprecated: Returns the directional vector and the radious difference in the section.  """
         assert False, 'Deprecated'
         return self.get_distal_npa4() - self.get_proximal_npa4()
@@ -442,44 +442,44 @@ class MorphologyTree(MorphologyBase):
         self._dummysection = None
 
         if dummysection:
-            self.setDummySection(dummysection)
+            self.set_dummy_section(dummysection)
 
-        self.ensureConsistency(requiretreeset=False)
+        self.ensure_consistency(requiretreeset=False)
 
 
 
     def __str__(self):
         s = "MorphologyTree Object: Name: %s, nSections: %d, Regions:[%s], idTags:[%s]" % (self.name,
                                                                        len(self),
-                                                                       ",".join([rgn.name for rgn in self.getRegions()]),
-                                                                       ",".join(self.getIDTags())
+                                                                       ",".join([rgn.name for rgn in self.get_regions()]),
+                                                                       ",".join(self.get_idtags())
                                                                        )
         return s
 
 
     # It is not nessesary to define the dummy node when we call __init__,
     # but we need to check it is set before being requested.
-    def isDummySectionSet(self):
+    def is_dummy_section_set(self):
         """ Returns whether a tree has been assigned to this morphology"""
         return self._dummysection != None
 
 
-    def setDummySection(self, dummysection):
+    def set_dummy_section(self, dummysection):
         """ Set the tree node for the morphology. You can only do this to a morphology
         which has not had its tree assigned yet. The root-object of the tree is a 'dummysection',
         but this is **not** the same as a root node.
         """
-        assert not self.isDummySectionSet(), "Setting of MorphologyTree Twice"
+        assert not self.is_dummy_section_set(), "Setting of MorphologyTree Twice"
         assert isinstance(dummysection, Section), "Setting the tree with something that is not a Section object"
         assert dummysection.is_dummy_section(), "Dummysection is not a dummy section!"
 
-        assert MorphologyConsistencyMgr.getChecker(self).disable()
+        assert MorphologyConsistencyMgr.get_checker(self).disable()
         self._dummysection = dummysection
-        for r in self.getRegions():
+        for r in self.get_regions():
             r.set_morphology(self)
-        assert MorphologyConsistencyMgr.getChecker(self).enable()
+        assert MorphologyConsistencyMgr.get_checker(self).enable()
 
-        assert self.ensureConsistency(), "Morphology is not consistent"
+        assert self.ensure_consistency(), "Morphology is not consistent"
 
 
 
@@ -487,7 +487,7 @@ class MorphologyTree(MorphologyBase):
 
     def _every_section(self):
         """Includes dummy section"""
-        return itertools.chain( *[[self.getDummySection()], self  ] )
+        return itertools.chain( *[[self.get_dummy_section()], self  ] )
 
 
     # Iteration over morphologies:
@@ -495,7 +495,7 @@ class MorphologyTree(MorphologyBase):
     def __iter__(self):
         """ Iteration over each of the sections."""
 
-        assert self.ensureConsistency(), "Morphology is not consistent"
+        assert self.ensure_consistency(), "Morphology is not consistent"
 
         #TODO: replace this with a iterator method on one of the sections in the tree. I
         # need to think about this. it might be the dummysection. This will be cleaner.
@@ -503,7 +503,7 @@ class MorphologyTree(MorphologyBase):
 
     def __len__(self):
         """Returns the numbers of sections in the morphology """
-        assert self.ensureConsistency()
+        assert self.ensure_consistency()
 
         # TODO: as per iter
         return len(SectionListerDF(self)())
@@ -512,24 +512,24 @@ class MorphologyTree(MorphologyBase):
 
 
 
-    def getDummySection(self):
-        assert self.ensureConsistency(), "MorphologyTree not consistent"
+    def get_dummy_section(self):
+        assert self.ensure_consistency(), "MorphologyTree not consistent"
         return self._dummysection
 
-    def getRootSection(self):
+    def get_root_section(self):
         assert False, 'Deprecated'
-        assert self.ensureConsistency(), "MorphologyTree not consistent"
+        assert self.ensure_consistency(), "MorphologyTree not consistent"
         return self._dummysection.children[0]
 
-    def getRootSections(self):
+    def get_root_sections(self):
         return self._dummysection.children
 
 
 
-    def getRegions(self):
+    def get_regions(self):
         """ Returns a list of unique regions in the morphology
         """
-        assert self.ensureConsistency()
+        assert self.ensure_consistency()
 
         if self._regions is None:
             allRegions = [ section.region for section in self]
@@ -541,29 +541,29 @@ class MorphologyTree(MorphologyBase):
 
     @property
     def regions(self):
-        return self.getRegions()
+        return self.get_regions()
 
-    def getRegionNames(self):
-        return [ r.name for r in self.getRegions()]
+    def get_region_names(self):
+        return [ r.name for r in self.get_regions()]
 
-    def getRegion(self, name):
+    def get_region(self, name):
         """ Returns a Region object relevant to this tree, given a filename"""
-        assert self.ensureConsistency()
+        assert self.ensure_consistency()
 
-        return SeqUtils.filter_expect_single(self.getRegions(), lambda r: r.name == name)
+        return SeqUtils.filter_expect_single(self.get_regions(), lambda r: r.name == name)
 
-    def getSection(self, idTag):
+    def get_section(self, idTag):
         """ Returns a Section object with a given id"""
-        assert self.ensureConsistency()
+        assert self.ensure_consistency()
         return SeqUtils.filter_expect_single(self, lambda s: s.idTag == idTag)
 
-    def getIDTags(self):
+    def get_idtags(self):
         return [ section.idTag for section in self if section.idTag]
 
 
 
 
-    def ensureConsistency(self, requiretreeset=True):
+    def ensure_consistency(self, requiretreeset=True):
         """
         This method is used to check the consistency of the tree. In production code, all calls to this should be optimised out using
         -O optimisation to python.
@@ -571,7 +571,7 @@ class MorphologyTree(MorphologyBase):
         Object, which could cause upset for calculating md5sums or pickling.
         """
         if requiretreeset:
-            assert self.isDummySectionSet()
+            assert self.is_dummy_section_set()
 
 
         MorphologyConsistencyMgr.Check(self)

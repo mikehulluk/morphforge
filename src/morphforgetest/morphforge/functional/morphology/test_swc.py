@@ -25,9 +25,9 @@ class TestSWC(unittest.TestCase):
         print m
         
         self.assertEqual( len(m), 6 )
-        self.assertEqual( len(m.getRegions() ), 2 )
+        self.assertEqual( len(m.get_regions() ), 2 )
         
-        root = m.getRootSection()
+        root = m.get_root_section()
         self.assertAlmostEqual( root.p_x,  1591.43 )
         self.assertAlmostEqual( root.p_y,  53.87   )
         self.assertAlmostEqual( root.p_z,  20.48   )

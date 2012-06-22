@@ -43,7 +43,7 @@ swc_templ = """
 # --------------------------------
 
 ### Dummy Section:
-#set dummy = $morph.getDummySection
+#set dummy = $morph.get_dummy_section
 $ids[dummy] 0 $dummy.d_x $dummy.d_y $dummy.d_z $dummy.d_r -1      
 #for $seg in $morph :
 $ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[ $seg.parent ]
@@ -59,33 +59,33 @@ $ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[ $seg.
 class SWCTreeWriter(object):
     
     @classmethod
-    def toStr(cls, morph=None, morphs=None, regionname_to_int_map=None):
+    def to_str(cls, morph=None, morphs=None, regionname_to_int_map=None):
         
         assert (morph or morphs) and not( morph and morphs)
         
         if morph:
-            return cls._toStrMulti(morphs = [morph], regionname_to_int_map=regionname_to_int_map)
+            return cls._to_str_multi(morphs = [morph], regionname_to_int_map=regionname_to_int_map)
         else:
-            return cls._toStrMulti(morphs = morphs, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_str_multi(morphs = morphs, regionname_to_int_map=regionname_to_int_map)
         
         
     @classmethod
-    def toFile(cls, filename, morph=None, morphs=None, regionname_to_int_map=None ):
+    def to_file(cls, filename, morph=None, morphs=None, regionname_to_int_map=None ):
         assert (morph or morphs) and not( morph and morphs)
         
         if morph:
-            return cls._toFileMulti(morphs = [morph], filename=filename, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_file_multi(morphs = [morph], filename=filename, regionname_to_int_map=regionname_to_int_map)
         else:
-            return cls._toFileMulti(morphs = morphs, filename=filename, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_file_multi(morphs = morphs, filename=filename, regionname_to_int_map=regionname_to_int_map)
     
     
     
     @classmethod
-    def _toFileMulti(cls, filename, morphs, regionname_to_int_map=None):
-        return FileIO.write_to_file(txt=cls._toStrMulti(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
+    def _to_file_multi(cls, filename, morphs, regionname_to_int_map=None):
+        return FileIO.write_to_file(txt=cls._to_str_multi(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
     
     @classmethod
-    def _toStrMulti(cls, morphs, regionname_to_int_map=None ):
+    def _to_str_multi(cls, morphs, regionname_to_int_map=None ):
         offset = 0
         output = ""
         for morph in morphs:
@@ -96,13 +96,13 @@ class SWCTreeWriter(object):
             offset = offset + 1
             
             idMap = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
-            idMap[ morph.getDummySection() ] = dummyOffset
+            idMap[ morph.get_dummy_section() ] = dummyOffset
             
             
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()
                   
-            region_type_map = dict( (s,0) if not s.region else (s,regionname_to_int_map.regionNameToInt(s.region.name)) for s in morph )
+            region_type_map = dict( (s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph )
             
             context = [{ 'morph':morph, 'ids':idMap, 'region_type_map':region_type_map }]
             newOP = Template(swc_templ, context ).respond()
@@ -123,5 +123,5 @@ class SWCTreeWriter(object):
 
 
 
-MorphologyExporter.register("toSWCFile", lambda filename,morphology: SWCTreeWriter.toFile(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree )
-MorphologyExporter.register("toSWCStr",  lambda morphology: SWCTreeWriter.toStr(morph=morphology), allow_override=False, from_type=MorphologyTree )
+MorphologyExporter.register("toSWCFile", lambda filename,morphology: SWCTreeWriter.to_file(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree )
+MorphologyExporter.register("toSWCStr",  lambda morphology: SWCTreeWriter.to_str(morph=morphology), allow_override=False, from_type=MorphologyTree )

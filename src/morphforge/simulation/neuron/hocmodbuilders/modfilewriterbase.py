@@ -234,7 +234,7 @@ class MM_ModFileWriterBase(object):
         
     
 
-    def GenerateModFile(self):
+    def generate_modfile(self):
         assert self.currentequation
 
         self.rangevars = ",".join(  self.parameters.keys() + self.rates.keys() + self.internalstates.keys() +  ["i", "g"] )

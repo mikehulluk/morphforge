@@ -23,20 +23,20 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 class MembraneMechanismApplicator(object):
-    def getVariableValueForSection(self, variablename, section,):
+    def get_variable_value_for_section(self, variablename, section,):
         raise NotImplementedError()
-    def getDescription(self):
+    def get_description(self):
         raise NotImplementedError()
     
 class MembraneMechanismApplicator_Uniform(object):
     def __init__(self, variable_dict=None):
         self.variable_dict = variable_dict
     
-    def getVariableValueForSection(self, variable_name, section):
+    def get_variable_value_for_section(self, variable_name, section):
         assert variable_name in self.variable_dict
         return self.variable_dict[variable_name]
 
-    def getDescription(self):
+    def get_description(self):
         vars = [ "%s:%s"%(k,v.round(3) ) for k,v in self.variable_dict.iteritems() ]
         v = ", ".join(vars) 
         return "Uniform [%s]"%v

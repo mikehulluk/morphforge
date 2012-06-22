@@ -24,7 +24,7 @@ class PieceWiseComponentVisitor(object):
     
     @classmethod
     def Visit(cls, o, **kwargs):
-        return o.AcceptVisitor(cls,**kwargs)
+        return o.accept_visitor(cls,**kwargs)
 
 
     @classmethod
@@ -43,23 +43,23 @@ class TracePieceFunction(object):
     def __init__(self, time_window):
         self.time_window = time_window
     
-    def getMinTime(self):
+    def get_min_time(self):
         return self.time_window[0]
 
-    def getMaxTime(self):
+    def get_max_time(self):
         return self.time_window[1]
 
-    def getDuration(self):
-        return self.getMaxTime() - self.getMinTime()    
+    def get_duration(self):
+        return self.get_max_time() - self.get_min_time()    
     
 
-    def geStartValue(self):
+    def ge_start_value(self):
         raise NotImplementedError()
-    def getEndValue(self):
+    def get_end_value(self):
         raise NotImplementedError()
 
     # To allow for manipulation: 
-    def AcceptVisitor(self):
+    def accept_visitor(self):
         assert False
         
     
@@ -75,12 +75,12 @@ class TracePieceFunctionLinear(TracePieceFunction):
         self.x0 = x0
         self.x1 = x1
         
-    def AcceptVisitor(self, visitor, **kwargs):
+    def accept_visitor(self, visitor, **kwargs):
         return visitor.visit_linear(self, **kwargs) 
         
-    def getStartValue(self):
+    def get_start_value(self):
         return  self.x0
-    def getEndValue(self):
+    def get_end_value(self):
         return  self.x1
 
 
@@ -91,19 +91,19 @@ class TracePieceFunctionFlat(TracePieceFunction):
         assert x is not None
         self.x = x
         
-    def getValue(self):
+    def get_value(self):
         return self.x
     
          
-    def getValues(self, times):
+    def get_values(self, times):
         return np.ones( len(times) ) * self.x
 
-    def getStartValue(self):
+    def get_start_value(self):
         return  self.x
-    def getEndValue(self):
+    def get_end_value(self):
         return  self.x
     
-    def AcceptVisitor(self, visitor, **kwargs):
+    def accept_visitor(self, visitor, **kwargs):
         return visitor.visit_flat(self, **kwargs) 
     
 
@@ -115,39 +115,39 @@ class Trace_Piecewise(Trace):
     
         # Check we link up:
         for i in range( len(pieces) -1 ):
-            dist = self._pieces[i].getMaxTime() - self._pieces[i+1].getMinTime()
+            dist = self._pieces[i].get_max_time() - self._pieces[i+1].get_min_time()
             #print dist
             assert np.fabs( dist.rescale('ms').magnitude ) < 0.001
         
         
             
-    def getMinTime(self):
-        return self._pieces[0].getMinTime()
+    def get_min_time(self):
+        return self._pieces[0].get_min_time()
 
-    def getMaxTime(self):
-        return self._pieces[-1].getMaxTime()
+    def get_max_time(self):
+        return self._pieces[-1].get_max_time()
     
-    def nPieces(self):
+    def n_pieces(self):
         return len(self._pieces)
     
-    def nPiecesLongerThan(self, t):
-        return len( [ p for p in self._pieces if p.getDuration() > t] )
+    def n_pieces_longer_than(self, t):
+        return len( [ p for p in self._pieces if p.get_duration() > t] )
         
     
-    def getValues(self, times):
+    def get_values(self, times):
         #from morphforge.core.quantities import unit
         _datas = []
         _times =[]
-        assert (times <= self.getMaxTime() ).all()
-        assert (times >= self.getMinTime() ).all()
+        assert (times <= self.get_max_time() ).all()
+        assert (times >= self.get_min_time() ).all()
         doneTimes = np.ones( len(times) ) > 0.0
         for p in self._pieces:
-            ind1 = (times.rescale('ms') < float(p.getMaxTime().rescale('ms').magnitude) )
+            ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude) )
             ind = np.logical_and(ind1,doneTimes)
             indLocs = np.where(ind)
             
             _time = times[indLocs]
-            _data = p.getValues(_time)
+            _data = p.get_values(_time)
             _datas.append(_data)
             _times.append(_time)
             

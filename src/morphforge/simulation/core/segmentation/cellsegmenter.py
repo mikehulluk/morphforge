@@ -31,26 +31,26 @@ class AbstCellSegmenter(object):
     def __init__(self, cell=None):
         self.cell = cell
 
-    def connectToCell(self, cell):
+    def connect_to_cell(self, cell):
         raise NotImplementedError()
 
 
-    def getNumSegments(self, section):
+    def get_num_segments(self, section):
         raise NotImplementedError()
 
-    def getSegments(self, section):
+    def get_segments(self, section):
         raise NotImplementedError()
 
     def __iter__(self):
         for section in self.cell.morphology:
-            for seg in self.getSegments(section):
+            for seg in self.get_segments(section):
                 yield seg
 
-    def getNumSegmentTotal(self):
-        return sum( [ self.getNumSegments(section) for section in self.cell.morphology] )
+    def get_num_segment_total(self):
+        return sum( [ self.get_num_segments(section) for section in self.cell.morphology] )
 
-    def getNumSegmentRegion(self, region):
-        return sum( [ self.getNumSegments(section) for section in region] )
+    def get_num_segment_region(self, region):
+        return sum( [ self.get_num_segments(section) for section in region] )
 
 
 
@@ -62,23 +62,23 @@ class CellSegmenterStd(AbstCellSegmenter):
         self._cellSegments = None
 
         if self.cell:
-            self.connectToCell(cell)
+            self.connect_to_cell(cell)
 
 
-    def connectToCell(self, cell):
+    def connect_to_cell(self, cell):
         assert not self.cell
         self.cell = cell
 
 
-    def getNumSegments(self, section):
-        return self._getNSegments(section) 
+    def get_num_segments(self, section):
+        return self._get_n_segments(section) 
 
-    def getSegments(self, section):
+    def get_segments(self, section):
         assert False, 'What is using the cell segment objects??'
         return self.cellSegments[section]
 
 
-    def _getNSegments(self, section):
+    def _get_n_segments(self, section):
         raise NotImplementedError()
 
 
@@ -91,7 +91,7 @@ class CellSegmenterStd(AbstCellSegmenter):
 
             # Segment the cell:
             for section in self.cell.morphology:
-                nSegs = self._getNSegments(section)
+                nSegs = self._get_n_segments(section)
                 self._cellSegments[section] = [ CellSegment(cell=self.cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ]
         return self._cellSegments
 
@@ -107,14 +107,14 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
         CellSegmenterStd.__init__(self, cell)
         self.maxSegmentLength = maxSegmentLength
 
-    def _getNSegments(self, section):
+    def _get_n_segments(self, section):
         return int( section.get_length() / self.maxSegmentLength ) + 1
 
 
 
 class CellSegmenter_SingleSegment(CellSegmenterStd):
 
-    def _getNSegments(self, section):
+    def _get_n_segments(self, section):
         return 1
 
 
@@ -128,6 +128,6 @@ class CellSegmenter_MaxLengthByID(CellSegmenterStd):
 
         CellSegmenterStd.__init__(self, cell)
 
-    def _getNSegments(self, section):
+    def _get_n_segments(self, section):
         max_size = self.section_id_segment_sizes.get(section.idTag, self.defaultSegmentLength )
         return  int(section.get_length() / max_size )  +1

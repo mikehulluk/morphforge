@@ -25,19 +25,19 @@ def main():
 
     bundleFilename = sys.argv[1]
     print "Loading Bundle from ", bundleFilename
-    bundle = SimMetaDataBundle.loadFromFile(bundleFilename)
+    bundle = SimMetaDataBundle.load_from_file(bundleFilename)
 
     # Load the random number seed
     if bundle.random_seed is not None:
         mfrandom.MFRandom.seed(bundle.random_seed) 
 
 
-    result = bundle.getSimulation().Run(doSpawn=False)
-    result.setSimulationTime(tStart, time.time())
+    result = bundle.get_simulation().Run(doSpawn=False)
+    result.set_simulation_time(tStart, time.time())
 
     LogMgr.info("Simulation Ran OK. Post Processing:")
 
-    bundle.doPostProcessingActions()
+    bundle.do_postprocessing_actions()
     LogMgr.info("Bundle Completed OK")
 
 

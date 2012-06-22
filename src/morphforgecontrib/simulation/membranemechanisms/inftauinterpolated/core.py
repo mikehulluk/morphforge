@@ -59,10 +59,10 @@ class MM_InfTauInterpolatedChannel(MembraneMechanism):
         
         
            
-    def getVariables(self):
+    def get_variables(self):
         return ['gBar', 'eRev', 'gScale']
     
-    def getDefaults(self):
+    def get_defaults(self):
         return {"gBar":self.conductance, "eRev":self.reversalpotential, "gScale": unit("1.0") } 
 
 

@@ -23,40 +23,40 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 class Targeter(object):
-    def getPriority(self):
+    def get_priority(self):
         raise NotImplementedError()
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         raise NotImplementedError()
 
-    def getDescription(self):
+    def get_description(self):
         raise NotImplementedError()
 
 
 
 class PassiveTargeter_EverywhereDefault(Targeter):
-    def getPriority(self):
+    def get_priority(self):
         return 0
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         return True
-    def getDescription(self):
+    def get_description(self):
         return "PassiveDefault"
 
 class PassiveTargeter_Everywhere(Targeter):
-    def getPriority(self):
+    def get_priority(self):
         return 5
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         return True
-    def getDescription(self):
+    def get_description(self):
         return "PassiveDefault"
 
 class PassiveTargeter_Region(Targeter):
     def __init__(self, region):
         self.region = region
-    def getPriority(self):
+    def get_priority(self):
         return 10
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         return section.region == self.region
-    def getDescription(self):
+    def get_description(self):
         return "Passive-Region:%s"%self.region.name
 
 
@@ -67,42 +67,42 @@ class PassiveTargeter_Region(Targeter):
 
 
 class MembraneMechanismTargeter_Everywhere(Targeter):
-    def getPriority(self):
+    def get_priority(self):
         return 10
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         return True
-    def getDescription(self):
+    def get_description(self):
         return "MM-Everywhere"
 
 class MembraneMechanismTargeter_Region(Targeter):
     def __init__(self, region):
         self.region = region
-    def getPriority(self):
+    def get_priority(self):
         return 20
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         #print 'Does Target Region?', section, section.region, self.region, section.region == self.region 
         return section.region == self.region
     
-    def getDescription(self):
+    def get_description(self):
         return  "MM-Region: %s"%self.region.name
 
 class MembraneMechanismTargeter_SectionPath(Targeter):
-    def getPriority(self):
+    def get_priority(self):
         return 30
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         assert False
 
-    def getDescription(self):
+    def get_description(self):
         return  "MM-SectionPath: ??"
 
 class MembraneMechanismTargeter_Section(Targeter):
     def __init__(self, section):
         self.section = section
-    def getPriority(self):
+    def get_priority(self):
         return 40
-    def doesTargetSection(self, section):
+    def does_target_section(self, section):
         return self.section == section
-    def getDescription(self):
+    def get_description(self):
         sectionDesc = self.section.idTag if self.section.idTag else "[No idTag]"
         return "MM-Section: %s"%sectionDesc
 

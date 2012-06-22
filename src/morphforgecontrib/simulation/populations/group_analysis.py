@@ -22,7 +22,7 @@ class PopAnalSpiking(object):
     def EvSetNthSpike(cls, res, tag_selector, n, comment=None ):
         comment = comment or ""
 
-        traces = [ trace for trace in res.getTraces() if tag_selector( trace ) ]
+        traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]
 
         spikeList = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
         spikeList = [ spl[n] for spl in spikeList if len(spl) > n ]
@@ -40,7 +40,7 @@ class PopAnalSpiking(object):
     def EvSetAllSpikes(cls, res, tag_selector, comment=None):
         comment = comment or ""
 
-        traces = [ trace for trace in res.getTraces() if tag_selector( trace ) ]
+        traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]
 
         spikeList = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
         spikeList = itertools.chain(*spikeList)

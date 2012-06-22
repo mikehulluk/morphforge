@@ -18,10 +18,10 @@ class SimulatorSpecificChannel(MembraneMechanism):
     def __init__(self):
         pass
         
-    def getVariables(self):
+    def get_variables(self):
         # MUST BE OVERRIDDEN
         assert False
     
-    def getDefaults(self):
+    def get_defaults(self):
         # MUST BE OVERRIDDEN
         assert False

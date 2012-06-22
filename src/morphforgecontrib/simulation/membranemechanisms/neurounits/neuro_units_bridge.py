@@ -53,23 +53,23 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
         self.unit_in_nrn = unit_in_nrn
         self.std_tags = std_tags or []
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
 
-    def buildHOC(self, hocFile):
-        HocModUtils.CreateRecordFromModFile( hocFile,
+    def build_hoc(self, hocFile):
+        HocModUtils.create_record_from_modfile( hocFile,
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.srcChl.NRNSUFFIX,
                                              recordobj=self)
 
-    def getDescription(self):
-        return "%s %s %s" % (self.modvar, self.srcChl.name, self.where.getLocationDescriptionStr() )
+    def get_description(self):
+        return "%s %s %s" % (self.modvar, self.srcChl.name, self.where.get_location_description_str() )
 
     def getUnit(self):
         return self.unit_in_nrn
-    def getStdTags(self):
+    def get_std_tags(self):
         return self.std_tags
 
 
@@ -84,7 +84,7 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
         if isinstance( eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
-        self.name = name if name is not None else ObjectLabeller.getNextUnamedObjectName( NeuroUnitEqnsetMechanism)
+        self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name( NeuroUnitEqnsetMechanism)
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
@@ -100,10 +100,10 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
             assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol] ).rescale("")
             print 'OK\n'
 
-    def getDefaults(self):
+    def get_defaults(self):
         return self._parameters
 
-    def getVariables(self):
+    def get_variables(self):
         return self._parameters.keys()
 
 
@@ -113,7 +113,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
         MM_Neuron_Base.__init__(self)
         NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
 
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.getNextUnamedObjectName(Neuron_NeuroUnitEqnsetMechanism,prefix="" ))
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism,prefix="" ))
 
 
 
@@ -144,20 +144,20 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
 
 
-    def getRecordables(self):
-        return  self._getRecordableSymbols()
+    def get_recordables(self):
+        return  self._get_recordableSymbols()
         assert False
 
 
-    def _getRecordableSymbols(self):
+    def _get_recordableSymbols(self):
         return [ s.symbol for s in list(self.eqnset.states) + list(self.eqnset.assignedvalues) + list(self.eqnset.suppliedvalues) + list(self.eqnset.parameters) ]
 
-    def getRecordable(self, what, celllocation, **kwargs):
+    def get_recordable(self, what, celllocation, **kwargs):
 
         # Map it through the recordables_map, so that we can alias to StandardTags:
         what = self.recordables_map.get(what,what)
 
-        valid_symbols = self._getRecordableSymbols()
+        valid_symbols = self._get_recordableSymbols()
         if not what in  valid_symbols:
             err ="Unknown record value: %s. Expecting one of: %s "%(what, valid_symbols)
             raise ValueError(err)
@@ -173,4 +173,4 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
 
 
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin( NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin( NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)

@@ -43,4 +43,4 @@ class Summarise_MM_LeakChannel(object):
     
     
     
-SummariserLibrary.registerSummariser(channelBaseClass=MM_LeakChannel, summariserClass=Summarise_MM_LeakChannel)
+SummariserLibrary.register_summariser(channelBaseClass=MM_LeakChannel, summariserClass=Summarise_MM_LeakChannel)

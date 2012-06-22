@@ -24,20 +24,20 @@ class MorphologyTranslator(object):
         print offset
         #assert False
         
-        #distToParent = SectionVistorFactory.DictSectionProximalDistFromSoma(morph=morphology, somaCentre=False)()
+        #distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, somaCentre=False)()
         
         sectionMappingTable = {}
         regionMappingTable = {}
         
         #Create New Regions:
         regionMappingTable[None] = None
-        for rOld in morphology.getRegions():
+        for rOld in morphology.get_regions():
             rNew = Region(name = rOld.name )
             regionMappingTable[rOld] = rNew
              
 
         # Create New Sections:
-        dummyRootOld = morphology.getDummySection()
+        dummyRootOld = morphology.get_dummy_section()
         dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x + offset[0], y=dummyRootOld.d_y+ offset[1], z=dummyRootOld.d_z + offset[2], r=dummyRootOld.d_r)
         sectionMappingTable[dummyRootOld] = dummyRootNew
         for sectionOld in morphology:

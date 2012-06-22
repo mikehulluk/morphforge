@@ -41,25 +41,25 @@ class NeuronSynapse(NeuronObject, Synapse):
         Synapse.__init__( self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
 
 
-    def buildHOC(self, hocFileObject):
-        self.postSynapticMech.buildHOC(hocFileObject)
-        self.preSynapticTrigger.buildHOC(hocFileObject)
+    def build_hoc(self, hocFileObject):
+        self.postSynapticMech.build_hoc(hocFileObject)
+        self.preSynapticTrigger.build_hoc(hocFileObject)
     
-    def buildMOD(self, modFileSet):
-        self.postSynapticMech.buildMOD(modFileSet)
-        self.preSynapticTrigger.buildMOD(modFileSet)
+    def build_mod(self, modFileSet):
+        self.postSynapticMech.build_mod(modFileSet)
+        self.preSynapticTrigger.build_mod(modFileSet)
 
         
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         if what== StandardTags.Conductance:
             what=Synapse.Recordables.SynapticConductance
         if what== StandardTags.Current:
             what=Synapse.Recordables.SynapticCurrent
         
         if what in [ Synapse.Recordables.SynapticCurrent, Synapse.Recordables.SynapticConductance, StandardTags.NMDAVoltageDependancy,StandardTags.NMDAVoltageDependancySS]:
-            return self.postSynapticMech.getRecordable(what=what, **kwargs)
+            return self.postSynapticMech.get_recordable(what=what, **kwargs)
         if what in ['g']:
-            return self.postSynapticMech.getRecordable(what=what, **kwargs)
+            return self.postSynapticMech.get_recordable(what=what, **kwargs)
 
         
         assert False
@@ -134,7 +134,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
         
     
     isFirstBuild = True
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         
         if NeuronGapJunction.isFirstBuild:
             NeuronGapJunction.isFirstBuild = False
@@ -142,16 +142,16 @@ class NeuronGapJunction(GapJunction, NeuronObject):
             modFileSet.append(m)
             
             
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell1 = self.celllocation1.cell
         cell2 = self.celllocation2.cell
         section1 = self.celllocation1.morphlocation.section
         section2 = self.celllocation2.morphlocation.section
         
-        gpObj1Name = self.getName() + "A"
-        gpObj2Name = self.getName() + "B"
+        gpObj1Name = self.get_name() + "A"
+        gpObj2Name = self.get_name() + "B"
         data = {
-               "name": self.getName(),
+               "name": self.get_name(),
                "name1":gpObj1Name,
                "name2":gpObj2Name,
                "cell1":cell1,
@@ -166,7 +166,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
                "resistance": self.resistance
                }
         
-        hocFileObj.addToSection( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
         
         hocFileObj[MHocFileData.GapJunctions][self] = data
       

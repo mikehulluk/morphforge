@@ -50,36 +50,36 @@ class SectionVisitorDF(object):
                         [morph, self.morph], lambda s: s is not None)
         if not self.alreadycalled:
             self.pretraversefunctor()
-            self.VisitSectionInternal(self.morph.getDummySection())
+            self.visit_section_internal(self.morph.get_dummy_section())
             self.posttraversefunctor()
             self.alreadycalled = True
 
         return self.returnfunctor()
 
-    def isVisitRoot(self):
+    def is_visit_root(self):
         return self.rootsectionfunctor != None
 
-    def isVisitDummy(self):
+    def is_visit_dummy(self):
         return self.dummysectionfunctor != None
 
 
-    def VisitSectionInternal(self, section):
+    def visit_section_internal(self, section):
         """ Implements:  1. Visit the node. 2. Traverse the subtrees. """
         if section.is_dummy_section():
-            if self.isVisitDummy():
+            if self.is_visit_dummy():
                 #assert False
                 assert False, 'Should not get here, refactoring starting Jun-12'
-            #if self.isVisitDummy():
+            #if self.is_visit_dummy():
             #    assert False
             #    self.dummysectionfunctor(section)
         elif section.is_a_root_section():
-            if self.isVisitRoot():
+            if self.is_visit_root():
                 self.rootsectionfunctor(section)
         else:
             self.functor(section)
 
         for c in section.children:
-            self.VisitSectionInternal(c)
+            self.visit_section_internal(c)
 
 
 
@@ -91,12 +91,12 @@ class SectionVisitorDF(object):
 class SectionVisitorDFOverrider(SectionVisitorDF):
 
     def __init__(self, **kwargs):
-        super(SectionVisitorDFOverrider, self).__init__(functor=self.VisitSection, rootsectionfunctor=self.VisitRootSection, **kwargs )
+        super(SectionVisitorDFOverrider, self).__init__(functor=self.visit_section, rootsectionfunctor=self.visit_root_section, **kwargs )
 
-    def VisitSection(self, section):
+    def visit_section(self, section):
         raise NotImplementedError()
 
-    def VisitRootSection(self, section):
+    def visit_root_section(self, section):
         raise NotImplementedError()
 
 
@@ -109,14 +109,14 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
         self.myfunctor = functor
         super(SectionVisitorHomogenousOverrider, self).__init__( **kwargs )
 
-    def VisitSection(self, section):
+    def visit_section(self, section):
         res =  self.myfunctor( section )
         if self.sectionResultOperator:
             self.sectionResultOperator(section,res)
         return res
 
-    def VisitRootSection(self, section):
-        return self.VisitSection(section)
+    def visit_root_section(self, section):
+        return self.visit_section(section)
 
 
 
@@ -125,9 +125,9 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
 class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
     def __init__(self,  functor, morph=None):
         self.dict = {}
-        super(DictBuilderSectionVisitorHomo, self).__init__(sectionResultOperator=self.addToDict, functor=functor, returnfunctor=lambda:self.dict, morph=morph )
+        super(DictBuilderSectionVisitorHomo, self).__init__(sectionResultOperator=self.add_to_dict, functor=functor, returnfunctor=lambda:self.dict, morph=morph )
 
-    def addToDict(self,section,result):
+    def add_to_dict(self,section,result):
         self.dict[section] = result
 
 
@@ -139,12 +139,12 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
         self.sectRootFunctor = rootfunctor if rootfunctor else functor
         self.list = []
 
-        super(ListBuilderSectionVisitor, self).__init__(morph=morph, functor=self.VisitSection, rootsectionfunctor=self.VisitRootSection, returnfunctor=lambda:self.list)
+        super(ListBuilderSectionVisitor, self).__init__(morph=morph, functor=self.visit_section, rootsectionfunctor=self.visit_root_section, returnfunctor=lambda:self.list)
 
-    def VisitSection(self, section):
+    def visit_section(self, section):
         self.list.append(self.sectFunctor(section))
 
-    def VisitRootSection(self, section):
+    def visit_root_section(self, section):
         if self.sectRootFunctor:
             self.list.append(self.sectRootFunctor(section))
 
@@ -162,8 +162,8 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
 #        self.datatype = datatype
 #
 #        super(NumpyBuilderSectionVisitor, self).__init__(morph=morph,
-#                                                       functor=self.VisitSection,
-#                                                       rootsectionfunctor=self.VisitRootSection,
+#                                                       functor=self.visit_section,
+#                                                       rootsectionfunctor=self.visit_root_section,
 #                                                       returnfunctor=lambda:self.array,
 #                                                       pretraversefunctor=self.buildIndexerAndArray
 #                                                       )
@@ -174,10 +174,10 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
 #        self.array = numpy.zeros((len(self.sectionIndexer), self.ndims,), self.datatype)
 #
 #
-#    def VisitSection(self, section):
+#    def visit_section(self, section):
 #        self.array[ self.sectionIndexer[section] ] = self.sectFunctor(section)
 #
-#    def VisitRootSection(self, section):
+#    def visit_root_section(self, section):
 #        self.array[ self.sectionIndexer[section] ] = self.sectRootFunctor(section)
 
 

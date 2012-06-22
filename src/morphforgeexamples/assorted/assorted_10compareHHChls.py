@@ -141,14 +141,14 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
     apply_mechanism_everywhere_uniform(myCell, kChls )
 
 
-    mySim.record(naChls, what='m', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(naChls, what='mtau', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(naChls, what='m', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(naChls, what='mtau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
-    mySim.record(naChls, what='h', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(naChls, what='htau', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(naChls, what='h', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(naChls, what='htau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
-    mySim.record(kChls, what='n', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(kChls, what='ntau', celllocation= myCell.getLocation("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(kChls, what='n', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(kChls, what='ntau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
 
 
@@ -219,8 +219,8 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mySim):
 
 
     #for v in vars:
-    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, where=myCell.getLocation("soma"))
-    #    mySim.addRecordable(s)
+    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, where=myCell.get_location("soma"))
+    #    mySim.add_recordable(s)
 
 
 
@@ -293,7 +293,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.createCell(name="Cell1", morphology=m1)
+    myCell = mySim.create_cell(name="Cell1", morphology=m1)
 
     # Setup the HH-channels on the cell:
     chl_applicator_functor(env, myCell, mySim)
@@ -305,10 +305,10 @@ def simulate_chls_on_neuron(chl_applicator_functor):
 
 
     # Get a location on the cell:
-    somaLoc = myCell.getLocation("soma")
+    somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.createCurrentClamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
 
 
     # Define what to record:
@@ -376,7 +376,7 @@ TagViewer([resultsC,resultsD,resultsE], timeranges=[(95, 200)*pq.ms], show=True 
 
 for v in vars:
     ax = pylab.figure().add_subplot(111)
-    tr = resultsC.getTrace(v)
+    tr = resultsC.get_trace(v)
     ax.plot( tr._time.magnitude, tr._data.magnitude, label=v )
     ax.legend()
 #pylab.show()

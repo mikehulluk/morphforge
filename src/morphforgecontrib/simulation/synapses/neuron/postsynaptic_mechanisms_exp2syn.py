@@ -54,10 +54,10 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
         
 
 
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synNamePost = self.synapse.getName() + "Post"
+        synNamePost = self.synapse.get_name() + "Post"
         data = {
                "synnamepost":synNamePost,
                "cell":cell,
@@ -72,19 +72,19 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
                
                }
         
-        hocFileObj.addToSection( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
         
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         import postsynaptic_mechanisms_exp2syn_modfile
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
         modFileSet.append(modfile)
         
         
         
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         if what == NeuronSynapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Exp2Syn_CurrentRecord( neuron_syn_post=self, **kwargs)
         if what == NeuronSynapse.Recordables.SynapticConductance:
@@ -99,4 +99,4 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
 #NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_Exp2Syn, Neuron_PSM_Exp2Syn)
 #NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
 
-NeuronSimulationEnvironment.postsynapticmechanisms.registerPlugin(PostSynapticMech_Exp2Syn, Neuron_PSM_Exp2Syn)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2Syn, Neuron_PSM_Exp2Syn)

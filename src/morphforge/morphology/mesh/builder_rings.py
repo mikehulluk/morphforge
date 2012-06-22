@@ -71,7 +71,7 @@ class MeshBuilderRings(object):
         
 
         if region_color_map:
-            for r in morph.getRegions():
+            for r in morph.get_regions():
                 assert r in region_color_map
         
         

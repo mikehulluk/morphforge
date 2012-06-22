@@ -36,7 +36,7 @@ def simulate_chl_vclamp(chl, voltage_level):
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.createCell(morphology=m1, segmenter=CellSegmenter_SingleSegment() )
+    myCell = mySim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment() )
     
     # Setup the HH-channels on the cell:
     #chl = chl_applicator_functor(env, myCell, mySim)
@@ -54,12 +54,12 @@ def simulate_chl_vclamp(chl, voltage_level):
     
     
     # Get a location on the cell:
-    somaLoc = myCell.getLocation("soma")
+    somaLoc = myCell.get_location("soma")
     
     # Create the stimulus and record the injected current:
-    #cc = mySim.createCurrentClamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
     
-    cc = mySim.createVoltageClamp( name="Stim1",  
+    cc = mySim.create_voltageclamp( name="Stim1",  
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"), 
                                    #dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
                                    dur2=unit("500:ms"), amp2=voltage_level,
@@ -260,8 +260,8 @@ def compareNeuroMLChl( xmlFile ):
             c.chl_neurounit_hoc.append( rN.hocfilename  )
             c.chl_xsl_hoc.append( rX.hocfilename  )
 
-            tN = rN.getTrace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
-            tX = rX.getTrace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
+            tN = rN.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
+            tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
 
             # Compare current traces:
             tN._data[ np.fabs( tN._time.rescale("ms").magnitude - 0) <0.05] *=0
@@ -286,8 +286,8 @@ def compareNeuroMLChl( xmlFile ):
             diff = num/denom
             ax3.plotTrace(diff, color='r')
             
-            ax4.plotTrace(rN.getTrace('SomaVoltage'), color='m')
-            ax4.plotTrace(rX.getTrace('SomaVoltage'), color='m', linewidth=20, alpha=0.2)
+            ax4.plotTrace(rN.get_trace('SomaVoltage'), color='m')
+            ax4.plotTrace(rX.get_trace('SomaVoltage'), color='m', linewidth=20, alpha=0.2)
              
             if num.max()[1] > unit("0.1:pA"):
                 c.same_chl = False
@@ -406,12 +406,12 @@ def main():
     root_html = Join(html_output_dir,"index.html")
 
     data = []
-    for xmlfile in NeuroMLDataLibrary.getChannelMLV1FilesWithSingleChannel():
+    for xmlfile in NeuroMLDataLibrary.get_channelMLV1FilesWithSingleChannel():
 
 
         #class NeuroMLDataLibrary(object):
 #
-#            def getChannelMLV1Files(self):
+#            def get_channelMLV1Files(self):
 
 
         #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Golgi_NaF_CML.xml":

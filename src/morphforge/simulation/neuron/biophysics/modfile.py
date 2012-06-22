@@ -33,7 +33,7 @@ import re
 class ModFile(object):
 
     @classmethod
-    def ExtractNRNSuffixFromText(cls, txt):
+    def extract_nrn_suffix_from_text(cls, txt):
 
         r = re.compile(r""".* ^[^:]* SUFFIX \s* (?P<suffix>[a-zA-Z0-9_]+) (\s+:.*)? $ .*""", re.VERBOSE | re.MULTILINE |re.DOTALL)
         m = r.match(txt)
@@ -49,7 +49,7 @@ class ModFile(object):
 
         # if no name is provided:
         if self.name == None:
-            self.name = ModFile.ExtractNRNSuffixFromText(self.modtxt)
+            self.name = ModFile.extract_nrn_suffix_from_text(self.modtxt)
 
 
         self.additional_compile_flags  = additional_compile_flags
@@ -57,25 +57,25 @@ class ModFile(object):
         self.additional_LD_LIBRARY_PATH = additional_LD_LIBRARY_PATH
 
 
-    def ensureBuilt(self):
+    def ensure_built(self):
         LogMgr.info("Ensuring Modfile is built")
         from modfilecompiler import ModFileCompiler
-        ModFileCompiler()._buildMODFile(self)
+        ModFileCompiler()._build_modFile(self)
 
 
 
-    def getMD5Hash(self):
+    def get_md5_hash(self):
         return StrUtils.get_hash_md5(self.modtxt)
 
 
 
-    def getBuiltFilenameShort(self, ensureBuilt=True):
-        if ensureBuilt: self.ensureBuilt()
-        return "mod_" + self.getMD5Hash() + ".so"
+    def get_built_filename_short(self, ensure_built=True):
+        if ensure_built: self.ensure_built()
+        return "mod_" + self.get_md5_hash() + ".so"
 
-    def getBuiltFilenameFull(self, ensureBuilt=True):
-        if ensureBuilt: self.ensureBuilt()
-        return Join(LocMgr.get_default_mod_outdir(), self.getBuiltFilenameShort(ensureBuilt=ensureBuilt))
+    def get_built_filename_full(self, ensure_built=True):
+        if ensure_built: self.ensure_built()
+        return Join(LocMgr.get_default_mod_outdir(), self.get_built_filename_short(ensure_built=ensure_built))
 
 
 

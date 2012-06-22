@@ -29,25 +29,25 @@ class Recordable(object):
     
     def __init__(self, name=None, description=None, user_tags=None, **kwargs):
         
-        self.name = name if name else ObjectLabeller.getNextUnamedObjectName(objType=Recordable, prefix="AnonRec") 
+        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(objType=Recordable, prefix="AnonRec") 
         self.user_tags = user_tags if user_tags else []
         self._description = description  
         
     def getTags(self):
-        return list( itertools.chain( self.getStdTags(),  self.user_tags ) )
+        return list( itertools.chain( self.get_std_tags(),  self.user_tags ) )
         
-    def getStdTags(self):
+    def get_std_tags(self):
         raise NotImplementedError()
         
         
 
 
     def _get_desc(self):
-        return self._description if self._description else self.getDescription()
+        return self._description if self._description else self.get_description()
     
     description = property(_get_desc ) 
         
-    def getDescription(self):
+    def get_description(self):
         return "-".join(self.user_tags) if self.user_tags else "No Description"
     
     

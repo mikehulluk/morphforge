@@ -19,5 +19,5 @@ class NeuroML_Via_XSL_Channel():
         self.chlname = chlname
         self.mechanism_id = mechanism_id
         
-    def getMechanismID(self):
+    def get_mechanism_id(self):
         return self.mechanism_id 

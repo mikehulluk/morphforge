@@ -35,7 +35,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         self.newMorph = None
         
         
-        super(SectionVisitorDFNeuronBuilder, self).__init__(morph=morph, functor=self.BuildExtrusion, dummysectionfunctor=self.BuildRoot, returnfunctor= lambda: self.newMorph)
+        super(SectionVisitorDFNeuronBuilder, self).__init__(morph=morph, functor=self.build_extrusion, dummysectionfunctor=self.build_root, returnfunctor= lambda: self.newMorph)
         
         
         if self.morph != None:
@@ -43,11 +43,11 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
     
     
     
-    def BuildRoot(self, section):
+    def build_root(self, section):
         from morphforge.morphology.core import Section, Region, MorphologyTree
         
         self.orig2newMapping = {}
-        self.rgnMappings = dict( [ (rgn,Region(rgn.name) ) for rgn in self.morph.getRegions() ] )
+        self.rgnMappings = dict( [ (rgn,Region(rgn.name) ) for rgn in self.morph.get_regions() ] )
         self.newMorph = None
                 
         x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r
@@ -61,7 +61,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         
         
         
-    def BuildExtrusion(self,section):
+    def build_extrusion(self,section):
         
         newParent = self.orig2newMapping[section.parent]
         

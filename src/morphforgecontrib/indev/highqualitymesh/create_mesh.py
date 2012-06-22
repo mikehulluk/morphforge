@@ -114,7 +114,7 @@ class MeshFromGTS(object):
         #m = m.to_tree()
         surface_sections = {}
         for s in m:
-            #if MorphPath( MorphLocation(m.getRootSections()[0], 0.5), MorphLocation(s, 0.5) ).get_length() > 150:
+            #if MorphPath( MorphLocation(m.get_root_sections()[0], 0.5), MorphLocation(s, 0.5) ).get_length() > 150:
             #    continue
             sect_surface = cls.buildsectionsurface(s)
             surface_sections[s] = sect_surface

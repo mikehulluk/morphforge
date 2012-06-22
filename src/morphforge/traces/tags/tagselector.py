@@ -25,7 +25,7 @@ class TagSelector(object):
         raise NotImplementedError()
 
     @classmethod
-    def fromString(cls, s):
+    def from_string(cls, s):
         from tagselectorstringparser import parse_tagselector_string
         return parse_tagselector_string(s)
 

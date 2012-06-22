@@ -33,7 +33,7 @@ mySim = env.Simulation()
 
 
 # Create a cell:
-myCell = mySim.createCell(name="Cell1", morphology=m1)
+myCell = mySim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
@@ -49,10 +49,10 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 
 
 # Get a location on the cell:
-somaLoc = myCell.getLocation("soma")
+somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.createCurrentClamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+cc = mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
 
 
 # Define what to record:

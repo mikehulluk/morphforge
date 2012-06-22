@@ -20,19 +20,19 @@ from morphforge.stdimports import apply_mechanism_everywhere_uniform
 def getVCSomaCurrentTrace(env, V,mechBuilder, morphology):
     sim = buildVCSomaSimulation(env, V,mechBuilder, morphology)
     res = sim.Run()
-    return res.getTrace("VCCurrent")
+    return res.get_trace("VCCurrent")
 
 
 def buildVCSomaSimulation(env, V,mechBuilder, morphology):
     sim = env.Simulation(name="SimXX")
-    myCell = sim.createCell( name = "Cell1", morphology = morphology )
+    myCell = sim.create_cell( name = "Cell1", morphology = morphology )
         
     apply_mechanism_everywhere_uniform(cell=myCell, mechanism = mechBuilder(env=sim.environment) )
 
-    somaLoc = myCell.getLocation("soma")
-    voltageRec = myCell.getRecordable( what=myCell.Recordables.MembraneVoltage, name="SomaVoltage", location = somaLoc)
-    sim.addRecordable(voltageRec)
+    somaLoc = myCell.get_location("soma")
+    voltageRec = myCell.get_recordable( what=myCell.Recordables.MembraneVoltage, name="SomaVoltage", location = somaLoc)
+    sim.add_recordable(voltageRec)
     
-    vc = sim.createVoltageClamp( name="Stim1", amp1=unit("-81.5:mV"),amp2=unit(V), amp3=unit("-81.5:mV"), dur1=unit("100:ms"),  dur2=unit("100:ms"),  dur3=unit("100:ms"), celllocation=somaLoc)
-    sim.addRecordable( vc.getRecordable(what = vc.Recordables.Current, name="VCCurrent") )
+    vc = sim.create_voltageclamp( name="Stim1", amp1=unit("-81.5:mV"),amp2=unit(V), amp3=unit("-81.5:mV"), dur1=unit("100:ms"),  dur2=unit("100:ms"),  dur3=unit("100:ms"), celllocation=somaLoc)
+    sim.add_recordable( vc.get_recordable(what = vc.Recordables.Current, name="VCCurrent") )
     return sim

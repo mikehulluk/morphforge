@@ -31,9 +31,9 @@ from morphforge.morphology.core import MorphPath
 class MorphLocator(object):
     
     @classmethod
-    def getLocationsAtDistanceAwayFromDummy(cls, morphology, distance, section_predicate=None):
+    def get_locations_at_distance_away_from_dummy(cls, morphology, distance, section_predicate=None):
         
-        distToSectionDistal = SectionVistorFactory.DictSectionDistalDistFromSoma(morph=morphology)()
+        distToSectionDistal = SectionVistorFactory.dict_section_distal_dist_from_soma(morph=morphology)()
         
         
         # Section predicates: allows us to generate only on a path, region, etc
@@ -70,7 +70,7 @@ class MorphLocator(object):
                     pass
             
             
-        dummy = MorphLocation( morphology.getDummySection().children[0], 0.0)
+        dummy = MorphLocation( morphology.get_dummy_section().children[0], 0.0)
         # Some sanity checking:
         for loc in locations:
             p = MorphPath( loc, dummy  )
@@ -83,7 +83,7 @@ class MorphLocator(object):
         
         
     @classmethod
-    def getLocationsAtDistancesAwayFromDummy(cls, morphology, distances, section_predicate=None):
-        return list( itertools.chain( *[cls.getLocationsAtDistanceAwayFromDummy(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
+    def get_locations_at_distances_away_from_dummy(cls, morphology, distances, section_predicate=None):
+        return list( itertools.chain( *[cls.get_locations_at_distance_away_from_dummy(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
         
         

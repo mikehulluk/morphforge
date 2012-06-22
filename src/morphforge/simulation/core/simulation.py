@@ -32,65 +32,65 @@ class Simulation(object):
 
     # Syntactic Sugar:
     # ------------------
-    def createCell(self, **kwargs):
+    def create_cell(self, **kwargs):
         c = self.environment.Cell(simulation=self, **kwargs)
-        self.addCell(c)
+        self.add_cell(c)
         return c
 
-    def createCurrentClamp(self, **kwargs):
+    def create_currentclamp(self, **kwargs):
         c = self.environment.CurrentClamp(simulation=self, **kwargs)
-        self.addCurrentClamp(c)
+        self.add_currentclamp(c)
         return c
 
-    def createVoltageClamp(self, **kwargs):
+    def create_voltageclamp(self, **kwargs):
         v = self.environment.VoltageClamp(simulation=self, **kwargs)
-        self.addVoltageClamp(v)
+        self.add_voltageclamp(v)
         return v
 
-    def createSynapse(self, presynaptic_mech, postsynaptic_mech ):
+    def create_synapse(self, presynaptic_mech, postsynaptic_mech ):
         syn = self.environment.Synapse( simulation = self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
-        self.addSynapse( syn )
+        self.add_synapse( syn )
         return syn
 
-    def createGapJunction(self, **kwargs):
+    def create_gapjunction(self, **kwargs):
         gj = self.environment.GapJunction( simulation = self, **kwargs )
-        self.addGapJunction( gj )
+        self.add_gapjunction( gj )
         return gj
 
 
 
     # New API
-    def addCurrentClamp(self, cc):
+    def add_currentclamp(self, cc):
         self.ss_currentClamps.append(cc)
-        self.addCurrentClampBackendSpecific(cc)
+        self.add_currentclamp_backend_specific(cc)
 
-    def addVoltageClamp(self, cc):
+    def add_voltageclamp(self, cc):
         self.ss_voltageClamps.append(cc)
-        self.addVoltageClampBackendSpecific(cc)
+        self.add_voltageclamp_backend_specific(cc)
 
-    def addCell(self, cell):
+    def add_cell(self, cell):
         self.ss_cells.append(cell)
-        self.addCellBackendSpecific(cell)
+        self.add_cell_backend_specific(cell)
 
-    def addSynapse(self, syn):
+    def add_synapse(self, syn):
         self.ss_synapses.append(syn)
-        self.addSynapseBackendSpecific( syn )
+        self.add_synapse_backend_specific( syn )
 
-    def addGapJunction(self, gj):
+    def add_gapjunction(self, gj):
         self.ss_gapjunctions.append(gj)
-        self.addGapJunctionBackendSpecific( gj )
+        self.add_gapjunction_backend_specific( gj )
 
 
 
-    def addCellBackendSpecific(self,cell):
+    def add_cell_backend_specific(self,cell):
         raise NotImplementedError()
-    def addCurrentClampBackendSpecific(self, vc):
+    def add_currentclamp_backend_specific(self, vc):
         raise NotImplementedError()
-    def addVoltageClampBackendSpecific(self, vc):
+    def add_voltageclamp_backend_specific(self, vc):
         raise NotImplementedError()
-    def addSynapseBackendSpecific(self, syn):
+    def add_synapse_backend_specific(self, syn):
         raise NotImplementedError()
-    def addGapJunctionBackendSpecific(self, syn):
+    def add_gapjunction_backend_specific(self, syn):
         raise NotImplementedError()
 
 
@@ -140,15 +140,15 @@ class Simulation(object):
 
 
     # For use by summarisers:
-    def getCells(self):
+    def get_cells(self):
         return self.ss_cells[:]
-    def getVoltageClamps(self):
+    def get_voltageclamps(self):
         return self.ss_voltageClamps[:]
-    def getCurrentClamps(self):
+    def get_currentclamps(self):
         return self.ss_currentClamps[:]
-    def getGapJunctions(self):
+    def get_gapjunctions(self):
         return self.ss_gapjunctions[:]
-    def getSynapses(self):
+    def get_synapses(self):
         return self.ss_synapses[:]
 
 
@@ -161,15 +161,15 @@ class Simulation(object):
 
 
 
-    def addRecordable(self, recordable):
+    def add_recordable(self, recordable):
         raise NotImplementedError()
 
 
 
     #Syntactic Sugar for making more readable scripts:
     def record( self, recordableSrc, **kwargs):
-        recordable = recordableSrc.getRecordable( **kwargs )
-        self.addRecordable( recordable )
+        recordable = recordableSrc.get_recordable( **kwargs )
+        self.add_recordable( recordable )
         return recordable
 
     def recordall( self, membrane_mech, **kwargs):

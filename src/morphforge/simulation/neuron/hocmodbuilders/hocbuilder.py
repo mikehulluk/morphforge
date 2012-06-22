@@ -98,14 +98,14 @@ class HocBuilder(object):
                 
                 "rs":voltageclamp.rs.rescale("MOhm").magnitude,
                 
-                "VClampType": MNeuronSettings.getVoltageClampType()
+                "VClampType": MNeuronSettings.get_voltageclamp_type()
                 }
         
         # Save the data about this Current Clamp:
         hocFile[MHocFileData.VoltageClamps][voltageclamp] = data
         
         # Create the HOC 
-        hocFile.addToSection( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
         
     
     
@@ -128,7 +128,7 @@ class HocBuilder(object):
         hocFile[MHocFileData.CurrentClamps][currentClamp] = data
         
         # Create the HOC 
-        hocFile.addToSection( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
         
         
 

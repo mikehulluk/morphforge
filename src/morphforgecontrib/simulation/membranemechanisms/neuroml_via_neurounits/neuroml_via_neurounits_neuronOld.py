@@ -35,23 +35,23 @@ class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
         self.chl = chl
         self.modvar=modvar
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass   
  
-    def buildHOC(self, hocFile):
-        HocModUtils.CreateRecordFromModFile( hocFile, 
+    def build_hoc(self, hocFile):
+        HocModUtils.create_record_from_modfile( hocFile, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
                                              mod_neuronsuffix=self.chl.nrnsuffix, recordobj=self)
 
-    def getDescription(self):
-        return "%s %s %s" % (self.modvar, self.chl.name, self.where.getLocationDescriptionStr() ) 
+    def get_description(self):
+        return "%s %s %s" % (self.modvar, self.chl.name, self.where.get_location_description_str() ) 
 
 
     def getUnit(self):
         return unit("1.0")
-    def getStdTags(self):
+    def get_std_tags(self):
         return []
 
 
@@ -86,7 +86,7 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
           
         
         self.modtxt = nmodl
-        nrnsuffix = ModFile.ExtractNRNSuffixFromText(self.modtxt)
+        nrnsuffix = ModFile.extract_nrn_suffix_from_text(self.modtxt)
         
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
@@ -99,10 +99,10 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
         modFileSet.append(modFile)
     
     
-    def getVariables(self): 
-        return self.getDefaults().keys()
+    def get_variables(self): 
+        return self.get_defaults().keys()
         
-    def getDefaults(self):
+    def get_defaults(self):
         return self.defaults
         
     
@@ -110,7 +110,7 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
     class Recordables:
         all = []
     
-    def getRecordable(self, what,  **kwargs):
+    def get_recordable(self, what,  **kwargs):
         raise ValueError( "Can't find Recordable: %s"%what)
     
     
@@ -119,6 +119,6 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
 
     
     
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
 
 

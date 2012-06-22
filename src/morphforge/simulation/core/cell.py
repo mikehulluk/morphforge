@@ -52,12 +52,12 @@ class Cell(object):
 
 
         self.simulation = simulation
-        self.name = name if name else ObjectLabeller.getNextUnamedObjectName(Cell, 'AnonCell_')
+        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Cell, 'AnonCell_')
         self.morphology = morphology
         self._cell_type = cell_type
 
         self.cellSegmenter = segmenter if segmenter else CellSegmenter_MaxCompartmentLength()
-        self.cellSegmenter.connectToCell(self)
+        self.cellSegmenter.connect_to_cell(self)
 
 
         self.biophysics = CellBiophysics()
@@ -73,20 +73,20 @@ class Cell(object):
         self.population=None
 
 
-    def getLocation(self, idTag, sectionpos=0.5):
+    def get_location(self, idTag, sectionpos=0.5):
         from celllocation import CellLocation
-        return CellLocation(cell=self, section=self.morphology.getSection(idTag=idTag), sectionpos=sectionpos)
+        return CellLocation(cell=self, section=self.morphology.get_section(idTag=idTag), sectionpos=sectionpos)
 
-    def getRegion(self, rgnName):
-        return self.morphology.getRegion(rgnName)
+    def get_region(self, rgnName):
+        return self.morphology.get_region(rgnName)
 
-    def getRegions(self):
-        return self.morphology.getRegions()
+    def get_regions(self):
+        return self.morphology.get_regions()
 
-    def getBiophysics(self):
+    def get_biophysics(self):
         return self.biophysics
 
-    def getSegmenter(self):
+    def get_segmenter(self):
         return self.cellSegmenter
 
 
@@ -98,11 +98,11 @@ class Cell(object):
 
     @property
     def presynaptic_connections(self):
-        return [ s for s in self.simulation.synapses if s.getPreSynapticCell() == self]
+        return [ s for s in self.simulation.synapses if s.get_presynaptic_cell() == self]
 
     @property
     def postsynaptic_connections(self):
-        return [ s for s in self.simulation.synapses if s.getPostSynapticCell() == self]
+        return [ s for s in self.simulation.synapses if s.get_postsynaptic_cell() == self]
 
     @property
     def electrical_connections(self):

@@ -73,11 +73,11 @@ class NeuroCSVWriter(object):
             
             tr_valid_times_bool = tr.time_within_trace(time_indices)
             valid_time_indices = np.where(tr_valid_times_bool)[0]
-            valid_time_data_vals = tr.getValues( time_indices[valid_time_indices] )
+            valid_time_data_vals = tr.get_values( time_indices[valid_time_indices] )
             
             for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals ):
                 data[tIndex] = dataFormat( float( data_val.magnitude ) )
-            #tr_data= tr.getValues
+            #tr_data= tr.get_values
             colData.append(data)
         
         
@@ -113,5 +113,5 @@ class NeuroCSVWriter(object):
              'tags': ",".join( eventset.tags ) 
              }
         s1 = "#@ EVENT %s "%json.dumps(d)
-        s2 = " ".join( ["%2.2f"%e.getTime() for e in eventset] )
+        s2 = " ".join( ["%2.2f"%e.get_time() for e in eventset] )
         return s1+s2

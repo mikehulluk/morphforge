@@ -31,7 +31,7 @@ def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
     integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude ) 
-    mean = integral / tr.getDuration().rescale('s').magnitude * tr._data.units
+    mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
     #mean_safe = tr.convert_to_fixed(unit("0.1:ms")).mean()
     #print mean_safe, mean
     #if np.fabs(mean-mean_safe) 
@@ -88,7 +88,7 @@ TraceMethodCtrl.register(Trace_VariableDT, 'min', _get_min)
 ############
 def _fixeddt_gradient(self, *args):
     #assert False, 'ToCheck'
-    return clone_trace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.getDTNew(), comment='+ (Filtered)')
+    return clone_trace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.get_dt_new(), comment='+ (Filtered)')
 
 TraceMethodCtrl.register(Trace_FixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient

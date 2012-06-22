@@ -52,7 +52,7 @@ class SettingsMgr(object):
     #    return cls._showAllPlots and cls._showGui 
 
     @classmethod
-    def isLogging(cls):
+    def is_logging(cls):
         return cls._logging 
     
     #@classmethod
@@ -94,10 +94,10 @@ class SettingsMgr(object):
     #    return 0
     
     @classmethod
-    def getPLYYaccDebugFlag(cls):
+    def get_ply_yacc_debug_flag(cls):
         return 0
     
     
     @classmethod
-    def SimulatorIsVerbose(cls):
+    def simulator_is_verbose(cls):
         return False

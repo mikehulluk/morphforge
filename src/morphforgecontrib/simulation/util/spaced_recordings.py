@@ -21,8 +21,8 @@ def SpaceRecordCell(cell, sim, distances, record_functor=None, user_tags=None):
     user_tags = user_tags or []
     user_tags.append( cell.name )
     
-    #morph_locs = MorphLocator.getLocationsAtDistancesAwayFromSoma(morphology=cell.morphology, distances= distances )
-    morph_locs = MorphLocator.getLocationsAtDistancesAwayFromDummy(morphology=cell.morphology, distances= distances )
+    #morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=cell.morphology, distances= distances )
+    morph_locs = MorphLocator.get_locations_at_distances_away_from_dummy(morphology=cell.morphology, distances= distances )
     locations = [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs ]
     for i,(loc,distance) in enumerate(zip(locations,distances)):
         sim.record( cell, location=loc, name='%sLoc%03d'%(cell.name,i), what=Cell.Recordables.MembraneVoltage, description="%s Distance Recording at %d (um)"%(cell.name, distance), user_tags=user_tags ) 

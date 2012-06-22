@@ -62,7 +62,7 @@ class ModBuilderParams(object):
 
 
     @classmethod
-    def getCompileStr(cls, cFilename, loFilename, additional_compile_flags=""):
+    def get_compile_str(cls, cFilename, loFilename, additional_compile_flags=""):
         inclStr = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
         defStr = " ".join(["""-D%s """ % d for d in cls.compileDefs])
         vars = {"lo":loFilename, "c":cFilename, "incs":inclStr, "defs":defStr, 'additional_flags':additional_compile_flags}
@@ -70,7 +70,7 @@ class ModBuilderParams(object):
 
 
     @classmethod
-    def getLinkStr(cls, loFilename, laFilename, additional_link_flags=""):
+    def get_link_str(cls, loFilename, laFilename, additional_link_flags=""):
         stdLibStr = " ".join(["-l%s" % s for s in cls.stdLinkLibs])
         stdLibDirStr = " ".join(["-L%s" % s for s in cls.nrnLinkDirs])
         linkDict = {"la":laFilename,
@@ -95,7 +95,7 @@ class ModBuilderParams(object):
 def _simple_exec(cmd, remaining):
     print 'Executing: %s %s'%(cmd,remaining)
     output = subprocess.Popen([cmd + " " + remaining], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
-    if SettingsMgr.SimulatorIsVerbose():
+    if SettingsMgr.simulator_is_verbose():
         print output
     return output
 
@@ -141,20 +141,20 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
 
     #Compile the .c file -> .so:
-    compileStr = ModBuilderParams.getCompileStr(cFilename, loFilename)
-    linkStr = ModBuilderParams.getLinkStr(loFilename, laFilename)
+    compileStr = ModBuilderParams.get_compile_str(cFilename, loFilename)
+    linkStr = ModBuilderParams.get_link_str(loFilename, laFilename)
 
-    if SettingsMgr.SimulatorIsVerbose():
+    if SettingsMgr.simulator_is_verbose():
         print 'IN:',ModBuilderParams.libtoolpath,
         print compileStr
         print linkStr
 
     compile_flags = modfile.additional_compile_flags if modfile else ""
     link_flags = modfile.additional_link_flags if modfile else ""
-    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.getCompileStr(cFilename, loFilename,additional_compile_flags=compile_flags))
-    op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.getLinkStr(loFilename, laFilename, additional_link_flags=link_flags))
+    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(cFilename, loFilename,additional_compile_flags=compile_flags))
+    op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(loFilename, laFilename, additional_link_flags=link_flags))
 
-    if SettingsMgr.SimulatorIsVerbose() or True:
+    if SettingsMgr.simulator_is_verbose() or True:
         print "OP1:", op1
         print "OP2:", op2
 
@@ -183,7 +183,7 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     build_dir = LocMgr().get_default_mod_builddir() if not build_dir else build_dir
     output_dir = LocMgr().get_default_mod_outdir() if not output_dir else output_dir
 
-    if SettingsMgr.SimulatorIsVerbose():
+    if SettingsMgr.simulator_is_verbose():
         print " - Building: ", modfilename
 
     modfilenamebase = Basename(modfilename)
@@ -218,14 +218,14 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
 class ModFileCompiler(object):
 
     @classmethod
-    def CheckModFileUnits(cls, modfilename):
+    def check_modfile_units(cls, modfilename):
         op = _simple_exec( ModBuilderParams.modlunitpath, modfilename )
 
         opExpected = """
         model   1.1.1.1   1994/10/12 17:22:51
         Checking units of %s""" % modfilename
 
-        if SettingsMgr.SimulatorIsVerbose():
+        if SettingsMgr.simulator_is_verbose():
             print 'OP',op
 
         # Check line by line:
@@ -238,14 +238,14 @@ class ModFileCompiler(object):
 
 
     @classmethod
-    def _buildMODFile(cls, modfile):
-        outputFilename = modfile.getBuiltFilenameFull(ensureBuilt=False)
+    def _build_modFile(cls, modfile):
+        outputFilename = modfile.get_built_filename_full(ensure_built=False)
 
         if not Exists(outputFilename):
             LogMgr.info("Does not exist: building: %s" % outputFilename)
 
             modTxtFilename = FileIO.write_to_file(modfile.modtxt, suffix=".mod")
-            ModFileCompiler.CheckModFileUnits(modTxtFilename)
+            ModFileCompiler.check_modfile_units(modTxtFilename)
             modDynFilename = _build_mod_file(modTxtFilename, modfile=modfile)
             shutil.move(modDynFilename, outputFilename)
 

@@ -56,22 +56,22 @@ def simulate_chls_on_neuron():
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell1 = mySim.createCell(name="Cell1", morphology=m1)
+    myCell1 = mySim.create_cell(name="Cell1", morphology=m1)
     apply_mechanism_everywhere_uniform( myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
     apply_passive_everywhere_uniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
-    myCell2 = mySim.createCell(name="Cell2", morphology=m2)
+    myCell2 = mySim.create_cell(name="Cell2", morphology=m2)
     apply_mechanism_everywhere_uniform( myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) ) 
     apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
     # Get a location on the cell:
-    somaLoc1 = myCell1.getLocation("soma")
-    somaLoc2 = myCell2.getLocation("soma")
+    somaLoc1 = myCell1.get_location("soma")
+    somaLoc2 = myCell2.get_location("soma")
 
 
     eqnsetfile = "/home/michael/hw_to_come/libs/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
-    syn = mySim.createSynapse(
+    syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
                                      timeList =   (100,105,110,112,115, 115,115) * pq.ms ,
@@ -84,7 +84,7 @@ def simulate_chls_on_neuron():
                                      )
             )
     
-    syn = mySim.createSynapse(
+    syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
                                      celllocation=somaLoc1,
@@ -100,7 +100,7 @@ def simulate_chls_on_neuron():
             )
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.createCurrentClamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
 
 
     # Define what to record:
@@ -165,7 +165,7 @@ TagViewer([resultsC,resultsD,resultsE], timeranges=[(95, 200)*pq.ms], show=True 
 
 for v in vars:
     ax = pylab.figure().add_subplot(111)
-    tr = resultsC.getTrace(v)
+    tr = resultsC.get_trace(v)
     ax.plot( tr._time.magnitude, tr._data.magnitude, label=v )
     ax.legend()
 #pylab.show()

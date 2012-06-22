@@ -32,16 +32,16 @@ class MM_Neuron_Base(object):
     MM_count = 0
     
     @classmethod
-    def getNextNeuronNumber(cls):
+    def get_next_neuron_number(cls):
         x = MM_Neuron_Base.MM_count
         MM_Neuron_Base.MM_count += 1
         return x
         
     def __init__(self):
-        self.mm_neuronNumber = MM_Neuron_Base.getNextNeuronNumber()
+        self.mm_neuronNumber = MM_Neuron_Base.get_next_neuron_number()
         self.cachedNeuronSuffix = None
         
-    def getNeuronSuffix(self):
+    def get_neuron_suffix(self):
         
         # Cache the result: (We shouldn't have to do this, but there is a bug
         # with EqnSetChlNeuron::getModFileChangeble(), which is not returning the same thing
@@ -49,7 +49,7 @@ class MM_Neuron_Base(object):
         if self.cachedNeuronSuffix is None:
             # We take the hash off the parameters that will change the mod-file.
             # This means we don't duplicate millions of mod-files
-            #print 'At getNeuronSuffix'
+            #print 'At get_neuron_suffix'
             mod_file_changeables = self.getModFileChangeables()
             mod_file_changeables[None] = str( type(mod_file_changeables).__str__ ) 
             #md5 = getStringMD5Checksum ( pickle.dumps(mod_file_changeables ) )

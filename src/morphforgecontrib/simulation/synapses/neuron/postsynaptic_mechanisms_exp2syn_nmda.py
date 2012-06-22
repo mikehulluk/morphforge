@@ -44,14 +44,14 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def getUnit(self):
         return unit("")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy", recordobj=self )
+        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy", recordobj=self )
                 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass    
 
 
@@ -77,10 +77,10 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
         
 
 
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synNamePost = self.synapse.getName() + "Post"
+        synNamePost = self.synapse.get_name() + "Post"
         data = {
                "synnamepost":synNamePost,
                "cell":cell,
@@ -95,12 +95,12 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
                'random_seed': MFRandom.get_seed(),
                }
         
-        hocFileObj.addToSection( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
         
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         
 
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile.getExp2SynNMDAModfile(vdep=self.vdep), name='UnusedParameterXXXExpSyn2')
@@ -108,7 +108,7 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
         
         
         
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Exp2SynNMDA_CurrentRecord( neuron_syn_post=self, **kwargs)
         if what == Synapse.Recordables.SynapticConductance:
@@ -123,5 +123,5 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
 
 #NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
-NeuronSimulationEnvironment.postsynapticmechanisms.registerPlugin(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
 

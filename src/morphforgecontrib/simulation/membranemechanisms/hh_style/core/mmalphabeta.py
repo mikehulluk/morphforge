@@ -36,10 +36,10 @@ class MM_AlphaBetaChannel(MembraneMechanism):
         self.statevars = dict([ (s, (sDict['alpha'], sDict['beta'])) for s, sDict in statevars.iteritems()])
         self.reversalpotential = unit(reversalpotential)
            
-    def getVariables(self):
+    def get_variables(self):
         return ['gBar', 'eRev', 'gScale']
     
-    def getDefaults(self):
+    def get_defaults(self):
         return {"gBar":self.conductance, "eRev":self.reversalpotential, "gScale": unit("1.0") } 
 
 

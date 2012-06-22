@@ -129,7 +129,7 @@ class Spike(object):
         self.firingthres = firingthres if firingthres is not None else 0.0
 
         self.init_getPeak()
-        self.init_getDuration()
+        self.init_get_duration()
 
     def init_getPeak(self):
         d = numpy.copy(self.trace._data)
@@ -139,7 +139,7 @@ class Spike(object):
 
 
 
-    def init_getDuration(self):
+    def init_get_duration(self):
 
         self.fiftyPCLine = (self.trace._data.rescale("mV").magnitude[ self.peakIndex] + self.firingthres) / 2.0
 

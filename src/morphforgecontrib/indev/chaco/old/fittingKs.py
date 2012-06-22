@@ -283,7 +283,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    data = Instance( ArrayPlotData)
 #
-#    def getNextSimSumOutputLocation(self,):
+#    def get_nextSimSumOutputLocation(self,):
 #        self.simulation_no += 1
 #        l = LocMgr.ensure_dir_exists( 'out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
 #        return l 
@@ -350,23 +350,23 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #        #Record the Currents & Conductances:
 #        for chlname, mech in mech_dict.iteritems():
-#                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.getLocation('soma'), name="%s_i"%chlname, description="")
+#                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.get_location('soma'), name="%s_i"%chlname, description="")
 #                if chlname != 'Ca':
-#                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.getLocation('soma'), name="%s_g"%chlname, description="")
+#                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
 #
 #        # States:
 #        print mech_dict.keys()
 #        #['Ks', 'Na', 'Kf', 'Lk']
 #        
-#        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.getLocation('soma'), description='Kf State')
-#        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.getLocation('soma'), description='Ks State')
-#        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.getLocation('soma'), description='Na-m State')
-#        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.getLocation('soma'), description='Na-h State')
+#        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.get_location('soma'), description='Kf State')
+#        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.get_location('soma'), description='Ks State')
+#        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.get_location('soma'), description='Na-m State')
+#        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
 #
 #
 #        
 #        # Record Voltages:
-#        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.getLocation('soma'), description='Membrane Voltage')
+#        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
 #
 #
 #
@@ -377,7 +377,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #            
 #        # Update the array of data:
 #        for trace_name, trace_unit in trace_names:
-#            tr = res.getTrace(trace_name)
+#            tr = res.get_trace(trace_name)
 #            self.data.set_data(trace_name+'_t', tr._time.rescale('ms').magnitude )
 #            self.data.set_data(trace_name+'_d', tr._data.rescale(trace_unit).magnitude )
 #
@@ -386,7 +386,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        for display_func in self.display_functors:
 #            display_func()
 #
-#        filename = self.getNextSimSumOutputLocation() 
+#        filename = self.get_nextSimSumOutputLocation() 
 #        print 'Writing Simulation Results to', filename
 #        s = SimulationSummariser(res, filename=filename)
 #        print 'Done simulating'
@@ -427,9 +427,9 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #    def getCell(self, env, sim):
-#        m1 = MorphologyBuilder.getSingleSectionSoma(area= float(self.surfacearea) * um2 )
+#        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
 #        #m1 = getDINMorphology(axonDiam=0.4)
-#        myCell = sim.createCell(name="Cell1", morphology=m1)
+#        myCell = sim.create_cell(name="Cell1", morphology=m1)
 #        shortcuts.apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
 #        return myCell
 #
@@ -467,9 +467,9 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        self.sim_conf.resimulate()
 #
 #    def getInputStimulus(self, sim, cell):
-#        somaLoc = cell.getLocation("soma")
-#        s1 = sim.createCurrentClamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), celllocation=somaLoc)
-#        s2 = sim.createCurrentClamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), celllocation=somaLoc)
+#        somaLoc = cell.get_location("soma")
+#        s1 = sim.create_currentclamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), celllocation=somaLoc)
+#        s2 = sim.create_currentclamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), celllocation=somaLoc)
 #        return None
 
 
@@ -497,7 +497,7 @@ from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType
 
 
 
-ksFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ks)
+ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ks)
 
 
 

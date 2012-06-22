@@ -24,31 +24,31 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
         assert type(lhs) == Trace_FixedDT
         assert type(rhs) == Trace_FixedDT
 
-        minTime = max( lhs.getMinTime(), rhs.getMinTime()  )
-        maxTime = min( lhs.getMaxTime(), rhs.getMaxTime()  )
+        minTime = max( lhs.get_min_time(), rhs.get_min_time()  )
+        maxTime = min( lhs.get_max_time(), rhs.get_max_time()  )
         
-        newDT = min( lhs.getDTNew(), rhs.getDTNew() )
+        newDT = min( lhs.get_dt_new(), rhs.get_dt_new() )
         assert maxTime - minTime > newDT * 2, 'The new trace will only have a single point'
         return NpPqWrappers.arange( minTime, maxTime, newDT )
   
     @classmethod
     def do_add(cls, lhs, rhs):
         timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.getValues(timeAxis) + rhs.getValues(timeAxis) )
+        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) + rhs.get_values(timeAxis) )
 
     @classmethod
     def do_sub(cls, lhs, rhs):
         timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.getValues(timeAxis) - rhs.getValues(timeAxis) )
+        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) - rhs.get_values(timeAxis) )
 
     @classmethod
     def do_mul(cls, lhs, rhs):
         timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.getValues(timeAxis) * rhs.getValues(timeAxis) )
+        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) * rhs.get_values(timeAxis) )
     @classmethod
     def do_div(cls, lhs, rhs):
         timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.getValues(timeAxis) / rhs.getValues(timeAxis) )
+        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) / rhs.get_values(timeAxis) )
 
 
 # FixedDT (+-*/) FixedDT

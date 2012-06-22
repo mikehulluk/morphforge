@@ -67,9 +67,9 @@ class CellAnalysis_StepInputResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        somaLoc = cell.getLocation("soma")
+        somaLoc = cell.get_location("soma")
 
-        cc = sim.createCurrentClamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=somaLoc)
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=somaLoc)
 
         sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
@@ -77,7 +77,7 @@ class CellAnalysis_StepInputResponse(object):
         res = sim.Run()
 
 
-        return res.getTrace('SomaVoltage'), res.getTrace('Current')
+        return res.get_trace('SomaVoltage'), res.get_trace('Current')
 
 
 
@@ -172,11 +172,11 @@ class CellAnalysis_ReboundResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        somaLoc = cell.getLocation("soma")
+        somaLoc = cell.get_location("soma")
 
-        cc1 = sim.createCurrentClamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", celllocation=somaLoc)
-        cc2 = sim.createCurrentClamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", celllocation=somaLoc)
-        cc3 = sim.createCurrentClamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", celllocation=somaLoc)
+        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", celllocation=somaLoc)
+        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", celllocation=somaLoc)
+        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", celllocation=somaLoc)
 
         sim.record( cc1, name="Current1",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
@@ -189,11 +189,11 @@ class CellAnalysis_ReboundResponse(object):
         #from morphforge.simulationanalysis.summaries.simsummariser import SimulationSummariser
         #SimulationSummariser(res, "/home/michael/Desktop/ForRoman.pdf")
 
-        i = res.getTrace('Current1').convert_to_fixed( unit("0.5:ms") ) + res.getTrace('Current2').convert_to_fixed( unit("0.5:ms") ) + res.getTrace('Current3').convert_to_fixed( unit("0.5:ms") )
+        i = res.get_trace('Current1').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current2').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current3').convert_to_fixed( unit("0.5:ms") )
 
-        i = TraceConverter.RebaseToFixedDT(res.getTrace('Current1'), dt = unit("0.5:ms") ) + TraceConverter.RebaseToFixedDT(res.getTrace('Current2'), dt = unit("0.5:ms") ) + TraceConverter.RebaseToFixedDT(res.getTrace('Current3'), dt = unit("0.5:ms") )
+        i = TraceConverter.rebase_to_fixed_dt(res.get_trace('Current1'), dt = unit("0.5:ms") ) + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current2'), dt = unit("0.5:ms") ) + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current3'), dt = unit("0.5:ms") )
         i.tags=[StandardTags.Current]
-        return res.getTrace('SomaVoltage'), i
+        return res.get_trace('SomaVoltage'), i
 
 
 
@@ -248,25 +248,25 @@ class CellAnalysis_IVCurve(object):
             sim = self.sim
             cell = self.cell
 
-        somaLoc = cell.getLocation("soma")
+        somaLoc = cell.get_location("soma")
 
-        cc = sim.createCurrentClamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=somaLoc)
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=somaLoc)
         sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
 
         res = sim.Run()
 
-        return res.getTrace('SomaVoltage')
+        return res.get_trace('SomaVoltage')
 
 
 
-    def getTrace(self, iInj):
+    def get_trace(self, iInj):
         if not iInj in self.traces:
             self.traces[iInj] = self._getCCSimulationTrace(iInj)
         return self.traces[iInj]
 
 
     def getIVPointSteaddyState(self, iInj):
-        return  self.getTrace(iInj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
+        return  self.get_trace(iInj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
 
 
 
@@ -287,7 +287,7 @@ class CellAnalysis_IVCurve(object):
 
         # Plot the traces
         for iInj in self.currents:
-            ax.plotTrace( self.getTrace(iInj), label='iInj: %s'%iInj)
+            ax.plotTrace( self.get_trace(iInj), label='iInj: %s'%iInj)
 
         # Add the regions:
         ax.axvspan(self.tSteaddyStateStart, self.tSteaddyStateStop, facecolor='g', alpha=0.25)

@@ -32,18 +32,18 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
         self.alphaBetaBetaChl = alphaBetaBetaChl
         self.modvar=modvar
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass   
  
-    def buildHOC(self, hocFile):
-        HocModUtils.CreateRecordFromModFile( hocFile, 
+    def build_hoc(self, hocFile):
+        HocModUtils.create_record_from_modfile( hocFile, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
-                                             mod_neuronsuffix=self.alphaBetaBetaChl.getNeuronSuffix(), recordobj=self)
+                                             mod_neuronsuffix=self.alphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 
-    def getDescription(self):
-        return "%s %s %s" % (self.modvar, self.alphaBetaBetaChl.name, self.where.getLocationDescriptionStr() )
+    def get_description(self):
+        return "%s %s %s" % (self.modvar, self.alphaBetaBetaChl.name, self.where.get_location_description_str() )
 
 
 
@@ -53,7 +53,7 @@ class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Recor
         super( MM_Neuron_AlphaBetaBeta_CurrentDensityRecord, self).__init__( modvar='i', **kwargs)
     def getUnit(self):
         return unit("mA/cm2")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.CurrentDensity]
 
 class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
@@ -61,7 +61,7 @@ class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_R
         super( MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
     def getUnit(self):
         return unit("S/cm2")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
 
 
@@ -71,7 +71,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record
    
     def getUnit(self):
         return unit("")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.StateVariable]
 
 class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Record):
@@ -80,7 +80,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Rec
     
     def getUnit(self):
         return unit("ms")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.StateTimeConstant ] 
 
    
@@ -90,7 +90,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
      
     def getUnit(self):
         return unit("")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.StateSteadyState ] 
 
 
@@ -142,14 +142,14 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #
 #    def getUnit(self):
 #        return unit("mA/cm2")
-#    def getStdTags(self):
+#    def get_std_tags(self):
 #        return [StandardTags.CurrentDensity]
 #
 #
-#    def buildHOC(self, hocFile):
-#        HocModUtils.CreateRecordFromModFile( hocFile, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.getNeuronSuffix(), recordobj=self)
+#    def build_hoc(self, hocFile):
+#        HocModUtils.create_record_from_modfile( hocFile, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 #                
-#    def buildMOD(self, modFileSet):
+#    def build_mod(self, modFileSet):
 #        pass    
 
 
@@ -190,7 +190,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         MM_WriterAlphaBetaBeta.build_Mod(alphaBetaBetaChl=self, modFileSet=modFileSet)
         
     
-    def getRecordable(self, what, name, **kwargs):
+    def get_recordable(self, what, name, **kwargs):
         #assert False
         
         celllocation = kwargs["celllocation"] if "celllocation" in kwargs else kwargs["where"]
@@ -218,4 +218,4 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         
 # Register the channel
 #NeuronSimulationEnvironment.registerMembraneMechanism( MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)

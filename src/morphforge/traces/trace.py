@@ -58,13 +58,13 @@ class Trace(object):
       
 
     # Subclasses must implement these:
-    def getMinTime(self):
+    def get_min_time(self):
         raise NotImplementedError()
 
-    def getMaxTime(self):
+    def get_max_time(self):
         raise NotImplementedError()
 
-    def getValueAtTime(self, time):
+    def get_value_at_time(self, time):
         print type(self)
         raise NotImplementedError()
 
@@ -73,7 +73,7 @@ class Trace(object):
 
 
     # Utility Functions:
-    def getDuration(self):
-        return self.getMaxTime() - self.getMinTime()
+    def get_duration(self):
+        return self.get_max_time() - self.get_min_time()
 
 

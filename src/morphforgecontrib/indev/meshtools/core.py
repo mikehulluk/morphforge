@@ -105,9 +105,9 @@ class PlyScope(object):
             bi_dict = m.region_number_to_name_bidict
 
             rgn_colors = {}
-            for rgn in m.getRegions():
+            for rgn in m.get_regions():
                 rgn_name = rgn.name
-                rgn_int = bi_dict.regionNameToInt(rgn_name)
+                rgn_int = bi_dict.region_name_to_int(rgn_name)
                 rgn_color = self.get_region_color(rgn_int)
                 print ' %s -> %s '%(rgn_name, rgn_int ), rgn_color
                 rgn_colors[rgn_name] = rgn_color

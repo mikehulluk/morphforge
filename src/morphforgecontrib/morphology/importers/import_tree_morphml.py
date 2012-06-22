@@ -40,7 +40,7 @@ def isElementWithTag(tag):
 def Filter(seq, functor): 
     return filter(functor, seq) 
 
-def getText(node):
+def get_text(node):
     return "".join([n.data for n in node.childNodes if n.nodeType == n.TEXT_NODE ])  
 
 
@@ -126,7 +126,7 @@ class Level1NeuroMLRepresentation(object):
 
           # Does the cable belong to any groups?
           for group_node in Filter(cableNode.childNodes, isElementWithTag("group")):
-            cablegroupname = getText(group_node)
+            cablegroupname = get_text(group_node)
             if not cablegroupname in self.cablegroups.keys('name'):
               self.cablegroups.add( NeuroMLCableGroup(name = cablegroupname) )
             self.cablegroups.getitem(name=cablegroupname).add_cable(cable)
@@ -357,11 +357,11 @@ class MorphMLLoader(object):
             
             if group_nodes:
                 if regions:
-                    metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: getText(e) in regions)
-                    rgnName = regions[ getText(metaGroupNode) ]
+                    metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: get_text(e) in regions)
+                    rgnName = regions[ get_text(metaGroupNode) ]
                 else:
                     metaGroupNode = SeqUtils.expect_single(group_nodes)
-                    rgnName = getText(metaGroupNode)
+                    rgnName = get_text(metaGroupNode)
                     
                 assert not id in cableIDToRegionName
                 cableIDToRegionName[id] = rgnName

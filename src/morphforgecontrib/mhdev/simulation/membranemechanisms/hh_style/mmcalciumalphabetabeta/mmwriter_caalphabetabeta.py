@@ -70,13 +70,13 @@ $(cell_name).internalsections [ $section_index ] {
         cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
         section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
         
-        neuronSuffix = mta.mechanism.getNeuronSuffix()
+        neuronSuffix = mta.mechanism.get_neuron_suffix()
         
         
         # Calculate the values of the variables for the section:
         variables = []
-        for variable_name in mta.mechanism.getVariables():
-            variable_value_with_unit = mta.applicator.getVariableValueForSection(variable_name=variable_name, section=section)
+        for variable_name in mta.mechanism.get_variables():
+            variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterCalciumAlphaBetaBeta.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude 
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
@@ -89,7 +89,7 @@ $(cell_name).internalsections [ $section_index ] {
                     }
         
         # Add the data to the HOC file
-        hocFile.addToSection( MHOCSections.InitCellMembranes,  Template(MM_WriterCalciumAlphaBetaBeta.chlHoc,tmplDict ).respond() )
+        hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterCalciumAlphaBetaBeta.chlHoc,tmplDict ).respond() )
     
 
 
@@ -101,20 +101,20 @@ $(cell_name).internalsections [ $section_index ] {
         # User Functions:
         
     
-        m.AddUnitDefinition( unitname="milliamp", unitsymbol="mA")
-        m.AddUnitDefinition( unitname="millivolt", unitsymbol="mV")
-        m.AddUnitDefinition( unitname="siemens", unitsymbol="S")
+        m.add_unit_definition( unitname="milliamp", unitsymbol="mA")
+        m.add_unit_definition( unitname="millivolt", unitsymbol="mV")
+        m.add_unit_definition( unitname="siemens", unitsymbol="S")
         
-        m.AddUnitDefinition( unitname="1/liter", unitsymbol="molar")
-        m.AddUnitDefinition( unitname="micromolar", unitsymbol="uM")
-        m.AddUnitDefinition( unitname="molar", unitsymbol="M")
-        m.AddUnitDefinition( unitname="nanomolar", unitsymbol="nM")
+        m.add_unit_definition( unitname="1/liter", unitsymbol="molar")
+        m.add_unit_definition( unitname="micromolar", unitsymbol="uM")
+        m.add_unit_definition( unitname="molar", unitsymbol="M")
+        m.add_unit_definition( unitname="nanomolar", unitsymbol="nM")
         
-        m.AddUnitDefinition( unitname="(joule/K-mole)", unitsymbol="rUnits")
-        m.AddUnitDefinition( unitname="(C/mole)", unitsymbol="fUnits")
+        m.add_unit_definition( unitname="(joule/K-mole)", unitsymbol="rUnits")
+        m.add_unit_definition( unitname="(C/mole)", unitsymbol="fUnits")
         
         
-        m.CreateNeuronInterface( suffix= caAlphaBetaBetaChl.getNeuronSuffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca","SCa_i","Sca_o","T"])
+        m.create_neuron_interface( suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca","SCa_i","Sca_o","T"])
         
         neuronUnitsToQuantities = {
                                    "cm/sec" : "cm/sec",
@@ -137,11 +137,11 @@ $(cell_name).internalsections [ $section_index ] {
                   ]
         for name,unit,initialvalueUnit in params:
             initval = initialvalueUnit.rescale(neuronUnitsToQuantities[unit]).magnitude
-            m.AddParameter( NeuronParameter(parametername=name, parameterunit=unit, initialvalue = initval, parameterrange=None))
+            m.add_parameter( NeuronParameter(parametername=name, parameterunit=unit, initialvalue = initval, parameterrange=None))
             
         # Fixed Values:
-        m.AddParameter( NeuronParameter(parametername="CaZ", parameterunit="1", initialvalue = caAlphaBetaBetaChl.CaZ.rescale("").magnitude, parameterrange=None) )
-        m.AddParameter( NeuronParameter(parametername="gScale", parameterunit="1", initialvalue = 1.0 , parameterrange=None) )
+        m.add_parameter( NeuronParameter(parametername="CaZ", parameterunit="1", initialvalue = caAlphaBetaBetaChl.CaZ.rescale("").magnitude, parameterrange=None) )
+        m.add_parameter( NeuronParameter(parametername="gScale", parameterunit="1", initialvalue = 1.0 , parameterrange=None) )
         
         
         # Assignments:
@@ -150,12 +150,12 @@ $(cell_name).internalsections [ $section_index ] {
                     ("v","mV"),
         ]
         for name,unit in assignments:
-            m.AddAssigned( NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))
+            m.add_assigned( NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))
         
         
         
         # States
-        m.AddStateGroup( groupName = "states",  
+        m.add_state_group( groupName = "states",  
                          states = [
                                    NeuronParameter(parametername="m", parameterunit=None),
                                    NeuronParameter(parametername="mtau", parameterunit="ms"),
@@ -203,7 +203,7 @@ PROCEDURE rates( v(mV) ) {
                                                      ).respond()
         
         
-        m.AddFunction(ratesFunction)
+        m.add_function(ratesFunction)
     
         stdFormAlphaBeta = """
 FUNCTION DoStdFormAlphaBeta(A,B,C,D,E,V (mV) )
@@ -228,22 +228,22 @@ FUNCTION vtrap(x,y )
 
 
 """     
-        m.AddFunction(stdFormAlphaBeta)
+        m.add_function(stdFormAlphaBeta)
    
    
-        m.AddAssigned( NeuronParameter(parametername="cV", parameterunit="(fUnits/rUnits-K)", parameterrange=None))
-        m.AddAssigned( NeuronParameter(parametername="c", parameterunit="", parameterrange=None))
+        m.add_assigned( NeuronParameter(parametername="cV", parameterunit="(fUnits/rUnits-K)", parameterrange=None))
+        m.add_assigned( NeuronParameter(parametername="c", parameterunit="", parameterrange=None))
 
         
         
-        m.AddBreakPoint("c = (CaZ * F) / (R * T)" ) 
-        m.AddBreakPoint("cV = c * v * 1e-3 * 1e-3" )
-        m.AddBreakPoint("i = pca * cV * CaZ * F *( SCa_i - SCa_o * exp( -1.0 * cV ) ) / ( 1.0-exp(-1.0*cV) ) *m *m * gScale" )
+        m.add_breakpoint("c = (CaZ * F) / (R * T)" ) 
+        m.add_breakpoint("cV = c * v * 1e-3 * 1e-3" )
+        m.add_breakpoint("i = pca * cV * CaZ * F *( SCa_i - SCa_o * exp( -1.0 * cV ) ) / ( 1.0-exp(-1.0*cV) ) *m *m * gScale" )
         
         
         
 
-        modtxt = m.getText()
+        modtxt = m.get_text()
         modFile =  ModFile(name=caAlphaBetaBetaChl.name, modtxt=modtxt )
         modFileSet.append(modFile)
         

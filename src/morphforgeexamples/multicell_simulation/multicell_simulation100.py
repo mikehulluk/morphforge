@@ -283,8 +283,8 @@ def get_cin_chls():
 
 import random
 def make_cell( sim, cell_name, cell_chl_functor):
-    m1 = mf.MorphologyBuilder.getSingleSectionSoma(area=mf.unit("1:um2") )
-    myCell = sim.createCell(name=cell_name, morphology=m1)
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2") )
+    myCell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
         mf.apply_mechanism_everywhere_uniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9,1.1)} )
     mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
@@ -324,9 +324,9 @@ celltypes = [
 def test_cell_current(cell_name, cell_chl_functor, current):
     sim = mf.NeuronSimulationEnvironment().Simulation()
 
-    m1 = mf.MorphologyBuilder.getSingleSectionSoma(area=mf.unit("1:um2") )
-    myCell = sim.createCell(name=cell_name, morphology=m1)
-    cc = sim.createCurrentClamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, celllocation=myCell.getLocation("soma") )
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2") )
+    myCell = sim.create_cell(name=cell_name, morphology=m1)
+    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, celllocation=myCell.get_location("soma") )
 
     for chl in cell_chl_functor():
         mf.apply_mechanism_everywhere_uniform(myCell, chl )
@@ -464,7 +464,7 @@ EQNSET syn_simple {
 
 
 def onto_driver(sim, postsynaptic, times):
-    return sim.createSynapse(
+    return sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_TimeList,
                                         timeList =   times,
@@ -474,7 +474,7 @@ def onto_driver(sim, postsynaptic, times):
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_onto_driver),
                                         default_parameters= {},
-                                        celllocation = postsynaptic.getLocation("soma")
+                                        celllocation = postsynaptic.get_location("soma")
                                         )
             )
 
@@ -483,10 +483,10 @@ def onto_driver(sim, postsynaptic, times):
 
 
 def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
-    ampa = sim.createSynapse(
+    ampa = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
-                                        celllocation = presynaptic.getLocation("soma"),
+                                        celllocation = presynaptic.get_location("soma"),
                                         voltageThreshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
@@ -496,13 +496,13 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_AMPA),
                                         default_parameters= {'scale':ampa_scale*mf.pq.dimensionless},
-                                        celllocation = postsynaptic.getLocation("soma")
+                                        celllocation = postsynaptic.get_location("soma")
                                         )
             )
-    nmda = sim.createSynapse(
+    nmda = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
-                                        celllocation = presynaptic.getLocation("soma"),
+                                        celllocation = presynaptic.get_location("soma"),
                                         voltageThreshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
@@ -512,16 +512,16 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_NMDA),
                                         default_parameters= {'scale':nmda_scale*mf.pq.dimensionless},
-                                        celllocation = postsynaptic.getLocation("soma")
+                                        celllocation = postsynaptic.get_location("soma")
                                         )
             )
     return [ampa,nmda]
 
 def inhib(sim, presynaptic, postsynaptic, scale):
-    inhib_syn = sim.createSynapse(
+    inhib_syn = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
-                                        celllocation = presynaptic.getLocation("soma"),
+                                        celllocation = presynaptic.get_location("soma"),
                                         voltageThreshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
@@ -531,7 +531,7 @@ def inhib(sim, presynaptic, postsynaptic, scale):
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
                                         default_parameters= {'scale':scale*mf.pq.dimensionless},
-                                        celllocation = postsynaptic.getLocation("soma")
+                                        celllocation = postsynaptic.get_location("soma")
                                         )
             )
     return [inhib_syn]
@@ -604,10 +604,10 @@ syn_cin_dinr_rl = mfc.Connectors.AllToAll( sim, presynaptic_population=cIN_RHS, 
 
 
 #myCell = dINr_LHS[0]
-#somaLoc1 = myCell.getLocation("soma")
+#somaLoc1 = myCell.get_location("soma")
 #
 #
-#syn = sim.createSynapse(
+#syn = sim.create_synapse(
 #        presynaptic_mech =  env.PreSynapticMechanism(
 #                                    mfc.PreSynapticMech_TimeList,
 #                                    timeList =   ( (100,105,110,115,120, 125,130,135,140,145,150,155) + (300,305,310,315,320,325,330,335,340,345,350,355) ) * mf.ms ,
@@ -638,13 +638,13 @@ syn_cin_dinr_lr.record_from_all(what='g')
 
 
 
-#cc = sim.createCurrentClamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, celllocation=myCell.getLocation("soma") )
+#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, celllocation=myCell.get_location("soma") )
 #sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
 #sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
 res =sim.Run()
 
-for tr in res.getTraces():
+for tr in res.get_traces():
     print tr.tags
 
 

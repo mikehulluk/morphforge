@@ -26,7 +26,7 @@ from morphforge.traces.tracetypes import Trace_FixedDT
 def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
     from morphforge.traces import TraceConverter
     def wrapped_func(self, *args, **kwargs):
-        tr_new = TraceConverter.RebaseToFixedDT(self, dt=fixed_trace_dt)
+        tr_new = TraceConverter.rebase_to_fixed_dt(self, dt=fixed_trace_dt)
         return func(tr_new, *args, **kwargs)
     return wrapped_func
 

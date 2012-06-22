@@ -8,4 +8,4 @@ import modelling.rbmodelling2
 
 
 loc = LocMgr. get_default_channel_summary_output_dir()
-MembraneMechanismSummariser.SummariseAll(loc)
+MembraneMechanismSummariser.summarise_all(loc)

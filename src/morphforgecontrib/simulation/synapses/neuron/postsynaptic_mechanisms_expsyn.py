@@ -60,10 +60,10 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         super( Neuron_PSM_ExpSyn, self).__init__(**kwargs)
 
 
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synNamePost = self.synapse.getName() + "Post"
+        synNamePost = self.synapse.get_name() + "Post"
         data = {
                "synnamepost":synNamePost,
                "cell":cell,
@@ -75,16 +75,16 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
                "eRev": self.eRev,
                }
         
-        hocFileObj.addToSection( MHOCSections.InitSynapsesChemPost,  Template(expTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(expTmpl, data).respond() )
         
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
         
     
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         
         if what == NeuronSynapse.Recordables.SynapticCurrent:
             return Neuron_PSM_ExpSyn_CurrentRecord( neuron_syn_post=self, **kwargs)
@@ -94,4 +94,4 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         
 
 #NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
-NeuronSimulationEnvironment.postsynapticmechanisms.registerPlugin(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)

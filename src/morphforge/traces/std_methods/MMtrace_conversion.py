@@ -33,10 +33,10 @@ from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionFlat
 class TraceConverter(object):
     
     @classmethod
-    def RebaseToFixedDT(cls, original_trace, dt):
+    def rebase_to_fixed_dt(cls, original_trace, dt):
         from morphforge.core.quantities.wrappers import NpPqWrappers
-        time = NpPqWrappers.arange(start=original_trace.getMinTime(), stop=original_trace.getMaxTime(), step=dt)
-        data = original_trace.getValues(time)
+        time = NpPqWrappers.arange(start=original_trace.get_min_time(), stop=original_trace.get_max_time(), step=dt)
+        data = original_trace.get_values(time)
         return Trace_FixedDT(time, data, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
     
     
@@ -64,7 +64,7 @@ class TraceConverter(object):
         
         newTrace = Trace_VariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
         
-        print 'Simplified from N=%d to N=%d' % (original_trace.getN(), newTrace.getN())
+        print 'Simplified from N=%d to N=%d' % (original_trace.get_n(), newTrace.get_n())
         return newTrace
 
 
@@ -190,7 +190,7 @@ class TraceApproximator(object):
 
         
    @classmethod
-   def FitPiecewiseLinearTrace( cls, tr):
+   def fit_piecewise_linear_trace( cls, tr):
          d = tr._data.magnitude
          
          ranges = TraceApproximator.find_levels(d)

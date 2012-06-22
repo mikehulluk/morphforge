@@ -79,7 +79,7 @@ import quantities as pq
 #    
 #
 #
-#parser = yacc.yacc(tabmodule = 'unitsparser_parsetab.py', outputdir=LocMgr.get_ply_parsetab_path('unitsparser'), debug=SettingsMgr.getPLYYaccDebugFlag()  )
+#parser = yacc.yacc(tabmodule = 'unitsparser_parsetab.py', outputdir=LocMgr.get_ply_parsetab_path('unitsparser'), debug=SettingsMgr.get_ply_yacc_debug_flag()  )
 #
 
 def parse(s):

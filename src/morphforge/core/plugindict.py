@@ -25,11 +25,11 @@ class PluginDict(object):
     def __init__(self, ):
         self.dict = {}
         
-    def registerPlugin(self,key,value):
+    def register_plugin(self,key,value):
         assert not key in self.dict
         self.dict[key] = value 
                  
-    def getPlugin(self,key):
+    def get_plugin(self,key):
         assert key in self.dict
         return self.dict[key]
                  

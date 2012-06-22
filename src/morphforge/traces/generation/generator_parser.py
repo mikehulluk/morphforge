@@ -70,7 +70,7 @@ class TraceStringParser(object):
     def _trace_from_string(cls, s):
         parser = ply.yacc.yacc( tabmodule='tracestring_parsetab', 
                                 outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'),
-                                debug=SettingsMgr.getPLYYaccDebugFlag() )
+                                debug=SettingsMgr.get_ply_yacc_debug_flag() )
 
         unit, tracePrototypes = parser.parse( t, lexer=l )
 
@@ -79,7 +79,7 @@ class TraceStringParser(object):
         for prototype in tracePrototypes:
             prototype.start_value = v
             piece = prototype.toTracePiece()
-            v = piece.getEndValue()
+            v = piece.get_end_value()
 
 
         # Convert to pieces

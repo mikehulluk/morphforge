@@ -45,15 +45,15 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
     def getUnit(self):
         return unit("nA")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.Current] 
 
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         nameHoc = hocFile[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=nameHoc, objvar="i", recordobj=self )
+        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=nameHoc, objvar="i", recordobj=self )
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
     
 
@@ -65,13 +65,13 @@ class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
         NeuronObject.__init__(self, name=name, simulation=simulation )
         
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         HocBuilder.CurrentClamp( hocFile=hocFile, currentClamp=self)
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
 
-    def getRecordable(self, what, name=None, **kwargs):
+    def get_recordable(self, what, name=None, **kwargs):
         recorders = {
               CurrentClamp.Recordables.Current : CurrentClampCurrentRecord 
         }
@@ -79,4 +79,4 @@ class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
         return recorders[what]( cclamp=self, name=name, **kwargs )
     
 
-NeuronSimulationEnvironment.currentclamps.registerPlugin(CurrentClampStepChange, MNeuronCurrentClampStepChange)
+NeuronSimulationEnvironment.currentclamps.register_plugin(CurrentClampStepChange, MNeuronCurrentClampStepChange)

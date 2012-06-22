@@ -43,7 +43,7 @@ class MembraneMechanismSummariser(object):
 
 
     @classmethod
-    def SummariseAll(cls, location, reportlabconfig=None):
+    def summarise_all(cls, location, reportlabconfig=None):
         if not reportlabconfig: reportlabconfig = ReportLabConfig()
 
         for (modelsrc, celltype, channeltype), membranemechanismFunctor in ChannelLibrary.iteritems():
@@ -51,12 +51,12 @@ class MembraneMechanismSummariser(object):
             membranemechanism = membranemechanismFunctor( NeuronSimulationEnvironment() )
             filename = "%s_%s_%s.pdf"%( modelsrc,celltype,channeltype)
             fName = Join(location, filename)
-            cls.CreatePDF(mechanism=membranemechanism, filename=fName,reportlabconfig=reportlabconfig)
+            cls.create_pdf(mechanism=membranemechanism, filename=fName,reportlabconfig=reportlabconfig)
 
 
 
     @classmethod
-    def CreatePDF(cls, mechanism, filename, reportlabconfig =None ):
+    def create_pdf(cls, mechanism, filename, reportlabconfig =None ):
         from reportlab.platypus import SimpleDocTemplate, Paragraph
         from reportlab.lib.pagesizes import A4
         if not reportlabconfig: reportlabconfig = ReportLabConfig()
@@ -77,15 +77,15 @@ class MembraneMechanismSummariser(object):
         from reportlab.platypus import Paragraph, Table
         localElements = []
         localElements.append( Paragraph(membranemechanism.name, reportlabconfig.styles['Heading2'] ) )
-        summariser = SummariserLibrary.getSummarisier( membranemechanism )
+        summariser = SummariserLibrary.get_summarisier( membranemechanism )
 
         # Parameters:
         localElements.append( Paragraph("Parameters", reportlabconfig.styles['Heading2'] ) )
         tableHeader = ['Parameter Name', 'Default', ]
 
         data = [tableHeader, ]
-        for param in membranemechanism.getVariables():
-            data.append( [ param, membranemechanism.getDefault(param) ] )
+        for param in membranemechanism.get_variables():
+            data.append( [ param, membranemechanism.get_default(param) ] )
 
 
         localElements.append( Table(data, style=reportlabconfig.listTableStyle) )

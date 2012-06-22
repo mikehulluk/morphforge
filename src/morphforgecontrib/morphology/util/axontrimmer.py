@@ -24,7 +24,7 @@ class AxonTrimmer(object):
     def TrimAxonFromMorphology(cls, morphology, distToParentMax):
 
         
-        distToParent = SectionVistorFactory.DictSectionProximalDistFromSoma(morph=morphology, somaCentre=False)()
+        distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, somaCentre=False)()
         print sorted( distToParent.values()  )
         
         sectionMappingTable = {}
@@ -32,13 +32,13 @@ class AxonTrimmer(object):
         
         #Create New Regions:
         regionMappingTable[None] = None
-        for rOld in morphology.getRegions():
+        for rOld in morphology.get_regions():
             rNew = Region(name = rOld.name )
             regionMappingTable[rOld] = rNew
              
         
         # Create New Sections:
-        dummyRootOld = morphology.getDummySection()
+        dummyRootOld = morphology.get_dummy_section()
         dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x, y=dummyRootOld.d_y, z=dummyRootOld.d_z, r=dummyRootOld.d_r)
         sectionMappingTable[dummyRootOld] = dummyRootNew
         for sectionOld in morphology:

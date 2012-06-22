@@ -26,7 +26,7 @@ class NeuronPopulation(object):
             user_tags.extend( pop_name.split("_") )
 
 
-        self.pop_name = pop_name if pop_name is not None else ObjectLabeller.getNextUnamedObjectName(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d" )
+        self.pop_name = pop_name if pop_name is not None else ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d" )
 
         if  name_tmpl_str is None:
             name_tmpl_str = "%s_$i"%self.pop_name
@@ -73,7 +73,7 @@ class NeuronPopulation(object):
         what = what or Cell.Recordables.MembraneVoltage
         user_tags = user_tags or []
         user_tag_functors = user_tag_functors or  StdTagFunctors.getRecordFunctorsNeuron()
-        location_func = location_func or ( lambda cell: cell.getLocation("soma") )
+        location_func = location_func or ( lambda cell: cell.get_location("soma") )
         location=location_func(cell)
 
         kw_utf = { 'celllocation':location,'neuron_population':self,'neuron':cell}
@@ -122,7 +122,7 @@ class SynapsePopulation(object):
             s.population = self
 
         self.sim = sim
-        self.synapse_pop_name=synapse_pop_name if synapse_pop_name is not None else ObjectLabeller.getNextUnamedObjectName(SynapsePopulation, prefix="SynPop")
+        self.synapse_pop_name=synapse_pop_name if synapse_pop_name is not None else ObjectLabeller.get_next_unamed_object_name(SynapsePopulation, prefix="SynPop")
 
         user_tags = user_tags or []
 
@@ -164,27 +164,27 @@ class SynapsePopulation(object):
 
 
     def where_presynaptic(self, cell=None):
-        return [ syn for syn in self.synapses if syn.getPreSynapticCell()==cell ]
+        return [ syn for syn in self.synapses if syn.get_presynaptic_cell()==cell ]
 
     def where_postsynaptic(self, cell=None):
-        return [ syn for syn in self.synapses if syn.getPostSynapticCell()==cell ]
+        return [ syn for syn in self.synapses if syn.get_postsynaptic_cell()==cell ]
 
 
 
     def get_where_presynaptic(self, cell=None):
         assert False
-        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.getPreSynapticCell()==cell ] )
+        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.get_presynaptic_cell()==cell ] )
 
     def get_where_postsynaptic(self, cell=None):
         assert False
-        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.getPostSynapticCell()==cell ] )
+        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.get_postsynaptic_cell()==cell ] )
 
 
     @property
     def presynaptic_population(self,):
         pre_pops = set([])
         for syn in self.synapses:
-            pre = syn.getPreSynapticCell()
+            pre = syn.get_presynaptic_cell()
             if pre and pre.population:
                 pre_pops.add(pre.population)
         if not pre_pops:
@@ -200,7 +200,7 @@ class SynapsePopulation(object):
     def postsynaptic_population(self,):
         post_pops = set([])
         for syn in self.synapses:
-            post = syn.getPostSynapticCell()
+            post = syn.get_postsynaptic_cell()
             if post and post.population:
                 post_pops.add(post.population)
         if not post_pops:

@@ -52,7 +52,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         
         xml_root = etree.parse( open(self.xml_filename) ) 
         self.modtxt = str( xsl_transform(xml_root) )
-        nrnsuffix = ModFile.ExtractNRNSuffixFromText(self.modtxt)
+        nrnsuffix = ModFile.extract_nrn_suffix_from_text(self.modtxt)
         
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
@@ -92,7 +92,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
                         }"""%(cell_name, section_indexer[s] ,
                             self.chlData.iv_ion,
                             vrev) )
-            hocFile.addToSection(MHOCSections.InitCellMembranes, "\n".join(d) )
+            hocFile.add_to_section(MHOCSections.InitCellMembranes, "\n".join(d) )
             
         
         
@@ -107,17 +107,17 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         all = []
     
     
-    def getVariables(self):
+    def get_variables(self):
         return []
         
-    def getDefaults(self):
+    def get_defaults(self):
         return {}
         
-    def getRecordable(self, what, celllocation, nrn_unit, **kwargs):    
+    def get_recordable(self, what, celllocation, nrn_unit, **kwargs):    
         return MM_Neuron_RecGen( srcChl=self, modvar=what, where=celllocation, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
     
     
     
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
 
 

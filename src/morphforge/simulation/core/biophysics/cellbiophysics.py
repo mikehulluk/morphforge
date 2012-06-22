@@ -41,57 +41,57 @@ class CellBiophysics(object):
         self.appliedmechanisms = [] 
         self.appliedpassives = []
       
-        self.addPassive(
+        self.add_passive(
              passiveproperty = PassiveProperty.AxialResistance, 
              targetter = PassiveTargeter_EverywhereDefault(), 
              value = PassiveProperty.defaults[PassiveProperty.AxialResistance] )
         
-        self.addPassive(
+        self.add_passive(
              passiveproperty = PassiveProperty.SpecificCapacitance, 
              targetter = PassiveTargeter_EverywhereDefault(), 
              value =  PassiveProperty.defaults[PassiveProperty.SpecificCapacitance] )
       
     # Active Mechanisms:
     # ####################
-    def addMechanism(self, mechanism, targetter, applicator):
+    def add_mechanism(self, mechanism, targetter, applicator):
         mta = MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
         self.appliedmechanisms.append(mta) 
       
-    def getResolvedMTAsForSection(self, section):
+    def get_resolved_mtas_for_section(self, section):
         
         # All the mechanisms targetting a certain region:
-        mechanismsTargettingSection = [ mta for mta in self.appliedmechanisms if mta.targetter.doesTargetSection(section) ]
+        mechanismsTargettingSection = [ mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section) ]
         
-        mechanismIDs = set([ mta.mechanism.getMechanismID() for mta in mechanismsTargettingSection])
+        mechanismIDs = set([ mta.mechanism.get_mechanism_id() for mta in mechanismsTargettingSection])
         
         res = []
         for mechID in mechanismIDs:
-            mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.getMechanismID() == mechID]            
-            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.getPriority() )  
+            mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.get_mechanism_id() == mechID]            
+            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.get_priority() )  
             res.append( highestProrityMech )
         return res 
     
     # Used for summariser:
-    def getAppliedMTAs(self):
+    def get_applied_mtas(self):
         return self.appliedmechanisms
     
     
-    #def getAppliedMechanisms_mechanism(self):
+    #def get_applied_mechanisms_mechanism(self):
     #    ms = [ mta.mechanism for mta in self.appliedmechanisms ]
     #    return set(ms)
     
     
-    def getAllMechanismsAppliedToCell(self):
+    def get_all_mechanisms_applied_to_cell(self):
         ms = [ mta.mechanism for mta in self.appliedmechanisms ]
         return set(ms)
     
     
-    def getMechanismIDs(self):
-        return set( [mta.mechanism.getMechanismID() for mta in self.appliedmechanisms] )
+    def get_mechanism_ids(self):
+        return set( [mta.mechanism.get_mechanism_id() for mta in self.appliedmechanisms] )
     
-    def getMTAByMechanismIDForSection(self, id, section):
+    def get_mta_by_mechanism_id_for_section(self, id, section):
         assert False,'Deprecated? 2012-01-20'
-        return SeqUtils.expect_single( [ mta for mta in self.getResolvedMTAsForSection(section=section) if mta.mechanism.getMechanismID()==id ] )
+        return SeqUtils.expect_single( [ mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id ] )
     
     
     
@@ -99,29 +99,29 @@ class CellBiophysics(object):
     
     
     # Passives:
-    def addPassive(self, passiveproperty, targetter, value):
+    def add_passive(self, passiveproperty, targetter, value):
         pta = PassiveTargetApplicator(passiveproperty=passiveproperty, targetter=targetter, value=value)
         self.appliedpassives.append(pta) 
     
  
-    def getPassivesForSection(self, section):
+    def get_passives_for_section(self, section):
         
-        sectionptas = [ pta for pta in self.appliedpassives if  pta.targetter.doesTargetSection(section) ]
+        sectionptas = [ pta for pta in self.appliedpassives if  pta.targetter.does_target_section(section) ]
         passivemechs = {}
         for passiveproperty in PassiveProperty.all:
             section_property_ptas = [ spta for spta in sectionptas if spta.passiveproperty == passiveproperty ]
-            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.getPriority() )  
+            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )  
             passivemechs[passiveproperty] =  highestProrityMech
         return passivemechs
             
-    def getPassivePropertyForSection(self, section, passive  ):
-        return self.getPassivesForSection(section)[passive].value
+    def get_passive_property_for_section(self, section, passive  ):
+        return self.get_passives_for_section(section)[passive].value
         
 
      
     # Used for summariser:
-    def getAppliedMechanisms(self):
-        assert False, "should be using getAppliedMTAs()"
+    def get_applied_mechanisms(self):
+        assert False, "should be using get_applied_mtas()"
         return self.appliedmechanisms
     
     

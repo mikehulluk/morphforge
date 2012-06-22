@@ -33,7 +33,7 @@ def record_from_mechanism( sim, mechanism_name, where, what, on_error_skip=False
     assert on_error_skip==False
      
     
-    mechs = where.cell.getBiophysics().getAllMechanismsAppliedToCell()
+    mechs = where.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
     
     #recs = []
     
@@ -58,7 +58,7 @@ def record_from_all_mechanisms( sim, where, what, on_error_skip=False, user_tags
      
     cell = where.cell
     
-    mechs = cell.getBiophysics().getAllMechanismsAppliedToCell()
+    mechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
     
     recs = []
     for mech in mechs:

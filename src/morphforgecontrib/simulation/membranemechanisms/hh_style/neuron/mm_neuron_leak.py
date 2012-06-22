@@ -27,15 +27,15 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
         self.leakChl = lkchannel
         self.modvar=modvar
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass   
  
-    def buildHOC(self, hocFile):
-        HocModUtils.CreateRecordFromModFile( hocFile, 
+    def build_hoc(self, hocFile):
+        HocModUtils.create_record_from_modfile( hocFile, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
-                                             mod_neuronsuffix=self.leakChl.getNeuronSuffix(), recordobj=self)
+                                             mod_neuronsuffix=self.leakChl.get_neuron_suffix(), recordobj=self)
 
 
         
@@ -46,11 +46,11 @@ class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
         super( MM_Neuron_Leak_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
     def getUnit(self):
         return unit("S/cm2")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
 
 
-    def getDescription(self):
+    def get_description(self):
         t1 ="g %s "%( self.leakChl.name)
         r = "%s"%self.where.cell.name
         t = ":%s"% self.where.morphlocation.section.idTag if self.where.morphlocation.section.idTag else "" 
@@ -63,10 +63,10 @@ class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
 
     def getUnit(self):
         return unit("mA/cm2")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.CurrentDensity]
 
-    def getDescription(self):
+    def get_description(self):
         t1 ="i %s "%( self.leakChl.name)
         r = "%s"%self.where.cell.name
         t = ":%s"% self.where.morphlocation.section.idTag if self.where.morphlocation.section.idTag else "" 
@@ -81,7 +81,7 @@ class MM_Neuron_Leak(MM_LeakChannel,MM_Neuron_Base):
         MM_LeakChannel.__init__(self,*args,**kwargs)
         MM_Neuron_Base.__init__(self)
 
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         
         recorders = {
               MM_LeakChannel.Recordables.CurrentDensity: MM_Neuron_Leak_CurrentDensityRecord,
@@ -107,5 +107,5 @@ class MM_Neuron_Leak(MM_LeakChannel,MM_Neuron_Base):
 
 # Register the channel
 #NeuronSimulationEnvironment.registerMembraneMechanism( MM_LeakChannel, MM_Neuron_Leak)
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin( MM_LeakChannel, MM_Neuron_Leak)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin( MM_LeakChannel, MM_Neuron_Leak)
   

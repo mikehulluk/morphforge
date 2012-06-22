@@ -55,12 +55,12 @@ class LogMgr(object):
 
         cls.initState = LogMgrState.Ready
 
-        cls.infoFromLogger("Logger Started OK")
+        cls.info_from_logger("Logger Started OK")
 
 
 
     @classmethod
-    def PyfileToClass(cls, filename):
+    def _pyfile_to_modulename(cls, filename):
         localPath = filename
         morphforgeLib = False
         if "morphforge" in filename:
@@ -72,20 +72,20 @@ class LogMgr(object):
 
 
     @classmethod
-    def getCaller(cls):
+    def get_caller(cls):
         currentFrame = inspect.currentframe()
         outerFrames = inspect.getouterframes(currentFrame)
         outFramesNotThisClass = [f for f in outerFrames if not f[1].endswith("logmgr.py") ]
 
         prevCallFrame = outFramesNotThisClass[0]
-        caller = cls.PyfileToClass(prevCallFrame[1])
+        caller = cls._pyfile_to_modulename(prevCallFrame[1])
         return caller, prevCallFrame[2]
 
     @classmethod
-    def infoFromLogger(cls, msg):
+    def info_from_logger(cls, msg):
         packageName = "morphforge.core.logmgr"
         if not packageName in cls.loggers:
-            cls.loggers[packageName] = cls.createLogger(packageName)
+            cls.loggers[packageName] = cls.create_logger(packageName)
         cls.loggers[packageName].info(msg)
 
 
@@ -93,12 +93,12 @@ class LogMgr(object):
 
 
     @classmethod
-    def _isLoggingActiveAndReady(cls):
+    def _is_logging_active_and_ready(cls):
 
 
         if cls.initState == LogMgrState.Ready:
             from settingsmgr import SettingsMgr
-            if not SettingsMgr.isLogging(): return False
+            if not SettingsMgr.is_logging(): return False
             return True
         elif cls.initState == LogMgrState.Configuring: return False
         elif cls.initState == LogMgrState.Uninitialised:
@@ -111,26 +111,26 @@ class LogMgr(object):
 
     @classmethod
     def info(cls, msg):
-        if not cls._isLoggingActiveAndReady(): return
-        cls.getLogger().info(msg)
+        if not cls._is_logging_active_and_ready(): return
+        cls.get_logger().info(msg)
 
 
     @classmethod
     def debug(cls, msg):
-        if not cls._isLoggingActiveAndReady(): return
-        cls.getLogger().debug(msg)
+        if not cls._is_logging_active_and_ready(): return
+        cls.get_logger().debug(msg)
 
     @classmethod
     def warning(cls, msg):
-        if not cls._isLoggingActiveAndReady(): return
-        cls.getLogger().warning(msg)
+        if not cls._is_logging_active_and_ready(): return
+        cls.get_logger().warning(msg)
 
 
 
 
 
     @classmethod
-    def createLogger(cls, logName):
+    def create_logger(cls, logName):
         logger = logging.getLogger(logName)
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
@@ -144,15 +144,15 @@ class LogMgr(object):
 
 
     @classmethod
-    def getLogger(cls):
+    def get_logger(cls):
 
         # Find Who called us:
         callMod = "DISABLEDLOGGING"
-        #(callMod, isMorphforgeLib), lineNum = cls.getCaller()
+        #(callMod, isMorphforgeLib), lineNum = cls.get_caller()
 
 
         if not callMod in cls.loggers:
-            cls.loggers[callMod] = cls.createLogger(callMod)
+            cls.loggers[callMod] = cls.create_logger(callMod)
         return cls.loggers[callMod]
 
 

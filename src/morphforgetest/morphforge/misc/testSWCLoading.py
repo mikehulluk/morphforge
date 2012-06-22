@@ -43,9 +43,9 @@
 #        # Construct a single segment cell:
 #        singleSegCell = MorphologyFactory.fromSWC(morphname="Cell1", src=sIO(sValidSingleSegment))
 #        self.assert_(len(singleSegCell) == 1)
-#        self.assertAlmostEqual(linalg.norm(singleSegCell.root.getNPA3() - numpy.array((0.0, 0.0, 0.0))), 0.0, 4)
+#        self.assertAlmostEqual(linalg.norm(singleSegCell.root.get_nPA3() - numpy.array((0.0, 0.0, 0.0))), 0.0, 4)
 #        self.assert_(singleSegCell.root.r == 1.0)
-#        self.assert_((singleSegCell.root.children[0].getNPA3() == (1.0, 0.0, 0.0)).all())
+#        self.assert_((singleSegCell.root.children[0].get_nPA3() == (1.0, 0.0, 0.0)).all())
 #        self.assert_(singleSegCell.root.children[0].r == 2.0)
 #        
 #    
@@ -53,9 +53,9 @@
 #        # Construct a slighty different Single Segment Cell:
 #        singleSegCell = MorphologyFactory.fromSWC(morphname="Cell1", src=sIO(sValidSingleSegment2))
 #        self.assert_(singleSegCell.root != None)
-#        self.assert_((singleSegCell.root.getNPA3() == (2.5, 3.5, 4.5)).all())
+#        self.assert_((singleSegCell.root.get_nPA3() == (2.5, 3.5, 4.5)).all())
 #        self.assert_(singleSegCell.root.r == 5.5)
-#        self.assertAlmostEqual(linalg.norm(singleSegCell.root.children[0].getNPA3() - numpy.array((6.5, 7.5, 8.5))), 0.0, 4)
+#        self.assertAlmostEqual(linalg.norm(singleSegCell.root.children[0].get_nPA3() - numpy.array((6.5, 7.5, 8.5))), 0.0, 4)
 #        self.assert_(singleSegCell.root.children[0].r == 9.5)
 #
 #

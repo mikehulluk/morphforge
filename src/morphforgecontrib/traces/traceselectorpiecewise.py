@@ -43,16 +43,16 @@ class DataSelector(object):
         self.minvalue = minvalue
         self.maxvalue = maxvalue
     def does_match(self, level):
-        l_bound_ok = self.minvalue < level.getValue() if self.minvalue is not None else True
-        u_bound_ok = self.maxvalue > level.getValue() if self.maxvalue is not None else True
+        l_bound_ok = self.minvalue < level.get_value() if self.minvalue is not None else True
+        u_bound_ok = self.maxvalue > level.get_value() if self.maxvalue is not None else True
         return l_bound_ok and u_bound_ok
 class TimeSelector(object):
     def __init__(self, minduration=None, maxduration=None):
         self.minduration = minduration
         self.maxduration = maxduration
     def does_match(self, level):
-        l_bound_ok = self.minduration < level.getDuration() if self.minduration is not None else True
-        u_bound_ok = self.maxduration > level.getDuration() if self.maxduration is not None else True
+        l_bound_ok = self.minduration < level.get_duration() if self.minduration is not None else True
+        u_bound_ok = self.maxduration > level.get_duration() if self.maxduration is not None else True
         return l_bound_ok and u_bound_ok
 
 
@@ -100,7 +100,7 @@ class LevelSelectorGroup(object):
         level_piece_iter = itertools.chain( iter(level_pieces), [None] )
         level_piece_next = level_piece_iter.next()
 
-        current_time = level_piece_next.getMinTime()
+        current_time = level_piece_next.get_min_time()
         for t in self.expr:
             
             # Do we need to record the current time?
@@ -116,9 +116,9 @@ class LevelSelectorGroup(object):
             if t.does_consume():
                 level_piece_next = level_piece_iter.next()
                 if level_piece_next == None:
-                    current_time = level_pieces[-1].getMaxTime()
+                    current_time = level_pieces[-1].get_max_time()
                 else:
-                    current_time = level_piece_next.getMinTime()
+                    current_time = level_piece_next.get_min_time()
                     
         return m
 

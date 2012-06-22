@@ -33,13 +33,13 @@ from morphforge.morphology.visitor import SectionVisitorDF
 class SectionVistorFactory(object):
 
     @classmethod
-    def getBoundingBox(cls, morph=None):
-        pts = SectionVistorFactory.Array3AllPoints(morph)()
+    def get_bounding_box(cls, morph=None):
+        pts = SectionVistorFactory.array3_all_points(morph)()
         return (np.min(pts[:,0]), np.max(pts[:,0])) , (np.min(pts[:,1]), np.max(pts[:,1])), (np.min(pts[:,2]), np.max(pts[:,2]))
 
 
     @classmethod
-    def Array4AllPoints(cls, morph=None):
+    def array4_all_points(cls, morph=None):
         xyzr = []
         def functorRoot(s):
             xyzr.append( s.get_proximal_npa4() )
@@ -49,7 +49,7 @@ class SectionVistorFactory(object):
         return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr) )
 
     @classmethod
-    def Array3AllPoints(cls, morph=None):
+    def array3_all_points(cls, morph=None):
         xyz = []
         def functorRoot(s):
             xyz.append( s.get_proximal_npa3() )
@@ -63,26 +63,26 @@ class SectionVistorFactory(object):
 
 
     @classmethod
-    def DictSectionProximalDistFromSoma(cls, morph=None, somaCentre=False):
+    def dict_section_proximal_dist_from_soma(cls, morph=None, somaCentre=False):
         assert not somaCentre
 
-        def DictSectionProximalDistFromSoma(s):
+        def dict_section_proximal_dist_from_soma(s):
             if s.is_dummy_section():
                 assert False
 
             if s.is_a_root_section():
                 return 0.0
             else:
-                d1 = DictSectionProximalDistFromSoma(s.parent)
+                d1 = dict_section_proximal_dist_from_soma(s.parent)
                 d2 = s.parent.get_length()
                 d = d1 + d2
                 return d
-        return DictBuilderSectionVisitorHomo(functor=DictSectionProximalDistFromSoma, morph=morph)
+        return DictBuilderSectionVisitorHomo(functor=dict_section_proximal_dist_from_soma, morph=morph)
 
 
 
     @classmethod
-    def DictSectionDistalDistFromSoma(cls, morph=None):
+    def dict_section_distal_dist_from_soma(cls, morph=None):
 
         def dictSectionDistalDistFromSoma(s):
             if s.is_a_root_section():
@@ -133,7 +133,7 @@ class SectionVistorFactory(object):
 #        return SectionVisitorDF(functor=functor , morph=morph, rootsectionfunctor=functorRoot, returnfunctor=lambda : (np.array(xyzr), np.array(edges)) )
 #
 #    @classmethod
-#    def getSectionIndexer(cls, **kwargs):
+#    def get_sectionIndexer(cls, **kwargs):
 #        return SectionIndexerDF(**kwargs)
 #
 

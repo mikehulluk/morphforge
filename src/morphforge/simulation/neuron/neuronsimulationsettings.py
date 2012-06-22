@@ -33,7 +33,7 @@ class NeuronSimulationSettings( object ):
     allparams = (dt, tstop, cvode)
     
     @classmethod
-    def getDefaults(cls):
+    def get_defaults(cls):
         defs =  { NeuronSimulationSettings.dt: unit("0.01:ms"), 
                   NeuronSimulationSettings.tstop: unit("500:ms"), 
                   NeuronSimulationSettings.cvode: True }
@@ -47,7 +47,7 @@ class NeuronSimulationSettings( object ):
     
     
     def __init__(self, **kwargs ):
-        self.params = NeuronSimulationSettings.getDefaults()
+        self.params = NeuronSimulationSettings.get_defaults()
         
         for kw in kwargs:
             assert kw in self.params

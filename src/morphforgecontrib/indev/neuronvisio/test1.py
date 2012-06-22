@@ -19,9 +19,9 @@ env = NeuronSimulationEnvironment()
 sim = env.Simulation()
 
 
-morph = MorphologyBuilder.getSomaAxonMorph(axonLength=3000.0, axonRad=0.3, somaRad=9.0, axonSections=20)
+morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axonRad=0.3, somaRad=9.0, axonSections=20)
 segmenter = DefaultCellSegementer(cell=None, maxSegmentLength=50)
-cell = sim.createCell(name='CellMorph1', morphology=morph, segmenter=segmenter )
+cell = sim.create_cell(name='CellMorph1', morphology=morph, segmenter=segmenter )
 
 
 t, naming_info = MorphMLWriter.writemany([cell])
@@ -37,8 +37,8 @@ print t
 cell.chls = {} 
 channeltypes = [ ChlType.Kf, ChlType.Ks, ChlType.Lk, ChlType.Na ]
 for chltype in channeltypes:
-    #mechBuilder =  ChannelLibrary.getChannelFunctor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
-    mech =  ChannelLibrary.getChannel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env )
+    #mechBuilder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
+    mech =  ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env )
     
     apply_mechanism_everywhere_uniform(
                             cell=cell, 
@@ -55,11 +55,11 @@ apply_passive_everywhere_uniform(cell, PassiveProperty.AxialResistance, unit('40
 
 
 
-somaLoc = cell.getLocation("soma")
+somaLoc = cell.get_location("soma")
 sim.record( cell, name="SomaVoltage", location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage" ) 
 
 distances = range(50, 3000, 100)
-morph_locs = MorphLocator.getLocationsAtDistancesAwayFromSoma(morphology=morph, distances= distances )
+morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances )
 locations = [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs ]
 
 
@@ -72,19 +72,19 @@ for loc in locations:
     sim.record( cell, location=loc, what=Cell.Recordables.MembraneVoltage, description="Distance Recording" ) 
     
     
-cc = sim.createCurrentClamp( name="cclamp", amp='250:pA', dur="4:ms", delay="100:ms", celllocation=somaLoc)
+cc = sim.create_currentclamp( name="cclamp", amp='250:pA', dur="4:ms", delay="100:ms", celllocation=somaLoc)
 
 
 
 # RecordAll
 rec_dict = {}
-for cell in sim.getCells():
+for cell in sim.get_cells():
     rec_dict[cell] = {}
-    for seg in cell.getSegmenter():
+    for seg in cell.get_segmenter():
         rec_dict[cell][seg] = {}
         
          
-        rec = sim.record( cell, location=seg.getCellLocation(), what=Cell.Recordables.MembraneVoltage )
+        rec = sim.record( cell, location=seg.get_cell_location(), what=Cell.Recordables.MembraneVoltage )
         rec_dict[cell][seg]['V'] = rec.name
          
         print rec
@@ -134,7 +134,7 @@ for cell,segs in rec_dict.iteritems():
         segGrp = h5file.createGroup(varref, seg_name )
         
         for var,varname in vars.iteritems():
-            tr = res.getTrace( varname )
+            tr = res.get_trace( varname )
             h5file.createArray(segGrp,  var, tr._data.magnitude )
             
             if time is None:

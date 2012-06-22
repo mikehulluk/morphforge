@@ -25,7 +25,7 @@
 class MNeuronSettings(object):
     
     @classmethod
-    def getVoltageClampType(cls):
+    def get_voltageclamp_type(cls):
         return "SEClamp"
         #return "VClamp"
     

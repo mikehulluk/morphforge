@@ -47,13 +47,13 @@ $(cell_name).internalsections [ $section_index ] {
         cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
         section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
         
-        neuronSuffix = mta.mechanism.getNeuronSuffix()
+        neuronSuffix = mta.mechanism.get_neuron_suffix()
         
         
         # Calculate the values of the variables for the section:
         variables = []
-        for variable_name in mta.mechanism.getVariables():
-            variable_value_with_unit = mta.applicator.getVariableValueForSection(variable_name=variable_name, section=section)
+        for variable_name in mta.mechanism.get_variables():
+            variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterAlphaBetaBeta.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude 
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
@@ -66,7 +66,7 @@ $(cell_name).internalsections [ $section_index ] {
                     }
         
         # Add the data to the HOC file
-        hocFile.addToSection( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmplDict ).respond() )
+        hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmplDict ).respond() )
     
 
 
@@ -82,7 +82,7 @@ $(cell_name).internalsections [ $section_index ] {
         
         
         
-        baseWriter = MM_ModFileWriterBase( suffix=alphaBetaBetaChl.getNeuronSuffix() )
+        baseWriter = MM_ModFileWriterBase( suffix=alphaBetaBetaChl.get_neuron_suffix() )
         
         # Naming Conventions:
         stateTau = lambda s: "%stau" % s
@@ -134,7 +134,7 @@ $(cell_name).internalsections [ $section_index ] {
                         } 
                     } 
                     """
-        txt =  baseWriter.GenerateModFile()
+        txt =  baseWriter.generate_modfile()
         modFile = ModFile(name=alphaBetaBetaChl.name, modtxt=txt )
         modFileSet.append(modFile)
         

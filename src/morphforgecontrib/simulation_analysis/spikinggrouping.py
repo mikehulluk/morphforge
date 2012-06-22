@@ -69,7 +69,7 @@ class DBScan(object):
         eps=float( eps.rescale("ms").magnitude )        
         
 
-        data = [ float( ev.getTime().rescale("ms") ) for ev in event_set ]            
+        data = [ float( ev.get_time().rescale("ms") ) for ev in event_set ]            
         clusters, noise = DBScan.run( pts = np.array(data), eps=eps, min_pts=min_pts)
         
         # Create new eventsets for each cluster

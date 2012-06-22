@@ -102,13 +102,13 @@ def _window_fixed_trace(trace, time_window):
         tw0 = time_window[0]
         tw1 = time_window[1]
 
-        #getValues( time_window )
+        #get_values( time_window )
 
-        #traceNew1 = trace.getValueAtTime(tw0)
-        #traceNew2 = trace.getValueAtTime(tw1)
+        #traceNew1 = trace.get_value_at_time(tw0)
+        #traceNew2 = trace.get_value_at_time(tw1)
 
-        traceNew1 = trace.getValues( time_window[0] )#[0]
-        traceNew2 = trace.getValues( time_window[1] )#[0]
+        traceNew1 = trace.get_values( time_window[0] )#[0]
+        traceNew2 = trace.get_values( time_window[1] )#[0]
 
         data_unts = traceNew1.units
         time_unts = time_window[0].units

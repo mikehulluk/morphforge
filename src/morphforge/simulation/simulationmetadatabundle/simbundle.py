@@ -44,21 +44,21 @@ class SimMetaDataBundleBase(object):
         self.simmd5sum = StrUtils.get_hash_md5(cPickle.dumps(sim))
         self.postsimulationactions = []
         
-    def addPostProcessingAction(self, action):
+    def add_postprocessing_action(self, action):
         self.postsimulationactions.append(action)
     
-    def doPostProcessingActions(self):
-        assert self.getSimulation().result
+    def do_postprocessing_actions(self):
+        assert self.get_simulation().result
         for action in self.postsimulationactions:
-            action(self.getSimulation().result, self)
+            action(self.get_simulation().result, self)
             
     @classmethod
-    def loadFromFile(cls, filename):
+    def load_from_file(cls, filename):
         bundle = cPickle.load(open(filename))
         return bundle
 
 
-    def getSimMD5Sum(self):
+    def get_sim_md5sum(self):
         return self.simmd5sum
 
 
@@ -72,10 +72,10 @@ class MixinSimLoc_AsObject(object):
     def __init__(self, sim):
         self.sim = sim
         
-    def getSimulation(self):
+    def get_simulation(self):
         return self.sim
     
-    def simLoc_Prepare(self):
+    def sim_loc_prepare(self):
         pass
     
     
@@ -95,16 +95,16 @@ class MixinSimLoc_AsFile(object):
             
     def getFilename(self):
         if not self.simfilename:
-            simlocationWithDir = LocMgr.ensure_dir_exists(self.location + self.getSimMD5Sum()[0:1])
-            simfileShort = self.getSimMD5Sum() + self.suffix
+            simlocationWithDir = LocMgr.ensure_dir_exists(self.location + self.get_sim_md5sum()[0:1])
+            simfileShort = self.get_sim_md5sum() + self.suffix
             self.simfilename = Join(simlocationWithDir, simfileShort)
         return self.simfilename
         
-    def simLoc_Prepare(self):
+    def sim_loc_prepare(self):
         FileIO.write_to_file(txt=self.picklestring, filename=self.getFilename()) 
         self.picklestring = None
         
-    def getSimulation(self):
+    def get_simulation(self):
         if not self.sim_postload:
             self.sim_postload = cPickle.load(open(self.simfilename))
         return self.sim_postload                                
@@ -124,7 +124,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
         
             
     def prepare(self):
-        self.simLoc_Prepare()
+        self.sim_loc_prepare()
     
     
     
@@ -135,14 +135,14 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
         bundlesuffix = ".bundle"
         
         if not bundlefilename:            
-            loc = bundlefilename = LocMgr.ensure_dir_exists(bundleloc + "/" + self.getSimMD5Sum()[0:2])
-            bundlefilename = loc + "/" + self.getSimMD5Sum() + bundlesuffix
+            loc = bundlefilename = LocMgr.ensure_dir_exists(bundleloc + "/" + self.get_sim_md5sum()[0:2])
+            bundlefilename = loc + "/" + self.get_sim_md5sum() + bundlesuffix
             #print "Bundle Filename", bundlefilename
 
         FileIO.write_to_file(txt=cPickle.dumps(self) , filename=bundlefilename)
         return bundlefilename
         
-    def writeToFileAndGetExecString(self, bundlefilename=None, simBinFile="SimulateBundle.py"):
+    def write_to_file_and_get_exec_string(self, bundlefilename=None, simBinFile="SimulateBundle.py"):
         
         bundlefilename = self.writeToFile(bundlefilename=bundlefilename)
         simCmd = Join(LocMgr.get_bin_path(), simBinFile) + " " + bundlefilename

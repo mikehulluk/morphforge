@@ -52,7 +52,7 @@ class MorphologyBuilder(object):
     """ Class to build simple neuron morphologies """
         
     @classmethod
-    def getSingleSectionSoma(cls, rad=None, area=None):
+    def get_single_section_soma(cls, rad=None, area=None):
         assert (rad or area) and not(rad and area)
         
         
@@ -74,7 +74,7 @@ class MorphologyBuilder(object):
     
     
     @classmethod
-    def getSomaAxonMorph(cls, axonLength=1000.0, axonRad=0.3, somaRad=20.0, axonSections=10):
+    def get_soma_axon_morph(cls, axonLength=1000.0, axonRad=0.3, somaRad=20.0, axonSections=10):
         somaRegion = Region("soma")
         axonRegion = Region("axon")
         

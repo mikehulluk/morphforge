@@ -55,7 +55,7 @@ class ReportLabConfig(object):
     
     
     
-    def saveMPLToRLImage(self, figure, figDesc):
+    def save_mpl_to_rl_image(self, figure, figDesc):
         import pylab
         from reportlab.platypus import Image
         imFilename = Join( self.imageDir, "%s_%d.%s"% (figDesc,len(self.images), self.imageExt) )

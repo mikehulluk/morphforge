@@ -29,14 +29,14 @@ class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
 
     def getUnit(self):
         return unit("nA")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.Current, Synapse.Recordables.SynapticCurrent]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
+        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
                 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass    
         
     
@@ -48,14 +48,14 @@ class Neuron_PSM_Std_ConductanceRecord(NeuronRecordable):
 
     def getUnit(self):
         return unit("uS")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.Conductance,Synapse.Recordables.SynapticConductance]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="g", recordobj=self )
+        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="g", recordobj=self )
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass    
     
     

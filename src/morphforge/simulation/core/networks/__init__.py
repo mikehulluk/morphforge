@@ -40,17 +40,17 @@ class Synapse(object):
 
         self.population = None
 
-    def getPreSynapticMechanism(self):
+    def get_presynaptic_mechanism(self):
         return self.preSynapticTrigger
 
-    def getPostSynapticMechanism(self):
+    def get_postsynaptic_mechanism(self):
         return self.postSynapticMech
 
 
-    def getPreSynapticCell(self):
-        return self.preSynapticTrigger.getPreSynapticCell()
-    def getPostSynapticCell(self):
-        return self.postSynapticMech.getPostSynapticCell()
+    def get_presynaptic_cell(self):
+        return self.preSynapticTrigger.get_presynaptic_cell()
+    def get_postsynaptic_cell(self):
+        return self.postSynapticMech.get_postsynaptic_cell()
 
 
 
@@ -82,7 +82,7 @@ class PreSynapticMechanism(object):
     def __init__(self):
         self.synapse = None
 
-    def getPreSynapticCell(self):
+    def get_presynaptic_cell(self):
         raise NotImplementedError()
 
 
@@ -98,7 +98,7 @@ class PostSynapticMech(object):
         self.celllocation = celllocation
         self.synapse = None
 
-    def getPostSynapticCell(self):
+    def get_postsynaptic_cell(self):
         return self.celllocation.cell
 
 

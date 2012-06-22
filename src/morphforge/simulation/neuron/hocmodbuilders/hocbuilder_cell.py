@@ -53,11 +53,11 @@ begintemplate $cell_template_name
             diam(1.0) = $d_d
             
             // Passive Parameters:
-            cm = $cell.getBiophysics().getPassivePropertyForSection($section, "SpecificCapacitance" ).rescale("uF/cm2").magnitude
-            Ra = $cell.getBiophysics().getPassivePropertyForSection($section, "AxialResistance" ).rescale("ohmcm").magnitude
+            cm = $cell.get_biophysics().get_passive_property_for_section($section, "SpecificCapacitance" ).rescale("uF/cm2").magnitude
+            Ra = $cell.get_biophysics().get_passive_property_for_section($section, "AxialResistance" ).rescale("ohmcm").magnitude
             
             // Segmentation:
-            nseg = $cell.getSegmenter().getNumSegments($section) 
+            nseg = $cell.get_segmenter().get_num_segments($section) 
             
             
             
@@ -81,7 +81,7 @@ begintemplate $cell_template_name
         
         
         // Root Sections:
-        #set roots = $cell.morphology.getRootSections
+        #set roots = $cell.morphology.get_root_sections
         #for r in roots[1:]:
         connect internalsections[ $section_indexer[ $r ] ](0.0),  internalsections[ $section_indexer[ $r ] ](0.0)
         #end for
@@ -115,8 +115,8 @@ class HocBuilder_Cell():
                }
         
         # Create the Cell Topology Template:
-        hocFile.addToSection( MHOCSections.InitTemplates,  Template(cellTemplTmpl, data).respond() )
-        hocFile.addToSection( MHOCSections.InitCells,  Template(cellObjDeclTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitTemplates,  Template(cellTemplTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitCells,  Template(cellObjDeclTmpl, data).respond() )
         
         
         # Save the data about this cell:
@@ -124,9 +124,9 @@ class HocBuilder_Cell():
         
         
         # Create the membrane properties:
-        cb = cell.getBiophysics()
+        cb = cell.get_biophysics()
         for section in cell.morphology:
             #print section, section.region
-            for mta in cb.getResolvedMTAsForSection(section):
+            for mta in cb.get_resolved_mtas_for_section(section):
                 mta.mechanism.build_HOC_Section( cell=cell, section=section, hocFile=hocFile, mta=mta )
                 

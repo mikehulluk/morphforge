@@ -29,14 +29,14 @@ class MModFileSet(object):
     
     def append(self,modfile):
         
-        md5 = modfile.getMD5Hash()
+        md5 = modfile.get_md5_hash()
         if not md5 in self._modfiles:
             self._modfiles[md5] = modfile
     
     
-    def buildAll(self):
+    def build_all(self):
         for m in self._modfiles.values():
-            m.ensureBuilt()
+            m.ensure_built()
     
     def __iter__(self):
         return iter( self._modfiles.values() )

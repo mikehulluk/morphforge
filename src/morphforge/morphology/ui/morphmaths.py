@@ -47,7 +47,7 @@ def _pca(X):
 class PCAAxes(object):
     def __init__(self, morph):
         #from morphforge.morphology.visitor import  SVVisitorFactory
-        axes = _pca(SVVisitorFactory.Array3AllPoints(morph)())
+        axes = _pca(SVVisitorFactory.array3_all_points(morph)())
 
         e1 = axes[0][1] / norm(axes[0][1])
         e2 = axes[1][1] / norm(axes[1][1])
@@ -91,7 +91,7 @@ class PointTranslater(object):
 
 class MorphologyMeanCenterer(PointTranslater):
     def __init__(self, morph, PtSrc=None):
-        PtSrc = SVVisitorFactory.Array3AllPoints() if PtSrc == None else PtSrc
+        PtSrc = SVVisitorFactory.array3_all_points() if PtSrc == None else PtSrc
         X = PtSrc(morph)
         offset = (array(map(numpy.sum, X.T)) / len(X) )
         #_get_mean(PtSrc(morph)) * -1.0

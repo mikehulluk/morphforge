@@ -47,27 +47,27 @@ class MetaDataBundleBuilder(object):
 
 
     @classmethod
-    def buildStdPickler(cls, sim):
+    def build_std_pickler(cls, sim):
 
         from morphforge.simulation.simulationmetadatabundle.postsimulation import PostSimulationActionPickleSimulation
 
         reslocation = LocMgr.get_simulation_results_tmp_dir()
 
 
-        b = MetaDataBundleBuilder.prepareSimBundle(sim)
+        b = MetaDataBundleBuilder.prepare_sim_bundle(sim)
         # Save the random number seed
         b.random_seed = morphforge.core.mfrandom.MFRandom._seed
-        md5sum = b.getSimMD5Sum()
+        md5sum = b.get_sim_md5sum()
         resfilename = Join(reslocation, '%s/'%(md5sum[:2]) , md5sum + cls.ressuffix)
 
         # Save the results to pickle file:
-        b.addPostProcessingAction(PostSimulationActionPickleSimulation(resfilename))
+        b.add_postprocessing_action(PostSimulationActionPickleSimulation(resfilename))
 
         return b, resfilename
 
 
     @classmethod
-    def prepareSimBundle(cls, sim):
+    def prepare_sim_bundle(cls, sim):
 
         simstring = cPickle.dumps(sim)
         simmd5sum = StrUtils.get_hash_md5(simstring)

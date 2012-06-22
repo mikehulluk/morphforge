@@ -26,10 +26,10 @@ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
         self.weight = weight
     
     
-    def getPreSynapticCellLocation(self):
+    def get_presynaptic_cellLocation(self):
         return self.celllocation    
 
-    def getPreSynapticCell(self):
+    def get_presynaptic_cell(self):
         return self.celllocation.cell
 
     def get_type(self):
@@ -49,7 +49,7 @@ class PreSynapticMech_TimeList(PreSynapticMechanism):
         self.timeList = timeList  
         self.weight = weight
        
-    def getPreSynapticCell(self):
+    def get_presynaptic_cell(self):
         return None   
         
     def get_type(self):

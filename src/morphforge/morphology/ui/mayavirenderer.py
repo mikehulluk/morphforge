@@ -64,7 +64,7 @@ class MayaViRenderer(object):
     
         @mlab.show
         def _showSimple():
-            morphPts = [ SVVisitorFactory.Array4AllPoints(morph)() for morph in self.morphs ]
+            morphPts = [ SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs ]
             pts = numpy.concatenate( morphPts)
             return mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], colormap=self.colormap, scale_factor=self.scale_factor)
         _showSimple()

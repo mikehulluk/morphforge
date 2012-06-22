@@ -18,9 +18,9 @@ from morphforge.core.misc import SeqUtils
 
 
 
-def getCellLocation( cell, distance):
+def get_cell_location( cell, distance):
     assert False, 'Deprecated'
-    m = MorphLocator.getLocationsAtDistanceAwayFromDummy(cell.morphology, distance=distance)
+    m = MorphLocator.get_locations_at_distance_away_from_dummy(cell.morphology, distance=distance)
     m1 = SeqUtils.expect_single(m)
 
     return CellLocation(cell=cell, morphlocation=m1)      
@@ -32,9 +32,9 @@ def getCellLocation( cell, distance):
 #    
 #    
 #    @classmethod
-#    def getLocationsAtDistanceAwayFromDummy(cls, cell, distance, section_predicate=None):
+#    def get_locations_at_distance_away_from_dummy(cls, cell, distance, section_predicate=None):
 #         
-#        morph_locs = MorphLocator.getLocationsAtDistanceAwayFromDummy(
+#        morph_locs = MorphLocator.get_locations_at_distance_away_from_dummy(
 #                                        morphology=cell.morphology, 
 #                                        distance=distance, 
 #                                        section_predicate=section_predicate)
@@ -42,10 +42,10 @@ def getCellLocation( cell, distance):
 #        
 #        
 #    @classmethod
-#    def getLocationsAtDistancesAwayFromDummy(cls, cell, distances, section_predicate=None):
-#        return list( itertools.chain( *[cls.getLocationsAtDistanceAwayFromDummy(cell=cell, distance=distance, section_predicate=section_predicate) for distance in distances]  ) )
+#    def get_locations_at_distances_away_from_dummy(cls, cell, distances, section_predicate=None):
+#        return list( itertools.chain( *[cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate) for distance in distances]  ) )
 #        
 #    @classmethod
-#    def getLocationAtDistanceAwayFromDummy(cls, cell, distance, section_predicate=None):
+#    def get_location_at_distance_away_from_dummy(cls, cell, distance, section_predicate=None):
 #        """Utility Function"""
-#        return ExpectSingle( cls.getLocationsAtDistanceAwayFromDummy(cell=cell, distance=distance, section_predicate=section_predicate) )
+#        return ExpectSingle( cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate) )

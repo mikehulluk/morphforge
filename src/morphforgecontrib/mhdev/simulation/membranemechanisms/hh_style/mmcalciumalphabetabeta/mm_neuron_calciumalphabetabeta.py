@@ -28,26 +28,26 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
         self.caAlphaBetaBetaChl = caAlphaBetaBetaChl
 
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
 
     def buildHocRecVar(self, hocFile, vecname, modvar ):
-        HocModUtils.CreateRecordFromModFile( hocFile, vecname=vecname, celllocation=self.where, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.getNeuronSuffix(), recordobj=self)
+        HocModUtils.create_record_from_modfile( hocFile, vecname=vecname, celllocation=self.where, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
     
     def getTags(self,):
         return []
     
-    def getDescription(self):
-        return "%s %s" % ("CaValue", self.where.getLocationDescriptionStr() )
+    def get_description(self):
+        return "%s %s" % ("CaValue", self.where.get_location_description_str() )
 
 
 
 class MM_Neuron_CalciumAlphaBetaBeta_CurrentDensityRecord(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
     def getUnit(self):   return unit("mA/cm2")
-    def getStdTags(self):   return [ StandardTags.CurrentDensity ]
+    def get_std_tags(self):   return [ StandardTags.CurrentDensity ]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar="i"  )
         
                 
@@ -58,9 +58,9 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordState(MM_Neuron_CalciumAlphaBetaBeta_
         self.state = state
 
     def getUnit(self):        return unit("1")
-    def getStdTags(self):        return [ StandardTags.StateVariable ]
+    def get_std_tags(self):        return [ StandardTags.StateVariable ]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
                 
 class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_CalciumAlphaBetaBeta_Record):
@@ -70,9 +70,9 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_Calcium
         self.state = state
 
     def getUnit(self):        return unit("1")
-    def getStdTags(self):        return [ StandardTags.StateSteddyState]
+    def get_std_tags(self):        return [ StandardTags.StateSteddyState]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
         
     
@@ -84,9 +84,9 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(MM_Neuron_Calciu
         self.state = state
 
     def getUnit(self):        return unit("ms")
-    def getStdTags(self):        return [ StandardTags.StateTimeConstant ]
+    def get_std_tags(self):        return [ StandardTags.StateTimeConstant ]
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
 
 
@@ -103,7 +103,7 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_B
         MM_Neuron_Base.__init__(self)
 
 
-    def getRecordable(self, what,  **kwargs):
+    def get_recordable(self, what,  **kwargs):
         #celllocation = kwargs["celllocation"] if "celllocation" in kwargs else kwargs["where"]
         #if "where" in kwargs: del kwargs["where"]
         
@@ -141,4 +141,4 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_B
   
 # Register the channel
 #NeuronSimulationEnvironment.registerMembraneMechanism( MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin( MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin( MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)

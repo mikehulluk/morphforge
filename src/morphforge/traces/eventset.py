@@ -18,7 +18,7 @@ class Event(object):
         time.rescale("ms")
         self.time = time
         
-    def getTime(self):
+    def get_time(self):
         return self.time 
         
 
@@ -26,7 +26,7 @@ class Event(object):
 class EventSet(object):
     
     @classmethod
-    def CombineSets(self, eventsets, tags=None, comment=None, name=None):
+    def combine_sets(self, eventsets, tags=None, comment=None, name=None):
         """ If 'tags' is none, then take 'communal' tags """
         
         if not tags:
@@ -69,7 +69,7 @@ class EventSet(object):
     @property
     def times(self):
         for e in self.events:
-            yield e.getTime()
+            yield e.get_time()
     
     #@property
     #def times(self, unit="ms"):

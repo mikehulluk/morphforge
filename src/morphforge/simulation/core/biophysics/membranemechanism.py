@@ -26,18 +26,18 @@ class MembraneMechanism(object):
     def __init__(self, mechanism_id):
         self.mechanism_id = mechanism_id
     
-    def getMembraneMechanismName(self):
+    def get_membranemechanism_name(self):
         raise NotImplementedError()
 
 
-    def getVariables(self):
+    def get_variables(self):
         raise NotImplementedError()
     
-    def getDefaults(self):
+    def get_defaults(self):
         raise NotImplementedError()
 
-    def getDefault(self, key):
-        return self.getDefaults()[key]
+    def get_default(self, key):
+        return self.get_defaults()[key]
 
-    def getMechanismID(self,):
+    def get_mechanism_id(self,):
         return self.mechanism_id

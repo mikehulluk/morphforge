@@ -36,24 +36,24 @@ class SimulationResult(object):
         self.tStart = None
         self.tStop = None
     
-    def setSimulationTime(self, tStart, tStop):
+    def set_simulation_time(self, tStart, tStop):
         self.tStart = tStart
         self.tStop = tStop
     
-    def getTrace(self, name):
+    def get_trace(self, name):
         return SeqUtils.filter_expect_single(self.traces, lambda s: s.name == name) 
     
     
-    def getTraces(self,):
+    def get_traces(self,):
         return self.traces
         
     
     # Loading & Saving:
-    def saveToFile(self, filename):
+    def save_to_file(self, filename):
         resString = pickle.dumps(self)
         return FileIO.write_to_file(resString, filename=filename, filedirectory=LocMgr.get_simulation_tmp_dir())
          
     @classmethod
-    def loadFromFile(cls, filename):
+    def load_from_file(cls, filename):
         return pickle.load(open(filename))
 

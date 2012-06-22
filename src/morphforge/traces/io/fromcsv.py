@@ -185,7 +185,7 @@ class NeuroCSVParser(object):
         timeData = timeDataRaw * timeUnit
         
         # Do we build as fixed or variable array:
-        tBuilder = Trace_FixedDT if Trace_FixedDT.isArrayFixedDT(timeData) else Trace_VariableDT 
+        tBuilder = Trace_FixedDT if Trace_FixedDT.is_array_fixed_dt(timeData) else Trace_VariableDT 
         
         trcs = []
         for i in range(1,nCols):

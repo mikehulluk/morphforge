@@ -31,7 +31,7 @@ class CellSegment(object):
         
         self.segmenter = segmenter
         
-    def getSectionPos(self, pSegment):
+    def get_section_pos(self, pSegment):
         # Converts a position from [0-1] within a segment into a 
         # position [0-1] within a section 
         segmentSize = 1.0/self.nsegments
@@ -41,33 +41,33 @@ class CellSegment(object):
         assert 0 <= sectionpos <= 1.0
         return sectionpos
      
-    def getCellLocation(self, pSegment=0.5):
+    def get_cell_location(self, pSegment=0.5):
         from morphforge.simulation.core.celllocation import CellLocation
-        sectionpos = self.getSectionPos(0.5)
+        sectionpos = self.get_section_pos(0.5)
         return CellLocation(cell=self.cell, section=self.section, sectionpos=sectionpos)
         
     
         
-    def getProximalNP4A(self):
-        return self.section.get_npa4( self.getSectionPos(0.0) )
+    def get_proximal_np4a(self):
+        return self.section.get_npa4( self.get_section_pos(0.0) )
         
-    def getDistalNP4A(self):
-        return self.section.get_npa4( self.getSectionPos(1.0) )
+    def get_distal_np4a(self):
+        return self.section.get_npa4( self.get_section_pos(1.0) )
         
-    def getDistanceFromProximalSectionEnd(self, pSegment=0.5):
-        return self.getSectionPos(pSegment) * self.section.get_length()
+    def get_distance_from_proximal_section_end(self, pSegment=0.5):
+        return self.get_section_pos(pSegment) * self.section.get_length()
     
     
     
     
-    def getParentSegment(self):
+    def get_parent_segment(self):
         if self.segmentno == 0:
             if self.section.is_a_root_section():
                 assert False, 'Need to check here!'
                 return None
             else:
-                return self.segmenter.getSegments(self.section.parent)[-1]
+                return self.segmenter.get_segments(self.section.parent)[-1]
             
         else:
-            return self.segmenter.getSegments(self.section)[self.segmentno-1]
+            return self.segmenter.get_segments(self.section)[self.segmentno-1]
     

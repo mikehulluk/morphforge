@@ -91,15 +91,15 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
 
     def getUnit(self):
         return unit("nA")
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.Current]
 
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         objNameHoc = hocFile[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
+        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
 
 
@@ -112,18 +112,18 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
     
     def __init__(self, simulation,  amp, freq, delay,bias, celllocation, name=None):
         #assert False, "Resolve the multiple inheritance of the name!"
-        name = name if name else ObjectLabeller.getNextUnamedObjectName(Neuron_CurrentClamp_SinWave)
+        name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
         
         NeuronObject.__init__(self, simulation=simulation, name=name)
         CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )
                 
 
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
         
         data = {
-               "stimname": self.getName(),
+               "stimname": self.get_name(),
                "cell":cell,
                "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
@@ -135,18 +135,18 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
                "bias":self.bias,
                }
         
-        hocFileObj.addToSection( MHOCSections.InitCurrentClamps,  Template(ccSinWaveHOCTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccSinWaveHOCTmpl, data).respond() )
         
         hocFileObj[MHocFileData.CurrentClamps][self] = data
           
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         modfile = ModFile(modtxt=currentclampsinwaveTxt, name='NeuronSinWaveCurrentClmap')
         modFileSet.append(modfile)
         
         
         
-    def getRecordable(self, what, **kwargs):
+    def get_recordable(self, what, **kwargs):
         if what == StandardTags.Current:
             return NeuronSinwaveCurrentClampCurrentRecord( cclamp=self, **kwargs)
         assert False

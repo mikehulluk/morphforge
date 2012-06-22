@@ -85,7 +85,7 @@ mySim = env.Simulation(name="TestSim1")
 
 
 # Create a cell:
-myCell = mySim.createCell(name="Cell1", morphology=m1)
+myCell = mySim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
@@ -151,10 +151,10 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels )
 
 
 # Get a location on the cell:
-somaLoc = myCell.getLocation("soma")
+somaLoc = myCell.get_location("soma")
 
 # Create the simulous:
-mySim.createCurrentClamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
 
 
 # Define what to record:

@@ -39,7 +39,7 @@ mySim = env.Simulation()
 # Create a cell:
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
-myCell = mySim.createCell(name="Cell1", morphology=m1)
+myCell = mySim.create_cell(name="Cell1", morphology=m1)
 
 
 leakChannels = env.MembraneMechanism( 
@@ -90,10 +90,10 @@ apply_mechanism_everywhere_uniform(myCell, kChannels )
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 # Get a location on the cell:
-somaLoc = myCell.getLocation("soma")
+somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.createCurrentClamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
 mySim.record( cc, what=StdRec.Current)
 # Define what to record:
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) 

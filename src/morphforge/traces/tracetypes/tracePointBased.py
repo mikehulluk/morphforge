@@ -44,17 +44,17 @@ class Trace_PointBased(Trace):
         self._time = time
         self._data = data
         
-        assert self.getN() >= 2, 'Points Based Trace has less than 2 points: %d' % self.getN()
+        assert self.get_n() >= 2, 'Points Based Trace has less than 2 points: %d' % self.get_n()
 
 
 
-    def getMinTime(self):
+    def get_min_time(self):
         return self._time[0]
 
-    def getMaxTime(self):
+    def get_max_time(self):
         return self._time[-1]
 
-    def getValues(self, timeArray):
+    def get_values(self, timeArray):
         from scipy.interpolate.interpolate import interp1d
         timeUnits = self._time.units
         dataUnits = self._data.units
@@ -65,14 +65,14 @@ class Trace_PointBased(Trace):
 
   
   
-    def getN(self):
+    def get_n(self):
         return len(self._time)
 
 
     def time_within_trace(self, times):
         t = times.rescale("ms").magnitude
-        t0 = self.getMinTime().rescale("ms").magnitude
-        t1 = self.getMaxTime().rescale("ms").magnitude
+        t0 = self.get_min_time().rescale("ms").magnitude
+        t1 = self.get_max_time().rescale("ms").magnitude
         return np.logical_and( t>=t0, t<=t1 )
         #raise NotImplementedError()
 

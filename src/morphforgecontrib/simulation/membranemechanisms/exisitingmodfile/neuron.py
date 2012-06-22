@@ -71,15 +71,15 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
         all = []
     
     
-    def getVariables(self):
+    def get_variables(self):
         return []
         
-    def getDefaults(self):
+    def get_defaults(self):
         return {}
         
-    def getRecordable(self, what,  **kwargs):
+    def get_recordable(self, what,  **kwargs):
         raise ValueError( "Can't find Recordable: %s"%what)
     
     
-NeuronSimulationEnvironment.membranemechanisms.registerPlugin(SimulatorSpecificChannel, MM_Neuron_SimulatorSpecificChannel)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(SimulatorSpecificChannel, MM_Neuron_SimulatorSpecificChannel)
 

@@ -147,7 +147,7 @@ class SimulationConfig(HasTraits):
 
 
 
-        #caFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
+        #caFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
         #caChl = caFunctor(env)
         #shortcuts.apply_mechanism_everywhere_uniform(cell=cell, mechanism=caChl)
 
@@ -166,20 +166,20 @@ class SimulationConfig(HasTraits):
 
         #Record the Currents & Conductances:
         for chlname, mech in mech_dict.iteritems():
-                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.getLocation('soma'), name="%s_i"%chlname, description="")
+                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.get_location('soma'), name="%s_i"%chlname, description="")
                 if chlname != 'Ca':
-                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.getLocation('soma'), name="%s_g"%chlname, description="")
+                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
 
        
         
         
-        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.getLocation('soma'), description='Kf State')
-        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.getLocation('soma'), description='Ks State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.getLocation('soma'), description='Na-m State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.getLocation('soma'), description='Na-h State')
+        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.get_location('soma'), description='Kf State')
+        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.get_location('soma'), description='Ks State')
+        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.get_location('soma'), description='Na-m State')
+        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
     
         # Record Voltages:
-        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.getLocation('soma'), description='Membrane Voltage')
+        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
 
 
 
@@ -190,7 +190,7 @@ class SimulationConfig(HasTraits):
             
         # Update the array of data:
         for trace_name, trace_unit in trace_names:
-            tr = res.getTrace(trace_name)
+            tr = res.get_trace(trace_name)
             self.data.set_data(trace_name+'_t', tr._time.rescale('ms').magnitude )
             self.data.set_data(trace_name+'_d', tr._data.rescale(trace_unit).magnitude )
 
@@ -238,13 +238,13 @@ class MorphologyConfig(HasTraits):
 
 
     def getCell(self, env, sim):
-        m1 = MorphologyBuilder.getSingleSectionSoma(area= float(self.surfacearea) * um2 )
+        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
         #m1 = 
         
-        morphFunctor = MorphologyLibrary.getMorphologyFunctor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
+        morphFunctor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
         m1 = morphFunctor(axonDiam = 0.4)
         
-        myCell = sim.createCell(name="Cell1", morphology=m1)
+        myCell = sim.create_cell(name="Cell1", morphology=m1)
         apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
         return myCell
 
@@ -282,9 +282,9 @@ class InputConfig(HasTraits):
         self.sim_conf.resimulate()
 
     def getInputStimulus(self, sim, cell):
-        somaLoc = cell.getLocation("soma")
-        s1 = sim.createCurrentClamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), celllocation=somaLoc)
-        s2 = sim.createCurrentClamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), celllocation=somaLoc)
+        somaLoc = cell.get_location("soma")
+        s1 = sim.create_currentclamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), celllocation=somaLoc)
+        s2 = sim.create_currentclamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), celllocation=somaLoc)
         return None
 
 
@@ -334,26 +334,26 @@ class Double(HasTraits):
 
 
 
-#naFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Na)
-#kfFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Kf)
-#ksFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Ks)
+#naFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Na)
+#kfFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Kf)
+#ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Ks)
 #
 #
-#naFunctorOld = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Na)
-#kfFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Kf)
-#ksFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Ks)
+#naFunctorOld = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Na)
+#kfFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Kf)
+#ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Ks)
 
 #
-#naFunctorBase = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Na)
-#kfFunctorBase = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Kf)
-#ksFunctorBase = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ks)
-#lkFunctorBase = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Lk)
-#caFunctorBase = ChannelLibrary.getChannelFunctor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
-##ChannelLibrary.registerChannel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chlFunctor=getCaChannels )
-##ChannelLibrary.registerChannel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chlFunctor=getKfChannels )
-##ChannelLibrary.registerChannel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chlFunctor=getKsChannels )
-##ChannelLibrary.registerChannel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chlFunctor=getLkChannels )
-##ChannelLibrary.registerChannel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chlFunctor=getNaChannels )
+#naFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Na)
+#kfFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Kf)
+#ksFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ks)
+#lkFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Lk)
+#caFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chlFunctor=getCaChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chlFunctor=getKfChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chlFunctor=getKsChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chlFunctor=getLkChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chlFunctor=get_naChannels )
 #
 ##
 #
@@ -386,7 +386,7 @@ class Double(HasTraits):
                     continue
                 
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5} )
-                apply_mechanism_region_uniform(    cell=myCell, mechanism=mech, region=myCell.morphology.getRegion('axon'), parameter_multipliers={'gScale':5.0} )
+                apply_mechanism_region_uniform(    cell=myCell, mechanism=mech, region=myCell.morphology.get_region('axon'), parameter_multipliers={'gScale':5.0} )
                     
                 
             elif mechFunctor == kfFunctor:
@@ -394,7 +394,7 @@ class Double(HasTraits):
                     continue
                 
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
-                apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.getRegion('soma'))
+                apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.get_region('soma'))
                 
             elif mechFunctor == ksFunctor:
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
@@ -408,11 +408,11 @@ naMult = 5.0
 lkMult = 1.0
 ksMult = 0.5
 kfMult = 2.5
-lkFunctorBase = ChannelLibrary.getChannelFunctor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Lk)
-caFunctorBase = ChannelLibrary.getChannelFunctor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Ca)
-naFunctorBase = ChannelLibrary.getChannelFunctor( modelsrc=Model.Dale95, celltype=CellType.RB,  channeltype=ChlType.Na)
-kfFunctorBase = ChannelLibrary.getChannelFunctor( modelsrc=Model.Hull12, celltype=CellType.DL,  channeltype=ChlType.Kf)
-ksFunctorBase = ChannelLibrary.getChannelFunctor( modelsrc=Model.Hull12, celltype=CellType.RB,  channeltype=ChlType.Ks)
+lkFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Lk)
+caFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Ca)
+naFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Dale95, celltype=CellType.RB,  channeltype=ChlType.Na)
+kfFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.DL,  channeltype=ChlType.Kf)
+ksFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.RB,  channeltype=ChlType.Ks)
 
 def caFunctor(env):
     chl = caFunctorBase(env)

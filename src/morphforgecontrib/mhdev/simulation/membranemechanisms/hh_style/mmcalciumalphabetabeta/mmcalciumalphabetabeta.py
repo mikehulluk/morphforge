@@ -47,9 +47,9 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         
         
 
-    def getVariables(self):
+    def get_variables(self):
         return ['gScale']
     
-    def getDefaults(self):
+    def get_defaults(self):
         return {"gScale": unit("1.0") } 
 

@@ -55,7 +55,7 @@ class SimulationSummariser(object):
     def __init__(self, simulationresult, filename=None, keyTraceSets = [], make_graphs=True ):
         
         if not filename:
-            filename = ObjectLabeller.getNextUnamedObjectName(SimulationSummariser, prefix='SimulationSummary') + '.pdf'
+            filename = ObjectLabeller.get_next_unamed_object_name(SimulationSummariser, prefix='SimulationSummary') + '.pdf'
             
         
         self.simulationresult = simulationresult
@@ -81,13 +81,13 @@ class SimulationSummariser(object):
         from reportlab.platypus import SimpleDocTemplate
         
         # Generate the content for each section:
-        self.elements[SS_Sections.Overview].extend( self.summarise_Overview() )
-        self.elements[SS_Sections.KeyTraces].extend( self.summarise_KeyTraces() )
-        self.elements[SS_Sections.Cells].extend( self.summarise_Cells() )
-        self.elements[SS_Sections.GapJunctions].extend( self.summarise_GapJunctions() )
-        self.elements[SS_Sections.Synapses].extend( self.summarise_Synapses() )
+        self.elements[SS_Sections.Overview].extend( self.summarise_overview() )
+        self.elements[SS_Sections.KeyTraces].extend( self.summarise_key_traces() )
+        self.elements[SS_Sections.Cells].extend( self.summarise_cells() )
+        self.elements[SS_Sections.GapJunctions].extend( self.summarise_gapjunctions() )
+        self.elements[SS_Sections.Synapses].extend( self.summarise_synapses() )
         
-        self.elements[SS_Sections.AppendixMembranes].extend( self.summarise_AppendixMembranes() )
+        self.elements[SS_Sections.AppendixMembranes].extend( self.summarise_appendix_membranes() )
         
         
         
@@ -111,7 +111,7 @@ class SimulationSummariser(object):
         
         
         
-    def summarise_Overview(self):
+    def summarise_overview(self):
         from reportlab.platypus import Paragraph, Table, PageBreak
         localElements = []
         
@@ -124,12 +124,12 @@ class SimulationSummariser(object):
         tableHeader = ['Cell',  'Total Surface Area', 'Sections', 'Segments','Active Channels (id,[Name])']
         data = [tableHeader, ]
         
-        for cell in self.simulation.getCells():
+        for cell in self.simulation.get_cells():
             a = sum([ s.get_area() for s in cell.morphology]) * unit("1:um2")
             nSections = len( cell.morphology )
-            nSegments = sum( [cell.getSegmenter().getNumSegments(section) for section in cell.morphology] )
-            activeMechs = cell.getBiophysics().getAllMechanismsAppliedToCell()
-            activeChlList = "\n".join( ["%s [%s]"%(am.getMechanismID(), am.name) for am in activeMechs] )
+            nSegments = sum( [cell.get_segmenter().get_num_segments(section) for section in cell.morphology] )
+            activeMechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
+            activeChlList = "\n".join( ["%s [%s]"%(am.get_mechanism_id(), am.name) for am in activeMechs] )
             data.append( [ cell.name, a, nSections, nSegments, activeChlList ] )
         
         localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
@@ -137,11 +137,11 @@ class SimulationSummariser(object):
         
         # Stimulae: CC
         ###############
-        if self.simulation.getCurrentClamps():
+        if self.simulation.get_currentclamps():
             localElements.append( Paragraph("Current Clamps", self.reportlabconfig.styles['Heading2'] ) )
             tableHeader = ['Name', 'Location', 'Delay', 'Amplitude', 'Duration']
             data = [tableHeader, ]
-            for cc in self.simulation.getCurrentClamps():
+            for cc in self.simulation.get_currentclamps():
                 cellname = cc.celllocation.cell.name
                 data.append( [ cc.name, cellname, cc.delay, cc.amp, cc.dur ] )
             
@@ -150,11 +150,11 @@ class SimulationSummariser(object):
         
         # Stimulae: VC
         ###############
-        if self.simulation.getVoltageClamps():
+        if self.simulation.get_voltageclamps():
             localElements.append( Paragraph("Voltage Clamps", self.reportlabconfig.styles['Heading2'] ) )
             tableHeader = ['Name', 'Location', 'Dur1', 'Dur2', 'Dur3', 'Amp1','Amp2','Amp3']
             data = [tableHeader, ]
-            for vc in self.simulation.getVoltageClamps():
+            for vc in self.simulation.get_voltageclamps():
                 cellname = vc.celllocation.cell.name
                 data.append( [ vc.name, cellname, vc.dur1, vc.dur2, vc.dur3, vc.amp1, vc.amp2, vc.amp3 ] )
             
@@ -167,14 +167,14 @@ class SimulationSummariser(object):
         
     
     
-    def summarise_Cells(self):    
+    def summarise_cells(self):    
         from reportlab.platypus import  Paragraph, Table, PageBreak,Spacer
         from reportlab.lib.units import mm
 
         localElements = []
         localElements.append( Paragraph("Cells Details", self.reportlabconfig.styles['Heading1'] ) )
         
-        for cell in self.simulation.getCells():
+        for cell in self.simulation.get_cells():
             localElements.append( Paragraph(cell.name, self.reportlabconfig.styles['Heading2'] ) )
             
             ##Summary:
@@ -182,8 +182,8 @@ class SimulationSummariser(object):
             data = [ 
                     ["Name", "value" ], 
                     ["Total Area", sum([s.get_area() for s in cell.morphology]) * unit("1:um2") ],
-                    ["Regions", ", ".join([ rgn.name for rgn in cell.getRegions() ]) ],
-                    ["idTags", ",".join( cell.morphology.getIDTags() )],
+                    ["Regions", ", ".join([ rgn.name for rgn in cell.get_regions() ]) ],
+                    ["idTags", ",".join( cell.morphology.get_idtags() )],
                     ]
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
             
@@ -194,7 +194,7 @@ class SimulationSummariser(object):
             # Data about the size of each region - makes it easy to check the soma size:
             localElements.append( Paragraph("MorphologyTree", self.reportlabconfig.styles['Heading3'] ) )
             data = [ ["Region", "nSegments", "Area" ],     ]
-            for region in cell.getRegions():
+            for region in cell.get_regions():
                 data.append( [region.name, "%d"%len(region.sections), sum([s.get_area() for s in region.sections] ) ] )
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
             
@@ -205,10 +205,10 @@ class SimulationSummariser(object):
             
             # Membrane Mechanisms:
             data = [ ["Mechanism", "Targettor", "Applicator" ],     ]
-            for mta in cell.getBiophysics().getAppliedMTAs():
+            for mta in cell.get_biophysics().get_applied_mtas():
                 m = mta.mechanism.name
-                t = mta.targetter.getDescription()
-                a = mta.applicator.getDescription()
+                t = mta.targetter.get_description()
+                a = mta.applicator.get_description()
                 data.append( [m,t,a] )
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
             
@@ -225,7 +225,7 @@ class SimulationSummariser(object):
                 parent_id = si[section.parent] if not section.is_a_root_section() else "[NA]"
                 rgn = section.region.name if section.region else "-"
                 idTag = section.idTag if section.idTag else "-"
-                nSegments = cell.getSegmenter().getNumSegments(section)
+                nSegments = cell.get_segmenter().get_num_segments(section)
                 data.append( [ section_id, parent_id, rgn, idTag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), nSegments ] )
                 
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
@@ -236,13 +236,13 @@ class SimulationSummariser(object):
         return localElements
     
     
-    def summarise_GapJunctions(self):    
+    def summarise_gapjunctions(self):    
         from reportlab.platypus import Paragraph, Table, PageBreak
         from morphforgecontrib.morphology.util.util import CellLocationDistanceFromSoma
 
         localElements = []
         localElements.append( Paragraph("Gap Junctions", self.reportlabconfig.styles['Heading1'] ) )
-        gapJunctions = self.simulation.getGapJunctions()
+        gapJunctions = self.simulation.get_gapjunctions()
 
 
 
@@ -275,7 +275,7 @@ class SimulationSummariser(object):
         localElements.append( PageBreak() )
         return localElements
     
-    def summarise_Synapses(self):    
+    def summarise_synapses(self):    
         from reportlab.platypus import Paragraph, PageBreak
         localElements = []
         localElements.append( Paragraph("Synapses", self.reportlabconfig.styles['Heading1'] ) )
@@ -284,7 +284,7 @@ class SimulationSummariser(object):
         return localElements
     
     
-    def summarise_KeyTraces(self):
+    def summarise_key_traces(self):
         from reportlab.platypus import Paragraph, PageBreak
         if not self.make_graphs:
             return []
@@ -301,10 +301,10 @@ class SimulationSummariser(object):
             width,height =self.reportlabconfig.imagesize
             ax = f.add_subplot(111,  ylabel="?", xlabel="time")
             for trName in keyTraces:
-                tr = self.simulation.result.getTrace(trName)
+                tr = self.simulation.result.get_trace(trName)
                 ax.plotTrace( tr )
             ax.legend()
-            #localElements.append( self.reportlabconfig.saveMPLToRLImage( f, "KeyTrace") )
+            #localElements.append( self.reportlabconfig.save_mpl_to_rl_image( f, "KeyTrace") )
             
         
         localElements.append( PageBreak() ) 
@@ -313,15 +313,15 @@ class SimulationSummariser(object):
         
         
         
-    def summarise_AppendixMembranes(self):
+    def summarise_appendix_membranes(self):
         from reportlab.platypus import Paragraph, PageBreak
         localElements = []
         localElements.append( Paragraph("Membrane Definitions", self.reportlabconfig.styles['Heading1'] ) )
         
         
         mechanisms = []
-        for cell in self.simulation.getCells():
-            for mta in cell.getBiophysics().getAppliedMTAs():
+        for cell in self.simulation.get_cells():
+            for mta in cell.get_biophysics().get_applied_mtas():
                 mechanisms.append(mta.mechanism)
                 
                 #Do we already ahve the machanism, possibly with different targetters and selectors:

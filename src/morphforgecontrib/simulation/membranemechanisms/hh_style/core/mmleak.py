@@ -30,10 +30,10 @@ class MM_LeakChannel(MembraneMechanism):
         self.conductance = unit(conductance)
         self.reversalpotential = unit(reversalpotential)
     
-    def getVariables(self):
+    def get_variables(self):
         return ['gLk', 'eLk', 'gScale']
     
-    def getDefaults(self):
+    def get_defaults(self):
         return {"gLk":self.conductance, "eLk":self.reversalpotential, "gScale": unit("1.0") } 
 
 

@@ -54,26 +54,26 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
     
     @classmethod
     def MembraneMechanism(cls, mechanismtype, **kwargs):
-        mech = cls.membranemechanisms.getPlugin(mechanismtype)
+        mech = cls.membranemechanisms.get_plugin(mechanismtype)
         return mech(**kwargs)
 
     @classmethod
     def PreSynapticMechanism(cls, mechanismtype, **kwargs):
-        mech = cls.presynapticmechanisms.getPlugin(mechanismtype)
+        mech = cls.presynapticmechanisms.get_plugin(mechanismtype)
         return mech(**kwargs)
 
     @classmethod
     def PostSynapticMechanism(cls, mechanismtype, **kwargs):
-        mech = cls.postsynapticmechanisms.getPlugin(mechanismtype)
+        mech = cls.postsynapticmechanisms.get_plugin(mechanismtype)
         return mech(**kwargs)
          
     def CurrentClamp(self, form=CurrentClampStepChange,  **kwargs):
-        cc = self.currentclamps.getPlugin(form)
+        cc = self.currentclamps.get_plugin(form)
         return cc(**kwargs)
         
     
     def VoltageClamp(self, form=VoltageClampStepChange, **kwargs):
-        vc = self.voltageclamps.getPlugin(form)
+        vc = self.voltageclamps.get_plugin(form)
         return vc(**kwargs)
     
 

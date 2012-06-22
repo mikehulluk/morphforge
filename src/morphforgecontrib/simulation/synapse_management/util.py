@@ -61,10 +61,10 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
     
     
     env = sim.environment
-    syn = sim.createSynapse(
+    syn = sim.create_synapse(
                 presynaptic_mech =  env.PreSynapticMechanism(
                                                 PreSynapticMech_VoltageThreshold,
-                                                celllocation =  presynaptic.getLocation('soma'),
+                                                celllocation =  presynaptic.get_location('soma'),
                                                 voltageThreshold = threshold, 
                                                 delay=delay, 
                                                 weight=conductance * multiplier),
@@ -72,7 +72,7 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
                 postsynaptic_mech = env.PostSynapticMechanism(
                                                 synapse_parameters.synapse_type, 
                                                 simulation=sim, 
-                                                celllocation = postsynaptic.getLocation('soma'),  
+                                                celllocation = postsynaptic.get_location('soma'),  
                                                 tauOpen = t_opening, 
                                                 tauClosed=t_closing, 
                                                 eRev=erev,
@@ -104,7 +104,7 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
     vdep = synapse_parameters['vdep']
     
     env = sim.environment
-    syn = sim.createSynapse(
+    syn = sim.create_synapse(
                 presynaptic_mech =  env.PreSynapticMechanism(
                                                 PreSynapticMech_TimeList,
                                                 timeList = times, 
@@ -113,7 +113,7 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
                 postsynaptic_mech = env.PostSynapticMechanism(
                                                 synapse_parameters.synapse_type, 
                                                 simulation=sim, 
-                                                celllocation = postsynaptic.getLocation('soma'),  
+                                                celllocation = postsynaptic.get_location('soma'),  
                                                 tauOpen = t_opening, 
                                                 tauClosed=t_closing, 
                                                 eRev=erev,

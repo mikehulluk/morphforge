@@ -93,10 +93,10 @@ def get_sample_k(env):
 
 
 
-MorphologyLibrary.registerMorphology(modelsrc="Sample", celltype="Cell1", morphFunctor=getSimpleMorphology)
-ChannelLibrary.registerChannel(modelsrc="Sample", celltype="Cell1", channeltype="Na", chlFunctor=get_sample_na)
-ChannelLibrary.registerChannel(modelsrc="Sample", celltype="Cell1", channeltype="K", chlFunctor=get_sample_k)
-ChannelLibrary.registerChannel(modelsrc="Sample", celltype="Cell1", channeltype="Lk", chlFunctor=get_sample_lk)
+MorphologyLibrary.register_morphology(modelsrc="Sample", celltype="Cell1", morphFunctor=getSimpleMorphology)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Na", chlFunctor=get_sample_na)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="K", chlFunctor=get_sample_k)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Lk", chlFunctor=get_sample_lk)
 
 # =============================================================
 
@@ -119,13 +119,13 @@ env = NeuronSimulationEnvironment()
 mySim = env.Simulation()
 
 # Create a cell:
-morphology=MorphologyLibrary.getMorphology(modelsrc=modelsrc, celltype=celltype)
-myCell = mySim.createCell(morphology=morphology )
+morphology=MorphologyLibrary.get_morphology(modelsrc=modelsrc, celltype=celltype)
+myCell = mySim.create_cell(morphology=morphology )
 
 # Apply the channels uniformly over the cell
-naChls = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
-kChls  = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
-lkChls = ChannelLibrary.getChannel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env) 
+naChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
+kChls  = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
+lkChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env) 
 
 apply_mechanism_everywhere_uniform(myCell, naChls )
 apply_mechanism_everywhere_uniform(myCell, kChls  )
@@ -134,10 +134,10 @@ apply_mechanism_everywhere_uniform(myCell, lkChls )
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 # Get a location on the cell:
-somaLoc = myCell.getLocation("soma")
+somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.createCurrentClamp( name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+cc = mySim.create_currentclamp( name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), celllocation=somaLoc)
 
 mySim.record( cc, what=StdRec.Current)
 mySim.record( myCell, what=StdRec.MembraneVoltage, location=somaLoc )

@@ -15,22 +15,22 @@ class CellLibrary(object):
     cells = dict()
     
     @classmethod
-    def registerCell(cls, cellBuilder):
-        celltype = cellBuilder.getCellType()
-        modelsrc = cellBuilder.getModel()
+    def register_cell(cls, cellBuilder):
+        celltype = cellBuilder.get_cell_type()
+        modelsrc = cellBuilder.get_model()
         cls.cells[ (modelsrc, celltype) ] = cellBuilder
     
     @classmethod
-    def getCellFunctor(cls, modelsrc, celltype):
+    def get_cellfunctor(cls, modelsrc, celltype):
         return cls.cells[ (modelsrc, celltype) ]
     
     @classmethod
-    def createCell(cls,sim,  modelsrc, celltype, **kwargs):
-        return cls.getCellFunctor(modelsrc, celltype)(sim,**kwargs)
+    def create_cell(cls,sim,  modelsrc, celltype, **kwargs):
+        return cls.get_cellfunctor(modelsrc, celltype)(sim,**kwargs)
         
         
     @classmethod
-    def listCells(cls):
+    def list_cells(cls):
         for k in cls.cells:
             print "Cell Registered:", k
             

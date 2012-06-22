@@ -13,11 +13,11 @@ from morphforge.stdimports import *
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType
 from scipy.interpolate import interp1d
 
-naFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Na)
-kfFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Kf)
-ksFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ks)
-lkFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Lk)
-#caFunctor = ChannelLibrary.getChannelFunctor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ca)
+naFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Na)
+kfFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Kf)
+ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ks)
+lkFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Lk)
+#caFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12Interpolated, celltype=CellType.dIN, channeltype=ChlType.Ca)
 
 env = NeuronSimulationEnvironment()
 naChl = naFunctor(env)
@@ -63,7 +63,7 @@ sKf =  kf_inf(v)*kf_inf(v)*kf_inf(v)*kf_inf(v)
 sKs =  ks_inf(v)*ks_inf(v)   
 
 
-def getNCurve(iExt):
+def get_nCurve(iExt):
     n4 = ((iNa + iLk + iKf) + iExt) / ( ksChl.conductance * SA * (v*mV-ksChl.reversalpotential) ).rescale('pA').magnitude
     n = np.power(n4,0.5)
     return n
@@ -76,10 +76,10 @@ def dVdt(iExt, n):
 
 
 #pylab.plot(v,n4, label='n4')
-pylab.plot(v,getNCurve(0), label='n, Iext=0')
-pylab.plot(v,getNCurve(100), label='n, Iext=100')
-pylab.plot(v,getNCurve(150), label='n, Iext=150')
-pylab.plot(v,getNCurve(200), label='n, Iext=200')
+pylab.plot(v,get_nCurve(0), label='n, Iext=0')
+pylab.plot(v,get_nCurve(100), label='n, Iext=100')
+pylab.plot(v,get_nCurve(150), label='n, Iext=150')
+pylab.plot(v,get_nCurve(200), label='n, Iext=200')
 pylab.plot(v, ks_inf(v), label='ks_inf')
 pylab.legend()
 

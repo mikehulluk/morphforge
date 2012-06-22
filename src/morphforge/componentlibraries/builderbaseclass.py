@@ -14,13 +14,13 @@ class CellBuilder(object):
     nCells = 0
 
 
-    def getNextCellNumber(self):
+    def get_next_cell_number(self):
         x = CellBuilder.nCells
         CellBuilder.nCells = CellBuilder.nCells + 1
         return x
         
-    def getName(self):
-        return self.getNamePrefix() + "%d"%self.getNextCellNumber()
+    def get_name(self):
+        return self.get_name_prefix() + "%d"%self.get_next_cell_number()
     
     
     
@@ -28,12 +28,12 @@ class CellBuilder(object):
         raise NotImplementedError()
     
     
-    def getCellType(self):
+    def get_cell_type(self):
         raise NotImplementedError()
     
-    def getModel(self):
+    def get_model(self):
         raise NotImplementedError()
     
-    def getNamePrefix(self):
+    def get_name_prefix(self):
         raise NotImplementedError()
     

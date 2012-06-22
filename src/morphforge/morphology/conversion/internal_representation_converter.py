@@ -24,7 +24,7 @@ class MorphologyConverter():
         connectivity = [] 
         section_types = []
         section_index = SectionIndexerDF(morph=tree, offset=1).dict
-        section_index[tree.getDummySection()] = 0 
+        section_index[tree.get_dummy_section()] = 0 
         
         
         for seg in tree._every_section():
@@ -41,7 +41,7 @@ class MorphologyConverter():
             if not seg.is_dummy_section():
                 region = seg.region
                 if region:
-                    section_types.append( region_number_to_name_bidict.regionNameToInt(region.name) )
+                    section_types.append( region_number_to_name_bidict.region_name_to_int(region.name) )
                 else:
                     section_types.append( 0 )
                  
@@ -98,7 +98,7 @@ class MorphologyConverter():
                     rgnInt =  array._section_types[index_of_connection]
                     
                     
-                    rgn_name = region_number_to_name_bidict.intToRegionName(int=rgnInt)
+                    rgn_name = region_number_to_name_bidict.int_to_region_name(int=rgnInt)
                     
                     if rgn_name is None:
                         rgn=None

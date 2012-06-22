@@ -91,7 +91,7 @@ class Summarise_MM_AlphaBetaChannel(object):
         @classmethod
         def PlotCurve(cls, ax, curve, chl, state, infpower=None, *args, **kwargs):
             
-            V = StdLimits.getDefaultVoltageArray().rescale("mV")
+            V = StdLimits.get_defaultVoltageArray().rescale("mV")
             
             alpha,beta = chl.getAlphaBetaAtVoltage(V, state)
             inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
@@ -206,7 +206,7 @@ class Summarise_MM_AlphaBetaChannel(object):
                 if make_graphs:
                     # Figures:
                     fig = cls.PlotStateCurveSummary(alphaBetaChl, state, figsize=(5,5))
-                    localElements.append( reportlabconfig.saveMPLToRLImage(fig, "somestate") )
+                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     import pylab
                     pylab.close( fig.fig )
 
@@ -215,4 +215,4 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
 
-SummariserLibrary.registerSummariser(channelBaseClass=MM_AlphaBetaChannel, summariserClass=Summarise_MM_AlphaBetaChannel)
+SummariserLibrary.register_summariser(channelBaseClass=MM_AlphaBetaChannel, summariserClass=Summarise_MM_AlphaBetaChannel)

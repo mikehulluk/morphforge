@@ -88,10 +88,10 @@ class MorphMLWriter(object):
         cell_node.appendChild(segments_node)
         
         # Give a name to each segment:
-        segnamedict = dict( [ (seg, "%s_seg_%d"%(cell.name, i)) for i,seg in enumerate( cell.getSegmenter() )] )
-        segiddict = dict( [ (seg,  "%d"%(i+id_base)) for i,seg in enumerate( cell.getSegmenter() )] )
+        segnamedict = dict( [ (seg, "%s_seg_%d"%(cell.name, i)) for i,seg in enumerate( cell.get_segmenter() )] )
+        segiddict = dict( [ (seg,  "%d"%(i+id_base)) for i,seg in enumerate( cell.get_segmenter() )] )
         
-        for seg in cell.getSegmenter():
+        for seg in cell.get_segmenter():
             
             
             # Create the segments node:
@@ -103,17 +103,17 @@ class MorphMLWriter(object):
             seg_node.setAttribute("name", segnamedict[seg] )
             
             #Set the parent ID:
-            pSeg = seg.getParentSegment()
+            pSeg = seg.get_parent_segment()
             if pSeg:
                 seg_node.setAttribute("parent", segiddict[pSeg] )
             
             
             # Add the proximal and distal objects:
             seg_node_proximal = doc.createElement("proximal")
-            seg_node_proximal.setAttribute("x", "%f"% (seg.getProximalNP4A()[0] ) )
-            seg_node_proximal.setAttribute("y", "%f"% (seg.getProximalNP4A()[1] ) )
-            seg_node_proximal.setAttribute("z", "%f"% (seg.getProximalNP4A()[2] ) )
-            seg_node_proximal.setAttribute("diameter", "%f"% (seg.getProximalNP4A()[3] *2.0 ) )
+            seg_node_proximal.setAttribute("x", "%f"% (seg.get_proximal_np4a()[0] ) )
+            seg_node_proximal.setAttribute("y", "%f"% (seg.get_proximal_np4a()[1] ) )
+            seg_node_proximal.setAttribute("z", "%f"% (seg.get_proximal_np4a()[2] ) )
+            seg_node_proximal.setAttribute("diameter", "%f"% (seg.get_proximal_np4a()[3] *2.0 ) )
             seg_node.appendChild(seg_node_proximal)
             
             seg_node_distal = doc.createElement("distal")

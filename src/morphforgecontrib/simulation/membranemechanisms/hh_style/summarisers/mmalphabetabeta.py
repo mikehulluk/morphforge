@@ -91,7 +91,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #def PlotAlphaBetaCurves(cls, ax1, ax2, alphaBetaChannel, state, color="blue"):
         #    #chl = alphaBetaChannel
         #    
-        #    V = StdLimits.getDefaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
         #    
         #    #getAlphaBetaAtVoltage(self, V, statevar):
         #    alpha,beta = alphaBetaChannel.getAlphaBetaAtVoltage(V, state) 
@@ -113,7 +113,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #    
         #    chl = alphaBetaChannel
         #    
-        #    V = StdLimits.getDefaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
         #    
         #    alpha,beta = cls.getResolvedAlphaBetaBetaCurves(V, chl, state)
         #    inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
@@ -164,7 +164,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #    
         #    chl = alphaBetaChannel
         #    
-        #    V = StdLimits.getDefaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
         #    
         #    alpha,beta = cls.getResolvedAlphaBetaBetaCurves(V, chl, state)
         #    inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
@@ -223,7 +223,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                 
                 if make_graphs:
                     fig = Summarise_MM_AlphaBetaChannel.PlotStateCurveSummary(alphaBetaBetaChl, state, figsize=(5,5))
-                    localElements.append( reportlabconfig.saveMPLToRLImage(fig, "somestate") )
+                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                 
                 
                 localElements.append( Paragraph("Equations",reportlabconfig.styles['Heading4']) )
@@ -254,4 +254,4 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
             return localElements
 
 
-SummariserLibrary.registerSummariser(channelBaseClass=MM_AlphaBetaBetaChannel, summariserClass=Summarise_MM_AlphaBetaBetaChannel)
+SummariserLibrary.register_summariser(channelBaseClass=MM_AlphaBetaBetaChannel, summariserClass=Summarise_MM_AlphaBetaBetaChannel)

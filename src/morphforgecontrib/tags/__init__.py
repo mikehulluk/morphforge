@@ -52,18 +52,18 @@ class SynapseInPopulationRecordTags(object):
         tags = []
         
         # Presynaptic Cell Tagging:
-        if synapse.getPreSynapticMechanism().get_type() == PreSynapticTypes.Cell:
-            tags.append( 'PRECELL:%s'%synapse.getPreSynapticCell().name )
-            if synapse.getPreSynapticCell().population is not None:
-                tags.append( 'PREPOP:%s'%synapse.getPreSynapticCell().population.pop_name )
+        if synapse.get_presynaptic_mechanism().get_type() == PreSynapticTypes.Cell:
+            tags.append( 'PRECELL:%s'%synapse.get_presynaptic_cell().name )
+            if synapse.get_presynaptic_cell().population is not None:
+                tags.append( 'PREPOP:%s'%synapse.get_presynaptic_cell().population.pop_name )
         else:
             tags.append( 'FIXEDTIMETRIGGER' )
             
         # Post Synaptic Cell Tagging:
-        tags.append( 'POSTCELL:%s'%synapse.getPostSynapticCell().name )
+        tags.append( 'POSTCELL:%s'%synapse.get_postsynaptic_cell().name )
         
-        if synapse.getPostSynapticCell().population:
-            tags.append( 'POSTPOP:%s'%synapse.getPostSynapticCell().population.pop_name )
+        if synapse.get_postsynaptic_cell().population:
+            tags.append( 'POSTPOP:%s'%synapse.get_postsynaptic_cell().population.pop_name )
         
         
             

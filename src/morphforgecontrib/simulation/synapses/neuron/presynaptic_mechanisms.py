@@ -31,12 +31,12 @@ ${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon( &v($sectio
 class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
 
         
-    def buildHOC(self, hocFileObj):
+    def build_hoc(self, hocFileObj):
         cell =self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synName = self.synapse.getName()
+        synName = self.synapse.get_name()
         synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
-        synNamePre = self.synapse.getName() + "Pre"
+        synNamePre = self.synapse.get_name() + "Pre"
         
         
         data = {
@@ -53,12 +53,12 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
                "weight": self.weight,
                }
          
-        hocFileObj.addToSection( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
         
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
         
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
     
     
@@ -82,7 +82,7 @@ objref fih_${synnamepre}
 fih_${synnamepre} = new FInitializeHandler("loadqueue_${synnamepre}()")
 proc loadqueue_${synnamepre}() { 
 #for $event in $timelist:
-${synnamepre}.event( $event.getTime.rescale("ms").magnitude ) 
+${synnamepre}.event( $event.get_time.rescale("ms").magnitude ) 
 #end for
 }
 
@@ -91,10 +91,10 @@ ${synnamepre}.event( $event.getTime.rescale("ms").magnitude )
 
 class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
            
-    def buildHOC(self, hocFileObj):
-        synName = self.synapse.getName()
+    def build_hoc(self, hocFileObj):
+        synName = self.synapse.get_name()
         synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
-        synNamePre = self.synapse.getName() + "Pre"
+        synNamePre = self.synapse.get_name() + "Pre"
         
         data = {
                "synname": synName,
@@ -104,18 +104,18 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
                "weight": self.weight,
                }
          
-        hocFileObj.addToSection( MHOCSections.InitSynapsesChemPre,  Template(preTmplList, data).respond() )
+        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmplList, data).respond() )
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
         
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass 
     
 
 #NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
 #NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
 
-NeuronSimulationEnvironment.presynapticmechanisms.registerPlugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
-NeuronSimulationEnvironment.presynapticmechanisms.registerPlugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
+NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
+NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
 
     

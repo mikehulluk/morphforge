@@ -21,7 +21,7 @@ from os.path import join as Join
 class NeuroMLDataLibrary(object):
 
     @classmethod
-    def getChannelMLV1Files(cls):
+    def get_channelMLV1Files(cls):
     
         subdirs = [
             "CA1PyramidalCell_NeuroML",
@@ -61,7 +61,7 @@ class NeuroMLDataLibrary(object):
     
     
     @classmethod
-    def getChannelMLV1FilesWithSingleChannel(cls,):
-        return [ f for f in cls.getChannelMLV1Files() if cls._fileContainsSingleChannel(f) ]
+    def get_channelMLV1FilesWithSingleChannel(cls,):
+        return [ f for f in cls.get_channelMLV1Files() if cls._fileContainsSingleChannel(f) ]
         
             

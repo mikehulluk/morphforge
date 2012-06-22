@@ -40,7 +40,7 @@ class HocModUtils(object):
     """%initial_buffer_size
 
     @classmethod
-    def CreateRecordFromModFile( cls, hocFile, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
+    def create_record_from_modfile( cls, hocFile, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
 
         cell = celllocation.cell
         section = celllocation.morphlocation.section
@@ -58,7 +58,7 @@ class HocModUtils(object):
                 }
 
         # Create the Cell Topology Template:
-        hocFile.addToSection( MHOCSections.InitRecords,   Template(HocModUtils.recordModTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitRecords,   Template(HocModUtils.recordModTmpl, data).respond() )
 
         # Save the data about this cell:
         hocFile[MHocFileData.Recordables][recordobj] = data
@@ -73,7 +73,7 @@ class HocModUtils(object):
         ${recVecName}.record(& ${objname}.${objvar} )
         """%initial_buffer_size
     @classmethod
-    def CreateRecordFromObject(cls, hocFile, vecname, objname, objvar, recordobj ):
+    def create_record_from_object(cls, hocFile, vecname, objname, objvar, recordobj ):
 
         data = {
                 "recVecName":vecname,
@@ -82,7 +82,7 @@ class HocModUtils(object):
                 }
 
         # Create the Cell Topology Template:
-        hocFile.addToSection( MHOCSections.InitRecords, Template(HocModUtils.recordHocTmpl, data).respond() )
+        hocFile.add_to_section( MHOCSections.InitRecords, Template(HocModUtils.recordHocTmpl, data).respond() )
 
         # Save the data about this cell:
         hocFile[MHocFileData.Recordables][recordobj] = data

@@ -34,7 +34,7 @@ morph = mf.MorphologyTree.fromSWC(src=open(srcSWCFile))
 
 
 #Look at the regions that are used in this morphology:
-for region in  morph.getRegions():
+for region in  morph.get_regions():
     #print region 
     print "Region: %s (%d)"%(region.name, 0)# len(region))
     print " - Surface Area: ", sum( [section.area for section in region] ), "um2"
@@ -56,7 +56,7 @@ ax1 = f.add_subplot("111")
 ax1.set_xlabel("Distance from soma")
 ax1.set_ylabel("Radius")
 ax1.set_color_cycle(['red','blue'])
-for region in  morph.getRegions():
+for region in  morph.get_regions():
     sections = list(region.sections)
     
     dists = [ section_dist_to_dummy(s) for s in sections ]

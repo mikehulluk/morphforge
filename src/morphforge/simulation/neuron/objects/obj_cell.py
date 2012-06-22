@@ -56,23 +56,23 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         
         super(MembraneVoltageRecord,self).__init__(**kwargs)
         self.cell = cell
-        self.location = location if location is not None else cell.getLocation("soma")
+        self.location = location if location is not None else cell.get_location("soma")
         
         
         
     def getUnit(self):
         return unit("mV")
     
-    def getStdTags(self):
+    def get_std_tags(self):
         return [StandardTags.Voltage] 
     
-    def getDescription(self):
+    def get_description(self):
         r = "Vm %s"%self.location.cell.name
         t = ":%s"% self.location.morphlocation.section.idTag if self.location.morphlocation.section.idTag else "" 
         return r + t
     
     
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         cell = self.location.cell
         section = self.location.morphlocation.section
         cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
@@ -81,7 +81,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         
         
         #nameHoc = hocFile[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        #HocModUtils.CreateRecordFromObject( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
+        #HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
         
         
         tmplDict = {
@@ -92,12 +92,12 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
                     }
         print tmplDict
         
-        hocFile.addToSection( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmplDict).respond() )
+        hocFile.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmplDict).respond() )
         
         hocFile[MHocFileData.Recordables][self] = tmplDict
         
         
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         pass
 
 
@@ -108,15 +108,15 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
 
 
 class MNeuronCell(Cell, NeuronObject):
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         HocBuilder.Cell(hocFile=hocFile, cell=self)
     
-    def buildMOD(self, modFileSet):
-        mechanisms = set( [ mta.mechanism for mta in self.getBiophysics().appliedmechanisms ] )
+    def build_mod(self, modFileSet):
+        mechanisms = set( [ mta.mechanism for mta in self.get_biophysics().appliedmechanisms ] )
         for m in mechanisms:
             m.createModFile( modFileSet)
      
-    def getRecordable(self, what, **kwargs): 
+    def get_recordable(self, what, **kwargs): 
         recordables = {
             MNeuronCell.Recordables.MembraneVoltage : MembraneVoltageRecord,
         }

@@ -37,18 +37,18 @@ from morphforge.traces.tracetypes import Trace_VariableDT,Trace_Piecewise, Trace
 
 
 def _get_piecewise_linear_points(tr):
-    xUnit = tr._pieces[0].getMinTime().units
-    yUnit = tr._pieces[0].getStartValue().units
+    xUnit = tr._pieces[0].get_min_time().units
+    yUnit = tr._pieces[0].get_start_value().units
     
     xPoints = []
     yPoints = []
     
     for p in tr._pieces:
-        xPoints.append( float(p.getMinTime().rescale(xUnit).magnitude) )
-        xPoints.append( float(p.getMaxTime().rescale(xUnit).magnitude) )
+        xPoints.append( float(p.get_min_time().rescale(xUnit).magnitude) )
+        xPoints.append( float(p.get_max_time().rescale(xUnit).magnitude) )
         
-        yPoints.append( float(p.getStartValue().rescale(yUnit).magnitude) )
-        yPoints.append( float(p.getEndValue().rescale(yUnit).magnitude) )
+        yPoints.append( float(p.get_start_value().rescale(yUnit).magnitude) )
+        yPoints.append( float(p.get_end_value().rescale(yUnit).magnitude) )
 
     return np.array(xPoints) * xUnit, np.array(yPoints) * yUnit 
                     

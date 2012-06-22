@@ -35,10 +35,10 @@ class RegionToIntMapBiMap(object):
         self.regionname2int[regionname] = int
         self.int2regionname[int] = regionname
     
-    def intToRegionName(self, int):
+    def int_to_region_name(self, int):
         return self.int2regionname[int]
         
-    def regionNameToInt(self, regionname):
+    def region_name_to_int(self, regionname):
         return self.regionname2int[regionname]
     
     
@@ -55,13 +55,13 @@ class AutoRegionToIntMapTable(RegionToIntMapBiMap):
             self.add_mapping(name, number)
             
     
-    def intToRegionName(self, int):
+    def int_to_region_name(self, int):
         
         if not int in self.int2regionname:
             self.add_mapping(regionname="AutoRegion%d"%int, int=int)
-        return RegionToIntMapBiMap.intToRegionName(self,int)
+        return RegionToIntMapBiMap.int_to_region_name(self,int)
     
-    def regionNameToInt(self, regionname):
+    def region_name_to_int(self, regionname):
         if not regionname in self.regionname2int:
             self.add_mapping(regionname=regionname, int=len(self.int2regionname) )
-        return RegionToIntMapBiMap.regionNameToInt(self,regionname)
+        return RegionToIntMapBiMap.region_name_to_int(self,regionname)

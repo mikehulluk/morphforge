@@ -27,7 +27,7 @@
 from morphforge.simulation.core.biophysics import * 
 
 def apply_mechanism_uniform( cell, mechanism, targetter, parameter_multipliers={}, parameter_overrides= {}):
-    vals = mechanism.getDefaults()
+    vals = mechanism.get_defaults()
         
     # Make it easy to scale values
     for k,v in parameter_multipliers.iteritems():
@@ -45,7 +45,7 @@ def apply_mechanism_uniform( cell, mechanism, targetter, parameter_multipliers={
             assert False
         vals[k] = v
     
-    cell.getBiophysics().addMechanism(mechanism=mechanism, 
+    cell.get_biophysics().add_mechanism(mechanism=mechanism, 
                                         targetter= targetter, 
                                         applicator=MembraneMechanismApplicator_Uniform(vals) )
 
@@ -70,7 +70,7 @@ def apply_mechanism_region_uniform( cell, mechanism, region, parameter_multiplie
 
 def apply_passive_everywhere_uniform( cell, passiveproperty, value):
     assert passiveproperty in PassiveProperty.all
-    cell.getBiophysics().addPassive(passiveproperty=passiveproperty, 
+    cell.get_biophysics().add_passive(passiveproperty=passiveproperty, 
                                         targetter= PassiveTargeter_Everywhere(), 
                                         value = value)
 

@@ -36,7 +36,7 @@ class NeuronObject(object):
         NeuronObject.objNames = {} 
     
     @classmethod
-    def getNextAnonName(cls):
+    def get_next_anon_name(cls):
         name = "AnonObj%04d"%NeuronObject.objCnt
         NeuronObject.objCnt += 1
         return name
@@ -52,7 +52,7 @@ class NeuronObject(object):
             NeuronObject.objNames[simulation] = set()
         
         if not name:
-            name = NeuronObject.getNextAnonName()
+            name = NeuronObject.get_next_anon_name()
         
         assert not name in NeuronObject.objNames[simulation]
         NeuronObject.objNames[simulation].add( name )
@@ -63,15 +63,15 @@ class NeuronObject(object):
         self.name = name
         
         
-    def getName(self):
+    def get_name(self):
         return self.objName
 
 
-    def buildHOC(self, hocFile):
+    def build_hoc(self, hocFile):
         raise NotImplementedError()
 
-    def buildMOD(self, modFileSet):
+    def build_mod(self, modFileSet):
         raise NotImplementedError()
 
-    def getRecordable(self, *args, **kwargs):
+    def get_recordable(self, *args, **kwargs):
         raise NotImplementedError()
