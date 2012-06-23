@@ -50,7 +50,7 @@ class MM_Neuron_Base(object):
             # We take the hash off the parameters that will change the mod-file.
             # This means we don't duplicate millions of mod-files
             #print 'At get_neuron_suffix'
-            mod_file_changeables = self.getModFileChangeables()
+            mod_file_changeables = self.get_mod_file_changeables()
             mod_file_changeables[None] = str( type(mod_file_changeables).__str__ ) 
             #md5 = getStringMD5Checksum ( pickle.dumps(mod_file_changeables ) )
             md5 = StrUtils.get_hash_md5( pickle.dumps(mod_file_changeables ) )

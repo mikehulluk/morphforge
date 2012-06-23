@@ -33,7 +33,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalph
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def getVoltageClampTrace(cls, V, chl, duration, cellArea, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cellArea, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
         from scipy.integrate import odeint
         import sympy
         
@@ -41,10 +41,10 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         
         stateNames = chl.statevars.keys()
         nStates = len(stateNames)
-        m_inf, m_tau =  InfTauCalculator.evaluateInfTauForV( chl.statevars[stateNames[0]], V)
+        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateNames[0]], V)
         m_tauMS = m_tau.rescale("ms").magnitude
         
-        infTaus = [ InfTauCalculator.evaluateInfTauForV( chl.statevars[stateName], V)  for stateName in stateNames ]
+        infTaus = [ InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateName], V)  for stateName in stateNames ]
         infTausMS = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus ]
         
         stateToIndex = dict( [ (state,index) for state,index in enumerate(stateNames) ] ) 
@@ -58,7 +58,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
                 res[i] = dState
             return res
         
-        # Run the ODE for each variable:            
+        # run the ODE for each variable:            
         t = t.rescale("ms").magnitude
         y0 = np.zeros( (nStates, ) )
         res = odeint(func=odeFunc, y0=y0, t= t  )
@@ -82,19 +82,19 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
             
         #@classmethod
         #def getResolvedAlphaBetaBetaCurves(cls, V, chl, state ):
-        #    alpha,beta = chl.getAlphaBetaAtVoltage(V, state)
+        #    alpha,beta = chl.get_alpha_beta_at_voltage(V, state)
         #    return  alpha,beta
         #    #return AlphaBetaBetaCalculator.getAlphaBetaBeta(V, chl.statevars[state][0], chl.statevars[state][1],chl.statevars[state][2], chl.beta2threshold   )
 #
 
         #@classmethod
-        #def PlotAlphaBetaCurves(cls, ax1, ax2, alphaBetaChannel, state, color="blue"):
+        #def plot_alpha_beta_curves(cls, ax1, ax2, alphaBetaChannel, state, color="blue"):
         #    #chl = alphaBetaChannel
         #    
-        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_default_voltage_array().rescale("mV")
         #    
-        #    #getAlphaBetaAtVoltage(self, V, statevar):
-        #    alpha,beta = alphaBetaChannel.getAlphaBetaAtVoltage(V, state) 
+        #    #get_alpha_beta_at_voltage(self, V, statevar):
+        #    alpha,beta = alphaBetaChannel.get_alpha_beta_at_voltage(V, state) 
         #    
         #    #cls.getResolvedAlphaBetaBetaCurves(V, chl, state)
         #    
@@ -109,14 +109,14 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #    
         #    
         #@classmethod 
-        #def PlotInfTauCurves(cls, ax1,ax2,alphaBetaChannel, state, color="blue" ):
+        #def plot_inf_tau_curves(cls, ax1,ax2,alphaBetaChannel, state, color="blue" ):
         #    
         #    chl = alphaBetaChannel
         #    
-        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_default_voltage_array().rescale("mV")
         #    
         #    alpha,beta = cls.getResolvedAlphaBetaBetaCurves(V, chl, state)
-        #    inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
+        #    inf,tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
         #    
         #    if isinstance(ax1, QuantitiesAxis):
         #    
@@ -143,16 +143,16 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                 
             
         #@classmethod
-        #def PlotStateCurveSummary(cls,  alphaBetaChl, state, figsize):
+        #def plot_state_curve_summary(cls,  alphaBetaChl, state, figsize):
         #    fig = QuantitiesFigure(figsize=figsize)
         #    fig.suptitle("AlphaBeta Channel - %s : %s"%(alphaBetaChl.name, state))
         #    ax1 = fig.add_subplot(221)
         #    ax2 = fig.add_subplot(222)
-        #    cls.PlotAlphaBetaCurves(ax1, ax2, alphaBetaChl,state )
+        #    cls.plot_alpha_beta_curves(ax1, ax2, alphaBetaChl,state )
         #    
         #    ax3 = fig.add_subplot(223)
         #    ax4 = fig.add_subplot(224)
-        #    cls.PlotInfTauCurves(ax3, ax4, alphaBetaChl,state )
+        #    cls.plot_inf_tau_curves(ax3, ax4, alphaBetaChl,state )
         #    return fig
         #    
         #    
@@ -160,14 +160,14 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
             
             
         #@classmethod 
-        #def PlotSteddyStateCurve(cls, ax1,alphaBetaChannel, state, power, color="blue" ):
+        #def plot_steddy_state_curve(cls, ax1,alphaBetaChannel, state, power, color="blue" ):
         #    
         #    chl = alphaBetaChannel
         #    
-        #    V = StdLimits.get_defaultVoltageArray().rescale("mV")
+        #    V = StdLimits.get_default_voltage_array().rescale("mV")
         #    
         #    alpha,beta = cls.getResolvedAlphaBetaBetaCurves(V, chl, state)
-        #    inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
+        #    inf,tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
         #    
         #    infpower = np.power(inf,power)
         #    if isinstance(ax1, QuantitiesAxis):
@@ -188,20 +188,20 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
             
             
         @classmethod
-        def toScreen(cls, alphaBetaChannel, state):
-            cls.PlotStateCurveSummary(alphaBetaChannel, state, figsize=(5,5))
+        def to_screen(cls, alphaBetaChannel, state):
+            cls.plot_state_curve_summary(alphaBetaChannel, state, figsize=(5,5))
             
             
             
 #        @classmethod
-#        def buildAlphaBetaTable(cls, elements, reportlabconfig, title, params ):   
+#        def build_alpha_beta_table(cls, elements, reportlabconfig, title, params ):   
 #            elements.append( Paragraph(title,reportlabconfig.styles['Heading4']) )
 #            alphaParams = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
 #            alphaTableData = [ ["A","B","C","D","E"], alphaParams.split()  ]
 #            elements.append( Table(alphaTableData, style=reportlabconfig.defaultTableStyle) )
 
         @classmethod
-        def toReportLab(cls, alphaBetaBetaChl, reportlabconfig, make_graphs):
+        def to_report_lab(cls, alphaBetaBetaChl, reportlabconfig, make_graphs):
             from reportlab.platypus import Paragraph, Table
             localElements = []
             localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
@@ -222,7 +222,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                 
                 
                 if make_graphs:
-                    fig = Summarise_MM_AlphaBetaChannel.PlotStateCurveSummary(alphaBetaBetaChl, state, figsize=(5,5))
+                    fig = Summarise_MM_AlphaBetaChannel.plot_state_curve_summary(alphaBetaBetaChl, state, figsize=(5,5))
                     localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                 
                 
@@ -239,13 +239,13 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                     localElements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )  
                 
                 # Alpha Beta
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Alpha", params=params[0] )   
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Beta1", params=params[1] )
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Beta2", params=params[2] )
                 

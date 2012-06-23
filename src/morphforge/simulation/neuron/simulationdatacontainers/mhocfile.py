@@ -37,7 +37,7 @@ class MHOCSections(object):
     InitGapJunction = "InitGapJunctions"
     InitRecords = "InitRecords"
     InitSimParams = "InitSimParams"
-    Run = "Run"
+    run = "run"
     
     ordered = [ 
                 InitHeader,
@@ -51,7 +51,7 @@ class MHOCSections(object):
                 InitGapJunction,
                 InitRecords,
                 InitSimParams,
-                Run,
+                run,
               ]
 
 class MHocFileData(object):

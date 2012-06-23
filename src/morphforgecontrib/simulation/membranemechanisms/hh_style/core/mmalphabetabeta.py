@@ -47,7 +47,7 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
 
 
     
-    def getAlphaBetaAtVoltage(self, V, statevar):
+    def get_alpha_beta_at_voltage(self, V, statevar):
         #from morphforgecontrib.simulation.default.summarisers.util import AlphaBetaCalculator
         #from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalphabeta import Summarise_MM_AlphaBetaCal
         from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import AlphaBetaCalculator
@@ -56,9 +56,9 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         beta2 = self.statevars[statevar][2]
         threshold = self.beta2threshold
     
-        alpha = AlphaBetaCalculator.calcAlphaBeta(V,alpha)
-        beta1 = AlphaBetaCalculator.calcAlphaBeta(V,beta1)
-        beta2 = AlphaBetaCalculator.calcAlphaBeta(V,beta2)
+        alpha = AlphaBetaCalculator.calc_alpha_beta(V,alpha)
+        beta1 = AlphaBetaCalculator.calc_alpha_beta(V,beta1)
+        beta2 = AlphaBetaCalculator.calc_alpha_beta(V,beta2)
         
         betaIndices1 = np.nonzero( V <  threshold )
         betaIndices2 = np.nonzero( V >= threshold )

@@ -40,17 +40,17 @@ class VoltageClampCurrentRecord(NeuronRecordable):
         super(VoltageClampCurrentRecord,self).__init__(**kwargs)
         self.vclamp = vclamp    
       
-    def getUnit(self):
+    def get_unit(self):
         return unit("nA")
     def get_std_tags(self):
         return [StandardTags.Current]
 
 
-    def build_hoc(self, hocFile):
-        objNameHoc = hocFile[MHocFileData.VoltageClamps][self.vclamp]["stimname"]
-        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
+    def build_hoc(self, hocfile_obj):
+        objNameHoc = hocfile_obj[MHocFileData.VoltageClamps][self.vclamp]["stimname"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
                 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
     
 
@@ -62,10 +62,10 @@ class MNeuronVoltageClampStepChange(VoltageClampStepChange ,NeuronObject):
         VoltageClampStepChange.__init__(self, name=name, **kwargs )
         NeuronObject.__init__(self, name=name, simulation=simulation )
       
-    def build_hoc(self, hocFile):
-        HocBuilder.VoltageClamp( hocFile=hocFile, voltageclamp=self)
+    def build_hoc(self, hocfile_obj):
+        HocBuilder.VoltageClamp( hocfile_obj=hocfile_obj, voltageclamp=self)
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
     
  

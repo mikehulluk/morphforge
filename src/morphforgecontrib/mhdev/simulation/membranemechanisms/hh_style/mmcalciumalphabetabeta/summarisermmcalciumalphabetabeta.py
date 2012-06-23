@@ -59,10 +59,10 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
 
 
         @classmethod
-        def PlotAlphaBetaCurves(cls, ax1,ax2, calciumAlphaBetaBetaChannel, state):
+        def plot_alpha_beta_curves(cls, ax1,ax2, calciumAlphaBetaBetaChannel, state):
             chl = calciumAlphaBetaBetaChannel
             
-            V = StdLimits.get_defaultVoltageArray().rescale("mV")
+            V = StdLimits.get_default_voltage_array().rescale("mV")
             
             alpha,beta = cls.getResolvedAlphaBetaCurves(V, chl, state)
             
@@ -75,14 +75,14 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             ax2.set_ylabel("Beta")
             
         @classmethod 
-        def PlotInfTauCurves(cls, ax1,ax2,calciumAlphaBetaBetaChannel, state ):
+        def plot_inf_tau_curves(cls, ax1,ax2,calciumAlphaBetaBetaChannel, state ):
             
             chl = calciumAlphaBetaBetaChannel
             
-            V = StdLimits.get_defaultVoltageArray().rescale("mV")
+            V = StdLimits.get_default_voltage_array().rescale("mV")
             
             alpha,beta = cls.getResolvedAlphaBetaCurves(V, chl, state)
-            inf,tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
+            inf,tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
             
             ax1.plot(V,inf)
             ax1.set_xlabel("Voltage")
@@ -96,22 +96,22 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             
         
         @classmethod
-        def PlotStateCurveSummary(cls,  alphaBetaChl, state, figsize):
+        def plot_state_curve_summary(cls,  alphaBetaChl, state, figsize):
             fig = QuantitiesFigure(figsize=figsize)
             fig.suptitle("Calcium AlphaBetaBeta Channel - %s : %s"%(alphaBetaChl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.PlotAlphaBetaCurves(ax1, ax2, alphaBetaChl,state )
+            cls.plot_alpha_beta_curves(ax1, ax2, alphaBetaChl,state )
             
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.PlotInfTauCurves(ax3, ax4, alphaBetaChl,state )
+            cls.plot_inf_tau_curves(ax3, ax4, alphaBetaChl,state )
             return fig
             
         
         @classmethod
         def PlotGHKMaxCurrentFlow(cls,calciumAlphaBetaBetaChannel, figsize ):
-            V = StdLimits.get_defaultVoltageArray().rescale("mV")
+            V = StdLimits.get_default_voltage_array().rescale("mV")
             # Plot the 
             fig = QuantitiesFigure(figsize=figsize)
             ax1 = fig.add_subplot(221, xUnit="mV",yUnit="pA/cm2", xlabel="Voltage", ylabel="")
@@ -131,13 +131,13 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             
             
         @classmethod
-        def toScreen(cls, calciumAlphaBetaBetaChannel, state):
-            cls.PlotStateCurveSummary(cls, calciumAlphaBetaBetaChannel, state, figsize=(5,5))
+        def to_screen(cls, calciumAlphaBetaBetaChannel, state):
+            cls.plot_state_curve_summary(cls, calciumAlphaBetaBetaChannel, state, figsize=(5,5))
             cls.PlotGHKMaxCurrentFlow(cls, calciumAlphaBetaBetaChannel, figsize=(4,4) )
             
             
         @classmethod
-        def toReportLab(cls, calciumAlphaBetaBetaChannel, reportlabconfig, make_graphs):
+        def to_report_lab(cls, calciumAlphaBetaBetaChannel, reportlabconfig, make_graphs):
             chl = calciumAlphaBetaBetaChannel
            
             localElements = []
@@ -169,7 +169,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                 localElements.append( Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']) )
                 
                 if make_graphs:
-                    fig = cls.PlotStateCurveSummary(chl, state, figsize=(5,5))
+                    fig = cls.plot_state_curve_summary(chl, state, figsize=(5,5))
                     localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     fig.close()
              
@@ -184,13 +184,13 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                     localElements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )  
                 
                 # Alpha Beta
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Alpha", params=params[0] )   
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Beta1", params=params[1] )
-                ReportLabTools.buildAlphaBetaTable( elements=localElements, 
+                ReportLabTools.build_alpha_beta_table( elements=localElements, 
                                          reportlabconfig=reportlabconfig, 
                                          title="Beta2", params=params[2] )
              

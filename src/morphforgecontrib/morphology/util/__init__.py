@@ -13,6 +13,6 @@
 
 from axontrimmer import AxonTrimmer
 from morphologytranslator import MorphologyTranslator
-from util import CellLocationDistanceFromSoma
+from util import cell_location_distance_from_soma
 
-__all__ = ["AxonTrimmer", "MorphologyTranslator", "CellLocationDistanceFromSoma"]
+__all__ = ["AxonTrimmer", "MorphologyTranslator", "cell_location_distance_from_soma"]

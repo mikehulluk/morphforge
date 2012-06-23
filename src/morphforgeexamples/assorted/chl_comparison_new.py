@@ -76,8 +76,8 @@ def simulate_chl_vclamp(chl, voltage_level):
     
     
     
-    # Run the simulation
-    results = mySim.Run()
+    # run the simulation
+    results = mySim.run()
     
     
     

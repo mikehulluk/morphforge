@@ -16,7 +16,7 @@ from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
 
 
-def CellLocationDistanceFromSoma(celllocation):
+def cell_location_distance_from_soma(celllocation):
     
     morph = celllocation.cell.morphology
     sectDistDict = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph, somaCentre=False)()

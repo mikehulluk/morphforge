@@ -109,8 +109,8 @@ def simulate(current_inj_level):
     # Define what to record:
     mySim.record( myCell, what=StdRec.MembraneVoltage, location = somaLoc ) 
     
-    # Run the simulation
-    results = mySim.Run()
+    # run the simulation
+    results = mySim.run()
     
     return results
 

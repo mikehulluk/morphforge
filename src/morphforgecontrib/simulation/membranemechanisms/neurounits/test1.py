@@ -167,8 +167,8 @@ mySim.record(hhChannels, what="m", celllocation=somaLoc, user_tags=[StandardTags
 mySim.record(hhChannels, what="mult", celllocation=somaLoc, user_tags=[StandardTags.StateVariable])
 mySim.record(hhChannels, what="h", celllocation=somaLoc, user_tags=[StandardTags.StateVariable])
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 
 

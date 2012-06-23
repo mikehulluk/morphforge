@@ -57,9 +57,9 @@ class MNeuronSimulation(Simulation):
         self.recordableNames = set()
 
 
-    def Run(self, doSpawn=True):
+    def run(self, do_spawn=True):
         #return
-        if doSpawn:
+        if do_spawn:
             return self._run_spawn()
         else:
             return self._run_no_spawn()
@@ -122,9 +122,9 @@ class MNeuronSimulation(Simulation):
         records = hocData[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            dataArray = _random_walk(len(timeArray), 0.05 ) * r.getUnit()
+            dataArray = _random_walk(len(timeArray), 0.05 ) * r.get_unit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.getTags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.get_tags() )
             traces.append(tr)
 
         self.result = SimulationResult(traces, self)
@@ -187,7 +187,7 @@ class MNeuronSimulation(Simulation):
         nrn(h.load_file, hocFilename )
         self.hocfilename = hocFilename
 
-        # Run the simulation
+        # run the simulation
         class Event(object):
             def __init__(self):
                 self.interval = 5.0
@@ -216,9 +216,9 @@ class MNeuronSimulation(Simulation):
         records = hocData[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            dataArray = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.getUnit()
+            dataArray = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.get_unit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.getTags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.get_tags() )
             traces.append(tr)
         print "Time for Extracting Data: (%d records)"%(len(records)),  time.time() - tTraceReadStart
 

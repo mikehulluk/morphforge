@@ -40,16 +40,16 @@ class HocModUtils(object):
     """%initial_buffer_size
 
     @classmethod
-    def create_record_from_modfile( cls, hocFile, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
+    def create_record_from_modfile( cls, hocfile_obj, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
 
         cell = celllocation.cell
         section = celllocation.morphlocation.section
         sectionpos = celllocation.morphlocation.sectionpos
 
-        section_index =  hocFile[MHocFileData.Cells][cell]["section_indexer"][section]
+        section_index =  hocfile_obj[MHocFileData.Cells][cell]["section_indexer"][section]
 
         data = {
-                "cellname": hocFile[MHocFileData.Cells][cell]["cell_name"],
+                "cellname": hocfile_obj[MHocFileData.Cells][cell]["cell_name"],
                 "sectionindex":section_index,
                 "sectionpos": sectionpos,
                 "neuron_suffix":mod_neuronsuffix,
@@ -58,10 +58,10 @@ class HocModUtils(object):
                 }
 
         # Create the Cell Topology Template:
-        hocFile.add_to_section( MHOCSections.InitRecords,   Template(HocModUtils.recordModTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitRecords,   Template(HocModUtils.recordModTmpl, data).respond() )
 
         # Save the data about this cell:
-        hocFile[MHocFileData.Recordables][recordobj] = data
+        hocfile_obj[MHocFileData.Recordables][recordobj] = data
 
 
 
@@ -73,7 +73,7 @@ class HocModUtils(object):
         ${recVecName}.record(& ${objname}.${objvar} )
         """%initial_buffer_size
     @classmethod
-    def create_record_from_object(cls, hocFile, vecname, objname, objvar, recordobj ):
+    def create_record_from_object(cls, hocfile_obj, vecname, objname, objvar, recordobj ):
 
         data = {
                 "recVecName":vecname,
@@ -82,10 +82,10 @@ class HocModUtils(object):
                 }
 
         # Create the Cell Topology Template:
-        hocFile.add_to_section( MHOCSections.InitRecords, Template(HocModUtils.recordHocTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitRecords, Template(HocModUtils.recordHocTmpl, data).respond() )
 
         # Save the data about this cell:
-        hocFile[MHocFileData.Recordables][recordobj] = data
+        hocfile_obj[MHocFileData.Recordables][recordobj] = data
 
 
 

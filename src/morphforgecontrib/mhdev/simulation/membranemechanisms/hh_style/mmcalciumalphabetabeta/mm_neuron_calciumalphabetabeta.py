@@ -28,13 +28,13 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
         self.caAlphaBetaBetaChl = caAlphaBetaBetaChl
 
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
 
-    def buildHocRecVar(self, hocFile, vecname, modvar ):
-        HocModUtils.create_record_from_modfile( hocFile, vecname=vecname, celllocation=self.where, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
+    def buildHocRecVar(self, hocfile_obj, vecname, modvar ):
+        HocModUtils.create_record_from_modfile( hocfile_obj, vecname=vecname, celllocation=self.where, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
     
-    def getTags(self,):
+    def get_tags(self,):
         return []
     
     def get_description(self):
@@ -44,11 +44,11 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
 
 class MM_Neuron_CalciumAlphaBetaBeta_CurrentDensityRecord(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
-    def getUnit(self):   return unit("mA/cm2")
+    def get_unit(self):   return unit("mA/cm2")
     def get_std_tags(self):   return [ StandardTags.CurrentDensity ]
 
-    def build_hoc(self, hocFile):
-        self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar="i"  )
+    def build_hoc(self, hocfile_obj):
+        self.buildHocRecVar( hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar="i"  )
         
                 
 class MM_Neuron_CalciumAlphaBetaBeta_RecordState(MM_Neuron_CalciumAlphaBetaBeta_Record):
@@ -57,11 +57,11 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordState(MM_Neuron_CalciumAlphaBetaBeta_
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordState, self).__init__(**kwargs)
         self.state = state
 
-    def getUnit(self):        return unit("1")
+    def get_unit(self):        return unit("1")
     def get_std_tags(self):        return [ StandardTags.StateVariable ]
 
-    def build_hoc(self, hocFile):
-        self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
+    def build_hoc(self, hocfile_obj):
+        self.buildHocRecVar( hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state  )
                 
 class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
@@ -69,11 +69,11 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_Calcium
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState, self).__init__(**kwargs)
         self.state = state
 
-    def getUnit(self):        return unit("1")
+    def get_unit(self):        return unit("1")
     def get_std_tags(self):        return [ StandardTags.StateSteddyState]
 
-    def build_hoc(self, hocFile):
-        self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
+    def build_hoc(self, hocfile_obj):
+        self.buildHocRecVar( hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state  )
         
     
         
@@ -83,11 +83,11 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(MM_Neuron_Calciu
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant, self).__init__(**kwargs)
         self.state = state
 
-    def getUnit(self):        return unit("ms")
+    def get_unit(self):        return unit("ms")
     def get_std_tags(self):        return [ StandardTags.StateTimeConstant ]
 
-    def build_hoc(self, hocFile):
-        self.buildHocRecVar( hocFile=hocFile, vecname = "RecVec%s"%self.name, modvar=self.state  )
+    def build_hoc(self, hocfile_obj):
+        self.buildHocRecVar( hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state  )
 
 
 
@@ -121,15 +121,15 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_B
         return recordable
     
     
-    def build_HOC_Section( self, cell, section, hocFile, mta ):
-        return MM_WriterCalciumAlphaBetaBeta.build_HOC_Section( cell=cell, section=section, hocFile=hocFile, mta=mta)
+    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
+        return MM_WriterCalciumAlphaBetaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
     
     
-    def createModFile(self, modFileSet):
-        MM_WriterCalciumAlphaBetaBeta.build_Mod(caAlphaBetaBetaChl=self, modFileSet=modFileSet)
+    def create_modfile(self, modfile_set):
+        MM_WriterCalciumAlphaBetaBeta.build_Mod(caAlphaBetaBetaChl=self, modfile_set=modfile_set)
         
         
-    def getModFileChangeables(self):
+    def get_mod_file_changeables(self):
        
         change_attrs = set([ 'CaZ', 'name', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration' ])
         #print set( self.__dict__ )

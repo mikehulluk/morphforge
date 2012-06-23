@@ -32,7 +32,7 @@ import morphforge.core.quantities as pq
 class AlphaBetaCalculator(object):
 
     @classmethod    
-    def calcAlphaBeta(cls, V, ab ):
+    def calc_alpha_beta(cls, V, ab ):
         v = V.rescale("mV").magnitude
         alphabeta = (ab[0] + ab[1] * v) / (ab[2] + np.exp((ab[3] + v) / ab[4])) 
         alphabeta = alphabeta * (pq.J/pq.J)
@@ -41,8 +41,8 @@ class AlphaBetaCalculator(object):
     
     #@classmethod
     #def getAlphaBeta(cls, V, alpha, beta):
-    #    alpha = cls.calcAlphaBeta(V,alpha)
-    #    beta =  cls.calcAlphaBeta(V,beta)
+    #    alpha = cls.calc_alpha_beta(V,alpha)
+    #    beta =  cls.calc_alpha_beta(V,beta)
     #    return alpha,beta
     
 
@@ -54,7 +54,7 @@ class AlphaBetaCalculator(object):
 #class AlphaBetaBetaCalculator(object):
 #
 #    @classmethod    
-#    def calcAlphaBeta(cls, V, ab ):
+#    def calc_alpha_beta(cls, V, ab ):
 #        v = V.rescale("mV").magnitude
 #        alphabeta = (ab[0] + ab[1] * v) / (ab[2] + np.exp((ab[3] + v) / ab[4])) 
 #        alphabeta = alphabeta * pq.dimensionless
@@ -63,9 +63,9 @@ class AlphaBetaCalculator(object):
 #    
 #    @classmethod
 #    def getAlphaBetaBeta(cls, V, alpha, beta1, beta2, threshold):
-#        alpha = cls.calcAlphaBeta(V,alpha)
-#        beta1 = cls.calcAlphaBeta(V,beta1)
-#        beta2 = cls.calcAlphaBeta(V,beta2)
+#        alpha = cls.calc_alpha_beta(V,alpha)
+#        beta1 = cls.calc_alpha_beta(V,beta1)
+#        beta2 = cls.calc_alpha_beta(V,beta2)
 #        
 #        betaIndices1 = np.nonzero( V <  threshold )
 #        betaIndices2 = np.nonzero( V >= threshold )
@@ -85,16 +85,16 @@ class AlphaBetaCalculator(object):
 
 class InfTauCalculator(object):
     @classmethod
-    def AlphaBetaToInfTau(cls,alpha,beta):
+    def alpha_beta_to_inf_tau(cls,alpha,beta):
         inf = alpha/(alpha+beta) 
         tau = 1.0/(alpha+beta) * pq.milli * pq.second
         return inf,tau    
      
      
     @classmethod
-    def evaluateInfTauForV(cls, (alphaParams, betaParams), V):
+    def evaluate_inf_tau_for_v(cls, (alphaParams, betaParams), V):
         alpha, beta = AlphaBetaCalculator.getAlphaBeta(V, alphaParams,betaParams)
-        inf, tau = InfTauCalculator.AlphaBetaToInfTau(alpha, beta)
+        inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)
         return inf,tau
 
 
@@ -102,7 +102,7 @@ class InfTauCalculator(object):
 class ReportLabTools(object):
     
     @classmethod
-    def buildAlphaBetaTable(cls, elements, reportlabconfig, title, params ):   
+    def build_alpha_beta_table(cls, elements, reportlabconfig, title, params ):   
 
         from reportlab.platypus import Paragraph, Table
         elements.append( Paragraph(title,reportlabconfig.styles['Heading4']) )

@@ -35,7 +35,7 @@ from morphforge.morphology.core import MorphologyTree
 
 class DictionaryLoader(object):
     @classmethod
-    def Load(cls,  morphDict, name=None, metaData=None):
+    def load(cls,  morphDict, name=None, metaData=None):
         """ Load a morphology from a recursive dictionary such as:
         {'root': {'length': 20, 'diam': 20, 'sections': 
             [
@@ -252,4 +252,4 @@ class DictionaryLoader(object):
     
     
 
-MorphologyImporter.register("fromDictionary", DictionaryLoader.Load, allow_override=False, as_type=MorphologyTree) 
+MorphologyImporter.register("fromDictionary", DictionaryLoader.load, allow_override=False, as_type=MorphologyTree) 

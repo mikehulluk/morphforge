@@ -315,8 +315,8 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
 
 
-    # Run the simulation
-    results = mySim.Run()
+    # run the simulation
+    results = mySim.run()
     return results
 
 

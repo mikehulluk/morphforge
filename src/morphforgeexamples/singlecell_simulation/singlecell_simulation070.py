@@ -81,8 +81,8 @@ mySim.record( kChannels,  where = somaLoc, what=StdRec.StateVariable, state="n" 
 #mySim.record( kChannels,  where = somaLoc, what=StdRec.StateVarSteadyState, state="n" )
 
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 
 # Display the results, there is a lot of info for one graph, so lets split it up:

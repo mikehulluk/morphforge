@@ -336,7 +336,7 @@ def test_cell_current(cell_name, cell_chl_functor, current):
     sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
-    res =sim.Run()
+    res =sim.run()
     return res
 
 
@@ -572,33 +572,33 @@ driver_RHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=nNeu
 
 
 # Connect the drivers:
-mfc.Connectors.TimesToAll( sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
-mfc.Connectors.TimesToAll( sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all( sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all( sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
 
 # LHS
 #######
 # Connect the drivers to eveything:
-mfc.Connectors.AllToAll( sim, presynaptic_population=driver_LHS, postsynaptic_population= cIN_LHS, connect_functor = driver_onto_cin)
-mfc.Connectors.AllToAll( sim, presynaptic_population=driver_LHS, postsynaptic_population= dINr_LHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all( sim, presynaptic_population=driver_LHS, postsynaptic_population= cIN_LHS, connect_functor = driver_onto_cin)
+mfc.Connectors.all_to_all( sim, presynaptic_population=driver_LHS, postsynaptic_population= dINr_LHS, connect_functor = driver_onto_dinr)
 # Connect the dINrs to eveything:
-mfc.Connectors.AllToAll( sim, presynaptic_population=dINr_LHS, postsynaptic_population= cIN_LHS, connect_functor = dinr_onto_cin)
+mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_LHS, postsynaptic_population= cIN_LHS, connect_functor = dinr_onto_cin)
 
 # Connect the cINs to eveything contra-laterally:
-mfc.Connectors.AllToAll( sim, presynaptic_population=cIN_LHS, postsynaptic_population= cIN_RHS, connect_functor = cin_onto_cin)
-syn_cin_dinr_lr = mfc.Connectors.AllToAll( sim, presynaptic_population=cIN_LHS, postsynaptic_population= dINr_RHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
+mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_LHS, postsynaptic_population= cIN_RHS, connect_functor = cin_onto_cin)
+syn_cin_dinr_lr = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_LHS, postsynaptic_population= dINr_RHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
 
 
 ## RHS
 ########
-mfc.Connectors.AllToAll( sim, presynaptic_population=driver_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
-mfc.Connectors.AllToAll( sim, presynaptic_population=driver_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all( sim, presynaptic_population=driver_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
+mfc.Connectors.all_to_all( sim, presynaptic_population=driver_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
 # Connect the dINrs to eveything:
-mfc.Connectors.AllToAll( sim, presynaptic_population=dINr_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
-#mfc.Connectors.AllToAll( sim, presynaptic_population=dINr_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
+#mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
 
 # Connect the cINs to eveything contra-laterally:
-mfc.Connectors.AllToAll( sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = cin_onto_cin)
-syn_cin_dinr_rl = mfc.Connectors.AllToAll( sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
+mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = cin_onto_cin)
+syn_cin_dinr_rl = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
 
 
 
@@ -642,7 +642,7 @@ syn_cin_dinr_lr.record_from_all(what='g')
 #sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
 #sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
-res =sim.Run()
+res =sim.run()
 
 for tr in res.get_traces():
     print tr.tags
@@ -685,7 +685,7 @@ mf.TagViewer(res,
 
 
 
-# What to Run:
+# What to run:
 #test_step_current_injections()
 
 pylab.show()

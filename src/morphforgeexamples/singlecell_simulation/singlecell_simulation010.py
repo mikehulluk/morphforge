@@ -60,8 +60,8 @@ mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location 
 mySim.recordall( leakChannels, where=somaLoc)
 
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 # Create an output .pdf
 SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)

@@ -238,7 +238,7 @@ class SimulationSummariser(object):
     
     def summarise_gapjunctions(self):    
         from reportlab.platypus import Paragraph, Table, PageBreak
-        from morphforgecontrib.morphology.util.util import CellLocationDistanceFromSoma
+        from morphforgecontrib.morphology.util.util import cell_location_distance_from_soma
 
         localElements = []
         localElements.append( Paragraph("Gap Junctions", self.reportlabconfig.styles['Heading1'] ) )
@@ -251,8 +251,8 @@ class SimulationSummariser(object):
             cell1Name = gj.celllocation1.cell.name
             cell2Name = gj.celllocation2.cell.name
             resistance = gj.resistance.rescale("MOhm")
-            cell1Distance = CellLocationDistanceFromSoma( gj.celllocation1 ) 
-            cell2Distance = CellLocationDistanceFromSoma( gj.celllocation2 )
+            cell1Distance = cell_location_distance_from_soma( gj.celllocation1 ) 
+            cell2Distance = cell_location_distance_from_soma( gj.celllocation2 )
             
             print "GJ1:", gj.celllocation1.morphlocation.get_3d_position()
             print "GJ2:", gj.celllocation2.morphlocation.get_3d_position()

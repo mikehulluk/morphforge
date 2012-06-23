@@ -45,9 +45,9 @@ class NeuronSynapse(NeuronObject, Synapse):
         self.postSynapticMech.build_hoc(hocFileObject)
         self.preSynapticTrigger.build_hoc(hocFileObject)
     
-    def build_mod(self, modFileSet):
-        self.postSynapticMech.build_mod(modFileSet)
-        self.preSynapticTrigger.build_mod(modFileSet)
+    def build_mod(self, modfile_set):
+        self.postSynapticMech.build_mod(modfile_set)
+        self.preSynapticTrigger.build_mod(modfile_set)
 
         
     def get_recordable(self, what, **kwargs):
@@ -134,12 +134,12 @@ class NeuronGapJunction(GapJunction, NeuronObject):
         
     
     isFirstBuild = True
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         
         if NeuronGapJunction.isFirstBuild:
             NeuronGapJunction.isFirstBuild = False
             m = ModFile(modtxt=gapMod, name="GapJunction") 
-            modFileSet.append(m)
+            modfile_set.append(m)
             
             
     def build_hoc(self, hocFileObj):

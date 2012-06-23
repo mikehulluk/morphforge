@@ -42,16 +42,16 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
         super(Neuron_PSM_Std_NMDAVoltageDependanceRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
-    def getUnit(self):
+    def get_unit(self):
         return unit("")
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]
 
-    def build_hoc(self, hocFile):
-        objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dep_state", recordobj=self )
+    def build_hoc(self, hocfile_obj):
+        objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dep_state", recordobj=self )
                 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass    
     
     
@@ -61,16 +61,16 @@ class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
         super(Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
-    def getUnit(self):
+    def get_unit(self):
         return unit("")
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancySS]
 
-    def build_hoc(self, hocFile):
-        objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy_ss", recordobj=self )
+    def build_hoc(self, hocfile_obj):
+        objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy_ss", recordobj=self )
                 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass        
     
 
@@ -123,10 +123,10 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         #import postsynaptic_mechanisms_exp2syn_nmda_modfile
-        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile.getExp2SynNMDAMgBlockTimeDependanceModfile(), name='UnusedParameterXXXExpSyn2')
-        modFileSet.append(modfile)
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile.get_exp2_syn_nmda_mg_block_time_dependance_modfile(), name='UnusedParameterXXXExpSyn2')
+        modfile_set.append(modfile)
         
         
         

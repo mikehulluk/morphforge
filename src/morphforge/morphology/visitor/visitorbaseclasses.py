@@ -64,7 +64,7 @@ class SectionVisitorDF(object):
 
 
     def visit_section_internal(self, section):
-        """ Implements:  1. Visit the node. 2. Traverse the subtrees. """
+        """ Implements:  1. visit the node. 2. Traverse the subtrees. """
         if section.is_dummy_section():
             if self.is_visit_dummy():
                 #assert False

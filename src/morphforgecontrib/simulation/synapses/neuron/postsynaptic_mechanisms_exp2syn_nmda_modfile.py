@@ -19,7 +19,7 @@ class NMDAOoptions:
     EnableVDep = True
 
 
-def getExp2SynNMDAModfile(vdep):
+def get_exp2_syn_nmda_modfile(vdep):
 
     x= """
 COMMENT

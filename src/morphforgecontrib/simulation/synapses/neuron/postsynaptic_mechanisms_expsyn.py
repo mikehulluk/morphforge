@@ -80,7 +80,7 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
         
     

@@ -60,7 +60,7 @@ class ModFile(object):
     def ensure_built(self):
         LogMgr.info("Ensuring Modfile is built")
         from modfilecompiler import ModFileCompiler
-        ModFileCompiler()._build_modFile(self)
+        ModFileCompiler()._build_modfile(self)
 
 
 

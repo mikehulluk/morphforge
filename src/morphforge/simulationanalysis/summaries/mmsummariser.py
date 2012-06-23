@@ -93,7 +93,7 @@ class MembraneMechanismSummariser(object):
 
         # Detailed Summary:
         if summariser:
-            localElements.extend( summariser.toReportLab( membranemechanism, reportlabconfig, make_graphs=make_graphs ) )
+            localElements.extend( summariser.to_report_lab( membranemechanism, reportlabconfig, make_graphs=make_graphs ) )
         else:
             localElements.append( Paragraph("[No Summariser Available]", reportlabconfig.styles['Italic'] ) )
 

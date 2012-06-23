@@ -33,7 +33,7 @@ from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_HOC_default
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 from neurounits.neurounitparser import NeuroUnitParser
 from morphforge.core import ObjectLabeller
 
@@ -53,11 +53,11 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
         self.unit_in_nrn = unit_in_nrn
         self.std_tags = std_tags or []
 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
 
-    def build_hoc(self, hocFile):
-        HocModUtils.create_record_from_modfile( hocFile,
+    def build_hoc(self, hocfile_obj):
+        HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
@@ -67,7 +67,7 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
     def get_description(self):
         return "%s %s %s" % (self.modvar, self.srcChl.name, self.where.get_location_description_str() )
 
-    def getUnit(self):
+    def get_unit(self):
         return self.unit_in_nrn
     def get_std_tags(self):
         return self.std_tags
@@ -127,14 +127,14 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
         self.NRNSUFFIX = self.buildparameters.suffix
 
-    def build_HOC_Section( self, cell, section, hocFile, mta ):
-        build_HOC_default( cell=cell, section=section, hocFile=hocFile, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix )
+    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
+        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix )
 
-    def createModFile(self, modFileSet):
-        modFileSet.append(ModFile(name=self.name, modtxt=self.nmodl_txt ))
+    def create_modfile(self, modfile_set):
+        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt ))
 
 
-    def getModFileChangeables(self):
+    def get_mod_file_changeables(self):
         change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
         fixed_attrs = set( ['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',] )
         print set( self.__dict__)
@@ -145,11 +145,11 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
 
     def get_recordables(self):
-        return  self._get_recordableSymbols()
+        return  self._get_recordable_symbols()
         assert False
 
 
-    def _get_recordableSymbols(self):
+    def _get_recordable_symbols(self):
         return [ s.symbol for s in list(self.eqnset.states) + list(self.eqnset.assignedvalues) + list(self.eqnset.suppliedvalues) + list(self.eqnset.parameters) ]
 
     def get_recordable(self, what, celllocation, **kwargs):
@@ -157,7 +157,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
         # Map it through the recordables_map, so that we can alias to StandardTags:
         what = self.recordables_map.get(what,what)
 
-        valid_symbols = self._get_recordableSymbols()
+        valid_symbols = self._get_recordable_symbols()
         if not what in  valid_symbols:
             err ="Unknown record value: %s. Expecting one of: %s "%(what, valid_symbols)
             raise ValueError(err)

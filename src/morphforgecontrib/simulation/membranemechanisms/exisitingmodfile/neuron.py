@@ -13,7 +13,7 @@ from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_HOC_default #MM_Neuron_GeneralisedRecord, 
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default #MM_Neuron_GeneralisedRecord, 
 from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 
 import re
@@ -54,13 +54,13 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
                 
         
 
-    def build_HOC_Section(self, cell, section, hocFile, mta ):
+    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
         #Units = dict( [ (p.symbol, pq.Quantity(1., p.get_dimension().simplified ) ) for p in self.eqnset.parameters] )
-        build_HOC_default( cell=cell, section=section, hocFile=hocFile, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
+        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
         
-    def createModFile(self, modFileSet):
+    def create_modfile(self, modfile_set):
         modFile =  ModFile(name='EqnSetModfile', modtxt=self.mod_text )
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)
         
     
     

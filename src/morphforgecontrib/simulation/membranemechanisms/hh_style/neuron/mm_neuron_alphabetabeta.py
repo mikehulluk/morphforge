@@ -32,11 +32,11 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
         self.alphaBetaBetaChl = alphaBetaBetaChl
         self.modvar=modvar
 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass   
  
-    def build_hoc(self, hocFile):
-        HocModUtils.create_record_from_modfile( hocFile, 
+    def build_hoc(self, hocfile_obj):
+        HocModUtils.create_record_from_modfile( hocfile_obj, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
@@ -51,7 +51,7 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
 class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, **kwargs):
         super( MM_Neuron_AlphaBetaBeta_CurrentDensityRecord, self).__init__( modvar='i', **kwargs)
-    def getUnit(self):
+    def get_unit(self):
         return unit("mA/cm2")
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
@@ -59,7 +59,7 @@ class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Recor
 class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, **kwargs):
         super( MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
-    def getUnit(self):
+    def get_unit(self):
         return unit("S/cm2")
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
@@ -69,7 +69,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableRecord, self).__init__(modvar=state, **kwargs)
    
-    def getUnit(self):
+    def get_unit(self):
         return unit("")
     def get_std_tags(self):
         return [StandardTags.StateVariable]
@@ -78,7 +78,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Rec
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord, self).__init__(modvar=state+"tau", **kwargs)
     
-    def getUnit(self):
+    def get_unit(self):
         return unit("ms")
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant ] 
@@ -88,7 +88,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord, self).__init__(modvar=state+'inf', **kwargs)
      
-    def getUnit(self):
+    def get_unit(self):
         return unit("")
     def get_std_tags(self):
         return [StandardTags.StateSteadyState ] 
@@ -140,16 +140,16 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #        self.modvar=modvar
 #        #self.celllocation = celllocation
 #
-#    def getUnit(self):
+#    def get_unit(self):
 #        return unit("mA/cm2")
 #    def get_std_tags(self):
 #        return [StandardTags.CurrentDensity]
 #
 #
-#    def build_hoc(self, hocFile):
-#        HocModUtils.create_record_from_modfile( hocFile, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
+#    def build_hoc(self, hocfile_obj):
+#        HocModUtils.create_record_from_modfile( hocfile_obj, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 #                
-#    def build_mod(self, modFileSet):
+#    def build_mod(self, modfile_set):
 #        pass    
 
 
@@ -181,13 +181,13 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         
     
     
-    def build_HOC_Section( self, cell, section, hocFile, mta ):
-        return MM_WriterAlphaBetaBeta.build_HOC_Section( cell=cell, section=section, hocFile=hocFile, mta=mta)
+    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
+        return MM_WriterAlphaBetaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
     
     
     
-    def createModFile(self, modFileSet):
-        MM_WriterAlphaBetaBeta.build_Mod(alphaBetaBetaChl=self, modFileSet=modFileSet)
+    def create_modfile(self, modfile_set):
+        MM_WriterAlphaBetaBeta.build_Mod(alphaBetaBetaChl=self, modfile_set=modfile_set)
         
     
     def get_recordable(self, what, name, **kwargs):
@@ -205,7 +205,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         return recorders[what]( alphaBetaBetaChl=self, celllocation= celllocation, name=name, **kwargs  )
         
         
-    def getModFileChangeables(self):
+    def get_mod_file_changeables(self):
         
          # If this fails, then the attirbute probably needs to be added to the list below:
         change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id' ] )

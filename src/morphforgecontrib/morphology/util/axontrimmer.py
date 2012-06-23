@@ -21,7 +21,7 @@ class AxonTrimmer(object):
     
     
     @classmethod
-    def TrimAxonFromMorphology(cls, morphology, distToParentMax):
+    def trim_axon_from_morphology(cls, morphology, distToParentMax):
 
         
         distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, somaCentre=False)()

@@ -16,7 +16,7 @@ import numpy as np
 class StdLimits(object):
     
     @classmethod
-    def get_defaultVoltageArray(self):
+    def get_default_voltage_array(self):
         return np.arange(-80, 60, 1) * pq.milli * pq.volt
     
      

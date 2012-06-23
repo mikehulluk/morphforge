@@ -74,7 +74,7 @@ class CellAnalysis_StepInputResponse(object):
         sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
 
-        res = sim.Run()
+        res = sim.run()
 
 
         return res.get_trace('SomaVoltage'), res.get_trace('Current')
@@ -120,7 +120,7 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def plot(self):
-        self.plotTraces()
+        self.plot_traces()
 
 
 
@@ -147,7 +147,7 @@ class CellAnalysis_ReboundResponse(object):
 
 
 
-    def plotTraces(self,):
+    def plot_traces(self,):
         c1Values = set( [k[0] for k in self.result_traces ])
         c2Values = set( [k[1] for k in self.result_traces ])
 
@@ -184,7 +184,7 @@ class CellAnalysis_ReboundResponse(object):
 
         sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound) )
 
-        res = sim.Run()
+        res = sim.run()
 
         #from morphforge.simulationanalysis.summaries.simsummariser import SimulationSummariser
         #SimulationSummariser(res, "/home/michael/Desktop/ForRoman.pdf")
@@ -231,12 +231,12 @@ class CellAnalysis_IVCurve(object):
             self.plotAll()
 
     def plotAll(self):
-        self.plotTraces()
-        self.plotIVCurve()
+        self.plot_traces()
+        self.plot_iv_curve()
 
 
 
-    def _getCCSimulationTrace( self, current,   ):
+    def _get_cc_simulation_trace( self, current,   ):
 
         if self.cell_functor:
             env = NeuronSimulationEnvironment()
@@ -253,7 +253,7 @@ class CellAnalysis_IVCurve(object):
         cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=somaLoc)
         sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
 
-        res = sim.Run()
+        res = sim.run()
 
         return res.get_trace('SomaVoltage')
 
@@ -261,22 +261,22 @@ class CellAnalysis_IVCurve(object):
 
     def get_trace(self, iInj):
         if not iInj in self.traces:
-            self.traces[iInj] = self._getCCSimulationTrace(iInj)
+            self.traces[iInj] = self._get_cc_simulation_trace(iInj)
         return self.traces[iInj]
 
 
-    def getIVPointSteaddyState(self, iInj):
+    def get_iv_point_steaddy_state(self, iInj):
         return  self.get_trace(iInj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
 
 
 
     def plotAll(self):
-        self.plotTraces()
-        self.plotIVCurve()
+        self.plot_traces()
+        self.plot_iv_curve()
 
 
 
-    def plotTraces(self, ax=None):
+    def plot_traces(self, ax=None):
         title = "%s: (Voltage Responses to Current Injections)"%(self.cell_description)
         if not ax:
             f = QuantitiesFigure()
@@ -296,7 +296,7 @@ class CellAnalysis_IVCurve(object):
         PM.save_figure(figname= title)
 
 
-    def plotIVCurve(self, ax=None):
+    def plot_iv_curve(self, ax=None):
         title = "%s: IV Curve"%(self.cell_description)
         if not ax:
             f = QuantitiesFigure()
@@ -306,7 +306,7 @@ class CellAnalysis_IVCurve(object):
             ax.set_ylabel('SteadyStateVoltage')
 
 
-        V = [self.getIVPointSteaddyState(c) for c in self.currents ]
+        V = [self.get_iv_point_steaddy_state(c) for c in self.currents ]
         i = factorise_units_from_list(self.currents)
         v = factorise_units_from_list(V)
 

@@ -10,7 +10,7 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphology.util import AxonTrimmer
-from morphology.util import CellLocationDistanceFromSoma
+from morphology.util import cell_location_distance_from_soma
 from morphology.util import MorphologyTranslator 
 
 
@@ -21,7 +21,7 @@ from simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecifi
 
 
 
-from morphforgecontrib.simulation.util.voltageclampchannel import getVCSomaCurrentTrace
+from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve
 
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList,\
@@ -42,8 +42,8 @@ from morphforgecontrib.traces.tracetools import SpikeFinder
 
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve, CellAnalysis_StepInputResponse, CellAnalysis_ReboundResponse
 
-from morphforgecontrib.simulation.util.spaced_recordings import SpaceRecordCell
-from morphforgecontrib.simulation.util import execWithProb 
+from morphforgecontrib.simulation.util.spaced_recordings import space_record_cell
+from morphforgecontrib.simulation.util import exec_with_prob 
 from morphforgecontrib.simulation.synapse_management.util import SynapseParameter, create_synapse_cell_to_cell, create_synapse_times_to_cell
 
 
@@ -61,7 +61,7 @@ if gethostname() in ["michael-DQ57TM"]:
 
 
 #from morphforgecontrib.simulation.plotting import Plot2Dimensional
-from morphforgecontrib.simulation.util.voltageclampchannel import getVCSomaCurrentTrace
+from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 
 
 

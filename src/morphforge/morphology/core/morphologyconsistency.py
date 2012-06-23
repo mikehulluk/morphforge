@@ -52,9 +52,9 @@ class MorphologyConsistencyMgr(object):
     morphologyConsistencyCheckers = {}
 
     @classmethod
-    def Check(cls, morph):
+    def check_morphology(cls, morph):
         #return
-        return cls.get_checker(morph).Check()
+        return cls.get_checker(morph).run_checks()
 
 
     @classmethod
@@ -92,7 +92,7 @@ class MorphConsistencyChecker(object):
 
 
 
-    def Check(self):
+    def run_checks(self):
         if self.enableStack > 0 :
             #print "Already Checking"
             return

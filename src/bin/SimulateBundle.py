@@ -32,7 +32,7 @@ def main():
         mfrandom.MFRandom.seed(bundle.random_seed) 
 
 
-    result = bundle.get_simulation().Run(doSpawn=False)
+    result = bundle.get_simulation().run(do_spawn=False)
     result.set_simulation_time(tStart, time.time())
 
     LogMgr.info("Simulation Ran OK. Post Processing:")

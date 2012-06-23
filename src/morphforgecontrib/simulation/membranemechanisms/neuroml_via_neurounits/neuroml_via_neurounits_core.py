@@ -21,5 +21,5 @@ class NeuroML_Via_NeuroUnits_Channel():
     def get_mechanism_id(self):
         return self.mechanism_id
     
-    def getModFileChangeables(self):
+    def get_mod_file_changeables(self):
         return {}

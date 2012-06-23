@@ -27,16 +27,16 @@ class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
         super(Neuron_PSM_Std_CurrentRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
-    def getUnit(self):
+    def get_unit(self):
         return unit("nA")
     def get_std_tags(self):
         return [StandardTags.Current, Synapse.Recordables.SynapticCurrent]
 
-    def build_hoc(self, hocFile):
-        objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
+    def build_hoc(self, hocfile_obj):
+        objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
                 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass    
         
     
@@ -46,16 +46,16 @@ class Neuron_PSM_Std_ConductanceRecord(NeuronRecordable):
         super(Neuron_PSM_Std_ConductanceRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
-    def getUnit(self):
+    def get_unit(self):
         return unit("uS")
     def get_std_tags(self):
         return [StandardTags.Conductance,Synapse.Recordables.SynapticConductance]
 
-    def build_hoc(self, hocFile):
-        objNameHoc = hocFile[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocFile=hocFile, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="g", recordobj=self )
+    def build_hoc(self, hocfile_obj):
+        objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="g", recordobj=self )
 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass    
     
     

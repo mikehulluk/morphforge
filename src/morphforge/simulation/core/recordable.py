@@ -33,7 +33,7 @@ class Recordable(object):
         self.user_tags = user_tags if user_tags else []
         self._description = description  
         
-    def getTags(self):
+    def get_tags(self):
         return list( itertools.chain( self.get_std_tags(),  self.user_tags ) )
         
     def get_std_tags(self):

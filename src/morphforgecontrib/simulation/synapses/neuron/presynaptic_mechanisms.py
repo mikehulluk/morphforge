@@ -58,7 +58,7 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
         
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass
     
     
@@ -108,7 +108,7 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
         
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass 
     
 

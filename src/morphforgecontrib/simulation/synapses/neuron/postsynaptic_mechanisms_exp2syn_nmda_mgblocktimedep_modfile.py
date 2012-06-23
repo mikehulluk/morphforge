@@ -13,7 +13,7 @@
 from morphforge.core import mfrandom
 import random
 
-def getExp2SynNMDAMgBlockTimeDependanceModfile():
+def get_exp2_syn_nmda_mg_block_time_dependance_modfile():
     
     x= """
 COMMENT

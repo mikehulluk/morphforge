@@ -69,7 +69,7 @@ class SettingsMgr(object):
     #def setCoverageRun(cls):
     #    assert False
     #    from logmgr import LogMgr
-    #    LogMgr.info("Setting Coverage Run")
+    #    LogMgr.info("Setting Coverage run")
     #    cls._showGui = False
     #
     #@classmethod

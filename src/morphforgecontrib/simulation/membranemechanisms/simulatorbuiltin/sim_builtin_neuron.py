@@ -16,7 +16,7 @@ import re
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_HOC_default #MM_Neuron_GeneralisedRecord, 
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default #MM_Neuron_GeneralisedRecord, 
 from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 
@@ -32,10 +32,10 @@ class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel ):
         BuiltinChannel.__init__(self,**kwargs)
                 
 
-    def build_HOC_Section(self, cell, section, hocFile, mta ):
-        build_HOC_default( cell=cell, section=section, hocFile=hocFile, mta=mta , units={}, nrnsuffix=self.sim_chl_name )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
+        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.sim_chl_name )
         
-    def createModFile(self, modFileSet):
+    def create_modfile(self, modfile_set):
         pass
         
     

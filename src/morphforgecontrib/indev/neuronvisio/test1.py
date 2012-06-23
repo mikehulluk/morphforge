@@ -95,7 +95,7 @@ for cell in sim.get_cells():
 
 
 
-res = sim.Run()
+res = sim.run()
 
 
 

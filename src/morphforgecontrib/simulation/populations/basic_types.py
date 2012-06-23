@@ -72,7 +72,7 @@ class NeuronPopulation(object):
 
         what = what or Cell.Recordables.MembraneVoltage
         user_tags = user_tags or []
-        user_tag_functors = user_tag_functors or  StdTagFunctors.getRecordFunctorsNeuron()
+        user_tag_functors = user_tag_functors or  StdTagFunctors.get_record_functors_neuron()
         location_func = location_func or ( lambda cell: cell.get_location("soma") )
         location=location_func(cell)
 
@@ -138,7 +138,7 @@ class SynapsePopulation(object):
 
 
         user_tags = user_tags or []
-        user_tag_functors = user_tag_functors or StdTagFunctors.getRecordFunctorsSynapse()
+        user_tag_functors = user_tag_functors or StdTagFunctors.get_record_functors_synapse()
 
         kw_utf = { 'synapse':synapse,'synapse_population':self }
         functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
@@ -214,14 +214,14 @@ class SynapsePopulation(object):
 
 class Connectors(object):
     @classmethod
-    def AllToAll(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None ):
+    def all_to_all(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None ):
         pre_post_it = itertools.product( presynaptic_population, postsynaptic_population )
         synapses = [ connect_functor(sim=sim,  presynaptic=pre, postsynaptic=post) for (pre,post) in pre_post_it if (pre != post) ]
         return SynapsePopulation(sim=sim, synapses=synapses,  synapse_pop_name=synapse_pop_name)
 
 
     @classmethod
-    def TimesToAll(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None ):
+    def times_to_all(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None ):
         synapses = [ connect_functor(sim=sim, postsynaptic=post, times=syncronous_times) for post in postsynaptic_population]
         return SynapsePopulation(sim=sim, synapses=synapses, synapse_pop_name=synapse_pop_name)
 

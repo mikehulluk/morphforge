@@ -62,8 +62,8 @@ def sim( glk_multiplier, gna_multiplier, tag):
     cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), celllocation=myCell.get_location("soma"))
     mySim.record( cc, what=StdRec.Current)
     
-    # Run the simulation
-    return mySim.Run()
+    # run the simulation
+    return mySim.run()
     
 
 # Display the results:

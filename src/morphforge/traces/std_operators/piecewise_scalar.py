@@ -55,7 +55,7 @@ class TraceOperator_TracePiecewise_Quantity(object):
         else:
             sc,tr = lhs,rhs
         
-        pieces = [ PiecewiseScalarOperation.Visit(p,operator=operator,scalar=sc) for p in tr._pieces ]
+        pieces = [ PiecewiseScalarOperation.visit(p,operator=operator,scalar=sc) for p in tr._pieces ]
         return Trace_Piecewise( pieces = pieces )
         
     @classmethod

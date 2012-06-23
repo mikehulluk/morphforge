@@ -39,6 +39,6 @@ class NeuronRecordableOnLocation(NeuronRecordable):
         self.where = where
         
     
-    def getTags(self):
-        return NeuronRecordable.getTags(self) + list( self.where.cell.cell_tags)
+    def get_tags(self):
+        return NeuronRecordable.get_tags(self) + list( self.where.cell.cell_tags)
     

@@ -574,7 +574,7 @@ class MorphologyTree(MorphologyBase):
             assert self.is_dummy_section_set()
 
 
-        MorphologyConsistencyMgr.Check(self)
+        MorphologyConsistencyMgr.check_morphology(self)
         return True
 
 

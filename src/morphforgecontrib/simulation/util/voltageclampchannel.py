@@ -17,13 +17,13 @@ from morphforge.stdimports import apply_mechanism_everywhere_uniform
 
 #from morphforge.simulation import shortcuts
 
-def getVCSomaCurrentTrace(env, V,mechBuilder, morphology):
-    sim = buildVCSomaSimulation(env, V,mechBuilder, morphology)
-    res = sim.Run()
+def get_voltageclamp_soma_current_trace(env, V,mechBuilder, morphology):
+    sim = build_voltageclamp_soma_simulation(env, V,mechBuilder, morphology)
+    res = sim.run()
     return res.get_trace("VCCurrent")
 
 
-def buildVCSomaSimulation(env, V,mechBuilder, morphology):
+def build_voltageclamp_soma_simulation(env, V,mechBuilder, morphology):
     sim = env.Simulation(name="SimXX")
     myCell = sim.create_cell( name = "Cell1", morphology = morphology )
         

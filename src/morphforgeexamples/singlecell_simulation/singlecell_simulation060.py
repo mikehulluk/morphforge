@@ -111,8 +111,8 @@ for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell
 # Define what to record:
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) 
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 # Display the results:
 TagViewer([results], timeranges=[(97.5, 140)*pq.ms] )

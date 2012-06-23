@@ -77,10 +77,10 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
         hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         import postsynaptic_mechanisms_exp2syn_modfile
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
-        modFileSet.append(modfile)
+        modfile_set.append(modfile)
         
         
         

@@ -19,7 +19,7 @@ class PopAnalSpiking(object):
 
 
     @classmethod
-    def EvSetNthSpike(cls, res, tag_selector, n, comment=None ):
+    def evset_nth_spike(cls, res, tag_selector, n, comment=None ):
         comment = comment or ""
 
         traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]
@@ -31,13 +31,13 @@ class PopAnalSpiking(object):
 
 
     @classmethod
-    def EvSetFirstSpike(cls, res, tag_selector, comment=None ):
-        return cls.EvSetNthSpike( res=res, tag_selector=tag_selector, n=0, comment=comment, )
+    def evset_first_spike(cls, res, tag_selector, comment=None ):
+        return cls.evset_nth_spike( res=res, tag_selector=tag_selector, n=0, comment=comment, )
 
 
 
     @classmethod
-    def EvSetAllSpikes(cls, res, tag_selector, comment=None):
+    def evset_all_spikes(cls, res, tag_selector, comment=None):
         comment = comment or ""
 
         traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]

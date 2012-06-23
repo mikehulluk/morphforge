@@ -25,7 +25,7 @@ class SpikeFinder(object):
     def find_spikes(cls, trace, crossingthresh=0,  firingthres=None ):
         s = SpikeFinderThreshCross(trace=trace, crossingthresh=crossingthresh,  firingthres=firingthres )
 
-        return EventSet( [spike.getPeakTime() for spike in s.spikes] )
+        return EventSet( [spike.get_peak_time() for spike in s.spikes] )
 
 
 
@@ -44,16 +44,16 @@ class SpikeFinderThreshCross(object):
         self.crossingthresh = crossingthresh
 
         #Get the crossing times:
-        threshIndices = self.findThresCrossings()
+        threshIndices = self.find_threshold_crossings()
 
         # Make a spike for each one:
         self.spikes = [ Spike(self.trace, threshInd, firingthres=firingthres) for threshInd in threshIndices]
 
-    def NumSpikes(self):
+    def num_spikes(self):
         return len(self.spikes)
 
 
-    def findThresCrossings(self):
+    def find_threshold_crossings(self):
         #t = self.trace.time
         d = self.trace._data.rescale("mV").magnitude
 
@@ -117,10 +117,10 @@ class SpikeFinderThreshCross(object):
 
 class Spike(object):
 
-    def getPeakTime(self):
+    def get_peak_time(self):
         return self.trace._time[self.peakIndex]
 
-    def getPeakSize(self):
+    def get_peak_size(self):
         return self.trace._data[self.peakIndex]
 
     def __init__(self, trace, timeIndices, firingthres=None):
@@ -128,10 +128,10 @@ class Spike(object):
         self.thresIndices = timeIndices
         self.firingthres = firingthres if firingthres is not None else 0.0
 
-        self.init_getPeak()
+        self.init_get_peak()
         self.init_get_duration()
 
-    def init_getPeak(self):
+    def init_get_peak(self):
         d = numpy.copy(self.trace._data)
         d[ 0:self.thresIndices[0] ] = 0
         d[ self.thresIndices[1]:-1] = 0
@@ -161,7 +161,7 @@ class Spike(object):
         self.duration = self.trace._time[fallingEdgeInd] - self.trace._time[risingEdgeInd]
         self.duration = self.duration.rescale("ms").magnitude
 
-    def addToAxes(self, ax):
+    def add_to_axes(self, ax):
         t = self.trace._time
         d = self.trace._data.rescale("mV").magnitude
 

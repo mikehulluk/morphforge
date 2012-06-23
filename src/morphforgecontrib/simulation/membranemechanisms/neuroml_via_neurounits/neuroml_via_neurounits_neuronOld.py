@@ -14,7 +14,7 @@
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_HOC_default  
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default  
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.tools.nmodl import WriteToNMODL
 from morphforge.core.quantities.fromcore import unit
@@ -35,11 +35,11 @@ class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
         self.chl = chl
         self.modvar=modvar
 
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass   
  
-    def build_hoc(self, hocFile):
-        HocModUtils.create_record_from_modfile( hocFile, 
+    def build_hoc(self, hocfile_obj):
+        HocModUtils.create_record_from_modfile( hocfile_obj, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
@@ -49,7 +49,7 @@ class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
         return "%s %s %s" % (self.modvar, self.chl.name, self.where.get_location_description_str() ) 
 
 
-    def getUnit(self):
+    def get_unit(self):
         return unit("1.0")
     def get_std_tags(self):
         return []
@@ -91,12 +91,12 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
         
-    def build_HOC_Section(self, cell, section, hocFile, mta ):
-        build_HOC_default( cell=cell, section=section, hocFile=hocFile, mta=mta , units=self.units, nrnsuffix=self.nrnsuffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
+        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.nrnsuffix )
         
-    def createModFile(self, modFileSet):
+    def create_modfile(self, modfile_set):
         modFile =  ModFile(name='NeuroMLViaNeuroUnitsChannelNEURON_%s'%self.name, modtxt=self.modtxt )
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)
     
     
     def get_variables(self): 

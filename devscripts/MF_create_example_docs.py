@@ -165,7 +165,7 @@ def run_example(index,filename):
 
 
     
-    # Run the file, and capture the output:
+    # run the file, and capture the output:
     
     # Turn off plotting:
     env = os.environ.copy()

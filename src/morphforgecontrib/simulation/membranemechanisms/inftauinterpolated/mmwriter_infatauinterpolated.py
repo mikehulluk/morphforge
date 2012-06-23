@@ -39,10 +39,10 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_HOC_Section(cls, cell, section, hocFile, mta ):
+    def build_hoc_section(cls, cell, section, hocfile_obj, mta ):
         
-        cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
-        section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
+        cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
+        section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
         
         neuronSuffix = mta.mechanism.get_neuron_suffix()
         
@@ -63,12 +63,12 @@ $(cell_name).internalsections [ $section_index ] {
                     }
         
         # Add the data to the HOC file
-        hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmplDict ).respond() )
     
 
 
     @classmethod
-    def build_Mod(cls, alphaBetaChl, modFileSet):
+    def build_Mod(cls, alphaBetaChl, modfile_set):
         
         gbarName = "gBar" 
         eRevName = "eRev"
@@ -155,5 +155,5 @@ $(cell_name).internalsections [ $section_index ] {
         additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
         additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
         modFile =  ModFile(name=alphaBetaChl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)
         

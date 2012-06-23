@@ -143,8 +143,8 @@ mySim.record( cc, what=StdRec.Current)
 mySim.record( myCell, what=StdRec.MembraneVoltage, location=somaLoc )
     
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 # Display the results:
 TagViewer([results], timeranges=[(97.5, 140)*pq.ms] )

@@ -131,8 +131,8 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
     
     
     
-    # Run the simulation
-    results = mySim.Run()
+    # run the simulation
+    results = mySim.run()
     
     
     

@@ -42,10 +42,10 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_HOC_Section(self, cell, section, hocFile, mta ):
+    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
         
-        cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
-        section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
+        cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
+        section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
         
         neuronSuffix = mta.mechanism.get_neuron_suffix()
         
@@ -66,12 +66,12 @@ $(cell_name).internalsections [ $section_index ] {
                     }
         
         # Add the data to the HOC file
-        hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmplDict ).respond() )
     
 
 
     @classmethod
-    def build_Mod(cls, alphaBetaBetaChl, modFileSet):
+    def build_Mod(cls, alphaBetaBetaChl, modfile_set):
         
         gbarName = "gBar" 
         eRevName = "eLk"
@@ -136,7 +136,7 @@ $(cell_name).internalsections [ $section_index ] {
                     """
         txt =  baseWriter.generate_modfile()
         modFile = ModFile(name=alphaBetaBetaChl.name, modtxt=txt )
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)
         
         
 

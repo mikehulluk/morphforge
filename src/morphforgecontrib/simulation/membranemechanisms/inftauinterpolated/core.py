@@ -26,12 +26,12 @@ class InfTauInterpolation(object):
         self.inf = inf
         self.tau = tau
         
-    def getVInfValsList(self):
+    def get_v_inf_vals_list(self):
         x =zip( self.V, self.inf)
         print 'getInfValsList()', x
         return x
     
-    def getVTauValsList(self):
+    def get_v_tau_vals_list(self):
         return zip( self.V, self.tau)
         
         

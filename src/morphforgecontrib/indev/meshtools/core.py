@@ -124,7 +124,7 @@ class PlyScope(object):
 
             # Apply the options:
             if 'trim' in options:
-                m = AxonTrimmer.TrimAxonFromMorphology(m, distToParentMax=options['trim'] )
+                m = AxonTrimmer.trim_axon_from_morphology(m, distToParentMax=options['trim'] )
             if 'offset' in options:
                 m = MorphologyTranslator.Translate(morphology=m, offset=options['offset'] )
 

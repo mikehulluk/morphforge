@@ -57,9 +57,9 @@ class ChannelConverter(object):
             
                         # Copy the state variables
             new_state_vars = {}
-            for state_var in old_chl.getStateVariables():
-                alpha,beta = old_chl.getAlphaBetaAtVoltage(statevar=state_var, V=_voltage_interpolation_values)
-                inf, tau = InfTauCalculator.AlphaBetaToInfTau(alpha,beta)
+            for state_var in old_chl.get_state_variables():
+                alpha,beta = old_chl.get_alpha_beta_at_voltage(statevar=state_var, V=_voltage_interpolation_values)
+                inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
                 V =   _voltage_interpolation_values.rescale('mV').magnitude
                 inf = inf.rescale(pq.dimensionless).magnitude
                 tau = tau.rescale('ms').magnitude

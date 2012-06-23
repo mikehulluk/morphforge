@@ -23,7 +23,7 @@ import itertools
 class PieceWiseComponentVisitor(object):
     
     @classmethod
-    def Visit(cls, o, **kwargs):
+    def visit(cls, o, **kwargs):
         return o.accept_visitor(cls,**kwargs)
 
 

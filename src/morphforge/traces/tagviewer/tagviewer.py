@@ -151,7 +151,7 @@ class TagViewer(object):
 
         self.fig = None
         self.subaxes = []
-        self.Render()
+        self.create_figure()
 
 
 
@@ -166,7 +166,7 @@ class TagViewer(object):
 
 
 
-    def Render(self):
+    def create_figure(self):
         self.fig = QuantitiesFigure(**self.fig_kwargs)
 
 

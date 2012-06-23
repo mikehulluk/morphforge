@@ -33,17 +33,17 @@ class MM_Neuron_GeneralisedRecord( NeuronRecordableOnLocation):
         self.modvar=modvar
         self.nrnsuffix = nrnsuffix
     
-    def getUnit(self):
+    def get_unit(self):
         return self.unit
     
     def get_std_tags(self):
         return self.tags
     
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass   
  
-    def build_hoc(self, hocFile):
-        HocModUtils.create_record_from_modfile( hocFile, 
+    def build_hoc(self, hocfile_obj):
+        HocModUtils.create_record_from_modfile( hocfile_obj, 
                                              vecname="RecVec%s"%self.name, 
                                              celllocation=self.where, 
                                              modvariable=self.modvar, 
@@ -70,10 +70,10 @@ $(cell_name).internalsections [ $section_index ] {
 
 
 
-def build_HOC_default( cell, section, hocFile, mta , units, nrnsuffix):
+def build_hoc_default( cell, section, hocfile_obj, mta , units, nrnsuffix):
         
-    cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
-    section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
+    cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
+    section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
     
     
     # Calculate the values of the variables for the section:
@@ -92,6 +92,6 @@ def build_HOC_default( cell, section, hocFile, mta , units, nrnsuffix):
                 }
     
     # Add the data to the HOC file
-    hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(chlHoc,tmplDict ).respond() )
+    hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(chlHoc,tmplDict ).respond() )
 
         

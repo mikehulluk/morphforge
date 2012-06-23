@@ -17,9 +17,9 @@ class SummariserLibrary():
     
     @classmethod
     def register_summariser(cls, channelBaseClass, summariserClass ):
-        # Check it has a toReportLab Method:
+        # Check it has a to_report_lab Method:
         # Todo: Replace this with 'hasattr'
-        assert "toReportLab" in summariserClass.__dict__
+        assert "to_report_lab" in summariserClass.__dict__
         
         # Add it to the dictionary of summarisers:
         cls.summarisers[channelBaseClass] = summariserClass 

@@ -41,10 +41,10 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_HOC_Section(cls, cell, section, hocFile, mta ):
+    def build_hoc_section(cls, cell, section, hocfile_obj, mta ):
         
-        cell_name = hocFile[MHocFileData.Cells][cell]['cell_name']
-        section_index = hocFile[MHocFileData.Cells][cell]['section_indexer'][section]
+        cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
+        section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
         
         neuronSuffix = mta.mechanism.get_neuron_suffix()
         
@@ -65,12 +65,12 @@ $(cell_name).internalsections [ $section_index ] {
                     }
         
         # Add the data to the HOC file
-        hocFile.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmplDict ).respond() )
     
 
 
     @classmethod
-    def build_Mod(cls, leakChl, modFileSet):
+    def build_Mod(cls, leakChl, modfile_set):
         
         baseWriter = MM_ModFileWriterBase(suffix=leakChl.get_neuron_suffix())
         
@@ -94,4 +94,4 @@ $(cell_name).internalsections [ $section_index ] {
          
         modtxt = baseWriter.generate_modfile() 
         modFile = ModFile(name=leakChl.name, modtxt=modtxt)
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)

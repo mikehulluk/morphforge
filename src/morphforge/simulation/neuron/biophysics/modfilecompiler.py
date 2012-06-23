@@ -126,7 +126,7 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
 
 
-    #Run nocmodl: .mod -> .c
+    #run nocmodl: .mod -> .c
     cFilename = modFileBasename + ".c"
     op  = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
@@ -238,7 +238,7 @@ class ModFileCompiler(object):
 
 
     @classmethod
-    def _build_modFile(cls, modfile):
+    def _build_modfile(cls, modfile):
         outputFilename = modfile.get_built_filename_full(ensure_built=False)
 
         if not Exists(outputFilename):

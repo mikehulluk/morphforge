@@ -36,20 +36,20 @@ class MNeuronBaseSetup(NeuronObject):
         super(MNeuronBaseSetup,self).__init__(name = "mneuronbasesetup", simulation=simulation)
         self.simsettings = simsettings 
     
-    def build_hoc(self, hocFile):
-        hocFile.add_to_section(MHOCSections.InitHeader, """load_file("noload.hoc")""")
+    def build_hoc(self, hocfile_obj):
+        hocfile_obj.add_to_section(MHOCSections.InitHeader, """load_file("noload.hoc")""")
         
         if self.simsettings["cvode"]: 
-            hocFile.add_to_section(MHOCSections.InitHeader, """cvode_active(1)""")
+            hocfile_obj.add_to_section(MHOCSections.InitHeader, """cvode_active(1)""")
         
         
         
         # For testing: should be done properly:
-        hocFile.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%( self.simsettings["tstop"].rescale("ms").magnitude ))
-        hocFile.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%( self.simsettings["dt"].rescale("ms").magnitude ))
-        hocFile.add_to_section(MHOCSections.InitRecords, "\n".join([ "objref rect","rect = new Vector()","rect.record(&t)"]) )
+        hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%( self.simsettings["tstop"].rescale("ms").magnitude ))
+        hocfile_obj.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%( self.simsettings["dt"].rescale("ms").magnitude ))
+        hocfile_obj.add_to_section(MHOCSections.InitRecords, "\n".join([ "objref rect","rect = new Vector()","rect.record(&t)"]) )
         
           
         
-    def build_mod(self, modFileSet):
+    def build_mod(self, modfile_set):
         pass

@@ -16,7 +16,7 @@ from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_HOC_default  
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default  
 
 
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_core import NeuroML_Via_XSL_Channel
@@ -66,8 +66,8 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
 
             
         
-    def build_HOC_Section(self, cell, section, hocFile, mta ):
-        build_HOC_default( cell=cell, section=section, hocFile=hocFile, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
+        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
         
         
         # ISSUE 'A': Hack around the reversal potential initialisation issue:
@@ -83,7 +83,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
             else:
                 assert False
 
-            tmpl_dict = hocFile[MHocFileData.Cells][cell]
+            tmpl_dict = hocfile_obj[MHocFileData.Cells][cell]
             cell_name = tmpl_dict["cell_name"]
             section_indexer = tmpl_dict['section_indexer']
             d = []
@@ -92,13 +92,13 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
                         }"""%(cell_name, section_indexer[s] ,
                             self.chlData.iv_ion,
                             vrev) )
-            hocFile.add_to_section(MHOCSections.InitCellMembranes, "\n".join(d) )
+            hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, "\n".join(d) )
             
         
         
-    def createModFile(self, modFileSet):
+    def create_modfile(self, modfile_set):
         modFile =  ModFile(name='NeuroMLViaXSLChannelNEURON_%s'%self.name, modtxt=self.modtxt )
-        modFileSet.append(modFile)
+        modfile_set.append(modFile)
         
     
     

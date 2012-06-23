@@ -77,15 +77,15 @@ ${stim.name}.rs = $stim.rs
 class HocBuilder(object):
     
     @classmethod
-    def VoltageClamp(cls, hocFile, voltageclamp ): 
+    def VoltageClamp(cls, hocfile_obj, voltageclamp ): 
         
         cell = voltageclamp.celllocation.cell
         section = voltageclamp.celllocation.morphlocation.section
         data = {
                 "stimname":voltageclamp.name,
                 "cell":cell,
-                "cellname":hocFile[MHocFileData.Cells][cell]['cell_name'],
-                "sectionindex":hocFile[MHocFileData.Cells][cell]['section_indexer'][section],
+                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
+                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                 "sectionpos":voltageclamp.celllocation.morphlocation.sectionpos,
                 
                 "dur1":voltageclamp.dur1.rescale("ms").magnitude,
@@ -102,22 +102,22 @@ class HocBuilder(object):
                 }
         
         # Save the data about this Current Clamp:
-        hocFile[MHocFileData.VoltageClamps][voltageclamp] = data
+        hocfile_obj[MHocFileData.VoltageClamps][voltageclamp] = data
         
         # Create the HOC 
-        hocFile.add_to_section( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
         
     
     
     @classmethod
-    def CurrentClamp(cls, hocFile, currentClamp ):
+    def CurrentClamp(cls, hocfile_obj, currentClamp ):
         cell = currentClamp.celllocation.cell
         section = currentClamp.celllocation.morphlocation.section
         data = {
                 "stimname":currentClamp.name,
                 "cell":cell,
-                "cellname":hocFile[MHocFileData.Cells][cell]['cell_name'],
-                "sectionindex":hocFile[MHocFileData.Cells][cell]['section_indexer'][section],
+                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
+                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                 "sectionpos":currentClamp.celllocation.morphlocation.sectionpos,
                 "dur":currentClamp.dur.rescale("ms").magnitude,
                 "delay":currentClamp.delay.rescale("ms").magnitude,
@@ -125,10 +125,10 @@ class HocBuilder(object):
                 }
         
         # Save the data about this Current Clamp:
-        hocFile[MHocFileData.CurrentClamps][currentClamp] = data
+        hocfile_obj[MHocFileData.CurrentClamps][currentClamp] = data
         
         # Create the HOC 
-        hocFile.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
         
         
 
@@ -136,8 +136,8 @@ class HocBuilder(object):
 
 
     @classmethod 
-    def Cell(cls, hocFile, cell):
-        HocBuilder_Cell.build(hocFile=hocFile, cell=cell)
+    def Cell(cls, hocfile_obj, cell):
+        HocBuilder_Cell.build(hocfile_obj=hocfile_obj, cell=cell)
      
 
 

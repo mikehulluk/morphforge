@@ -372,7 +372,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #
-#        res = sim.Run()
+#        res = sim.run()
 #
 #            
 #        # Update the array of data:
@@ -416,7 +416,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    def __init__(self,sim_conf):
 #        super(MorphologyConfig, self).__init__()
 #        self.sim_conf = sim_conf
-#        sim_conf.cell_builder_func = self.getCell
+#        sim_conf.cell_builder_func = self.get_cell
 #        
 #        
 #
@@ -426,7 +426,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #
-#    def getCell(self, env, sim):
+#    def get_cell(self, env, sim):
 #        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
 #        #m1 = getDINMorphology(axonDiam=0.4)
 #        myCell = sim.create_cell(name="Cell1", morphology=m1)

@@ -98,8 +98,8 @@ mySim.record( cc, what=StdRec.Current)
 # Define what to record:
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) 
 
-# Run the simulation
-results = mySim.Run()
+# run the simulation
+results = mySim.run()
 
 SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 

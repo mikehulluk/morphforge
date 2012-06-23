@@ -14,7 +14,7 @@ from morphforge.stdimports import CellLocation
 from morphforge.stdimports import Cell
 
 
-def SpaceRecordCell(cell, sim, distances, record_functor=None, user_tags=None):
+def space_record_cell(cell, sim, distances, record_functor=None, user_tags=None):
     
 
     

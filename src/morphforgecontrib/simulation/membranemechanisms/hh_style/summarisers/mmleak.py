@@ -24,7 +24,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import
 class Summarise_MM_LeakChannel(object):
     
     @classmethod
-    def toReportLab(cls, leakChannel, reportlabconfig, make_graphs):
+    def to_report_lab(cls, leakChannel, reportlabconfig, make_graphs):
         from reportlab.platypus import Paragraph, Table
         chl = leakChannel
     

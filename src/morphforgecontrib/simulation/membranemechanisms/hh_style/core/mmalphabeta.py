@@ -44,16 +44,16 @@ class MM_AlphaBetaChannel(MembraneMechanism):
 
 
 
-    def getStateVariables(self):
+    def get_state_variables(self):
         return self.statevars.keys()
 
-    def getAlphaBetaAtVoltage(self, V, statevar):
+    def get_alpha_beta_at_voltage(self, V, statevar):
         #from morphforgecontrib.simulation.default.summarisers.util import 
         from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import AlphaBetaCalculator
         AlphaBetaCalculator
         alpha = self.statevars[statevar][0]
         beta = self.statevars[statevar][1]
-        alpha = AlphaBetaCalculator.calcAlphaBeta(V,alpha)
-        beta =  AlphaBetaCalculator.calcAlphaBeta(V,beta)
+        alpha = AlphaBetaCalculator.calc_alpha_beta(V,alpha)
+        beta =  AlphaBetaCalculator.calc_alpha_beta(V,beta)
         return alpha,beta
     

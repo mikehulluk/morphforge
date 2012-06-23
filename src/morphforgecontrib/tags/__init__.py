@@ -16,11 +16,11 @@ from morphforge.simulation.core.networks import PreSynapticMechanism,\
 class StdTagFunctors(object):
     
     @classmethod
-    def getRecordFunctorsSynapse(cls):
+    def get_record_functors_synapse(cls):
         return [SynapseInPopulationRecordTags.get_tags]
     
     @classmethod
-    def getRecordFunctorsNeuron(cls):
+    def get_record_functors_neuron(cls):
         return [NeuronInPopulationRecordTags.get_tags]
     
     

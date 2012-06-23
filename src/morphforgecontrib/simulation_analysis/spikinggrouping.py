@@ -18,7 +18,7 @@ class DBScan(object):
     
     
     @classmethod
-    def run(cls, pts, eps, min_pts ):
+    def cluster_points(cls, pts, eps, min_pts ):
         pts = np.array(pts)
         visited_indices = [False] * np.zeros( len(pts) )
         noise = [] 
@@ -36,14 +36,14 @@ class DBScan(object):
                 noise.append(i)
             else:
                 C = set()
-                cls.expandCluster(pt_index=i, N=N, C=C, eps=eps, pts=pts, minPts=min_pts,  visited_indices=visited_indices, clusters=clusters) 
+                cls.expand_cluster(pt_index=i, N=N, C=C, eps=eps, pts=pts, minPts=min_pts,  visited_indices=visited_indices, clusters=clusters) 
                 clusters.append(C)
         
         return clusters, noise
             
             
     @classmethod
-    def expandCluster(cls, pt_index, N, C, pts, eps, visited_indices,  minPts, clusters):
+    def expand_cluster(cls, pt_index, N, C, pts, eps, visited_indices,  minPts, clusters):
 
         C.add(pt_index)
         
@@ -70,7 +70,7 @@ class DBScan(object):
         
 
         data = [ float( ev.get_time().rescale("ms") ) for ev in event_set ]            
-        clusters, noise = DBScan.run( pts = np.array(data), eps=eps, min_pts=min_pts)
+        clusters, noise = DBScan.cluster_points( pts = np.array(data), eps=eps, min_pts=min_pts)
         
         # Create new eventsets for each cluster
         new_eventsets = []
@@ -114,9 +114,9 @@ class DBScan(object):
 #         mark P as NOISE
 #      else
 #         C = next cluster
-#         expandCluster(P, N, C, eps, MinPts)
+#         expand_cluster(P, N, C, eps, MinPts)
 #          
-#expandCluster(P, N, C, eps, MinPts)
+#expand_cluster(P, N, C, eps, MinPts)
 #   add P to cluster C
 #   for each point P' in N 
 #      if P' is not visited
