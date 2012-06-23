@@ -165,13 +165,13 @@ class Section(object):
     p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")
 
     region = property(lambda self: self._region, None, )
-    idTag = property(lambda self: self._idTag, None)
+    idtag = property(lambda self: self._idTag, None)
     parent = property(lambda self: self._parent, None, )
     children = property(lambda self: self._children, None)
 
 
 
-    def __init__(self, x, y, z, r, region, parent=None, idTag=None):
+    def __init__(self, x, y, z, r, region, parent=None, idtag=None):
         """ Creation of the section.  """
 
         self._d_pos = numpy.array((float(x), float(y), float(z)))
@@ -180,7 +180,7 @@ class Section(object):
         self._parent = parent
         self._children = []
         self._region = region
-        self._idTag = idTag
+        self._idTag = idtag
 
 
         # Post Processing: tidy up loose ends:
@@ -192,11 +192,11 @@ class Section(object):
 
 
     # Adding new sections:
-    def create_distal_section(self, x, y, z, r, region, idTag=None):
+    def create_distal_section(self, x, y, z, r, region, idtag=None):
         """Creates and returns a new Section object from its distal end.
         The parameters are the same as for the constructor.
         """
-        return Section(parent=self, x=x, y=y, z=z, r=r, region=region, idTag=idTag)
+        return Section(parent=self, x=x, y=y, z=z, r=r, region=region, idtag=idtag)
 
 
     def is_a_root_section(self):
@@ -252,7 +252,7 @@ class Section(object):
         def EndSummary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
         endString = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
         rgString = "Region:" + self.region.name +", " if self.region else ""
-        idString = "idTag:" + self.idTag + ", " if self.idTag else ""
+        idString = "idtag:" + self.idtag + ", " if self.idtag else ""
         lnString = "Length: %2.2f, " % self.get_length()
         return "<" +endString + lnString + rgString + idString +">"
 
@@ -552,13 +552,13 @@ class MorphologyTree(MorphologyBase):
 
         return SeqUtils.filter_expect_single(self.get_regions(), lambda r: r.name == name)
 
-    def get_section(self, idTag):
+    def get_section(self, idtag):
         """ Returns a Section object with a given id"""
         assert self.ensure_consistency()
-        return SeqUtils.filter_expect_single(self, lambda s: s.idTag == idTag)
+        return SeqUtils.filter_expect_single(self, lambda s: s.idtag == idtag)
 
     def get_idtags(self):
-        return [ section.idTag for section in self if section.idTag]
+        return [ section.idtag for section in self if section.idtag]
 
 
 

@@ -118,15 +118,15 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
         CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )
 
 
-    def build_hoc(self, hocFileObj):
+    def build_hoc(self, hocfile_obj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
 
         data = {
                "stimname": self.get_name(),
                "cell":cell,
-               "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
+               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
+               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                "sectionpos":self.celllocation.morphlocation.sectionpos,
 
                "freq": self.freq,
@@ -135,9 +135,9 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
                "bias":self.bias,
                }
 
-        hocFileObj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccSinWaveHOCTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccSinWaveHOCTmpl, data).respond() )
 
-        hocFileObj[MHocFileData.CurrentClamps][self] = data
+        hocfile_obj[MHocFileData.CurrentClamps][self] = data
 
 
     def build_mod(self, modfile_set):

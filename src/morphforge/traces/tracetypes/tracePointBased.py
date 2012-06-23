@@ -54,12 +54,12 @@ class Trace_PointBased(Trace):
     def get_max_time(self):
         return self._time[-1]
 
-    def get_values(self, timeArray):
+    def get_values(self, time_array):
         from scipy.interpolate.interpolate import interp1d
         timeUnits = self._time.units
         dataUnits = self._data.units
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)
-        return interpolator(timeArray.rescale(timeUnits).magnitude) * dataUnits
+        return interpolator(time_array.rescale(timeUnits).magnitude) * dataUnits
 
 
 

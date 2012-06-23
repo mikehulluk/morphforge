@@ -37,10 +37,10 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
 
 
     def get_variables(self):
-        return ['gBar', 'eRev', 'gScale']
+        return ['gBar', 'e_rev', 'gScale']
 
     def get_defaults(self):
-        return {"gBar":self.conductance, "eRev":self.reversalpotential, "gScale": unit("1.0") }
+        return {"gBar":self.conductance, "e_rev":self.reversalpotential, "gScale": unit("1.0") }
 
 
 

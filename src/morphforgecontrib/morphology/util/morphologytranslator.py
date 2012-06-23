@@ -20,11 +20,11 @@ class MorphologyTranslator(object):
 
 
     @classmethod
-    def Translate(cls, morphology, offset):
+    def translate(cls, morphology, offset):
         print offset
         #assert False
 
-        #distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, somaCentre=False)()
+        #distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, soma_centre=False)()
 
         sectionMappingTable = {}
         regionMappingTable = {}
@@ -41,7 +41,7 @@ class MorphologyTranslator(object):
         dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x + offset[0], y=dummyRootOld.d_y+ offset[1], z=dummyRootOld.d_z + offset[2], r=dummyRootOld.d_r)
         sectionMappingTable[dummyRootOld] = dummyRootNew
         for sectionOld in morphology:
-            #if distToParent[sectionOld] > distToParentMax: continue
+            #if distToParent[sectionOld] > max_dist_to_parent: continue
 
             oldParent = sectionOld.parent
             newParent = sectionMappingTable[ oldParent ]
@@ -52,11 +52,11 @@ class MorphologyTranslator(object):
                                           y= sectionOld.d_y + offset[1],
                                           z= sectionOld.d_z + offset[2],
                                           r= sectionOld.d_r,
-                                          idTag=sectionOld.idTag
+                                          idtag=sectionOld.idtag
                                           )
             sectionMappingTable[sectionOld] = sectionNew
 
-        m = MorphologyTree("TranslatedNeuron",dummysection = dummyRootNew,metadata={} )
+        m = MorphologyTree("translatedNeuron",dummysection = dummyRootNew,metadata={} )
         return m
 
 

@@ -21,10 +21,10 @@ class AxonTrimmer(object):
 
 
     @classmethod
-    def trim_axon_from_morphology(cls, morphology, distToParentMax):
+    def trim_axon_from_morphology(cls, morphology, max_dist_to_parent):
 
 
-        distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, somaCentre=False)()
+        distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, soma_centre=False)()
         print sorted( distToParent.values()  )
 
         sectionMappingTable = {}
@@ -44,7 +44,7 @@ class AxonTrimmer(object):
         for sectionOld in morphology:
             print 'DistToParent', distToParent[sectionOld]
 
-            if distToParent[sectionOld] > distToParentMax: continue
+            if distToParent[sectionOld] > max_dist_to_parent: continue
 
             print 'Extruding Section'
             oldParent = sectionOld.parent
@@ -56,7 +56,7 @@ class AxonTrimmer(object):
                                           y= sectionOld.d_y,
                                           z= sectionOld.d_z,
                                           r= sectionOld.d_r,
-                                          idTag=sectionOld.idTag
+                                          idtag=sectionOld.idtag
                                           )
             sectionMappingTable[sectionOld] = sectionNew
 

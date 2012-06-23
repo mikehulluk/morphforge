@@ -142,10 +142,10 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
         FileIO.write_to_file(txt=cPickle.dumps(self) , filename=bundlefilename)
         return bundlefilename
 
-    def write_to_file_and_get_exec_string(self, bundlefilename=None, simBinFile="SimulateBundle.py"):
+    def write_to_file_and_get_exec_string(self, bundlefilename=None, simulation_binary_file="SimulateBundle.py"):
 
         bundlefilename = self._write_to_file(bundlefilename=bundlefilename)
-        simCmd = Join(LocMgr.get_bin_path(), simBinFile) + " " + bundlefilename
+        simCmd = Join(LocMgr.get_bin_path(), simulation_binary_file) + " " + bundlefilename
         return bundlefilename, simCmd
 
 

@@ -167,8 +167,8 @@ class Simulation(object):
 
 
     #Syntactic Sugar for making more readable scripts:
-    def record( self, recordableSrc, **kwargs):
-        recordable = recordableSrc.get_recordable( **kwargs )
+    def record( self, recordable_src, **kwargs):
+        recordable = recordable_src.get_recordable( **kwargs )
         self.add_recordable( recordable )
         return recordable
 

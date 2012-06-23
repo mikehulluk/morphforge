@@ -66,7 +66,7 @@ class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
 
 
     def build_hoc(self, hocfile_obj):
-        HocBuilder.CurrentClamp( hocfile_obj=hocfile_obj, currentClamp=self)
+        HocBuilder.CurrentClamp( hocfile_obj=hocfile_obj, currentclamp=self)
 
     def build_mod(self, modfile_set):
         pass

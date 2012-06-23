@@ -130,8 +130,8 @@ class LogMgr(object):
 
 
     @classmethod
-    def create_logger(cls, logName):
-        logger = logging.getLogger(logName)
+    def create_logger(cls, log_name):
+        logger = logging.getLogger(log_name)
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
         # create formatter

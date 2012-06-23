@@ -15,10 +15,10 @@ class CellLibrary(object):
     cells = dict()
 
     @classmethod
-    def register_cell(cls, cellBuilder):
-        celltype = cellBuilder.get_cell_type()
-        modelsrc = cellBuilder.get_model()
-        cls.cells[ (modelsrc, celltype) ] = cellBuilder
+    def register_cell(cls, cell_builder):
+        celltype = cell_builder.get_cell_type()
+        modelsrc = cell_builder.get_model()
+        cls.cells[ (modelsrc, celltype) ] = cell_builder
 
     @classmethod
     def get_cellfunctor(cls, modelsrc, celltype):

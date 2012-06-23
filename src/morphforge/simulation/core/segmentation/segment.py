@@ -31,17 +31,17 @@ class CellSegment(object):
 
         self.segmenter = segmenter
 
-    def get_section_pos(self, pSegment):
+    def get_section_pos(self, p_segment):
         # Converts a position from [0-1] within a segment into a
         # position [0-1] within a section
         segmentSize = 1.0/self.nsegments
         segmentPosProx = segmentSize * self.segmentno
-        sectionpos = segmentPosProx + pSegment * segmentSize
+        sectionpos = segmentPosProx + p_segment * segmentSize
 
         assert 0 <= sectionpos <= 1.0
         return sectionpos
 
-    def get_cell_location(self, pSegment=0.5):
+    def get_cell_location(self, p_segment=0.5):
         from morphforge.simulation.core.celllocation import CellLocation
         sectionpos = self.get_section_pos(0.5)
         return CellLocation(cell=self.cell, section=self.section, sectionpos=sectionpos)
@@ -54,8 +54,8 @@ class CellSegment(object):
     def get_distal_np4a(self):
         return self.section.get_npa4( self.get_section_pos(1.0) )
 
-    def get_distance_from_proximal_section_end(self, pSegment=0.5):
-        return self.get_section_pos(pSegment) * self.section.get_length()
+    def get_distance_from_proximal_section_end(self, p_segment=0.5):
+        return self.get_section_pos(p_segment) * self.section.get_length()
 
 
 

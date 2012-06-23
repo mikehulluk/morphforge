@@ -64,12 +64,12 @@ class TestMorphMLLoading(unittest.TestCase):
                               [s[0].d_x, s[0].d_y, s[0].d_z, s[0].d_r],
                               [ 10.0, 0.0, 0.0, 5.0 ] )
         self.assertEqual( m.get_region('somagroup'), s[0].region )
-        self.assertEqual( s[0].idTag, 'SomaSeg' )
+        self.assertEqual( s[0].idtag, 'SomaSeg' )
         root =  s[0]
 
 
         # SECTION ID=1
-        s1 = m.get_section(idTag = 'DendSeg1')
+        s1 = m.get_section(idtag = 'DendSeg1')
         self.assertEqual( s1.parent, root )
         self.assertEqual( m.get_region('dendritegroup'), s1.region )
         self.assertListAlmostEqual(
@@ -77,7 +77,7 @@ class TestMorphMLLoading(unittest.TestCase):
                               [ 5.0, 10.0, 0.0, 2.5 ] )
 
         # SECTION ID=2
-        s2 = m.get_section(idTag = 'DendSeg2')
+        s2 = m.get_section(idtag = 'DendSeg2')
         self.assertEqual( s2.parent, s1 )
         self.assertEqual( m.get_region('dendritegroup'), s2.region )
         self.assertListAlmostEqual(
@@ -86,7 +86,7 @@ class TestMorphMLLoading(unittest.TestCase):
 
 
         # SECTION ID=3
-        s3 = m.get_section(idTag = 'DendSeg3')
+        s3 = m.get_section(idtag = 'DendSeg3')
         self.assertEqual( s3.parent, s2 )
         self.assertEqual( m.get_region('dendritegroup'), s3.region )
         self.assertListAlmostEqual(
@@ -95,7 +95,7 @@ class TestMorphMLLoading(unittest.TestCase):
 
 
         # SECTION ID=4
-        s4 = m.get_section(idTag = 'DendSeg4')
+        s4 = m.get_section(idtag = 'DendSeg4')
         self.assertEqual( s4.parent, root )
         self.assertEqual( m.get_region('dendritegroup'), s4.region )
         self.assertListAlmostEqual(
@@ -103,7 +103,7 @@ class TestMorphMLLoading(unittest.TestCase):
                               [ 10.0, 0.0, 10.0, 1.5 ] )
 
         # SECTION ID=5
-        s5 = m.get_section(idTag = 'DendSeg5')
+        s5 = m.get_section(idtag = 'DendSeg5')
         self.assertEqual( s5.parent, s4 )
         self.assertEqual( m.get_region('dendritegroup'), s5.region )
         self.assertListAlmostEqual(

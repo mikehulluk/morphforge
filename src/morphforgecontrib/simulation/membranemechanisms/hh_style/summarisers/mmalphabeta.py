@@ -33,7 +33,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cellArea, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
 
         from scipy.integrate import odeint
 
@@ -68,8 +68,8 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
 
         stateEquationEvaluation = stateFunctor( *stateData )
 
-        cellDensity = (chl.conductance * cellArea)
-        iChl =  (chl.conductance * cellArea)  * stateEquationEvaluation * (V- chl.reversalpotential)
+        cellDensity = (chl.conductance * cell_area)
+        iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
 
         return Trace_FixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )
 
@@ -126,32 +126,32 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
         @classmethod
-        def plot_alpha_beta_curves(cls, ax1,ax2, alphaBetaChannel, state, *args,**kwargs):
-            cls.plot_curve( ax=ax1, curve=Curve.Alpha, chl=alphaBetaChannel, state=state, *args, **kwargs)
-            cls.plot_curve( ax=ax2, curve=Curve.Beta, chl=alphaBetaChannel, state=state, *args, **kwargs)
+        def plot_alpha_beta_curves(cls, ax1,ax2, alphabeta_chl, state, *args,**kwargs):
+            cls.plot_curve( ax=ax1, curve=Curve.Alpha, chl=alphabeta_chl, state=state, *args, **kwargs)
+            cls.plot_curve( ax=ax2, curve=Curve.Beta, chl=alphabeta_chl, state=state, *args, **kwargs)
 
 
         @classmethod
-        def plot_inf_tau_curves(cls, ax1,ax2,alphaBetaChannel, state,  *args,**kwargs ):
-            cls.plot_curve( ax=ax1, curve=Curve.Inf, chl=alphaBetaChannel, state=state, *args, **kwargs)
-            cls.plot_curve( ax=ax2, curve=Curve.Tau, chl=alphaBetaChannel, state=state, *args, **kwargs)
+        def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state,  *args,**kwargs ):
+            cls.plot_curve( ax=ax1, curve=Curve.Inf, chl=alphabeta_chl, state=state, *args, **kwargs)
+            cls.plot_curve( ax=ax2, curve=Curve.Tau, chl=alphabeta_chl, state=state, *args, **kwargs)
 
         @classmethod
-        def plot_steddy_state_curve(cls, ax1,alphaBetaChannel, state, power,  *args,**kwargs ):
-            cls.plot_curve( ax=ax1, curve=Curve.InfPowered, chl=alphaBetaChannel, state=state, infpower=power, *args, **kwargs)
+        def plot_steddy_state_curve(cls, ax1,alphabeta_chl, state, power,  *args,**kwargs ):
+            cls.plot_curve( ax=ax1, curve=Curve.InfPowered, chl=alphabeta_chl, state=state, infpower=power, *args, **kwargs)
 
 
         @classmethod
-        def plot_state_curve_summary(cls,  alphaBetaChl, state, figsize):
+        def plot_state_curve_summary(cls,  alphabeta_chl, state, figsize):
             fig = QuantitiesFigure(figsize=figsize)
-            fig.suptitle("AlphaBeta Channel - %s : %s"%(alphaBetaChl.name, state))
+            fig.suptitle("AlphaBeta Channel - %s : %s"%(alphabeta_chl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.plot_alpha_beta_curves(ax1, ax2, alphaBetaChl,state )
+            cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state )
 
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.plot_inf_tau_curves(ax3, ax4, alphaBetaChl,state )
+            cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state )
             return fig
 
 
@@ -160,30 +160,30 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
         @classmethod
-        def to_screen(cls, alphaBetaChannel, state):
-            cls.plot_state_curve_summary(alphaBetaChannel, state, figsize=(5,5))
+        def to_screen(cls, alphabeta_chl, state):
+            cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
 
 
 
 
         @classmethod
-        def to_report_lab(cls, alphaBetaChl, reportlabconfig, make_graphs):
+        def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
             from reportlab.platypus import Paragraph, Table
             localElements = []
             localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
 
             # Summary:
             overviewTableData = [
-                                 ["Max Conductance (gBar)", alphaBetaChl.conductance.rescale("mS/cm2") ],
-                                 ["Reversal Potential", alphaBetaChl.reversalpotential.rescale("mV") ],
-                                 ["Conductance Equation", "gBar * " + alphaBetaChl.eqn ],
+                                 ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2") ],
+                                 ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV") ],
+                                 ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
                                 ]
 
             localElements.append( Table(overviewTableData, style=reportlabconfig.listTableStyle) )
 
 
             # Plot out the States:
-            for state,params in alphaBetaChl.statevars.iteritems():
+            for state,params in alphabeta_chl.statevars.iteritems():
                 localElements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
 
 
@@ -205,7 +205,7 @@ class Summarise_MM_AlphaBetaChannel(object):
 
                 if make_graphs:
                     # Figures:
-                    fig = cls.plot_state_curve_summary(alphaBetaChl, state, figsize=(5,5))
+                    fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
                     localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     import pylab
                     pylab.close( fig.fig )
@@ -215,4 +215,4 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
 
-SummariserLibrary.register_summariser(channelBaseClass=MM_AlphaBetaChannel, summariserClass=Summarise_MM_AlphaBetaChannel)
+SummariserLibrary.register_summariser(channel_baseclass=MM_AlphaBetaChannel, summariser_class=Summarise_MM_AlphaBetaChannel)

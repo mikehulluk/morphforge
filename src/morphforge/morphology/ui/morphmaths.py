@@ -79,7 +79,7 @@ class PointRotator(object):
     def __call__(self, pt):
         return numpy.dot(self.transMatrix, pt)
 
-class PointTranslater(object):
+class Pointtranslater(object):
     def __init__(self, offset):
         self.offset = offset
     def __call__(self, pt):
@@ -89,7 +89,7 @@ class PointTranslater(object):
 
 
 
-class MorphologyMeanCenterer(PointTranslater):
+class MorphologyMeanCenterer(Pointtranslater):
     def __init__(self, morph, PtSrc=None):
         PtSrc = SVVisitorFactory.array3_all_points() if PtSrc == None else PtSrc
         X = PtSrc(morph)

@@ -43,7 +43,7 @@ class ModFile(object):
 
 
     #@require("modtxt", str, unicode)
-    def __init__(self, modtxt, name=None, additional_compile_flags="", additional_link_flags="", additional_LD_LIBRARY_PATH=""):
+    def __init__(self, modtxt, name=None, additional_compile_flags="", additional_link_flags="", additional_ld_library_path=""):
         self.name = name
         self.modtxt = modtxt
 
@@ -54,7 +54,7 @@ class ModFile(object):
 
         self.additional_compile_flags  = additional_compile_flags
         self.additional_link_flags = additional_link_flags
-        self.additional_LD_LIBRARY_PATH = additional_LD_LIBRARY_PATH
+        self.additional_ld_library_path = additional_ld_library_path
 
 
     def ensure_built(self):

@@ -29,7 +29,7 @@ class Recordable(object):
 
     def __init__(self, name=None, description=None, user_tags=None, **kwargs):
 
-        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(objType=Recordable, prefix="AnonRec")
+        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(obj_type=Recordable, prefix="AnonRec")
         self.user_tags = user_tags if user_tags else []
         self._description = description
 

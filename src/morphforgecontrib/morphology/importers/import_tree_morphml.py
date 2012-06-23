@@ -313,7 +313,7 @@ class MorphMLLoader(object):
         #(id, name, cable,parent,(px,py,pz,pDiam),(dx,dy,dz,dDiam) )
         #rDummy = Section(region=cableIDToRegionDict[rN[2]], x=rN[4][0], y=rN[4][1], z=rN[4][2], r=rN[4][3] / 2.0)
         rDummy = Section(region=None, x=rN[4][0], y=rN[4][1], z=rN[4][2], r=rN[4][3] / 2.0)
-        rActual = rDummy.create_distal_section(region=cableIDToRegionDict[rN[2]], x=rN[5][0], y=rN[5][1], z=rN[5][2], r=rN[5][3] / 2.0, idTag=rN[1])
+        rActual = rDummy.create_distal_section(region=cableIDToRegionDict[rN[2]], x=rN[5][0], y=rN[5][1], z=rN[5][2], r=rN[5][3] / 2.0, idtag=rN[1])
 
         idToSectionMap = {rN[0]:rActual}
         recentlyAdded = [rN[0]]
@@ -325,7 +325,7 @@ class MorphMLLoader(object):
             childNodes = Filter(segmentListInfo.values(), lambda s: s[3] == curNode)
             for c in childNodes:
                 #print c
-                newSect = curSect.create_distal_section(region=cableIDToRegionDict[c[2]], x=c[5][0], y=c[5][1], z=c[5][2], r=c[5][3] / 2.0, idTag=c[1])
+                newSect = curSect.create_distal_section(region=cableIDToRegionDict[c[2]], x=c[5][0], y=c[5][1], z=c[5][2], r=c[5][3] / 2.0, idtag=c[1])
                 idToSectionMap[ c[0] ] = newSect
                 recentlyAdded.append(c)
 

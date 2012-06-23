@@ -241,8 +241,8 @@ class MorphologyConfig(HasTraits):
         m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
         #m1 =
 
-        morphFunctor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
-        m1 = morphFunctor(axonDiam = 0.4)
+        morph_functor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
+        m1 = morph_functor(axonDiam = 0.4)
 
         myCell = sim.create_cell(name="Cell1", morphology=m1)
         apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )

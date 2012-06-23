@@ -42,19 +42,19 @@ class TraceDict(object):
         return self.data[k]
 
 
-    def PlotTrace(self, k, v, ax, legendFunc, xunits,yunits): #, xUnits, yUnits):
+    def _plot_trace_old(self, k, v, ax, legend_func, xunits,yunits): #, xUnits, yUnits):
         #dataLineCurve = ax.plot( expCurrentTrace.time, v.data, label="Cmd: %2.2f mV"%cmdVoltage)
-        if legendFunc:
-            dataLineCurve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legendFunc(k, v))[0]
+        if legend_func:
+            dataLineCurve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legend_func(k, v))[0]
             return dataLineCurve
 
-    def Plot(self, fig=None, ax=None, title="Untitled", xlabelPrefix="Time", ylabelPrefix="", xunits="ms", yunits=None, legendFunc=None,):
+    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None,):
         assert yunits
 
         if fig == None and ax == None:
             ax = fig_plot_local(title=title,
-                        xlabel=xlabelPrefix + "(" + str(xunits) + ")",
-                        ylabel=ylabelPrefix + "(" + str(yunits) + ")",
+                        xlabel=xlabel_prefix + "(" + str(xunits) + ")",
+                        ylabel=ylabel_prefix + "(" + str(yunits) + ")",
                         figsize=(9, 4))
 
 
@@ -63,9 +63,9 @@ class TraceDict(object):
         #for k,v in self.data.iteritems():
         for k in sorted(self.data.keys()):
             v = self.data[k]
-            lines[k] = self.PlotTrace(k, v, ax, legendFunc=legendFunc,xunits=xunits,yunits=yunits)
+            lines[k] = self._plot_trace_old(k, v, ax, legend_func=legend_func,xunits=xunits,yunits=yunits)
 
-        if legendFunc: ax.legend()
+        if legend_func: ax.legend()
         return ax, lines
 
 

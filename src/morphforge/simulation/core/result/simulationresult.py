@@ -34,11 +34,11 @@ class SimulationResult(object):
         self.traces = traces
         self.simulation = simulation
         self.tStart = None
-        self.tStop = None
+        self.t_stop = None
 
-    def set_simulation_time(self, tStart, tStop):
+    def set_simulation_time(self, tStart, t_stop):
         self.tStart = tStart
-        self.tStop = tStop
+        self.t_stop = t_stop
 
     def get_trace(self, name):
         return SeqUtils.filter_expect_single(self.traces, lambda s: s.name == name)

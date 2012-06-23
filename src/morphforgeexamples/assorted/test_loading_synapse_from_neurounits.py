@@ -74,7 +74,7 @@ def simulate_chls_on_neuron():
     syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
-                                     timeList =   (100,105,110,112,115, 115,115) * pq.ms ,
+                                     time_list =   (100,105,110,112,115, 115,115) * pq.ms ,
                                      weight = unit("1:nS")),
             postsynaptic_mech = env.PostSynapticMechanism(
                                      NeuroUnitEqnsetPostSynaptic,
@@ -88,7 +88,7 @@ def simulate_chls_on_neuron():
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
                                      celllocation=somaLoc1,
-                                     voltageThreshold=unit("0:mV"),
+                                     voltage_threshold=unit("0:mV"),
                                      delay=unit('1:ms'),
                                      weight = unit("1:nS")),
             postsynaptic_mech = env.PostSynapticMechanism(

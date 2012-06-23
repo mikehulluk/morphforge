@@ -68,22 +68,22 @@ class MorphologyBuilder(object):
 
         somaRegion = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)
-        dummysection.create_distal_section(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idTag="soma")
+        dummysection.create_distal_section(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idtag="soma")
         cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})
         return cell
 
 
     @classmethod
-    def get_soma_axon_morph(cls, axonLength=1000.0, axonRad=0.3, somaRad=20.0, axonSections=10):
+    def get_soma_axon_morph(cls, axonLength=1000.0, axon_radius=0.3, soma_radius=20.0, axon_sections=10):
         somaRegion = Region("soma")
         axonRegion = Region("axon")
 
-        axonSectionLength = float(axonLength) / float(axonSections)
-        dummyRoot = Section(region=None, x=0.0, y=0.0, z=0.0, r=somaRad)
-        soma = dummyRoot.create_distal_section(region=somaRegion, x=somaRad * 2.0, y=0.0, z=0.0, r=somaRad, idTag="soma")
+        axonSectionLength = float(axonLength) / float(axon_sections)
+        dummyRoot = Section(region=None, x=0.0, y=0.0, z=0.0, r=soma_radius)
+        soma = dummyRoot.create_distal_section(region=somaRegion, x=soma_radius * 2.0, y=0.0, z=0.0, r=soma_radius, idtag="soma")
         prevSection = soma
-        for x in range(1, axonSections):
-            axon = prevSection.create_distal_section(region=axonRegion, x=x * axonSectionLength + 2.0 * somaRad, y=0, z=0, r=axonRad, idTag="axon_%d" % x)
+        for x in range(1, axon_sections):
+            axon = prevSection.create_distal_section(region=axonRegion, x=x * axonSectionLength + 2.0 * soma_radius, y=0, z=0, r=axon_radius, idtag="axon_%d" % x)
             prevSection = axon
         cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummyRoot, metadata={})
         return cell

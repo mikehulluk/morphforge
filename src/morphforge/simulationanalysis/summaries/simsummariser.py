@@ -52,7 +52,7 @@ class SimulationSummariser(object):
 
 
 
-    def __init__(self, simulationresult, filename=None, keyTraceSets = [], make_graphs=True ):
+    def __init__(self, simulationresult, filename=None, key_tracesets = [], make_graphs=True ):
 
         if not filename:
             filename = ObjectLabeller.get_next_unamed_object_name(SimulationSummariser, prefix='SimulationSummary') + '.pdf'
@@ -66,7 +66,7 @@ class SimulationSummariser(object):
 
         self.elements = defaultdict(list)
 
-        self.keyTraceSets = keyTraceSets
+        self.key_tracesets = key_tracesets
 
         self.reportlabconfig = ReportLabConfig()
 
@@ -224,9 +224,9 @@ class SimulationSummariser(object):
                 section_id = si[section]
                 parent_id = si[section.parent] if not section.is_a_root_section() else "[NA]"
                 rgn = section.region.name if section.region else "-"
-                idTag = section.idTag if section.idTag else "-"
+                idtag = section.idtag if section.idtag else "-"
                 nSegments = cell.get_segmenter().get_num_segments(section)
-                data.append( [ section_id, parent_id, rgn, idTag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), nSegments ] )
+                data.append( [ section_id, parent_id, rgn, idtag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), nSegments ] )
 
             localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
 
@@ -292,7 +292,7 @@ class SimulationSummariser(object):
         localElements = []
         localElements.append( Paragraph("Key-Traces", self.reportlabconfig.styles['Heading1'] ) )
 
-        for traceSetName, keyTraces in self.keyTraceSets:
+        for traceSetName, keyTraces in self.key_tracesets:
             localElements.append( Paragraph("TraceSet: %s"%traceSetName, self.reportlabconfig.styles['Heading2'] ) )
 
 

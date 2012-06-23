@@ -63,8 +63,8 @@ class SectionVistorFactory(object):
 
 
     @classmethod
-    def dict_section_proximal_dist_from_soma(cls, morph=None, somaCentre=False):
-        assert not somaCentre
+    def dict_section_proximal_dist_from_soma(cls, morph=None, soma_centre=False):
+        assert not soma_centre
 
         def dict_section_proximal_dist_from_soma(s):
             if s.is_dummy_section():

@@ -32,7 +32,7 @@ env = NeuronSimulationEnvironment()
 mySim = env.Simulation()
 
 # Create a cell:
-morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axonRad=0.15, somaRad=9.0, axonSections=20)
+morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axon_radius=0.15, soma_radius=9.0, axon_sections=20)
 myCell = mySim.create_cell(name="Cell1", morphology=morph)
 
 

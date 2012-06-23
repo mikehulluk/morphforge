@@ -21,9 +21,9 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 
 class MM_Neuron_InfTauInterpolated_Record(NeuronRecordableOnLocation):
-    def __init__(self, alphaBetaChl, modvar, **kwargs):
+    def __init__(self, alphabeta_chl, modvar, **kwargs):
         super( MM_Neuron_InfTauInterpolated_Record, self).__init__(**kwargs)
-        self.alphaBetaChl = alphaBetaChl
+        self.alphabeta_chl = alphabeta_chl
         self.modvar=modvar
 
     def build_mod(self, modfile_set):
@@ -34,7 +34,7 @@ class MM_Neuron_InfTauInterpolated_Record(NeuronRecordableOnLocation):
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
-                                             mod_neuronsuffix=self.alphaBetaChl.get_neuron_suffix(), recordobj=self)
+                                             mod_neuronsuffix=self.alphabeta_chl.get_neuron_suffix(), recordobj=self)
 
 
 
@@ -123,14 +123,14 @@ class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel,MM_Neuron_Base):
         print 'Getting Reordable', what, recorders[what]
         print kwargs
 
-        return recorders[what]( alphaBetaChl=self,  **kwargs  )
+        return recorders[what]( alphabeta_chl=self,  **kwargs  )
 
 
     def build_hoc_section( self, cell, section, hocfile_obj, mta ):
         return MM_WriterInfTauInterpolated.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        MM_WriterInfTauInterpolated.build_Mod(alphaBetaChl=self, modfile_set=modfile_set)
+        MM_WriterInfTauInterpolated.build_mod(alphabeta_chl=self, modfile_set=modfile_set)
 
 
     def get_mod_file_changeables(self):

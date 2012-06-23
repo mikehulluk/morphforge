@@ -35,8 +35,8 @@ class NeuronInPopulationRecordTags(object):
     def get_tags(cls, neuron, neuron_population, celllocation):
         tags = []
 
-        if celllocation.section.idTag:
-            tags.append( "SECTION:%s"%celllocation.section.idTag)
+        if celllocation.section.idtag:
+            tags.append( "SECTION:%s"%celllocation.section.idtag)
 
         tags.append( neuron.name )
         tags.append( neuron_population.pop_name )

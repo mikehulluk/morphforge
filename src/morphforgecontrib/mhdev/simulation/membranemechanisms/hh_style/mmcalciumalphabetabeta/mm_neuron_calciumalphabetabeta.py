@@ -126,7 +126,7 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_B
 
 
     def create_modfile(self, modfile_set):
-        MM_WriterCalciumAlphaBetaBeta.build_Mod(caAlphaBetaBetaChl=self, modfile_set=modfile_set)
+        MM_WriterCalciumAlphaBetaBeta.build_mod(caAlphaBetaBetaChl=self, modfile_set=modfile_set)
 
 
     def get_mod_file_changeables(self):

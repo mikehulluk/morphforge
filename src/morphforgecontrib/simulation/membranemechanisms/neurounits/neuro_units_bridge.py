@@ -46,9 +46,9 @@ class RecordableData(object):
 
 
 class MM_Neuron_RecGen(NeuronRecordableOnLocation):
-    def __init__(self, srcChl, modvar,unit_in_nrn, std_tags, **kwargs):
+    def __init__(self, src_chl, modvar,unit_in_nrn, std_tags, **kwargs):
         super( MM_Neuron_RecGen, self).__init__(**kwargs)
-        self.srcChl = srcChl
+        self.src_chl = src_chl
         self.modvar=modvar
         self.unit_in_nrn = unit_in_nrn
         self.std_tags = std_tags or []
@@ -61,11 +61,11 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
-                                             mod_neuronsuffix=self.srcChl.NRNSUFFIX,
+                                             mod_neuronsuffix=self.src_chl.NRNSUFFIX,
                                              recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.srcChl.name, self.where.get_location_description_str() )
+        return "%s %s %s" % (self.modvar, self.src_chl.name, self.where.get_location_description_str() )
 
     def get_unit(self):
         return self.unit_in_nrn
@@ -169,7 +169,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen( srcChl=self, modvar=what, where=celllocation, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return MM_Neuron_RecGen( src_chl=self, modvar=what, where=celllocation, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 

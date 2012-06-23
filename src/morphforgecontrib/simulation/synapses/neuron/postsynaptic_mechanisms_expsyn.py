@@ -44,7 +44,7 @@ expTmpl = """
 objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSyn ( $sectionpos )
 ${synnamepost}.tau = $tau.rescale("ms").magnitude
-${synnamepost}.e = $eRev.rescale("mV").magnitude
+${synnamepost}.e = $e_rev.rescale("mV").magnitude
 """
 
 
@@ -60,25 +60,25 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         super( Neuron_PSM_ExpSyn, self).__init__(**kwargs)
 
 
-    def build_hoc(self, hocFileObj):
+    def build_hoc(self, hocfile_obj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
         synNamePost = self.synapse.get_name() + "Post"
         data = {
                "synnamepost":synNamePost,
                "cell":cell,
-               "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
+               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
+               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                "sectionpos":self.celllocation.morphlocation.sectionpos,
 
                "tau": self.tau,
-               "eRev": self.eRev,
+               "e_rev": self.e_rev,
                }
 
-        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(expTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(expTmpl, data).respond() )
 
-        hocFileObj[MHocFileData.Synapses][self.synapse] = {}
-        hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data
+        hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
+        hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data
 
     def build_mod(self, modfile_set):
         pass

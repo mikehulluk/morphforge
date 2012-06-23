@@ -103,12 +103,12 @@ class CellSegmenterStd(AbstCellSegmenter):
 
 class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
-    def __init__(self, cell=None, maxSegmentLength=5):
+    def __init__(self, cell=None, max_segment_length=5):
         CellSegmenterStd.__init__(self, cell)
-        self.maxSegmentLength = maxSegmentLength
+        self.max_segment_length = max_segment_length
 
     def _get_n_segments(self, section):
-        return int( section.get_length() / self.maxSegmentLength ) + 1
+        return int( section.get_length() / self.max_segment_length ) + 1
 
 
 
@@ -122,12 +122,12 @@ class CellSegmenter_SingleSegment(CellSegmenterStd):
 
 class CellSegmenter_MaxLengthByID(CellSegmenterStd):
 
-    def __init__(self, cell=None, section_id_segment_maxsizes=None, defaultSegmentLength=5):
-        self.defaultSegmentLength = defaultSegmentLength
+    def __init__(self, cell=None, section_id_segment_maxsizes=None, default_segment_length=5):
+        self.default_segment_length = default_segment_length
         self.section_id_segment_sizes =section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
 
         CellSegmenterStd.__init__(self, cell)
 
     def _get_n_segments(self, section):
-        max_size = self.section_id_segment_sizes.get(section.idTag, self.defaultSegmentLength )
+        max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length )
         return  int(section.get_length() / max_size )  +1

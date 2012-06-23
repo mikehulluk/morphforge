@@ -19,8 +19,8 @@ env = NeuronSimulationEnvironment()
 sim = env.Simulation()
 
 
-morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axonRad=0.3, somaRad=9.0, axonSections=20)
-segmenter = DefaultCellSegementer(cell=None, maxSegmentLength=50)
+morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
+segmenter = DefaultCellSegementer(cell=None, max_segment_length=50)
 cell = sim.create_cell(name='CellMorph1', morphology=morph, segmenter=segmenter )
 
 
@@ -37,7 +37,7 @@ print t
 cell.chls = {}
 channeltypes = [ ChlType.Kf, ChlType.Ks, ChlType.Lk, ChlType.Na ]
 for chltype in channeltypes:
-    #mechBuilder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
+    #mech_builder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
     mech =  ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env )
 
     apply_mechanism_everywhere_uniform(

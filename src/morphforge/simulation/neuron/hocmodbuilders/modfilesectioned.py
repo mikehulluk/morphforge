@@ -158,7 +158,7 @@ class ModFileSectioned(object):
 
 
     # States
-    def add_state_group( self, groupName, states, derivative_code, initial_code ):
+    def add_state_group( self, groupname, states, derivative_code, initial_code ):
 
         # Initial Block:
         self.append_to_section( ModFileSectioned.Sections.Initial, "\n".join(initial_code) )
@@ -166,11 +166,11 @@ class ModFileSectioned(object):
         # Derivative Block:
         derBlock = """DERIVATIVE %s{
         %s
-        } """%( groupName, "\n".join( ["\t"+l for l in derivative_code] ))
+        } """%( groupname, "\n".join( ["\t"+l for l in derivative_code] ))
         self.prepend_to_section( ModFileSectioned.Sections.Derivative, derBlock )
 
         #BreakPoint:
-        solveStatement = "SOLVE %s METHOD cnexp"% groupName
+        solveStatement = "SOLVE %s METHOD cnexp"% groupname
         self.prepend_to_section( ModFileSectioned.Sections.Breakpoint,  solveStatement)
 
         #States Block:

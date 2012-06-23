@@ -33,7 +33,7 @@ $(cell_name).internalsections [ $section_index ] {
 
     Units = {
         "gBar": "S/cm2",
-        "eRev": "mV",
+        "e_rev": "mV",
         "gScale":"",
             }
 
@@ -68,13 +68,13 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_Mod(cls, alphaBetaChl, modfile_set):
+    def build_mod(cls, alphabeta_chl, modfile_set):
 
         gbarName = "gBar"
-        eRevName = "eRev"
+        eRevName = "e_rev"
         gScaleName = "gScale"
 
-        baseWriter = MM_ModFileWriterBase(suffix=alphaBetaChl.get_neuron_suffix())
+        baseWriter = MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
 
         # Naming Conventions:
         stateTau = lambda s: "%stau" % s
@@ -82,26 +82,26 @@ $(cell_name).internalsections [ $section_index ] {
 
 
         # State Equations and initial values:
-        for s in alphaBetaChl.statevars_new:
+        for s in alphabeta_chl.statevars_new:
             baseWriter.internalstates[s] = "%s" % stateInf(s) , "%s'=(%s-%s)/%s" % (s, stateInf(s), s, stateTau(s))
 
         # Parameters:
         # {name: (value, unit,range)}
         baseWriter.parameters = {
-                      gbarName: (alphaBetaChl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
-                      eRevName: (alphaBetaChl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
+                      gbarName: (alphabeta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
+                      eRevName: (alphabeta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
                       gScaleName: (1.0, None, None)
                       }
 
         # Rates:
         # name : (locals, code), unit
-        for s in alphaBetaChl.statevars_new:
+        for s in alphabeta_chl.statevars_new:
             baseWriter.rates[ stateInf(s) ] = (("", stateInf(s) + "= %sInf(v)"%stateInf(s)), None)
             baseWriter.rates[ stateTau(s) ] = (("", stateTau(s) + "= %sTau(v)"%stateTau(s)), "ms")
             baseWriter.ratecalcorder.extend([stateInf(s), stateTau(s)])
 
-        baseWriter.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphaBetaChl.eqn, gScaleName)
-        baseWriter.conductanceequation = " %s * %s * %s" % (gbarName, alphaBetaChl.eqn, gScaleName)
+        baseWriter.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphabeta_chl.eqn, gScaleName)
+        baseWriter.conductanceequation = " %s * %s * %s" % (gbarName, alphabeta_chl.eqn, gScaleName)
 
 
 
@@ -113,16 +113,16 @@ $(cell_name).internalsections [ $section_index ] {
 
         def buildInterpolatorFunc(state, inftau, funcname):
             if inftau=='inf':
-                interp_strX = ",".join( ["%2.2f"%x for x in  alphaBetaChl.statevars_new[s].V ] )
-                interp_strY = ",".join( ["%2.2f"%x for x in  alphaBetaChl.statevars_new[s].inf ] )
+                interp_strX = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
+                interp_strY = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ] )
             elif inftau=='tau':
-                interp_strX = ",".join( ["%2.2f"%x for x in  alphaBetaChl.statevars_new[s].V ] )
-                interp_strY = ",".join( ["%2.2f"%x for x in  alphaBetaChl.statevars_new[s].tau ] )
+                interp_strX = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
+                interp_strY = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ] )
             else:
                 assert False
 
 
-            vars = {'chlname':stateTau(s),'nPts':len(alphaBetaChl.statevars_new[s].V), 'x0':interp_strX,'y0':interp_strY, 'funcname':funcname }
+            vars = {'chlname':stateTau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_strX,'y0':interp_strY, 'funcname':funcname }
             f = """
             FUNCTION %(funcname)s(V)
             {
@@ -143,7 +143,7 @@ $(cell_name).internalsections [ $section_index ] {
             return f
 
 
-        for s in alphaBetaChl.statevars_new:
+        for s in alphabeta_chl.statevars_new:
             baseWriter.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s )
             baseWriter.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s )
 
@@ -154,6 +154,6 @@ $(cell_name).internalsections [ $section_index ] {
         # TODO: Remove hard dependancy here
         additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
         additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
-        modFile =  ModFile(name=alphaBetaChl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
+        modFile =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
         modfile_set.append(modFile)
 

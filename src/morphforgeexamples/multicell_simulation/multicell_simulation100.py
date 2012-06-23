@@ -467,7 +467,7 @@ def onto_driver(sim, postsynaptic, times):
     return sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_TimeList,
-                                        timeList =   times,
+                                        time_list =   times,
                                         weight = mf.unit("1:nS")),
             postsynaptic_mech = env.PostSynapticMechanism(
                                         mfc.NeuroUnitEqnsetPostSynaptic,
@@ -487,7 +487,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
                                         celllocation = presynaptic.get_location("soma"),
-                                        voltageThreshold = mf.unit("0:mV"),
+                                        voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
                                         ),
@@ -503,7 +503,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
                                         celllocation = presynaptic.get_location("soma"),
-                                        voltageThreshold = mf.unit("0:mV"),
+                                        voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
                                         ),
@@ -522,7 +522,7 @@ def inhib(sim, presynaptic, postsynaptic, scale):
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
                                         celllocation = presynaptic.get_location("soma"),
-                                        voltageThreshold = mf.unit("0:mV"),
+                                        voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
                                         ),
@@ -610,7 +610,7 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS
 #syn = sim.create_synapse(
 #        presynaptic_mech =  env.PreSynapticMechanism(
 #                                    mfc.PreSynapticMech_TimeList,
-#                                    timeList =   ( (100,105,110,115,120, 125,130,135,140,145,150,155) + (300,305,310,315,320,325,330,335,340,345,350,355) ) * mf.ms ,
+#                                    time_list =   ( (100,105,110,115,120, 125,130,135,140,145,150,155) + (300,305,310,315,320,325,330,335,340,345,350,355) ) * mf.ms ,
 #                                    weight = mf.unit("1:nS")),
 #        postsynaptic_mech = env.PostSynapticMechanism(
 #                                    mfc.NeuroUnitEqnsetPostSynaptic,

@@ -61,6 +61,6 @@ class CellLocation(object):
 
     def get_location_description_str(self):
         r = self.cell.name
-        t = ":%s"%self.morphlocation.section.idTag if self.morphlocation.section.idTag else ""
+        t = ":%s"%self.morphlocation.section.idtag if self.morphlocation.section.idtag else ""
         return r+t
 

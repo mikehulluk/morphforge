@@ -62,19 +62,19 @@ class ModBuilderParams(object):
 
 
     @classmethod
-    def get_compile_str(cls, cFilename, loFilename, additional_compile_flags=""):
+    def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=""):
         inclStr = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
         defStr = " ".join(["""-D%s """ % d for d in cls.compileDefs])
-        vars = {"lo":loFilename, "c":cFilename, "incs":inclStr, "defs":defStr, 'additional_flags':additional_compile_flags}
+        vars = {"lo":lo_filename, "c":c_filename, "incs":inclStr, "defs":defStr, 'additional_flags':additional_compile_flags}
         return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % vars
 
 
     @classmethod
-    def get_link_str(cls, loFilename, laFilename, additional_link_flags=""):
+    def get_link_str(cls, lo_filename, la_filename, additional_link_flags=""):
         stdLibStr = " ".join(["-l%s" % s for s in cls.stdLinkLibs])
         stdLibDirStr = " ".join(["-L%s" % s for s in cls.nrnLinkDirs])
-        linkDict = {"la":laFilename,
-                    "lo":loFilename,
+        linkDict = {"la":la_filename,
+                    "lo":lo_filename,
                     "stdLibStr":stdLibStr,
                     "stdLibDirStr":stdLibDirStr,
                     "rpath":cls.rpath,
@@ -104,45 +104,45 @@ def _simple_exec(cmd, remaining):
 def _build_modfile_local(mod_filename_short, modfile=None):
     print os.getcwd()
     modFileBasename = mod_filename_short.replace(".mod", "")
-    cFilename = modFileBasename + ".c"
-    laFilename = modFileBasename + ".la"
-    loFilename = modFileBasename + ".lo"
+    c_filename = modFileBasename + ".c"
+    la_filename = modFileBasename + ".la"
+    lo_filename = modFileBasename + ".lo"
     soFilename = modFileBasename + ".so"
 
     libsDir = ".libs/"
 
     # Check for some existing files:
-    gen_files = (libsDir, cFilename, laFilename, loFilename, soFilename)
+    gen_files = (libsDir, c_filename, la_filename, lo_filename, soFilename)
     for gen_file in gen_files:
         if Exists(gen_file):
             LocMgr.BackupDirectory(gen_file)
 
 
     #if Exists(libsDir): LocMgr.BackupDirectory(libsDir)
-    #if Exists(cFilename): LocMgr.BackupDirectory(cFilename)
-    #if Exists(laFilename): LocMgr.BackupDirectory(laFilename)
-    #if Exists(loFilename): LocMgr.BackupDirectory(loFilename)
+    #if Exists(c_filename): LocMgr.BackupDirectory(c_filename)
+    #if Exists(la_filename): LocMgr.BackupDirectory(la_filename)
+    #if Exists(lo_filename): LocMgr.BackupDirectory(lo_filename)
     #if Exists(soFilename): LocMgr.BackupDirectory(soFilename)
 
 
 
     #run nocmodl: .mod -> .c
-    cFilename = modFileBasename + ".c"
+    c_filename = modFileBasename + ".c"
     op  = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
-    if not Exists(cFilename):
+    if not Exists(c_filename):
         print "Failed to compile modfile. Error:"
         print op, "\n"
         assert False
 
     #Add the extra registration function into our mod file:
     newRegisterFunc = """\n modl_reg(){ _%s_reg(); }""" % (modFileBasename)
-    FileIO.append_to_file(newRegisterFunc, cFilename)
+    FileIO.append_to_file(newRegisterFunc, c_filename)
 
 
     #Compile the .c file -> .so:
-    compileStr = ModBuilderParams.get_compile_str(cFilename, loFilename)
-    linkStr = ModBuilderParams.get_link_str(loFilename, laFilename)
+    compileStr = ModBuilderParams.get_compile_str(c_filename, lo_filename)
+    linkStr = ModBuilderParams.get_link_str(lo_filename, la_filename)
 
     if SettingsMgr.simulator_is_verbose():
         print 'IN:',ModBuilderParams.libtoolpath,
@@ -151,8 +151,8 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
     compile_flags = modfile.additional_compile_flags if modfile else ""
     link_flags = modfile.additional_link_flags if modfile else ""
-    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(cFilename, loFilename,additional_compile_flags=compile_flags))
-    op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(loFilename, laFilename, additional_link_flags=link_flags))
+    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(c_filename, lo_filename,additional_compile_flags=compile_flags))
+    op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(lo_filename, la_filename, additional_link_flags=link_flags))
 
     if SettingsMgr.simulator_is_verbose() or True:
         print "OP1:", op1
@@ -164,7 +164,7 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
     #Clean up:
     if True:
-        os.remove(cFilename)
+        os.remove(c_filename)
         os.remove(mod_filename_short)
         for f in [".la", ".lo"]:
             os.remove(modFileBasename + f)

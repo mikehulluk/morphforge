@@ -104,15 +104,15 @@ class SectionVisitorDFOverrider(SectionVisitorDF):
 
 class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
 
-    def __init__(self, functor, sectionResultOperator=None, **kwargs):
-        self.sectionResultOperator = sectionResultOperator
+    def __init__(self, functor, section_result_operator=None, **kwargs):
+        self.section_result_operator = section_result_operator
         self.myfunctor = functor
         super(SectionVisitorHomogenousOverrider, self).__init__( **kwargs )
 
     def visit_section(self, section):
         res =  self.myfunctor( section )
-        if self.sectionResultOperator:
-            self.sectionResultOperator(section,res)
+        if self.section_result_operator:
+            self.section_result_operator(section,res)
         return res
 
     def visit_root_section(self, section):
@@ -125,7 +125,7 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
 class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
     def __init__(self,  functor, morph=None):
         self.dict = {}
-        super(DictBuilderSectionVisitorHomo, self).__init__(sectionResultOperator=self.add_to_dict, functor=functor, returnfunctor=lambda:self.dict, morph=morph )
+        super(DictBuilderSectionVisitorHomo, self).__init__(section_result_operator=self.add_to_dict, functor=functor, returnfunctor=lambda:self.dict, morph=morph )
 
     def add_to_dict(self,section,result):
         self.dict[section] = result

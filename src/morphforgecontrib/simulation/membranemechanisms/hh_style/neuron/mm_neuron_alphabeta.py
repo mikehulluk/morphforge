@@ -24,9 +24,9 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 
 class MM_Neuron_AlphaBeta_Record(NeuronRecordableOnLocation):
-    def __init__(self, alphaBetaChl, modvar, **kwargs):
+    def __init__(self, alphabeta_chl, modvar, **kwargs):
         super( MM_Neuron_AlphaBeta_Record, self).__init__(**kwargs)
-        self.alphaBetaChl = alphaBetaChl
+        self.alphabeta_chl = alphabeta_chl
         self.modvar=modvar
 
     def build_mod(self, modfile_set):
@@ -37,10 +37,10 @@ class MM_Neuron_AlphaBeta_Record(NeuronRecordableOnLocation):
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
-                                             mod_neuronsuffix=self.alphaBetaChl.get_neuron_suffix(), recordobj=self)
+                                             mod_neuronsuffix=self.alphabeta_chl.get_neuron_suffix(), recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.alphaBetaChl.name, self.where.get_location_description_str() )
+        return "%s %s %s" % (self.modvar, self.alphabeta_chl.name, self.where.get_location_description_str() )
 
 
 
@@ -66,7 +66,7 @@ class MM_Neuron_AlphaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBeta_Record):
 class MM_Neuron_AlphaBeta_StateVariableRecord(MM_Neuron_AlphaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBeta_StateVariableRecord, self).__init__(modvar=state, **kwargs)
-        assert state in self.alphaBetaChl.statevars
+        assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
         return unit("")
@@ -76,7 +76,7 @@ class MM_Neuron_AlphaBeta_StateVariableRecord(MM_Neuron_AlphaBeta_Record):
 class MM_Neuron_AlphaBeta_StateVariableTauRecord(MM_Neuron_AlphaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBeta_StateVariableTauRecord, self).__init__(modvar=state+"tau", **kwargs)
-        assert state in self.alphaBetaChl.statevars
+        assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
         return unit("ms")
@@ -87,7 +87,7 @@ class MM_Neuron_AlphaBeta_StateVariableTauRecord(MM_Neuron_AlphaBeta_Record):
 class MM_Neuron_AlphaBeta_StateVariableInfRecord(MM_Neuron_AlphaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBeta_StateVariableInfRecord, self).__init__(modvar=state+'inf', **kwargs)
-        assert state in self.alphaBetaChl.statevars
+        assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
         return unit("")
@@ -127,14 +127,14 @@ class MM_Neuron_AlphaBeta(MM_AlphaBetaChannel,MM_Neuron_Base):
               MM_AlphaBetaChannel.Recordables.StateVarTimeConstant:MM_Neuron_AlphaBeta_StateVariableTauRecord,
         }
 
-        return recorders[what]( alphaBetaChl=self,  **kwargs  )
+        return recorders[what]( alphabeta_chl=self,  **kwargs  )
 
 
     def build_hoc_section( self, cell, section, hocfile_obj, mta ):
         return MM_WriterAlphaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        MM_WriterAlphaBeta.build_Mod(alphaBetaChl=self, modfile_set=modfile_set)
+        MM_WriterAlphaBeta.build_mod(alphabeta_chl=self, modfile_set=modfile_set)
 
 
     def get_mod_file_changeables(self):

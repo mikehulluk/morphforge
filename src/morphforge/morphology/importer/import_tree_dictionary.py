@@ -35,7 +35,7 @@ from morphforge.morphology.core import MorphologyTree
 
 class DictionaryLoader(object):
     @classmethod
-    def load(cls,  morphDict, name=None, metaData=None):
+    def load(cls,  morph_dict, name=None, metadata=None):
         """ Load a morphology from a recursive dictionary such as:
         {'root': {'length': 20, 'diam': 20, 'sections':
             [
@@ -52,14 +52,14 @@ class DictionaryLoader(object):
         """
 
 
-        if not morphDict or not morphDict.has_key("root"): raise ValueError()
+        if not morph_dict or not morph_dict.has_key("root"): raise ValueError()
         validKeywords = ["length", "diam", "id", "sections", "region", 'regions', "relangle", "absangle", "xyz"]
         requiredKeywords = ["diam"]
 
 
 
         # Does the root has a length variable? if it does, then lets add an intermediate node and remove it.
-        rootNode = morphDict["root"]
+        rootNode = morph_dict["root"]
         if rootNode.has_key('length'):
           # Lets assume it extends backwards on the X-axis. This isn't great, but will work, although
           # visualisations are likely to look a bit screwy:
@@ -101,7 +101,7 @@ class DictionaryLoader(object):
             sectionDictInt[sectionID] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
             for c in children:  recursivelyAddSectionToList(c, sectionID, sectionDictInt)
 
-        #rootNode = morphDict["root"]
+        #rootNode = morph_dict["root"]
 
         recursivelyAddSectionToList(rootNode, None, yamlSectionDict)
 
@@ -222,9 +222,9 @@ class DictionaryLoader(object):
 
             # Create the new section:
             if parentSection:
-                newSection = parentSection.create_distal_section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idTag=sectionIdTag)
+                newSection = parentSection.create_distal_section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idtag=sectionIdTag)
             else:
-                newSection = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idTag=sectionIdTag)
+                newSection = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idtag=sectionIdTag)
                 sectionDict[None] = newSection
 
 
@@ -246,7 +246,7 @@ class DictionaryLoader(object):
         assert sectionDict[0].region == None
 
         if sectionDict[0].children == []: raise ValueError("No segments found")
-        c = MorphologyTree(name=name, dummysection=sectionDict[0], metadata=metaData)
+        c = MorphologyTree(name=name, dummysection=sectionDict[0], metadata=metadata)
         if len(c) < 1: raise ValueError
         return c
 

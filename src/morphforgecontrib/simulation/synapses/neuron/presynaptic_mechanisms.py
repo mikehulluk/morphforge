@@ -31,11 +31,11 @@ ${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon( &v($sectio
 class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
 
 
-    def build_hoc(self, hocFileObj):
+    def build_hoc(self, hocfile_obj):
         cell =self.celllocation.cell
         section = self.celllocation.morphlocation.section
         synName = self.synapse.get_name()
-        synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
+        synNamePost = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
         synNamePre = self.synapse.get_name() + "Pre"
 
 
@@ -44,18 +44,18 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
                "synnamepost" : synNamePost,
                "synnamepre": synNamePre,
                "cell":cell,
-               "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
+               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
+               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                "sectionpos":self.celllocation.morphlocation.sectionpos,
 
-               "threshold": self.voltageThreshold ,
+               "threshold": self.voltage_threshold ,
                "delay": self.delay,
                "weight": self.weight,
                }
 
-        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
 
-        hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
+        hocfile_obj[MHocFileData.Synapses][self.synapse]["PRE"] = data
 
 
     def build_mod(self, modfile_set):
@@ -91,21 +91,21 @@ ${synnamepre}.event( $event.get_time.rescale("ms").magnitude )
 
 class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
 
-    def build_hoc(self, hocFileObj):
+    def build_hoc(self, hocfile_obj):
         synName = self.synapse.get_name()
-        synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
+        synNamePost = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
         synNamePre = self.synapse.get_name() + "Pre"
 
         data = {
                "synname": synName,
                "synnamepost" : synNamePost,
                "synnamepre": synNamePre,
-               "timelist": self.timeList,
+               "timelist": self.time_list,
                "weight": self.weight,
                }
 
-        hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmplList, data).respond() )
-        hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
+        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmplList, data).respond() )
+        hocfile_obj[MHocFileData.Synapses][self.synapse]["PRE"] = data
 
 
     def build_mod(self, modfile_set):

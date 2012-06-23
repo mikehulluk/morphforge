@@ -41,9 +41,9 @@ class NeuronSynapse(NeuronObject, Synapse):
         Synapse.__init__( self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
 
 
-    def build_hoc(self, hocFileObject):
-        self.postSynapticMech.build_hoc(hocFileObject)
-        self.preSynapticTrigger.build_hoc(hocFileObject)
+    def build_hoc(self, hocfile_obj):
+        self.postSynapticMech.build_hoc(hocfile_obj)
+        self.preSynapticTrigger.build_hoc(hocfile_obj)
 
     def build_mod(self, modfile_set):
         self.postSynapticMech.build_mod(modfile_set)
@@ -142,7 +142,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
             modfile_set.append(m)
 
 
-    def build_hoc(self, hocFileObj):
+    def build_hoc(self, hocfile_obj):
         cell1 = self.celllocation1.cell
         cell2 = self.celllocation2.cell
         section1 = self.celllocation1.morphlocation.section
@@ -156,19 +156,19 @@ class NeuronGapJunction(GapJunction, NeuronObject):
                "name2":gpObj2Name,
                "cell1":cell1,
                "cell2":cell2,
-               "cellname1":hocFileObj[MHocFileData.Cells][cell1]['cell_name'],
-               "cellname2":hocFileObj[MHocFileData.Cells][cell2]['cell_name'],
-               "sectionindex1":hocFileObj[MHocFileData.Cells][cell1]['section_indexer'][section1],
-               "sectionindex2":hocFileObj[MHocFileData.Cells][cell2]['section_indexer'][section2],
+               "cellname1":hocfile_obj[MHocFileData.Cells][cell1]['cell_name'],
+               "cellname2":hocfile_obj[MHocFileData.Cells][cell2]['cell_name'],
+               "sectionindex1":hocfile_obj[MHocFileData.Cells][cell1]['section_indexer'][section1],
+               "sectionindex2":hocfile_obj[MHocFileData.Cells][cell2]['section_indexer'][section2],
                "sectionpos1":self.celllocation1.morphlocation.sectionpos,
                "sectionpos2":self.celllocation2.morphlocation.sectionpos,
 
                "resistance": self.resistance
                }
 
-        hocFileObj.add_to_section( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
 
-        hocFileObj[MHocFileData.GapJunctions][self] = data
+        hocfile_obj[MHocFileData.GapJunctions][self] = data
 
 
 

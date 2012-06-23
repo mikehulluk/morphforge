@@ -16,13 +16,13 @@ class SummariserLibrary():
     summarisers = { }
 
     @classmethod
-    def register_summariser(cls, channelBaseClass, summariserClass ):
+    def register_summariser(cls, channel_baseclass, summariser_class ):
         # Check it has a to_report_lab Method:
         # Todo: Replace this with 'hasattr'
-        assert "to_report_lab" in summariserClass.__dict__
+        assert "to_report_lab" in summariser_class.__dict__
 
         # Add it to the dictionary of summarisers:
-        cls.summarisers[channelBaseClass] = summariserClass
+        cls.summarisers[channel_baseclass] = summariser_class
 
 
 

@@ -34,7 +34,7 @@ def _get_md5_of_section(s):
     sectionString = " %2.2f %2.2f %2.2f %2.2f "
     regionsString = _get_md5_of_region(s.region) if s.region else ""
     childrenString = ",".join( [_get_md5_of_section(s) for s in s.children] )
-    idString = "" if not s.idTag else StrUtils.get_hash_md5(s.idTag)
+    idString = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
 
     return StrUtils.get_hash_md5( sectionString + regionsString + childrenString + idString)
 
@@ -193,7 +193,7 @@ class MorphConsistencyChecker(object):
         self.check_section(self.morph._dummysection, self.morph, dummysection=True, recurse=True)
 
         # Check that there are not duplications of idTags in the tree:
-        idtags = SeqUtils.flatten( [s.idTag for s in self.morph if s.idTag]  )
+        idtags = SeqUtils.flatten( [s.idtag for s in self.morph if s.idtag]  )
         #print idtags
         assert len(idtags) == len( list(set(idtags) ) )
 

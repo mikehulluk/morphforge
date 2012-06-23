@@ -96,16 +96,16 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
 
 
         @classmethod
-        def plot_state_curve_summary(cls,  alphaBetaChl, state, figsize):
+        def plot_state_curve_summary(cls,  alphabeta_chl, state, figsize):
             fig = QuantitiesFigure(figsize=figsize)
-            fig.suptitle("Calcium AlphaBetaBeta Channel - %s : %s"%(alphaBetaChl.name, state))
+            fig.suptitle("Calcium AlphaBetaBeta Channel - %s : %s"%(alphabeta_chl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.plot_alpha_beta_curves(ax1, ax2, alphaBetaChl,state )
+            cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state )
 
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.plot_inf_tau_curves(ax3, ax4, alphaBetaChl,state )
+            cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state )
             return fig
 
 
@@ -197,4 +197,4 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             return localElements
 
 
-SummariserLibrary.register_summariser(channelBaseClass=MM_CalciumAlphaBetaBetaChannel, summariserClass=Summarise_MM_CalciumAlphaBetaBetaChannel)
+SummariserLibrary.register_summariser(channel_baseclass=MM_CalciumAlphaBetaBetaChannel, summariser_class=Summarise_MM_CalciumAlphaBetaBetaChannel)

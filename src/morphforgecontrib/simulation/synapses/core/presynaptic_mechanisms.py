@@ -19,9 +19,9 @@ from morphforge.traces.eventset import EventSet
 
 class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
 
-    def __init__(self, celllocation, voltageThreshold, delay, weight ):
+    def __init__(self, celllocation, voltage_threshold, delay, weight ):
         self.celllocation = celllocation
-        self.voltageThreshold = voltageThreshold
+        self.voltage_threshold = voltage_threshold
         self.delay = delay
         self.weight = weight
 
@@ -38,15 +38,15 @@ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
 
 class PreSynapticMech_TimeList(PreSynapticMechanism):
 
-    def __init__(self, timeList,  weight ):
+    def __init__(self, time_list,  weight ):
         PreSynapticMechanism.__init__(self)
 
         #Convert into an event set
-        if not isinstance(timeList,EventSet):
-            timeList = EventSet(timeList)
+        if not isinstance(time_list,EventSet):
+            time_list = EventSet(time_list)
 
 
-        self.timeList = timeList
+        self.time_list = time_list
         self.weight = weight
 
     def get_presynaptic_cell(self):

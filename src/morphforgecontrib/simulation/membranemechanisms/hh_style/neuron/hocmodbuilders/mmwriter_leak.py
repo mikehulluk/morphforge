@@ -70,9 +70,9 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_Mod(cls, leakChl, modfile_set):
+    def build_mod(cls, leak_chl, modfile_set):
 
-        baseWriter = MM_ModFileWriterBase(suffix=leakChl.get_neuron_suffix())
+        baseWriter = MM_ModFileWriterBase(suffix=leak_chl.get_neuron_suffix())
 
         gbarName = "gLk"
         eRevName = "eLk"
@@ -84,8 +84,8 @@ $(cell_name).internalsections [ $section_index ] {
         # Parameters:
         # {name: (value, unit,range)}
         baseWriter.parameters = {
-          gbarName:   (leakChl.conductance.rescale( gbarUnits ).magnitude, (gbarUnits), None),
-          eRevName:   (leakChl.reversalpotential.rescale(eRevUnits).magnitude, (eRevUnits), None),
+          gbarName:   (leak_chl.conductance.rescale( gbarUnits ).magnitude, (gbarUnits), None),
+          eRevName:   (leak_chl.reversalpotential.rescale(eRevUnits).magnitude, (eRevUnits), None),
           gScaleName: (1.0, None, None)
                       }
 
@@ -93,5 +93,5 @@ $(cell_name).internalsections [ $section_index ] {
         baseWriter.conductanceequation =  "%s * %s" % (gbarName, gScaleName)
 
         modtxt = baseWriter.generate_modfile()
-        modFile = ModFile(name=leakChl.name, modtxt=modtxt)
+        modFile = ModFile(name=leak_chl.name, modtxt=modtxt)
         modfile_set.append(modFile)

@@ -15,10 +15,10 @@ class MorphologyLibrary(object):
 
 
     @classmethod
-    def register_morphology(cls, modelsrc, celltype , morphFunctor):
+    def register_morphology(cls, modelsrc, celltype , morph_functor):
         key = modelsrc, celltype
         assert not key in cls.morphFuncs
-        cls.morphFuncs[ key ] = morphFunctor
+        cls.morphFuncs[ key ] = morph_functor
 
 
 
@@ -33,7 +33,7 @@ class MorphologyLibrary(object):
 
     @classmethod
     def list_morphologys(cls):
-        for morphKey, morphFunctor in cls.morphFuncs.iteritems():
+        for morphKey, morph_functor in cls.morphFuncs.iteritems():
             print morphKey
 
     @classmethod

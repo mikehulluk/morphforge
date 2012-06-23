@@ -72,7 +72,7 @@ class CellAnalysis_StepInputResponse(object):
         cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=somaLoc)
 
         sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
-        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
+        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
 
         res = sim.run()
 
@@ -228,9 +228,9 @@ class CellAnalysis_IVCurve(object):
         self.input_resistance=unit("-1:MOhm")
 
         if plot_all:
-            self.plotAll()
+            self.plot_all()
 
-    def plotAll(self):
+    def plot_all(self):
         self.plot_traces()
         self.plot_iv_curve()
 
@@ -251,7 +251,7 @@ class CellAnalysis_IVCurve(object):
         somaLoc = cell.get_location("soma")
 
         cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=somaLoc)
-        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj=%s "%current )
+        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
 
         res = sim.run()
 
@@ -259,18 +259,18 @@ class CellAnalysis_IVCurve(object):
 
 
 
-    def get_trace(self, iInj):
-        if not iInj in self.traces:
-            self.traces[iInj] = self._get_cc_simulation_trace(iInj)
-        return self.traces[iInj]
+    def get_trace(self, i_inj):
+        if not i_inj in self.traces:
+            self.traces[i_inj] = self._get_cc_simulation_trace(i_inj)
+        return self.traces[i_inj]
 
 
-    def get_iv_point_steaddy_state(self, iInj):
-        return  self.get_trace(iInj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
+    def get_iv_point_steaddy_state(self, i_inj):
+        return  self.get_trace(i_inj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
 
 
 
-    def plotAll(self):
+    def plot_all(self):
         self.plot_traces()
         self.plot_iv_curve()
 
@@ -286,8 +286,8 @@ class CellAnalysis_IVCurve(object):
             ax.set_ylabel('Voltage')
 
         # Plot the traces
-        for iInj in self.currents:
-            ax.plotTrace( self.get_trace(iInj), label='iInj: %s'%iInj)
+        for i_inj in self.currents:
+            ax.plotTrace( self.get_trace(i_inj), label='i_inj: %s'%i_inj)
 
         # Add the regions:
         ax.axvspan(self.tSteaddyStateStart, self.tSteaddyStateStop, facecolor='g', alpha=0.25)

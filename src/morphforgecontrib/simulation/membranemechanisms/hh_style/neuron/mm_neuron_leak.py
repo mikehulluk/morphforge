@@ -24,7 +24,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
     def __init__(self, lkchannel, modvar, **kwargs):
         super( MM_Neuron_Leak_Record, self).__init__(**kwargs)
-        self.leakChl = lkchannel
+        self.leak_chl = lkchannel
         self.modvar=modvar
 
     def build_mod(self, modfile_set):
@@ -35,7 +35,7 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
-                                             mod_neuronsuffix=self.leakChl.get_neuron_suffix(), recordobj=self)
+                                             mod_neuronsuffix=self.leak_chl.get_neuron_suffix(), recordobj=self)
 
 
 
@@ -51,9 +51,9 @@ class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
 
 
     def get_description(self):
-        t1 ="g %s "%( self.leakChl.name)
+        t1 ="g %s "%( self.leak_chl.name)
         r = "%s"%self.where.cell.name
-        t = ":%s"% self.where.morphlocation.section.idTag if self.where.morphlocation.section.idTag else ""
+        t = ":%s"% self.where.morphlocation.section.idtag if self.where.morphlocation.section.idtag else ""
         return t1 + r + t
 
 
@@ -67,9 +67,9 @@ class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
         return [StandardTags.CurrentDensity]
 
     def get_description(self):
-        t1 ="i %s "%( self.leakChl.name)
+        t1 ="i %s "%( self.leak_chl.name)
         r = "%s"%self.where.cell.name
-        t = ":%s"% self.where.morphlocation.section.idTag if self.where.morphlocation.section.idTag else ""
+        t = ":%s"% self.where.morphlocation.section.idtag if self.where.morphlocation.section.idtag else ""
         return t1 + r + t
 
 
@@ -95,7 +95,7 @@ class MM_Neuron_Leak(MM_LeakChannel,MM_Neuron_Base):
         return MM_WriterLeak.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        m = MM_WriterLeak.build_Mod(leakChl=self, modfile_set=modfile_set)
+        m = MM_WriterLeak.build_mod(leak_chl=self, modfile_set=modfile_set)
 
     def get_mod_file_changeables(self):
 

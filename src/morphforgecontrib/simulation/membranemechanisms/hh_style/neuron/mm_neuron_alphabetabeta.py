@@ -27,9 +27,9 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 
 class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
-    def __init__(self, alphaBetaBetaChl, modvar, **kwargs):
+    def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
         super( MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
-        self.alphaBetaBetaChl = alphaBetaBetaChl
+        self.alphabeta_beta_chl = alphabeta_beta_chl
         self.modvar=modvar
 
     def build_mod(self, modfile_set):
@@ -40,10 +40,10 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
                                              vecname="RecVec%s"%self.name,
                                              celllocation=self.where,
                                              modvariable=self.modvar,
-                                             mod_neuronsuffix=self.alphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
+                                             mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(), recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.alphaBetaBetaChl.name, self.where.get_location_description_str() )
+        return "%s %s %s" % (self.modvar, self.alphabeta_beta_chl.name, self.where.get_location_description_str() )
 
 
 
@@ -126,13 +126,13 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #
 #class MM_Neuron_AlphaBetaBetaBeta_CurrentRecord(NeuronRecordableOnLocation):
 #
-# def __init__(self, alphaBetaBetaChl, modvar, **kwargs):
+# def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
 #        super( MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
-#        self.alphaBetaBetaChl = alphaBetaBetaChl
+#        self.alphabeta_beta_chl = alphabeta_beta_chl
 #        self.modvar=modvar
 #
 #
-#    def __init__(self, alphaBetaBetaChl, modvar, **kwargs):
+#    def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
 #        super( MM_Neuron_AlphaBetaBetaBeta_CurrentRecord, self).__init__(**kwargs)
 #
 #        #self.name = name
@@ -187,7 +187,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
 
 
     def create_modfile(self, modfile_set):
-        MM_WriterAlphaBetaBeta.build_Mod(alphaBetaBetaChl=self, modfile_set=modfile_set)
+        MM_WriterAlphaBetaBeta.build_mod(alphabeta_beta_chl=self, modfile_set=modfile_set)
 
 
     def get_recordable(self, what, name, **kwargs):
@@ -202,7 +202,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
 
         }
 
-        return recorders[what]( alphaBetaBetaChl=self, celllocation= celllocation, name=name, **kwargs  )
+        return recorders[what]( alphabeta_beta_chl=self, celllocation= celllocation, name=name, **kwargs  )
 
 
     def get_mod_file_changeables(self):

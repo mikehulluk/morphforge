@@ -92,7 +92,7 @@ myCell = mySim.create_cell(name="Cell1", morphology=m1)
 leakChannels = env.MembraneMechanism( EqnSetChl,
                                       mechanism_id='ID1',
                                       eqnset=EquationSetLoader.load( 'std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath() ) ,
-                                      parameters= {'gl':unit("5:pS/um2"), 'eRev': unit("-70:mV")} )
+                                      parameters= {'gl':unit("5:pS/um2"), 'e_rev': unit("-70:mV")} )
 apply_mechanism_everywhere_uniform(myCell, leakChannels )
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 

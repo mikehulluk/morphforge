@@ -117,14 +117,14 @@ class MNeuronSimulation(Simulation):
             o.build_mod(modFiles)
 
 
-        timeArray = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
+        time_array = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
         traces = []
         records = hocData[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            dataArray = _random_walk(len(timeArray), 0.05 ) * r.get_unit()
+            dataArray = _random_walk(len(time_array), 0.05 ) * r.get_unit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.get_tags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=time_array, data=dataArray, tags=r.get_tags() )
             traces.append(tr)
 
         self.result = SimulationResult(traces, self)
@@ -209,7 +209,7 @@ class MNeuronSimulation(Simulation):
 
 
         # Extract the values back out:
-        timeArray = np.array(neuron.h.__getattribute__(NeuronSimulationConstants.TimeVectorName)) * NeuronSimulationConstants.TimeUnit
+        time_array = np.array(neuron.h.__getattribute__(NeuronSimulationConstants.TimeVectorName)) * NeuronSimulationConstants.TimeUnit
 
         tTraceReadStart = time.time()
         traces = []
@@ -218,7 +218,7 @@ class MNeuronSimulation(Simulation):
 
             dataArray = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.get_unit()
 
-            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=timeArray, data=dataArray, tags=r.get_tags() )
+            tr = Trace_VariableDT(name=r.name, comment=r.get_description(), time=time_array, data=dataArray, tags=r.get_tags() )
             traces.append(tr)
         print "Time for Extracting Data: (%d records)"%(len(records)),  time.time() - tTraceReadStart
 
@@ -245,8 +245,8 @@ class MNeuronSimulation(Simulation):
     def add_synapse_backend_specific(self,synapse):
         self.simulation_objects.append(synapse)
 
-    def add_gapjunction_backend_specific(self,gapJunction):
-        self.simulation_objects.append(gapJunction)
+    def add_gapjunction_backend_specific(self,gapjunction):
+        self.simulation_objects.append(gapjunction)
 
     def add_recordable(self, recordable):
         if recordable.name in self.recordableNames:

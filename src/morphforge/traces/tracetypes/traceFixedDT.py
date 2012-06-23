@@ -32,8 +32,8 @@ class Trace_FixedDT(Trace_PointBased):
 
 
     @classmethod
-    def is_array_fixed_dt(cls, timeArray):
-        d = np.diff(timeArray.rescale('ms').magnitude)
+    def is_array_fixed_dt(cls, time_array):
+        d = np.diff(time_array.rescale('ms').magnitude)
         if np.ptp(d) > 0.01:
             return False
         return True

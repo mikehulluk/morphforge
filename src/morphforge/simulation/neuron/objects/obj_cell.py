@@ -68,7 +68,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
 
     def get_description(self):
         r = "Vm %s"%self.location.cell.name
-        t = ":%s"% self.location.morphlocation.section.idTag if self.location.morphlocation.section.idTag else ""
+        t = ":%s"% self.location.morphlocation.section.idtag if self.location.morphlocation.section.idtag else ""
         return r + t
 
 

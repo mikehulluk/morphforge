@@ -79,8 +79,8 @@ class MHocFile(object):
         self.info = dict( [ (root_info, {}) for root_info in MHocFileData.root_infos] )
         self.sections = dict( [ (s, []) for s in MHOCSections.ordered] )
 
-    def add_to_section(self, sectionName, text ):
-        self.sections[sectionName].append(text)
+    def add_to_section(self, section_name, text ):
+        self.sections[section_name].append(text)
 
     def __str__(self):
         def strSect(sect):

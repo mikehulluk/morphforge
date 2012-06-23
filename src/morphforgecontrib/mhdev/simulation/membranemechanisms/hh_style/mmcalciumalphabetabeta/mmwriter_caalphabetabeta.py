@@ -94,7 +94,7 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_Mod(cls, caAlphaBetaBetaChl, modfile_set):
+    def build_mod(cls, caAlphaBetaBetaChl, modfile_set):
 
         m = ModFileSectioned(title="Some title")
 
@@ -155,7 +155,7 @@ $(cell_name).internalsections [ $section_index ] {
 
 
         # States
-        m.add_state_group( groupName = "states",
+        m.add_state_group( groupname = "states",
                          states = [
                                    NeuronParameter(parametername="m", parameterunit=None),
                                    NeuronParameter(parametername="mtau", parameterunit="ms"),
