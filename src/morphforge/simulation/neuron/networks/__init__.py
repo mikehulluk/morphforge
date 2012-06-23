@@ -45,7 +45,7 @@ class NeuronSynapse(NeuronObject, Synapse):
 
 
     def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):
-        NeuronObject.__init__(self, objName=name,simulation=simulation)
+        NeuronObject.__init__(self, name=name,simulation=simulation)
         Synapse.__init__( self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
 
 

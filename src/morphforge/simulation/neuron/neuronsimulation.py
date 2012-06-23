@@ -83,7 +83,7 @@ class MNeuronSimulation(Simulation):
         #    os.unlink(resfilename)
 
 
-        if not Exists(resfilename):
+        if not os.path.exists(resfilename):
 
             # Setup the LD_LIBRARY PATH:
             # It may be nessesary to add the following to .mfrc

@@ -50,14 +50,11 @@ class SimulationEnvironment(object):
     def MembraneMechanism(self, mechanismtype, **kwargs):
         raise NotImplementedError()
 
-
     def GapJunction(self,  **kwargs):
         raise NotImplementedError()
 
-
     def Synapse(self,  **kwargs):
         raise NotImplementedError()
-
 
     def SimulationSettings(self,**kwargs):
         raise NotImplementedError()

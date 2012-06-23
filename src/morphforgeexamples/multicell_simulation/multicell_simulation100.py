@@ -92,7 +92,6 @@ k_eqnset_txt = """
 }"""
 
 
-
 # Some Utility Functions:
 def extract_params(p, prefix, replace_prefix=""):
     return dict( [ (replace_prefix+k[len(prefix):],v) for (k,v) in p.iteritems() if k.startswith(prefix) ])
@@ -493,6 +492,9 @@ EQNSET syn_simple {
     }
 }
 """
+
+
+class PostSynapticTemplate(object):
 
 
 def onto_driver(sim, postsynaptic, times):

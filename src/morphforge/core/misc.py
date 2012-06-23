@@ -9,26 +9,25 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-
 
 import os.path as fs
 
@@ -40,13 +39,13 @@ import fnmatch
 
 from mgrs import LocMgr
 
+
 def find_files_recursively(directory, pattern):
     for (root, dirs, files) in os.walk(directory):
         for basename in files:
             if fnmatch.fnmatch(basename, pattern):
                 filename = os.path.join(root, basename)
                 yield filename
-
 
 
 class StrUtils(object):
@@ -137,7 +136,6 @@ class SeqUtils(object):
             raise ValueError('Found too many occurances')
         return filtered_seq[0]
 
-
     @classmethod
     def filter_with_prob(cls, lst, p):
         return [l for l in lst if random.random() < p]
@@ -150,16 +148,6 @@ class SeqUtils(object):
         sc = sorted(collection, key=key)
         assert key(sc[-1]) != key(sc[-2])
         return sc[-1]
-
-
-
-
-
-
-
-
-
-
 
 
 def is_iterable(f):
@@ -191,14 +179,6 @@ def check_cstyle_varname(name):
     return name
 
 
-
-
-
-
-
-
-
-
 # Deprecated:
 # =========================
 
@@ -222,4 +202,5 @@ def is_int(f):
         return True
     except:
         return False
+
 

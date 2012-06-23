@@ -107,10 +107,10 @@ class SpikeFinderThreshCross(object):
         #for i in fallingEdgeInd:
         #    print i,self.trace._time[i]
 
-        #print 'fallingEdgeInd', fallingEdgeInd
+        #print 'fallingEdgeInd', falling_edge_ind
 
 
-        assert len(rising_edge_ind) == len(fallingEdgeInd)
+        assert len(rising_edge_ind) == len(falling_edge_ind)
 
 
         #t = range(d.shape[0])
@@ -120,7 +120,7 @@ class SpikeFinderThreshCross(object):
         #pylab.plot( t, above_zero*100)
         #pylab.savefig("/home/michael/Desktop/temp.svg")
 
-        thresh_indices = zip(rising_edge_ind, fallingEdgeInd)
+        thresh_indices = zip(rising_edge_ind, falling_edge_ind)
 
         #Some sanity checking:
         import itertools

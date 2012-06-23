@@ -30,43 +30,11 @@
 # ----------------------------------------------------------------------
 
 
-""" Base Class for Neuron Object """
+from morphforge.simulation.core.base_classes import NamedSimulationObject
 
-class NeuronObject(object):
+class NeuronObject(NamedSimulationObject):
+    """ Base Class for Neuron Object """
 
-    objCnt = 0
-    objNames = {}
-
-    @classmethod
-    def get_next_anon_name(cls):
-        name = "AnonObj%04d"%NeuronObject.objCnt
-        NeuronObject.objCnt += 1
-        return name
-
-
-    def __init__(self, simulation, name=None,  **kwargs):
-
-
-
-        assert simulation
-
-        if not simulation in NeuronObject.objNames:
-            NeuronObject.objNames[simulation] = set()
-
-        if not name:
-            name = NeuronObject.get_next_anon_name()
-
-        assert not name in NeuronObject.objNames[simulation]
-        NeuronObject.objNames[simulation].add( name )
-
-
-
-        self.objName = name
-        self.name = name
-
-
-    def get_name(self):
-        return self.objName
 
 
     def build_hoc(self, hocfile_obj):
