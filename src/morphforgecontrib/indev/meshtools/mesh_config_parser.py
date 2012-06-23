@@ -319,7 +319,7 @@ def parse_zip_file(zip_in, zip_out):
     fIn.close()
     fOut.close()
 
-    
+
     print 'Parsed OK'
     return parser.context
 

@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -21,20 +21,20 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 class ObjectLabeller(object):
-    
+
     objectcount = {}
-    
+
     @classmethod
     def increment_count_for_object(cls, obj):
         newcnt = cls.objectcount.get(obj,0) + 1
-        
+
         cls.objectcount[obj] = newcnt
         return newcnt
-    
+
     @classmethod
     def get_next_unamed_object_name(cls, objType, prefix=None, num_fmt_string=None):
         if num_fmt_string is None:
             num_fmt_string = "%04d"
         if prefix is None:
             prefix = "Unamed" + str(objType.__name__)
-        return prefix + num_fmt_string%ObjectLabeller.increment_count_for_object(objType) 
+        return prefix + num_fmt_string%ObjectLabeller.increment_count_for_object(objType)

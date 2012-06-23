@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -31,20 +31,20 @@ from morphforge.morphology.errors import MorphologyFrameworkRegistrationError
 class MorphologyExporter(object):
 
     method_name_prefix = "to"
-    
+
     @classmethod
     def register(cls, method_name, export_functor, from_type, allow_override=False):
-        
+
         if not isinstance( method_name, basestring):
             raise MorphologyFrameworkRegistrationError("method_name must be a string")
-        
+
         if not method_name.startswith(cls.method_name_prefix):
             raise MorphologyFrameworkRegistrationError("method_name must begin with '%s' "% cls.method_name_prefix)
-        
+
         if  hasattr( from_type, method_name) and not allow_override:
             err = "Existing export functor defined for: %s.%s"%(from_type.__name__,method_name)
             err+= "(Perhaps use the 'allow_override' parameter on this function-call?)"
             raise MorphologyFrameworkRegistrationError(err)
-        
+
         setattr( from_type, method_name, export_functor)
-        
+

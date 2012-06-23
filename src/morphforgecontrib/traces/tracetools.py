@@ -106,7 +106,7 @@ class SpikeFinderThreshCross(object):
         on_off = list( itertools.chain(*threshIndices) )
         assert on_off == sorted(on_off)
         #print on_off
-    
+
 
         #print 'ThresIndices', threshIndices
 

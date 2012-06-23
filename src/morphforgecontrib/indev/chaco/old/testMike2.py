@@ -1,19 +1,19 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from enthought.traits.api import *
 from enthought.traits.ui.api import *
 from enthought.chaco import *
 from enthought.chaco.plot_component import *
-from enthought.enable import * 
+from enthought.enable import *
 """ Demonstrates plots sharing datasources, ranges, etc. """
 # Major library imports
 from numpy import arange
@@ -58,7 +58,7 @@ def _create_plot_component():
     left_plot = Plot(plotdata)
     left_plot.x_axis.title = "X"
     left_plot.y_axis.title = "j0(x)"
-    renderer = left_plot.plot(("x", "y1"), type="line", color="blue", 
+    renderer = left_plot.plot(("x", "y1"), type="line", color="blue",
                               width=2.0)[0]
     renderer.overlays.append(LineInspector(renderer, axis='value',
                                             write_metadata=True,
@@ -97,7 +97,7 @@ def _create_plot_component():
     right_plot.overlays.append(ZoomTool(right_plot, tool_mode="range"))
     right_plot.tools.append(PanTool(right_plot))
     container.add(right_plot)
-   
+
     return container
 
 
@@ -125,8 +125,8 @@ class GraphDisplay(HasTraits):
     #plotcontainer = VPlotContainer()
     plot = Instance( Plot )
     string = String()
-    
-    view= View( 
+
+    view= View(
             Item('string', show_label=False, springy=True, style='custom' ),
             Item('plot', show_label=False,  editor=ComponentEditor() ),
             resizable=True
@@ -140,7 +140,7 @@ class GraphDisplay(HasTraits):
         plotdata = ArrayPlotData(x=x, y1=np.sin(x))
         # Create the left plot
         left_plot = Plot(plotdata)
-        renderer = left_plot.plot(("x", "y1"), type="line", color="blue", 
+        renderer = left_plot.plot(("x", "y1"), type="line", color="blue",
                                   width=2.0)[0]
         renderer.overlays.append(LineInspector(renderer, axis='value',
                                                 write_metadata=True,
@@ -149,7 +149,7 @@ class GraphDisplay(HasTraits):
                                                 write_metadata=True,
                                                 is_listener=True))
 
-        self.plot = left_plot 
+        self.plot = left_plot
 
 class AppContainer(HasTraits):
     camera = Instance(Camera)
@@ -164,6 +164,6 @@ class AppContainer(HasTraits):
             )
 
 #container = Container(camera=Camera(), display=TextDisplay())
-container = AppContainer(display=TextDisplay(),camera=Camera(), graphdisplay=GraphDisplay() ) 
+container = AppContainer(display=TextDisplay(),camera=Camera(), graphdisplay=GraphDisplay() )
 print container.__dict__
 container.configure_traits()

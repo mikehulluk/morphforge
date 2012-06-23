@@ -26,7 +26,7 @@ def HGroup(*args, **kwargs):
 
 
 class PointDraggingTool(DragTool):
-   
+
     component = Instance(Component)
     # The pixel distance from a point that the cursor is still considered
     # to be 'on' the point
@@ -40,8 +40,8 @@ class PointDraggingTool(DragTool):
 
     def __init__(self, *args,**kwargs):
         DragTool.__init__(self,*args, **kwargs)
-        self.on_change_functor = None 
-        
+        self.on_change_functor = None
+
 
 
     def is_draggable(self, x, y):
@@ -52,7 +52,7 @@ class PointDraggingTool(DragTool):
             return False
     def normal_mouse_move(self, event):
         plot = self.component
-       
+
         ndx = plot.map_index((event.x, event.y), self.threshold)
         if ndx is None:
             if plot.index.metadata.has_key('selections'):
@@ -87,7 +87,7 @@ class PointDraggingTool(DragTool):
         plot.index.data_changed = True
         plot.value.data_changed = True
         plot.request_redraw()
-        
+
     def drag_end(self, event):
         plot = self.component
         if plot.index.metadata.has_key('selections'):
@@ -101,7 +101,7 @@ class PointDraggingTool(DragTool):
 
     def _lookup_point(self, x, y):
         """ Finds the point closest to a screen point if it is within self.threshold
-       
+
         Parameters
         ==========
         x : float
@@ -121,7 +121,7 @@ class PointDraggingTool(DragTool):
 # # Create the Chaco plot.
 #===============================================================================
 def _create_plot_component(title, initial_values=None,on_change_functor=None ):
-   
+
     #return OverlayPlotContainer()
 
 
@@ -142,7 +142,7 @@ def _create_plot_component(title, initial_values=None,on_change_functor=None ):
 
     lineplot = create_line_plot((x,y), color=tuple(COLOR_PALETTE[0]), width=2.0)
     lineplot.selected_color = "none"
-    
+
     scatter = ScatterPlot(index = lineplot.index,
                        value = lineplot.value,
                        index_mapper = lineplot.index_mapper,
@@ -152,11 +152,11 @@ def _create_plot_component(title, initial_values=None,on_change_functor=None ):
     scatter.index.sort_order = "ascending"
     scatter.bgcolor = "white"
     scatter.border_visible = True
-   
+
     add_default_grids(scatter)
     add_default_axes(scatter)
     scatter.tools.append(PanTool(scatter, drag_button="right"))
-   
+
     # The ZoomTool tool is stateful and allows drawing a zoom
     # box to select a zoom region.
     zoom = ZoomTool(scatter, tool_mode="box", always_on=False, drag_button=None)
@@ -174,7 +174,7 @@ def _create_plot_component(title, initial_values=None,on_change_functor=None ):
                               component=container,
                               font = "swiss 16",
                               overlay_position="top"))
-  
+
     container.mx = lineplot.index.get_data()
     container.my = lineplot.value.get_data()
     return container

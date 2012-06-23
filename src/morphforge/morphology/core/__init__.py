@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,24 +24,24 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 
-"""Object-models for morphology representations.  
+"""Object-models for morphology representations.
 
 
 Dual-Represention of  morphologies
 -----------------------------------
 
-In morphforge, as in many other tools, morphologies are represented as a tree of joined conical frustra (cylinders with different radii ends). 
+In morphforge, as in many other tools, morphologies are represented as a tree of joined conical frustra (cylinders with different radii ends).
 
 
 .. figure:: /img_srcs/new_morphology_original.svg
     :align: center
-    
+
 
 Figure 1A shows a projection of an original neuron morphology,
 In figure 1B, the morphology is approximated as a set of conical frustra. At every joining point of multiple frustra, the radii are the same.
 
 There are 2 ways of considering these sets of frustra:
- * **TreeBased:** As a tree of *Sections*  (Figure 1C). 
+ * **TreeBased:** As a tree of *Sections*  (Figure 1C).
  * **VertexBased:** As a set of vertices and a set of connections between them.
 
 Underneath, these two representations contain the same information, but the different object model representations have strengths for different tasks.
@@ -59,29 +59,29 @@ Converting between representations
 -----------------------------------
 
 
-In general, you will only need to use one of the two representations, depending on what your are doing. However, :py:class:`~.core.tree.MorphologyTree`  and :py:class:`~.core.array.MorphologyArray`  objects can be converted to each type using the methods "to_array()" and "to_tree()". 
+In general, you will only need to use one of the two representations, depending on what your are doing. However, :py:class:`~.core.tree.MorphologyTree`  and :py:class:`~.core.array.MorphologyArray`  objects can be converted to each type using the methods "to_array()" and "to_tree()".
 
 
 .. code-block:: python
- 
- 
-   # Load a MorphArray object and convert 
+
+
+   # Load a MorphArray object and convert
    # it to MorphTree object
    morph_array = MorphArray.fromSWC(...)
    morph_tree = morph_array.to_array()
-    
+
    # Vice-Versa
    morph_tree2 = MorphTree.fromSWC(...)
    morph_array = morph_tree2.to_array()
-   
+
    # Trying to convert an object to its own
    # type returns the original object:
    morph_tree3 = morph_tree2.to_tree()
-   assert morph_tree3 is morphtree2 
-   
+   assert morph_tree3 is morphtree2
+
 """
 
- 
+
 
 
 

@@ -23,65 +23,65 @@ from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_
 import numpy as np
 import traceback
 import StringIO
-        
-        
+
+
 
 
 def simulate_chl_vclamp(chl, voltage_level):
     env = NeuronSimulationEnvironment()
-    
+
     # Create the simulation:
     mySim = env.Simulation( tstop=unit("1500:ms") )
-    
+
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
     myCell = mySim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment() )
-    
+
     # Setup the HH-channels on the cell:
     #chl = chl_applicator_functor(env, myCell, mySim)
     apply_mechanism_everywhere_uniform(myCell, chl )
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     # Setup passive channels:
     apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
-    
-    
-    
-    
+
+
+
+
     # Get a location on the cell:
     somaLoc = myCell.get_location("soma")
-    
+
     # Create the stimulus and record the injected current:
     #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
-    
-    cc = mySim.create_voltageclamp( name="Stim1",  
-                                   dur1=unit("200:ms"), amp1=unit("-60:mV"), 
+
+    cc = mySim.create_voltageclamp( name="Stim1",
+                                   dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    #dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
                                    dur2=unit("500:ms"), amp2=voltage_level,
                                    #dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
                                    dur3=unit("500:ms"), amp3=unit("-50:mV"),
-                                   celllocation=somaLoc, 
+                                   celllocation=somaLoc,
                                    )
-    
-    
+
+
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc ) 
+    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
     mySim.record( cc, what=StdRec.Current, name="CurrentClamp" )
-    
-    
-    
-    
+
+
+
+
     # run the simulation
     results = mySim.run()
-    
-    
-    
-    
+
+
+
+
     return results
 
 
@@ -116,7 +116,7 @@ class ComparisonResult(object):
         self.exception = exception
         self.output_image_files = []
 
-    
+
     @property
     def model(self):
         return os.path.splitext(self.xmlfile)[0].split("/")[-2]
@@ -161,7 +161,7 @@ Error reading src_txt
 <a href="$data.chl_neurounits_pdf"> PDF of chl </a>
 #except
 Can't find chl pdf
-#end try 
+#end try
 
 <H2>Output ModFile (NeuroUnits)</H2>
 #try
@@ -236,13 +236,13 @@ def compareNeuroMLChl( xmlFile ):
         # Make the NeuroUnits channel:
         chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlFile,  mechanism_id="Blhkjl")
         c.chl_neurounits = chl_neuro
-        
+
         #from neurounits.tools.writepdf import WriteToPDF
         op_pdf_file = Join(op_dir, 'Op1.pdf')
         #WriteToPDF(eqnset = chl_neuro.eqnset, filename = op_pdf_file)
         c.chl_neurounits_pdf = op_pdf_file
-    
-        
+
+
         # Make the NeuroML channel:
         xsl_file = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl"
         chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlFile, xsl_filename=xsl_file,  mechanism_id="Blah")
@@ -285,10 +285,10 @@ def compareNeuroMLChl( xmlFile ):
             denom = (tN+tX)
             diff = num/denom
             ax3.plotTrace(diff, color='r')
-            
+
             ax4.plotTrace(rN.get_trace('SomaVoltage'), color='m')
             ax4.plotTrace(rX.get_trace('SomaVoltage'), color='m', linewidth=20, alpha=0.2)
-             
+
             if num.max()[1] > unit("0.1:pA"):
                 c.same_chl = False
 
@@ -297,7 +297,7 @@ def compareNeuroMLChl( xmlFile ):
             pylab.savefig(out_im+".pdf")
             c.output_image_files.append(out_im)
             pylab.close()
-        
+
         c.finished_ok=True
 
 
@@ -311,7 +311,7 @@ def compareNeuroMLChl( xmlFile ):
         c.exception="%s (%s)"%(str(e), str(type(e)))
         c.same_chl = False
         c.finished_ok=False
-        
+
 
     except Exception,e:
         print 'Exception caught:', e
@@ -419,7 +419,7 @@ def main():
 
 
         #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/MainenEtAl_PyramidalCell_NeuroML/K_ChannelML.xml":
-        #        continue 
+        #        continue
         #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/CA1PyramidalCell_NeuroML/kdr.xml":
         #    continue
 

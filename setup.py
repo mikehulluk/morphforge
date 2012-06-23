@@ -13,11 +13,11 @@ if not on_rtd:
     print """so that the docs can be built on read-the-docs."""
     print """Please see the morphforge documentation for more"""
     print """information"""
-    print     
-    assert False 
+    print
+    assert False
 
 
-    
+
 locs = [
         "srcs/morphforge/__init__.py",
         "srcs/morphforge/*/__init__.py",
@@ -25,8 +25,8 @@ locs = [
         "srcs/morphforge/*/*/*/__init__.py",
         "srcs/morphforge/*/*/*/*/__init__.py",
         ]
-glob_pkgs =itertools.chain( *[glob.glob(loc) for loc in locs] ) 
-glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs] 
+glob_pkgs =itertools.chain( *[glob.glob(loc) for loc in locs] )
+glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs]
 
 pkgs = [
 'mhlibs',
@@ -42,7 +42,7 @@ setup(
     packages=pkgs,
     package_dir = {'': 'src/'},
 
-    author = "Mike Hull",	
+    author = "Mike Hull",
     author_email = "mikehulluk@googlemail.com",
     maintainer	="Mike Hull",
     maintainer_email = "mikehulluk@googlemail.com",
@@ -55,7 +55,7 @@ setup(
     )
 
 
-	
+
 
 
 

@@ -30,12 +30,12 @@
 #def get_chl_info_dir():
 #    chlInfo = []
 #
-#    
+#
 #
 #    for subdir in subdirs:
-#        
+#
 #        for xmlfile in glob.glob( Join(simSrcDir, subdir) + '/*.xml'):
-#            
+#
 #            try:
 #                ChannelMLReader.LoadChlRaw(xmlfile)
 #                chlInfo.append(  xmlfile )
@@ -43,6 +43,6 @@
 #                pass
 #            except:
 #                raise
-#            
+#
 #
 #    return chlInfo

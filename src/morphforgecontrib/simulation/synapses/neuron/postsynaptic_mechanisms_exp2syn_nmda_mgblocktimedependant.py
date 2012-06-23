@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
@@ -50,11 +50,11 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
     def build_hoc(self, hocfile_obj):
         objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
         HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dep_state", recordobj=self )
-                
+
     def build_mod(self, modfile_set):
-        pass    
-    
-    
+        pass
+
+
 class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
@@ -69,10 +69,10 @@ class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
     def build_hoc(self, hocfile_obj):
         objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
         HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy_ss", recordobj=self )
-                
+
     def build_mod(self, modfile_set):
-        pass        
-    
+        pass
+
 
 
 
@@ -91,13 +91,13 @@ ${synnamepost}.popening = $pOpening
 class PostSynapticMech_Exp2SynNMDAMGTimeDepBlock( PostSynapticMech_Exp2SynNMDA ):
     pass
 
-class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock):   
-    
-   
+class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock):
+
+
     def __init__(self, simulation, **kwargs):
         PostSynapticMech_Exp2SynNMDA.__init__( self,  **kwargs)
-        
-        
+
+
 
 
     def build_hoc(self, hocFileObj):
@@ -110,26 +110,26 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
                "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
                "sectionpos":self.celllocation.morphlocation.sectionpos,
-               
+
                "tauOpen": self.tauOpen,
                "tauClosed": self.tauClosed,
                "eRev": self.eRev,
                "pOpening": self.popening,
                'random_seed': MFRandom.get_seed(),
                }
-        
+
         hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
-        
+
         hocFileObj[MHocFileData.Synapses][self.synapse] = {}
-        hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data  
-        
+        hocFileObj[MHocFileData.Synapses][self.synapse]["POST"] = data
+
     def build_mod(self, modfile_set):
         #import postsynaptic_mechanisms_exp2syn_nmda_modfile
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile.get_exp2_syn_nmda_mg_block_time_dependance_modfile(), name='UnusedParameterXXXExpSyn2')
         modfile_set.append(modfile)
-        
-        
-        
+
+
+
     def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Exp2SynNMDA_CurrentRecord( neuron_syn_post=self, **kwargs)
@@ -139,11 +139,11 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
             return Neuron_PSM_Std_NMDAVoltageDependanceRecord( neuron_syn_post=self, **kwargs)
         if what == StandardTags.NMDAVoltageDependancySS:
             return Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord( neuron_syn_post=self, **kwargs)
-        
+
         assert False
-        
-        
-        
-        
+
+
+
+
 NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock, Neuron_PSM_Exp2SynNMDAMgBlockTimeDep)
 

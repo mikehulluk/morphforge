@@ -2,7 +2,7 @@
 from morphforge.core import LocMgr, Join
 
 hostlistfilename = Join(LocMgr.get_bin_path(), "DellMachines.txt")
-hostlistfile = open(hostlistfilename) 
+hostlistfile = open(hostlistfilename)
 
 hosts = [ l.strip() for l in hostlistfile.readlines() if not l.startswith("#") and l.strip() != ""]
 hosts = []
@@ -36,11 +36,11 @@ for host in hosts:
         if igot:
             print report[int(igot[0])]
             res = int(igot[0])
-            if res == 2: 
+            if res == 2:
                 alivehosts.append(host)
 
-        
-    
+
+
 
 print "Alive Hosts:", len(alivehosts)
 

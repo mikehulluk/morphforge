@@ -192,7 +192,7 @@ class SynapsePopulation(object):
         else:
             assert len(pre_pops)==1
             return list(pre_pops)[0]
-        
+
 
 
 

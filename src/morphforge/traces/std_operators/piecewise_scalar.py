@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -32,14 +32,14 @@ from morphforge.traces.trace_operators_ctrl import TraceOperatorCtrl
 class PiecewiseScalarOperation(PieceWiseComponentVisitor):
 
     @classmethod
-    def visit_linear(cls, o, operator, scalar): 
-        return TracePieceFunctionLinear(time_window=o.time_window, 
+    def visit_linear(cls, o, operator, scalar):
+        return TracePieceFunctionLinear(time_window=o.time_window,
                                         x0=operator(o.x0,scalar ),
                                         x1=operator(o.x1,scalar ) )
 
     @classmethod
     def visit_flat(cls, o, operator, scalar):
-        return TracePieceFunctionFlat(time_window=o.time_window, 
+        return TracePieceFunctionFlat(time_window=o.time_window,
                                       x=operator(o.x,scalar ) )
 
 
@@ -54,10 +54,10 @@ class TraceOperator_TracePiecewise_Quantity(object):
             tr,sc = lhs,rhs
         else:
             sc,tr = lhs,rhs
-        
+
         pieces = [ PiecewiseScalarOperation.visit(p,operator=operator,scalar=sc) for p in tr._pieces ]
         return Trace_Piecewise( pieces = pieces )
-        
+
     @classmethod
     def do_add(cls, lhs, rhs):
         return cls.do_op(lhs=lhs,rhs=rhs,operator=operator.__add__)
@@ -72,25 +72,25 @@ class TraceOperator_TracePiecewise_Quantity(object):
         return cls.do_op(lhs=lhs,rhs=rhs,operator=operator.__div__)
 
 # Times quantity:
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__add__, 
+TraceOperatorCtrl.add_trace_operator( operator_type = operator.__add__,
                                       lhs_type = Trace_Piecewise,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TracePiecewise_Quantity.do_add,
                                       flag='default' )
 
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__sub__, 
+TraceOperatorCtrl.add_trace_operator( operator_type = operator.__sub__,
                                       lhs_type = Trace_Piecewise,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TracePiecewise_Quantity.do_sub,
                                       flag='default' )
 
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__mul__, 
+TraceOperatorCtrl.add_trace_operator( operator_type = operator.__mul__,
                                       lhs_type = Trace_Piecewise,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TracePiecewise_Quantity.do_mul,
                                       flag='default' )
 
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__div__, 
+TraceOperatorCtrl.add_trace_operator( operator_type = operator.__div__,
                                       lhs_type = Trace_Piecewise,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TracePiecewise_Quantity.do_div,

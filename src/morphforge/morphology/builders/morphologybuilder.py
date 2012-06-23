@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -22,7 +22,7 @@
 #-------------------------------------------------------------------------------
 
 from morphforge.morphology.core import MorphologyTree, Section, Region
-import numpy 
+import numpy
 import quantities as pq
 from morphforge.core.misc import is_float, is_int
 import morphforge
@@ -50,34 +50,34 @@ def _convert_to_unit(o, default_unit):
 
 class MorphologyBuilder(object):
     """ Class to build simple neuron morphologies """
-        
+
     @classmethod
     def get_single_section_soma(cls, rad=None, area=None):
         assert (rad or area) and not(rad and area)
-        
-        
+
+
         if area:
-            
+
             area = _convert_to_unit(area, default_unit="um2" ).rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
-            
+
         else:
             assert isinstance(int,rad) or isinstance(float,rad)
             rad = _convert_to_unit(rad, default_unit="um" ).rescale("um").magnitude
-            
-            
+
+
         somaRegion = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)
         dummysection.create_distal_section(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idTag="soma")
-        cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})      
+        cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})
         return cell
-    
-    
+
+
     @classmethod
     def get_soma_axon_morph(cls, axonLength=1000.0, axonRad=0.3, somaRad=20.0, axonSections=10):
         somaRegion = Region("soma")
         axonRegion = Region("axon")
-        
+
         axonSectionLength = float(axonLength) / float(axonSections)
         dummyRoot = Section(region=None, x=0.0, y=0.0, z=0.0, r=somaRad)
         soma = dummyRoot.create_distal_section(region=somaRegion, x=somaRad * 2.0, y=0.0, z=0.0, r=somaRad, idTag="soma")
@@ -87,5 +87,5 @@ class MorphologyBuilder(object):
             prevSection = axon
         cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummyRoot, metadata={})
         return cell
-        
+
 

@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -21,25 +21,25 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 class StandardTags():
-    
-    # Its important the spellings are the same; 
+
+    # Its important the spellings are the same;
     # since we use the values in setattr() to automatically populate classes.
-    
+
     Voltage = "Voltage"
     CurrentDensity = "CurrentDensity"
     Current = "Current"
     Conductance = "Conductance"
     ConductanceDensity = "ConductanceDensity"
-    
-    StateVariable = "StateVariable" 
-    StateTimeConstant = "StateTimeConstant" 
-    StateSteadyState = "StateSteadyState" 
-    
+
+    StateVariable = "StateVariable"
+    StateTimeConstant = "StateTimeConstant"
+    StateSteadyState = "StateSteadyState"
+
     NMDAVoltageDependancy = "NMDAVoltageDependancy"
-    NMDAVoltageDependancySS = "NMDAVoltageDependancySS"    
-    
+    NMDAVoltageDependancySS = "NMDAVoltageDependancySS"
+
     Event = "Event"
-    
+
     DefaultUnits = {
                     Voltage: "mV",
                     CurrentDensity: "mA/cm2",
@@ -51,9 +51,9 @@ class StandardTags():
                     StateSteadyState: "",
                     NMDAVoltageDependancy:"",
                     NMDAVoltageDependancySS:"",
-                    
+
                     }
-    
+
     label = {
                     Voltage: "Voltage",
                     CurrentDensity: "Current Density",
@@ -66,4 +66,4 @@ class StandardTags():
                     NMDAVoltageDependancy: "NMDA Voltage Dependancy",
                     NMDAVoltageDependancySS: "NMDA Voltage Dependancy Steady State",
                     }
-    
+

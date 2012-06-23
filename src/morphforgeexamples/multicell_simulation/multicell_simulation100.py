@@ -382,7 +382,7 @@ EQNSET syn_decaying_inhib {
     o' = - o/{1.5 ms}
     c' = - c/{4.0 ms}
     i = (v- {-80mV}) *g
-    g = {0.435nS}  * (c-o)  * scale 
+    g = {0.435nS}  * (c-o)  * scale
     x=10.0
     f = scale
     plas' = -plas / beta
@@ -411,7 +411,7 @@ EQNSET syn_simple {
 
     o' = - o/{1.5 ms}
     c' = - c/{10.0 s}
-    i = {0.835nS} * (v- {0mV})  * (c-o)  
+    i = {0.835nS} * (v- {0mV})  * (c-o)
 
     <=> INPUT     v: mV       METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
     <=> OUTPUT    i:(mA)      METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
@@ -661,7 +661,7 @@ mf.TagViewer(res,
     mf.PlotSpec_DefaultNew( s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
     mf.PlotSpec_DefaultNew( s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}' ),
     mf.PlotSpec_DefaultNew( s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}' ),
-            
+
             ])
 
 

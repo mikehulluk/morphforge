@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -38,8 +38,8 @@ from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimul
 class VoltageClampCurrentRecord(NeuronRecordable):
     def __init__(self, vclamp,  **kwargs):
         super(VoltageClampCurrentRecord,self).__init__(**kwargs)
-        self.vclamp = vclamp    
-      
+        self.vclamp = vclamp
+
     def get_unit(self):
         return unit("nA")
     def get_std_tags(self):
@@ -49,31 +49,31 @@ class VoltageClampCurrentRecord(NeuronRecordable):
     def build_hoc(self, hocfile_obj):
         objNameHoc = hocfile_obj[MHocFileData.VoltageClamps][self.vclamp]["stimname"]
         HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
-                
+
     def build_mod(self, modfile_set):
         pass
-    
+
 
 
 
 class MNeuronVoltageClampStepChange(VoltageClampStepChange ,NeuronObject):
-    
+
     def __init__( self, name, simulation, **kwargs):
         VoltageClampStepChange.__init__(self, name=name, **kwargs )
         NeuronObject.__init__(self, name=name, simulation=simulation )
-      
+
     def build_hoc(self, hocfile_obj):
         HocBuilder.VoltageClamp( hocfile_obj=hocfile_obj, voltageclamp=self)
-        
+
     def build_mod(self, modfile_set):
         pass
-    
- 
+
+
     def get_recordable(self, what, name, **kwargs):
         recorders = {
-              VoltageClamp.Recordables.Current : VoltageClampCurrentRecord 
+              VoltageClamp.Recordables.Current : VoltageClampCurrentRecord
         }
-        
+
         return recorders[what]( vclamp=self, name=name, **kwargs )
-        
-NeuronSimulationEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, MNeuronVoltageClampStepChange)        
+
+NeuronSimulationEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, MNeuronVoltageClampStepChange)

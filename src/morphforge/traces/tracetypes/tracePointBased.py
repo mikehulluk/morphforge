@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -27,23 +27,23 @@ import numpy as np
 
 
 class Trace_PointBased(Trace):
-  
+
     def __init__(self, time, data, name=None, comment=None, tags=None):
-        
+
         super(Trace_PointBased, self).__init__(name=name, comment=comment, tags=tags)
-        
-        if not isinstance(time, pq.quantity.Quantity): 
+
+        if not isinstance(time, pq.quantity.Quantity):
             raise ValueError("Time is not a 'unit'ed quantity")
         time.rescale('ms').magnitude
-        
-        if not isinstance(data, (pq.quantity.Quantity, pq.Dimensionless)): 
+
+        if not isinstance(data, (pq.quantity.Quantity, pq.Dimensionless)):
             raise ValueError("Data is not a 'unit'ed quantity")
-        if not time.shape == data.shape: 
+        if not time.shape == data.shape:
             raise ValueError('Time and Data are different shapes! %s vs %s' % (time.shape, data.shape))
 
         self._time = time
         self._data = data
-        
+
         assert self.get_n() >= 2, 'Points Based Trace has less than 2 points: %d' % self.get_n()
 
 
@@ -60,11 +60,11 @@ class Trace_PointBased(Trace):
         dataUnits = self._data.units
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)
         return interpolator(timeArray.rescale(timeUnits).magnitude) * dataUnits
-  
-  
 
-  
-  
+
+
+
+
     def get_n(self):
         return len(self._time)
 

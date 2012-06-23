@@ -104,7 +104,7 @@ def unit(s):
 
             valueStr, unitStr = t
             #if SettingsMgr.allowEvalInLoading:
-            v = float(valueStr) 
+            v = float(valueStr)
             #else:
             #    v = float(valueStr)
 

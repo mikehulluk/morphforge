@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -30,7 +30,7 @@ class SettingsMgr(object):
     """ Doc String for Settings Manager"""
     #_showGui = True
     #_showAllPlots = True
-    
+
     # Don't Start Logging until everything is Configured!
     _logging = True and False
 
@@ -46,18 +46,18 @@ class SettingsMgr(object):
     #    if os.environ.get('MF_BATCH',None):
     #        return False
     #    return  cls._showGui
-    
+
     #@classmethod
     #def showAllPlots(cls):
-    #    return cls._showAllPlots and cls._showGui 
+    #    return cls._showAllPlots and cls._showGui
 
     @classmethod
     def is_logging(cls):
-        return cls._logging 
-    
+        return cls._logging
+
     #@classmethod
     #def mockSimulation(cls):
-    #    return cls._simulateWithMocks        
+    #    return cls._simulateWithMocks
 
     #@classmethod
     #def clearAllTempAtStart(cls):
@@ -76,7 +76,7 @@ class SettingsMgr(object):
     #def allowEvalInLoading(cls):
     #    assert False
     #    return False
-    
+
     #@classmethod
     #def DecorateSimulations(cls):
     #    assert False
@@ -92,12 +92,12 @@ class SettingsMgr(object):
     #@classmethod
     #def getPLYLexDebugFlag(cls):
     #    return 0
-    
+
     @classmethod
     def get_ply_yacc_debug_flag(cls):
         return 0
-    
-    
+
+
     @classmethod
     def simulator_is_verbose(cls):
         return False

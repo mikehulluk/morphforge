@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from ..core import MM_AlphaBetaBetaChannel
@@ -33,13 +33,13 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
         self.modvar=modvar
 
     def build_mod(self, modfile_set):
-        pass   
- 
+        pass
+
     def build_hoc(self, hocfile_obj):
-        HocModUtils.create_record_from_modfile( hocfile_obj, 
-                                             vecname="RecVec%s"%self.name, 
-                                             celllocation=self.where, 
-                                             modvariable=self.modvar, 
+        HocModUtils.create_record_from_modfile( hocfile_obj,
+                                             vecname="RecVec%s"%self.name,
+                                             celllocation=self.where,
+                                             modvariable=self.modvar,
                                              mod_neuronsuffix=self.alphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 
     def get_description(self):
@@ -68,7 +68,7 @@ class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_R
 class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableRecord, self).__init__(modvar=state, **kwargs)
-   
+
     def get_unit(self):
         return unit("")
     def get_std_tags(self):
@@ -77,21 +77,21 @@ class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record
 class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord, self).__init__(modvar=state+"tau", **kwargs)
-    
+
     def get_unit(self):
         return unit("ms")
     def get_std_tags(self):
-        return [StandardTags.StateTimeConstant ] 
+        return [StandardTags.StateTimeConstant ]
 
-   
+
 class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord, self).__init__(modvar=state+'inf', **kwargs)
-     
+
     def get_unit(self):
         return unit("")
     def get_std_tags(self):
-        return [StandardTags.StateSteadyState ] 
+        return [StandardTags.StateSteadyState ]
 
 
 
@@ -115,14 +115,14 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #from ..hocmodbuilders.membranemechanisms.mmwriter_alphaBetaBetabeta import MM_WriterAlphaBetaBetaBeta
 #
 #
-#    
+#
 #from ..hocmodbuilders import HocModUtils
 #
 #from mm_neuron import MM_Neuron_Base
 #from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
-#    
+#
 #
 #class MM_Neuron_AlphaBetaBetaBeta_CurrentRecord(NeuronRecordableOnLocation):
 #
@@ -134,7 +134,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #
 #    def __init__(self, alphaBetaBetaChl, modvar, **kwargs):
 #        super( MM_Neuron_AlphaBetaBetaBeta_CurrentRecord, self).__init__(**kwargs)
-#        
+#
 #        #self.name = name
 #        self.alphaBetaBetaBetaChl = alphaBetaBetaBetaChl
 #        self.modvar=modvar
@@ -148,9 +148,9 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #
 #    def build_hoc(self, hocfile_obj):
 #        HocModUtils.create_record_from_modfile( hocfile_obj, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
-#                
+#
 #    def build_mod(self, modfile_set):
-#        pass    
+#        pass
 
 
 
@@ -177,45 +177,45 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         MM_AlphaBetaBetaChannel.__init__(self,*args,**kwargs)
         MM_Neuron_Base.__init__(self)
 
-    
-        
-    
-    
+
+
+
+
     def build_hoc_section( self, cell, section, hocfile_obj, mta ):
         return MM_WriterAlphaBetaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
-    
-    
-    
+
+
+
     def create_modfile(self, modfile_set):
         MM_WriterAlphaBetaBeta.build_Mod(alphaBetaBetaChl=self, modfile_set=modfile_set)
-        
-    
+
+
     def get_recordable(self, what, name, **kwargs):
         #assert False
-        
+
         celllocation = kwargs["celllocation"] if "celllocation" in kwargs else kwargs["where"]
         if "celllocation" in kwargs: del kwargs["celllocation"]
         if "where" in kwargs: del kwargs["where"]
-        
+
         recorders = {
               MM_AlphaBetaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
-             
+
         }
-        
+
         return recorders[what]( alphaBetaBetaChl=self, celllocation= celllocation, name=name, **kwargs  )
-        
-        
+
+
     def get_mod_file_changeables(self):
-        
+
          # If this fails, then the attirbute probably needs to be added to the list below:
         change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id' ] )
         assert set( self.__dict__) == set( ['mm_neuronNumber', 'cachedNeuronSuffix'] ) | change_attrs
-        
+
         attrs = ['name','ion','eqn','conductance','statevars','reversalpotential','mechanism_id','beta2threshold']
         return dict ( [ (a, getattr(self, a)) for a in attrs ] )
-        
-        
-        
+
+
+
 # Register the channel
 #NeuronSimulationEnvironment.registerMembraneMechanism( MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)

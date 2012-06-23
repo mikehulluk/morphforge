@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,12 +24,12 @@
 #-------------------------------------------------------------------------------
 from morphforge.core.quantities  import unit
 
- 
+
 from neuronobject import NeuronObject
 from morphforge.simulation.core import Cell
 
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData 
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 
 
@@ -41,9 +41,9 @@ from morphforge.constants.standardtags import StandardTags
 
 
 class MembraneVoltageRecord(NeuronRecordable):
-    
+
     initial_buffer_size = 50000
-    
+
     tmplObjRef = """
 objref $recVecName
 $recVecName = new Vector()
@@ -52,38 +52,38 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
     """%initial_buffer_size
 
     def __init__(self, cell, location=None, **kwargs):
-        
-        
+
+
         super(MembraneVoltageRecord,self).__init__(**kwargs)
         self.cell = cell
         self.location = location if location is not None else cell.get_location("soma")
-        
-        
-        
+
+
+
     def get_unit(self):
         return unit("mV")
-    
+
     def get_std_tags(self):
-        return [StandardTags.Voltage] 
-    
+        return [StandardTags.Voltage]
+
     def get_description(self):
         r = "Vm %s"%self.location.cell.name
-        t = ":%s"% self.location.morphlocation.section.idTag if self.location.morphlocation.section.idTag else "" 
+        t = ":%s"% self.location.morphlocation.section.idTag if self.location.morphlocation.section.idTag else ""
         return r + t
-    
-    
+
+
     def build_hoc(self, hocfile_obj):
         cell = self.location.cell
         section = self.location.morphlocation.section
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
-        
-        
-        
+
+
+
         #nameHoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
         #HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
-        
-        
+
+
         tmplDict = {
                     "recVecName": self.name,
                     "cellname":cell_name,
@@ -91,12 +91,12 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
                     "sectionpos":self.location.morphlocation.sectionpos,
                     }
         print tmplDict
-        
+
         hocfile_obj.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmplDict).respond() )
-        
+
         hocfile_obj[MHocFileData.Recordables][self] = tmplDict
-        
-        
+
+
     def build_mod(self, modfile_set):
         pass
 
@@ -110,13 +110,13 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
 class MNeuronCell(Cell, NeuronObject):
     def build_hoc(self, hocfile_obj):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
-    
+
     def build_mod(self, modfile_set):
         mechanisms = set( [ mta.mechanism for mta in self.get_biophysics().appliedmechanisms ] )
         for m in mechanisms:
             m.create_modfile( modfile_set)
-     
-    def get_recordable(self, what, **kwargs): 
+
+    def get_recordable(self, what, **kwargs):
         recordables = {
             MNeuronCell.Recordables.MembraneVoltage : MembraneVoltageRecord,
         }

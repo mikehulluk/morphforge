@@ -2,7 +2,7 @@
 
 WARNING: The automatic naming and linkage between grpah colors is currently under a refactor;
 what is done in this script is not representing the best possible solution, or even something that
-will reliably work in the future! 
+will reliably work in the future!
 
 The aim of this script is just to show that it is possible to run multiple simulations from a single script!
 
@@ -19,13 +19,13 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 
 
 def get_Na_Channels(env):
-    naStateVars = {"m": 
-                    {"alpha": [ 13.01,0,4,-1.01,-12.56 ], "beta": [5.73,0,1,9.01,9.69 ] }, 
+    naStateVars = {"m":
+                    {"alpha": [ 13.01,0,4,-1.01,-12.56 ], "beta": [5.73,0,1,9.01,9.69 ] },
                    "h":
                     {"alpha": [ 0.06,0,0,30.88,26 ], "beta": [3.06,0,1,-7.09,-10.21 ]}
                    }
-        
-    return  env.MembraneMechanism( 
+
+    return  env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
@@ -34,11 +34,11 @@ def get_Na_Channels(env):
                             statevars=naStateVars,
                             mechanism_id = 'Na_ID'
                             )
-    
-def get_Ks_Channels(env):
-    kfStateVars = {"ks": {"alpha": [ 0.2,0,1,-6.96,-7.74  ], "beta": [0.05,0,2,-18.07,6.1  ] } } 
 
-    return  env.MembraneMechanism( 
+def get_Ks_Channels(env):
+    kfStateVars = {"ks": {"alpha": [ 0.2,0,1,-6.96,-7.74  ], "beta": [0.05,0,2,-18.07,6.1  ] } }
+
+    return  env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="KsChl", ion="ks",
                             equation="ks*ks*ks*ks",
@@ -47,11 +47,11 @@ def get_Ks_Channels(env):
                             statevars=kfStateVars,
                             mechanism_id = 'IN_Ks_ID'
                             )
-    
+
 def get_Kf_Channels(env):
-    kfStateVars = {"kf": {"alpha": [  3.1,0,1,-31.5,-9.3 ], "beta": [0.44,0,1,4.98,16.19  ] } } 
-                   
-    return  env.MembraneMechanism( 
+    kfStateVars = {"kf": {"alpha": [  3.1,0,1,-31.5,-9.3 ], "beta": [0.44,0,1,4.98,16.19  ] } }
+
+    return  env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="KfChl", ion="kf",
                             equation="kf*kf*kf*kf",
@@ -62,10 +62,10 @@ def get_Kf_Channels(env):
                             )
 
 def get_Lk_Channels(env):
-    leakChannels = env.MembraneMechanism( 
+    leakChannels = env.MembraneMechanism(
                          MM_LeakChannel,
-                         name="LkChl", 
-                         conductance=unit("3.6765:nS") / unit("400:um2"), 
+                         name="LkChl",
+                         conductance=unit("3.6765:nS") / unit("400:um2"),
                          reversalpotential=unit("-51:mV"),
                          mechanism_id = 'Lk_ID'
                         )
@@ -77,41 +77,41 @@ def get_Lk_Channels(env):
 def simulate(current_inj_level):
     # Create the environment:
     env = NeuronSimulationEnvironment()
-    
+
     # Create the simulation:
     mySim = env.Simulation(name="AA")
-    
-    
+
+
     # Create a cell:
     morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
     morph = MorphologyTree.fromDictionary(morphDict1)
     myCell = mySim.create_cell(name="Cell1", morphology=morph)
-    
+
     leakChannels = get_Lk_Channels(env)
     sodiumChannels = get_Na_Channels(env)
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
-    
+
     apply_mechanism_everywhere_uniform(myCell, leakChannels )
     apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
     apply_mechanism_everywhere_uniform(myCell, potFastChannels )
     apply_mechanism_everywhere_uniform(myCell, potSlowChannels )
     apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
-    
-    
+
+
     # Get a location on the cell:
     somaLoc = myCell.get_location("soma")
-    
+
     # Create the stimulus and record the injected current:
     cc = mySim.create_currentclamp( amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
     mySim.record(cc, what=StdRec.Current)
-    
+
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, location = somaLoc ) 
-    
+    mySim.record( myCell, what=StdRec.MembraneVoltage, location = somaLoc )
+
     # run the simulation
     results = mySim.run()
-    
+
     return results
 
 

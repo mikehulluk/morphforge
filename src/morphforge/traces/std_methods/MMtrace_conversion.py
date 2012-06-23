@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -31,60 +31,60 @@ from morphforge.traces.tracetypes import Trace_Piecewise
 from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionFlat
 
 class TraceConverter(object):
-    
+
     @classmethod
     def rebase_to_fixed_dt(cls, original_trace, dt):
         from morphforge.core.quantities.wrappers import NpPqWrappers
         time = NpPqWrappers.arange(start=original_trace.get_min_time(), stop=original_trace.get_max_time(), step=dt)
         data = original_trace.get_values(time)
         return Trace_FixedDT(time, data, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
-    
-    
-    
-    
+
+
+
+
     @classmethod
     def reduce_to_variable_dt_trace(cls, original_trace, epsilon):
         assert isinstance(original_trace, Trace_PointBased)
         epsilon = unit(epsilon)
-        
-        
+
+
         time_units = original_trace._time.units
         time_data = original_trace._time.magnitude
-        
+
         data_units = original_trace._data.units
         data_data = original_trace._data.magnitude
-        
+
         ep = epsilon
-        
+
         pts = zip(time_data.tolist(), data_data.tolist())
-        
-        
-        newpts = _simplify_points(pts, ep)     
+
+
+        newpts = _simplify_points(pts, ep)
         new_time, new_data = zip(*newpts)
-        
+
         newTrace = Trace_VariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
-        
+
         print 'Simplified from N=%d to N=%d' % (original_trace.get_n(), newTrace.get_n())
         return newTrace
 
 
 
 
-        
-                
+
+
 
 import math
 
-def _simplify_points (pts, tolerance): 
+def _simplify_points (pts, tolerance):
     anchor = 0
     floater = len(pts) - 1
     stack = []
     keep = set()
 
-    stack.append((anchor, floater))  
+    stack.append((anchor, floater))
     while stack:
         anchor, floater = stack.pop()
-      
+
         # initialize line segment
         if pts[floater] != pts[anchor]:
             anchorX = float(pts[floater][0] - pts[anchor][0])
@@ -95,7 +95,7 @@ def _simplify_points (pts, tolerance):
             anchorY /= seg_len
         else:
             anchorX = anchorY = seg_len = 0.0
-    
+
         # inner loop:
         max_dist = 0.0
         farthest = anchor + 1
@@ -109,7 +109,7 @@ def _simplify_points (pts, tolerance):
             proj = vecX * anchorX + vecY * anchorY
             if proj < 0.0:
                 dist_to_seg = seg_len
-            else: 
+            else:
                 # compare to floater
                 vecX = float(pts[i][0] - pts[floater][0])
                 vecY = float(pts[i][1] - pts[floater][1])
@@ -188,20 +188,20 @@ class TraceApproximator(object):
 
 
 
-        
+
    @classmethod
    def fit_piecewise_linear_trace( cls, tr):
          d = tr._data.magnitude
-         
+
          ranges = TraceApproximator.find_levels(d)
-             
-         pieces = []                           
+
+         pieces = []
          for r0,r1 in ranges:
              #print r0,r1
              x = np.mean( tr._data[r0:r1] )
              p = TracePieceFunctionFlat( time_window=(tr._time[r0],tr._time[r1]), x=x,)
              pieces.append(p)
-             
+
          tr = Trace_Piecewise(pieces, name=tr.name, comment=tr.comment, tags=tr.tags)
-         return tr 
+         return tr
 

@@ -4,7 +4,7 @@ from morphforge.simulationanalysis.summaries.mmsummariser import MembraneMechani
 from morphforge.core import LocMgr
 
 import morphforgecontrib
-import modelling.rbmodelling2 
+import modelling.rbmodelling2
 
 
 loc = LocMgr. get_default_channel_summary_output_dir()

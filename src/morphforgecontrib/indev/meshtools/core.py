@@ -20,7 +20,7 @@ class Context(object):
         self.src_zip_file = src_zip_file
         self.dst_zip_file = dst_zip_file
         self.op_files = []
-        self.op_dir = "/tmp/mf/meshbuilder/" 
+        self.op_dir = "/tmp/mf/meshbuilder/"
         LocMgr.ensure_dir_exists(self.op_dir)
 
 
@@ -41,8 +41,8 @@ class Context(object):
     def close_ply_block(self, plyfilename):
         self.currentplyscope.finalise(plyfilename=plyfilename)
         self.currentplyscope = None
-        
-        
+
+
         for f in self.op_files:
             self.dst_zip_file.write(f,)
         self.op_files = []

@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 #from morphforge.simulation.core.networks.postsynaptic import PostSynapticMech
@@ -16,11 +16,11 @@ from Cheetah.Template import Template
 from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold, PreSynapticMech_TimeList
 
-    
 
 
 
-    
+
+
 
 preTmpl = """
 // Pre-Synapse [ $synname ]
@@ -30,15 +30,15 @@ ${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon( &v($sectio
 
 class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
 
-        
+
     def build_hoc(self, hocFileObj):
         cell =self.celllocation.cell
         section = self.celllocation.morphlocation.section
         synName = self.synapse.get_name()
         synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
         synNamePre = self.synapse.get_name() + "Pre"
-        
-        
+
+
         data = {
                "synname": synName,
                "synnamepost" : synNamePost,
@@ -47,23 +47,23 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
                "cellname":hocFileObj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocFileObj[MHocFileData.Cells][cell]['section_indexer'][section],
                "sectionpos":self.celllocation.morphlocation.sectionpos,
-               
+
                "threshold": self.voltageThreshold ,
                "delay": self.delay,
                "weight": self.weight,
                }
-         
+
         hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
-        
+
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
-        
-        
+
+
     def build_mod(self, modfile_set):
         pass
-    
-    
-    
-    
+
+
+
+
 
 
 
@@ -80,9 +80,9 @@ $synnamepre = new NetCon( ${synnamepre}_NullObj, $synnamepost, 0, 0, $weight.res
 
 objref fih_${synnamepre}
 fih_${synnamepre} = new FInitializeHandler("loadqueue_${synnamepre}()")
-proc loadqueue_${synnamepre}() { 
+proc loadqueue_${synnamepre}() {
 #for $event in $timelist:
-${synnamepre}.event( $event.get_time.rescale("ms").magnitude ) 
+${synnamepre}.event( $event.get_time.rescale("ms").magnitude )
 #end for
 }
 
@@ -90,12 +90,12 @@ ${synnamepre}.event( $event.get_time.rescale("ms").magnitude )
 """
 
 class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
-           
+
     def build_hoc(self, hocFileObj):
         synName = self.synapse.get_name()
         synNamePost = hocFileObj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
         synNamePre = self.synapse.get_name() + "Pre"
-        
+
         data = {
                "synname": synName,
                "synnamepost" : synNamePost,
@@ -103,14 +103,14 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
                "timelist": self.timeList,
                "weight": self.weight,
                }
-         
+
         hocFileObj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmplList, data).respond() )
         hocFileObj[MHocFileData.Synapses][self.synapse]["PRE"] = data
-        
-        
+
+
     def build_mod(self, modfile_set):
-        pass 
-    
+        pass
+
 
 #NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
 #NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
@@ -118,4 +118,4 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
 NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
 NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
 
-    
+

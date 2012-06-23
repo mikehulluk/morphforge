@@ -46,7 +46,7 @@ class SectionVisitorDF(object):
 
     def __call__(self, morph=None):
         #self.morph = ExactlyOneNotNone(morph, self.morph)
-        self.morph = SeqUtils.filter_expect_single( 
+        self.morph = SeqUtils.filter_expect_single(
                         [morph, self.morph], lambda s: s is not None)
         if not self.alreadycalled:
             self.pretraversefunctor()

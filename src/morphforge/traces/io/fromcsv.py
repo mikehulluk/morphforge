@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -44,8 +44,8 @@ def parse_json_helpful(s):
     #S = clean_for_json(s)
     S =  s.replace("'",'"')
     try:
-        return json.loads(S) 
-    except: 
+        return json.loads(S)
+    except:
         raise
 
 
@@ -57,9 +57,9 @@ class NeuroCSVHeaderData(object):
         self.events = []
         self.ignored_lines = []
 
-        # Parse the header: 
-        self.parse(headerlines) 
-        
+        # Parse the header:
+        self.parse(headerlines)
+
         self.summarise()
 
     def summarise(self):
@@ -81,11 +81,11 @@ class NeuroCSVHeaderData(object):
                 action( hl[1:].strip() )
             else:
                 self.ignored_lines.append(hl)
-            
+
     def parse_at(self, line):
         print 'Parsing Event:', line
         print line
-        
+
         pass
 
     def parse_exclaim(self,line):
@@ -96,7 +96,7 @@ class NeuroCSVHeaderData(object):
 
         else:
             r = re.compile(r"""\s* ( LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
-            m = r.match(line) 
+            m = r.match(line)
             if not m:
                 raise InvalidNeuroCSVFile('Could not parse line: %s'%line)
 
@@ -106,27 +106,27 @@ class NeuroCSVHeaderData(object):
                 if col_num in self.column_data:
                     raise InvalidNeuroCSVFile('Repeated Column Description Found: %d'%col_num)
                 self.column_data[col_num] = parse_json_helpful( m.group(3) )
-                
+
             # Load 'LOADHINT' info
             else:
-                if self.load_hints is not None: 
+                if self.load_hints is not None:
                     raise InvalidNeuroCSVFile('Repeated LOADHINT Description Found')
                 self.load_hints = parse_json_helpful( m.group(3) )
 
     #def getColumnData(self, index, data):
-         
+
 
 
 class NeuroCSVParser(object):
-    
+
 
     @classmethod
     def parse(cls, filename):
         # Read the Header
-        header_lines = cls.extract_header(filename) 
+        header_lines = cls.extract_header(filename)
         header_lines = cls.resolve_header_backslashes(header_lines)
         header = NeuroCSVHeaderData(header_lines)
-        
+
         # Body Data:
         data_array = cls.readbodydata(filename)
 
@@ -146,7 +146,7 @@ class NeuroCSVParser(object):
                 else:
                     header.append(line[1:])
 
-    @classmethod 
+    @classmethod
     def resolve_header_backslashes(cls, header_data):
         new_header_data = []
         current_line = ""
@@ -164,8 +164,8 @@ class NeuroCSVParser(object):
         # Check no trailing backslash:
         assert current_line==""
         return new_header_data
- 
-    
+
+
     @classmethod
     def readbodydata(cls, filename):
         print filename
@@ -183,20 +183,20 @@ class NeuroCSVParser(object):
         timeDataRaw  = data_array[:,0]
         timeUnit  = unit( str(header_info.column_data[0]['unit'] ) )
         timeData = timeDataRaw * timeUnit
-        
+
         # Do we build as fixed or variable array:
-        tBuilder = Trace_FixedDT if Trace_FixedDT.is_array_fixed_dt(timeData) else Trace_VariableDT 
-        
+        tBuilder = Trace_FixedDT if Trace_FixedDT.is_array_fixed_dt(timeData) else Trace_VariableDT
+
         trcs = []
         for i in range(1,nCols):
             d_i = data_array[:,i]
             column_metadict = header_info.column_data[i]
             dataUnit  = unit( str(column_metadict.get('unit',"") ) )
-            dataLabel  = str( column_metadict.get('label','Column%d'%i) ) 
-            dataTags  = str( column_metadict.get('tags','') ).split(',') 
+            dataLabel  = str( column_metadict.get('label','Column%d'%i) )
+            dataTags  = str( column_metadict.get('tags','') ).split(',')
             d = d_i * dataUnit
-            
+
             tr = tBuilder(timeData, d, name=dataLabel, tags=dataTags)
             trcs.append(tr)
         return trcs
-        
+

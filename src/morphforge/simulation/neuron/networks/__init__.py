@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
-from morphforge.simulation.neuron.objects.neuronobject import NeuronObject     
+from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
 from Cheetah.Template import Template
 from morphforge.simulation.core.networks import Synapse
 from morphforge.simulation.core.networks import GapJunction
@@ -32,11 +32,11 @@ from morphforge.constants.standardtags import StandardTags
 
 
 class NeuronSynapse(NeuronObject, Synapse):
-    
 
-    
-    
-    def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):        
+
+
+
+    def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):
         NeuronObject.__init__(self, objName=name,simulation=simulation)
         Synapse.__init__( self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
 
@@ -44,27 +44,27 @@ class NeuronSynapse(NeuronObject, Synapse):
     def build_hoc(self, hocFileObject):
         self.postSynapticMech.build_hoc(hocFileObject)
         self.preSynapticTrigger.build_hoc(hocFileObject)
-    
+
     def build_mod(self, modfile_set):
         self.postSynapticMech.build_mod(modfile_set)
         self.preSynapticTrigger.build_mod(modfile_set)
 
-        
+
     def get_recordable(self, what, **kwargs):
         if what== StandardTags.Conductance:
             what=Synapse.Recordables.SynapticConductance
         if what== StandardTags.Current:
             what=Synapse.Recordables.SynapticCurrent
-        
+
         if what in [ Synapse.Recordables.SynapticCurrent, Synapse.Recordables.SynapticConductance, StandardTags.NMDAVoltageDependancy,StandardTags.NMDAVoltageDependancySS]:
             return self.postSynapticMech.get_recordable(what=what, **kwargs)
         if what in ['g']:
             return self.postSynapticMech.get_recordable(what=what, **kwargs)
 
-        
+
         assert False
-        
-        
+
+
 
 
 
@@ -87,13 +87,13 @@ ${name2}.r = $resistance.rescale("MOhm").magnitude
 setpointer ${name1}.vgap,  ${cellname2}.internalsections[$sectionindex2].v( $sectionpos2 )
 setpointer ${name2}.vgap,  ${cellname1}.internalsections[$sectionindex1].v( $sectionpos1 )
 
-"""    
-       
-       
-       
-       
-       
-       
+"""
+
+
+
+
+
+
 gapMod = """
 NEURON {
     POINT_PROCESS Gap
@@ -112,42 +112,42 @@ ASSIGNED {
     i (nanoamp)
 }
 BREAKPOINT{
-    i = (v-vgap)/r 
+    i = (v-vgap)/r
     }
-    
+
 """
-       
-       
-       
-       
-       
-       
-       
-        
-        
+
+
+
+
+
+
+
+
+
 class NeuronGapJunction(GapJunction, NeuronObject):
-    
+
     def __init__(self, simulation, **kwargs):
         NeuronObject.__init__(self, simulation=simulation, **kwargs)
         GapJunction.__init__(self, **kwargs)
         #super(NeuronGapJunction,self).__init__(**kwargs)
-        
-    
+
+
     isFirstBuild = True
     def build_mod(self, modfile_set):
-        
+
         if NeuronGapJunction.isFirstBuild:
             NeuronGapJunction.isFirstBuild = False
-            m = ModFile(modtxt=gapMod, name="GapJunction") 
+            m = ModFile(modtxt=gapMod, name="GapJunction")
             modfile_set.append(m)
-            
-            
+
+
     def build_hoc(self, hocFileObj):
         cell1 = self.celllocation1.cell
         cell2 = self.celllocation2.cell
         section1 = self.celllocation1.morphlocation.section
         section2 = self.celllocation2.morphlocation.section
-        
+
         gpObj1Name = self.get_name() + "A"
         gpObj2Name = self.get_name() + "B"
         data = {
@@ -162,18 +162,18 @@ class NeuronGapJunction(GapJunction, NeuronObject):
                "sectionindex2":hocFileObj[MHocFileData.Cells][cell2]['section_indexer'][section2],
                "sectionpos1":self.celllocation1.morphlocation.sectionpos,
                "sectionpos2":self.celllocation2.morphlocation.sectionpos,
-               
+
                "resistance": self.resistance
                }
-        
+
         hocFileObj.add_to_section( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
-        
+
         hocFileObj[MHocFileData.GapJunctions][self] = data
-      
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
 

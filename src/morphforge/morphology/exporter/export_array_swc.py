@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -32,22 +32,22 @@ from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 from morphforge.morphology.core.array import MorphologyArray
 
 class ExportArray_SWC():
-    
+
     @classmethod
     def _export_single_swc(cls, morphology, swc_vertex_offset = 1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):
-                
+
         def vertexToData(v_index, v_index_parent, rgn):
             x,y,z,r = morphology._vertices[v_index,:]
             return [ v_index+swc_vertex_offset, rgn,  x, y, z, r,  v_index_parent+swc_vertex_offset if v_index_parent is not None else -1 ]
-        
-        #Root Vertex: 
+
+        #Root Vertex:
         data = [ vertexToData(morphology._dummy_vertex_index, None, 0)  ]
-        
+
         # Add Each Vertex
         for conn_index,(v_index, v_index_parent) in enumerate(morphology._connectivity):
-            rgn =  morphology._section_types[conn_index] 
+            rgn =  morphology._section_types[conn_index]
             data.append( vertexToData(v_index, v_index_parent, rgn) )
-            
+
         # Save the file:
         if op:
             np.savetxt(op, np.array(data), fmt=fmt )
@@ -55,10 +55,10 @@ class ExportArray_SWC():
             op = StringIO()
             np.savetxt(op, np.array(data), fmt=fmt )
             return op.getvalue()
-        
-        
-#Wrapper function to avoid binding error:        
-def _export_single_swc( morphology, **kwargs):        
+
+
+#Wrapper function to avoid binding error:
+def _export_single_swc( morphology, **kwargs):
     return ExportArray_SWC._export_single_swc(morphology=morphology, **kwargs)
 
 

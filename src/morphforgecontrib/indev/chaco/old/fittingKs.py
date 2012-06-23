@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
@@ -24,7 +24,7 @@ import numpy as np
 from numpy.random import randn
 from scipy.interpolate import UnivariateSpline
 
-from morphforge.stdimports import * 
+from morphforge.stdimports import *
 
 
 # Major library imports
@@ -48,10 +48,10 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 from enthought.chaco.api import add_default_grids, OverlayPlotContainer,  PlotLabel, Legend, PlotAxis
 from enthought.chaco.tools.api import PanTool, LegendTool, TraitsTool, BroadcasterTool
 
-from channel_panels import * 
+from channel_panels import *
 
 #class PointDraggingTool(DragTool):
-#   
+#
 #    component = Instance(Component)
 #    # The pixel distance from a point that the cursor is still considered
 #    # to be 'on' the point
@@ -69,7 +69,7 @@ from channel_panels import *
 #            return False
 #    def normal_mouse_move(self, event):
 #        plot = self.component
-#       
+#
 #        ndx = plot.map_index((event.x, event.y), self.threshold)
 #        if ndx is None:
 #            if plot.index.metadata.has_key('selections'):
@@ -111,7 +111,7 @@ from channel_panels import *
 #        plot.request_redraw()
 #    def _lookup_point(self, x, y):
 #        """ Finds the point closest to a screen point if it is within self.threshold
-#       
+#
 #        Parameters
 #        ==========
 #        x : float
@@ -131,7 +131,7 @@ from channel_panels import *
 ## # Create the Chaco plot.
 ##===============================================================================
 #def _create_plot_component(title):
-#   
+#
 #    container = OverlayPlotContainer(padding = 25, fill_padding = True,
 #                                     bgcolor = "lightgray", use_backbuffer=True)
 #    # Create the initial X-series of data
@@ -151,11 +151,11 @@ from channel_panels import *
 #    scatter.index.sort_order = "ascending"
 #    scatter.bgcolor = "white"
 #    scatter.border_visible = True
-#   
+#
 #    add_default_grids(scatter)
 #    add_default_axes(scatter)
 #    scatter.tools.append(PanTool(scatter, drag_button="right"))
-#   
+#
 #    # The ZoomTool tool is stateful and allows drawing a zoom
 #    # box to select a zoom region.
 #    zoom = ZoomTool(scatter, tool_mode="box", always_on=False, drag_button=None)
@@ -168,7 +168,7 @@ from channel_panels import *
 #                              component=container,
 #                              font = "swiss 16",
 #                              overlay_position="top"))
-#   
+#
 #    return container
 
 
@@ -178,13 +178,13 @@ from channel_panels import *
 
 
 def getDINMorphology( axonDiam):
-        
-    mDict  = {'root': { 'length': 17.5, 'diam': 17.5, 'id':'soma', 'region':'soma', 'sections': 
+
+    mDict  = {'root': { 'length': 17.5, 'diam': 17.5, 'id':'soma', 'region':'soma', 'sections':
                            [
-                            {'absangle': 0, 'length': 1, 'diam': 1.0, 'region':'soma','sections': 
+                            {'absangle': 0, 'length': 1, 'diam': 1.0, 'region':'soma','sections':
                             [
                                 {'diam': axonDiam, 'absangle': 0, 'length': 10, 'region':'axonhillock', 'sections':
-                                [                                                  
+                                [
                                     {'diam': axonDiam, 'absangle': 900, 'length': 500,'region':'axon', 'sections':
                                         [ {'diam': axonDiam , 'absangle': 90, 'length': 100, 'region':'axon', 'id':'axontip' }]
                                      }
@@ -212,7 +212,7 @@ def getDINMorphology( axonDiam):
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [ ('SomaVoltage',vUnit), 
+trace_names = [ ('SomaVoltage',vUnit),
                 ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit),  ('Ca_i',iUnit),
                 ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
                 ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
@@ -230,17 +230,17 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #class TracePlot(HasTraits):
-#    
+#
 #    plot = Instance(Plot)
 #    view = View(
 #            Group(
 #                  Item('plot',editor=ComponentEditor(size=(50,50)),show_label=False),
 #                ),
 #                resizable=True) #,title='TracePlot')
-#    
+#
 #    def __init__(self, sim_conf, plot_what, colors, xRange=None, yRange=None):
 #        super(TracePlot, self).__init__()
-#        
+#
 #        sim_conf.add_simulation_display_functor( self.update_display )
 #
 #        self.plot = Plot(sim_conf.data,resizable='v')
@@ -256,15 +256,15 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #            self.plot.y_mapper.range.set_bounds(*yRange)
 #        #if xMapper:
 #        #    self.plot.x_mapper = xMapper
-#        
+#
 #        legend = Legend(component=self.plot, padding=10, align="ur")
 #        legend.tools.append(LegendTool(legend, drag_button="right"))
-#        self.plot.overlays.append(legend) 
+#        self.plot.overlays.append(legend)
 #
 #        for what,color in zip( plot_what,colors ):
 #            render = self.plot.plot((what+"_t",what + "_d"),type='line' ,color=color)
 #            legend.plots[what] = render
-#        
+#
 #        broadcaster = BroadcasterTool()
 #        broadcaster.tools.append(PanTool(self.plot))
 #        zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False,pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
@@ -278,7 +278,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        pass
 #
 #
-#from time import gmtime, strftime  
+#from time import gmtime, strftime
 #class SimulationConfig(HasTraits):
 #
 #    data = Instance( ArrayPlotData)
@@ -286,7 +286,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    def get_nextSimSumOutputLocation(self,):
 #        self.simulation_no += 1
 #        l = LocMgr.ensure_dir_exists( 'out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
-#        return l 
+#        return l
 #
 #    def __init__(self):
 #
@@ -322,7 +322,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        self.display_functors.append( display_functor)
 #
 #
-#        
+#
 #
 #    def resimulate(self):
 #
@@ -357,14 +357,14 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        # States:
 #        print mech_dict.keys()
 #        #['Ks', 'Na', 'Kf', 'Lk']
-#        
+#
 #        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.get_location('soma'), description='Kf State')
 #        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.get_location('soma'), description='Ks State')
 #        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.get_location('soma'), description='Na-m State')
 #        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
 #
 #
-#        
+#
 #        # Record Voltages:
 #        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
 #
@@ -374,7 +374,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #        res = sim.run()
 #
-#            
+#
 #        # Update the array of data:
 #        for trace_name, trace_unit in trace_names:
 #            tr = res.get_trace(trace_name)
@@ -386,14 +386,14 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        for display_func in self.display_functors:
 #            display_func()
 #
-#        filename = self.get_nextSimSumOutputLocation() 
+#        filename = self.get_nextSimSumOutputLocation()
 #        print 'Writing Simulation Results to', filename
 #        s = SimulationSummariser(res, filename=filename)
 #        print 'Done simulating'
 #
 #
-#        
-#        
+#
+#
 #
 #
 #
@@ -408,8 +408,8 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    surfacearea = Range(1.0, 1000., 980)
 #    capacitance = Range(0.1, 10.0, 1.0)
 #    view = View(Group(
-#                  Item('surfacearea',), 
-#                  Item('capacitance',), 
+#                  Item('surfacearea',),
+#                  Item('capacitance',),
 #                ),
 #                resizable=True,title='Morphology')
 #
@@ -417,8 +417,8 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        super(MorphologyConfig, self).__init__()
 #        self.sim_conf = sim_conf
 #        sim_conf.cell_builder_func = self.get_cell
-#        
-#        
+#
+#
 #
 #    @on_trait_change('surfacearea, capacitance')
 #    def m_update(self):
@@ -484,7 +484,7 @@ class Double(HasTraits):
     view = View(
             HGroup(
                 Item('hhKs', style='custom',show_label=False),
-            ), 
+            ),
             resizable=True, width=1200, height=1200, )
 
 
@@ -505,7 +505,7 @@ def main():
 
     #sim_conf = SimulationConfig()
     #sim_config = sim_conf
-    
+
 
     d = Double(
             hhKs = buildPaneFromExistingChannelInfTau1StateNoConv( ksFunctor, sim_config=None, chlname='Ks' ) ,

@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from Cheetah.Template import Template
-from datetime import datetime 
+from datetime import datetime
 
 
 
@@ -52,12 +52,12 @@ UNITS {
 modTmplInterface = """
 ? interface
 NEURON {
-    THREADSAFE 
+    THREADSAFE
     SUFFIX $suffix
-    NONSPECIFIC_CURRENT $currentname 
-    
+    NONSPECIFIC_CURRENT $currentname
+
     RANGE $rangevars
-    
+
 }
 """
 
@@ -85,7 +85,7 @@ STATE {
 
 
 #if $chlsopenequation:
-    chls_open 
+    chls_open
 #end if
 }
 """
@@ -95,10 +95,10 @@ ASSIGNED {
     v (mV)
     celsius (degC)
     $currentname (mA/cm2)
-        
+
 #for $rName,($rEqn,$rUnit) in $rates.iteritems():
     #set $rUnitOut = "("+rUnit+")" if $rUnit else ""
-    $rName $rUnitOut 
+    $rName $rUnitOut
 #end for
 
 #if $conductanceequation:
@@ -114,7 +114,7 @@ ASSIGNED {
 modTmplBreakpoints = """
 ? currents
 BREAKPOINT {
-#if $internalstates: 
+#if $internalstates:
     SOLVE states METHOD cnexp
 #end if
     $currentname = $currentequation
@@ -124,9 +124,9 @@ BREAKPOINT {
     g = $conductanceequation
 #end if
 #if $chlsopenequation:
-    chls_open = chlsopenequation 
+    chls_open = chlsopenequation
 #end if
-    
+
 }
 """
 
@@ -158,7 +158,7 @@ DERIVATIVE states {
 modTmplProcedure = """
 
 ? rates
-PROCEDURE ${updatefunctionname}( v(mV) ) {       
+PROCEDURE ${updatefunctionname}( v(mV) ) {
 
 #set $locals = [ r[0][0] for r in $rates.values() if r[0][0] ]
 #set $localString = "LOCAL " + ",".join(locals) if $locals else ""
@@ -183,11 +183,11 @@ UNITSON
 
 class MM_ModFileWriterBase(object):
     defaultTitle = "Untitled mod-file"
-    defaultComment = "Automatically generated modfile - morphforge @ "  
+    defaultComment = "Automatically generated modfile - morphforge @ "
     default_units = { "mA":"milliamp", "mV":"millivolt", "S":"siemens", "pA":"picoamp", "um":"micrometer" }
     defaultCurrentName = "i"
-    defaultupdatefunctionname = "rates" 
-    
+    defaultupdatefunctionname = "rates"
+
     def __init__(self, suffix,
                  title=None,
                  internalstates=None,
@@ -204,42 +204,42 @@ class MM_ModFileWriterBase(object):
         self.comment = self.defaultComment + datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
 
         self.suffix = suffix
-    
+
         # {name: ( initialvalue, equation ) }
         self.internalstates = internalstates if internalstates else {}
-        
+
         # {name: (value, unit,range)}
-        self.parameters = parameters if parameters else {} 
-        
+        self.parameters = parameters if parameters else {}
+
         # {name: ((locals, equnation),unit) }
-        self.rates = rates if rates else {} 
+        self.rates = rates if rates else {}
         self.ratecalcorder = ratecalcorder if ratecalcorder else []
-    
+
         #{name: code}
         self.functions = functions if functions else ""
-        
-        
+
+
         self.currentname = self.defaultCurrentName
-        self.units = units if units else self.default_units    
-    
+        self.units = units if units else self.default_units
+
         self.currentequation = currentequation
-    
+
         self.updatefunctionname = self.defaultupdatefunctionname
-            
+
         #Optional:
         self.conductanceequation = conductanceequation
         self.chlsopenequation = chlsopenequation
 
-        
-        
-    
+
+
+
 
     def generate_modfile(self):
         assert self.currentequation
 
         self.rangevars = ",".join(  self.parameters.keys() + self.rates.keys() + self.internalstates.keys() +  ["i", "g"] )
-        
-        
+
+
         if self.internalstates :
             blks = [modTmplHeader,
                     modTmplUnits,
@@ -251,7 +251,7 @@ class MM_ModFileWriterBase(object):
                     modTmplInitial,
                     modTmplDerivative,
                     modTmplProcedure,
-                    modTmplFunctions 
+                    modTmplFunctions
                     ]
         elif self.conductanceequation:
             blks = [modTmplHeader,
@@ -262,7 +262,7 @@ class MM_ModFileWriterBase(object):
                     modTmplAssigned,
                     modTmplBreakpoints,
                     modTmplProcedure,
-                    modTmplFunctions 
+                    modTmplFunctions
                     ]
         else:
             blks = [modTmplHeader,
@@ -272,16 +272,16 @@ class MM_ModFileWriterBase(object):
                     modTmplAssigned,
                     modTmplBreakpoints,
                     modTmplProcedure,
-                    modTmplFunctions 
+                    modTmplFunctions
                     ]
-            
-        
+
+
         # Debug:
         #for blk in blks:
         #    print blk
         #    print Template(blk, [self] ).respond()
-            
-            
+
+
         resps = [ Template(blk, [self] ).respond() for blk in blks ]
         return "".join(resps)
-    
+

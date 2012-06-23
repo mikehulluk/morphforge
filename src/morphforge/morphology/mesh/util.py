@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,14 +24,14 @@ import numpy as np
 
 
 def norm_vec(v):
-    return v / np.sqrt( np.dot(v, v) ) 
+    return v / np.sqrt( np.dot(v, v) )
 
 
 def get_normal_vectors(vec):
-    vec_norm = vec / np.sqrt( np.dot(vec, vec) ) 
+    vec_norm = vec / np.sqrt( np.dot(vec, vec) )
     vec_norm = norm_vec(vec)
-    
-    
+
+
     # Decided which vector to use as a basis to find the normals
     # We want something that is not too parallel...
     nC1 = np.array( [1.0, 0.0, 0.0] )
@@ -40,13 +40,13 @@ def get_normal_vectors(vec):
 
     perp1 = norm_vec(nC - np.dot(nC, vec))
     perp2 = norm_vec(np.cross(vec, perp1))
-    
+
     return perp1, perp2
 
-    
+
 
 def get_point_circle_about( pt, normal, radius, n):
-    p1, p2 = get_normal_vectors( normal ) 
+    p1, p2 = get_normal_vectors( normal )
     angle_step = 2 * np.pi / n
     angles = [ i*angle_step for i in range(0, n) ]
     pts = [ pt + radius * (p1 * np.sin(angle) + p2 * np.cos(angle)) for angle in angles]
@@ -57,7 +57,7 @@ def find_closest_points( pts1, pts2 ):
     def dist_sqd_between_indices(i1, i2):
         joining = pts1[i1] - pts2[i2]
         return np.dot(joining, joining)
-    
+
     min_dist = dist_sqd_between_indices(0, 0)
     min_inds = 0, 0
 
@@ -68,33 +68,33 @@ def find_closest_points( pts1, pts2 ):
                 min_dist = d
                 min_inds = i, j
     return min_inds
-  
-  
+
+
 def get_best_joining_offset( pts1, pts2 ):
-    
+
     assert len(pts1) == len(pts2)
     n = len(pts1)
-    
-    
+
+
     bestoffset = 0
     bestlength = None
-    
+
     for offset in range(n):
-        
+
         joiningvectors = []
         for i in range(n):
-            jv = pts1[ i ] - pts2[(i+offset)%n] 
+            jv = pts1[ i ] - pts2[(i+offset)%n]
             joiningvectors.append( jv )
-        
-        s = np.sum(joiningvectors) 
-        
+
+        s = np.sum(joiningvectors)
+
         l = np.dot(s, s)
         if l > bestlength:
             bestlength = l
             bestoffset = 0
-    
-    return 0, bestoffset 
-        
-    
-    
-  
+
+    return 0, bestoffset
+
+
+
+

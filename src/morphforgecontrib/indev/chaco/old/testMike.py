@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 """ Demonstrates plots sharing datasources, ranges, etc. """
@@ -45,7 +45,7 @@ def addTitleOverlay( component, title):
 
 class SimulationManager(HasTraits):
     surface_area_um2 = Range(low=1.0,high=5000.0,value=1000.0)
-  
+
     leak_density_pS = Range(low=1.0, high=100.0,value=50.0)
 
 
@@ -62,7 +62,7 @@ class SimulationManager(HasTraits):
         plot = Plot(tracedata)
         plot.x_axis.title = "time"
         plot.y_axis.title = "Voltage"
-        renderer = plot.plot(("x", "y1"), type="line", color="blue", 
+        renderer = plot.plot(("x", "y1"), type="line", color="blue",
                                   width=2.0)[0]
         renderer.overlays.append(LineInspector(renderer, axis='value',
                                                 write_metadata=True,
@@ -74,7 +74,7 @@ class SimulationManager(HasTraits):
         plot.tools.append(PanTool(plot))
 
         # Make the container:
-        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
+        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         container.add(plot)
         return container
 
@@ -87,7 +87,7 @@ class SimulationManager(HasTraits):
         plot = Plot(tracedata)
         plot.x_axis.title = "time"
         plot.y_axis.title = "Voltage"
-        renderer = plot.plot(("x", "y1"), type="line", color="blue", 
+        renderer = plot.plot(("x", "y1"), type="line", color="blue",
                                   width=2.0)[0]
         renderer.overlays.append(LineInspector(renderer, axis='value',
                                                 write_metadata=True,
@@ -99,26 +99,26 @@ class SimulationManager(HasTraits):
         plot.tools.append(PanTool(plot))
 
         # Make the container:
-        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
+        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         container.add(plot)
         return container
 
 
     def _createConfigurationPane(self,):
-        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
-        #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
+        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
+        #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         addTitleOverlay( container, 'Configuration Pane')
 
         container.add( self._create_cellConfigComponent() )
-        container.add_trait ('self.surface_area_um2',self.surface_area_um2) 
+        container.add_trait ('self.surface_area_um2',self.surface_area_um2)
         #traits_view = View( Item('self.surface_area_um2', editor=ComponentEditor(), show_label=False), width=500, height=500, resizable=True, title="Chaco Plot")
 
         #container.add( traits_view)
         return container
 
     def _createResultsPane(self):
-        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
-        #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10) 
+        container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
+        #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         addTitleOverlay( container, 'Results Pane')
 
         container.add( self._createVoltageTraceComponent() )
@@ -129,7 +129,7 @@ class SimulationManager(HasTraits):
 
         container = HPlotContainer(resizable = "hv", bgcolor="lightgray",
         #container = Container(resizable = "hv", bgcolor="lightgray",
-                                   fill_padding=True, padding = 10) 
+                                   fill_padding=True, padding = 10)
         container.add( self._createConfigurationPane() )
         container.add( self._createResultsPane() )
         #container.add( self._create_plot_component() )
@@ -149,7 +149,7 @@ def _create_plot_component():
     left_plot = Plot(plotdata)
     left_plot.x_axis.title = "X"
     left_plot.y_axis.title = "j0(x)"
-    renderer = left_plot.plot(("x", "y1"), type="line", color="blue", 
+    renderer = left_plot.plot(("x", "y1"), type="line", color="blue",
                               width=2.0)[0]
     renderer.overlays.append(LineInspector(renderer, axis='value',
                                             write_metadata=True,
@@ -188,12 +188,12 @@ def _create_plot_component():
     right_plot.overlays.append(ZoomTool(right_plot, tool_mode="range"))
     right_plot.tools.append(PanTool(right_plot))
     container.add(right_plot)
-   
+
     return container
 #===============================================================================
 # Attributes to use for the plot view.
 size=(750,500)
-title="Two Plots"       
+title="Two Plots"
 
 
 
@@ -203,7 +203,7 @@ class PlotFrame(DemoFrame):
         #return Window(self, -1, component=_create_plot_component())
         sim = SimulationManager()
         return Window(self, -1, component=sim._createWindow())
-   
+
 if __name__ == "__main__":
     demo_main(PlotFrame, size=size, title=title)
 
@@ -229,17 +229,17 @@ if __name__ == "__main__":
 #===============================================================================
 #class Demo(HasTraits):
 #    plot = Instance(Component)
-#   
+#
 #    traits_view = View(
 #                    Group(
-#                        Item('plot', editor=ComponentEditor(size=size), 
+#                        Item('plot', editor=ComponentEditor(size=size),
 #                             show_label=False),
 #                        orientation = "vertical"),
-#                    resizable=True, title=title, 
+#                    resizable=True, title=title,
 #                    width=size[0], height=size[1]
 #                    )
-#   
+#
 #    def _plot_default(self):
 #         return _create_plot_component()
-#   
+#
 #demo = Demo()

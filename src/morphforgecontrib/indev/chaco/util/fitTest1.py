@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 import numpy as np
@@ -131,15 +131,15 @@ v_fit = np.linspace(-100,60,100)
 #print beta
 #assert False
 
-def fitfunc(p,x): 
-    #return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )   
-    return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )   
+def fitfunc(p,x):
+    #return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )
+    return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )
 
-    return (p[0] + p[1]*x)/(p[2] + np.exp( (p[3]+x)/p[4] ) )   
+    return (p[0] + p[1]*x)/(p[2] + np.exp( (p[3]+x)/p[4] ) )
 
 def errfunc(p,x,y):
-    dist = fitfunc(p, x) - y  
-    
+    dist = fitfunc(p, x) - y
+
     #print fitfunc(p,v_fit)
     if np.isnan(fitfunc(p,v_fit)).any():
         assert False
@@ -149,7 +149,7 @@ def errfunc(p,x,y):
 
 
 # Distance to the target function
-#p0_alpha = [0.095, 0.000, 1.0, 1.0, -8] 
+#p0_alpha = [0.095, 0.000, 1.0, 1.0, -8]
 #p0_alpha = [0.461973318, 0.00820458521, 4.59367292, -4.20812882, -11.9678988,]
 p0_alpha=[5.06,0.07,5.12,-18.4, -25.42]
 p0_alpha = [  1.23807353e-01,   1.63897392e-03,  -1.05356548e-01,   2.98171398e+01, 2.02269962e+01]
@@ -162,7 +162,7 @@ print 'P1-Alpha', p1_alpha
 
 
 p0_beta = [  0.2,   0.003,  -8.95334802e-02, -1.0,   25]
-#p0_beta = [0.12, 0.0, 2.0, 30, 9.0] 
+#p0_beta = [0.12, 0.0, 2.0, 30, 9.0]
 p0_beta = [  1.23807353e-01,   1.63897392e-03,  -1.05356548e-01,   2.98171398e+01, 2.02269962e+01]
 p0_beta=[5.06,0.07,5.12,-18.4, -25.42]
 p0_beta=[5.06,0.00,1,0, 1]

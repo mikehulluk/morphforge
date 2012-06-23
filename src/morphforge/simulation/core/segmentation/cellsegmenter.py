@@ -71,7 +71,7 @@ class CellSegmenterStd(AbstCellSegmenter):
 
 
     def get_num_segments(self, section):
-        return self._get_n_segments(section) 
+        return self._get_n_segments(section)
 
     def get_segments(self, section):
         assert False, 'What is using the cell segment objects??'
@@ -83,7 +83,7 @@ class CellSegmenterStd(AbstCellSegmenter):
 
 
 
-    @property 
+    @property
     def cellSegments(self):
         assert False, 'To remove, as off Jun-2012'
         if self._cellSegments is None:

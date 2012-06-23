@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -41,12 +41,12 @@ from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimul
 class CurrentClampCurrentRecord(NeuronRecordable):
     def __init__(self, cclamp, **kwargs):
         super(CurrentClampCurrentRecord,self).__init__(**kwargs)
-        self.cclamp = cclamp    
+        self.cclamp = cclamp
 
     def get_unit(self):
         return unit("nA")
     def get_std_tags(self):
-        return [StandardTags.Current] 
+        return [StandardTags.Current]
 
 
     def build_hoc(self, hocfile_obj):
@@ -55,7 +55,7 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
     def build_mod(self, modfile_set):
         pass
-    
+
 
 
 
@@ -63,20 +63,20 @@ class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
     def __init__( self, simulation, amp, dur, delay, celllocation, name=None):
         CurrentClampStepChange.__init__(self, name=name, amp=amp, dur=dur, delay=delay, celllocation=celllocation )
         NeuronObject.__init__(self, name=name, simulation=simulation )
-        
+
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.CurrentClamp( hocfile_obj=hocfile_obj, currentClamp=self)
-        
+
     def build_mod(self, modfile_set):
         pass
 
     def get_recordable(self, what, name=None, **kwargs):
         recorders = {
-              CurrentClamp.Recordables.Current : CurrentClampCurrentRecord 
+              CurrentClamp.Recordables.Current : CurrentClampCurrentRecord
         }
-        
+
         return recorders[what]( cclamp=self, name=name, **kwargs )
-    
+
 
 NeuronSimulationEnvironment.currentclamps.register_plugin(CurrentClampStepChange, MNeuronCurrentClampStepChange)

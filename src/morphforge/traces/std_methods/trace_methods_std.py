@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 from morphforge.traces.trace_methods_ctrl import TraceMethodCtrl
- 
+
 import numpy as np
 from morphforge.traces.tracetypes import Trace_VariableDT,Trace_Piecewise, Trace_FixedDT
 
@@ -39,22 +39,22 @@ from morphforge.traces.tracetypes import Trace_VariableDT,Trace_Piecewise, Trace
 def _get_piecewise_linear_points(tr):
     xUnit = tr._pieces[0].get_min_time().units
     yUnit = tr._pieces[0].get_start_value().units
-    
+
     xPoints = []
     yPoints = []
-    
+
     for p in tr._pieces:
         xPoints.append( float(p.get_min_time().rescale(xUnit).magnitude) )
         xPoints.append( float(p.get_max_time().rescale(xUnit).magnitude) )
-        
+
         yPoints.append( float(p.get_start_value().rescale(yUnit).magnitude) )
         yPoints.append( float(p.get_end_value().rescale(yUnit).magnitude) )
 
-    return np.array(xPoints) * xUnit, np.array(yPoints) * yUnit 
-                    
+    return np.array(xPoints) * xUnit, np.array(yPoints) * yUnit
+
 # Plotting:
-TraceMethodCtrl.register(Trace_FixedDT,    'plotpoints', lambda tr: (tr._time, tr._data) )      
-TraceMethodCtrl.register(Trace_VariableDT, 'plotpoints', lambda tr: (tr._time, tr._data) )  
+TraceMethodCtrl.register(Trace_FixedDT,    'plotpoints', lambda tr: (tr._time, tr._data) )
+TraceMethodCtrl.register(Trace_VariableDT, 'plotpoints', lambda tr: (tr._time, tr._data) )
 TraceMethodCtrl.register(Trace_Piecewise,  'plotpoints', _get_piecewise_linear_points)
 
 

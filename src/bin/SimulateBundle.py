@@ -29,7 +29,7 @@ def main():
 
     # Load the random number seed
     if bundle.random_seed is not None:
-        mfrandom.MFRandom.seed(bundle.random_seed) 
+        mfrandom.MFRandom.seed(bundle.random_seed)
 
 
     result = bundle.get_simulation().run(do_spawn=False)

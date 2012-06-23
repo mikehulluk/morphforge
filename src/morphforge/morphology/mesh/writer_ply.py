@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,28 +28,28 @@ class MeshWriterPLY(object):
     ply_tmpl = """ply
 format ascii 1.0
 element vertex $mesh.nVertices
-property float x           
-property float y           
-property float z   
+property float x
+property float y
+property float z
 property uchar red
 property uchar green
 property uchar blue
 element face $mesh.nTriangles
-property list uchar int vertex_index 
-end_header                 
+property list uchar int vertex_index
+end_header
 #for i in range($mesh.nVertices):
 $mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv( $mesh.vertex_colors[i,0] ) $conv( $mesh.vertex_colors[i,1]) $conv( $mesh.vertex_colors[i,2])
 #end for
 #for t in $mesh.triangles:
 3 $t[0] $t[1] $t[2]
 #end for"""
-    
-    
+
+
     @classmethod
     def build_string(cls, mesh):
 
         conv_color =lambda f: int(f*255)
         t = Template( cls.ply_tmpl, {'mesh':mesh,'conv':conv_color} ).respond()
         t = t[:-1] # Trim the last, blank line.
-        
+
         return t

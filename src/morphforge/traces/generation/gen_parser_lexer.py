@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -30,7 +30,7 @@ class TraceGeneratorParserLexer(object):
        'FOR' : 'FOR',
        'UNTIL' : 'UNTIL',
        'THEN' : 'THEN',
-       
+
        'FLAT' : 'FLAT',
        'RAMPTO' : 'RAMPTO',
        'ms' : 'MS',
@@ -43,7 +43,7 @@ class TraceGeneratorParserLexer(object):
               "LPAREN",
               "RPAREN",
               "FLOAT",
-              
+
               "ID" ] + list(reserved.values())
 
     t_CURLY_LBRACE = "{"
@@ -56,7 +56,7 @@ class TraceGeneratorParserLexer(object):
 
     def t_FLOAT(self, t):
         r"""[-]?[0-9]+(\.[0-9]*([eE][+-]?[0-9]+)?)?"""
-        t.value = float(t.value)    
+        t.value = float(t.value)
         return t
 
 
@@ -73,7 +73,7 @@ class TraceGeneratorParserLexer(object):
 
     def __init__(self,**kwargs):
         self.lexer = ply.lex.lex(module=self, **kwargs)
-        
+
 
 
     # Forward to lexer:

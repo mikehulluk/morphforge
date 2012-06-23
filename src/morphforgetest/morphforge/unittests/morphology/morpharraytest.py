@@ -25,8 +25,8 @@ m2 = MorphologyImporter.fromSWCFile( filename="/home/michael/Desktop/test1.swc",
 #m2 = MorphologyLoader.fromSWC( src=open("/home/michael/workspace/morphforge/src/test_data/swc_srcs/28o_spindle20aFI.CNG.swc") )
 
 
-    
-    
+
+
 
 
 

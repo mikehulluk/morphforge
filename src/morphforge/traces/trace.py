@@ -1,13 +1,13 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -32,7 +32,7 @@ class Trace(object):
         self.name = name if name else '<Unnamed Trace>'
         self.comment = comment if comment else "UnknownSrc"
 
-    # Forward operator functions to be looked up:    
+    # Forward operator functions to be looked up:
     def __add__(self, rhs):
         from trace_operators_ctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__add__, lhs=self, rhs=rhs)
@@ -42,7 +42,7 @@ class Trace(object):
     def __div__(self, rhs):
         from trace_operators_ctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__div__, lhs=self, rhs=rhs)
-  
+
     def __mul__(self, rhs):
         from trace_operators_ctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__mul__, lhs=self, rhs=rhs)
@@ -50,12 +50,12 @@ class Trace(object):
     # Forward method lookup
     def __getattr__(self, name):
         from trace_methods_ctrl import TraceMethodCtrl
-        
+
         if TraceMethodCtrl.has_method(self.__class__, name):
             func = TraceMethodCtrl.get_method(self.__class__, name)
             return functools.partial(func, self)
         raise AttributeError('No Such method for trace type: %s.%s.' % (self.__class__, name))
-      
+
 
     # Subclasses must implement these:
     def get_min_time(self):

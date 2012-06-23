@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice,
 #    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -35,23 +35,23 @@ from morphforge.simulation.neuron import MNeuronSimulation
 
 
 class NeuronSimulationEnvironment(SimulationEnvironment):
-    
+
     def Simulation(self, **kwargs):
         return MNeuronSimulation(environment=self, **kwargs)
-    
+
     def Cell(self, **kwargs):
         return MNeuronCell(**kwargs)
-    
+
     def SimulationSettings(self,**kwargs):
         return NeuronSimulationSettings(**kwargs)
-    
-    
+
+
     membranemechanisms = PluginDict()
     presynapticmechanisms = PluginDict()
     postsynapticmechanisms = PluginDict()
     currentclamps = PluginDict()
     voltageclamps = PluginDict()
-    
+
     @classmethod
     def MembraneMechanism(cls, mechanismtype, **kwargs):
         mech = cls.membranemechanisms.get_plugin(mechanismtype)
@@ -66,21 +66,21 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
     def PostSynapticMechanism(cls, mechanismtype, **kwargs):
         mech = cls.postsynapticmechanisms.get_plugin(mechanismtype)
         return mech(**kwargs)
-         
+
     def CurrentClamp(self, form=CurrentClampStepChange,  **kwargs):
         cc = self.currentclamps.get_plugin(form)
         return cc(**kwargs)
-        
-    
+
+
     def VoltageClamp(self, form=VoltageClampStepChange, **kwargs):
         vc = self.voltageclamps.get_plugin(form)
         return vc(**kwargs)
-    
 
-        
+
+
     def GapJunction(self,  **kwargs):
         return NeuronGapJunction(**kwargs)
-    
+
     def Synapse(self,  **kwargs  ):
         from morphforge.simulation.neuron.networks import NeuronSynapse
         return NeuronSynapse( **kwargs)

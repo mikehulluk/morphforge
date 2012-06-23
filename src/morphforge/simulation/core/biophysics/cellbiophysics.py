@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -35,97 +35,97 @@ PassiveTargetApplicator = collections.namedtuple('PassiveTargetApplicator', ['pa
 from morphforge.core.misc import SeqUtils
 
 class CellBiophysics(object):
-  
-    def __init__(self):     
+
+    def __init__(self):
         #tuples of (mechanism, targeter,applicator,mechanism)
-        self.appliedmechanisms = [] 
+        self.appliedmechanisms = []
         self.appliedpassives = []
-      
+
         self.add_passive(
-             passiveproperty = PassiveProperty.AxialResistance, 
-             targetter = PassiveTargeter_EverywhereDefault(), 
+             passiveproperty = PassiveProperty.AxialResistance,
+             targetter = PassiveTargeter_EverywhereDefault(),
              value = PassiveProperty.defaults[PassiveProperty.AxialResistance] )
-        
+
         self.add_passive(
-             passiveproperty = PassiveProperty.SpecificCapacitance, 
-             targetter = PassiveTargeter_EverywhereDefault(), 
+             passiveproperty = PassiveProperty.SpecificCapacitance,
+             targetter = PassiveTargeter_EverywhereDefault(),
              value =  PassiveProperty.defaults[PassiveProperty.SpecificCapacitance] )
-      
+
     # Active Mechanisms:
     # ####################
     def add_mechanism(self, mechanism, targetter, applicator):
         mta = MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
-        self.appliedmechanisms.append(mta) 
-      
+        self.appliedmechanisms.append(mta)
+
     def get_resolved_mtas_for_section(self, section):
-        
+
         # All the mechanisms targetting a certain region:
         mechanismsTargettingSection = [ mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section) ]
-        
+
         mechanismIDs = set([ mta.mechanism.get_mechanism_id() for mta in mechanismsTargettingSection])
-        
+
         res = []
         for mechID in mechanismIDs:
-            mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.get_mechanism_id() == mechID]            
-            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.get_priority() )  
+            mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.get_mechanism_id() == mechID]
+            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.get_priority() )
             res.append( highestProrityMech )
-        return res 
-    
+        return res
+
     # Used for summariser:
     def get_applied_mtas(self):
         return self.appliedmechanisms
-    
-    
+
+
     #def get_applied_mechanisms_mechanism(self):
     #    ms = [ mta.mechanism for mta in self.appliedmechanisms ]
     #    return set(ms)
-    
-    
+
+
     def get_all_mechanisms_applied_to_cell(self):
         ms = [ mta.mechanism for mta in self.appliedmechanisms ]
         return set(ms)
-    
-    
+
+
     def get_mechanism_ids(self):
         return set( [mta.mechanism.get_mechanism_id() for mta in self.appliedmechanisms] )
-    
+
     def get_mta_by_mechanism_id_for_section(self, id, section):
         assert False,'Deprecated? 2012-01-20'
         return SeqUtils.expect_single( [ mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id ] )
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     # Passives:
     def add_passive(self, passiveproperty, targetter, value):
         pta = PassiveTargetApplicator(passiveproperty=passiveproperty, targetter=targetter, value=value)
-        self.appliedpassives.append(pta) 
-    
- 
+        self.appliedpassives.append(pta)
+
+
     def get_passives_for_section(self, section):
-        
+
         sectionptas = [ pta for pta in self.appliedpassives if  pta.targetter.does_target_section(section) ]
         passivemechs = {}
         for passiveproperty in PassiveProperty.all:
             section_property_ptas = [ spta for spta in sectionptas if spta.passiveproperty == passiveproperty ]
-            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )  
+            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )
             passivemechs[passiveproperty] =  highestProrityMech
         return passivemechs
-            
+
     def get_passive_property_for_section(self, section, passive  ):
         return self.get_passives_for_section(section)[passive].value
-        
 
-     
+
+
     # Used for summariser:
     def get_applied_mechanisms(self):
         assert False, "should be using get_applied_mtas()"
         return self.appliedmechanisms
-    
-    
 
 
 
-    
+
+
+

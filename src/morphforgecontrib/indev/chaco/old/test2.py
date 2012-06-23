@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-# 
+#
 #  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
@@ -37,7 +37,7 @@ from enthought.chaco.tools.api import PanTool, ZoomTool
 
 
 class PointDraggingTool(DragTool):
-   
+
     component = Instance(Component)
     # The pixel distance from a point that the cursor is still considered
     # to be 'on' the point
@@ -55,7 +55,7 @@ class PointDraggingTool(DragTool):
             return False
     def normal_mouse_move(self, event):
         plot = self.component
-       
+
         ndx = plot.map_index((event.x, event.y), self.threshold)
         if ndx is None:
             if plot.index.metadata.has_key('selections'):
@@ -94,7 +94,7 @@ class PointDraggingTool(DragTool):
         plot.request_redraw()
     def _lookup_point(self, x, y):
         """ Finds the point closest to a screen point if it is within self.threshold
-       
+
         Parameters
         ==========
         x : float
@@ -114,7 +114,7 @@ class PointDraggingTool(DragTool):
 # # Create the Chaco plot.
 #===============================================================================
 def _create_plot_component():
-   
+
     container = OverlayPlotContainer(padding = 50, fill_padding = True,
                                      bgcolor = "lightgray", use_backbuffer=True)
     # Create the initial X-series of data
@@ -134,11 +134,11 @@ def _create_plot_component():
     scatter.index.sort_order = "ascending"
     scatter.bgcolor = "white"
     scatter.border_visible = True
-   
+
     add_default_grids(scatter)
     add_default_axes(scatter)
     scatter.tools.append(PanTool(scatter, drag_button="right"))
-   
+
     # The ZoomTool tool is stateful and allows drawing a zoom
     # box to select a zoom region.
     zoom = ZoomTool(scatter, tool_mode="box", always_on=False, drag_button=None)
@@ -151,7 +151,7 @@ def _create_plot_component():
                               component=container,
                               font = "swiss 16",
                               overlay_position="top"))
-   
+
     return container
 #===============================================================================
 # Attributes to use for the plot view.
@@ -162,18 +162,18 @@ title="Simple line plot"
 #===============================================================================
 class Demo(HasTraits):
     plot = Instance(Component)
-   
+
     traits_view = View(
                     Group(
-                        Item('plot', editor=ComponentEditor(size=size), 
+                        Item('plot', editor=ComponentEditor(size=size),
                              show_label=False),
                         orientation = "vertical"),
                     resizable=True, title=title
                     )
-   
+
     def _plot_default(self):
          return _create_plot_component()
-   
+
 demo = Demo()
 #===============================================================================
 # Stand-alone frame to display the plot.
@@ -182,7 +182,7 @@ class PlotFrame(DemoFrame):
     def _create_window(self):
         # Return a window containing our plots
         return Window(self, -1, component=_create_plot_component())
-   
+
 if __name__ == "__main__":
     demo_main(PlotFrame, size=size, title=title)
 #--EOF---

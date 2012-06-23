@@ -64,7 +64,7 @@ class StrUtils(object):
         return "\n".join(new)
 
     @classmethod
-    def get_hash_md5(cls, s): 
+    def get_hash_md5(cls, s):
         m = hashlib.md5()
         m.update(s)
         return m.hexdigest()

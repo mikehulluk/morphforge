@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -27,7 +27,7 @@ from hocbuilder_cell import HocBuilder_Cell
 
 from Cheetah.Template import Template
 
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData 
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
 from morphforge.simulation.neuron.settings import MNeuronSettings
 
 
@@ -75,10 +75,10 @@ ${stim.name}.rs = $stim.rs
 
 
 class HocBuilder(object):
-    
+
     @classmethod
-    def VoltageClamp(cls, hocfile_obj, voltageclamp ): 
-        
+    def VoltageClamp(cls, hocfile_obj, voltageclamp ):
+
         cell = voltageclamp.celllocation.cell
         section = voltageclamp.celllocation.morphlocation.section
         data = {
@@ -87,28 +87,28 @@ class HocBuilder(object):
                 "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                 "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
                 "sectionpos":voltageclamp.celllocation.morphlocation.sectionpos,
-                
+
                 "dur1":voltageclamp.dur1.rescale("ms").magnitude,
                 "dur2":voltageclamp.dur2.rescale("ms").magnitude,
                 "dur3":voltageclamp.dur3.rescale("ms").magnitude,
-                
+
                 "amp1":voltageclamp.amp1.rescale("mV").magnitude,
                 "amp2":voltageclamp.amp2.rescale("mV").magnitude,
                 "amp3":voltageclamp.amp3.rescale("mV").magnitude,
-                
+
                 "rs":voltageclamp.rs.rescale("MOhm").magnitude,
-                
+
                 "VClampType": MNeuronSettings.get_voltageclamp_type()
                 }
-        
+
         # Save the data about this Current Clamp:
         hocfile_obj[MHocFileData.VoltageClamps][voltageclamp] = data
-        
-        # Create the HOC 
+
+        # Create the HOC
         hocfile_obj.add_to_section( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
-        
-    
-    
+
+
+
     @classmethod
     def CurrentClamp(cls, hocfile_obj, currentClamp ):
         cell = currentClamp.celllocation.cell
@@ -123,22 +123,22 @@ class HocBuilder(object):
                 "delay":currentClamp.delay.rescale("ms").magnitude,
                 "amp":currentClamp.amp.rescale("nA").magnitude
                 }
-        
+
         # Save the data about this Current Clamp:
         hocfile_obj[MHocFileData.CurrentClamps][currentClamp] = data
-        
-        # Create the HOC 
+
+        # Create the HOC
         hocfile_obj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
-        
-        
-
-        
 
 
-    @classmethod 
+
+
+
+
+    @classmethod
     def Cell(cls, hocfile_obj, cell):
         HocBuilder_Cell.build(hocfile_obj=hocfile_obj, cell=cell)
-     
+
 
 
 

@@ -1,16 +1,16 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -44,7 +44,7 @@ swc_templ = """
 
 ### Dummy Section:
 #set dummy = $morph.get_dummy_section
-$ids[dummy] 0 $dummy.d_x $dummy.d_y $dummy.d_z $dummy.d_r -1      
+$ids[dummy] 0 $dummy.d_x $dummy.d_y $dummy.d_z $dummy.d_r -1
 #for $seg in $morph :
 $ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[ $seg.parent ]
 #end for
@@ -53,63 +53,63 @@ $ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[ $seg.
 """
 
 
-        
 
-    
+
+
 class SWCTreeWriter(object):
-    
+
     @classmethod
     def to_str(cls, morph=None, morphs=None, regionname_to_int_map=None):
-        
+
         assert (morph or morphs) and not( morph and morphs)
-        
+
         if morph:
             return cls._to_str_multi(morphs = [morph], regionname_to_int_map=regionname_to_int_map)
         else:
             return cls._to_str_multi(morphs = morphs, regionname_to_int_map=regionname_to_int_map)
-        
-        
+
+
     @classmethod
     def to_file(cls, filename, morph=None, morphs=None, regionname_to_int_map=None ):
         assert (morph or morphs) and not( morph and morphs)
-        
+
         if morph:
             return cls._to_file_multi(morphs = [morph], filename=filename, regionname_to_int_map=regionname_to_int_map)
         else:
             return cls._to_file_multi(morphs = morphs, filename=filename, regionname_to_int_map=regionname_to_int_map)
-    
-    
-    
+
+
+
     @classmethod
     def _to_file_multi(cls, filename, morphs, regionname_to_int_map=None):
         return FileIO.write_to_file(txt=cls._to_str_multi(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
-    
+
     @classmethod
     def _to_str_multi(cls, morphs, regionname_to_int_map=None ):
         offset = 0
         output = ""
         for morph in morphs:
             offset = offset + 1
-            
+
             # Add an additional section for the dummy section:
             dummyOffset = offset
             offset = offset + 1
-            
+
             idMap = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
             idMap[ morph.get_dummy_section() ] = dummyOffset
-            
-            
+
+
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()
-                  
+
             region_type_map = dict( (s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph )
-            
+
             context = [{ 'morph':morph, 'ids':idMap, 'region_type_map':region_type_map }]
             newOP = Template(swc_templ, context ).respond()
             output += newOP
-            offset += len( idMap ) 
+            offset += len( idMap )
         return output
-        
+
 
 
 

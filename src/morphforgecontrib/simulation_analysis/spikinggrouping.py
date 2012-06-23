@@ -5,73 +5,73 @@
 
 import numpy as np
 from morphforge.traces.eventset import EventSet
- 
+
 
 class DBScan(object):
-    
-    
+
+
     @classmethod
     def query_region(cls, p, eps, pts):
         nr_indices = np.nonzero( np.fabs(pts-p) < eps)[0]
         #print nr_indices
         return set( nr_indices )
-    
-    
+
+
     @classmethod
     def cluster_points(cls, pts, eps, min_pts ):
         pts = np.array(pts)
         visited_indices = [False] * np.zeros( len(pts) )
-        noise = [] 
+        noise = []
         clusters = []
-        
+
         for i,pt in enumerate(pts):
             if visited_indices[i]:
                 continue
-            
+
             visited_indices[i] = 1
-            
+
             N = cls.query_region(p=pt, eps=eps, pts=pts)
-            
+
             if len(N) < min_pts:
                 noise.append(i)
             else:
                 C = set()
-                cls.expand_cluster(pt_index=i, N=N, C=C, eps=eps, pts=pts, minPts=min_pts,  visited_indices=visited_indices, clusters=clusters) 
+                cls.expand_cluster(pt_index=i, N=N, C=C, eps=eps, pts=pts, minPts=min_pts,  visited_indices=visited_indices, clusters=clusters)
                 clusters.append(C)
-        
+
         return clusters, noise
-            
-            
+
+
     @classmethod
     def expand_cluster(cls, pt_index, N, C, pts, eps, visited_indices,  minPts, clusters):
 
         C.add(pt_index)
-        
+
         iter_N = list( N )
         while iter_N:
             pdash_index = iter_N.pop()
             if not visited_indices[pdash_index]:
-                
+
                 visited_indices[pdash_index] = 1
                 N_dash = cls.query_region(p=pts[pdash_index], eps=eps, pts=pts)
-                
+
                 if len(N_dash) >= minPts:
                     for n in N_dash:
                         iter_N.append(n)
-                
+
                 pt_in_clusters = [ True for c in clusters if pdash_index in c]
                 if not pt_in_clusters:
-                    C.add(pdash_index)            
-                         
-            
-    @classmethod            
-    def cluster_spike_times(cls, event_set, eps, min_pts=5):
-        eps=float( eps.rescale("ms").magnitude )        
-        
+                    C.add(pdash_index)
 
-        data = [ float( ev.get_time().rescale("ms") ) for ev in event_set ]            
+
+    @classmethod
+    def cluster_spike_times(cls, event_set, eps, min_pts=5):
+        eps=float( eps.rescale("ms").magnitude )
+
+
+        data = [ float( ev.get_time().rescale("ms") ) for ev in event_set ]
         clusters, noise = DBScan.cluster_points( pts = np.array(data), eps=eps, min_pts=min_pts)
-        
+
         # Create new eventsets for each cluster
         new_eventsets = []
         for cluster in clusters:
@@ -79,7 +79,7 @@ class DBScan(object):
             for c in cluster:
                 e.add_event( event_set[c] )
             new_eventsets.append(e)
-        
+
         # Create a new EventSet for the noise points:
         noise_event_set = EventSet(events= [event_set[i] for i in noise] )
 
@@ -88,23 +88,23 @@ class DBScan(object):
 
     @classmethod
     def calculate_mean_frequency(cls, cluster_sets):
-        
-        
+
+
         mean_times = [ np.mean( [t.rescale("ms") for t in c.times]) for c in cluster_sets if len(c) != 0 ]
         mean_times = np.array( [ mt for mt in mean_times if mt > 200 ] )
-         
+
         np.sort( mean_times )
         mean_times.sort()
         print mean_times
-        
+
         isi = np.diff(mean_times)
         freq = 1000.0 / isi
         #pylab.hist(freq)
         mean_freq = np.mean( freq)
 
         return mean_freq
-    
-     
+
+
 #DBSCAN(D, eps, MinPts)
 #   C = 0
 #   for each unvisited point P in dataset D
@@ -115,10 +115,10 @@ class DBScan(object):
 #      else
 #         C = next cluster
 #         expand_cluster(P, N, C, eps, MinPts)
-#          
+#
 #expand_cluster(P, N, C, eps, MinPts)
 #   add P to cluster C
-#   for each point P' in N 
+#   for each point P' in N
 #      if P' is not visited
 #         mark P' as visited
 #         N' = regionQuery(P', eps)
@@ -153,5 +153,5 @@ class DBScan(object):
 #    print indices
 #    print data
 #    d = data[ indices ]
-#    pylab.scatter( d, [i]*len(d), colors[i]   ) 
+#    pylab.scatter( d, [i]*len(d), colors[i]   )
 #pylab.show()

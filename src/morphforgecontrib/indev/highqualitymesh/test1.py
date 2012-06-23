@@ -2,7 +2,7 @@
 
 
 
-from morphforge.core import LocMgr, Join 
+from morphforge.core import LocMgr, Join
 from morphforge.morphology.ui import MatPlotLibViewer
 from morphforge.morphology.core import MorphologyTree
 from morphforgecontrib.indev.highqualitymesh.create_mesh import MeshFromGTS

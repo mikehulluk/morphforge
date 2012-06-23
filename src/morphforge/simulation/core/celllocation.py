@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,36 +25,36 @@
 from morphforge.morphology.core import MorphLocation
 
 class CellLocation(object):
-    
+
     def __init__(self, cell, morphlocation=None, section=None, sectionpos=None):
-        self._cell = cell 
-        
+        self._cell = cell
+
         if morphlocation:
             assert not section and not sectionpos
             self.morphlocation = morphlocation
         else:
             assert not morphlocation
             self.morphlocation = MorphLocation(section=section, sectionpos=sectionpos)
-        
+
         assert not self.morphlocation.section.is_dummy_section()
-           
+
 
     def get_cell(self):
         return self._cell
 
     cell = property(get_cell, None, None)
 
-    
+
     # We want to be able to treat CellLocations as locations,
     # so that we can measure between them for example:
-    
+
     @property
     def section(self):
         return self.morphlocation.section
     @property
     def sectionpos(self):
         return self.morphlocation.sectionpos
-    
+
     def get_3d_position(self):
         return self.morphlocation.get_3d_position()
 
@@ -62,5 +62,5 @@ class CellLocation(object):
     def get_location_description_str(self):
         r = self.cell.name
         t = ":%s"%self.morphlocation.section.idTag if self.morphlocation.section.idTag else ""
-        return r+t 
-        
+        return r+t
+

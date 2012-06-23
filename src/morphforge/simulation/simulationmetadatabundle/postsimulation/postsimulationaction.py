@@ -1,15 +1,15 @@
 #-------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.  All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
-#  - Redistributions of source code must retain the above copyright notice, 
+#
+#  - Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
-#  - Redistributions in binary form must reproduce the above copyright notice, 
-#    this list of conditions and the following disclaimer in the documentation 
+#  - Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,27 +28,27 @@ import cPickle
 
 
 
-from morphforge.core import FileIO 
+from morphforge.core import FileIO
 
 
 class PostSimulationAction(object):
-    
+
     def __call__(self, result, bundle):
         raise NotImplementedError()
-    
+
 
 
 
 class PostSimulationActionPickleSimulation(object):
-    
+
     def __init__(self, filename=None):
         self.filename = filename
         assert self.filename
-    
+
     def __call__(self, result, bundle):
         assert self.filename
         filename = self.filename #if self.filename else bundle.metadata[SimMetaDataBundle.ResultsFileLocation]
         resstring = cPickle.dumps(result)
-        FileIO.write_to_file(txt=resstring, filename=filename) 
-    
+        FileIO.write_to_file(txt=resstring, filename=filename)
+
 

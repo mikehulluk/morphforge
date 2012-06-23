@@ -6,7 +6,7 @@ from chaco.api import Plot, ArrayPlotData, add_default_axes, add_default_grids, 
 from chaco.example_support import COLOR_PALETTE
 from chaco.tools.api import PanTool, ZoomTool, BroadcasterTool
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType
-from morphforge.stdimports import * 
+from morphforge.stdimports import *
 
 from traitsui.api import View, Item, Group, Tabbed
 from enable.component_editor import ComponentEditor
@@ -34,8 +34,8 @@ from channel_panels import HHChannelPaneInfTau2,buildPaneFromExistingChannelInfT
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [ ('SomaVoltage',vUnit), 
-                ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit), ('Ca_i', iUnit), 
+trace_names = [ ('SomaVoltage',vUnit),
+                ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit), ('Ca_i', iUnit),
                 ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
                 ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
                 ]
@@ -51,17 +51,17 @@ trace_names = [ ('SomaVoltage',vUnit), ]
 
 
 class TracePlot(HasTraits):
-    
+
     plot = Instance(Plot)
     view = View(
             Group(
                   Item('plot',editor=ComponentEditor(size=(50,50)),show_label=False),
                 ),
-                resizable=True) 
-    
+                resizable=True)
+
     def __init__(self, sim_conf, plot_what, colors, xRange=None, yRange=None):
         super(TracePlot, self).__init__()
-        
+
         sim_conf.add_simulation_display_functor( self.update_display )
 
         self.plot = Plot(sim_conf.data,resizable='v')
@@ -79,7 +79,7 @@ class TracePlot(HasTraits):
         for what,color in zip( plot_what,colors ):
             render = self.plot.plot((what+"_t",what + "_d"),type='line' ,color=color)
 
-        
+
         broadcaster = BroadcasterTool()
         broadcaster.tools.append(PanTool(self.plot))
         zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False,pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
@@ -88,7 +88,7 @@ class TracePlot(HasTraits):
 
 
     def update_display(self):
-        pass        
+        pass
 
 
 
@@ -130,7 +130,7 @@ class SimulationConfig(HasTraits):
         self.display_functors.append( display_functor)
 
 
-        
+
 
     def resimulate(self):
 
@@ -170,14 +170,14 @@ class SimulationConfig(HasTraits):
                 if chlname != 'Ca':
                     sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
 
-       
-        
-        
+
+
+
         sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.get_location('soma'), description='Kf State')
         sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.get_location('soma'), description='Ks State')
         sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.get_location('soma'), description='Na-m State')
         sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
-    
+
         # Record Voltages:
         sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
 
@@ -187,7 +187,7 @@ class SimulationConfig(HasTraits):
 
         res = sim.run()
 
-            
+
         # Update the array of data:
         for trace_name, trace_unit in trace_names:
             tr = res.get_trace(trace_name)
@@ -203,8 +203,8 @@ class SimulationConfig(HasTraits):
         print 'Done simulating'
 
 
-        
-        
+
+
 
 
 
@@ -219,8 +219,8 @@ class MorphologyConfig(HasTraits):
     surfacearea = Range(1.0, 1000., 590)
     capacitance = Range(0.1, 10.0, 1.0)
     view = View(Group(
-                  Item('surfacearea',), 
-                  Item('capacitance',), 
+                  Item('surfacearea',),
+                  Item('capacitance',),
                 ),
                 resizable=True,title='Morphology')
 
@@ -228,8 +228,8 @@ class MorphologyConfig(HasTraits):
         super(MorphologyConfig, self).__init__()
         self.sim_conf = sim_conf
         sim_conf.cell_builder_func = self.get_cell
-        
-        
+
+
 
     @on_trait_change('surfacearea, capacitance')
     def m_update(self):
@@ -239,11 +239,11 @@ class MorphologyConfig(HasTraits):
 
     def get_cell(self, env, sim):
         m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
-        #m1 = 
-        
+        #m1 =
+
         morphFunctor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
         m1 = morphFunctor(axonDiam = 0.4)
-        
+
         myCell = sim.create_cell(name="Cell1", morphology=m1)
         apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
         return myCell
@@ -318,17 +318,17 @@ class Double(HasTraits):
                      )
              ),
               VGroup(
-               Item('s3', style='custom', show_label=False ), 
-               Item('s4', style='custom', show_label=False ), 
-               Item('s5', style='custom', show_label=False ), 
-               Item('s6', style='custom', show_label=False ), 
+               Item('s3', style='custom', show_label=False ),
+               Item('s4', style='custom', show_label=False ),
+               Item('s5', style='custom', show_label=False ),
+               Item('s6', style='custom', show_label=False ),
               ),
               VGroup(
-               Item('conf_morph', style='custom', show_label=False ), 
-               Item('conf_input', style='custom', show_label=False ), 
+               Item('conf_morph', style='custom', show_label=False ),
+               Item('conf_input', style='custom', show_label=False ),
               ),
               ),
-             
+
             resizable=True, width=1200, height=1200, )
 
 
@@ -374,31 +374,31 @@ class Double(HasTraits):
         for mechFunctor in mechFunctors:
             mech = mechFunctor( env=sim.environment )
             if mechFunctor == lkFunctor:
-                
+
                 if coupled_leak:
                     apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
                 else:
                     apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
-                    
+
 
             elif mechFunctor == naFunctor:
                 if disable_sodium:
                     continue
-                
+
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5} )
                 apply_mechanism_region_uniform(    cell=myCell, mechanism=mech, region=myCell.morphology.get_region('axon'), parameter_multipliers={'gScale':5.0} )
-                    
-                
+
+
             elif mechFunctor == kfFunctor:
                 if disable_kf:
                     continue
-                
+
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
                 apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.get_region('soma'))
-                
+
             elif mechFunctor == ksFunctor:
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
-                
+
             else:
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech)
                 """
@@ -449,14 +449,14 @@ def main():
 
     sim_conf = SimulationConfig()
     sim_config = sim_conf
-    
+
     xRange=(95, 130)
 
     d = Double(
             s3 = TracePlot(sim_conf=sim_conf, plot_what=['SomaVoltage'], colors=['green'], yRange=(-80,50),xRange=xRange),
-            #s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i','Ks_i','Lk_i','Na_i','Ca_i'], colors=['cyan','blue','red','green','orange'],xRange=xRange), 
-            #s5 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_g','Ks_g','Lk_g','Na_g'], colors=['cyan','blue','red','green'],xRange=xRange), 
-            #s6 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_kf','Ks_ks','Na_m','Na_h'], colors=['cyan','blue','red','green'],xRange=xRange), 
+            #s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i','Ks_i','Lk_i','Na_i','Ca_i'], colors=['cyan','blue','red','green','orange'],xRange=xRange),
+            #s5 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_g','Ks_g','Lk_g','Na_g'], colors=['cyan','blue','red','green'],xRange=xRange),
+            #s6 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_kf','Ks_ks','Na_m','Na_h'], colors=['cyan','blue','red','green'],xRange=xRange),
             conf_morph= MorphologyConfig(sim_conf=sim_conf),
             conf_input= InputConfig(sim_conf=sim_conf),
 
