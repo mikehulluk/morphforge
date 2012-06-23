@@ -74,7 +74,7 @@ $(cell_name).internalsections [ $section_index ] {
         eRevName = "e_rev"
         gScaleName = "gScale"
 
-        baseWriter = MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
+        base_writer = MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
 
         # Naming Conventions:
         stateTau = lambda s: "%stau" % s
@@ -83,11 +83,11 @@ $(cell_name).internalsections [ $section_index ] {
 
         # State Equations and initial values:
         for s in alphabeta_chl.statevars_new:
-            baseWriter.internalstates[s] = "%s" % stateInf(s) , "%s'=(%s-%s)/%s" % (s, stateInf(s), s, stateTau(s))
+            base_writer.internalstates[s] = "%s" % stateInf(s) , "%s'=(%s-%s)/%s" % (s, stateInf(s), s, stateTau(s))
 
         # Parameters:
         # {name: (value, unit,range)}
-        baseWriter.parameters = {
+        base_writer.parameters = {
                       gbarName: (alphabeta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
                       eRevName: (alphabeta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
                       gScaleName: (1.0, None, None)
@@ -96,16 +96,16 @@ $(cell_name).internalsections [ $section_index ] {
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_chl.statevars_new:
-            baseWriter.rates[ stateInf(s) ] = (("", stateInf(s) + "= %sInf(v)"%stateInf(s)), None)
-            baseWriter.rates[ stateTau(s) ] = (("", stateTau(s) + "= %sTau(v)"%stateTau(s)), "ms")
-            baseWriter.ratecalcorder.extend([stateInf(s), stateTau(s)])
+            base_writer.rates[ stateInf(s) ] = (("", stateInf(s) + "= %sInf(v)"%stateInf(s)), None)
+            base_writer.rates[ stateTau(s) ] = (("", stateTau(s) + "= %sTau(v)"%stateTau(s)), "ms")
+            base_writer.ratecalcorder.extend([stateInf(s), stateTau(s)])
 
-        baseWriter.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphabeta_chl.eqn, gScaleName)
-        baseWriter.conductanceequation = " %s * %s * %s" % (gbarName, alphabeta_chl.eqn, gScaleName)
+        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphabeta_chl.eqn, gScaleName)
+        base_writer.conductanceequation = " %s * %s * %s" % (gbarName, alphabeta_chl.eqn, gScaleName)
 
 
 
-        baseWriter.functions = """
+        base_writer.functions = """
         VERBATIM
         #include <gsl_wrapper.h>
         ENDVERBATIM"""
@@ -144,12 +144,12 @@ $(cell_name).internalsections [ $section_index ] {
 
 
         for s in alphabeta_chl.statevars_new:
-            baseWriter.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s )
-            baseWriter.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s )
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s )
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s )
 
 
 
-        txt =  baseWriter.generate_modfile()
+        txt =  base_writer.generate_modfile()
 
         # TODO: Remove hard dependancy here
         additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"

@@ -54,8 +54,8 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
             for i in range(0,nStates):
                 stateInf,stateTau = infTausMS[i]
                 stateVal = y[i]
-                dState = ( stateInf - stateVal ) / stateTau
-                res[i] = dState
+                d_state = ( stateInf - stateVal ) / stateTau
+                res[i] = d_state
             return res
 
         # run the ODE for each variable:
@@ -68,7 +68,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
 
         stateEquationEvaluation = stateFunctor( *stateData )
 
-        cellDensity = (chl.conductance * cell_area)
+        cell_density = (chl.conductance * cell_area)
         iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
 
         return Trace_FixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )

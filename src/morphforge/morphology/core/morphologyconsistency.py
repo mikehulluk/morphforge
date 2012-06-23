@@ -33,10 +33,10 @@ def _get_md5_of_section(s):
     #assert False # Is this Cruft?? Added Jan 2011
     sectionString = " %2.2f %2.2f %2.2f %2.2f "
     regionsString = _get_md5_of_region(s.region) if s.region else ""
-    childrenString = ",".join( [_get_md5_of_section(s) for s in s.children] )
+    children_string = ",".join( [_get_md5_of_section(s) for s in s.children] )
     idString = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
 
-    return StrUtils.get_hash_md5( sectionString + regionsString + childrenString + idString)
+    return StrUtils.get_hash_md5( sectionString + regionsString + children_string + idString)
 
 
 def _get_md5_of_morphology(m):

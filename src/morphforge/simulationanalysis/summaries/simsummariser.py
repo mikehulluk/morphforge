@@ -128,9 +128,9 @@ class SimulationSummariser(object):
             a = sum([ s.get_area() for s in cell.morphology]) * unit("1:um2")
             nSections = len( cell.morphology )
             nSegments = sum( [cell.get_segmenter().get_num_segments(section) for section in cell.morphology] )
-            activeMechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
-            activeChlList = "\n".join( ["%s [%s]"%(am.get_mechanism_id(), am.name) for am in activeMechs] )
-            data.append( [ cell.name, a, nSections, nSegments, activeChlList ] )
+            active_mechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
+            active_chl_list = "\n".join( ["%s [%s]"%(am.get_mechanism_id(), am.name) for am in active_mechs] )
+            data.append( [ cell.name, a, nSections, nSegments, active_chl_list ] )
 
         localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
 
@@ -248,11 +248,11 @@ class SimulationSummariser(object):
 
         data = [ ["Cell1", "Cell2", "Resistance","Distance Soma1","Distance Soma2","PrePostDist" ]]
         for gj in gapJunctions:
-            cell1Name = gj.celllocation1.cell.name
-            cell2Name = gj.celllocation2.cell.name
+            cell1_name = gj.celllocation1.cell.name
+            cell2_name = gj.celllocation2.cell.name
             resistance = gj.resistance.rescale("MOhm")
-            cell1Distance = cell_location_distance_from_soma( gj.celllocation1 )
-            cell2Distance = cell_location_distance_from_soma( gj.celllocation2 )
+            cell1_distance = cell_location_distance_from_soma( gj.celllocation1 )
+            cell2_distance = cell_location_distance_from_soma( gj.celllocation2 )
 
             print "GJ1:", gj.celllocation1.morphlocation.get_3d_position()
             print "GJ2:", gj.celllocation2.morphlocation.get_3d_position()
@@ -268,7 +268,7 @@ class SimulationSummariser(object):
             print  "SectionPos2:", gj.celllocation2.morphlocation.sectionpos
             print
 
-            data.append( [cell1Name,cell2Name, str(resistance), cell1Distance, cell2Distance, prePostDist,r  ] )
+            data.append( [cell1_name,cell2_name, str(resistance), cell1_distance, cell2_distance, prePostDist,r  ] )
 
         localElements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
 

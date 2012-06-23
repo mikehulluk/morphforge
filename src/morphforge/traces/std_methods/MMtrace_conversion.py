@@ -87,14 +87,14 @@ def _simplify_points (pts, tolerance):
 
         # initialize line segment
         if pts[floater] != pts[anchor]:
-            anchorX = float(pts[floater][0] - pts[anchor][0])
-            anchorY = float(pts[floater][1] - pts[anchor][1])
-            seg_len = math.sqrt(anchorX ** 2 + anchorY ** 2)
+            anchor_x = float(pts[floater][0] - pts[anchor][0])
+            anchor_y = float(pts[floater][1] - pts[anchor][1])
+            seg_len = math.sqrt(anchor_x ** 2 + anchor_y ** 2)
             # get the unit vector
-            anchorX /= seg_len
-            anchorY /= seg_len
+            anchor_x /= seg_len
+            anchor_y /= seg_len
         else:
-            anchorX = anchorY = seg_len = 0.0
+            anchor_x = anchor_y = seg_len = 0.0
 
         # inner loop:
         max_dist = 0.0
@@ -106,7 +106,7 @@ def _simplify_points (pts, tolerance):
             vecY = float(pts[i][1] - pts[anchor][1])
             seg_len = math.sqrt(vecX ** 2 + vecY ** 2)
             # dot product:
-            proj = vecX * anchorX + vecY * anchorY
+            proj = vecX * anchor_x + vecY * anchor_y
             if proj < 0.0:
                 dist_to_seg = seg_len
             else:
@@ -115,7 +115,7 @@ def _simplify_points (pts, tolerance):
                 vecY = float(pts[i][1] - pts[floater][1])
                 seg_len = math.sqrt(vecX ** 2 + vecY ** 2)
                 # dot product:
-                proj = vecX * (-anchorX) + vecY * (-anchorY)
+                proj = vecX * (-anchor_x) + vecY * (-anchor_y)
                 if proj < 0.0:
                     dist_to_seg = seg_len
                 else:  # calculate perpendicular distance to line (pythagorean theorem):

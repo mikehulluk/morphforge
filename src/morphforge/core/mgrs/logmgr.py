@@ -73,8 +73,8 @@ class LogMgr(object):
 
     @classmethod
     def get_caller(cls):
-        currentFrame = inspect.currentframe()
-        outerFrames = inspect.getouterframes(currentFrame)
+        current_frame = inspect.currentframe()
+        outerFrames = inspect.getouterframes(current_frame)
         outFramesNotThisClass = [f for f in outerFrames if not f[1].endswith("logmgr.py") ]
 
         prevCallFrame = outFramesNotThisClass[0]
@@ -147,12 +147,12 @@ class LogMgr(object):
     def get_logger(cls):
 
         # Find Who called us:
-        callMod = "DISABLEDLOGGING"
-        #(callMod, isMorphforgeLib), lineNum = cls.get_caller()
+        call_mod = "DISABLEDLOGGING"
+        #(call_mod, isMorphforgeLib), lineNum = cls.get_caller()
 
 
-        if not callMod in cls.loggers:
-            cls.loggers[callMod] = cls.create_logger(callMod)
-        return cls.loggers[callMod]
+        if not call_mod in cls.loggers:
+            cls.loggers[call_mod] = cls.create_logger(call_mod)
+        return cls.loggers[call_mod]
 
 

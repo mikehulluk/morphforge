@@ -57,10 +57,10 @@ class SpikeFinderThreshCross(object):
         #t = self.trace.time
         d = self.trace._data.rescale("mV").magnitude
 
-        aboveZero = numpy.zeros(d.shape, dtype=int)
-        aboveZero[d > self.crossingthresh] = 1
+        above_zero = numpy.zeros(d.shape, dtype=int)
+        above_zero[d > self.crossingthresh] = 1
 
-        crossings = aboveZero - numpy.roll(aboveZero, 1)
+        crossings = above_zero - numpy.roll(above_zero, 1)
         crossings[0] = 0
         risingEdgeInd = numpy.where(crossings == 1)[0]
         fallingEdgeInd = numpy.where(crossings == -1)[0]
@@ -77,7 +77,7 @@ class SpikeFinderThreshCross(object):
 
 
 
-        #print 'above-zero', aboveZero
+        #print 'above-zero', above_zero
         #print 'crossings', crossings
         #print 'risingEdgeInd', risingEdgeInd
         #for i in risingEdgeInd:
@@ -96,7 +96,7 @@ class SpikeFinderThreshCross(object):
         #import pylab
         #pylab.figure()
         #pylab.plot( t, d)
-        #pylab.plot( t, aboveZero*100)
+        #pylab.plot( t, above_zero*100)
         #pylab.savefig("/home/michael/Desktop/temp.svg")
 
         threshIndices = zip(risingEdgeInd, fallingEdgeInd)
@@ -148,10 +148,10 @@ class Spike(object):
         d[ 0:self.thresIndices[0] ] = 0
         d[ self.thresIndices[1]:-1] = 0
 
-        above50PC = numpy.zeros(d.shape, dtype=int)
-        above50PC[d > self.fiftyPCLine] = 1
+        above50_pc = numpy.zeros(d.shape, dtype=int)
+        above50_pc[d > self.fiftyPCLine] = 1
 
-        crossings = above50PC - numpy.roll(above50PC, 1)
+        crossings = above50_pc - numpy.roll(above50_pc, 1)
         risingEdgeInd = numpy.where(crossings == 1)
         fallingEdgeInd = numpy.where(crossings == -1)
 
@@ -175,6 +175,6 @@ class Spike(object):
         # Annotate Plot
         print (t[self.peakIndex], d[self.peakIndex], self.duration, self.firingthres)
         print
-        annotStr = """Time:%2.2fms \nPeak: %2.2f mV \nDur: %2.2f ms\n(ThresVoltage: %2.2f)""" % (t[self.peakIndex], d[self.peakIndex], self.duration, self.firingthres)
-        ax.annotate(annotStr, xy=(t[self.peakIndex] + 2, d[self.peakIndex] - 10), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
+        annot_str = """Time:%2.2fms \nPeak: %2.2f mV \nDur: %2.2f ms\n(ThresVoltage: %2.2f)""" % (t[self.peakIndex], d[self.peakIndex], self.duration, self.firingthres)
+        ax.annotate(annot_str, xy=(t[self.peakIndex] + 2, d[self.peakIndex] - 10), xytext=None, xycoords='data', textcoords='data', arrowprops=None)
 

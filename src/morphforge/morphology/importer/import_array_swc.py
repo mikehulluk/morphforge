@@ -87,8 +87,8 @@ class NewSWCLoader(object):
 
         splits = splits[1:]
 
-        dataBlocks = [ "\n".join( blk  ) for blk in splits ]
-        fileObjs = [ StringIO(blk) for blk in dataBlocks ]
+        data_blocks = [ "\n".join( blk  ) for blk in splits ]
+        fileObjs = [ StringIO(blk) for blk in data_blocks ]
 
 
         morphs = [ cls.load_swc_single( src=fO)  for fO in  fileObjs ]

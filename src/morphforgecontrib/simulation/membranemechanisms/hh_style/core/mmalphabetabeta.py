@@ -60,9 +60,9 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         beta1 = AlphaBetaCalculator.calc_alpha_beta(V,beta1)
         beta2 = AlphaBetaCalculator.calc_alpha_beta(V,beta2)
 
-        betaIndices1 = np.nonzero( V <  threshold )
-        betaIndices2 = np.nonzero( V >= threshold )
+        beta_indices1 = np.nonzero( V <  threshold )
+        beta_indices2 = np.nonzero( V >= threshold )
 
-        beta = np.hstack( [beta1[betaIndices1],beta2[betaIndices2] ] )
+        beta = np.hstack( [beta1[beta_indices1],beta2[beta_indices2] ] )
 
         return alpha, beta

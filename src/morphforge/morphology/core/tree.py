@@ -532,8 +532,8 @@ class MorphologyTree(MorphologyBase):
         assert self.ensure_consistency()
 
         if self._regions is None:
-            allRegions = [ section.region for section in self]
-            self._regions = list(set(allRegions))
+            all_regions = [ section.region for section in self]
+            self._regions = list(set(all_regions))
             self._regions.sort(key=lambda r:r.name)
             if self._regions.__contains__(None):
                 self._regions.remove(None)

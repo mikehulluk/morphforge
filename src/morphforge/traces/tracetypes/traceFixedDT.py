@@ -86,8 +86,8 @@ class Trace_FixedDT(Trace_PointBased):
         # Rebase the Time:
         time.rescale(self._time.units)
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)
-        dMag = interpolator(time.magnitude)
-        return dMag * self._data.units
+        d_mag = interpolator(time.magnitude)
+        return d_mag * self._data.units
 
 
 
