@@ -30,38 +30,38 @@ class DBScan(object):
 
             visited_indices[i] = 1
 
-            N = cls.query_region(p=pt, eps=eps, pts=pts)
+            n_points = cls.query_region(p=pt, eps=eps, pts=pts)
 
-            if len(N) < min_pts:
+            if len(n_points) < min_pts:
                 noise.append(i)
             else:
-                C = set()
-                cls.expand_cluster(pt_index=i, N=N, C=C, eps=eps, pts=pts, minPts=min_pts,  visited_indices=visited_indices, clusters=clusters)
-                clusters.append(C)
+                new_cluster = set()
+                cls.expand_cluster(pt_index=i, npoints=n_points, C=new_cluster, eps=eps, pts=pts, min_pts=min_pts,  visited_indices=visited_indices, clusters=clusters)
+                clusters.append(new_cluster)
 
         return clusters, noise
 
 
     @classmethod
-    def expand_cluster(cls, pt_index, N, C, pts, eps, visited_indices,  minPts, clusters):
+    def expand_cluster(cls, pt_index, npoints, cluster, pts, eps, visited_indices,  min_pts, clusters):
 
-        C.add(pt_index)
+        cluster.add(pt_index)
 
-        iter_N = list( N )
+        iter_N = list( npoints )
         while iter_N:
             pdash_index = iter_N.pop()
             if not visited_indices[pdash_index]:
 
                 visited_indices[pdash_index] = 1
-                N_dash = cls.query_region(p=pts[pdash_index], eps=eps, pts=pts)
+                n_dash = cls.query_region(p=pts[pdash_index], eps=eps, pts=pts)
 
-                if len(N_dash) >= minPts:
-                    for n in N_dash:
+                if len(n_dash) >= min_pts:
+                    for n in n_dash:
                         iter_N.append(n)
 
                 pt_in_clusters = [ True for c in clusters if pdash_index in c]
                 if not pt_in_clusters:
-                    C.add(pdash_index)
+                    cluster.add(pdash_index)
 
 
     @classmethod

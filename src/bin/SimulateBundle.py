@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import time
-tStart = time.time()
+t_start = time.time()
 
 import sys
 from morphforge.core import LogMgr, mfrandom
@@ -33,7 +33,7 @@ def main():
 
 
     result = bundle.get_simulation().run(do_spawn=False)
-    result.set_simulation_time(tStart, time.time())
+    result.set_simulation_time(t_start, time.time())
 
     LogMgr.info("Simulation Ran OK. Post Processing:")
 
@@ -45,10 +45,10 @@ def main():
 
 
 try:
-    tStart = time.time()
+    t_start = time.time()
     main()
     tEnd = time.time()
-    print "Simulation Time Elapsed: ", tEnd - tStart
+    print "Simulation Time Elapsed: ", tEnd - t_start
 except:
     import traceback
     traceback.print_exc()

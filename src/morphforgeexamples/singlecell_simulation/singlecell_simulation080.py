@@ -35,7 +35,7 @@ def sim( glk_multiplier, gna_multiplier, tag):
     mySim = env.Simulation()
 
     # Create a cell:
-    morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
+    morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
     myCell = mySim.create_cell(name="Cell1", morphology=morph)
 
 

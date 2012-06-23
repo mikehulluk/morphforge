@@ -56,8 +56,8 @@ def get_sample_k(env):
 
 
 
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Na", chlFunctor=get_sample_na)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="K",  chlFunctor=get_sample_k)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Lk", chlFunctor=get_sample_lk)
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Na", chl_functor=get_sample_na)
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="K",  chl_functor=get_sample_k)
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Lk", chl_functor=get_sample_lk)
 
 

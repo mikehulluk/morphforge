@@ -94,9 +94,9 @@ def get_sample_k(env):
 
 
 MorphologyLibrary.register_morphology(modelsrc="Sample", celltype="Cell1", morph_functor=getSimpleMorphology)
-ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Na", chlFunctor=get_sample_na)
-ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="K", chlFunctor=get_sample_k)
-ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Lk", chlFunctor=get_sample_lk)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Na", chl_functor=get_sample_na)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="K", chl_functor=get_sample_k)
+ChannelLibrary.register_channel(modelsrc="Sample", celltype="Cell1", channeltype="Lk", chl_functor=get_sample_lk)
 
 # =============================================================
 

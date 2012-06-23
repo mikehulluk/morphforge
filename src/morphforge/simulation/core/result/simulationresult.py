@@ -33,11 +33,11 @@ class SimulationResult(object):
     def __init__(self, traces, simulation):
         self.traces = traces
         self.simulation = simulation
-        self.tStart = None
+        self.t_start = None
         self.t_stop = None
 
-    def set_simulation_time(self, tStart, t_stop):
-        self.tStart = tStart
+    def set_simulation_time(self, t_start, t_stop):
+        self.t_start = t_start
         self.t_stop = t_stop
 
     def get_trace(self, name):

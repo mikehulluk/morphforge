@@ -34,7 +34,7 @@ class SettingsMgr(object):
     # Don't Start Logging until everything is Configured!
     _logging = True and False
 
-    _clearTempAllAtStart = True
+    _clearTempAllAt_start = True
     _simulateWithMocks = False
 
     ## Query Settings:
@@ -60,10 +60,10 @@ class SettingsMgr(object):
     #    return cls._simulateWithMocks
 
     #@classmethod
-    #def clearAllTempAtStart(cls):
+    #def clearAllTempAt_start(cls):
     #    if os.environ.get('MF_BATCH',None):
     #        return True
-    #    return cls._clearTempAllAtStart
+    #    return cls._clearTempAllAt_start
 
     #@classmethod
     #def setCoverageRun(cls):

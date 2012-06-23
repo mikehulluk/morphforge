@@ -15,11 +15,11 @@ class ChannelLibrary(object):
 
 
     @classmethod
-    def register_channel(cls,channeltype , chlFunctor,  modelsrc=None, celltype=None ):
+    def register_channel(cls,channeltype , chl_functor,  modelsrc=None, celltype=None ):
         assert modelsrc or celltype
         key = modelsrc, celltype , channeltype
         assert not key in cls.channels
-        cls.channels[ key ] = chlFunctor
+        cls.channels[ key ] = chl_functor
 
 
 

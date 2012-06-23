@@ -231,8 +231,8 @@ todo_include_todos=True
 
 # AutoDoc:
 def maybe_skip_member(app, what, name, obj, skip, options):
-    
-    # Since we add 'toSWC', etc to MorphologyTree, we 
+
+    # Since we add 'toSWC', etc to MorphologyTree, we
     # don't want this to show up in the documentation.
     if 'members' in options:
         if name.startswith('to') or name.startswith('from'):

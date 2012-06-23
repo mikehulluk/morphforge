@@ -84,13 +84,13 @@ def _window_fixed_trace(trace, time_window):
 
         raise ValueError("Windowing outside of trace (max)")
 
-    timeIndices1 = numpy.nonzero(trace._time > time_window[0])
-    timeTraceNew = trace._time[timeIndices1]
-    traceNew = trace._data[timeIndices1]
+    time_indices1 = numpy.nonzero(trace._time > time_window[0])
+    timeTraceNew = trace._time[time_indices1]
+    traceNew = trace._data[time_indices1]
 
-    timeIndices2 = numpy.nonzero(timeTraceNew < time_window[1])
-    timeTraceNew = timeTraceNew[timeIndices2]
-    traceNew = traceNew[timeIndices2]
+    time_indices2 = numpy.nonzero(timeTraceNew < time_window[1])
+    timeTraceNew = timeTraceNew[time_indices2]
+    traceNew = traceNew[time_indices2]
 
 
 

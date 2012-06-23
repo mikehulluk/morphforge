@@ -298,11 +298,11 @@ class MorphMLLoader(object):
         # Make all the regions:
         regionNames = list(set( Filter(cableIDToRegionName.values(), lambda e:e is not None )) )
         print 'RegionNames:', regionNames
-        regionNamesClean = [ _clean_name(str(rgnName)) for rgnName in regionNames]
+        regionNamesClean = [ _clean_name(str(region_name)) for region_name in regionNames]
 
-        rgns = [ Region(name=rgnName) for rgnName in regionNamesClean]
-        rgnNameToRegionDict = dict([ (rgn.name, rgn) for rgn in rgns])
-        cableIDToRegionDict = dict([ (cableId, rgnNameToRegionDict[_clean_name(rgnName)]) if rgnName is not None else (cableId,None) for cableId, rgnName in cableIDToRegionName.iteritems()  ])
+        rgns = [ Region(name=region_name) for region_name in regionNamesClean]
+        region_nameToRegionDict = dict([ (rgn.name, rgn) for rgn in rgns])
+        cableIDToRegionDict = dict([ (cableId, region_nameToRegionDict[_clean_name(region_name)]) if region_name is not None else (cableId,None) for cableId, region_name in cableIDToRegionName.iteritems()  ])
 
 
         # Find the node without a parent:
@@ -358,13 +358,13 @@ class MorphMLLoader(object):
             if group_nodes:
                 if regions:
                     metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: get_text(e) in regions)
-                    rgnName = regions[ get_text(metaGroupNode) ]
+                    region_name = regions[ get_text(metaGroupNode) ]
                 else:
                     metaGroupNode = SeqUtils.expect_single(group_nodes)
-                    rgnName = get_text(metaGroupNode)
+                    region_name = get_text(metaGroupNode)
 
                 assert not id in cableIDToRegionName
-                cableIDToRegionName[id] = rgnName
+                cableIDToRegionName[id] = region_name
 
             else:
                 cableIDToRegionName[id] = None

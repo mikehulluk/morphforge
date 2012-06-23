@@ -349,11 +349,11 @@ class Double(HasTraits):
 #ksFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ks)
 #lkFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Lk)
 #caFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chlFunctor=getCaChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chlFunctor=getKfChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chlFunctor=getKsChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chlFunctor=getLkChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chlFunctor=get_naChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chl_functor=getCaChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chl_functor=getKfChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chl_functor=getKsChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chl_functor=getLkChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chl_functor=get_naChannels )
 #
 ##
 #

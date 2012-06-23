@@ -12,7 +12,7 @@ from os.path import join as Join
 from Cheetah.Template import Template
 
 
- 
+
 from morphforge.core.mgrs.locmgr import LocMgr
 
 
@@ -31,8 +31,8 @@ examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
 
 
 dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples', 'assorted' ]
-example_srcs = list( itertools.chain( *[ Glob( Join(examples_src_dir, dir) + "/*.py") for dir in dirs] ) )  
-                                     
+example_srcs = list( itertools.chain( *[ Glob( Join(examples_src_dir, dir) + "/*.py") for dir in dirs] ) )
+
 
 
 
@@ -46,7 +46,7 @@ def clear_directory(d):
 
 def parse_src_file(filename, docstring):
     d = open(filename,'r').read()
-    
+
     # Remove copyright notice:
     d = re.split("""[#][-]+""", d)[-1]
 
@@ -115,9 +115,9 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
         im_names.append(im_newName_short)
 
     title =  [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0]
-    
+
     title = title or '<Missing Docstring>'
-    
+
     # Prefix the title:
     title = "%d. "%(index+1) +title
     # Create the rst:
@@ -164,13 +164,13 @@ def run_example(index,filename):
             fOut.write(saveCode)
 
 
-    
+
     # run the file, and capture the output:
-    
+
     # Turn off plotting:
     env = os.environ.copy()
     env['MF_PLOT'] = 'OFF'
-    
+
     cmd = """python %s"""%newFilename
     args = shlex.split(cmd)
     process = subprocess.Popen(args, stdout=subprocess.PIPE,env=env)

@@ -123,9 +123,9 @@ class Spike(object):
     def get_peak_size(self):
         return self.trace._data[self.peakIndex]
 
-    def __init__(self, trace, timeIndices, firingthres=None):
+    def __init__(self, trace, time_indices, firingthres=None):
         self.trace = trace
-        self.thresIndices = timeIndices
+        self.thresIndices = time_indices
         self.firingthres = firingthres if firingthres is not None else 0.0
 
         self.init_get_peak()

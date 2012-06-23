@@ -77,8 +77,8 @@ class Cell(object):
         from celllocation import CellLocation
         return CellLocation(cell=self, section=self.morphology.get_section(idtag=idtag), sectionpos=sectionpos)
 
-    def get_region(self, rgnName):
-        return self.morphology.get_region(rgnName)
+    def get_region(self, region_name):
+        return self.morphology.get_region(region_name)
 
     def get_regions(self):
         return self.morphology.get_regions()

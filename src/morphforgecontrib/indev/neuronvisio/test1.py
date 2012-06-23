@@ -19,7 +19,7 @@ env = NeuronSimulationEnvironment()
 sim = env.Simulation()
 
 
-morph = MorphologyBuilder.get_soma_axon_morph(axonLength=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
+morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
 segmenter = DefaultCellSegementer(cell=None, max_segment_length=50)
 cell = sim.create_cell(name='CellMorph1', morphology=morph, segmenter=segmenter )
 
