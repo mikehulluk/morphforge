@@ -59,8 +59,8 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
         build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
 
     def create_modfile(self, modfile_set):
-        modFile =  ModFile(name='EqnSetModfile', modtxt=self.mod_text )
-        modfile_set.append(modFile)
+        mod_file =  ModFile(name='EqnSetModfile', modtxt=self.mod_text )
+        modfile_set.append(mod_file)
 
 
 

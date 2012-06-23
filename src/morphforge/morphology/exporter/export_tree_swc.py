@@ -92,11 +92,11 @@ class SWCTreeWriter(object):
             offset = offset + 1
 
             # Add an additional section for the dummy section:
-            dummyOffset = offset
+            dummy_offset = offset
             offset = offset + 1
 
-            idMap = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
-            idMap[ morph.get_dummy_section() ] = dummyOffset
+            id_map = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
+            id_map[ morph.get_dummy_section() ] = dummy_offset
 
 
             if regionname_to_int_map is None:
@@ -104,10 +104,10 @@ class SWCTreeWriter(object):
 
             region_type_map = dict( (s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph )
 
-            context = [{ 'morph':morph, 'ids':idMap, 'region_type_map':region_type_map }]
-            newOP = Template(swc_templ, context ).respond()
-            output += newOP
-            offset += len( idMap )
+            context = [{ 'morph':morph, 'ids':id_map, 'region_type_map':region_type_map }]
+            new_op = Template(swc_templ, context ).respond()
+            output += new_op
+            offset += len( id_map )
         return output
 
 

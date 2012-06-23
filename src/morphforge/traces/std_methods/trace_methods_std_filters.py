@@ -30,9 +30,9 @@ def _butterworthfilter(self, filterorder, cutoff_frequency):
         cutoff_frequency.rescale("Hz")
         import scipy.signal
         frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
-        n_frq_Hz = frequency_hz / 2.0
+        n_frq_hz = frequency_hz / 2.0
 
-        cuttoff_norm = cutoff_frequency / n_frq_Hz
+        cuttoff_norm = cutoff_frequency / n_frq_hz
         b, a = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
         filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
 
@@ -51,9 +51,9 @@ def _besselfilter(self, filterorder, cutoff_frequency):
         cutoff_frequency.rescale("Hz")
         import scipy.signal
         frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
-        n_frq_Hz = frequency_hz / 2.0
+        n_frq_hz = frequency_hz / 2.0
 
-        cuttoff_norm = cutoff_frequency / n_frq_Hz
+        cuttoff_norm = cutoff_frequency / n_frq_hz
         print "CutoffNorm:",cuttoff_norm
         b, a = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
         filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)

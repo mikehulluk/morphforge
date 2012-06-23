@@ -47,7 +47,7 @@ $(cell_name).internalsections [ $section_index ] {
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
-        neuronSuffix = mta.mechanism.get_neuron_suffix()
+        neuron_suffix = mta.mechanism.get_neuron_suffix()
 
 
         # Calculate the values of the variables for the section:
@@ -58,68 +58,68 @@ $(cell_name).internalsections [ $section_index ] {
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
 
-        tmplDict = {
+        tmpl_dict = {
                     "cell_name":cell_name,
                     "section_index":section_index,
-                    "neuron_suffix":neuronSuffix,
+                    "neuron_suffix":neuron_suffix,
                     "variables":variables
                     }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc,tmpl_dict ).respond() )
 
 
 
     @classmethod
     def build_mod(cls, alphabeta_beta_chl, modfile_set):
 
-        gbarName = "gBar"
-        eRevName = "eLk"
-        gScaleName = "gScale"
+        gbar_name = "gBar"
+        e_rev_name = "eLk"
+        g_scale_name = "gScale"
 
-        #gbarUnits = MM_WriterAlphaBetaBeta.Units[gbarName]
-        #eRevUnits = MM_WriterAlphaBetaBeta.Units[eRevName]
+        #gbarUnits = MM_WriterAlphaBetaBeta.Units[gbar_name]
+        #eRevUnits = MM_WriterAlphaBetaBeta.Units[e_rev_name]
 
 
 
         base_writer = MM_ModFileWriterBase( suffix=alphabeta_beta_chl.get_neuron_suffix() )
 
         # Naming Conventions:
-        stateTau = lambda s: "%stau" % s
-        stateInf = lambda s: "%sinf" % s
-        stateAlpha = lambda s: "%s_alpha" % s
-        stateBeta = lambda s: "%s_beta" % s
+        state_tau = lambda s: "%stau" % s
+        state_inf = lambda s: "%sinf" % s
+        state_alpha = lambda s: "%s_alpha" % s
+        state_beta = lambda s: "%s_beta" % s
 
 
 
         # State Equations and initial values:
         for s in alphabeta_beta_chl.statevars:
-            base_writer.internalstates[s] = "%s" % stateInf(s) , "%s'=(%s-%s)/%s" % (s, stateInf(s), s, stateTau(s))
+            base_writer.internalstates[s] = "%s" % state_inf(s) , "%s'=(%s-%s)/%s" % (s, state_inf(s), s, state_tau(s))
 
         # Parameters:
         # {name: (value, unit,range)}
         base_writer.parameters = {
-                      #gbarName: (alphabeta_beta_chl.conductance.toval(ounit="S/cm2"), ("S/cm2"), None),
-                      #eRevName: (alphabeta_beta_chl.reversalpotential.toval("mV"), ("mV"), None)
-                      gbarName: (alphabeta_beta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
-                      eRevName: (alphabeta_beta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
-                      gScaleName: (1.0, None, None)
+                      #gbar_name: (alphabeta_beta_chl.conductance.toval(ounit="S/cm2"), ("S/cm2"), None),
+                      #e_rev_name: (alphabeta_beta_chl.reversalpotential.toval("mV"), ("mV"), None)
+                      gbar_name: (alphabeta_beta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
+                      e_rev_name: (alphabeta_beta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
+                      g_scale_name: (1.0, None, None)
                       }
 
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_beta_chl.statevars:
-            base_writer.rates[ stateAlpha(s) ] = (("", stateAlpha(s) + "= StdAlphaBeta( %f,%f,%f,%f,%f, v)" % tuple(alphabeta_beta_chl.statevars[s][0]))), None
-            #base_writer.rates[ stateBeta(s) ] = (("", stateBeta(s) + "= StdBetaBeta( %f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.toval(ounit="mV")]))), None
-            base_writer.rates[ stateBeta(s) ] = (("", stateBeta(s) + "= StdBetaBeta( %f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.rescale("mV").magnitude]))), None
-            base_writer.rates[ stateInf(s) ] = (("", stateInf(s) + "= %s/(%s+%s)" % (stateAlpha(s), stateAlpha(s), stateBeta(s))), None)
-            base_writer.rates[ stateTau(s) ] = (("", stateTau(s) + "= 1.0/(%s+%s)" % (stateAlpha(s), stateBeta(s))), "ms")
-            base_writer.ratecalcorder.extend([stateAlpha(s), stateBeta(s), stateInf(s), stateTau(s)])
+            base_writer.rates[ state_alpha(s) ] = (("", state_alpha(s) + "= StdAlphaBeta( %f,%f,%f,%f,%f, v)" % tuple(alphabeta_beta_chl.statevars[s][0]))), None
+            #base_writer.rates[ state_beta(s) ] = (("", state_beta(s) + "= StdBetaBeta( %f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.toval(ounit="mV")]))), None
+            base_writer.rates[ state_beta(s) ] = (("", state_beta(s) + "= StdBetaBeta( %f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.rescale("mV").magnitude]))), None
+            base_writer.rates[ state_inf(s) ] = (("", state_inf(s) + "= %s/(%s+%s)" % (state_alpha(s), state_alpha(s), state_beta(s))), None)
+            base_writer.rates[ state_tau(s) ] = (("", state_tau(s) + "= 1.0/(%s+%s)" % (state_alpha(s), state_beta(s))), "ms")
+            base_writer.ratecalcorder.extend([state_alpha(s), state_beta(s), state_inf(s), state_tau(s)])
 
-        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphabeta_beta_chl.eqn, gScaleName)
-        base_writer.conductanceequation = " %s * %s * %s" % (gbarName, alphabeta_beta_chl.eqn, gScaleName)
+        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn, g_scale_name)
+        base_writer.conductanceequation = " %s * %s * %s" % (gbar_name, alphabeta_beta_chl.eqn, g_scale_name)
 
-        #base_writer.currentequation = "(v-%s) * %s * %s" % (eRevName, gbarName, alphabeta_beta_chl.eqn)
+        #base_writer.currentequation = "(v-%s) * %s * %s" % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn)
         base_writer.functions = """
                     FUNCTION StdAlphaBeta(A,B,C,D,E,V){ StdAlphaBeta = (A + B*V) / (C + exp((D+V)/E)) }
                     FUNCTION StdBetaBeta(A,B,C,D,E, A2,B2,C2,D2,E2, beta2Threshold, V)
@@ -135,8 +135,8 @@ $(cell_name).internalsections [ $section_index ] {
                     }
                     """
         txt =  baseWriter.generate_modfile()
-        modFile = ModFile(name=alphabeta_beta_chl.name, modtxt=txt )
-        modfile_set.append(modFile)
+        mod_file = ModFile(name=alphabeta_beta_chl.name, modtxt=txt )
+        modfile_set.append(mod_file)
 
 
 

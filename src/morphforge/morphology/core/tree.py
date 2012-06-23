@@ -250,11 +250,11 @@ class Section(object):
             return "DummySection"
 
         def EndSummary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
-        endString = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
-        rgString = "Region:" + self.region.name +", " if self.region else ""
-        idString = "idtag:" + self.idtag + ", " if self.idtag else ""
-        lnString = "Length: %2.2f, " % self.get_length()
-        return "<" +endString + lnString + rgString + idString +">"
+        end_string = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
+        rg_string = "Region:" + self.region.name +", " if self.region else ""
+        id_string = "idtag:" + self.idtag + ", " if self.idtag else ""
+        ln_string = "Length: %2.2f, " % self.get_length()
+        return "<" +end_string + ln_string + rg_string + id_string +">"
 
     def get_proximal_to_distal_vector_npa3(self):
         """Returns the vector that joins the proximal end of the section to the distal end.  """
@@ -699,10 +699,10 @@ class MorphPath(object):
             else:
                 assert False
 
-        s1Length =  s_len(self.morphloc1, self.morphloc1_dir )
-        s2Length =  s_len(self.morphloc2, self.morphloc2_dir )
+        s1_length =  s_len(self.morphloc1, self.morphloc1_dir )
+        s2_length =  s_len(self.morphloc2, self.morphloc2_dir )
         connecting_section_lengths = [ s.get_length() for s in self._connecting_sections]
-        l = s1Length + s2Length + sum(connecting_section_lengths)
+        l = s1_length + s2_length + sum(connecting_section_lengths)
         return l
 
 

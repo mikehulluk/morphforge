@@ -153,6 +153,6 @@ NET_RECEIVE(weight (uS)) {
 }
 
 """
-    seedVal = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
+    seed_val = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     comment_val = "//" if  mfrandom.MFRandom._seed is not None else ""
-    return x.replace('$randomseed', "%d"%seedVal ).replace("$COMMENT",comment_val)
+    return x.replace('$randomseed', "%d"%seed_val ).replace("$COMMENT",comment_val)

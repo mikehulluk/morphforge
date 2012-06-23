@@ -174,6 +174,6 @@ NET_RECEIVE(weight (uS)) {
         x = x.replace("__C2__", ":").replace("__C1__","")
     else:
         x = x.replace("__C1__", ":").replace("__C2__","")
-    seedVal = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
+    seed_val = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     comment_val = "//" if  mfrandom.MFRandom._seed is not None else ""
-    return x.replace('$randomseed', "%d"%seedVal ).replace("$COMMENT",comment_val)
+    return x.replace('$randomseed', "%d"%seed_val ).replace("$COMMENT",comment_val)

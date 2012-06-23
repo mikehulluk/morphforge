@@ -47,9 +47,9 @@ class DBScan(object):
 
         cluster.add(pt_index)
 
-        iter_N = list( npoints )
-        while iter_N:
-            pdash_index = iter_N.pop()
+        iter_n = list( npoints )
+        while iter_n:
+            pdash_index = iter_n.pop()
             if not visited_indices[pdash_index]:
 
                 visited_indices[pdash_index] = 1
@@ -57,7 +57,7 @@ class DBScan(object):
 
                 if len(n_dash) >= min_pts:
                     for n in n_dash:
-                        iter_N.append(n)
+                        iter_n.append(n)
 
                 pt_in_clusters = [ True for c in clusters if pdash_index in c]
                 if not pt_in_clusters:

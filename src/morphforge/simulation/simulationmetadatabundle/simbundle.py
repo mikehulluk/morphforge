@@ -95,9 +95,9 @@ class MixinSimLoc_AsFile(object):
 
     def _get_filename(self):
         if not self.simfilename:
-            simlocationWithDir = LocMgr.ensure_dir_exists(self.location + self.get_sim_md5sum()[0:1])
-            simfileShort = self.get_sim_md5sum() + self.suffix
-            self.simfilename = Join(simlocationWithDir, simfileShort)
+            simlocation_with_dir = LocMgr.ensure_dir_exists(self.location + self.get_sim_md5sum()[0:1])
+            simfile_short = self.get_sim_md5sum() + self.suffix
+            self.simfilename = Join(simlocation_with_dir, simfile_short)
         return self.simfilename
 
     def sim_loc_prepare(self):
@@ -145,8 +145,8 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
     def write_to_file_and_get_exec_string(self, bundlefilename=None, simulation_binary_file="SimulateBundle.py"):
 
         bundlefilename = self._write_to_file(bundlefilename=bundlefilename)
-        simCmd = Join(LocMgr.get_bin_path(), simulation_binary_file) + " " + bundlefilename
-        return bundlefilename, simCmd
+        sim_cmd = Join(LocMgr.get_bin_path(), simulation_binary_file) + " " + bundlefilename
+        return bundlefilename, sim_cmd
 
 
 

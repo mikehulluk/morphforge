@@ -36,22 +36,22 @@ class TraceOperatorCtrl(object):
 
     @classmethod
     def add_trace_operator( cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
-        TOC = TraceOperatorCtrl
-        assert operator_type in TOC.trace_operators
+        #toc = TraceOperatorCtrl
+        assert operator_type in cls.trace_operators
 
         key = ( operator_type, lhs_type, rhs_type)
 
         # Add to the list of all:
-        if not key in TOC.trace_operators_all:
-            TOC.trace_operators_all[key] = {}
+        if not key in cls.trace_operators_all:
+            cls.trace_operators_all[key] = {}
 
         # Check the flag is not already active:
-        assert not flag in TOC.trace_operators_all[key]
-        TOC.trace_operators_all[key][flag] = operator_func
+        assert not flag in cls.trace_operators_all[key]
+        cls.trace_operators_all[key][flag] = operator_func
 
         # Set as default if there is no current default, or flag is default:
-        if not key in TOC.trace_operators_active or flag=='default' or set_as_default:
-            TOC.trace_operators_active[key] = operator_func, flag
+        if not key in cls.trace_operators_active or flag=='default' or set_as_default:
+            cls.trace_operators_active[key] = operator_func, flag
 
     @classmethod
     def add_trace_operator_symmetrical( cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
@@ -63,31 +63,31 @@ class TraceOperatorCtrl(object):
                               set_as_default=set_as_default)
 
 
-    @classmethod
-    def set_active_trace_operator( cls, operator_type, lhs_type, rhs_type, flag ):
-        assert False, 'Deprecated'
-        key = ( operator_type, lhs_type, rhs_type)
-        assert flag in TOC.trace_operators_all[key]
-        TOC.trace_operators_active = TOC.trace_operators_all[key][flag], flag
+    #@classmethod
+    #def set_active_trace_operator( cls, operator_type, lhs_type, rhs_type, flag ):
+    #    assert False, 'Deprecated'
+    #    key = ( operator_type, lhs_type, rhs_type)
+    #    assert flag in TOC.trace_operators_all[key]
+    #    TOC.trace_operators_active = TOC.trace_operators_all[key][flag], flag
 
 
 
 
     @classmethod
     def operate( cls, operator_type, lhs, rhs, use_flag=None, **kwargs ):
-        TOC = TraceOperatorCtrl
+        #toc = TraceOperatorCtrl
         key = operator_type, type(lhs), type(rhs)
 
         # Use the active operation:
         if not use_flag:
-            assert key in TOC.trace_operators_active, 'Trace Operation not defined for: %s' % str(key)
-            opfunctor = TOC.trace_operators_active[key][0]
+            assert key in cls.trace_operators_active, 'Trace Operation not defined for: %s' % str(key)
+            opfunctor = cls.trace_operators_active[key][0]
 
         # Use a custom operation:
         else:
-            assert key in TOC.trace_operators_all
-            assert use_flag in TOC.trace_operators_all[key]
-            opfunctor = TOC.trace_operators_all[key][use_flag]
+            assert key in cls.trace_operators_all
+            assert use_flag in cls.trace_operators_all[key]
+            opfunctor = cls.trace_operators_all[key][use_flag]
 
 
         return opfunctor(lhs=lhs, rhs=rhs, **kwargs)

@@ -44,10 +44,10 @@ class SpikeFinderThreshCross(object):
         self.crossingthresh = crossingthresh
 
         #Get the crossing times:
-        threshIndices = self.find_threshold_crossings()
+        thresh_indices = self.find_threshold_crossings()
 
         # Make a spike for each one:
-        self.spikes = [ Spike(self.trace, threshInd, firingthres=firingthres) for threshInd in threshIndices]
+        self.spikes = [ Spike(self.trace, threshInd, firingthres=firingthres) for threshInd in thresh_indices]
 
     def num_spikes(self):
         return len(self.spikes)
@@ -62,25 +62,25 @@ class SpikeFinderThreshCross(object):
 
         crossings = above_zero - numpy.roll(above_zero, 1)
         crossings[0] = 0
-        risingEdgeInd = numpy.where(crossings == 1)[0]
-        fallingEdgeInd = numpy.where(crossings == -1)[0]
+        rising_edge_ind = numpy.where(crossings == 1)[0]
+        falling_edge_ind = numpy.where(crossings == -1)[0]
 
 
         # Do we strat above the threshold?
         if d[0] > self.crossingthresh:
             # Then ignore the first fall:
-            fallingEdgeInd = fallingEdgeInd[1:]
+            falling_edge_ind = falling_edge_ind[1:]
         # Same for the final rising edge:
         if d[-1] > self.crossingthresh:
             # Then ignore the first fall:
-            risingEdgeInd = risingEdgeInd[:-1]
+            rising_edge_ind = rising_edge_ind[:-1]
 
 
 
         #print 'above-zero', above_zero
         #print 'crossings', crossings
-        #print 'risingEdgeInd', risingEdgeInd
-        #for i in risingEdgeInd:
+        #print 'rising_edge_ind', rising_edge_ind
+        #for i in rising_edge_ind:
         #    print i, self.trace._time[i]
         #print 'fallingEdgeInd', fallingEdgeInd
         #for i in fallingEdgeInd:
@@ -89,7 +89,7 @@ class SpikeFinderThreshCross(object):
         #print 'fallingEdgeInd', fallingEdgeInd
 
 
-        assert len(risingEdgeInd) == len(fallingEdgeInd)
+        assert len(rising_edge_ind) == len(fallingEdgeInd)
 
 
         #t = range(d.shape[0])
@@ -99,18 +99,18 @@ class SpikeFinderThreshCross(object):
         #pylab.plot( t, above_zero*100)
         #pylab.savefig("/home/michael/Desktop/temp.svg")
 
-        threshIndices = zip(risingEdgeInd, fallingEdgeInd)
+        thresh_indices = zip(rising_edge_ind, fallingEdgeInd)
 
         #Some sanity checking:
         import itertools
-        on_off = list( itertools.chain(*threshIndices) )
+        on_off = list( itertools.chain(*thresh_indices) )
         assert on_off == sorted(on_off)
         #print on_off
 
 
-        #print 'ThresIndices', threshIndices
+        #print 'ThresIndices', thresh_indices
 
-        return threshIndices
+        return thresh_indices
 
 
 
@@ -152,13 +152,13 @@ class Spike(object):
         above50_pc[d > self.fiftyPCLine] = 1
 
         crossings = above50_pc - numpy.roll(above50_pc, 1)
-        risingEdgeInd = numpy.where(crossings == 1)
-        fallingEdgeInd = numpy.where(crossings == -1)
+        rising_edge_ind = numpy.where(crossings == 1)
+        falling_edge_ind = numpy.where(crossings == -1)
 
-        assert len(risingEdgeInd) == len(fallingEdgeInd) == 1
+        assert len(rising_edge_ind) == len(falling_edge_ind) == 1
 
-        self.durInd = risingEdgeInd, fallingEdgeInd
-        self.duration = self.trace._time[fallingEdgeInd] - self.trace._time[risingEdgeInd]
+        self.durInd = rising_edge_ind, falling_edge_ind
+        self.duration = self.trace._time[falling_edge_ind] - self.trace._time[rising_edge_ind]
         self.duration = self.duration.rescale("ms").magnitude
 
     def add_to_axes(self, ax):

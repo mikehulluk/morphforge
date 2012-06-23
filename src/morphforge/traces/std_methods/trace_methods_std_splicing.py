@@ -69,8 +69,8 @@ def _window_fixed_trace(trace, time_window):
     if not isinstance(trace, Trace_PointBased): raise ValueError()
 
 
-    tDiff1 = time_window[0] - trace._time[0]
-    if tDiff1 < 0:
+    t_diff1 = time_window[0] - trace._time[0]
+    if t_diff1 < 0:
         print  "time_window[0]", time_window[0].rescale("s")
         print  "trace.time[0]", trace._time[0].rescale("s")
         print
@@ -85,43 +85,43 @@ def _window_fixed_trace(trace, time_window):
         raise ValueError("Windowing outside of trace (max)")
 
     time_indices1 = numpy.nonzero(trace._time > time_window[0])
-    timeTraceNew = trace._time[time_indices1]
-    traceNew = trace._data[time_indices1]
+    time_trace_new = trace._time[time_indices1]
+    trace_new = trace._data[time_indices1]
 
-    time_indices2 = numpy.nonzero(timeTraceNew < time_window[1])
-    timeTraceNew = timeTraceNew[time_indices2]
-    traceNew = traceNew[time_indices2]
+    time_indices2 = numpy.nonzero(time_trace_new < time_window[1])
+    time_trace_new = time_trace_new[time_indices2]
+    trace_new = trace_new[time_indices2]
 
 
 
 
 
     # Ensure we have at least 2 points:
-    if len(timeTraceNew) < 2:
+    if len(time_trace_new) < 2:
 
         tw0 = time_window[0]
         tw1 = time_window[1]
 
         #get_values( time_window )
 
-        #traceNew1 = trace.get_value_at_time(tw0)
-        #traceNew2 = trace.get_value_at_time(tw1)
+        #trace_new1 = trace.get_value_at_time(tw0)
+        #trace_new2 = trace.get_value_at_time(tw1)
 
-        traceNew1 = trace.get_values( time_window[0] )#[0]
-        traceNew2 = trace.get_values( time_window[1] )#[0]
+        trace_new1 = trace.get_values( time_window[0] )#[0]
+        trace_new2 = trace.get_values( time_window[1] )#[0]
 
-        data_unts = traceNew1.units
+        data_unts = trace_new1.units
         time_unts = time_window[0].units
 
-        timeTraceNew = np.array([time_window[0].rescale(time_unts).magnitude, time_window[1].rescale(time_unts).magnitude, ]) * time_unts
-        traceNew = np.array([traceNew1.rescale(data_unts).magnitude, traceNew2.rescale(data_unts).magnitude, ]) * data_unts
+        time_trace_new = np.array([time_window[0].rescale(time_unts).magnitude, time_window[1].rescale(time_unts).magnitude, ]) * time_unts
+        trace_new = np.array([trace_new1.rescale(data_unts).magnitude, trace_new2.rescale(data_unts).magnitude, ]) * data_unts
 
 
 
     if isinstance(trace, Trace_FixedDT):
-        return Trace_FixedDT(timeTraceNew, traceNew, tags= trace.tags)
+        return Trace_FixedDT(time_trace_new, trace_new, tags= trace.tags)
     elif isinstance(trace, Trace_VariableDT):
-        return Trace_VariableDT(timeTraceNew, traceNew, tags= trace.tags)
+        return Trace_VariableDT(time_trace_new, trace_new, tags= trace.tags)
     else:
         assert False
 

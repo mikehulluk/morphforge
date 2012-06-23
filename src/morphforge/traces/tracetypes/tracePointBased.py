@@ -56,10 +56,10 @@ class Trace_PointBased(Trace):
 
     def get_values(self, time_array):
         from scipy.interpolate.interpolate import interp1d
-        timeUnits = self._time.units
-        dataUnits = self._data.units
+        time_units = self._time.units
+        data_units = self._data.units
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)
-        return interpolator(time_array.rescale(timeUnits).magnitude) * dataUnits
+        return interpolator(time_array.rescale(time_units).magnitude) * data_units
 
 
 

@@ -57,9 +57,9 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
     def build_hoc(self, hocfile_obj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synNamePost = self.synapse.get_name() + "Post"
+        syn_name_post = self.synapse.get_name() + "Post"
         data = {
-               "synnamepost":synNamePost,
+               "synnamepost":syn_name_post,
                "cell":cell,
                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],

@@ -48,8 +48,8 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
         return [StandardTags.NMDAVoltageDependancy]
 
     def build_hoc(self, hocfile_obj):
-        objNameHoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="voltage_dependancy", recordobj=self )
+        obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dependancy", recordobj=self )
 
     def build_mod(self, modfile_set):
         pass
@@ -80,9 +80,9 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
     def build_hoc(self, hocfile_obj):
         cell = self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synNamePost = self.synapse.get_name() + "Post"
+        syn_name_post = self.synapse.get_name() + "Post"
         data = {
-               "synnamepost":synNamePost,
+               "synnamepost":syn_name_post,
                "cell":cell,
                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],

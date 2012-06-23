@@ -50,8 +50,8 @@ class MembraneMechanismSummariser(object):
             print "Summarising:", modelsrc, celltype, channeltype
             membranemechanism = membranemechanismFunctor( NeuronSimulationEnvironment() )
             filename = "%s_%s_%s.pdf"%( modelsrc,celltype,channeltype)
-            fName = Join(location, filename)
-            cls.create_pdf(mechanism=membranemechanism, filename=fName,reportlabconfig=reportlabconfig)
+            f_name = Join(location, filename)
+            cls.create_pdf(mechanism=membranemechanism, filename=f_name,reportlabconfig=reportlabconfig)
 
 
 
@@ -75,28 +75,28 @@ class MembraneMechanismSummariser(object):
     @classmethod
     def summarise_membranemechanism(self, membranemechanism,  reportlabconfig, make_graphs=True ):
         from reportlab.platypus import Paragraph, Table
-        localElements = []
-        localElements.append( Paragraph(membranemechanism.name, reportlabconfig.styles['Heading2'] ) )
+        local_elements = []
+        local_elements.append( Paragraph(membranemechanism.name, reportlabconfig.styles['Heading2'] ) )
         summariser = SummariserLibrary.get_summarisier( membranemechanism )
 
         # Parameters:
-        localElements.append( Paragraph("Parameters", reportlabconfig.styles['Heading2'] ) )
-        tableHeader = ['Parameter Name', 'Default', ]
+        local_elements.append( Paragraph("Parameters", reportlabconfig.styles['Heading2'] ) )
+        table_header = ['Parameter Name', 'Default', ]
 
-        data = [tableHeader, ]
+        data = [table_header, ]
         for param in membranemechanism.get_variables():
             data.append( [ param, membranemechanism.get_default(param) ] )
 
 
-        localElements.append( Table(data, style=reportlabconfig.listTableStyle) )
+        local_elements.append( Table(data, style=reportlabconfig.listTableStyle) )
 
 
         # Detailed Summary:
         if summariser:
-            localElements.extend( summariser.to_report_lab( membranemechanism, reportlabconfig, make_graphs=make_graphs ) )
+            local_elements.extend( summariser.to_report_lab( membranemechanism, reportlabconfig, make_graphs=make_graphs ) )
         else:
-            localElements.append( Paragraph("[No Summariser Available]", reportlabconfig.styles['Italic'] ) )
+            local_elements.append( Paragraph("[No Summariser Available]", reportlabconfig.styles['Italic'] ) )
 
 
-        return localElements
+        return local_elements
 

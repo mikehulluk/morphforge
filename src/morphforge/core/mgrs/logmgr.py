@@ -61,32 +61,32 @@ class LogMgr(object):
 
     @classmethod
     def _pyfile_to_modulename(cls, filename):
-        localPath = filename
-        morphforgeLib = False
+        local_path = filename
+        morphforge_lib = False
         if "morphforge" in filename:
-            localPath = "morphforge" + filename.split("morphforge")[-1]
-            morphforgeLib = True
-        localPath = localPath.replace(".py", "")
-        localPath = localPath.replace("/", ".")
-        return localPath, morphforgeLib
+            local_path = "morphforge" + filename.split("morphforge")[-1]
+            morphforge_lib = True
+        local_path = local_path.replace(".py", "")
+        local_path = local_path.replace("/", ".")
+        return local_path, morphforge_lib
 
 
     @classmethod
     def get_caller(cls):
         current_frame = inspect.currentframe()
-        outerFrames = inspect.getouterframes(current_frame)
-        outFramesNotThisClass = [f for f in outerFrames if not f[1].endswith("logmgr.py") ]
+        outer_frames = inspect.getouterframes(current_frame)
+        out_frames_not_this_class = [f for f in outer_frames if not f[1].endswith("logmgr.py") ]
 
-        prevCallFrame = outFramesNotThisClass[0]
-        caller = cls._pyfile_to_modulename(prevCallFrame[1])
-        return caller, prevCallFrame[2]
+        prev_call_frame = out_frames_not_this_class[0]
+        caller = cls._pyfile_to_modulename(prev_call_frame[1])
+        return caller, prev_call_frame[2]
 
     @classmethod
     def info_from_logger(cls, msg):
-        packageName = "morphforge.core.logmgr"
-        if not packageName in cls.loggers:
-            cls.loggers[packageName] = cls.create_logger(packageName)
-        cls.loggers[packageName].info(msg)
+        package_name = "morphforge.core.logmgr"
+        if not package_name in cls.loggers:
+            cls.loggers[package_name] = cls.create_logger(package_name)
+        cls.loggers[package_name].info(msg)
 
 
 

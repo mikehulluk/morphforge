@@ -64,12 +64,12 @@ TraceMethodCtrl.register(Trace_Piecewise,  'ptp',  lambda tr: tr.max[1] - tr.min
 ######################
 #These also return the times of min/max:
 def _get_max(tr):
-    indMax = np.argmax(tr._data)
-    return tr._time[indMax], tr._data[indMax]
+    ind_max = np.argmax(tr._data)
+    return tr._time[ind_max], tr._data[ind_max]
 
 def _get_min(tr):
-    indMin = np.argmin(tr._data)
-    return tr._time[indMin], tr._data[indMin]
+    ind_min = np.argmin(tr._data)
+    return tr._time[ind_min], tr._data[ind_min]
 
 TraceMethodCtrl.register(Trace_FixedDT, 'max', _get_max)
 TraceMethodCtrl.register(Trace_FixedDT, 'min', _get_min)

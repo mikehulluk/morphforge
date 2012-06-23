@@ -62,10 +62,10 @@ class TraceConverter(object):
         newpts = _simplify_points(pts, ep)
         new_time, new_data = zip(*newpts)
 
-        newTrace = Trace_VariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
+        new_trace = Trace_VariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
 
-        print 'Simplified from N=%d to N=%d' % (original_trace.get_n(), newTrace.get_n())
-        return newTrace
+        print 'Simplified from N=%d to N=%d' % (original_trace.get_n(), new_trace.get_n())
+        return new_trace
 
 
 
@@ -102,20 +102,20 @@ def _simplify_points (pts, tolerance):
         for i in range(anchor + 1, floater):
             dist_to_seg = 0.0
             # compare to anchor
-            vecX = float(pts[i][0] - pts[anchor][0])
-            vecY = float(pts[i][1] - pts[anchor][1])
-            seg_len = math.sqrt(vecX ** 2 + vecY ** 2)
+            vec_x = float(pts[i][0] - pts[anchor][0])
+            vec_y = float(pts[i][1] - pts[anchor][1])
+            seg_len = math.sqrt(vec_x ** 2 + vec_y ** 2)
             # dot product:
-            proj = vecX * anchor_x + vecY * anchor_y
+            proj = vec_x * anchor_x + vec_y * anchor_y
             if proj < 0.0:
                 dist_to_seg = seg_len
             else:
                 # compare to floater
-                vecX = float(pts[i][0] - pts[floater][0])
-                vecY = float(pts[i][1] - pts[floater][1])
-                seg_len = math.sqrt(vecX ** 2 + vecY ** 2)
+                vec_x = float(pts[i][0] - pts[floater][0])
+                vec_y = float(pts[i][1] - pts[floater][1])
+                seg_len = math.sqrt(vec_x ** 2 + vec_y ** 2)
                 # dot product:
-                proj = vecX * (-anchor_x) + vecY * (-anchor_y)
+                proj = vec_x * (-anchor_x) + vec_y * (-anchor_y)
                 if proj < 0.0:
                     dist_to_seg = seg_len
                 else:  # calculate perpendicular distance to line (pythagorean theorem):
@@ -171,9 +171,9 @@ class TraceApproximator(object):
                # Find the highest 'edge' value corresponding to the
                # to the indices in 's'
                i = np.argmax(edges[s])
-               iMax = s[i] #- min_level_size
+               i_max = s[i] #- min_level_size
 
-               change_points.append(iMax)
+               change_points.append(i_max)
 
            # Construct the ranges from the levels:
            ranges = []

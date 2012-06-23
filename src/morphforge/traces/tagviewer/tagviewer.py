@@ -182,8 +182,8 @@ class TagViewer(object):
             self.linkage.process(ps_to_traces)
 
 
-        nTimeRanges = len(self.timeranges)
-        nPlots = len(self.plot_specs)
+        n_time_ranges = len(self.timeranges)
+        n_plots = len(self.plot_specs)
 
 
         #time_axis = None
@@ -199,7 +199,7 @@ class TagViewer(object):
 
                 # Create the axis:
                 #if not time_axis:
-                ax = self.fig.add_subplot(nPlots, nTimeRanges, i*nTimeRanges + iT  + 1 )
+                ax = self.fig.add_subplot(n_plots, n_time_ranges, i*n_time_ranges + iT  + 1 )
 
 
                 # Leave the plotting to the PlotSpecification

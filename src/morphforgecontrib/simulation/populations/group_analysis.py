@@ -24,9 +24,9 @@ class PopAnalSpiking(object):
 
         traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]
 
-        spikeList = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
-        spikeList = [ spl[n] for spl in spikeList if len(spl) > n ]
-        spikes = EventSet(spikeList, tags=['Spike','Event'], comment="%s (%d Spike)"%(comment,n) )
+        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
+        spike_list = [ spl[n] for spl in spike_list if len(spl) > n ]
+        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (%d Spike)"%(comment,n) )
         return spikes
 
 
@@ -42,7 +42,7 @@ class PopAnalSpiking(object):
 
         traces = [ trace for trace in res.get_traces() if tag_selector( trace ) ]
 
-        spikeList = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
-        spikeList = itertools.chain(*spikeList)
-        spikes = EventSet(spikeList, tags=['Spike','Event'], comment="%s (All Spike)"%(comment) )
+        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
+        spike_list = itertools.chain(*spike_list)
+        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (All Spike)"%(comment) )
         return spikes

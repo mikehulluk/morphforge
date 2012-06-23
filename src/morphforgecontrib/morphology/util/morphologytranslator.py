@@ -26,37 +26,37 @@ class MorphologyTranslator(object):
 
         #distToParent = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph=morphology, soma_centre=False)()
 
-        sectionMappingTable = {}
-        regionMappingTable = {}
+        section_mapping_table = {}
+        region_mapping_table = {}
 
         #Create New Regions:
-        regionMappingTable[None] = None
+        region_mapping_table[None] = None
         for rOld in morphology.get_regions():
-            rNew = Region(name = rOld.name )
-            regionMappingTable[rOld] = rNew
+            r_new = Region(name = rOld.name )
+            region_mapping_table[rOld] = r_new
 
 
         # Create New Sections:
-        dummyRootOld = morphology.get_dummy_section()
-        dummyRootNew = Section(region=regionMappingTable[dummyRootOld.region], x=dummyRootOld.d_x + offset[0], y=dummyRootOld.d_y+ offset[1], z=dummyRootOld.d_z + offset[2], r=dummyRootOld.d_r)
-        sectionMappingTable[dummyRootOld] = dummyRootNew
+        dummy_root_old = morphology.get_dummy_section()
+        dummy_root_new = Section(region=region_mapping_table[dummy_root_old.region], x=dummy_root_old.d_x + offset[0], y=dummy_root_old.d_y+ offset[1], z=dummy_root_old.d_z + offset[2], r=dummy_root_old.d_r)
+        section_mapping_table[dummy_root_old] = dummy_root_new
         for sectionOld in morphology:
             #if distToParent[sectionOld] > max_dist_to_parent: continue
 
-            oldParent = sectionOld.parent
-            newParent = sectionMappingTable[ oldParent ]
+            old_parent = sectionOld.parent
+            new_parent = section_mapping_table[ old_parent ]
 
-            sectionNew = newParent.create_distal_section(
-                                          region = regionMappingTable[ sectionOld.region ],
+            section_new = new_parent.create_distal_section(
+                                          region = region_mapping_table[ sectionOld.region ],
                                           x= sectionOld.d_x + offset[0],
                                           y= sectionOld.d_y + offset[1],
                                           z= sectionOld.d_z + offset[2],
                                           r= sectionOld.d_r,
                                           idtag=sectionOld.idtag
                                           )
-            sectionMappingTable[sectionOld] = sectionNew
+            section_mapping_table[sectionOld] = section_new
 
-        m = MorphologyTree("translatedNeuron",dummysection = dummyRootNew,metadata={} )
+        m = MorphologyTree("translatedNeuron",dummysection = dummy_root_new,metadata={} )
         return m
 
 

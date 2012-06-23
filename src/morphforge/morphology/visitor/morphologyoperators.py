@@ -53,22 +53,22 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r
         X,Y,Z,R = self.transfuctor( x,y,z,r )
 
-        newSection = Section(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
+        new_section = Section(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
 
-        self.newMorph = MorphologyTree( "MorphCloned", dummysection=newSection, metadata={} )
+        self.newMorph = MorphologyTree( "MorphCloned", dummysection=new_section, metadata={} )
 
-        self.orig2newMapping[section] = newSection
+        self.orig2newMapping[section] = new_section
 
 
 
     def build_extrusion(self,section):
 
-        newParent = self.orig2newMapping[section.parent]
+        new_parent = self.orig2newMapping[section.parent]
 
         x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r
         X,Y,Z,R = self.transfuctor( x,y,z,r )
 
-        newSection = newParent.create_distal_section(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
-        self.orig2newMapping[section] = newSection
+        new_section = new_parent.create_distal_section(regions=[ self.rgnMappings[r] for r in section.regions ], x=X, y=Y, z=Z, r=R)
+        self.orig2newMapping[section] = new_section
 
 

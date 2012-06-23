@@ -34,15 +34,15 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
     def build_hoc(self, hocfile_obj):
         cell =self.celllocation.cell
         section = self.celllocation.morphlocation.section
-        synName = self.synapse.get_name()
-        synNamePost = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
-        synNamePre = self.synapse.get_name() + "Pre"
+        syn_name = self.synapse.get_name()
+        syn_name_post = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
+        syn_name_pre = self.synapse.get_name() + "Pre"
 
 
         data = {
-               "synname": synName,
-               "synnamepost" : synNamePost,
-               "synnamepre": synNamePre,
+               "synname": syn_name,
+               "synnamepost" : syn_name_post,
+               "synnamepre": syn_name_pre,
                "cell":cell,
                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
@@ -92,14 +92,14 @@ ${synnamepre}.event( $event.get_time.rescale("ms").magnitude )
 class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
 
     def build_hoc(self, hocfile_obj):
-        synName = self.synapse.get_name()
-        synNamePost = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
-        synNamePre = self.synapse.get_name() + "Pre"
+        syn_name = self.synapse.get_name()
+        syn_name_post = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
+        syn_name_pre = self.synapse.get_name() + "Pre"
 
         data = {
-               "synname": synName,
-               "synnamepost" : synNamePost,
-               "synnamepre": synNamePre,
+               "synname": syn_name,
+               "synnamepost" : syn_name_post,
+               "synnamepre": syn_name_pre,
                "timelist": self.time_list,
                "weight": self.weight,
                }

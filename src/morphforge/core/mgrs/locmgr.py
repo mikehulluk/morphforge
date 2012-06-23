@@ -28,8 +28,8 @@ import socket
 import random
 
 
-
-from os.path import exists as Exists
+#~import os.path as fs
+#from os.path import exists as Exists
 from os.path import join as Join
 
 #from morphforge.core.misc import StrUtils
@@ -46,7 +46,7 @@ class LocMgr(object):
     @classmethod
     def validate_exists(cls, location):
         """ Helper function to ensure that returned path actually does exist"""
-        if location and not Exists(location):
+        if location and not os.path.exists(location):
             raise ValueError("Directory does not exist: %s"% location)
         return location
 
@@ -56,10 +56,10 @@ class LocMgr(object):
 
         Useful for temporary locations"""
 
-        if location and not Exists(location):
+        if location and not os.path.exists(location):
             from logmgr import LogMgr
             LogMgr.info("Creating FS Location - " + location)
-            if  not Exists(location): os.makedirs(location)
+            if  not os.path.exists(location): os.makedirs(location)
         return cls.validate_exists(location)
 
 
@@ -86,9 +86,9 @@ class LocMgr(object):
     def get_temporary_filename(cls, suffix="", filedirectory=None):
         #from morphforge.core.misc import getStringMD5Checksum
 
-        rndString = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
+        rnd_string = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
         from morphforge.core.misc import StrUtils
-        fn = "tmp_%s%s" % (StrUtils.get_hash_md5(rndString), suffix)
+        fn = "tmp_%s%s" % (StrUtils.get_hash_md5(rnd_string), suffix)
 
         filedirectory = filedirectory if filedirectory else cls.get_tmp_path()
         return Join(filedirectory, fn)

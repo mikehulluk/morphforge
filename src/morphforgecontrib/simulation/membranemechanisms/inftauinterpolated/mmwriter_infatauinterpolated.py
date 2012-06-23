@@ -44,7 +44,7 @@ $(cell_name).internalsections [ $section_index ] {
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
-        neuronSuffix = mta.mechanism.get_neuron_suffix()
+        neuron_suffix = mta.mechanism.get_neuron_suffix()
 
 
         # Calculate the values of the variables for the section:
@@ -55,53 +55,53 @@ $(cell_name).internalsections [ $section_index ] {
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
 
-        tmplDict = {
+        tmpl_dict = {
                     "cell_name":cell_name,
                     "section_index":section_index,
-                    "neuron_suffix":neuronSuffix,
+                    "neuron_suffix":neuron_suffix,
                     "variables":variables
                     }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict ).respond() )
 
 
 
     @classmethod
     def build_mod(cls, alphabeta_chl, modfile_set):
 
-        gbarName = "gBar"
-        eRevName = "e_rev"
-        gScaleName = "gScale"
+        gbar_name = "gBar"
+        e_rev_name = "e_rev"
+        g_scale_name = "gScale"
 
         base_writer = MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
 
         # Naming Conventions:
-        stateTau = lambda s: "%stau" % s
-        stateInf = lambda s: "%sinf" % s
+        state_tau = lambda s: "%stau" % s
+        state_inf = lambda s: "%sinf" % s
 
 
         # State Equations and initial values:
         for s in alphabeta_chl.statevars_new:
-            base_writer.internalstates[s] = "%s" % stateInf(s) , "%s'=(%s-%s)/%s" % (s, stateInf(s), s, stateTau(s))
+            base_writer.internalstates[s] = "%s" % state_inf(s) , "%s'=(%s-%s)/%s" % (s, state_inf(s), s, state_tau(s))
 
         # Parameters:
         # {name: (value, unit,range)}
         base_writer.parameters = {
-                      gbarName: (alphabeta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
-                      eRevName: (alphabeta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
-                      gScaleName: (1.0, None, None)
+                      gbar_name: (alphabeta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
+                      e_rev_name: (alphabeta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
+                      g_scale_name: (1.0, None, None)
                       }
 
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_chl.statevars_new:
-            base_writer.rates[ stateInf(s) ] = (("", stateInf(s) + "= %sInf(v)"%stateInf(s)), None)
-            base_writer.rates[ stateTau(s) ] = (("", stateTau(s) + "= %sTau(v)"%stateTau(s)), "ms")
-            base_writer.ratecalcorder.extend([stateInf(s), stateTau(s)])
+            base_writer.rates[ state_inf(s) ] = (("", state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
+            base_writer.rates[ state_tau(s) ] = (("", state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
+            base_writer.ratecalcorder.extend([state_inf(s), state_tau(s)])
 
-        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (eRevName, gbarName, alphabeta_chl.eqn, gScaleName)
-        base_writer.conductanceequation = " %s * %s * %s" % (gbarName, alphabeta_chl.eqn, gScaleName)
+        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_chl.eqn, g_scale_name)
+        base_writer.conductanceequation = " %s * %s * %s" % (gbar_name, alphabeta_chl.eqn, g_scale_name)
 
 
 
@@ -113,16 +113,16 @@ $(cell_name).internalsections [ $section_index ] {
 
         def buildInterpolatorFunc(state, inftau, funcname):
             if inftau=='inf':
-                interp_strX = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
-                interp_strY = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ] )
+                interp_str_x = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
+                interp_str_y = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ] )
             elif inftau=='tau':
-                interp_strX = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
-                interp_strY = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ] )
+                interp_str_x = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
+                interp_str_y = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ] )
             else:
                 assert False
 
 
-            vars = {'chlname':stateTau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_strX,'y0':interp_strY, 'funcname':funcname }
+            vars = {'chlname':state_tau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_str_x,'y0':interp_str_y, 'funcname':funcname }
             f = """
             FUNCTION %(funcname)s(V)
             {
@@ -154,6 +154,6 @@ $(cell_name).internalsections [ $section_index ] {
         # TODO: Remove hard dependancy here
         additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
         additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
-        modFile =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
-        modfile_set.append(modFile)
+        mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
+        modfile_set.append(mod_file)
 

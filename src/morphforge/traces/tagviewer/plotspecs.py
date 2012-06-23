@@ -111,8 +111,8 @@ class PlotSpecRegular(PlotSpec):
             if self.colors:
                 plot_kwargs['color'] = self.colors[ index % len(self.colors) ]
 
-        pltTr =  ax.plotTrace(trace, **plot_kwargs)
-        return pltTr
+        plt_tr =  ax.plotTrace(trace, **plot_kwargs)
+        return plt_tr
 
     def plot_eventset(self, eventset, ax, index):
         if len(eventset) == 0:
@@ -130,10 +130,10 @@ class PlotSpecRegular(PlotSpec):
         if 'label' in plot_kwargs:
             assert isinstance(plot_kwargs['label'], basestring)
 
-        iRange = 0.2
-        iScale = iRange / len( list(eventset.times) )
+        i_range = 0.2
+        i_scale = i_range / len( list(eventset.times) )
 
-        data = np.array( [ (t.rescale("ms").magnitude,index+i*iScale) for i,t in enumerate(eventset.times) ] )
+        data = np.array( [ (t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times) ] )
 
 
 

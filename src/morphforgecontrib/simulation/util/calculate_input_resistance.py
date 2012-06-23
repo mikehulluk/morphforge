@@ -49,8 +49,8 @@ class CellAnalysis_StepInputResponse(object):
 
     def simulate_all(self):
         for c in self.currents:
-            trV,trI = self.simulate(c)
-            self.result_traces[c] = trV,trI
+            tr_v,tr_i = self.simulate(c)
+            self.result_traces[c] = tr_v,tr_i
 
     def plot(self,):
         trs = list( itertools.chain( *self.result_traces.values() ) )
@@ -67,12 +67,12 @@ class CellAnalysis_StepInputResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        somaLoc = cell.get_location("soma")
+        soma_loc = cell.get_location("soma")
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=somaLoc)
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=soma_loc)
 
         sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
-        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
+        sim.record( cell, name="SomaVoltage", location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
 
         res = sim.run()
 
@@ -113,8 +113,8 @@ class CellAnalysis_ReboundResponse(object):
     def simulate_all(self):
         for c1 in self.currents_base:
             for c2 in self.currents_rebound:
-                trV,trI = self.simulate(c1,c2)
-                self.result_traces[( int(c1.rescale('pA').magnitude),int(c2.rescale('pA').magnitude))] = trV,trI
+                tr_v,tr_i = self.simulate(c1,c2)
+                self.result_traces[( int(c1.rescale('pA').magnitude),int(c2.rescale('pA').magnitude))] = tr_v,tr_i
 
 
 
@@ -148,13 +148,13 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def plot_traces(self,):
-        c1Values = set( [k[0] for k in self.result_traces ])
-        c2Values = set( [k[1] for k in self.result_traces ])
+        c1_values = set( [k[0] for k in self.result_traces ])
+        c2_values = set( [k[1] for k in self.result_traces ])
 
         #print self.result_traces.keys()
-        for c1 in c1Values:
+        for c1 in c1_values:
             trs = []
-            for c2 in c2Values:
+            for c2 in c2_values:
                 if c2>c1:
                     continue
                 trs.extend( self.result_traces[(c1,c2)] )
@@ -172,17 +172,17 @@ class CellAnalysis_ReboundResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        somaLoc = cell.get_location("soma")
+        soma_loc = cell.get_location("soma")
 
-        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", celllocation=somaLoc)
-        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", celllocation=somaLoc)
-        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", celllocation=somaLoc)
+        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", celllocation=soma_loc)
+        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", celllocation=soma_loc)
+        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", celllocation=soma_loc)
 
         sim.record( cc1, name="Current1",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cc3, name="Current3",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
 
-        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound) )
+        sim.record( cell, name="SomaVoltage", location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound) )
 
         res = sim.run()
 
@@ -248,10 +248,10 @@ class CellAnalysis_IVCurve(object):
             sim = self.sim
             cell = self.cell
 
-        somaLoc = cell.get_location("soma")
+        soma_loc = cell.get_location("soma")
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=somaLoc)
-        sim.record( cell, name="SomaVoltage", location=somaLoc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=soma_loc)
+        sim.record( cell, name="SomaVoltage", location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
 
         res = sim.run()
 
@@ -311,23 +311,23 @@ class CellAnalysis_IVCurve(object):
         v = factorise_units_from_list(V)
 
 
-        lowV = v<self.v_regressor_limit
+        low_v = v<self.v_regressor_limit
 
-        ax.plot( i[lowV], v[lowV], 'ro' )
-        ax.plot( i[np.logical_not(lowV)], v[np.logical_not(lowV)], 'rx' )
-        ax.plot( i[np.logical_not(lowV)], v[np.logical_not(lowV)], 'rx' )
+        ax.plot( i[low_v], v[low_v], 'ro' )
+        ax.plot( i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx' )
+        ax.plot( i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx' )
 
 
         # Plot the regressor:
-        iUnits = unit('1:pA').units
-        vUnits = unit('1:mV').units
-        iv = np.vstack(   (i.rescale(iUnits).magnitude, v.rescale(vUnits).magnitude) ).T
+        i_units = unit('1:pA').units
+        v_units = unit('1:mV').units
+        iv = np.vstack(   (i.rescale(i_units).magnitude, v.rescale(v_units).magnitude) ).T
 
-        if not len(iv[lowV,0]):
+        if not len(iv[low_v,0]):
             return
-        (a_s,b_s,r,tt,stderr)=stats.linregress( iv[lowV,0], iv[lowV,1])
-        input_resistance = (a_s * (vUnits/iUnits ) ).rescale('MOhm')
-        reversal_potential = b_s * vUnits
+        (a_s,b_s,r,tt,stderr)=stats.linregress( iv[low_v,0], iv[low_v,1])
+        input_resistance = (a_s * (v_units/i_units ) ).rescale('MOhm')
+        reversal_potential = b_s * v_units
 
         #print ' Input Resistance = ', input_resistance
         #print ' Reversal Potential = ', reversal_potential

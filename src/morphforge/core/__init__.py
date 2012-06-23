@@ -1,4 +1,7 @@
-#-------------------------------------------------------------------------------
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
 #
@@ -19,68 +22,44 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
+# First thing to do monkey patch  external libraries like matplotlib,
+#  mayavi, numpy.
 
-# First thing to do; monkey patch
-# external libraries like matplotlib, mayavi, numpy.
-import monkey_patching
-#monkey_patching.my_pass()
-
-
+import morphforge.core.monkey_patching
 
 from mfrandom import MFRandom
 
+from mgrs import LocMgr, LogMgr, SettingsMgr, RCMgr
 
-from mgrs import LocMgr, LogMgr, SettingsMgr,  RCMgr
-
-from misc import merge_dictionaries,  check_cstyle_varname#, ExactlyOneNotNone
-#from misc import ExecCommandGetRetCode
+from misc import merge_dictionaries, check_cstyle_varname
 from misc import is_iterable, FileIO
 from misc import SeqUtils, StrUtils
-
 
 from mockcontrol import MockControl
 
 from objectnumberer import ObjectLabeller
 
-
-from os.path import split as Split
 from os.path import join as Join
-from os.path import exists as Exists
-from os.path import dirname as Dirname
-from os.path import basename as Basename
-
-
 
 from plugindict import PluginDict
 
-
-
 __all__ = [
-    "LocMgr",
-    "LogMgr",
-    "SettingsMgr",
-    "RCMgr",
-    "merge_dictionaries",
+    'LocMgr',
+    'LogMgr',
+    'SettingsMgr',
+    'RCMgr',
+    'merge_dictionaries',
     'FileIO',
     'SeqUtils',
     'StrUtils',
-    "check_cstyle_varname",
-    #"ExactlyOneNotNone",
-    #"getFileMD5Checksum",
-    #"getStringMD5Checksum",
-    #"ExecCommandGetRetCode",
-    "is_iterable",
-    "ObjectLabeller",
-    "Split",
-    "Join",
-    "Exists",
-    "Dirname",
-    "Basename",
-    "PluginDict",
-    "MFRandom",
-    "MockControl",
-]
-
+    'check_cstyle_varname',
+    'is_iterable',
+    'ObjectLabeller',
+    'Join',
+    'PluginDict',
+    'MFRandom',
+    'MockControl',
+    ]
 

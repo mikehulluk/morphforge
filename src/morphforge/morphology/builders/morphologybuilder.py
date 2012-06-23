@@ -66,26 +66,26 @@ class MorphologyBuilder(object):
             rad = _convert_to_unit(rad, default_unit="um" ).rescale("um").magnitude
 
 
-        somaRegion = Region("soma")
+        soma_region = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)
-        dummysection.create_distal_section(region=somaRegion, x=rad * 2.0, y=0.0, z=0.0, r=rad, idtag="soma")
+        dummysection.create_distal_section(region=soma_region, x=rad * 2.0, y=0.0, z=0.0, r=rad, idtag="soma")
         cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})
         return cell
 
 
     @classmethod
     def get_soma_axon_morph(cls, axon_length=1000.0, axon_radius=0.3, soma_radius=20.0, axon_sections=10):
-        somaRegion = Region("soma")
+        soma_region = Region("soma")
         axon_region = Region("axon")
 
         axon_section_length = float(axon_length) / float(axon_sections)
-        dummyRoot = Section(region=None, x=0.0, y=0.0, z=0.0, r=soma_radius)
-        soma = dummyRoot.create_distal_section(region=somaRegion, x=soma_radius * 2.0, y=0.0, z=0.0, r=soma_radius, idtag="soma")
-        prevSection = soma
+        dummy_root = Section(region=None, x=0.0, y=0.0, z=0.0, r=soma_radius)
+        soma = dummy_root.create_distal_section(region=soma_region, x=soma_radius * 2.0, y=0.0, z=0.0, r=soma_radius, idtag="soma")
+        prev_section = soma
         for x in range(1, axon_sections):
-            axon = prevSection.create_distal_section(region=axon_region, x=x * axon_section_length + 2.0 * soma_radius, y=0, z=0, r=axon_radius, idtag="axon_%d" % x)
-            prevSection = axon
-        cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummyRoot, metadata={})
+            axon = prev_section.create_distal_section(region=axon_region, x=x * axon_section_length + 2.0 * soma_radius, y=0, z=0, r=axon_radius, idtag="axon_%d" % x)
+            prev_section = axon
+        cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummy_root, metadata={})
         return cell
 
 

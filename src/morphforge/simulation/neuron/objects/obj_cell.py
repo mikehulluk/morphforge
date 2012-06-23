@@ -84,17 +84,17 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         #HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
 
 
-        tmplDict = {
+        tmpl_dict = {
                     "recVecName": self.name,
                     "cellname":cell_name,
                     "sectionindex":section_index,
                     "sectionpos":self.location.morphlocation.sectionpos,
                     }
-        print tmplDict
+        print tmpl_dict
 
-        hocfile_obj.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmplDict).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmpl_dict).respond() )
 
-        hocfile_obj[MHocFileData.Recordables][self] = tmplDict
+        hocfile_obj[MHocFileData.Recordables][self] = tmpl_dict
 
 
     def build_mod(self, modfile_set):

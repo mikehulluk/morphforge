@@ -31,21 +31,21 @@ def _get_md5_of_region(r):
 
 def _get_md5_of_section(s):
     #assert False # Is this Cruft?? Added Jan 2011
-    sectionString = " %2.2f %2.2f %2.2f %2.2f "
-    regionsString = _get_md5_of_region(s.region) if s.region else ""
+    section_string = " %2.2f %2.2f %2.2f %2.2f "
+    regions_string = _get_md5_of_region(s.region) if s.region else ""
     children_string = ",".join( [_get_md5_of_section(s) for s in s.children] )
-    idString = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
+    id_string = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
 
-    return StrUtils.get_hash_md5( sectionString + regionsString + children_string + idString)
+    return StrUtils.get_hash_md5( section_string + regions_string + children_string + id_string)
 
 
 def _get_md5_of_morphology(m):
     #assert False # Is this Cruft?? Added Jan 2011
     treemd5 = _get_md5_of_section(m._dummysection)
-    nameMD5 = StrUtils.get_hash_md5(m.name)
+    name_md5 = StrUtils.get_hash_md5(m.name)
     assert not m.metadata
-    regionsMD5 = ",".join( [ _get_md5_of_region(r) for r in m.get_regions() ])
-    return StrUtils.get_hash_md5(treemd5 + nameMD5 + regionsMD5)
+    regions_md5 = ",".join( [ _get_md5_of_region(r) for r in m.get_regions() ])
+    return StrUtils.get_hash_md5(treemd5 + name_md5 + regions_md5)
 
 
 class MorphologyConsistencyMgr(object):
@@ -176,8 +176,8 @@ class MorphConsistencyChecker(object):
     def check_tree(self):
         if not self.morph.is_dummy_section_set(): return
 
-        dummySection =  self.morph.get_dummy_section()
-        self.check_dummy_section(dummySection)
+        dummy_section =  self.morph.get_dummy_section()
+        self.check_dummy_section(dummy_section)
 
 
         # Check nothing changed in the tree:

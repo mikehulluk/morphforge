@@ -48,8 +48,8 @@ def factorise_units_from_list( seq ):
         assert isinstance( o, Quantity)
 
     s0unit = seq[0].units
-    newList = [ o.rescale(s0unit).magnitude for o in seq] * s0unit
-    return newList
+    new_list = [ o.rescale(s0unit).magnitude for o in seq] * s0unit
+    return new_list
 
 
 
@@ -82,18 +82,18 @@ def unit(s):
         return dict([ (k, unit(v)) for k, v in s.iteritems()])
 
     if ":" in s:
-        valueStr, unitStr = s.split(":")
+        value_str, unit_str = s.split(":")
 
 #        if SettingsMgr.allowEvalInLoading:
-#            v = float(eval(valueStr))
+#            v = float(eval(value_str))
 #        else:
-        v = float(valueStr)
+        v = float(value_str)
 
 
-        #if unitStr in definedUnitStrings:
-        #    unt = definedUnitStrings[unitStr]
+        #if unit_str in definedUnitStrings:
+        #    unt = definedUnitStrings[unit_str]
         #else:
-        unt = morphforge.core.quantities.unit_string_parser.parse( unitStr )
+        unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
 
         return v * unt
 
@@ -102,13 +102,13 @@ def unit(s):
 
         if len(t) == 2:
 
-            valueStr, unitStr = t
+            value_str, unit_str = t
             #if SettingsMgr.allowEvalInLoading:
-            v = float(valueStr)
+            v = float(value_str)
             #else:
-            #    v = float(valueStr)
+            #    v = float(value_str)
 
-            unt = morphforge.core.quantities.unit_string_parser.parse( unitStr )
+            unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
 
             return v * unt
 

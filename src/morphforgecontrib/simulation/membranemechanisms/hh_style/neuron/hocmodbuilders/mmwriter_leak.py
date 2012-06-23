@@ -46,7 +46,7 @@ $(cell_name).internalsections [ $section_index ] {
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
-        neuronSuffix = mta.mechanism.get_neuron_suffix()
+        neuron_suffix = mta.mechanism.get_neuron_suffix()
 
 
         # Calculate the values of the variables for the section:
@@ -57,15 +57,15 @@ $(cell_name).internalsections [ $section_index ] {
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
 
-        tmplDict = {
+        tmpl_dict = {
                     "cell_name":cell_name,
                     "section_index":section_index,
-                    "neuron_suffix":neuronSuffix,
+                    "neuron_suffix":neuron_suffix,
                     "variables":variables
                     }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmplDict ).respond() )
+        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmpl_dict ).respond() )
 
 
 
@@ -74,24 +74,24 @@ $(cell_name).internalsections [ $section_index ] {
 
         base_writer = MM_ModFileWriterBase(suffix=leak_chl.get_neuron_suffix())
 
-        gbarName = "gLk"
-        eRevName = "eLk"
-        gScaleName = "gScale"
+        gbar_name = "gLk"
+        e_rev_name = "eLk"
+        g_scale_name = "gScale"
 
-        gbarUnits = MM_WriterLeak.Units[gbarName]
-        eRevUnits = MM_WriterLeak.Units[eRevName]
+        gbar_units = MM_WriterLeak.Units[gbar_name]
+        e_rev_units = MM_WriterLeak.Units[e_rev_name]
 
         # Parameters:
         # {name: (value, unit,range)}
         base_writer.parameters = {
-          gbarName:   (leak_chl.conductance.rescale( gbarUnits ).magnitude, (gbarUnits), None),
-          eRevName:   (leak_chl.reversalpotential.rescale(eRevUnits).magnitude, (eRevUnits), None),
-          gScaleName: (1.0, None, None)
+          gbar_name:   (leak_chl.conductance.rescale( gbar_units ).magnitude, (gbar_units), None),
+          e_rev_name:   (leak_chl.reversalpotential.rescale(e_rev_units).magnitude, (e_rev_units), None),
+          g_scale_name: (1.0, None, None)
                       }
 
-        base_writer.currentequation = "(v-%s) * %s * %s" % (eRevName, gbarName, gScaleName)
-        base_writer.conductanceequation =  "%s * %s" % (gbarName, gScaleName)
+        base_writer.currentequation = "(v-%s) * %s * %s" % (e_rev_name, gbar_name, g_scale_name)
+        base_writer.conductanceequation =  "%s * %s" % (gbar_name, g_scale_name)
 
         modtxt = base_writer.generate_modfile()
-        modFile = ModFile(name=leak_chl.name, modtxt=modtxt)
-        modfile_set.append(modFile)
+        mod_file = ModFile(name=leak_chl.name, modtxt=modtxt)
+        modfile_set.append(mod_file)

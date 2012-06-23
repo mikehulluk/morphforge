@@ -60,15 +60,15 @@ class CellBiophysics(object):
     def get_resolved_mtas_for_section(self, section):
 
         # All the mechanisms targetting a certain region:
-        mechanismsTargettingSection = [ mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section) ]
+        mechanisms_targetting_section = [ mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section) ]
 
-        mechanismIDs = set([ mta.mechanism.get_mechanism_id() for mta in mechanismsTargettingSection])
+        mechanism_i_ds = set([ mta.mechanism.get_mechanism_id() for mta in mechanisms_targetting_section])
 
         res = []
-        for mechID in mechanismIDs:
-            mechsOfIDnSection = [mta for mta in mechanismsTargettingSection if mta.mechanism.get_mechanism_id() == mechID]
-            highestProrityMech = SeqUtils.max_with_unique_check( mechsOfIDnSection, key=lambda pta: pta.targetter.get_priority() )
-            res.append( highestProrityMech )
+        for mechID in mechanism_i_ds:
+            mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mechID]
+            highest_prority_mech = SeqUtils.max_with_unique_check( mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority() )
+            res.append( highest_prority_mech )
         return res
 
     # Used for summariser:
@@ -110,8 +110,8 @@ class CellBiophysics(object):
         passivemechs = {}
         for passiveproperty in PassiveProperty.all:
             section_property_ptas = [ spta for spta in sectionptas if spta.passiveproperty == passiveproperty ]
-            highestProrityMech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )
-            passivemechs[passiveproperty] =  highestProrityMech
+            highest_prority_mech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )
+            passivemechs[passiveproperty] =  highest_prority_mech
         return passivemechs
 
     def get_passive_property_for_section(self, section, passive  ):

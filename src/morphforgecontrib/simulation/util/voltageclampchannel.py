@@ -25,14 +25,14 @@ def get_voltageclamp_soma_current_trace(env, V,mech_builder, morphology):
 
 def build_voltageclamp_soma_simulation(env, V,mech_builder, morphology):
     sim = env.Simulation(name="SimXX")
-    myCell = sim.create_cell( name = "Cell1", morphology = morphology )
+    my_cell = sim.create_cell( name = "Cell1", morphology = morphology )
 
-    apply_mechanism_everywhere_uniform(cell=myCell, mechanism = mech_builder(env=sim.environment) )
+    apply_mechanism_everywhere_uniform(cell=my_cell, mechanism = mech_builder(env=sim.environment) )
 
-    somaLoc = myCell.get_location("soma")
-    voltageRec = myCell.get_recordable( what=myCell.Recordables.MembraneVoltage, name="SomaVoltage", location = somaLoc)
-    sim.add_recordable(voltageRec)
+    soma_loc = my_cell.get_location("soma")
+    voltage_rec = my_cell.get_recordable( what=my_cell.Recordables.MembraneVoltage, name="SomaVoltage", location = soma_loc)
+    sim.add_recordable(voltage_rec)
 
-    vc = sim.create_voltageclamp( name="Stim1", amp1=unit("-81.5:mV"),amp2=unit(V), amp3=unit("-81.5:mV"), dur1=unit("100:ms"),  dur2=unit("100:ms"),  dur3=unit("100:ms"), celllocation=somaLoc)
+    vc = sim.create_voltageclamp( name="Stim1", amp1=unit("-81.5:mV"),amp2=unit(V), amp3=unit("-81.5:mV"), dur1=unit("100:ms"),  dur2=unit("100:ms"),  dur3=unit("100:ms"), celllocation=soma_loc)
     sim.add_recordable( vc.get_recordable(what = vc.Recordables.Current, name="VCCurrent") )
     return sim

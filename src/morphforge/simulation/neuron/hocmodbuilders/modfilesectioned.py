@@ -39,15 +39,15 @@ class NeuronParameter():
 
 
     def declaration_string(self):
-        unitStr = self.get_unit_str() # "(%s)"%self.parameterunit if self.parameterunit else ""
-        rangeStr = "<%1.1e,%1.1e>"%self.parameterrange if self.parameterrange else ""
-        return "%s %s %s"%(self.parametername,unitStr,rangeStr)
+        unit_str = self.get_unit_str() # "(%s)"%self.parameterunit if self.parameterunit else ""
+        range_str = "<%1.1e,%1.1e>"%self.parameterrange if self.parameterrange else ""
+        return "%s %s %s"%(self.parametername,unit_str,range_str)
 
     def initialisation_string(self ):
-        #unitStr =  "(%s)"%self.parameterunit if self.parameterunit else ""
-        unitStr = self.get_unit_str() #
-        initStr = "= %s "%self.initialvalue if self.initialvalue else ""
-        return  "%s %s %s"%(self.parametername,initStr, unitStr)
+        #unit_str =  "(%s)"%self.parameterunit if self.parameterunit else ""
+        unit_str = self.get_unit_str() #
+        init_str = "= %s "%self.initialvalue if self.initialvalue else ""
+        return  "%s %s %s"%(self.parametername,init_str, unit_str)
 
 
 
@@ -138,9 +138,9 @@ class ModFileSectioned(object):
         self.append_to_section( ModFileSectioned.Sections.Header, "ENDCOMMENT")
 
     def add_unit_definition(self, unitname, unitsymbol):
-        symbolStr = "%s"%unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
-        nameStr = "%s"%unitname if unitname.startswith("(") else "(%s)"%unitname
-        self.append_to_section( ModFileSectioned.Sections.Units, "%s = %s"%(symbolStr,nameStr) )
+        symbol_str = "%s"%unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
+        name_str = "%s"%unitname if unitname.startswith("(") else "(%s)"%unitname
+        self.append_to_section( ModFileSectioned.Sections.Units, "%s = %s"%(symbol_str,name_str) )
 
 
     def create_neuron_interface(self, suffix, ranges, nonspecificcurrents, ioncurrents=None, ):
@@ -164,14 +164,14 @@ class ModFileSectioned(object):
         self.append_to_section( ModFileSectioned.Sections.Initial, "\n".join(initial_code) )
 
         # Derivative Block:
-        derBlock = """DERIVATIVE %s{
+        der_block = """DERIVATIVE %s{
         %s
         } """%( groupname, "\n".join( ["\t"+l for l in derivative_code] ))
-        self.prepend_to_section( ModFileSectioned.Sections.Derivative, derBlock )
+        self.prepend_to_section( ModFileSectioned.Sections.Derivative, der_block )
 
         #BreakPoint:
-        solveStatement = "SOLVE %s METHOD cnexp"% groupname
-        self.prepend_to_section( ModFileSectioned.Sections.Breakpoint,  solveStatement)
+        solve_statement = "SOLVE %s METHOD cnexp"% groupname
+        self.prepend_to_section( ModFileSectioned.Sections.Breakpoint,  solve_statement)
 
         #States Block:
         for state in states:

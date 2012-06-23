@@ -148,12 +148,12 @@ class NeuronGapJunction(GapJunction, NeuronObject):
         section1 = self.celllocation1.morphlocation.section
         section2 = self.celllocation2.morphlocation.section
 
-        gpObj1Name = self.get_name() + "A"
-        gpObj2Name = self.get_name() + "B"
+        gp_obj1_name = self.get_name() + "A"
+        gp_obj2_name = self.get_name() + "B"
         data = {
                "name": self.get_name(),
-               "name1":gpObj1Name,
-               "name2":gpObj2Name,
+               "name1":gp_obj1_name,
+               "name2":gp_obj2_name,
                "cell1":cell1,
                "cell2":cell2,
                "cellname1":hocfile_obj[MHocFileData.Cells][cell1]['cell_name'],

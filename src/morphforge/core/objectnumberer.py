@@ -1,4 +1,7 @@
-#-------------------------------------------------------------------------------
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
 #
@@ -19,22 +22,32 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+
+
 class ObjectLabeller(object):
 
     objectcount = {}
 
     @classmethod
     def increment_count_for_object(cls, obj):
-        newcnt = cls.objectcount.get(obj,0) + 1
+        newcnt = cls.objectcount.get(obj, 0) + 1
 
         cls.objectcount[obj] = newcnt
         return newcnt
 
     @classmethod
-    def get_next_unamed_object_name(cls, obj_type, prefix=None, num_fmt_string=None):
+    def get_next_unamed_object_name(
+        cls,
+        obj_type,
+        prefix=None,
+        num_fmt_string=None,
+        ):
         if num_fmt_string is None:
-            num_fmt_string = "%04d"
+            num_fmt_string = '%04d'
         if prefix is None:
-            prefix = "Unamed" + str(obj_type.__name__)
-        return prefix + num_fmt_string%ObjectLabeller.increment_count_for_object(obj_type)
+            prefix = 'Unamed' + str(obj_type.__name__)
+        return prefix + num_fmt_string \
+            % ObjectLabeller.increment_count_for_object(obj_type)
+
+

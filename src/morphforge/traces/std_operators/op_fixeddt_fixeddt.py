@@ -24,31 +24,31 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
         assert type(lhs) == Trace_FixedDT
         assert type(rhs) == Trace_FixedDT
 
-        minTime = max( lhs.get_min_time(), rhs.get_min_time()  )
-        maxTime = min( lhs.get_max_time(), rhs.get_max_time()  )
+        min_time = max( lhs.get_min_time(), rhs.get_min_time()  )
+        max_time = min( lhs.get_max_time(), rhs.get_max_time()  )
 
-        newDT = min( lhs.get_dt_new(), rhs.get_dt_new() )
-        assert maxTime - minTime > newDT * 2, 'The new trace will only have a single point'
-        return NpPqWrappers.arange( minTime, maxTime, newDT )
+        new_dt = min( lhs.get_dt_new(), rhs.get_dt_new() )
+        assert max_time - min_time > new_dt * 2, 'The new trace will only have a single point'
+        return NpPqWrappers.arange( min_time, max_time, new_dt )
 
     @classmethod
     def do_add(cls, lhs, rhs):
-        timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) + rhs.get_values(timeAxis) )
+        time_axis = cls.get_new_time_axis(lhs,rhs)
+        return Trace_FixedDT(time_axis, lhs.get_values(time_axis) + rhs.get_values(time_axis) )
 
     @classmethod
     def do_sub(cls, lhs, rhs):
-        timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) - rhs.get_values(timeAxis) )
+        time_axis = cls.get_new_time_axis(lhs,rhs)
+        return Trace_FixedDT(time_axis, lhs.get_values(time_axis) - rhs.get_values(time_axis) )
 
     @classmethod
     def do_mul(cls, lhs, rhs):
-        timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) * rhs.get_values(timeAxis) )
+        time_axis = cls.get_new_time_axis(lhs,rhs)
+        return Trace_FixedDT(time_axis, lhs.get_values(time_axis) * rhs.get_values(time_axis) )
     @classmethod
     def do_div(cls, lhs, rhs):
-        timeAxis = cls.get_new_time_axis(lhs,rhs)
-        return Trace_FixedDT(timeAxis, lhs.get_values(timeAxis) / rhs.get_values(timeAxis) )
+        time_axis = cls.get_new_time_axis(lhs,rhs)
+        return Trace_FixedDT(time_axis, lhs.get_values(time_axis) / rhs.get_values(time_axis) )
 
 
 # FixedDT (+-*/) FixedDT

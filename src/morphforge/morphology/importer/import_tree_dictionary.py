@@ -53,32 +53,32 @@ class DictionaryLoader(object):
 
 
         if not morph_dict or not morph_dict.has_key("root"): raise ValueError()
-        validKeywords = ["length", "diam", "id", "sections", "region", 'regions', "relangle", "absangle", "xyz"]
-        requiredKeywords = ["diam"]
+        valid_keywords = ["length", "diam", "id", "sections", "region", 'regions', "relangle", "absangle", "xyz"]
+        required_keywords = ["diam"]
 
 
 
         # Does the root has a length variable? if it does, then lets add an intermediate node and remove it.
-        rootNode = morph_dict["root"]
-        if rootNode.has_key('length'):
+        root_node = morph_dict["root"]
+        if root_node.has_key('length'):
           # Lets assume it extends backwards on the X-axis. This isn't great, but will work, although
           # visualisations are likely to look a bit screwy:
 
-          assert not rootNode.has_key('xyz')
+          assert not root_node.has_key('xyz')
 
-          #print rootNode
+          #print root_node
 
 
-          #del rootNode['length']
-          newRootNode =  {'region': 'soma', 'diam': rootNode['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [rootNode]}
+          #del root_node['length']
+          new_root_node =  {'region': 'soma', 'diam': root_node['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [root_node]}
 
-          #print newRootNode
+          #print new_root_node
 
-          rootNode = newRootNode
+          root_node = new_root_node
 
           #assert False
 
-          #sectionDict[None] = Section(x=0.0, y=0.0, z=0.0, r=rootYamlSect['diam'] / 2.0, region=None, parent=None)
+          #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
 
 
 
@@ -88,22 +88,22 @@ class DictionaryLoader(object):
 
         #First flatten the recursion, by copy
         #the dictionary and adding a parent tag:
-        yamlSectionDict = {} # id to paramDict
+        yaml_section_dict = {} # id to paramDict
         def recursivelyAddSectionToList(sectionNode, sectionNodeParentID, sectionDictInt):
             for k in sectionNode.keys():
-                if not k in validKeywords: raise ValueError("Invalid Keyword: " + k)
-            for rK in requiredKeywords:
+                if not k in valid_keywords: raise ValueError("Invalid Keyword: " + k)
+            for rK in required_keywords:
                 if not rK in sectionNode.keys(): raise ValueError("Required Key: %s not found." % rK)
 
             children = sectionNode.get("sections", [])
             if sectionNode.has_key("sections"): del sectionNode["sections"]
-            sectionID = len(sectionDictInt)
-            sectionDictInt[sectionID] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
-            for c in children:  recursivelyAddSectionToList(c, sectionID, sectionDictInt)
+            section_id = len(sectionDictInt)
+            sectionDictInt[section_id] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
+            for c in children:  recursivelyAddSectionToList(c, section_id, sectionDictInt)
 
-        #rootNode = morph_dict["root"]
+        #root_node = morph_dict["root"]
 
-        recursivelyAddSectionToList(rootNode, None, yamlSectionDict)
+        recursivelyAddSectionToList(root_node, None, yaml_section_dict)
 
 
         #We now have a dictionary similar to:
@@ -115,17 +115,17 @@ class DictionaryLoader(object):
         """
 
         #Map a lack of region to region:"NoRegionGiven"
-        for yml in yamlSectionDict.values():
+        for yml in yaml_section_dict.values():
             if not ("region" in yml or "regions" in yml):
                 yml["region"] = "NoRegionGiven"
 
-        regionNames1 = [ yml["region"] for yml in yamlSectionDict.values() if yml.has_key("region") ]
-        regionNames2 = SeqUtils.flatten([ yml["regions"] for yml in yamlSectionDict.values() if yml.has_key("regions") ])
+        region_names1 = [ yml["region"] for yml in yaml_section_dict.values() if yml.has_key("region") ]
+        region_names2 = SeqUtils.flatten([ yml["regions"] for yml in yaml_section_dict.values() if yml.has_key("regions") ])
 
-        regionNames = list(set( regionNames1 + regionNames2) )
-        regionDict = dict([ (n, Region(n)) for n in regionNames])
-        sectionAnglesDict = {}
-        sectionIdTags = []
+        region_names = list(set( region_names1 + region_names2) )
+        region_dict = dict([ (n, Region(n)) for n in region_names])
+        section_angles_dict = {}
+        section_id_tags = []
 
 
 
@@ -134,38 +134,38 @@ class DictionaryLoader(object):
         # This will be at index '0'
 
         # Do we need to create a dummy node explicity? This depends on whether the root node has a length:
-        sectionDict = {}
-        rootYamlSect = yamlSectionDict[0]
+        section_dict = {}
+        root_yaml_sect = yaml_section_dict[0]
 
 
-        if 'length' in rootYamlSect.keys():
+        if 'length' in root_yaml_sect.keys():
             assert False
-            #sectionDict[None] = Section(x=0.0, y=0.0, z=0.0, r=rootYamlSect['diam'] / 2.0, region=None, parent=None)
+            #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
         else:
             pass
-            #sectionDict[None] = Section(x=0.0, y=0.0, z=0.0, r=rootYamlSect['diam'] / 2.0, region=None, parent=None)
+            #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
             #assert False
 
 
 
 
-        xyz = rootYamlSect['xyz']
-        sectionDict[0] = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rootYamlSect['diam'] / 2.0, region=None, parent=None)
+        xyz = root_yaml_sect['xyz']
+        section_dict[0] = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
 
         # Add the remaining nodes:
-        for yamlID, yamlSect in yamlSectionDict.iteritems():
+        for yamlID, yamlSect in yaml_section_dict.iteritems():
 
             if yamlSect['parent'] == None:
                 continue
 
             #print yamlID, yamlSect
 
-            parentSection = sectionDict[ yamlSect["parent"] ]
+            parent_section = section_dict[ yamlSect["parent"] ]
 
             #Region:
-            rgNames1 = [ yamlSect["region"] ] if yamlSect.has_key("region") else []
-            rgNames2 = yamlSect["regions"] if yamlSect.has_key("regions") else []
-            rgs = [ regionDict[rgName] for rgName in rgNames1 + rgNames2   ]
+            rg_names1 = [ yamlSect["region"] ] if yamlSect.has_key("region") else []
+            rg_names2 = yamlSect["regions"] if yamlSect.has_key("regions") else []
+            rgs = [ region_dict[rgName] for rgName in rg_names1 + rg_names2   ]
             # Since December 2010 each section is only allowed to have one
             # region.
             assert len(rgs) <= 1
@@ -190,63 +190,63 @@ class DictionaryLoader(object):
                 raise ValueError("Too many ways for specifying endpoint")
 
             if yamlSect.has_key("xyz"):
-                if not parentSection: angle = 0
+                if not parent_section: angle = 0
                 xyz = yamlSect["xyz"]
 
 
             elif yamlSect.has_key("absangle"):
                 length = getYamlLength(yamlSect)
                 angle = yamlSect["absangle"]
-                xyz = (parentSection.d_x + length * math.cos(math.radians(angle)), parentSection.d_y + length * math.sin(math.radians(angle)), 0.0)
+                xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             elif yamlSect.has_key("relangle"):
                 length = getYamlLength(yamlSect)
-                angle = sectionAnglesDict[parentSection] + yamlSect["relangle"]
-                xyz = (parentSection.d_x + length * math.cos(math.radians(angle)), parentSection.d_y + length * math.sin(math.radians(angle)), 0.0)
+                angle = section_angles_dict[parent_section] + yamlSect["relangle"]
+                xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             else: # Default to 'abs'-angle to 0
                 length = getYamlLength(yamlSect)
                 angle = 0
-                xyz = (parentSection.d_x + length * math.cos(math.radians(angle)), parentSection.d_y + length * math.sin(math.radians(angle)), 0.0)
+                xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
 
 
             #Possible ID's:
-            sectionIdTag = yamlSect["id"] if yamlSect.has_key("id") else None
-            if sectionIdTag:
-                check_cstyle_varname(sectionIdTag)
-            if sectionIdTag in sectionIdTags:
-                raise ValueError("Duplicate Section ID: %s" % sectionIdTag)
-            if sectionIdTag:  sectionIdTags.append(sectionIdTag)
+            section_id_tag = yamlSect["id"] if yamlSect.has_key("id") else None
+            if section_id_tag:
+                check_cstyle_varname(section_id_tag)
+            if section_id_tag in section_id_tags:
+                raise ValueError("Duplicate Section ID: %s" % section_id_tag)
+            if section_id_tag:  section_id_tags.append(section_id_tag)
 
 
             # Create the new section:
-            if parentSection:
-                newSection = parentSection.create_distal_section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idtag=sectionIdTag)
+            if parent_section:
+                new_section = parent_section.create_distal_section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=rgs[0], idtag=section_id_tag)
             else:
-                newSection = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idtag=sectionIdTag)
-                sectionDict[None] = newSection
+                new_section = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idtag=section_id_tag)
+                section_dict[None] = new_section
 
 
 
 
             # Calculate the angle of the current section:
-            if parentSection:
-                joiningVec = newSection.get_distal_npa3() - parentSection.get_distal_npa3()
-                angle = math.radians(math.atan2(joiningVec[1], joiningVec[0]))
-            sectionAnglesDict[newSection] = angle
+            if parent_section:
+                joining_vec = new_section.get_distal_npa3() - parent_section.get_distal_npa3()
+                angle = math.radians(math.atan2(joining_vec[1], joining_vec[0]))
+            section_angles_dict[new_section] = angle
 
 
             #Save the section:
-            sectionDict[yamlID] = newSection
+            section_dict[yamlID] = new_section
 
 
         ## TODO: THIS IS A HACK! Ensure the dummy node has no attached regions:
-        #sectionDict[None].regions = []
-        assert sectionDict[0].region == None
+        #section_dict[None].regions = []
+        assert section_dict[0].region == None
 
-        if sectionDict[0].children == []: raise ValueError("No segments found")
-        c = MorphologyTree(name=name, dummysection=sectionDict[0], metadata=metadata)
+        if section_dict[0].children == []: raise ValueError("No segments found")
+        c = MorphologyTree(name=name, dummysection=section_dict[0], metadata=metadata)
         if len(c) < 1: raise ValueError
         return c
 

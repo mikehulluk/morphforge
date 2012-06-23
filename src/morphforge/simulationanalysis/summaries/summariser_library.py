@@ -30,15 +30,15 @@ class SummariserLibrary():
 
     @classmethod
     def get_summarisier(cls, obj):
-        possibleSummarisers = []
+        possible_summarisers = []
         for ChlType, summarisier in SummariserLibrary.summarisers.iteritems():
             if issubclass(type(obj), ChlType ):
-                possibleSummarisers.append( summarisier )
+                possible_summarisers.append( summarisier )
 
-        if len(possibleSummarisers) == 0:
+        if len(possible_summarisers) == 0:
             return None
-        if len(possibleSummarisers) == 1:
-            return possibleSummarisers[0]
+        if len(possible_summarisers) == 1:
+            return possible_summarisers[0]
         else:
             assert False, "I have to many options for summarising: " + str(obj)
 

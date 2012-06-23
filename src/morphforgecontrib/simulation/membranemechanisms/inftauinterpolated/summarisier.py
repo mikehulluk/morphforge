@@ -106,7 +106,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
 
-            infV =  np.array( alphabeta_chl.statevars_new[state].V )
+            inf_v =  np.array( alphabeta_chl.statevars_new[state].V )
             inf =   np.array( alphabeta_chl.statevars_new[state].inf )
             tau =   np.array( alphabeta_chl.statevars_new[state].tau )
 
@@ -114,7 +114,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             #tau =   np.array( zip(*alphabeta_chl.statevars[state]['tau'])[1] )
 
             # Check the two voltage arrays are the same:
-            #assert np.max( (infV-tauV)**2 ) < 1.0
+            #assert np.max( (inf_v-tauV)**2 ) < 1.0
 
             alpha = inf/tau
             beta = (1 - alpha*tau) / tau
@@ -123,22 +123,22 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             if isinstance(ax1, QuantitiesAxis):
 
                 ax1.setYUnit("")
-                ax1.plot(infV * pq.mV, alpha * pq.s/pq.s,color=color)
+                ax1.plot(inf_v * pq.mV, alpha * pq.s/pq.s,color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Alpha")
 
-                ax2.plot(infV * pq.mV, beta * pq.s/pq.s, color=color)
+                ax2.plot(inf_v * pq.mV, beta * pq.s/pq.s, color=color)
                 ax2.set_xlabel("Voltage")
                 ax2.set_ylabel("Beta")
                 ax2.setYUnit("")
 
             else:
 
-                ax1.plot(infV,alpha,color=color)
+                ax1.plot(inf_v,alpha,color=color)
                 ax1.set_xlabel("Voltage (mV)")
                 ax1.set_ylabel("Alpha")
 
-                ax2.plot(infV, beta,color=color)
+                ax2.plot(inf_v, beta,color=color)
                 ax2.set_xlabel("Voltage (mV)")
                 ax2.set_ylabel("Beta")
 
@@ -168,11 +168,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             if isinstance(ax1, QuantitiesAxis):
 
 #                print alphabeta_chl.statevars[state]['inf']
-                infV =  np.array( alphabeta_chl.statevars_new[state].V )
+                inf_v =  np.array( alphabeta_chl.statevars_new[state].V )
                 inf =   np.array( alphabeta_chl.statevars_new[state].inf )
                 tau =   np.array( alphabeta_chl.statevars_new[state].tau )
 
-                #infV =  np.array( zip(*alphabeta_chl.statevars[state]['inf'])[0] )
+                #inf_v =  np.array( zip(*alphabeta_chl.statevars[state]['inf'])[0] )
                 #inf =   np.array( zip(*alphabeta_chl.statevars[state]['inf'])[1] )
 
                 #tauV =  np.array( zip(*alphabeta_chl.statevars[state]['tau'])[0] )
@@ -181,7 +181,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
                 ax1.setYUnit("")
-                ax1.plot(infV * pq.mV, inf * pq.s/pq.s,color=color)
+                ax1.plot(inf_v * pq.mV, inf * pq.s/pq.s,color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Inf")
 
@@ -192,11 +192,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             else:
 
-                ax1.plot(infV,inf,color=color)
+                ax1.plot(inf_v,inf,color=color)
                 ax1.set_xlabel("Voltage (mV)")
                 ax1.set_ylabel("Infs")
 
-                ax2.plot(infV,tau,color=color)
+                ax2.plot(inf_v,tau,color=color)
                 ax2.set_xlabel("Voltage (mV)")
                 ax2.set_ylabel("Tau (ms)")
 
@@ -227,40 +227,40 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
         @classmethod
         def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
-            localElements = []
-            localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+            local_elements = []
+            local_elements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
 
             # Summary:
-            overviewTableData = [
+            overview_table_data = [
                                  ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2") ],
                                  ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV") ],
                                  ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
                                 ]
 
-            localElements.append( Table(overviewTableData, style=reportlabconfig.listTableStyle) )
+            local_elements.append( Table(overview_table_data, style=reportlabconfig.listTableStyle) )
 
 
-            #return localElements
+            #return local_elements
 
             # Plot out the States:
             for state,params in alphabeta_chl.statevars_new.iteritems():
-                localElements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
+                local_elements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
 
                 # Interpolated_values:
-                infTable  = [
+                inf_table  = [
                                  ["Voltage", 'Inf'],
                             ] + [ ("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.inf) ]
 
-                tauTable  = [
+                tau_table  = [
                                  ["Voltage", 'Tau'],
                             ] + [ ("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.tau) ]
 
-                #mergeTable = zip( infTable,tauTable )
+                #mergeTable = zip( inf_table,tau_table )
 
 
-                localElements.append( Table(infTable, style=reportlabconfig.listTableStyle) )
-                localElements.append( Table(tauTable, style=reportlabconfig.listTableStyle) )
-                #localElements.append( Table(mergeTable, style=reportlabconfig.listTableStyle) )
+                local_elements.append( Table(inf_table, style=reportlabconfig.listTableStyle) )
+                local_elements.append( Table(tau_table, style=reportlabconfig.listTableStyle) )
+                #local_elements.append( Table(mergeTable, style=reportlabconfig.listTableStyle) )
 
 
                 #continue
@@ -271,12 +271,12 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 #        "beta(V) = (A+BV)/(C+exp( (V+D)/E) )",
                 #        ]
                 #for eqn in eqns:
-                #    localElements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
+                #    local_elements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
                 # Alpha Beta
-                #ReportLabTools.buildInfTauInterpolatedTable( elements=localElements,
+                #ReportLabTools.buildInfTauInterpolatedTable( elements=local_elements,
                 #                         reportlabconfig=reportlabconfig,
                 #                         title="Alpha", params=params[0] )
-                #ReportLabTools.buildInfTauInterpolatedTable( elements=localElements,
+                #ReportLabTools.buildInfTauInterpolatedTable( elements=local_elements,
                 #                         reportlabconfig=reportlabconfig,
                 #                         title="Beta1", params=params[1] )
 
@@ -284,13 +284,13 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 # Figures:
                 if make_graphs:
                     fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(7,7))
-                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
+                    local_elements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     fig.close()
 
 
 
 
-            return localElements
+            return local_elements
 
 
 

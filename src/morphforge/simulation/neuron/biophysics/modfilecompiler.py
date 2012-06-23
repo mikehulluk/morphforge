@@ -24,7 +24,7 @@
 #-------------------------------------------------------------------------------
 
 from morphforge.core import  FileIO, LocMgr, LogMgr
-from morphforge.core import Join, Exists, Basename
+#from morphforge.core import Join,  Basename
 
 from morphforge.core import RCMgr as RCReader
 
@@ -63,25 +63,25 @@ class ModBuilderParams(object):
 
     @classmethod
     def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=""):
-        inclStr = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
-        defStr = " ".join(["""-D%s """ % d for d in cls.compileDefs])
-        vars = {"lo":lo_filename, "c":c_filename, "incs":inclStr, "defs":defStr, 'additional_flags':additional_compile_flags}
+        incl_str = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
+        def_str = " ".join(["""-D%s """ % d for d in cls.compileDefs])
+        vars = {"lo":lo_filename, "c":c_filename, "incs":incl_str, "defs":def_str, 'additional_flags':additional_compile_flags}
         return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % vars
 
 
     @classmethod
     def get_link_str(cls, lo_filename, la_filename, additional_link_flags=""):
-        stdLibStr = " ".join(["-l%s" % s for s in cls.stdLinkLibs])
-        stdLibDirStr = " ".join(["-L%s" % s for s in cls.nrnLinkDirs])
-        linkDict = {"la":la_filename,
+        std_lib_str = " ".join(["-l%s" % s for s in cls.stdLinkLibs])
+        std_lib_dir_str = " ".join(["-L%s" % s for s in cls.nrnLinkDirs])
+        link_dict = {"la":la_filename,
                     "lo":lo_filename,
-                    "stdLibStr":stdLibStr,
-                    "stdLibDirStr":stdLibDirStr,
+                    "std_lib_str":std_lib_str,
+                    "std_lib_dir_str":std_lib_dir_str,
                     "rpath":cls.rpath,
                     "randSt": cls.rndAloneLinkStatement,
                     'additional_flags':additional_link_flags
                     }
-        return """--mode=link gcc -module  -g -O2  -shared  -o %(la)s  -rpath %(rpath)s  %(lo)s  %(stdLibDirStr)s  %(randSt)s  %(stdLibStr)s  %(additional_flags)s """ % linkDict
+        return """--mode=link gcc -module  -g -O2  -shared  -o %(la)s  -rpath %(rpath)s  %(lo)s  %(std_lib_dir_str)s  %(randSt)s  %(std_lib_str)s  %(additional_flags)s """ % link_dict
 
 
 
@@ -103,51 +103,46 @@ def _simple_exec(cmd, remaining):
 
 def _build_modfile_local(mod_filename_short, modfile=None):
     print os.getcwd()
-    modFileBasename = mod_filename_short.replace(".mod", "")
-    c_filename = modFileBasename + ".c"
-    la_filename = modFileBasename + ".la"
-    lo_filename = modFileBasename + ".lo"
-    soFilename = modFileBasename + ".so"
+    mod_file_basename = mod_filename_short.replace(".mod", "")
+    c_filename = mod_file_basename + ".c"
+    la_filename = mod_file_basename + ".la"
+    lo_filename = mod_file_basename + ".lo"
+    so_filename = mod_file_basename + ".so"
 
-    libsDir = ".libs/"
+    libs_dir = ".libs/"
 
     # Check for some existing files:
-    gen_files = (libsDir, c_filename, la_filename, lo_filename, soFilename)
+    gen_files = (libs_dir, c_filename, la_filename, lo_filename, so_filename)
     for gen_file in gen_files:
-        if Exists(gen_file):
+        if os.path.exists(gen_file):
             LocMgr.BackupDirectory(gen_file)
 
 
-    #if Exists(libsDir): LocMgr.BackupDirectory(libsDir)
-    #if Exists(c_filename): LocMgr.BackupDirectory(c_filename)
-    #if Exists(la_filename): LocMgr.BackupDirectory(la_filename)
-    #if Exists(lo_filename): LocMgr.BackupDirectory(lo_filename)
-    #if Exists(soFilename): LocMgr.BackupDirectory(soFilename)
 
 
 
     #run nocmodl: .mod -> .c
-    c_filename = modFileBasename + ".c"
+    c_filename = mod_file_basename + ".c"
     op  = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
-    if not Exists(c_filename):
+    if not os.path.exists(c_filename):
         print "Failed to compile modfile. Error:"
         print op, "\n"
         assert False
 
     #Add the extra registration function into our mod file:
-    newRegisterFunc = """\n modl_reg(){ _%s_reg(); }""" % (modFileBasename)
-    FileIO.append_to_file(newRegisterFunc, c_filename)
+    new_register_func = """\n modl_reg(){ _%s_reg(); }""" % (mod_file_basename)
+    FileIO.append_to_file(new_register_func, c_filename)
 
 
     #Compile the .c file -> .so:
-    compileStr = ModBuilderParams.get_compile_str(c_filename, lo_filename)
-    linkStr = ModBuilderParams.get_link_str(lo_filename, la_filename)
+    compile_str = ModBuilderParams.get_compile_str(c_filename, lo_filename)
+    link_str = ModBuilderParams.get_link_str(lo_filename, la_filename)
 
     if SettingsMgr.simulator_is_verbose():
         print 'IN:',ModBuilderParams.libtoolpath,
-        print compileStr
-        print linkStr
+        print compile_str
+        print link_str
 
     compile_flags = modfile.additional_compile_flags if modfile else ""
     link_flags = modfile.additional_link_flags if modfile else ""
@@ -159,7 +154,7 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         print "OP2:", op2
 
     # Copy the correct .so from the libDir to the build_dir:
-    shutil.move(Join(libsDir, modFileBasename + ".so.0.0.0"), soFilename)
+    shutil.move(os.path.join(libs_dir, mod_file_basename + ".so.0.0.0"), so_filename)
 
 
     #Clean up:
@@ -167,13 +162,13 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         os.remove(c_filename)
         os.remove(mod_filename_short)
         for f in [".la", ".lo"]:
-            os.remove(modFileBasename + f)
+            os.remove(mod_file_basename + f)
         for f in [".la", ".lai", ".o", ".so", ".so.0" ]:
-            os.remove(Join(libsDir, modFileBasename + f))
-        os.rmdir(libsDir)
+            os.remove(os.path.join(libs_dir, mod_file_basename + f))
+        os.rmdir(libs_dir)
 
 
-    return soFilename
+    return so_filename
 
 
 
@@ -186,23 +181,23 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     if SettingsMgr.simulator_is_verbose():
         print " - Building: ", modfilename
 
-    modfilenamebase = Basename(modfilename)
+    modfilenamebase = os.path.basename(modfilename)
     sofilenamebase = modfilenamebase.replace(".mod", ".so")
 
-    shutil.copyfile(modfilename, Join(build_dir, modfilenamebase))
-    soFilenameOutput = Join(output_dir, sofilenamebase)
+    shutil.copyfile(modfilename, os.path.join(build_dir, modfilenamebase))
+    so_filename_output = os.path.join(output_dir, sofilenamebase)
 
     # Move to new directory to build:
-    initialCWD = os.getcwd()
+    initial_cwd = os.getcwd()
     os.chdir(build_dir)
-    soFilenameBuildShort = _build_modfile_local(mod_filename_short=modfilenamebase,modfile=modfile)
-    os.chdir(initialCWD)
+    so_filename_build_short = _build_modfile_local(mod_filename_short=modfilenamebase,modfile=modfile)
+    os.chdir(initial_cwd)
 
     # CopyFile to output location:
-    soFilenameBuild = Join(build_dir, soFilenameBuildShort)
-    if soFilenameBuild != soFilenameOutput:
-        shutil.move(soFilenameBuild, soFilenameOutput)
-    return soFilenameOutput
+    so_filename_build = os.path.join(build_dir, so_filename_build_short)
+    if so_filename_build != so_filename_output:
+        shutil.move(so_filename_build, so_filename_output)
+    return so_filename_output
 
 
 
@@ -221,7 +216,7 @@ class ModFileCompiler(object):
     def check_modfile_units(cls, modfilename):
         op = _simple_exec( ModBuilderParams.modlunitpath, modfilename )
 
-        opExpected = """
+        op_expected = """
         model   1.1.1.1   1994/10/12 17:22:51
         Checking units of %s""" % modfilename
 
@@ -229,7 +224,7 @@ class ModFileCompiler(object):
             print 'OP',op
 
         # Check line by line:
-        for l, le in zip( op.split("\n"), opExpected.split("\n")  ):
+        for l, le in zip( op.split("\n"), op_expected.split("\n")  ):
             if not le.strip() == l.strip():
                 print "ERROR ERROR ERROR WITH UNITS!!"
                 print 'Seen', l
@@ -239,18 +234,18 @@ class ModFileCompiler(object):
 
     @classmethod
     def _build_modfile(cls, modfile):
-        outputFilename = modfile.get_built_filename_full(ensure_built=False)
+        output_filename = modfile.get_built_filename_full(ensure_built=False)
 
-        if not Exists(outputFilename):
-            LogMgr.info("Does not exist: building: %s" % outputFilename)
+        if not os.path.exists(output_filename):
+            LogMgr.info("Does not exist: building: %s" % output_filename)
 
-            modTxtFilename = FileIO.write_to_file(modfile.modtxt, suffix=".mod")
-            ModFileCompiler.check_modfile_units(modTxtFilename)
-            modDynFilename = _build_mod_file(modTxtFilename, modfile=modfile)
-            shutil.move(modDynFilename, outputFilename)
+            mod_txt_filename = FileIO.write_to_file(modfile.modtxt, suffix=".mod")
+            ModFileCompiler.check_modfile_units(mod_txt_filename)
+            mod_dyn_filename = _build_mod_file(mod_txt_filename, modfile=modfile)
+            shutil.move(mod_dyn_filename, output_filename)
 
 
         else:
             LogMgr.info("Already Built")
-        return outputFilename
+        return output_filename
 

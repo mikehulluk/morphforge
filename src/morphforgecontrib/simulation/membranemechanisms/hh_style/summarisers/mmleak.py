@@ -28,18 +28,18 @@ class Summarise_MM_LeakChannel(object):
         from reportlab.platypus import Paragraph, Table
         chl = leak_chl
 
-        localElements = []
-        localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+        local_elements = []
+        local_elements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
 
         # Summary:
-        overviewTableData = [
+        overview_table_data = [
                              ["Conductance", chl.conductance],
                              ["Reversal Potential",  chl.reversalpotential],
                             ]
 
-        localElements.append( Table(overviewTableData, style=reportlabconfig.listTableStyle) )
+        local_elements.append( Table(overview_table_data, style=reportlabconfig.listTableStyle) )
 
-        return localElements
+        return local_elements
 
 
 

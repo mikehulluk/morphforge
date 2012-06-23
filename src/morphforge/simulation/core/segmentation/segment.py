@@ -34,9 +34,9 @@ class CellSegment(object):
     def get_section_pos(self, p_segment):
         # Converts a position from [0-1] within a segment into a
         # position [0-1] within a section
-        segmentSize = 1.0/self.nsegments
-        segmentPosProx = segmentSize * self.segmentno
-        sectionpos = segmentPosProx + p_segment * segmentSize
+        segment_size = 1.0/self.nsegments
+        segment_pos_prox = segment_size * self.segmentno
+        sectionpos = segment_pos_prox + p_segment * segment_size
 
         assert 0 <= sectionpos <= 1.0
         return sectionpos

@@ -33,7 +33,7 @@ class MorphLocator(object):
     @classmethod
     def get_locations_at_distance_away_from_dummy(cls, morphology, distance, section_predicate=None):
 
-        distToSectionDistal = SectionVistorFactory.dict_section_distal_dist_from_soma(morph=morphology)()
+        dist_to_section_distal = SectionVistorFactory.dict_section_distal_dist_from_soma(morph=morphology)()
 
 
         # Section predicates: allows us to generate only on a path, region, etc
@@ -48,17 +48,17 @@ class MorphLocator(object):
 
             if section.is_a_root_section():
 
-                if distance < distToSectionDistal[section]:
+                if distance < dist_to_section_distal[section]:
                     #assert False, 'Not implemented'
-                    locations.append( MorphLocation( section = section, sectionpos = distance/distToSectionDistal[section] )  )
+                    locations.append( MorphLocation( section = section, sectionpos = distance/dist_to_section_distal[section] )  )
 
                 else:
 
                     pass
 
             else:
-                proximal_dist = distToSectionDistal[section.parent]
-                distal_dist = distToSectionDistal[section]
+                proximal_dist = dist_to_section_distal[section.parent]
+                distal_dist = dist_to_section_distal[section]
 
 
                 # Does a distance fall on this section:

@@ -37,41 +37,41 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
 
         from scipy.integrate import odeint
 
-        vInMv = V.rescale("mV").magnitude
+        v_in_mv = V.rescale("mV").magnitude
 
-        stateNames = chl.statevars.keys()
-        nStates = len(stateNames)
-        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateNames[0]], V)
-        m_tauMS = m_tau.rescale("ms").magnitude
+        state_names = chl.statevars.keys()
+        n_states = len(state_names)
+        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[state_names[0]], V)
+        m_tau_ms = m_tau.rescale("ms").magnitude
 
-        infTaus = [ InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateName], V)  for stateName in stateNames ]
-        infTausMS = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus ]
+        inf_taus = [ InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateName], V)  for stateName in state_names ]
+        inf_taus_ms = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus ]
 
-        stateToIndex = dict( [ (state,index) for state,index in enumerate(stateNames) ] )
+        state_to_index = dict( [ (state,index) for state,index in enumerate(state_names) ] )
 
         def odeFunc(y,t0):
-            res = [None] * nStates
-            for i in range(0,nStates):
-                stateInf,stateTau = infTausMS[i]
-                stateVal = y[i]
-                d_state = ( stateInf - stateVal ) / stateTau
+            res = [None] * n_states
+            for i in range(0,n_states):
+                state_inf,state_tau = inf_taus_ms[i]
+                state_val = y[i]
+                d_state = ( state_inf - state_val ) / state_tau
                 res[i] = d_state
             return res
 
         # run the ODE for each variable:
         t = t.rescale("ms").magnitude
-        y0 = np.zeros( (nStates, ) )
+        y0 = np.zeros( (n_states, ) )
         res = odeint(func=odeFunc, y0=y0, t= t  )
 
-        stateFunctor = sympy.lambdify( stateNames, sympy.sympify(chl.eqn)  )
-        stateData = [ res[:,i] for i in range(0,nStates) ]
+        state_functor = sympy.lambdify( state_names, sympy.sympify(chl.eqn)  )
+        state_data = [ res[:,i] for i in range(0,n_states) ]
 
-        stateEquationEvaluation = stateFunctor( *stateData )
+        state_equation_evaluation = state_functor( *state_data )
 
         cell_density = (chl.conductance * cell_area)
-        iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
+        i_chl =  (chl.conductance * cell_area)  * state_equation_evaluation * (V- chl.reversalpotential)
 
-        return Trace_FixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )
+        return Trace_FixedDT( time=t * unit("1:ms"), data=i_chl.rescale("pA")  )
 
 
 
@@ -96,14 +96,14 @@ class Summarise_MM_AlphaBetaChannel(object):
             alpha,beta = chl.get_alpha_beta_at_voltage(V, state)
             inf,tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
             infpower = np.power(inf, infpower) if infpower else None
-            plot_what_LUT = {
+            plot_what_lut = {
                          Curve.Alpha :     ( alpha,    "Rate Constant", None ),
                          Curve.Beta :      ( beta,     "Rate Constant", None ),
                          Curve.Inf :       ( inf,      "Steady-State",  None ),
                          Curve.InfPowered :( infpower, "Steady-State",  None ),
                          Curve.Tau :       ( tau,      "Time-Constant", "ms" ),
                          }
-            plot_what, y_label, y_unit = plot_what_LUT[curve]
+            plot_what, y_label, y_unit = plot_what_lut[curve]
 
             #print kwargs
 
@@ -169,22 +169,22 @@ class Summarise_MM_AlphaBetaChannel(object):
         @classmethod
         def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
             from reportlab.platypus import Paragraph, Table
-            localElements = []
-            localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+            local_elements = []
+            local_elements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
 
             # Summary:
-            overviewTableData = [
+            overview_table_data = [
                                  ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2") ],
                                  ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV") ],
                                  ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
                                 ]
 
-            localElements.append( Table(overviewTableData, style=reportlabconfig.listTableStyle) )
+            local_elements.append( Table(overview_table_data, style=reportlabconfig.listTableStyle) )
 
 
             # Plot out the States:
             for state,params in alphabeta_chl.statevars.iteritems():
-                localElements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
+                local_elements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
 
 
                 #Equations:
@@ -193,12 +193,12 @@ class Summarise_MM_AlphaBetaChannel(object):
                         "beta(V) = (A+BV)/(C+exp( (V+D)/E) )",
                         ]
                 for eqn in eqns:
-                    localElements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
+                    local_elements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
                 # Alpha Beta
-                ReportLabTools.build_alpha_beta_table( elements=localElements,
+                ReportLabTools.build_alpha_beta_table( elements=local_elements,
                                          reportlabconfig=reportlabconfig,
                                          title="Alpha", params=params[0] )
-                ReportLabTools.build_alpha_beta_table( elements=localElements,
+                ReportLabTools.build_alpha_beta_table( elements=local_elements,
                                          reportlabconfig=reportlabconfig,
                                          title="Beta1", params=params[1] )
 
@@ -206,12 +206,12 @@ class Summarise_MM_AlphaBetaChannel(object):
                 if make_graphs:
                     # Figures:
                     fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
-                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
+                    local_elements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
                     import pylab
                     pylab.close( fig.fig )
 
 
-            return localElements
+            return local_elements
 
 
 

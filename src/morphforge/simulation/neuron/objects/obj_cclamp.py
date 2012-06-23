@@ -50,8 +50,8 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
 
     def build_hoc(self, hocfile_obj):
-        nameHoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=nameHoc, objvar="i", recordobj=self )
+        name_hoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
+        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=name_hoc, objvar="i", recordobj=self )
 
     def build_mod(self, modfile_set):
         pass

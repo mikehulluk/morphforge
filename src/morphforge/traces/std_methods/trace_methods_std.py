@@ -37,20 +37,20 @@ from morphforge.traces.tracetypes import Trace_VariableDT,Trace_Piecewise, Trace
 
 
 def _get_piecewise_linear_points(tr):
-    xUnit = tr._pieces[0].get_min_time().units
-    yUnit = tr._pieces[0].get_start_value().units
+    x_unit = tr._pieces[0].get_min_time().units
+    y_unit = tr._pieces[0].get_start_value().units
 
-    xPoints = []
-    yPoints = []
+    x_points = []
+    y_points = []
 
     for p in tr._pieces:
-        xPoints.append( float(p.get_min_time().rescale(xUnit).magnitude) )
-        xPoints.append( float(p.get_max_time().rescale(xUnit).magnitude) )
+        x_points.append( float(p.get_min_time().rescale(x_unit).magnitude) )
+        x_points.append( float(p.get_max_time().rescale(x_unit).magnitude) )
 
-        yPoints.append( float(p.get_start_value().rescale(yUnit).magnitude) )
-        yPoints.append( float(p.get_end_value().rescale(yUnit).magnitude) )
+        y_points.append( float(p.get_start_value().rescale(y_unit).magnitude) )
+        y_points.append( float(p.get_end_value().rescale(y_unit).magnitude) )
 
-    return np.array(xPoints) * xUnit, np.array(yPoints) * yUnit
+    return np.array(x_points) * x_unit, np.array(y_points) * y_unit
 
 # Plotting:
 TraceMethodCtrl.register(Trace_FixedDT,    'plotpoints', lambda tr: (tr._time, tr._data) )

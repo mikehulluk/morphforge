@@ -69,10 +69,10 @@ class MorphologyConverter():
 
         # Create the root section:
         x,y,z,r = array._vertices[dummy_vertex_index]
-        dummySection = Section( region=None,x=x,y=y,z=z,r=r )
+        dummy_section = Section( region=None,x=x,y=y,z=z,r=r )
 
 
-        index_to_section_map[dummy_vertex_index] = dummySection
+        index_to_section_map[dummy_vertex_index] = dummy_section
 
 
         indices_to_visit = collections.deque([dummy_vertex_index])
@@ -95,10 +95,10 @@ class MorphologyConverter():
                     index_of_connection = array.index_of_connection(index,conn)
 
                     # Create the region, if it doesn't already exist:
-                    rgnInt =  array._section_types[index_of_connection]
+                    rgn_int =  array._section_types[index_of_connection]
 
 
-                    rgn_name = region_number_to_name_bidict.int_to_region_name(int=rgnInt)
+                    rgn_name = region_number_to_name_bidict.int_to_region_name(int=rgn_int)
 
                     if rgn_name is None:
                         rgn=None

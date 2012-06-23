@@ -130,8 +130,8 @@ def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, ad
     # Create a new trace
 
     #if type(tr) == Trace_FixedDT
-    #trNew = Trace_FixedDT(time=new_time, data=new_data )
-    trNew = type(tr)(time=new_time, data=new_data )
-    return copy_trace_attrs(tr,trNew, name=name, comment=comment, tags=tags, add_tags=add_tags)
+    #tr_new = Trace_FixedDT(time=new_time, data=new_data )
+    tr_new = type(tr)(time=new_time, data=new_data )
+    return copy_trace_attrs(tr,tr_new, name=name, comment=comment, tags=tags, add_tags=add_tags)
 
 
