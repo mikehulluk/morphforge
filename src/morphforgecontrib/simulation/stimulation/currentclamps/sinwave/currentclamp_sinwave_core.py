@@ -36,10 +36,11 @@ from morphforge.simulation.core.stimulation import CurrentClamp
 
 
 class CurrentClamp_SinWave(CurrentClamp):
-    def __init__(self, amp, freq, delay, bias, celllocation, name=None):
+    def __init__(self, amp, freq, delay, bias,**kwargs ):
+        super(CurrentClamp_SinWave, self).__init__(**kwargs) 
         self.amp = amp
         self.freq = freq
         self.delay = delay
         self.bias=bias
-        CurrentClamp.__init__(self, name=name, celllocation=celllocation )
+        #CurrentClamp.__init__(self, name=name, celllocation=celllocation )
         #self.celllocation = celllocation

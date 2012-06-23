@@ -68,9 +68,10 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
 
 class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
-    def __init__( self, simulation, amp, dur, delay, celllocation, name=None):
-        CurrentClampStepChange.__init__(self, name=name, amp=amp, dur=dur, delay=delay, celllocation=celllocation )
-        NeuronObject.__init__(self, name=name, simulation=simulation )
+    def __init__( self, **kwargs): #simulation, amp, dur, delay, celllocation, name=None):
+        #CurrentClampStepChange.__init__(self, name=name, amp=amp, dur=dur, delay=delay, celllocation=celllocation )
+        #NeuronObject.__init__(self, name=name, simulation=simulation )
+        super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
 
 
     def build_hoc(self, hocfile_obj):

@@ -131,12 +131,13 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
 
 class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
-    def __init__(self, simulation,  amp, freq, delay,bias, celllocation, name=None):
+    def __init__(self, **kwargs):# simulation,  amp, freq, delay,bias, celllocation, name=None):
         #assert False, "Resolve the multiple inheritance of the name!"
-        name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
+        super(Neuron_CurrentClamp_SinWave, self).__init__(**kwargs)
+        #name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
 
-        NeuronObject.__init__(self, simulation=simulation, name=name)
-        CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )
+        #NeuronObject.__init__(self, simulation=simulation, name=name)
+        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )
 
 
     def build_hoc(self, hocfile_obj):

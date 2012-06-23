@@ -32,10 +32,12 @@
 
 from morphforge.core.quantities.fromcore import unit
 from morphforge.constants.stdrecordables import StdRec
+from morphforge.simulation.core.base_classes import NamedSimulationObject
 
-class Stimulation(object):
-    def __init__(self, name, celllocation):
-        self.name = name
+class Stimulation(NamedSimulationObject):
+    def __init__(self, celllocation, **kwargs):
+        print kwargs.keys()
+        super(Stimulation, self).__init__(**kwargs)
         self.celllocation = celllocation
 
 class CurrentClamp(Stimulation):
@@ -50,8 +52,8 @@ class VoltageClamp(Stimulation):
 
 class CurrentClampStepChange(CurrentClamp):
 
-    def __init__(self, name, amp, dur, delay, celllocation, **kwargs):
-        super(CurrentClamp, self).__init__(name=name, celllocation=celllocation)
+    def __init__(self, amp, dur, delay, **kwargs):
+        super(CurrentClampStepChange, self).__init__(**kwargs) 
         self.amp = unit(amp)
         self.dur = unit(dur)
         self.delay = unit(delay)
@@ -60,8 +62,10 @@ class CurrentClampStepChange(CurrentClamp):
 
 class VoltageClampStepChange(VoltageClamp):
 
-    def __init__(self, name, dur1, amp1, celllocation, dur2="0:ms", dur3="0:ms", amp2="0:mV", amp3='0:mV', rs="0.1:MOhm"):
-        super(VoltageClamp, self).__init__(name=name, celllocation=celllocation)
+    def __init__(self, dur1, amp1,
+                dur2="0:ms", dur3="0:ms", amp2="0:mV", 
+                amp3='0:mV', rs="0.1:MOhm", **kwargs):
+        super(VoltageClamp, self).__init__(**kwargs)
 
         self.dur1 = unit(dur1)
         self.dur2 = unit(dur2)

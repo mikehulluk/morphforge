@@ -51,9 +51,9 @@ def build_voltageclamp_soma_simulation(env, V,mech_builder, morphology):
     apply_mechanism_everywhere_uniform(cell=my_cell, mechanism = mech_builder(env=sim.environment) )
 
     soma_loc = my_cell.get_location("soma")
-    voltage_rec = my_cell.get_recordable( what=my_cell.Recordables.MembraneVoltage, name="SomaVoltage", location = soma_loc)
+    voltage_rec = my_cell.get_recordable( simulation=sim, what=my_cell.Recordables.MembraneVoltage, name="SomaVoltage", location = soma_loc)
     sim.add_recordable(voltage_rec)
 
     vc = sim.create_voltageclamp( name="Stim1", amp1=unit("-81.5:mV"),amp2=unit(V), amp3=unit("-81.5:mV"), dur1=unit("100:ms"),  dur2=unit("100:ms"),  dur3=unit("100:ms"), celllocation=soma_loc)
-    sim.add_recordable( vc.get_recordable(what = vc.Recordables.Current, name="VCCurrent") )
+    sim.add_recordable( vc.get_recordable(simulation=sim, what = vc.Recordables.Current, name="VCCurrent") )
     return sim

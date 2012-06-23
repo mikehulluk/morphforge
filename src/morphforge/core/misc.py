@@ -101,7 +101,7 @@ class FileIO(object):
 
     @classmethod
     def get_hash_md5(cls, filename):
-        StrUtils.get_hash_md5(FileIO.read_from_file(filename))
+        return StrUtils.get_hash_md5(FileIO.read_from_file(filename))
 
 
 class SeqUtils(object):

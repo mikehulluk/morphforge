@@ -33,9 +33,10 @@
 from morphforge.simulation.core.base_classes import NamedSimulationObject
 
 class NeuronObject(NamedSimulationObject):
-    """ Base Class for Neuron Object """
-
-
+    """ Base class for objects in a NEURON simulation.
+    
+    This includes cells, stimulations, recordables, templates, ....
+    """
 
     def build_hoc(self, hocfile_obj):
         raise NotImplementedError()

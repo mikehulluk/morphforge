@@ -66,9 +66,10 @@ class VoltageClampCurrentRecord(NeuronRecordable):
 
 class MNeuronVoltageClampStepChange(VoltageClampStepChange ,NeuronObject):
 
-    def __init__( self, name, simulation, **kwargs):
-        VoltageClampStepChange.__init__(self, name=name, **kwargs )
-        NeuronObject.__init__(self, name=name, simulation=simulation )
+    def __init__(self,  **kwargs):
+        super(MNeuronVoltageClampStepChange,self).__init__(**kwargs)
+        #VoltageClampStepChange.__init__(self, name=name, **kwargs )
+        #NeuronObject.__init__(self, name=name, simulation=simulation )
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.VoltageClamp( hocfile_obj=hocfile_obj, voltageclamp=self)

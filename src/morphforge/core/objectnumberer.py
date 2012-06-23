@@ -39,7 +39,6 @@ class ObjectLabeller(object):
     @classmethod
     def increment_count_for_object(cls, obj):
         newcnt = cls.objectcount.get(obj, 0) + 1
-
         cls.objectcount[obj] = newcnt
         return newcnt
 

@@ -31,13 +31,15 @@
 
 
 import itertools
-from morphforge.core.objectnumberer import ObjectLabeller
+#from morphforge.core.objectnumberer import ObjectLabeller
+from morphforge.simulation.core.base_classes import NamedSimulationObject
 
-class Recordable(object):
+class Recordable(NamedSimulationObject):
 
-    def __init__(self, name=None, description=None, user_tags=None, **kwargs):
+    def __init__(self, description=None, user_tags=None, **kwargs):
+        super(Recordable, self).__init__(**kwargs)
 
-        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(obj_type=Recordable, prefix="AnonRec")
+        #self.name = name if name else ObjectLabeller.get_next_unamed_object_name(obj_type=Recordable, prefix="AnonRec")
         self.user_tags = user_tags if user_tags else []
         self._description = description
 

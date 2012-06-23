@@ -33,10 +33,11 @@
 from biophysics import CellBiophysics
 
 from morphforge.constants import StdRec
-from morphforge.core.objectnumberer import ObjectLabeller
+#from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.quantities.fromcore import unit
+from morphforge.simulation.core.base_classes import NamedSimulationObject
 
-class Cell(object):
+class Cell(NamedSimulationObject):
 
 
 
@@ -53,14 +54,15 @@ class Cell(object):
         return self._cell_type if self._cell_type else "<?>"
 
 
-    def __init__(self,    morphology, simulation, name= None, segmenter=None, initial_voltage=None, cell_tags = [], cell_type=None, **kwargs):
+    def __init__(self,  morphology,  segmenter=None, initial_voltage=None, cell_tags = [], cell_type=None, **kwargs):
         from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
+        super(Cell,self).__init__(**kwargs)
 
 
 
 
-        self.simulation = simulation
-        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Cell, 'AnonCell_')
+        #self.simulation = simulation
+        #self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Cell, 'AnonCell_')
         self.morphology = morphology
         self._cell_type = cell_type
 

@@ -135,9 +135,12 @@ BREAKPOINT{
 
 class NeuronGapJunction(GapJunction, NeuronObject):
 
-    def __init__(self, simulation, **kwargs):
-        NeuronObject.__init__(self, simulation=simulation, **kwargs)
-        GapJunction.__init__(self, **kwargs)
+    def __init__(self,  **kwargs):
+        print NeuronGapJunction.__mro__
+        #assert False
+        super(NeuronGapJunction, self).__init__(**kwargs)
+        #NeuronObject.__init__(self, simulation=simulation, **kwargs)
+        #GapJunction.__init__(self, **kwargs)
         #super(NeuronGapJunction,self).__init__(**kwargs)
 
 

@@ -29,6 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+#from morphforge.simulation.core.base_classes import NamedSimulationObject
 
 class Synapse(object):
 
@@ -66,7 +67,8 @@ class Synapse(object):
 
 class GapJunction(object):
 
-    def __init__(self, celllocation1, celllocation2, resistance):
+    def __init__(self, celllocation1, celllocation2, resistance, **kwargs):
+        super(GapJunction,self).__init__(**kwargs)
         self.celllocation1 = celllocation1
         self.celllocation2 = celllocation2
         self.resistance = resistance
