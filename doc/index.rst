@@ -1,4 +1,9 @@
 
+.. inheritance-diagram:: morphforge.simulation.core.biophysics.membranemechanism.MembraneMechanism
+    :parts: 1
+
+.. inheritance-diagram:: morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron.NeuroML_Via_NeuroUnits_ChannelNEURON
+    :parts: 1
 
 Overview
 ---------

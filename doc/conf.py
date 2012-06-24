@@ -30,7 +30,24 @@ sys.path.append('../src/')
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosummary', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc', 
+    'sphinx.ext.autosummary',
+    'sphinx.ext.doctest',
+    'sphinx.ext.todo',
+    'sphinx.ext.pngmath',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.inheritance_diagram',
+    ]
+
+
+inheritance_graph_attrs = dict(rankdir="LR", size='"9.0, 8.0"',
+                               fontsize=14, ratio='compress')
+inheritance_node_attrs = dict(shape='ellipse', fontsize=14, height=0.75,
+                              color='dodgerblue1', style='filled')
+
+
 
 autodoc_default_flags =['undoc-members', 'members']
 
