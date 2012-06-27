@@ -57,17 +57,7 @@ Installing Morphforge
 
 
 
-The ToolBox at a glance
----------------------------------
 
-
-.. toctree::
-   :maxdepth: 1
-
-   /srcs/packages/package_overview.rst
-
-   /srcs/packages/morphology.rst
-   /srcs/packages/simulation.rst
 
 
 
@@ -84,14 +74,30 @@ Examples
 
 
 
-
-
-
-What else is in the toolbox
-----------------------------
+The ToolBox at a glance
+---------------------------------
 
 
 .. toctree::
+   :maxdepth: 1
+
+   /srcs/packages/package_overview.rst
+
+To Delete
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+    /srcs/packages/morphology.rst
+    /srcs/packages/simulation.rst
+
+
+To Delete What else is in the toolbox
+----------------------------
+
+
+. . toctree::
    :maxdepth: 2
    
    /srcs/packages/package_morphforge

@@ -31,16 +31,25 @@
 
 
 class PluginDict(object):
+    """ Basic component for making features of morphforge 'pluggable'.
+    
+    This class simply wraps a dictionary, and exposes some methods to make
+    the intention of code clearer.
+    """
 
-    def __init__(self, ):
+    def __init__(self,):
         self.dict = {}
 
-    def register_plugin(self,key,value):
-        assert not key in self.dict
-        self.dict[key] = value
+    def register_plugin(self,plugin_name, plugin):
+        """ Registers a plugin"""
 
-    def get_plugin(self,key):
-        assert key in self.dict
-        return self.dict[key]
+        assert not plugin_name in self.dict
+        self.dict[plugin_name] = plugin
+
+    def get_plugin(self,plugin_name):
+        """ Returns a previously registered plugin"""
+
+        assert plugin_name in self.dict
+        return self.dict[plugin_name]
 
 

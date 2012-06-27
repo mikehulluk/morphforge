@@ -44,7 +44,7 @@ from misc import merge_dictionaries, check_cstyle_varname
 from misc import is_iterable, FileIO
 from misc import SeqUtils, StrUtils
 
-from mockcontrol import MockControl
+#from mockcontrol import MockControl
 
 from objectnumberer import ObjectLabeller
 
@@ -67,6 +67,6 @@ __all__ = [
     'Join',
     'PluginDict',
     'MFRandom',
-    'MockControl',
+    #'MockControl',
     ]
 

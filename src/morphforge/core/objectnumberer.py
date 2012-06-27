@@ -33,11 +33,18 @@
 
 
 class ObjectLabeller(object):
+    """ Provides names for internal use for annoymous objects
+   
+    Often, we need to automatically generate names for objects. For example,
+    a user might not nessesarily provide names for all cells in simulations, 
+    but the simulator will expect variable names to refer to them. This class
+    provides methods to create new names of objects, based on thier type.
+    """
 
     objectcount = {}
 
     @classmethod
-    def increment_count_for_object(cls, obj):
+    def _get_and_increment_count_for_object(cls, obj):
         newcnt = cls.objectcount.get(obj, 0) + 1
         cls.objectcount[obj] = newcnt
         return newcnt
@@ -49,11 +56,13 @@ class ObjectLabeller(object):
         prefix=None,
         num_fmt_string=None,
         ):
+        """ Returns the next 'anonymous' name for an object of 'obj_type'.
+        """
         if num_fmt_string is None:
             num_fmt_string = '%04d'
         if prefix is None:
             prefix = 'Unamed' + str(obj_type.__name__)
         return prefix + num_fmt_string \
-            % ObjectLabeller.increment_count_for_object(obj_type)
+            % ObjectLabeller._get_and_increment_count_for_object(obj_type)
 
 
