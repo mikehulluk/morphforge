@@ -494,7 +494,7 @@ EQNSET syn_simple {
 """
 
 
-class PostSynapticTemplate(object):
+#class PostSynapticTemplate(object):
 
 
 def onto_driver(sim, postsynaptic, times):

@@ -61,7 +61,7 @@ def _resolve_time_range(time_range):
 
 
 class DefaultPlotSpec:
-    Voltage =            PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV)  )
+    Voltage =            PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV), yunit=pq.millivolt  )
     CurrentDensity =     PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  )
     Current =            PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp )
     Conductance =        PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" )

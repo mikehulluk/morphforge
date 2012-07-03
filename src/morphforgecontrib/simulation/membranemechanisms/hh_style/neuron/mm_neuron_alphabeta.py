@@ -46,6 +46,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 class MM_Neuron_AlphaBeta_Record(NeuronRecordableOnLocation):
     def __init__(self, alphabeta_chl, modvar, **kwargs):
+        print 'kwargs2:', kwargs
         super( MM_Neuron_AlphaBeta_Record, self).__init__(**kwargs)
         self.alphabeta_chl = alphabeta_chl
         self.modvar=modvar
@@ -140,6 +141,15 @@ class MM_Neuron_AlphaBeta(MM_AlphaBetaChannel,MM_Neuron_Base):
 
     def get_recordable(self, what,  **kwargs):
 
+        # Allow what to be a state-variable, but we need to remap it internally:
+        if what in self.statevars.keys():
+            assert not 'state' in kwargs
+            kwargs['state'] = what
+            what = MM_AlphaBetaChannel.Recordables.StateVar
+        #print self.statevars.keys()
+        #assert False
+
+        print 'kwargs', kwargs
         recorders = {
               MM_AlphaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBeta_CurrentDensityRecord,
               MM_AlphaBetaChannel.Recordables.ConductanceDensity: MM_Neuron_AlphaBeta_ConductanceDensityRecord,

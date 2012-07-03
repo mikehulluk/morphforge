@@ -67,7 +67,7 @@ class DBScan(object):
                 noise.append(i)
             else:
                 new_cluster = set()
-                cls.expand_cluster(pt_index=i, npoints=n_points, C=new_cluster, eps=eps, pts=pts, min_pts=min_pts,  visited_indices=visited_indices, clusters=clusters)
+                cls.expand_cluster(pt_index=i, npoints=n_points, cluster=new_cluster, eps=eps, pts=pts, min_pts=min_pts,  visited_indices=visited_indices, clusters=clusters)
                 clusters.append(new_cluster)
 
         return clusters, noise
