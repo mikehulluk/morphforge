@@ -36,18 +36,15 @@ import socket
 import random
 
 
-#~import os.path as fs
-#from os.path import exists as Exists
 from os.path import join as Join
 
-#from morphforge.core.misc import StrUtils
 
 
 
 
 class LocMgr(object):
 
-    locations = {}
+    _locations = {}
 
 
 
@@ -59,25 +56,25 @@ class LocMgr(object):
         return location
 
     @classmethod
-    def ensure_dir_exists(cls, location):
+    def ensure_dir_exists(cls, dir_location):
         """ Helper function that will make directories if they don't exist.
 
         Useful for temporary locations"""
 
-        if location and not os.path.exists(location):
+        if dir_location and not os.path.exists(dir_location):
             from logmgr import LogMgr
-            LogMgr.info("Creating FS Location - " + location)
-            if  not os.path.exists(location): os.makedirs(location)
-        return cls.validate_exists(location)
+            LogMgr.info("Creating FS Location - " + dir_location)
+            if  not os.path.exists(dir_location): os.makedirs(dir_location)
+        return cls.validate_exists(dir_location)
 
 
     @classmethod
     def get_root_path(cls):
         # Load it from the .rc file:
-        if not "rootdir" in cls.locations:
-            cls.locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../" ) )
-            cls.validate_exists(cls.locations["rootdir"])
-        return cls.validate_exists(cls.locations["rootdir"])
+        if not "rootdir" in cls._locations:
+            cls._locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../" ) )
+            cls.validate_exists(cls._locations["rootdir"])
+        return cls.validate_exists(cls._locations["rootdir"])
 
 
     @classmethod
@@ -108,15 +105,15 @@ class LocMgr(object):
         if not RCMgr.has_config():
             return default
 
-        if not subsection in cls.locations:
+        if not subsection in cls._locations:
 
             if RCMgr.has("Locations", subsection):
-                cls.locations[subsection] = RCMgr.get("Locations", subsection)
+                cls._locations[subsection] = RCMgr.get("Locations", subsection)
             else:
-                cls.locations[subsection] = default
+                cls._locations[subsection] = default
 
-        cls.locations[subsection] = cls.locations[subsection].replace("${PID}", "%d" % os.getpid())
-        return cls.ensure_dir_exists(cls.locations[subsection])
+        cls._locations[subsection] = cls._locations[subsection].replace("${PID}", "%d" % os.getpid())
+        return cls.ensure_dir_exists(cls._locations[subsection])
 
 
 
@@ -194,9 +191,9 @@ class LocMgr(object):
 
     @classmethod
     def get_test_srcs_path(cls):
-        return cls.validate_exists(Join(cls.get_root_path(), "../test_data"))
+        return cls.validate_exists(Join(cls.get_root_path(), "morphforge_testdata"))
 
     @classmethod
     def get_test_mods_path(cls):
-        return cls.validate_exists(Join(cls.get_test_srcs_path(), "test_mods"))
+        return cls.validate_exists(Join(cls.get_test_srcs_path(), "mod_files"))
 

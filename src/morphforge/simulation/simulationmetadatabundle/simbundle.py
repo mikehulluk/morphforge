@@ -42,13 +42,14 @@ import cPickle
 
 
 
-# This class is a work around for the circular loop caused by not being able to store the md5 hash of an object
-# within that object:
+# This class is a work around for the circular loop caused by not being 
+# able to store the md5 hash of an object within that object:
 
 class SimMetaDataBundleBase(object):
 
     def __init__(self, sim):
-        super(SimMetaDataBundleBase, self).__init__(sim=sim)
+        super(SimMetaDataBundleBase, self).__init__()
+        self.sim = sim
         self.simmd5sum = StrUtils.get_hash_md5(cPickle.dumps(sim))
         self.postsimulationactions = []
 
@@ -71,71 +72,14 @@ class SimMetaDataBundleBase(object):
 
 
 
+class SimMetaDataBundle(SimMetaDataBundleBase) :
 
-
-
-
-
-class MixinSimLoc_AsObject(object):
     def __init__(self, sim):
-        self.sim = sim
+        super(SimMetaDataBundle, self).__init__(sim=sim)
+        self.metadata = {}
 
     def get_simulation(self):
         return self.sim
-
-    def sim_loc_prepare(self):
-        pass
-
-
-class MixinSimLoc_AsFile(object):
-    def __init__(self, sim, location=LocMgr.get_simulation_tmp_dir(), suffix=".neuronsim.pickle"):
-
-        super(MixinSimLoc_AsFile, self).__init__()
-
-        self.location = location
-        self.suffix = suffix
-        self.picklestring = cPickle.dumps(sim)
-
-        self.simfilename = None
-        self.sim_postload = None
-
-
-
-    def _get_filename(self):
-        if not self.simfilename:
-            simlocation_with_dir = LocMgr.ensure_dir_exists(self.location + self.get_sim_md5sum()[0:1])
-            simfile_short = self.get_sim_md5sum() + self.suffix
-            self.simfilename = Join(simlocation_with_dir, simfile_short)
-        return self.simfilename
-
-    def sim_loc_prepare(self):
-        FileIO.write_to_file(txt=self.picklestring, filename=self.get_filename())
-        self.picklestring = None
-
-    def get_simulation(self):
-        if not self.sim_postload:
-            self.sim_postload = cPickle.load(open(self.simfilename))
-        return self.sim_postload
-
-
-
-class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
-
-#class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsFile):
-
-    def __init__(self, sim):
-
-        super(SimMetaDataBundle, self).__init__(sim=sim)
-
-        self.metadata = {}
-        self.prepare()
-
-
-    def prepare(self):
-        self.sim_loc_prepare()
-
-
-
 
 
     def _write_to_file(self, bundlefilename=None):
@@ -145,7 +89,6 @@ class SimMetaDataBundle(SimMetaDataBundleBase, MixinSimLoc_AsObject):
         if not bundlefilename:
             loc = bundlefilename = LocMgr.ensure_dir_exists(bundleloc + "/" + self.get_sim_md5sum()[0:2])
             bundlefilename = loc + "/" + self.get_sim_md5sum() + bundlesuffix
-            #print "Bundle Filename", bundlefilename
 
         FileIO.write_to_file(txt=cPickle.dumps(self) , filename=bundlefilename)
         return bundlefilename

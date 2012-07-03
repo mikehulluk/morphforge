@@ -13,7 +13,7 @@ morphology: force_look
 	$(MAKE) -C morphology/ 
 
 assorted: force_look
-	$(MAKE) -C assorted/ 
+	#$(MAKE) -C assorted/ 
 
 multicell_simulation: force_look
 	$(MAKE) -C multicell_simulation/ 

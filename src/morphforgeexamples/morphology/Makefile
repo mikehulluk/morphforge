@@ -1,6 +1,6 @@
 
 srcs := $(wildcard *.py)
-outputs := $(patsubst Figure%.py,Figure%.py.out,$(srcs))
+outputs := $(patsubst %.py,%.py.out,$(srcs))
 
 
 
@@ -11,6 +11,6 @@ clean:
 	
 
 %.py.out: %.py
-	export MF_PLOT="OFF"; python $< > $@ 2>&1
+	export MREORG_BATCHRUN="OFF"; python $< > $@ 2>&1
 
 

@@ -34,7 +34,7 @@ import numpy as np
 
 from morphforge.core import  FileIO
 import subprocess
-from morphforge.core import RCMgr, MockControl
+from morphforge.core import RCMgr
 from morphforge.simulation.core import Simulation, SimulationResult
 
 from morphforge.simulation.simulationmetadatabundle.builders import MetaDataBundleBuilder
@@ -144,6 +144,7 @@ class MNeuronSimulation(Simulation):
 
 
         # Generate Random data:
+        from morphforge.core.mockcontrol import MockControl
         if MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 

@@ -49,7 +49,7 @@ import pylab
 # Load a morphology from an SWC File, and look at the surface area and
 # volume of the different section types
 testSrcsPath = mf.LocMgr().get_test_srcs_path()
-srcSWCFile = mf.Join(testSrcsPath, "swc_srcs/28o_spindle20aFI.CNG.swc")
+srcSWCFile = mf.Join(testSrcsPath, "swc_files/28o_spindle20aFI.CNG.swc")
 morph = mf.MorphologyTree.fromSWC(src=open(srcSWCFile))
 
 

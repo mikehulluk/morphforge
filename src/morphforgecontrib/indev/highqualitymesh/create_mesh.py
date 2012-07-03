@@ -32,17 +32,15 @@
 
 
 import numpy as np
-import itertools
 import os
-from morphforge.morphology.core.tree import MorphPath, MorphLocation
 from scipy.spatial.distance import pdist, squareform
 from morphforge.morphology.mesh.mesh import TriangleMesh
-from morphforge.morphology.mesh.writer_ply import MeshWriterPLY
+
 
 
 class GeomTools(object):
     @classmethod
-    def produce_sphere(cls, location, radius, n_steps):
+    def produce_sphere(cls, centre, radius, n_steps):
 
         angles_step = ((2*np.pi)/n_steps)
 
@@ -54,9 +52,9 @@ class GeomTools(object):
         for az in az_angles:
             for th in theta_angles:
                 r = 1.0 # np.random.normal(loc=1.0, scale=0.001)
-                x = r * radius * np.cos(th) + location[0]
-                y = r * radius * np.sin(th) * np.sin(az) + location[1]
-                z = r * radius * np.sin(th) * np.cos(az) + location[2]
+                x = r * radius * np.cos(th) + centre[0]
+                y = r * radius * np.sin(th) * np.sin(az) + centre[1]
+                z = r * radius * np.sin(th) * np.cos(az) + centre[2]
                 pts.append ( (x,y,z) )
 
         return pts
@@ -145,8 +143,6 @@ class MeshFromGTS(object):
         #m = m.to_tree()
         surface_sections = {}
         for s in m:
-            #if MorphPath( MorphLocation(m.get_root_sections()[0], 0.5), MorphLocation(s, 0.5) ).get_length() > 150:
-            #    continue
             sect_surface = cls.buildsectionsurface(s)
             surface_sections[s] = sect_surface
 
@@ -175,8 +171,8 @@ class MeshFromGTS(object):
         nstep = 5
         print 'Building Spheres'
         distal_offset = np.array((0.05,0.05,0.05) )
-        ptsP = GeomTools.produce_sphere(location=s.get_proximal_npa3(),radius=s.p_r,n_steps=nstep  )
-        ptsD = GeomTools.produce_sphere(location=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep  )
+        ptsP = GeomTools.produce_sphere(centre=s.get_proximal_npa3(),radius=s.p_r,n_steps=nstep  )
+        ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep  )
 
         print 'Removing Close Points'
         pts = cls.only_pts_at_min_dist( ptsP+ ptsD, min_dist=0.01 )
