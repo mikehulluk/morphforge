@@ -40,7 +40,7 @@ class MFRandom(object):
 
     This is centralised so that a seed can be set in a single place in order
     to make simulations repeatable. This is particularly relevant in the case
-    of NEURON simulations, which are spawned  in another process.
+    of NEURON simulations, which are saved and spawned in another process.
     """
 
     _seed = None
