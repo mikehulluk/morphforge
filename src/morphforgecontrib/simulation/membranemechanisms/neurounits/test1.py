@@ -175,18 +175,18 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels )
 somaLoc = myCell.get_location("soma")
 
 # Create the simulous:
-mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
 # Define what to record:
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
 #mySim.recordall( leakChannels, where=somaLoc)
 
-mySim.record(hhChannels, what="i", celllocation=somaLoc )
-mySim.record(hhChannels, what="g", celllocation=somaLoc, user_tags=[StandardTags.ConductanceDensity])
-mySim.record(hhChannels, what="m", celllocation=somaLoc, user_tags=[StandardTags.StateVariable])
-mySim.record(hhChannels, what="mult", celllocation=somaLoc, user_tags=[StandardTags.StateVariable])
-mySim.record(hhChannels, what="h", celllocation=somaLoc, user_tags=[StandardTags.StateVariable])
+mySim.record(hhChannels, what="i", cell_location=somaLoc )
+mySim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
+mySim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+mySim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+mySim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
 
 # run the simulation
 results = mySim.run()

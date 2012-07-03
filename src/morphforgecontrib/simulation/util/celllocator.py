@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 
+assert False
 #import itertools
 
 from morphforge.morphology.util.morphlocator import MorphLocator

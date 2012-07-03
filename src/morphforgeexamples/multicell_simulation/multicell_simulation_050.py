@@ -98,14 +98,14 @@ def simulate_chls_on_neuron():
                                      NeuroUnitEqnsetPostSynaptic,
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     celllocation = somaLoc1
+                                     cell_location = somaLoc1
                                      )
             )
 
     syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
-                                     celllocation=somaLoc1,
+                                     cell_location=somaLoc1,
                                      voltage_threshold=unit("0:mV"),
                                      delay=unit('1:ms'),
                                      weight = unit("1:nS")),
@@ -113,12 +113,12 @@ def simulate_chls_on_neuron():
                                      NeuroUnitEqnsetPostSynaptic,
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     celllocation = somaLoc2
+                                     cell_location = somaLoc2
                                      )
             )
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
 
     # Define what to record:

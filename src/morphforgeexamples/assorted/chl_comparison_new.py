@@ -88,7 +88,7 @@ def simulate_chl_vclamp(chl, voltage_level):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
     cc = mySim.create_voltageclamp( name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
@@ -96,7 +96,7 @@ def simulate_chl_vclamp(chl, voltage_level):
                                    dur2=unit("500:ms"), amp2=voltage_level,
                                    #dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
                                    dur3=unit("500:ms"), amp3=unit("-50:mV"),
-                                   celllocation=somaLoc,
+                                   cell_location=somaLoc,
                                    )
 
 

@@ -90,7 +90,7 @@ class CellAnalysis_StepInputResponse(object):
 
         soma_loc = cell.get_location("soma")
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", celllocation=soma_loc)
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", cell_location=soma_loc)
 
         sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
@@ -195,9 +195,9 @@ class CellAnalysis_ReboundResponse(object):
 
         soma_loc = cell.get_location("soma")
 
-        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", celllocation=soma_loc)
-        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", celllocation=soma_loc)
-        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", celllocation=soma_loc)
+        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", cell_location=soma_loc)
+        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", cell_location=soma_loc)
+        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", cell_location=soma_loc)
 
         sim.record( cc1, name="Current1",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record( cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
@@ -271,7 +271,7 @@ class CellAnalysis_IVCurve(object):
 
         soma_loc = cell.get_location("soma")
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, celllocation=soma_loc)
+        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, cell_location=soma_loc)
         sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
 
         res = sim.run()

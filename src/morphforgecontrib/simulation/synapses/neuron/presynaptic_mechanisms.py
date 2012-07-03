@@ -52,8 +52,8 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
 
 
     def build_hoc(self, hocfile_obj):
-        cell =self.celllocation.cell
-        section = self.celllocation.morphlocation.section
+        cell =self.cell_location.cell
+        section = self.cell_location.morphlocation.section
         syn_name = self.synapse.get_name()
         syn_name_post = hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"]["synnamepost"]
         syn_name_pre = self.synapse.get_name() + "Pre"
@@ -66,7 +66,7 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
                "cell":cell,
                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
-               "sectionpos":self.celllocation.morphlocation.sectionpos,
+               "sectionpos":self.cell_location.morphlocation.sectionpos,
 
                "threshold": self.voltage_threshold ,
                "delay": self.delay,

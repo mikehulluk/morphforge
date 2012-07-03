@@ -87,14 +87,14 @@ class HocBuilder(object):
     @classmethod
     def VoltageClamp(cls, hocfile_obj, voltageclamp ):
 
-        cell = voltageclamp.celllocation.cell
-        section = voltageclamp.celllocation.morphlocation.section
+        cell = voltageclamp.cell_location.cell
+        section = voltageclamp.cell_location.morphlocation.section
         data = {
                 "stimname":voltageclamp.name,
                 "cell":cell,
                 "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                 "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
-                "sectionpos":voltageclamp.celllocation.morphlocation.sectionpos,
+                "sectionpos":voltageclamp.cell_location.morphlocation.sectionpos,
 
                 "dur1":voltageclamp.dur1.rescale("ms").magnitude,
                 "dur2":voltageclamp.dur2.rescale("ms").magnitude,
@@ -119,14 +119,14 @@ class HocBuilder(object):
 
     @classmethod
     def CurrentClamp(cls, hocfile_obj, currentclamp ):
-        cell = currentclamp.celllocation.cell
-        section = currentclamp.celllocation.morphlocation.section
+        cell = currentclamp.cell_location.cell
+        section = currentclamp.cell_location.morphlocation.section
         data = {
                 "stimname":currentclamp.name,
                 "cell":cell,
                 "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                 "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
-                "sectionpos":currentclamp.celllocation.morphlocation.sectionpos,
+                "sectionpos":currentclamp.cell_location.morphlocation.sectionpos,
                 "dur":currentclamp.dur.rescale("ms").magnitude,
                 "delay":currentclamp.delay.rescale("ms").magnitude,
                 "amp":currentclamp.amp.rescale("nA").magnitude

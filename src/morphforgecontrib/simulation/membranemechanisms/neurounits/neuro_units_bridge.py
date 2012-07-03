@@ -65,7 +65,7 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             celllocation=self.where,
+                                             cell_location=self.where,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.src_chl.NRNSUFFIX,
                                              recordobj=self)
@@ -158,7 +158,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
     def _get_recordable_symbols(self):
         return [ s.symbol for s in list(self.eqnset.states) + list(self.eqnset.assignedvalues) + list(self.eqnset.suppliedvalues) + list(self.eqnset.parameters) ]
 
-    def get_recordable(self, what, celllocation, **kwargs):
+    def get_recordable(self, what, cell_location, **kwargs):
 
         # Map it through the recordables_map, so that we can alias to StandardTags:
         what = self.recordables_map.get(what,what)
@@ -175,7 +175,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen( src_chl=self, modvar=what, where=celllocation, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return MM_Neuron_RecGen( src_chl=self, modvar=what, where=cell_location, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 

@@ -131,25 +131,25 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
 
 class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
-    def __init__(self, **kwargs):# simulation,  amp, freq, delay,bias, celllocation, name=None):
+    def __init__(self, **kwargs):# simulation,  amp, freq, delay,bias, cell_location, name=None):
         #assert False, "Resolve the multiple inheritance of the name!"
         super(Neuron_CurrentClamp_SinWave, self).__init__(**kwargs)
         #name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
 
         #NeuronObject.__init__(self, simulation=simulation, name=name)
-        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, celllocation=celllocation, name=name )
+        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, cell_location=cell_location, name=name )
 
 
     def build_hoc(self, hocfile_obj):
-        cell = self.celllocation.cell
-        section = self.celllocation.morphlocation.section
+        cell = self.cell_location.cell
+        section = self.cell_location.morphlocation.section
 
         data = {
                "stimname": self.get_name(),
                "cell":cell,
                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
-               "sectionpos":self.celllocation.morphlocation.sectionpos,
+               "sectionpos":self.cell_location.morphlocation.sectionpos,
 
                "freq": self.freq,
                "amp": self.amp,

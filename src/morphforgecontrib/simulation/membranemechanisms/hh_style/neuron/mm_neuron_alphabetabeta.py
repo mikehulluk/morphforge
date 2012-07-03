@@ -59,7 +59,7 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             celllocation=self.where,
+                                             cell_location=self.where,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(), recordobj=self)
 
@@ -159,7 +159,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #        #self.name = name
 #        self.alphaBetaBetaBetaChl = alphaBetaBetaBetaChl
 #        self.modvar=modvar
-#        #self.celllocation = celllocation
+#        #self.cell_location = cell_location
 #
 #    def get_unit(self):
 #        return unit("mA/cm2")
@@ -168,7 +168,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #
 #
 #    def build_hoc(self, hocfile_obj):
-#        HocModUtils.create_record_from_modfile( hocfile_obj, vecname="RecVec%s"%self.name, celllocation=self.celllocation, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
+#        HocModUtils.create_record_from_modfile( hocfile_obj, vecname="RecVec%s"%self.name, cell_location=self.cell_location, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 #
 #    def build_mod(self, modfile_set):
 #        pass
@@ -214,8 +214,8 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
     def get_recordable(self, what, name, **kwargs):
         #assert False
 
-        celllocation = kwargs["celllocation"] if "celllocation" in kwargs else kwargs["where"]
-        if "celllocation" in kwargs: del kwargs["celllocation"]
+        cell_location = kwargs["cell_location"] if "cell_location" in kwargs else kwargs["where"]
+        if "cell_location" in kwargs: del kwargs["cell_location"]
         if "where" in kwargs: del kwargs["where"]
 
         recorders = {
@@ -223,7 +223,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
 
         }
 
-        return recorders[what]( alphabeta_beta_chl=self, celllocation= celllocation, name=name, **kwargs  )
+        return recorders[what]( alphabeta_beta_chl=self, cell_location= cell_location, name=name, **kwargs  )
 
 
     def get_mod_file_changeables(self):

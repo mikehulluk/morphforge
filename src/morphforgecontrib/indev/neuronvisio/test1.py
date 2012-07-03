@@ -93,7 +93,7 @@ for loc in locations:
     sim.record( cell, cell_location=loc, what=Cell.Recordables.MembraneVoltage, description="Distance Recording" )
 
 
-cc = sim.create_currentclamp( name="cclamp", amp='250:pA', dur="4:ms", delay="100:ms", celllocation=somaLoc)
+cc = sim.create_currentclamp( name="cclamp", amp='250:pA', dur="4:ms", delay="100:ms", cell_location=somaLoc)
 
 
 

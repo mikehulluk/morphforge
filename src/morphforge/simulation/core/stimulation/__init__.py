@@ -35,10 +35,10 @@ from morphforge.constants.stdrecordables import StdRec
 from morphforge.simulation.core.base_classes import NamedSimulationObject
 
 class Stimulation(NamedSimulationObject):
-    def __init__(self, celllocation, **kwargs):
+    def __init__(self, cell_location, **kwargs):
         print kwargs.keys()
         super(Stimulation, self).__init__(**kwargs)
-        self.celllocation = celllocation
+        self.cell_location = cell_location
 
 class CurrentClamp(Stimulation):
     class Recordables(object):

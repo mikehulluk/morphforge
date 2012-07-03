@@ -48,11 +48,11 @@ class HocModUtils(object):
     """%initial_buffer_size
 
     @classmethod
-    def create_record_from_modfile( cls, hocfile_obj, vecname, celllocation, modvariable, mod_neuronsuffix, recordobj   ):
+    def create_record_from_modfile( cls, hocfile_obj, vecname, cell_location, modvariable, mod_neuronsuffix, recordobj   ):
 
-        cell = celllocation.cell
-        section = celllocation.morphlocation.section
-        sectionpos = celllocation.morphlocation.sectionpos
+        cell = cell_location.cell
+        section = cell_location.morphlocation.section
+        sectionpos = cell_location.morphlocation.sectionpos
 
         section_index =  hocfile_obj[MHocFileData.Cells][cell]["section_indexer"][section]
 

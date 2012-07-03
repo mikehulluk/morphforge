@@ -157,7 +157,7 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp( name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), celllocation=somaLoc)
+cc = mySim.create_currentclamp( name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 mySim.record( cc, what=StdRec.Current)
 mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location=somaLoc )

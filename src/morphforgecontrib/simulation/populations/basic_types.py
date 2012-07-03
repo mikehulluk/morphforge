@@ -97,7 +97,7 @@ class NeuronPopulation(object):
         location_func = location_func or ( lambda cell: cell.get_location("soma") )
         cell_location=location_func(cell)
 
-        kw_utf = { 'celllocation':cell_location,'neuron_population':self,'neuron':cell}
+        kw_utf = { 'cell_location':cell_location,'neuron_population':self,'neuron':cell}
 
         functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
         r = self.sim.record( cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)

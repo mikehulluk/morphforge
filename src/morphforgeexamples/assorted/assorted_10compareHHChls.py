@@ -162,14 +162,14 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
     apply_mechanism_everywhere_uniform(myCell, kChls )
 
 
-    mySim.record(naChls, what='m', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(naChls, what='mtau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(naChls, what='m', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
-    mySim.record(naChls, what='h', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(naChls, what='htau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(naChls, what='h', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
-    mySim.record(kChls, what='n', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
-    mySim.record(kChls, what='ntau', celllocation= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
+    mySim.record(kChls, what='n', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVariable] )
+    mySim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
 
 
@@ -329,7 +329,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
 
     # Define what to record:

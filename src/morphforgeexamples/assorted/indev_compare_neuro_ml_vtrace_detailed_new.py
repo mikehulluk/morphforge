@@ -145,13 +145,13 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), celllocation=somaLoc)
+    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
     cc = mySim.create_voltageclamp( name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
                                    dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
-                                   celllocation=somaLoc,
+                                   cell_location=somaLoc,
                                    )
 
 
@@ -270,12 +270,12 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_neuro( env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_neuro )
-        sim.add_recordable( chl_neuro.get_recordable( 'h', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="h") )
-        #sim.add_recordable( chl_neuro.get_recordable( 's', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="s") )
-        sim.add_recordable( chl_neuro.get_recordable( 'h_inf', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf") )
-        sim.add_recordable( chl_neuro.get_recordable( 'h_tau', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="htau") )
-        #sim.add_recordable( chl_neuro.get_recordable( 'I', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="I") )
-        sim.add_recordable( chl_neuro.get_recordable( 'g', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="g") )
+        sim.add_recordable( chl_neuro.get_recordable( 'h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h") )
+        #sim.add_recordable( chl_neuro.get_recordable( 's', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="s") )
+        sim.add_recordable( chl_neuro.get_recordable( 'h_inf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf") )
+        sim.add_recordable( chl_neuro.get_recordable( 'h_tau', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="htau") )
+        #sim.add_recordable( chl_neuro.get_recordable( 'I', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="I") )
+        sim.add_recordable( chl_neuro.get_recordable( 'g', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="g") )
         return chl_neuro
 
     # via xsl transformation:
@@ -284,12 +284,12 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_xsl(env, cell, sim ):
 
         apply_mechanism_everywhere_uniform(cell, chl_xsl )
-        sim.add_recordable( chl_xsl.get_recordable( 'h', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="h") )
-        #sim.add_recordable( chl_xsl.get_recordable( 's', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="s") )
-        sim.add_recordable( chl_xsl.get_recordable( 'hinf', celllocation=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf") )
-        sim.add_recordable( chl_xsl.get_recordable( 'htau', celllocation=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau") )
-        #sim.add_recordable( chl_xsl.get_recordable( 'ik', celllocation=cell.get_location("soma"), nrn_unit=unit("mA/cm2"),  name="I") )
-        sim.add_recordable( chl_xsl.get_recordable( 'gion', celllocation=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g") )
+        sim.add_recordable( chl_xsl.get_recordable( 'h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h") )
+        #sim.add_recordable( chl_xsl.get_recordable( 's', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="s") )
+        sim.add_recordable( chl_xsl.get_recordable( 'hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf") )
+        sim.add_recordable( chl_xsl.get_recordable( 'htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau") )
+        #sim.add_recordable( chl_xsl.get_recordable( 'ik', cell_location=cell.get_location("soma"), nrn_unit=unit("mA/cm2"),  name="I") )
+        sim.add_recordable( chl_xsl.get_recordable( 'gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g") )
         #sim.simulation_objects.append( NEURONHACKRevVoltageSetter(cell=cell, ion="ek", value=unit("-90:mV")) )
         return chl_xsl
 

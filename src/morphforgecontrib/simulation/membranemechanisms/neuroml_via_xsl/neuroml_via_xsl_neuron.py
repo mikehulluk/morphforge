@@ -134,8 +134,8 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
     def get_defaults(self):
         return {}
 
-    def get_recordable(self, what, celllocation, nrn_unit, **kwargs):
-        return MM_Neuron_RecGen( src_chl=self, modvar=what, where=celllocation, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
+    def get_recordable(self, what, cell_location, nrn_unit, **kwargs):
+        return MM_Neuron_RecGen( src_chl=self, modvar=what, where=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
 
 
 

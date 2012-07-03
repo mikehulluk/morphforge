@@ -80,7 +80,7 @@ def sim( glk_multiplier, gna_multiplier, tag):
         mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location=cell_location, user_tags=[tag])
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), celllocation=myCell.get_location("soma"))
+    cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=myCell.get_location("soma"))
     mySim.record( cc, what=StdRec.Current)
 
     # run the simulation

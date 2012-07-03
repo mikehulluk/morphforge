@@ -36,6 +36,7 @@ from morphforge.constants import StdRec
 #from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.core.base_classes import NamedSimulationObject
+from morphforge.simulation.core.celllocation import CellLocation
 
 class Cell(NamedSimulationObject):
 
@@ -84,7 +85,6 @@ class Cell(NamedSimulationObject):
 
 
     def get_location(self, idtag, sectionpos=0.5):
-        from celllocation import CellLocation
         return CellLocation(cell=self, section=self.morphology.get_section(idtag=idtag), sectionpos=sectionpos)
 
     def get_region(self, region_name):

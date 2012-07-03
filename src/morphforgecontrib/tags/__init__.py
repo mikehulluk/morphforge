@@ -53,11 +53,11 @@ class UserTagFunctorCellLocation(object):
 class NeuronInPopulationRecordTags(object):
 
     @classmethod
-    def get_tags(cls, neuron, neuron_population, celllocation):
+    def get_tags(cls, neuron, neuron_population, cell_location):
         tags = []
 
-        if celllocation.section.idtag:
-            tags.append( "SECTION:%s"%celllocation.section.idtag)
+        if cell_location.section.idtag:
+            tags.append( "SECTION:%s"%cell_location.section.idtag)
 
         tags.append( neuron.name )
         tags.append( neuron_population.pop_name )

@@ -163,7 +163,7 @@ class SimulationSummariser(object):
             table_header = ['Name', 'Location', 'Delay', 'Amplitude', 'Duration']
             data = [table_header, ]
             for cc in self.simulation.get_currentclamps():
-                cellname = cc.celllocation.cell.name
+                cellname = cc.cell_location.cell.name
                 data.append( [ cc.name, cellname, cc.delay, cc.amp, cc.dur ] )
 
             local_elements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
@@ -176,7 +176,7 @@ class SimulationSummariser(object):
             table_header = ['Name', 'Location', 'Dur1', 'Dur2', 'Dur3', 'Amp1','Amp2','Amp3']
             data = [table_header, ]
             for vc in self.simulation.get_voltageclamps():
-                cellname = vc.celllocation.cell.name
+                cellname = vc.cell_location.cell.name
                 data.append( [ vc.name, cellname, vc.dur1, vc.dur2, vc.dur3, vc.amp1, vc.amp2, vc.amp3 ] )
 
             local_elements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )

@@ -54,7 +54,7 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             celllocation=self.where,
+                                             cell_location=self.where,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.leak_chl.get_neuron_suffix(), recordobj=self)
 

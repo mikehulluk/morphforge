@@ -85,7 +85,7 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
     syn = sim.create_synapse(
                 presynaptic_mech =  env.PreSynapticMechanism(
                                                 PreSynapticMech_VoltageThreshold,
-                                                celllocation =  presynaptic.get_location('soma'),
+                                                cell_location =  presynaptic.get_location('soma'),
                                                 voltage_threshold = threshold,
                                                 delay=delay,
                                                 weight=conductance * multiplier),
@@ -93,7 +93,7 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
                 postsynaptic_mech = env.PostSynapticMechanism(
                                                 synapse_parameters.synapse_type,
                                                 simulation=sim,
-                                                celllocation = postsynaptic.get_location('soma'),
+                                                cell_location = postsynaptic.get_location('soma'),
                                                 tau_open = t_opening,
                                                 tau_close=t_closing,
                                                 e_rev=erev,
@@ -134,7 +134,7 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
                 postsynaptic_mech = env.PostSynapticMechanism(
                                                 synapse_parameters.synapse_type,
                                                 simulation=sim,
-                                                celllocation = postsynaptic.get_location('soma'),
+                                                cell_location = postsynaptic.get_location('soma'),
                                                 tau_open = t_opening,
                                                 tau_close=t_closing,
                                                 e_rev=erev,

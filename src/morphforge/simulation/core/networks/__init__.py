@@ -104,11 +104,11 @@ class PreSynapticMechanism(object):
 
 
 class PostSynapticMech(object):
-    def __init__(self,celllocation ):
-        self.celllocation = celllocation
+    def __init__(self,cell_location ):
+        self.cell_location = cell_location
         self.synapse = None
 
     def get_postsynaptic_cell(self):
-        return self.celllocation.cell
+        return self.cell_location.cell
 
 

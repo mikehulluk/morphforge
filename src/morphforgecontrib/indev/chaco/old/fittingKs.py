@@ -488,8 +488,8 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    def getInputStimulus(self, sim, cell):
 #        somaLoc = cell.get_location("soma")
-#        s1 = sim.create_currentclamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), celllocation=somaLoc)
-#        s2 = sim.create_currentclamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), celllocation=somaLoc)
+#        s1 = sim.create_currentclamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), cell_location=somaLoc)
+#        s2 = sim.create_currentclamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), cell_location=somaLoc)
 #        return None
 
 

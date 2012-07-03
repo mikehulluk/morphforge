@@ -42,5 +42,5 @@ class CurrentClamp_SinWave(CurrentClamp):
         self.freq = freq
         self.delay = delay
         self.bias=bias
-        #CurrentClamp.__init__(self, name=name, celllocation=celllocation )
-        #self.celllocation = celllocation
+        #CurrentClamp.__init__(self, name=name, cell_location=cell_location )
+        #self.cell_location = cell_location

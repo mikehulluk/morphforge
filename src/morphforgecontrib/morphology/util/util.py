@@ -37,10 +37,10 @@ from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
 
 
-def cell_location_distance_from_soma(celllocation):
+def cell_location_distance_from_soma(cell_location):
 
-    morph = celllocation.cell.morphology
+    morph = cell_location.cell.morphology
     sect_dist_dict = SectionVistorFactory.dict_section_proximal_dist_from_soma(morph, soma_centre=False)()
-    section_dist = sect_dist_dict[celllocation.morphlocation.section]
-    celllocdist = section_dist + celllocation.morphlocation.section.get_length() * celllocation.morphlocation.sectionpos
+    section_dist = sect_dist_dict[cell_location.morphlocation.section]
+    celllocdist = section_dist + cell_location.morphlocation.section.get_length() * cell_location.morphlocation.sectionpos
     return celllocdist
