@@ -169,7 +169,8 @@ def run_example(index,filename):
 
     # Turn off plotting:
     env = os.environ.copy()
-    env['MF_PLOT'] = 'OFF'
+    env['MREORG_NOSHOW'] = "True"
+    env['MREORG_SAVEALL'] = "True"
 
     cmd = """python %s"""%newFilename
     args = shlex.split(cmd)
