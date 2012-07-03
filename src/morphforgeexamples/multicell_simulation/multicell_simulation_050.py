@@ -83,7 +83,7 @@ def simulate_chls_on_neuron():
     apply_mechanism_everywhere_uniform( myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) )
     apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
-    # Get a location on the cell:
+    # Get a cell_location on the cell:
     somaLoc1 = myCell1.get_location("soma")
     somaLoc2 = myCell2.get_location("soma")
 
@@ -122,8 +122,8 @@ def simulate_chls_on_neuron():
 
 
     # Define what to record:
-    mySim.record( myCell1, what=StdRec.MembraneVoltage, name="SomaVoltage1", location = somaLoc1 )
-    mySim.record( myCell2, what=StdRec.MembraneVoltage, name="SomaVoltage2", location = somaLoc2 )
+    mySim.record( myCell1, what=StdRec.MembraneVoltage, name="SomaVoltage1", cell_location = somaLoc1 )
+    mySim.record( myCell2, what=StdRec.MembraneVoltage, name="SomaVoltage2", cell_location = somaLoc2 )
 
 
     # run the simulation

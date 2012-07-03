@@ -49,11 +49,11 @@ class LocMgr(object):
 
 
     @classmethod
-    def validate_exists(cls, location):
+    def validate_exists(cls, cell_location):
         """ Helper function to ensure that returned path actually does exist"""
-        if location and not os.path.exists(location):
-            raise ValueError("Directory does not exist: %s"% location)
-        return location
+        if cell_location and not os.path.exists(cell_location):
+            raise ValueError("Directory does not exist: %s"% cell_location)
+        return cell_location
 
     @classmethod
     def ensure_dir_exists(cls, dir_location):

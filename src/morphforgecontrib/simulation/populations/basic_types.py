@@ -95,12 +95,12 @@ class NeuronPopulation(object):
         user_tags = user_tags or []
         user_tag_functors = user_tag_functors or  StdTagFunctors.get_record_functors_neuron()
         location_func = location_func or ( lambda cell: cell.get_location("soma") )
-        location=location_func(cell)
+        cell_location=location_func(cell)
 
-        kw_utf = { 'celllocation':location,'neuron_population':self,'neuron':cell}
+        kw_utf = { 'celllocation':cell_location,'neuron_population':self,'neuron':cell}
 
         functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
-        r = self.sim.record( cell, location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
+        r = self.sim.record( cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
         return r
 
 

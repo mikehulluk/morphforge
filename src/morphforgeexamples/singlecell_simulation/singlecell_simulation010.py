@@ -69,7 +69,7 @@ apply_mechanism_everywhere_uniform(myCell, leakChannels )
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
 
-# Get a location on the cell:
+# Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
@@ -77,7 +77,7 @@ cc = mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:
 
 
 # Define what to record:
-mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
+mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
 mySim.recordall( leakChannels, where=somaLoc)
 
 

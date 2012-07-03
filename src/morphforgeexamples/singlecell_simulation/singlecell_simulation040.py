@@ -132,7 +132,7 @@ def simulate(current_inj_level):
     apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
 
 
-    # Get a location on the cell:
+    # Get a cell_location on the cell:
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
@@ -140,7 +140,7 @@ def simulate(current_inj_level):
     mySim.record(cc, what=StdRec.Current)
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, location = somaLoc )
+    mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location = somaLoc )
 
     # run the simulation
     results = mySim.run()

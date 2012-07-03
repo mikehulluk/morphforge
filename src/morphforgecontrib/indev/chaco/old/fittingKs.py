@@ -386,7 +386,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #        # Record Voltages:
-#        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
+#        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
 #
 #
 #

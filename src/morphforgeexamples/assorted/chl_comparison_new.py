@@ -84,7 +84,7 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
 
-    # Get a location on the cell:
+    # Get a cell_location on the cell:
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
@@ -101,7 +101,7 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
+    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
     mySim.record( cc, what=StdRec.Current, name="CurrentClamp" )
 
 

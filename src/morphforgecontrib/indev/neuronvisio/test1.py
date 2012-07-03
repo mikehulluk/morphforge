@@ -77,7 +77,7 @@ apply_passive_everywhere_uniform(cell, PassiveProperty.AxialResistance, unit('40
 
 
 somaLoc = cell.get_location("soma")
-sim.record( cell, name="SomaVoltage", location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage" )
+sim.record( cell, name="SomaVoltage", cell_location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage" )
 
 distances = range(50, 3000, 100)
 morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances )
@@ -90,7 +90,7 @@ locations = [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs ]
 print len(distances), len(morph_locs )
 
 for loc in locations:
-    sim.record( cell, location=loc, what=Cell.Recordables.MembraneVoltage, description="Distance Recording" )
+    sim.record( cell, cell_location=loc, what=Cell.Recordables.MembraneVoltage, description="Distance Recording" )
 
 
 cc = sim.create_currentclamp( name="cclamp", amp='250:pA', dur="4:ms", delay="100:ms", celllocation=somaLoc)
@@ -105,7 +105,7 @@ for cell in sim.get_cells():
         rec_dict[cell][seg] = {}
 
 
-        rec = sim.record( cell, location=seg.get_cell_location(), what=Cell.Recordables.MembraneVoltage )
+        rec = sim.record( cell, cell_location=seg.get_cell_location(), what=Cell.Recordables.MembraneVoltage )
         rec_dict[cell][seg]['V'] = rec.name
 
         print rec

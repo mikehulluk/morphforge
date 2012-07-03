@@ -201,7 +201,7 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     so_filename_build_short = _build_modfile_local(mod_filename_short=modfilenamebase,modfile=modfile)
     os.chdir(initial_cwd)
 
-    # CopyFile to output location:
+    # CopyFile to output cell_location:
     so_filename_build = os.path.join(build_dir, so_filename_build_short)
     if so_filename_build != so_filename_output:
         shutil.move(so_filename_build, so_filename_output)

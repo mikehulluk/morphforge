@@ -103,7 +103,7 @@ apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
 apply_mechanism_everywhere_uniform(myCell, kChannels )
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
 
-# Get a location on the cell:
+# Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
@@ -125,11 +125,11 @@ for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell
     path = MorphPath( somaLoc, cell_location)
     print "Distance to Soma Centre:", path.get_length()
 
-    mySim.record( myCell, what=StdRec.MembraneVoltage, location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length() )
+    mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length() )
 
 
 # Define what to record:
-mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
+mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
 
 # run the simulation
 results = mySim.run()

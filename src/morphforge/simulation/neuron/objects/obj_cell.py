@@ -59,12 +59,12 @@ ${recVecName}.buffer_size(%d)
 ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectionpos ) )
     """%initial_buffer_size
 
-    def __init__(self, cell, location=None, **kwargs):
+    def __init__(self, cell, cell_location=None, **kwargs):
 
         #print 'kwargs', kwargs.keys()
         super(MembraneVoltageRecord,self).__init__(**kwargs)
         self.cell = cell
-        self.location = location if location is not None else cell.get_location("soma")
+        self.cell_location = cell_location if cell_location is not None else cell.get_location("soma")
 
 
 
@@ -75,14 +75,14 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         return [StandardTags.Voltage]
 
     def get_description(self):
-        r = "Vm %s"%self.location.cell.name
-        t = ":%s"% self.location.morphlocation.section.idtag if self.location.morphlocation.section.idtag else ""
+        r = "Vm %s"%self.cell_location.cell.name
+        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
         return r + t
 
 
     def build_hoc(self, hocfile_obj):
-        cell = self.location.cell
-        section = self.location.morphlocation.section
+        cell = self.cell_location.cell
+        section = self.cell_location.morphlocation.section
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
@@ -96,7 +96,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
                     "recVecName": self.name,
                     "cellname":cell_name,
                     "sectionindex":section_index,
-                    "sectionpos":self.location.morphlocation.sectionpos,
+                    "sectionpos":self.cell_location.morphlocation.sectionpos,
                     }
         print tmpl_dict
 

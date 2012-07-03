@@ -171,7 +171,7 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels )
 
 
 
-# Get a location on the cell:
+# Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the simulous:
@@ -179,7 +179,7 @@ mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"),
 
 
 # Define what to record:
-mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc, description='Membrane Voltage')
+mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
 #mySim.recordall( leakChannels, where=somaLoc)
 
 mySim.record(hhChannels, what="i", celllocation=somaLoc )

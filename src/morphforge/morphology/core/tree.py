@@ -391,7 +391,7 @@ class Region(object):
 
 
 class MorphLocation(object):
-    """A MorphLocations represents a location (more accurately a disk) on a
+    """A MorphLocations represents a cell_location (more accurately a disk) on a
     morphology. It is specied by a Section, and the proportion of the distance
     along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0
     (most distal) (like NEURON).
@@ -413,7 +413,7 @@ class MorphLocation(object):
 
 
     def get_3d_position(self,):
-        """Returns the 3D position of the morphology location"""
+        """Returns the 3D position of the morphology cell_location"""
         local_vector = self.sectionpos * self.section.get_proximal_to_distal_vector_npa3()
         return self.section.get_proximal_npa3() + local_vector
 

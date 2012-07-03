@@ -50,14 +50,14 @@ class MembraneMechanismSummariser(object):
 
 
     @classmethod
-    def summarise_all(cls, location, reportlabconfig=None):
+    def summarise_all(cls, cell_location, reportlabconfig=None):
         if not reportlabconfig: reportlabconfig = ReportLabConfig()
 
         for (modelsrc, celltype, channeltype), membranemechanismFunctor in ChannelLibrary.iteritems():
             print "Summarising:", modelsrc, celltype, channeltype
             membranemechanism = membranemechanismFunctor( NeuronSimulationEnvironment() )
             filename = "%s_%s_%s.pdf"%( modelsrc,celltype,channeltype)
-            f_name = Join(location, filename)
+            f_name = Join(cell_location, filename)
             cls.create_pdf(mechanism=membranemechanism, filename=f_name,reportlabconfig=reportlabconfig)
 
 

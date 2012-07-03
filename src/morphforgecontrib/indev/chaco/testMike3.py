@@ -211,7 +211,7 @@ class SimulationConfig(HasTraits):
         sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
 
         # Record Voltages:
-        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = cell.get_location('soma'), description='Membrane Voltage')
+        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
 
 
 

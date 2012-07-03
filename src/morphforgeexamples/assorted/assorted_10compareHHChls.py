@@ -325,7 +325,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
 
 
 
-    # Get a location on the cell:
+    # Get a cell_location on the cell:
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
@@ -333,7 +333,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
 
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", location = somaLoc )
+    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
 
 
     # run the simulation

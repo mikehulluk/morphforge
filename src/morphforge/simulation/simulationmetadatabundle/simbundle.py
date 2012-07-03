@@ -40,8 +40,6 @@ from morphforge.core.misc import StrUtils
 
 import cPickle
 
-
-
 # This class is a work around for the circular loop caused by not being 
 # able to store the md5 hash of an object within that object:
 
