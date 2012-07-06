@@ -240,7 +240,7 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mySim):
 
 
     #for v in vars:
-    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, where=myCell.get_location("soma"))
+    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, cell_location=myCell.get_location("soma"))
     #    mySim.add_recordable(s)
 
 

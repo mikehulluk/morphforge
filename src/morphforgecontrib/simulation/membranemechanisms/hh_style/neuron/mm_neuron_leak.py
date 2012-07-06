@@ -54,7 +54,7 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             cell_location=self.where,
+                                             cell_location=self.cell_location,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.leak_chl.get_neuron_suffix(), recordobj=self)
 
@@ -73,8 +73,8 @@ class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
 
     def get_description(self):
         t1 ="g %s "%( self.leak_chl.name)
-        r = "%s"%self.where.cell.name
-        t = ":%s"% self.where.morphlocation.section.idtag if self.where.morphlocation.section.idtag else ""
+        r = "%s"%self.cell_location.cell.name
+        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
         return t1 + r + t
 
 
@@ -89,8 +89,8 @@ class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
 
     def get_description(self):
         t1 ="i %s "%( self.leak_chl.name)
-        r = "%s"%self.where.cell.name
-        t = ":%s"% self.where.morphlocation.section.idtag if self.where.morphlocation.section.idtag else ""
+        r = "%s"%self.cell_location.cell.name
+        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
         return t1 + r + t
 
 

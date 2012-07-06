@@ -13,6 +13,7 @@ from Cheetah.Template import Template
 
 
 
+import mreorg
 from morphforge.core.mgrs.locmgr import LocMgr
 
 
@@ -30,8 +31,8 @@ examples_build_dir = os.path.join( LocMgr.get_tmp_path(), "mf_doc_build")
 examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
 
 
-dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples', 'assorted' ]
-example_srcs = list( itertools.chain( *[ Glob( Join(examples_src_dir, dir) + "/*.py") for dir in dirs] ) )
+dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples']#, 'assorted' ]
+example_srcs = list( itertools.chain( *[ sorted(Glob( Join(examples_src_dir, dir) + "/*.py") ) for dir in dirs] ) )
 
 
 
@@ -51,8 +52,9 @@ def parse_src_file(filename, docstring):
     d = re.split("""[#][-]+""", d)[-1]
 
     # Remove the docstring:
-    raw_docstring = r'''"""\s*%s\s*"""'''%  re.escape(docstring).strip()
-    d = re.sub(raw_docstring,'', d, re.MULTILINE)
+    if docstring is not None:
+        raw_docstring = r'''"""\s*%s\s*"""'''%  re.escape(docstring).strip()
+        d = re.sub(raw_docstring,'', d, re.MULTILINE)
 
     return d
 
@@ -114,7 +116,7 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
         im_newName_short = im_newName.replace(doc_src_dir,"") #/home/michael/hw/morphforge/doc","")
         im_names.append(im_newName_short)
 
-    title =  [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0]
+    title =  [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0] if docstring else None
 
     title = title or '<Missing Docstring>'
 
@@ -145,8 +147,6 @@ import pylab
 for fig_num,fig_mgr in matplotlib._pylab_helpers.Gcf.figs.iteritems():
     matplotlib._pylab_helpers.Gcf.set_active(fig_mgr)
     pylab.savefig("{{OUTDIR}}out%d.png"%fig_num, facecolor='lightgrey')
-print "DOCSTRING:"
-print globals()['__doc__']
 """
 
 def run_example(index,filename):
@@ -169,18 +169,16 @@ def run_example(index,filename):
 
     # Turn off plotting:
     env = os.environ.copy()
-    env['MREORG_NOSHOW'] = "True"
-    env['MREORG_SAVEALL'] = "True"
+    env['MREORG_BATCHRUN'] = "True"
 
     cmd = """python %s"""%newFilename
     args = shlex.split(cmd)
-    process = subprocess.Popen(args, stdout=subprocess.PIPE,env=env)
-    result = process.communicate()[0]
+    result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env, )
 
 
     # Split the output to get at the docstring:
-    print result
-    output, docstring = result.split("DOCSTRING:")
+    output = result
+    docstring = mreorg.utils.extract_docstring_from_fileobj( open(filename))
 
     # Get the images:
     images = glob.glob(examples_build_dir_image_out + "/*")

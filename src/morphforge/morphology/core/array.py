@@ -33,6 +33,8 @@
 
 """Vertex-based object-model of morphologies.
 
+"""
+doc = """
 
 In this scheme, each *node* has a position :math:`$(x,y,z)$`, and a radius denoted by the green line.
 Each node, except one, has a single parent.

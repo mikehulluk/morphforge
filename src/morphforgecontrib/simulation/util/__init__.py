@@ -48,18 +48,18 @@ def exec_with_prob(p, func):
 
 
 
-def record_from_mechanism( sim, mechanism_name, where, what, on_error_skip=False, user_tags = None, **kwargs ):
+def record_from_mechanism( sim, mechanism_name, cell_location, what, on_error_skip=False, user_tags = None, **kwargs ):
     user_tags = user_tags or []
 
     assert on_error_skip==False
 
 
-    mechs = where.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
+    mechs = cell_location.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
 
     #recs = []
 
     mech = SeqUtils.filter_expect_single( seq=mechs, filter_func= lambda m:m.name==mechanism_name)
-    r = sim.record( mech, what=what, where = where, user_tags = user_tags + [mech.name], **kwargs )
+    r = sim.record( mech, what=what, cell_location = cell_location, user_tags = user_tags + [mech.name], **kwargs )
 
     return r
     #for mech in mechs:
@@ -72,19 +72,19 @@ def record_from_mechanism( sim, mechanism_name, where, what, on_error_skip=False
 
 
 
-def record_from_all_mechanisms( sim, where, what, on_error_skip=False, user_tags = None, **kwargs ):
+def record_from_all_mechanisms( sim, cell_location, what, on_error_skip=False, user_tags = None, **kwargs ):
     user_tags = user_tags or []
 
     assert on_error_skip==False
 
-    cell = where.cell
+    cell = cell_location.cell
 
     mechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
 
     recs = []
     for mech in mechs:
         #print "Recording:", mech
-        r = sim.record( mech, what=what, where = where, user_tags = user_tags + [mech.name], **kwargs )
+        r = sim.record( mech, what=what, cell_location = cell_location, user_tags = user_tags + [mech.name], **kwargs )
         recs.append(r)
 
     return recs

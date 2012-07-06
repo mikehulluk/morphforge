@@ -78,7 +78,7 @@ cc = mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:
 
 # Define what to record:
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
-mySim.recordall( leakChannels, where=somaLoc)
+mySim.recordall( leakChannels, cell_location=somaLoc)
 
 
 # run the simulation

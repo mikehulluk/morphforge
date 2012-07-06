@@ -65,7 +65,7 @@ class MM_Neuron_GeneralisedRecord( NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             cell_location=self.where,
+                                             cell_location=self.cell_location,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.nrnsuffix,
                                              recordobj=self)

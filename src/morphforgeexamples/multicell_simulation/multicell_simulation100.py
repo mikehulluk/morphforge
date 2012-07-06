@@ -31,6 +31,9 @@
 
 
 
+import sys
+sys.exit(0)
+
 import morphforge.stdimports as mf
 import morphforgecontrib.stdimports as mfc
 import pylab

@@ -155,7 +155,7 @@ $(cell_name).internalsections [ $section_index ] {
                         }
                     }
                     """
-        txt =  baseWriter.generate_modfile()
+        txt =  base_writer.generate_modfile()
         mod_file = ModFile(name=alphabeta_beta_chl.name, modtxt=txt )
         modfile_set.append(mod_file)
 

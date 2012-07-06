@@ -198,17 +198,17 @@ class SimulationConfig(HasTraits):
 
         #Record the Currents & Conductances:
         for chlname, mech in mech_dict.iteritems():
-                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.get_location('soma'), name="%s_i"%chlname, description="")
+                sim.record( mech,  what = StdRec.CurrentDensity, cell_location=cell.get_location('soma'), name="%s_i"%chlname, description="")
                 if chlname != 'Ca':
-                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
+                    sim.record( mech,  what = StdRec.ConductanceDensity, cell_location=cell.get_location('soma'), name="%s_g"%chlname, description="")
 
 
 
 
-        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  where = cell.get_location('soma'), description='Kf State')
-        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  where = cell.get_location('soma'), description='Ks State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  where = cell.get_location('soma'), description='Na-m State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  where = cell.get_location('soma'), description='Na-h State')
+        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  cell_location = cell.get_location('soma'), description='Kf State')
+        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  cell_location = cell.get_location('soma'), description='Ks State')
+        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  cell_location = cell.get_location('soma'), description='Na-m State')
+        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  cell_location = cell.get_location('soma'), description='Na-h State')
 
         # Record Voltages:
         sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')

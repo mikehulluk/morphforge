@@ -78,18 +78,18 @@ mySim.record( cc, what=StdRec.Current)
 mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
 
 
-mySim.record( lkChannels, where = somaLoc, what=StdRec.ConductanceDensity )
-mySim.record( naChannels, where = somaLoc, what=StdRec.ConductanceDensity )
-mySim.record( kChannels,  where = somaLoc, what=StdRec.ConductanceDensity )
+mySim.record( lkChannels, cell_location = somaLoc, what=StdRec.ConductanceDensity )
+mySim.record( naChannels, cell_location = somaLoc, what=StdRec.ConductanceDensity )
+mySim.record( kChannels,  cell_location = somaLoc, what=StdRec.ConductanceDensity )
 
-mySim.record( lkChannels, where = somaLoc,what=StdRec.CurrentDensity )
-mySim.record( naChannels, where = somaLoc,what=StdRec.CurrentDensity )
-mySim.record( kChannels,  where = somaLoc, what=StdRec.CurrentDensity )
+mySim.record( lkChannels, cell_location = somaLoc,what=StdRec.CurrentDensity )
+mySim.record( naChannels, cell_location = somaLoc,what=StdRec.CurrentDensity )
+mySim.record( kChannels,  cell_location = somaLoc, what=StdRec.CurrentDensity )
 
 
-mySim.record( naChannels, where = somaLoc, what=StdRec.StateVariable, state="m" )
-mySim.record( naChannels, where = somaLoc, what=StdRec.StateVariable, state="h" )
-mySim.record( kChannels,  where = somaLoc, what=StdRec.StateVariable, state="n" )
+mySim.record( naChannels, cell_location = somaLoc, what=StdRec.StateVariable, state="m" )
+mySim.record( naChannels, cell_location = somaLoc, what=StdRec.StateVariable, state="h" )
+mySim.record( kChannels,  cell_location = somaLoc, what=StdRec.StateVariable, state="n" )
 
 
 # Also:

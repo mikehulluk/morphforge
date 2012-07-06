@@ -57,12 +57,12 @@ class MM_Neuron_AlphaBeta_Record(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             cell_location=self.where,
+                                             cell_location=self.cell_location,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.alphabeta_chl.get_neuron_suffix(), recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.alphabeta_chl.name, self.where.get_location_description_str() )
+        return "%s %s %s" % (self.modvar, self.alphabeta_chl.name, self.cell_location.get_location_description_str() )
 
 
 

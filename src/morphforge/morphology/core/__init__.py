@@ -31,9 +31,14 @@
 
 
 
-"""Object-models for morphology representations.
+""" Object-models for morphology representations.
 
 
+
+
+"""
+
+docs = """
 Dual-Represention of  morphologies
 -----------------------------------
 

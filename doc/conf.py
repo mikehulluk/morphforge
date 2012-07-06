@@ -244,7 +244,7 @@ html_theme = "haiku"
 
 todo_include_todos=True
 
-
+autosummary_generate = True
 
 # AutoDoc:
 def maybe_skip_member(app, what, name, obj, skip, options):
@@ -255,6 +255,10 @@ def maybe_skip_member(app, what, name, obj, skip, options):
         if name.startswith('to') or name.startswith('from'):
             return True
     if name == "__weakref__":
+        return True
+
+    print name
+    if name in ['__weakref__' ,'__dict__','__doc__','__module__']:
         return True
     return False
 

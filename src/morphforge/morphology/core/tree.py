@@ -31,9 +31,7 @@
 
 
 
-
-
-"""Tree-based object-model of morphologies.
+docs = """Tree-based object-model of morphologies.
 
 In the tree based representation, a morphology is considered as a set of
 :py:class:`~.Section`. A :py:class:`~.Section` is an unbranching length

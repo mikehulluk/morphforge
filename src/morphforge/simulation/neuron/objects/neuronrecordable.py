@@ -42,11 +42,11 @@ class NeuronRecordable( Recordable ):
 
 class NeuronRecordableOnLocation(NeuronRecordable):
 
-    def __init__(self, where, **kwargs):
+    def __init__(self, cell_location, **kwargs):
         super(NeuronRecordableOnLocation, self).__init__(**kwargs)
-        self.where = where
+        self.cell_location = cell_location
 
 
     def get_tags(self):
-        return NeuronRecordable.get_tags(self) + list( self.where.cell.cell_tags)
+        return NeuronRecordable.get_tags(self) + list( self.cell_location.cell.cell_tags)
 

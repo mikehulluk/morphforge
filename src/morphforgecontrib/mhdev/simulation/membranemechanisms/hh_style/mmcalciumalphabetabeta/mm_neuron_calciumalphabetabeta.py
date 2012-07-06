@@ -53,13 +53,13 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
         pass
 
     def buildHocRecVar(self, hocfile_obj, vecname, modvar ):
-        HocModUtils.create_record_from_modfile( hocfile_obj, vecname=vecname, cell_location=self.where, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
+        HocModUtils.create_record_from_modfile( hocfile_obj, vecname=vecname, cell_location=self.cell_location, modvariable=modvar, mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(), recordobj=self)
 
     def get_tags(self,):
         return []
 
     def get_description(self):
-        return "%s %s" % ("CaValue", self.where.get_location_description_str() )
+        return "%s %s" % ("CaValue", self.cell_location.get_location_description_str() )
 
 
 
@@ -125,8 +125,6 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_B
 
 
     def get_recordable(self, what,  **kwargs):
-        #cell_location = kwargs["cell_location"] if "cell_location" in kwargs else kwargs["where"]
-        #if "where" in kwargs: del kwargs["where"]
 
         recorders = {
             MM_CalciumAlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_CalciumAlphaBetaBeta_CurrentDensityRecord,

@@ -39,6 +39,9 @@ loading more complex morphologies from files:
 """
 
 from morphologybuilder import MorphologyBuilder
+#from morphologybuilder import DummyClass1
 
 
-__all__ = ['MorphologyBuilder']
+__all__ = ['MorphologyBuilder', 
+           #'DummyClass1' 
+           ]

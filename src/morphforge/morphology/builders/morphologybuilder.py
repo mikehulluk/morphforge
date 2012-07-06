@@ -67,14 +67,12 @@ class MorphologyBuilder(object):
 
 
         if area:
-
             area = _convert_to_unit(area, default_unit="um2" ).rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
 
         else:
             assert isinstance(int,rad) or isinstance(float,rad)
             rad = _convert_to_unit(rad, default_unit="um" ).rescale("um").magnitude
-
 
         soma_region = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)
@@ -99,3 +97,7 @@ class MorphologyBuilder(object):
         return cell
 
 
+
+#class DummyClass1(object):
+#    def a(self):
+#        pass

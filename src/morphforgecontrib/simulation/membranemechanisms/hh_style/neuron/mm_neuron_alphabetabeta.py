@@ -59,12 +59,12 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_modfile( hocfile_obj,
                                              vecname="RecVec%s"%self.name,
-                                             cell_location=self.where,
+                                             cell_location=self.cell_location,
                                              modvariable=self.modvar,
                                              mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(), recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.alphabeta_beta_chl.name, self.where.get_location_description_str() )
+        return "%s %s %s" % (self.modvar, self.alphabeta_beta_chl.name, self.cell_location.get_location_description_str() )
 
 
 
@@ -211,15 +211,15 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
         MM_WriterAlphaBetaBeta.build_mod(alphabeta_beta_chl=self, modfile_set=modfile_set)
 
 
-    def get_recordable(self, what, name, **kwargs):
+    def get_recordable(self, what, name, cell_location, **kwargs):
         #assert False
 
-        cell_location = kwargs["cell_location"] if "cell_location" in kwargs else kwargs["where"]
-        if "cell_location" in kwargs: del kwargs["cell_location"]
-        if "where" in kwargs: del kwargs["where"]
+        #cell_location = kwargs["cell_location"] if "cell_location" in kwargs else kwargs["where"]
+        #if "cell_location" in kwargs: del kwargs["cell_location"]
+        #if "where" in kwargs: del kwargs["where"]
 
         recorders = {
-              MM_AlphaBetaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
+              MM_AlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
 
         }
 

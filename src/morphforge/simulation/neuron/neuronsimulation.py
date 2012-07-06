@@ -37,7 +37,7 @@ import subprocess
 from morphforge.core import RCMgr
 from morphforge.simulation.core import Simulation, SimulationResult
 
-from morphforge.simulation.simulationmetadatabundle.builders import MetaDataBundleBuilder
+from morphforge.simulation.core.simulationmetadatabundle.builders import MetaDataBundleBuilder
 
 from objects import MNeuronBaseSetup
 from simulationdatacontainers import MHocFile, MHocFileData, MModFileSet

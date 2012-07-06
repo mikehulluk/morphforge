@@ -73,7 +73,8 @@ from morphforge.simulationanalysis.summaries import *
 from morphforge.componentlibraries import *
 
 
-from morphforge.simulation.shortcuts import *
+#from morphforge.simulation.shortcuts import *
+from morphforge.simulation.core.biophysics.mta_helpers import *
 
 
 import morphforge.simulation.neuron.objects.obj_cclamp
