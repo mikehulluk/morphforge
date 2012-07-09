@@ -76,9 +76,31 @@ Examples
 
 The ToolBox at a glance
 ---------------------------------
+<<<<<<< HEAD
+=======
 
 
 .. toctree::
+   :maxdepth: 1
+
+   /srcs/packages/package_overview.rst
+>>>>>>> d25b786a83994b945959dfd2b6ceeb9d0b08af89
+
+To Delete
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+    /srcs/packages/morphology.rst
+    /srcs/packages/simulation.rst
+
+
+To Delete What else is in the toolbox
+----------------------------
+
+
+. . toctree::
    :maxdepth: 2
 
    /srcs/packages/package_overview.rst
