@@ -60,8 +60,6 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
     """%initial_buffer_size
 
     def __init__(self, cell, cell_location=None, **kwargs):
-
-        #print 'kwargs', kwargs.keys()
         super(MembraneVoltageRecord,self).__init__(**kwargs)
         self.cell = cell
         self.cell_location = cell_location if cell_location is not None else cell.get_location("soma")
@@ -85,11 +83,6 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
         section = self.cell_location.morphlocation.section
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
-
-
-
-        #nameHoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        #HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=cell_name, objvar="v", recordobj=self )
 
 
         tmpl_dict = {

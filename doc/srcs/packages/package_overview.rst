@@ -1,5 +1,8 @@
-Package Overview
-================
+Overview
+=========
+
+Sub-Packages and Layers
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Morphforge is a large package; it has been split into
 2 main packages:
@@ -34,7 +37,7 @@ and `morphforgecontrib` contains
 
 
 Plugins
-=======
+~~~~~~~
 
 morphforge extensively uses a plugin architecture. Although making the 
 architecture slightly more complex; it means it is possible to write your own
@@ -42,9 +45,12 @@ specialised channel types, synapse models and stimuli, for different simulators
 backends. Typically, plugins are registered globally at the beginning of a 
 simulation via module imports. 
 
+Packages
+========
+
 
 Morphology
-==========
+~~~~~~~~~~~~~~~~
 
 The morphology layer provides object models for loading, saving, traversing, 
 maniulating and visualing neuronal morphologies.  A variety of formats are 
@@ -53,7 +59,7 @@ importers and exporters. Visualisation is possible via MayaVi and matplotlib.
 For more information on morphologies, see XX.
 
 Simulation
-==========
+~~~~~~~~~~~~~~~~
 
 The simulation layer provides the core API for simulator independant
 simulation, defining basic types such as cells, channels, stimuli, synapses, and 
@@ -64,7 +70,7 @@ For more information on simulations, see XX.
 
 
 Simulation Analysis
-====================
+~~~~~~~~~~~~~~~~~~~~
 
 The simulation analysis layer provides tools for processing and visualising the
 results of simulations, such as finding spikes, and plotting graphs.

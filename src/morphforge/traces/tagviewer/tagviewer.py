@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core import is_iterable
+from morphforge.core import unit
 from morphforge.simulation.core import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -209,6 +210,7 @@ class TagViewer(object):
                 # Create the axis:
                 #if not time_axis:
                 ax = self.fig.add_subplot(n_plots, n_time_ranges, i*n_time_ranges + iT  + 1 )
+                ax.set_xunit(unit("ms") )
 
 
                 # Leave the plotting to the PlotSpecification

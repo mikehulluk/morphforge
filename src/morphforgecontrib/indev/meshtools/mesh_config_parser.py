@@ -33,18 +33,19 @@
 
 import ply.lex as lex
 from core import Context, ColorDef
+from core import MeshGenerationOptions
 
 
 
 import ply.yacc as yacc
-import os
-from morphforge.morphology.importer.import_array_swc import NewSWCLoader
-from morphforgecontrib.indev.highqualitymesh.create_mesh import MeshFromGTS
-from morphforge.morphology.mesh.writer_ply import MeshWriterPLY
-from morphforge.morphology.mesh.mesh import TriangleMesh
-from morphforge.core.mgrs.locmgr import LocMgr
-from morphforgecontrib.morphology.util.axontrimmer import AxonTrimmer
-from morphforgecontrib.morphology.util.morphologytranslator import MorphologyTranslator
+#import os
+#from morphforge.morphology.importer.import_array_swc import NewSWCLoader
+#from morphforgecontrib.indev.highqualitymesh.create_mesh import MeshFromGTS
+#from morphforge.morphology.mesh.writer_ply import MeshWriterPLY
+#from morphforge.morphology.mesh.mesh import TriangleMesh
+#from morphforge.core.mgrs.locmgr import LocMgr
+#from morphforgecontrib.morphology.util.axontrimmer import AxonTrimmer
+#from morphforgecontrib.morphology.util.morphologytranslator import MorphologyTranslator
 
 
 reserved = {
@@ -58,12 +59,15 @@ reserved = {
           "COLOR_DEFAULTS" : "COLOR_DEFAULTS_ID",
           "TRIM": "TRIM_ID",
           "OFFSET": "OFFSET_ID",
+          "OPTION_DEFAULTS":"OPTION_DEFAULTS_ID",
+          "MIN_DIAMETER":"MIN_DIAMETER_ID",
             }
 
 
 tokens = [
           "FILENAME",
           "COMMA",
+          "FLOAT",
           "INT",
           "COLON",
           "LBRACE",
@@ -82,6 +86,12 @@ def t_ID(t):
     return t
 
 
+
+def t_FLOAT(t):
+    r"[-+]?[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?"
+    t.value = float(t.value)
+    return t
+
 def t_INT(t):
     r'\d+'
     t.value = int(t.value)
@@ -94,7 +104,6 @@ def t_FILENAME(t):
 def t_COMMENT(t):
     r'\#.*'
     pass
-    # No return value. Token discarded
 
 
 t_COMMA     = r','
@@ -136,12 +145,16 @@ lexer = lex.lex()
 
 
 
+#def p_number(p):
+#    r""" number : INT 
+#                | FLOAT """
+#    p[0] =  float(p[1])
 
 
 # Overall File:
 def p_config_completeB(p):
     r"""config :  config config_block
-               |  config_block """
+               |  config_block"""
     # Don't need to do anything.
 
 
@@ -150,8 +163,31 @@ def p_config_completeB(p):
 def p_configblocksA(p):
     """config_block : color_defaults_block
                     | color_aliases_block
+                    | options_block 
                     | makeply_block """
     # Don't need to do anything.
+
+
+
+
+#Options:
+def p_option_defaults_block(p):
+    r"""options_block :  OPTION_DEFAULTS_ID LBRACE option_block_stmts RBRACE """
+
+def p_option_defaults_block_stmts(p):
+    r"""option_block_stmts : empty
+                           | option_block_stmts option_block_stmt"""
+    # Don't need to do anything.
+
+def p_option_block_block_stmt(p):
+    r"""option_block_stmt : MIN_DIAMETER_ID COLON FLOAT SEMICOLON """
+    # Set the option
+    p.parser.context.global_options[MeshGenerationOptions.minimum_diameter] = float( p[3])
+
+
+
+
+
 
 
 # COLOR_ALIASES

@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -37,12 +38,12 @@ from morphforge.morphology.core import MorphologyTree
 
 
 
-class MorphologyTranslator(object):
+class MorphologyMinimumDiameter(object):
 
 
     @classmethod
-    def translate(cls, morphology, offset):
-        print offset
+    def ensure(cls, morphology, min_diameter):
+        min_radius = min_diameter / 2.0
 
         section_mapping_table = {}
         region_mapping_table = {}
@@ -56,7 +57,7 @@ class MorphologyTranslator(object):
 
         # Create New Sections:
         dummy_root_old = morphology.get_dummy_section()
-        dummy_root_new = Section(region=region_mapping_table[dummy_root_old.region], x=dummy_root_old.d_x + offset[0], y=dummy_root_old.d_y+ offset[1], z=dummy_root_old.d_z + offset[2], r=dummy_root_old.d_r)
+        dummy_root_new = Section(region=region_mapping_table[dummy_root_old.region], x=dummy_root_old.d_x, y=dummy_root_old.d_y, z=dummy_root_old.d_z, r= max(dummy_root_old.d_r, min_radius) )
         section_mapping_table[dummy_root_old] = dummy_root_new
         for sectionOld in morphology:
 
@@ -65,15 +66,25 @@ class MorphologyTranslator(object):
 
             section_new = new_parent.create_distal_section(
                                           region = region_mapping_table[ sectionOld.region ],
-                                          x= sectionOld.d_x + offset[0],
-                                          y= sectionOld.d_y + offset[1],
-                                          z= sectionOld.d_z + offset[2],
-                                          r= sectionOld.d_r,
+                                          x= sectionOld.d_x,
+                                          y= sectionOld.d_y,
+                                          z= sectionOld.d_z,
+                                          r= max(sectionOld.d_r, min_radius) ,
                                           idtag=sectionOld.idtag
                                           )
             section_mapping_table[sectionOld] = section_new
 
-        m = MorphologyTree("translatedNeuron",dummysection = dummy_root_new,metadata={} )
+        m = MorphologyTree(name=None,dummysection = dummy_root_new,metadata={} )
+
+        assert len(m) == len(morphology)
+
+
+        #for s1,s2 in zip( m, morphology):
+        #    print s1, s2
+
+        #assert False
+
+
         return m
 
 

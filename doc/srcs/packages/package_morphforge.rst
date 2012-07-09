@@ -10,3 +10,4 @@ morphforge
    /srcs/packages/simulationanalysis.rst
    /srcs/packages/traces.rst
    /srcs/packages/componentlibraries.rst
+   /srcs/packages/constants.rst

@@ -47,10 +47,10 @@ from misc import SeqUtils, StrUtils
 #from mockcontrol import MockControl
 
 from objectnumberer import ObjectLabeller
-
 from os.path import join as Join
-
 from plugindict import PluginDict
+
+from morphforge.core.quantities import unit, U
 
 __all__ = [
     'LocMgr',
@@ -68,5 +68,6 @@ __all__ = [
     'PluginDict',
     'MFRandom',
     #'MockControl',
+    'unit','U'
     ]
 

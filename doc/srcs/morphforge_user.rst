@@ -79,29 +79,9 @@ The ToolBox at a glance
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    /srcs/packages/package_overview.rst
-
-To Delete
-----------
-
-.. toctree::
-   :maxdepth: 1
-
-    /srcs/packages/morphology.rst
-    /srcs/packages/simulation.rst
-
-
-To Delete What else is in the toolbox
-----------------------------
-
-
-. . toctree::
-   :maxdepth: 2
-   
-   /srcs/packages/package_morphforge
-   /srcs/packages/package_morphforgecontrib
 
 
 For more indepth API information, please see the :doc:`Morphforge Reference Guide </srcs/morphforge_developer>` 

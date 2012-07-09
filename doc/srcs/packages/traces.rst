@@ -1,2 +1,2 @@
-[*] Traces
-==========
+[*] morphforge.simulation.traces
+==================================

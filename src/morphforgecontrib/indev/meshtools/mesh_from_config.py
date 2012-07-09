@@ -87,12 +87,12 @@ MAKEPLY "aIN 471.ply" {
 
 """
 
-from mesh_config_parser import parse_mesh_config
+#from mesh_config_parser import parse_mesh_config
 from mesh_config_parser import parse_zip_file
 #parse_zip_file( zip_in ="/home/michael/Desktop/ply/src.zip",
 #                zip_out = "/home/michael/Desktop/ply/fromPly.zip")
 
-
-parse_zip_file( zip_in ="/home/michael/Desktop/dins_debbie/src.zip",
-                zip_out = "/home/michael/Desktop/dins_debbie/dINsOut.zip")
+print 'A'
+parse_zip_file( zip_in ="/home/michael/Desktop/circuit2/src.zip",
+                zip_out = "/home/michael/Desktop/circuit2/src_out.zip")
 

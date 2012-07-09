@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = '\x91\xc1{\xe3\x1c\x17\xd0?n]^\xd2\x04P\x8c\x91'
-
-_lr_action_items = {'MAKEPLY_ID':([0,2,3,5,6,7,11,19,24,35,],[4,-5,-3,-2,4,-4,-1,-6,-10,-14,]),'STAR':([26,],[30,]),'RBRACE':([9,12,13,14,17,18,20,22,23,25,28,29,36,37,38,39,43,53,56,59,61,62,63,71,72,79,],[-38,-38,19,-7,24,-11,-8,-38,-12,-13,35,-16,-20,-17,-18,-19,-9,-38,-29,-27,68,-26,-21,-24,-28,-25,]),'SEMICOLON':([33,45,47,48,49,50,51,54,55,68,73,],[43,-38,56,-32,-30,-31,-34,63,-22,-23,-33,]),'COLOR_ALIASES_ID':([0,2,3,5,6,7,11,19,24,35,],[1,-5,-3,-2,1,-4,-1,-6,-10,-14,]),'RPAREN':([69,78,],[73,79,]),'OFFSET_ID':([53,67,],[58,58,]),'FILENAME':([4,40,],[10,45,]),'INT':([26,34,41,52,64,66,70,75,77,],[32,44,46,57,69,71,74,76,78,]),'LBRACE':([1,8,10,15,16,45,],[9,12,-38,22,-15,53,]),'REGIONCOLOR_ID':([12,17,18,22,23,25,28,29,36,37,38,39,56,63,],[-38,26,-11,-38,-12,-13,26,-16,-20,-17,-18,-19,-29,-21,]),'TRIM_ID':([53,67,],[60,60,]),'INCLUDE_ID':([22,28,29,36,37,38,39,56,63,],[-38,40,-16,-20,-17,-18,-19,-29,-21,]),'IGNORE_ID':([42,],[48,]),'LPAREN':([27,42,65,],[34,34,70,]),'COLON':([21,30,31,32,46,58,60,],[27,-37,42,-35,-36,65,66,]),'COLOR_DEFAULTS_ID':([0,2,3,5,6,7,11,19,24,35,],[8,-5,-3,-2,8,-4,-1,-6,-10,-14,]),'ID':([9,13,14,20,42,43,],[-38,21,-7,-8,51,-9,]),'COMMA':([30,31,32,44,46,53,57,59,61,62,71,72,74,76,79,],[-37,41,-35,52,-36,-38,64,-27,67,-26,-24,-28,75,77,-25,]),'$end':([2,3,5,6,7,11,19,24,35,],[-5,-3,-2,0,-4,-1,-6,-10,-14,]),}
+_lr_signature = '\xd6\x9f+As\xaa\xe7X\xcb\xeb\xf6\x14$6\x1ab'
+    
+_lr_action_items = {'STAR':([34,],[39,]),'REGIONCOLOR_ID':([15,22,23,27,31,33,36,37,45,46,47,48,67,74,],[-43,34,-16,-43,-17,-18,34,-21,-25,-22,-23,-24,-34,-26,]),'RPAREN':([80,89,],[84,90,]),'SEMICOLON':([42,50,55,58,59,60,61,62,65,66,79,84,],[53,56,-43,67,-37,-35,-36,-39,74,-27,-28,-38,]),'OFFSET_ID':([64,78,],[69,69,]),'MIN_DIAMETER_ID':([14,20,21,28,56,],[-43,30,-8,-9,-10,]),'FILENAME':([4,49,],[12,55,]),'COMMA':([39,40,41,54,57,64,68,70,72,73,82,83,85,87,90,],[-42,51,-40,63,-41,-43,75,-32,78,-31,-29,-33,86,88,-30,]),'COLON':([26,30,39,40,41,57,69,71,],[35,38,-42,52,-40,-41,76,77,]),'$end':([2,3,5,6,7,8,13,24,29,32,44,],[-6,-3,-2,-5,0,-4,-1,-11,-7,-15,-19,]),'RBRACE':([11,14,15,16,17,20,21,22,23,25,27,28,31,33,36,37,45,46,47,48,53,56,64,67,70,72,73,74,82,83,90,],[-43,-43,-43,24,-12,29,-8,32,-16,-13,-43,-9,-17,-18,44,-21,-25,-22,-23,-24,-14,-10,-43,-34,-32,79,-31,-26,-29,-33,-30,]),'LBRACE':([1,9,10,12,18,19,55,],[11,14,15,-43,27,-20,64,]),'LPAREN':([35,52,76,],[43,43,81,]),'ID':([11,16,17,25,52,53,],[-43,26,-12,-13,62,-14,]),'OPTION_DEFAULTS_ID':([0,2,3,5,6,7,8,13,24,29,32,44,],[9,-6,-3,-2,-5,9,-4,-1,-11,-7,-15,-19,]),'MAKEPLY_ID':([0,2,3,5,6,7,8,13,24,29,32,44,],[4,-6,-3,-2,-5,4,-4,-1,-11,-7,-15,-19,]),'COLOR_ALIASES_ID':([0,2,3,5,6,7,8,13,24,29,32,44,],[1,-6,-3,-2,-5,1,-4,-1,-11,-7,-15,-19,]),'FLOAT':([38,],[50,]),'INT':([34,43,51,63,75,77,81,86,88,],[41,54,57,68,80,82,85,87,89,]),'TRIM_ID':([64,78,],[71,71,]),'INCLUDE_ID':([27,36,37,45,46,47,48,67,74,],[-43,49,-21,-25,-22,-23,-24,-34,-26,]),'IGNORE_ID':([52,],[59,]),'COLOR_DEFAULTS_ID':([0,2,3,5,6,7,8,13,24,29,32,44,],[10,-6,-3,-2,-5,10,-4,-1,-11,-7,-15,-19,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'color':([42,],[47,]),'makeply_block_stmt':([28,],[37,]),'color_rgb':([27,42,],[33,49,]),'config_block':([0,6,],[5,11,]),'makeply_block_stmts':([22,],[28,]),'color_aliases_block_stmt':([13,],[20,]),'include_options':([53,],[61,]),'color_defaults_block_stmts':([12,],[17,]),'color_aliases_block_stmts':([9,],[13,]),'int_list':([26,],[31,]),'include_option':([53,67,],[59,72,]),'color_alias':([42,],[50,]),'config':([0,],[6,]),'empty':([9,10,12,22,45,53,],[14,16,18,29,55,62,]),'color_defaults_block_stmt':([17,],[23,]),'region_color_def':([17,28,],[25,36,]),'include_option_set':([45,],[54,]),'makeply_block':([0,6,],[2,2,]),'makeply_block_stmt_include':([28,],[39,]),'color_aliases_block':([0,6,],[7,7,]),'color_defaults_block':([0,6,],[3,3,]),'ply_block_open':([10,],[15,]),'makeply_block_stmt_color':([28,],[38,]),}
+_lr_goto_items = {'color':([52,],[58,]),'makeply_block_stmt':([36,],[46,]),'color_rgb':([35,52,],[42,60,]),'option_block_stmts':([14,],[20,]),'config_block':([0,7,],[5,13,]),'makeply_block_stmts':([27,],[36,]),'color_aliases_block_stmt':([16,],[25,]),'include_options':([64,],[72,]),'color_defaults_block_stmts':([15,],[22,]),'color_aliases_block_stmts':([11,],[16,]),'int_list':([34,],[40,]),'include_option':([64,78,],[70,83,]),'color_alias':([52,],[61,]),'config':([0,],[7,]),'empty':([11,12,14,15,27,55,64,],[17,19,21,23,37,66,73,]),'color_defaults_block_stmt':([22,],[31,]),'option_block_stmt':([20,],[28,]),'region_color_def':([22,36,],[33,45,]),'include_option_set':([55,],[65,]),'makeply_block':([0,7,],[2,2,]),'makeply_block_stmt_include':([36,],[48,]),'options_block':([0,7,],[6,6,]),'color_aliases_block':([0,7,],[8,8,]),'color_defaults_block':([0,7,],[3,3,]),'ply_block_open':([12,],[18,]),'makeply_block_stmt_color':([36,],[47,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -26,42 +26,47 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> config","S'",1,None,None,None),
-  ('config -> config config_block','config',2,'p_config_completeB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',112),
-  ('config -> config_block','config',1,'p_config_completeB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',113),
-  ('config_block -> color_defaults_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',120),
-  ('config_block -> color_aliases_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',121),
-  ('config_block -> makeply_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',122),
-  ('color_aliases_block -> COLOR_ALIASES_ID LBRACE color_aliases_block_stmts RBRACE','color_aliases_block',4,'p_color_aliases_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',129),
-  ('color_aliases_block_stmts -> empty','color_aliases_block_stmts',1,'p_color_aliases_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',133),
-  ('color_aliases_block_stmts -> color_aliases_block_stmts color_aliases_block_stmt','color_aliases_block_stmts',2,'p_color_aliases_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',134),
-  ('color_aliases_block_stmt -> ID COLON color_rgb SEMICOLON','color_aliases_block_stmt',4,'p_color_aliases_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',138),
-  ('color_defaults_block -> COLOR_DEFAULTS_ID LBRACE color_defaults_block_stmts RBRACE','color_defaults_block',4,'p_color_defaults_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',147),
-  ('color_defaults_block_stmts -> empty','color_defaults_block_stmts',1,'p_color_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',151),
-  ('color_defaults_block_stmts -> color_defaults_block_stmts color_defaults_block_stmt','color_defaults_block_stmts',2,'p_color_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',152),
-  ('color_defaults_block_stmt -> region_color_def','color_defaults_block_stmt',1,'p_color_defaults_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',157),
-  ('makeply_block -> MAKEPLY_ID FILENAME ply_block_open LBRACE makeply_block_stmts RBRACE','makeply_block',6,'p_ply_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',170),
-  ('ply_block_open -> empty','ply_block_open',1,'p_ply_block_open','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',174),
-  ('makeply_block_stmts -> empty','makeply_block_stmts',1,'p_ply_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',178),
-  ('makeply_block_stmts -> makeply_block_stmts makeply_block_stmt','makeply_block_stmts',2,'p_ply_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',179),
-  ('makeply_block_stmt -> makeply_block_stmt_color','makeply_block_stmt',1,'p_ply_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',184),
-  ('makeply_block_stmt -> makeply_block_stmt_include','makeply_block_stmt',1,'p_ply_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',185),
-  ('makeply_block_stmt_color -> region_color_def','makeply_block_stmt_color',1,'p_ply_block_stmt_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',190),
-  ('makeply_block_stmt_include -> INCLUDE_ID FILENAME include_option_set SEMICOLON','makeply_block_stmt_include',4,'p_ply_block_stmt_include','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',197),
-  ('include_option_set -> empty','include_option_set',1,'p_include_option_set','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',202),
-  ('include_option_set -> LBRACE include_options RBRACE','include_option_set',3,'p_include_option_set','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',203),
-  ('include_option -> TRIM_ID COLON INT','include_option',3,'p_include_option_trim','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',213),
-  ('include_option -> OFFSET_ID COLON LPAREN INT COMMA INT COMMA INT RPAREN','include_option',9,'p_include_option_offset','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',217),
-  ('include_options -> empty','include_options',1,'p_include_optionsA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',222),
-  ('include_options -> include_option','include_options',1,'p_include_optionsB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',226),
-  ('include_options -> include_options COMMA include_option','include_options',3,'p_include_optionsB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',227),
-  ('region_color_def -> REGIONCOLOR_ID int_list COLON color SEMICOLON','region_color_def',5,'p_region_color_def_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',238),
-  ('color -> color_rgb','color',1,'p_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',244),
-  ('color -> color_alias','color',1,'p_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',245),
-  ('color -> IGNORE_ID','color',1,'p_color3','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',249),
-  ('color_rgb -> LPAREN INT COMMA INT COMMA INT RPAREN','color_rgb',7,'p_color1','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',253),
-  ('color_alias -> ID','color_alias',1,'p_color2','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',257),
-  ('int_list -> INT','int_list',1,'p_int_list','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',263),
-  ('int_list -> int_list COMMA INT','int_list',3,'p_int_list','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',264),
-  ('int_list -> STAR','int_list',1,'p_int_list_star','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',271),
-  ('empty -> <empty>','empty',0,'p_empty','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',276),
+  ('config -> config config_block','config',2,'p_config_completeB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',155),
+  ('config -> config_block','config',1,'p_config_completeB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',156),
+  ('config_block -> color_defaults_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',163),
+  ('config_block -> color_aliases_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',164),
+  ('config_block -> options_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',165),
+  ('config_block -> makeply_block','config_block',1,'p_configblocksA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',166),
+  ('options_block -> OPTION_DEFAULTS_ID LBRACE option_block_stmts RBRACE','options_block',4,'p_option_defaults_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',174),
+  ('option_block_stmts -> empty','option_block_stmts',1,'p_option_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',177),
+  ('option_block_stmts -> option_block_stmts option_block_stmt','option_block_stmts',2,'p_option_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',178),
+  ('option_block_stmt -> MIN_DIAMETER_ID COLON FLOAT SEMICOLON','option_block_stmt',4,'p_option_block_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',182),
+  ('color_aliases_block -> COLOR_ALIASES_ID LBRACE color_aliases_block_stmts RBRACE','color_aliases_block',4,'p_color_aliases_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',196),
+  ('color_aliases_block_stmts -> empty','color_aliases_block_stmts',1,'p_color_aliases_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',200),
+  ('color_aliases_block_stmts -> color_aliases_block_stmts color_aliases_block_stmt','color_aliases_block_stmts',2,'p_color_aliases_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',201),
+  ('color_aliases_block_stmt -> ID COLON color_rgb SEMICOLON','color_aliases_block_stmt',4,'p_color_aliases_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',205),
+  ('color_defaults_block -> COLOR_DEFAULTS_ID LBRACE color_defaults_block_stmts RBRACE','color_defaults_block',4,'p_color_defaults_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',214),
+  ('color_defaults_block_stmts -> empty','color_defaults_block_stmts',1,'p_color_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',218),
+  ('color_defaults_block_stmts -> color_defaults_block_stmts color_defaults_block_stmt','color_defaults_block_stmts',2,'p_color_defaults_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',219),
+  ('color_defaults_block_stmt -> region_color_def','color_defaults_block_stmt',1,'p_color_defaults_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',224),
+  ('makeply_block -> MAKEPLY_ID FILENAME ply_block_open LBRACE makeply_block_stmts RBRACE','makeply_block',6,'p_ply_block','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',237),
+  ('ply_block_open -> empty','ply_block_open',1,'p_ply_block_open','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',241),
+  ('makeply_block_stmts -> empty','makeply_block_stmts',1,'p_ply_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',245),
+  ('makeply_block_stmts -> makeply_block_stmts makeply_block_stmt','makeply_block_stmts',2,'p_ply_block_stmts','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',246),
+  ('makeply_block_stmt -> makeply_block_stmt_color','makeply_block_stmt',1,'p_ply_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',251),
+  ('makeply_block_stmt -> makeply_block_stmt_include','makeply_block_stmt',1,'p_ply_block_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',252),
+  ('makeply_block_stmt_color -> region_color_def','makeply_block_stmt_color',1,'p_ply_block_stmt_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',257),
+  ('makeply_block_stmt_include -> INCLUDE_ID FILENAME include_option_set SEMICOLON','makeply_block_stmt_include',4,'p_ply_block_stmt_include','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',264),
+  ('include_option_set -> empty','include_option_set',1,'p_include_option_set','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',269),
+  ('include_option_set -> LBRACE include_options RBRACE','include_option_set',3,'p_include_option_set','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',270),
+  ('include_option -> TRIM_ID COLON INT','include_option',3,'p_include_option_trim','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',280),
+  ('include_option -> OFFSET_ID COLON LPAREN INT COMMA INT COMMA INT RPAREN','include_option',9,'p_include_option_offset','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',284),
+  ('include_options -> empty','include_options',1,'p_include_optionsA','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',289),
+  ('include_options -> include_option','include_options',1,'p_include_optionsB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',293),
+  ('include_options -> include_options COMMA include_option','include_options',3,'p_include_optionsB','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',294),
+  ('region_color_def -> REGIONCOLOR_ID int_list COLON color SEMICOLON','region_color_def',5,'p_region_color_def_stmt','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',305),
+  ('color -> color_rgb','color',1,'p_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',310),
+  ('color -> color_alias','color',1,'p_color','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',311),
+  ('color -> IGNORE_ID','color',1,'p_color3','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',315),
+  ('color_rgb -> LPAREN INT COMMA INT COMMA INT RPAREN','color_rgb',7,'p_color1','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',319),
+  ('color_alias -> ID','color_alias',1,'p_color2','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',323),
+  ('int_list -> INT','int_list',1,'p_int_list','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',329),
+  ('int_list -> int_list COMMA INT','int_list',3,'p_int_list','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',330),
+  ('int_list -> STAR','int_list',1,'p_int_list_star','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',337),
+  ('empty -> <empty>','empty',0,'p_empty','/home/michael/hw_to_come/morphforge/src/morphforgecontrib/indev/meshtools/mesh_config_parser.py',342),
 ]

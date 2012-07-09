@@ -38,9 +38,11 @@ from morphforge.morphology.mesh.mesh import TriangleMesh
 from morphforge.core.mgrs.locmgr import LocMgr
 from morphforgecontrib.morphology.util.axontrimmer import AxonTrimmer
 from morphforgecontrib.morphology.util.morphologytranslator import MorphologyTranslator
-import numpy as np
+from morphforgecontrib.morphology.util.minimum_diameter import MorphologyMinimumDiameter
+#import numpy as np
 
-
+class MeshGenerationOptions:
+    minimum_diameter = 'MinimumDiameter'
 
 class Context(object):
     def __init__(self, src_zip_file, dst_zip_file):
@@ -48,12 +50,21 @@ class Context(object):
         self.region_color_defaults = {}
         self.currentplyscope = None
 
+        self.global_options = { 
+                    #MeshGenerationOptions.minimum_diameter: 1.0
+                    }
+
         self.src_zip_file = src_zip_file
         self.dst_zip_file = dst_zip_file
         self.op_files = []
         self.op_dir = "/tmp/mf/meshbuilder/"
         LocMgr.ensure_dir_exists(self.op_dir)
 
+
+    def has_option_set(self, key):
+        return key in self.global_options
+    def get_option(self, key):
+        return  self.global_options[key]
 
     def get_color(self, alias):
         return self.color_aliases[alias]
@@ -72,7 +83,6 @@ class Context(object):
     def close_ply_block(self, plyfilename):
         self.currentplyscope.finalise(plyfilename=plyfilename)
         self.currentplyscope = None
-
 
         for f in self.op_files:
             self.dst_zip_file.write(f,)
@@ -128,7 +138,8 @@ class PlyScope(object):
         morphs = NewSWCLoader.load_swc_set(src=src_obj)
 
         # Hack: only first:
-        morphs = [morphs[0]]
+        #morphs = [morphs[0]]
+
         for m in morphs:
             m = m.to_tree()
 
@@ -158,6 +169,8 @@ class PlyScope(object):
                 m = AxonTrimmer.trim_axon_from_morphology(m, max_dist_to_parent=options['trim'] )
             if 'offset' in options:
                 m = MorphologyTranslator.translate(morphology=m, offset=options['offset'] )
+            if self.global_scope.has_option_set( MeshGenerationOptions.minimum_diameter):
+                m = MorphologyMinimumDiameter.ensure(m, min_diameter =self.global_scope.get_option(MeshGenerationOptions.minimum_diameter) )
 
 
 
