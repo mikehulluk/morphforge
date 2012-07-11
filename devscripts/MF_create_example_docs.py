@@ -171,10 +171,9 @@ def run_example(index,filename):
     env = os.environ.copy()
     env['MREORG_BATCHRUN'] = "True"
 
-    cmd = """python %s"""%newFilename
-    args = shlex.split(cmd)
+    args = shlex.split("""python %s"""%newFilename)
+    #print 'Launching child process', args
     result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env, )
-
 
     # Split the output to get at the docstring:
     output = result
@@ -199,5 +198,4 @@ clear_directory(examples_dst_dir_images)
 for index,fName in enumerate(example_srcs):
     fName_full = os.path.join(examples_src_dir,fName)
     run_example(index,fName_full)
-    #clear_directory(examples_build_dir)
 

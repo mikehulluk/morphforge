@@ -96,8 +96,23 @@ precedence = (
 
 
 def p_expression0(p):
-    """ expr : tag_term_factor """
+    """ expr : tag_term_factor 
+             | tag_line_simple"""
     p[0] = p[1]
+
+
+
+# One liners that don't have any keywords or {}() 
+# are considered 'ALL{contents}'
+def p_simple0(p):
+    """ tag_line_simple : TAG"""
+    p[0] = TagSelectorAll( tags = [p[1]] )
+
+def p_simple1(p):
+    """ tag_line_simple : tag_line_simple COMMA TAG"""
+    p[0] = TagSelectorAll( tags = list(p[1].tags) + [p[3]] )
+
+
 
 
 def p_expression1(p):

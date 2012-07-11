@@ -32,4 +32,10 @@
 
 """Morphforge root package"""
 
+# Import mreorg before we do anything, so that tyhe monkey patching of
+# 'show' and 'savefig' take effect
+import mreorg
+
+# Import quantities, so that custom quantities are registered appropriately.
 from morphforge.core.quantities import *
+

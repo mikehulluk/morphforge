@@ -64,13 +64,13 @@ class CurrentClampCurrentRecord(NeuronRecordable):
     def build_mod(self, modfile_set):
         pass
 
+    def get_description(self):
+        return "Current Clamp Injection: %s"%self.cclamp.name
 
 
 
 class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
-    def __init__( self, **kwargs): #simulation, amp, dur, delay, cell_location, name=None):
-        #CurrentClampStepChange.__init__(self, name=name, amp=amp, dur=dur, delay=delay, cell_location=cell_location )
-        #NeuronObject.__init__(self, name=name, simulation=simulation )
+    def __init__( self, **kwargs): 
         super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
 
 

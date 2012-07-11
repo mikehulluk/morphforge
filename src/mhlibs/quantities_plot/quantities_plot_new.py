@@ -252,6 +252,9 @@ class QuantitiesAxisNew(object):
         self.labelY = ylabel
         self._update_labels()
 
+    def set_yaxis_maxnlocator(self, n):
+        import matplotlib as mpl
+        self.ax.yaxis.set_major_locator( mpl.ticker.MaxNLocator(n) )
 
 
 

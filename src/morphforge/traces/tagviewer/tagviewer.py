@@ -100,13 +100,15 @@ class TagViewer(object):
                  fig_kwargs = {'figsize': (12, 8)},
                  timeranges=(None,),
                  plotspecs = None,
-                 post_ax_functors= None,
+                 #post_ax_functors= None,
                  figtitle = None,
                  show=True,
                  save=True,
                  linkage = None,
                  timerange=None,
                  additional_plotspecs = None,
+                 share_x_labels=True,
+                 mpl_tight_bounds = True
                  ):
 
         self.linkage = linkage
@@ -153,10 +155,12 @@ class TagViewer(object):
 
         self.fig_kwargs = fig_kwargs
         self.figtitle = figtitle
+        self.mpl_tight_bounds = mpl_tight_bounds
 
-        self.post_ax_functors = post_ax_functors
+        #self.post_ax_functors = post_ax_functors
 
         self.timeranges = timeranges
+        self.share_x_labels = share_x_labels
 
 
         self.fig = None
@@ -187,7 +191,6 @@ class TagViewer(object):
 
         # Work out what traces are on what graphs:
         ps_to_traces = dict([ (ps,[tr for tr in self.allTraceObjs if ps.addtrace_predicate(tr) ]) for ps in self.plot_specs  ])
-        #print ps_to_traces
         if self.linkage:
             self.linkage.process(ps_to_traces)
 
@@ -208,22 +211,21 @@ class TagViewer(object):
                 time_range = _resolve_time_range(time_range)
 
                 # Create the axis:
-                #if not time_axis:
                 ax = self.fig.add_subplot(n_plots, n_time_ranges, i*n_time_ranges + iT  + 1 )
-                ax.set_xunit(unit("ms") )
-
+                ax.set_xunit(pq.millisecond)
 
                 # Leave the plotting to the PlotSpecification
-                plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage )
+                is_bottom_plot = i==n_plots-1
+                plot_xaxis_details = is_bottom_plot or not self.share_x_labels
+                plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details )
 
                 # Save the Axis:
                 self.subaxes.append(ax)
 
 
-        if self.post_ax_functors:
-            for ax in self.subaxes:
-                for func in self.post_ax_functors:
-                    func(ax)
+        if self.mpl_tight_bounds:
+            import pylab
+            pylab.tight_layout()
 
 
 

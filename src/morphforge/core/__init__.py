@@ -67,10 +67,6 @@ __all__ = [
     'Join',
     'PluginDict',
     'MFRandom',
-    #'MockControl',
-<<<<<<< HEAD
     'unit','U'
-=======
->>>>>>> d25b786a83994b945959dfd2b6ceeb9d0b08af89
     ]
 

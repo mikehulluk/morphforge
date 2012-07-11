@@ -87,6 +87,7 @@ from morphforgecontrib.simulation.util.voltageclampchannel import get_voltagecla
 
 
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
+from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
 from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
 
 

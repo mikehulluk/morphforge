@@ -30,12 +30,12 @@
 # ----------------------------------------------------------------------
 
 
-
 """Creating morphologies from python dictionaries.
 In this example, we create 2 :py:class:`MorphologyTree` objects from python
 dictionaries, and then demonstrate iterating over the sections"""
 
 from morphforge.morphology import MorphologyTree
+
 
 # Build a morphology consisting of a single-section:
 morphDict1 = {'root': {'length': 20, 'diam': 20} }

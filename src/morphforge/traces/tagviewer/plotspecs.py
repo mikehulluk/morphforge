@@ -35,37 +35,6 @@ import quantities as pq
 
 from morphforge.traces import TagSelector
 
-class PlotSpec(object):
-
-    def plot(self, ax, all_traces, time_range=None ) :
-        raise NotImplementedError()
-
-
-
-
-class PlotSpec_MixinTraceSelector(PlotSpec):
-    def __init__(self, ylabel=None, **kwargs):
-        super(PlotSpec_MixinTraceSelector, self).__init__(**kwargs)
-        self.ylabel = ylabel or ""
-
-
-    def addtrace_predicate(self, trace, ):
-        raise NotImplementedError()
-
-    def get_selector_ylabel(self):
-        return self.ylabel
-
-
-class PlotSpec_MixinPlotter(PlotSpec):
-
-    def plot(self, ax, all_traces, time_range=None ) :
-        raise NotImplementedError()
-
-
-
-
-
-
 
 def default_legend_labeller(tr):
     if tr.comment:
@@ -80,33 +49,77 @@ def default_legend_labeller(tr):
 
 
 
-
-
-
-class PlotSpecRegular(PlotSpec):
-
-    def __init__(self, yrange=None, title=None, legend_labeller=default_legend_labeller, colors=None, yunit=None, event_marker_size=None, time_range=None):
-        self.title = title
+class YAxisConfig(object):
+    def __init__(self, yunit=None, yrange=None, ylabel=None, yticks=None, yticklabels=None, ymargin=None, ynticks=None):
         self.yrange = yrange
+        self.yunit = yunit
+        self.ylabel = ylabel
+        self.ynticks= ynticks if ynticks is not None else 5
+        pass
+
+    def format_axes(self, ax):
+        ax.set_ylabel( self.ylabel )
+        if self.yrange is not None:
+            ax.set_ylim( self.yrange )
+        if self.yunit is not None:
+            ax.set_display_unit(y=self.yunit)
+
+        #ax.xaxis.set_major_locator( mpl.ticker.MaxNLocator(4) )
+        ax.set_yaxis_maxnlocator(self.ynticks)
+
+
+class PlotSpec_DefaultNew( object):
+
+    def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
+        #self.yrange = yrange
+        #self.yunit = yunit
+        #self.ylabel = ylabel if ylabel else s
+
+        if yaxisconfig is None: 
+            self.yaxisconfig=YAxisConfig(ylabel=ylabel if ylabel else s, 
+                                         yunit=yunit, 
+                                         yrange=yrange,
+                                         ynticks=ynticks)
+        else:
+            self.yaxisconfig = yaxisconfig
+
+
+
+        self.title = title
         self.legend_labeller = legend_labeller
         self.colors = colors
 
-        self.yunit = yunit
         self.event_marker_size = event_marker_size
         self.time_range = time_range
 
 
+        if isinstance(s, TagSelector):
+            self.selector = s
+        elif isinstance(s, basestring):
+            self.selector = TagSelector.from_string(s)
+        else:
+            assert False
 
-    def sort_traces(self, traces):
+
+    #def _get_selector_ylabel(self):
+    #    return self.ylabel
+
+    # Used by TagViewer
+    def addtrace_predicate(self, trace):
+        return self.selector(trace)
+    def addeventset_predicate(self, trace):
+        return self.selector(trace)
+
+
+    # Plot in order by name; this is normally fine, since annonymous objects
+    # will be plotted in the order they were created.
+    def _sort_traces(self, traces):
         return sorted( traces, key=lambda t : t.name)
-
-    def sort_eventsets(self, event_sets):
+    def _sort_eventsets(self, event_sets):
         return sorted( event_sets, key=lambda t : t.name)
 
 
-    def plot_trace(self, trace,  ax, index, color=None):
-        #if self.time_range is not None:
-        #    time_range = self.time_range
+    def _plot_trace(self, trace,  ax, index, color=None):
         plot_kwargs = {}
 
 
@@ -123,7 +136,7 @@ class PlotSpecRegular(PlotSpec):
         plt_tr =  ax.plotTrace(trace, **plot_kwargs)
         return plt_tr
 
-    def plot_eventset(self, eventset, ax, index):
+    def _plot_eventset(self, eventset, ax, index):
         if len(eventset) == 0:
             return []
 
@@ -153,7 +166,7 @@ class PlotSpecRegular(PlotSpec):
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets,  time_range=None, linkage=None ) :
+    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None, ) :
         if self.time_range is not None:
             time_range = self.time_range
 
@@ -163,13 +176,13 @@ class PlotSpecRegular(PlotSpec):
 
 
         # Sort and plot:
-        for index, trace in enumerate( self.sort_traces(trcs) ):
+        for index, trace in enumerate( self._sort_traces(trcs) ):
             color = linkage.color_allocations.get(trace, None) if linkage else None
-            self.plot_trace( trace, ax=ax, index=index, color=color)
+            self._plot_trace( trace, ax=ax, index=index, color=color)
 
 
-        for index, event_set in enumerate( self.sort_eventsets(eventsets) ):
-            self.plot_eventset( event_set,  ax=ax, index=index+len(trcs) )
+        for index, event_set in enumerate( self._sort_eventsets(eventsets) ):
+            self._plot_eventset( event_set,  ax=ax, index=index+len(trcs) )
 
             #ax.set_ylim( ( (-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless ) )
 
@@ -183,57 +196,40 @@ class PlotSpecRegular(PlotSpec):
         if self.legend_labeller is not None:
             import math
             import __builtin__ as BI
-            ncols = BI.max( int( math.floor( len(trcs) / 10.0) ), 1)
+            ncols = BI.max( int( math.floor( len(trcs) / 5.0) ), 1)
             ax.legend(ncol=ncols)
 
         if self.title:
             ax.set_title( self.title )
 
         # Label up the axis:
-        ax.set_xlabel('Time')
-        ax.set_xunit( unit('ms') )
+        if plot_xaxis_details:
+            ax.set_xlabel('Time')
+        else:
+            ax.set_xlabel('')
+            ax.set_xticklabels([])
 
-        ax.set_ylabel( self.get_selector_ylabel() )
+        #ax.set_xunit( unit('ms') )
+        #print ax.xyUnitBase[0]
+        #print ax.xyUnitDisplay[0]
+        #assert False
+
+
+        # Setup the y-axis:
+        #ax.set_ylabel( self.yaxisconfig.ylabel )
+        self.yaxisconfig.format_axes(ax)
+
+
 
         if time_range is not None:
-            print 'Setting Time Range', time_range
+            #print 'Setting Time Range', time_range
             ax.set_xlim( time_range )
-        if self.yrange is not None:
-            ax.set_ylim( self.yrange )
+        #if self.yaxisconfig.yrange is not None:
+        #    ax.set_ylim( self.yaxisconfig.yrange )
 
-        if self.yunit is not None:
-            print 'Setting Yunit', self.yunit
-            ax.set_display_unit(y=self.yunit)
+        #if self.yunit is not None:
+        #    #print 'Setting Yunit', self.yaxisconfig.yunit
+        #    ax.set_display_unit(y=self.yaxisconfig.yunit)
 
         # Turn the grid on:
         ax.grid('on')
-
-
-
-
-
-
-class PlotSpec_Selector_StringTags(PlotSpec_MixinTraceSelector):
-    def __init__(self, s, **kwargs):
-        super(PlotSpec_Selector_StringTags,self).__init__(**kwargs)
-
-        if isinstance(s, TagSelector):
-            self.selector = s
-        elif isinstance(s, basestring):
-            self.selector = TagSelector.from_string(s)
-        else:
-            assert False
-
-
-    def addtrace_predicate(self, trace):
-        return self.selector(trace)
-    def addeventset_predicate(self, trace):
-        return self.selector(trace)
-
-
-
-
-class PlotSpec_DefaultNew(PlotSpec_Selector_StringTags, PlotSpecRegular):
-    def __init__(self, **kwargs):
-        super(PlotSpec_DefaultNew,self).__init__(**kwargs)
-
