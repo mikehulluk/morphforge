@@ -89,11 +89,11 @@ import glob
 #from morphforge.core import Join
 #from morphforgecontrib.indev.neuroml.core import parse_channelml_file,\
 #    MorphforgeNotImplementedException
-#from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+#from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 #from morphforge.morphology.core.tree import MorphologyTree
 #from morphforge.simulation.shortcuts import apply_mechanism_everywhere_uniform,\
 #    apply_passive_everywhere_uniform
-#from morphforge.simulation.core.biophysics.passiveproperties import PassiveProperty
+#from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 #from morphforge.core.quantities.fromcore import unit
 
 
@@ -108,7 +108,7 @@ from morphforge.simulation.neuron.neuronsimulationsettings import NeuronSimulati
 
 #from neurounits.importers.neuroml.core import parse_channelml_file,  MorphforgeNotImplementedException
 
-from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_SingleSegment
+from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_SingleSegment
 from mhlibs.test_data.neuroml import NeuroMLDataLibrary
 from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplementedException
 #from morphforgecontrib.mhdev.junk import NEURONHACKRevVoltageSetter

@@ -60,9 +60,9 @@ from morphforge.morphology.util.morphlocator import MorphLocator
 
 
 # SIMULATION
-from morphforge.simulation.core import *
+from morphforge.simulation.base import *
 from morphforge.simulation.neuron import *
-from morphforge.simulation.core.util.celllocator import CellLocator
+from morphforge.simulation.base.util.celllocator import CellLocator
 
 # Simulation Analysis
 from morphforge.simulationanalysis.summaries import *
@@ -74,7 +74,7 @@ from morphforge.componentlibraries import *
 
 
 #from morphforge.simulation.shortcuts import *
-from morphforge.simulation.core.biophysics.mta_helpers import *
+from morphforge.simulation.base.biophysics.mta_helpers import *
 
 
 import morphforge.simulation.neuron.objects.obj_cclamp
@@ -103,3 +103,5 @@ import os
 
 
 from morphforge.morphology.core.tree import MorphPath
+
+from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID

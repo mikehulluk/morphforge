@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.core.recordable import Recordable
+from morphforge.simulation.base.core.recordable import Recordable
 
 
 

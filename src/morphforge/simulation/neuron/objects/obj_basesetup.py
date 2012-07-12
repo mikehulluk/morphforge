@@ -38,10 +38,10 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 
 
 
-class MNeuronBaseSetup(NeuronObject):
+class NeuronSimSetupObj(NeuronObject):
 
     def __init__(self, simsettings, simulation):
-        super(MNeuronBaseSetup,self).__init__(name = "mneuronbasesetup", simulation=simulation)
+        super(NeuronSimSetupObj,self).__init__(name = "mneuronbasesetup", simulation=simulation)
         self.simsettings = simsettings
 
     def build_hoc(self, hocfile_obj):

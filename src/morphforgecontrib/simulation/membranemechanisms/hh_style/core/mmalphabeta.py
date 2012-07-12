@@ -32,7 +32,7 @@
 
 
 from morphforge.core.quantities import  unit
-from morphforge.simulation.core import MembraneMechanism
+from morphforge.simulation.base import MembraneMechanism
 from morphforge.constants import StdRec
 
 
@@ -69,7 +69,7 @@ class MM_AlphaBetaChannel(MembraneMechanism):
         return self.statevars.keys()
 
     def get_alpha_beta_at_voltage(self, V, statevar):
-        #from morphforgecontrib.simulation.default.summarisers.util import
+        
         from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import AlphaBetaCalculator
         AlphaBetaCalculator
         alpha = self.statevars[statevar][0]

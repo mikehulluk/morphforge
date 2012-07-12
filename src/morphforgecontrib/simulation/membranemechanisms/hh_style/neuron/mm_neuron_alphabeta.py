@@ -38,7 +38,7 @@ from hocmodbuilders.mmwriter_alphabeta import MM_WriterAlphaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
 

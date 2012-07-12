@@ -31,7 +31,7 @@
 
 
 from morphforge.core.quantities import  unit
-from morphforge.simulation.core import MembraneMechanism
+from morphforge.simulation.base import MembraneMechanism
 
 
 class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):

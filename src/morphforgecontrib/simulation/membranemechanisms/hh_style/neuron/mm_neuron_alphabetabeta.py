@@ -36,7 +36,7 @@ from hocmodbuilders.mmwriter_alphabetabeta import MM_WriterAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
 
@@ -127,7 +127,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 
 
 
-#from morphforge.simulation.core.biophysics.membranemechanisms.mmalphaBetaBetabeta import MM_AlphaBetaBetaBetaChannel
+#from morphforge.simulation.base.biophysics.membranemechanisms.mmalphaBetaBetabeta import MM_AlphaBetaBetaBetaChannel
 ##from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
 ##    MHOCSections
 ##from Cheetah.Template import Template
@@ -140,7 +140,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 #from ..hocmodbuilders import HocModUtils
 #
 #from mm_neuron import MM_Neuron_Base
-#from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+#from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
 #

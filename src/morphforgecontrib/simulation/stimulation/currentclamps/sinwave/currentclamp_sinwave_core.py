@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.core.stimulation import CurrentClamp
+from morphforge.simulation.base.stimulation import CurrentClamp
 
 
 

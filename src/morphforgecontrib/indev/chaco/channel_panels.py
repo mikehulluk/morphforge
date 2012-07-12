@@ -51,7 +51,7 @@ from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core imp
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 from chaco_util import _create_plot_component
 from morphforge.core.misc import SeqUtils
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
 

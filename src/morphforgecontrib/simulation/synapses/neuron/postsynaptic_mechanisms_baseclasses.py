@@ -36,7 +36,7 @@ from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforge.simulation.core.networks import Synapse
+from morphforge.simulation.base.networks import Synapse
 
 
 

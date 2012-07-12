@@ -33,8 +33,8 @@
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
 from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
 from Cheetah.Template import Template
-from morphforge.simulation.core.networks import Synapse
-from morphforge.simulation.core.networks import GapJunction
+from morphforge.simulation.base.networks import Synapse
+from morphforge.simulation.base.networks import GapJunction
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.constants.standardtags import StandardTags
 

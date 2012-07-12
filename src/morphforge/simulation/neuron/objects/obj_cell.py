@@ -34,7 +34,7 @@ from morphforge.core.quantities  import unit
 
 
 from neuronobject import NeuronObject
-from morphforge.simulation.core import Cell
+from morphforge.simulation.base import Cell
 
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData

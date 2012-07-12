@@ -33,8 +33,8 @@
 
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforge.simulation.core.biophysics.membranemechanism import MembraneMechanism
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation

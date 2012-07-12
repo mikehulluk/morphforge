@@ -30,16 +30,16 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.core import CurrentClamp
+from morphforge.simulation.base import CurrentClamp
 from neuronobject import NeuronObject
+from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
-from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.core.stimulation import CurrentClampStepChange
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.base.stimulation import CurrentClampStepChange
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
 

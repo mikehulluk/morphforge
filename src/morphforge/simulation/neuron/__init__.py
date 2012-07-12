@@ -30,11 +30,11 @@
 # ----------------------------------------------------------------------
 
 
-from objects import MembraneVoltageRecord, MNeuronCell, MNeuronBaseSetup
+from objects import MembraneVoltageRecord, MNeuronCell, NeuronSimSetupObj
 
-from neuronsimulation import MNeuronSimulation
+from core.neuronsimulation import MNeuronSimulation
 
-from neuronsimulationenvironment import NeuronSimulationEnvironment
+from core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from constants import NeuronSimulationConstants
 
 from hocmodbuilders import HocModUtils
@@ -46,7 +46,7 @@ from biophysics import ModFile, ModFileCompiler, MM_Neuron_Base
 __all__ = [
     "MembraneVoltageRecord",
     "MNeuronCell",
-    "MNeuronBaseSetup",
+    "NeuronSimSetupObj",
     #"MNeuronVoltageClampStepChange",
     #"MNeuronCurrentClampStepChange",
     "MNeuronSimulation",

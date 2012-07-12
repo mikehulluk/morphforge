@@ -31,7 +31,7 @@
 
 from morphforge.core import is_iterable
 from morphforge.core import unit
-from morphforge.simulation.core import SimulationResult
+from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from plotspecs import PlotSpec_DefaultNew

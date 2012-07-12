@@ -31,7 +31,7 @@
 
 
 
-from morphforge.simulation.core.biophysics.membranemechanism import MembraneMechanism
+from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
 
 
 class BuiltinChannel(MembraneMechanism):

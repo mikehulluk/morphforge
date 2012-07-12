@@ -31,14 +31,14 @@
 
 
 from neuronobject import NeuronObject
-from morphforge.simulation.core import VoltageClamp, VoltageClampStepChange#, CurrentClamp
+from morphforge.simulation.base import VoltageClamp, VoltageClampStepChange#, CurrentClamp
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
 

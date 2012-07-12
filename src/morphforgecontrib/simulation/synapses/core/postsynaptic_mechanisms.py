@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.core.networks import PostSynapticMech
+from morphforge.simulation.base.networks import PostSynapticMech
 
 
 

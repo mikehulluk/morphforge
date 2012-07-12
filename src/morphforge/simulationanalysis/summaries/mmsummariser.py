@@ -36,7 +36,8 @@ from os.path import join as Join
 from summariser_library import SummariserLibrary
 from morphforge.simulationanalysis.summaries.reportlabconfig import ReportLabConfig
 from morphforge.componentlibraries import ChannelLibrary
-from morphforge.simulation.neuron.neuronsimulationenvironment import NeuronSimulationEnvironment
+
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
 

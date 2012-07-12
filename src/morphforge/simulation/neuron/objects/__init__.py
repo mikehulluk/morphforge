@@ -31,7 +31,7 @@
 
 
 from obj_cell import MembraneVoltageRecord, MNeuronCell
-from obj_basesetup import MNeuronBaseSetup
+from obj_basesetup import NeuronSimSetupObj
 
 
 # For dynamic imports
@@ -41,5 +41,5 @@ from obj_basesetup import MNeuronBaseSetup
 __all__ = [
 "MembraneVoltageRecord",
 "MNeuronCell",
-"MNeuronBaseSetup",
+"NeuronSimSetupObj",
 ]

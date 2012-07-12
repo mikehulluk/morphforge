@@ -34,7 +34,7 @@ t_start = time.time()
 
 import sys
 from morphforge.core import LogMgr, mfrandom
-from morphforge.simulation.core.simulationmetadatabundle import SimMetaDataBundle
+from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
 
 
 

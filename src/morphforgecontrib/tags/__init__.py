@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.core.networks import PreSynapticMechanism,\
+from morphforge.simulation.base.networks import PreSynapticMechanism,\
     PreSynapticTypes
 
 

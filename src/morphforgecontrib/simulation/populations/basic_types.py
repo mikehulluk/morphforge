@@ -32,7 +32,7 @@
 
 import itertools
 import string
-from morphforge.simulation.core.cell import Cell
+from morphforge.simulation.base.core.cell import Cell
 from morphforgecontrib.tags import StdTagFunctors
 from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.misc import is_iterable

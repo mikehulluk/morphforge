@@ -50,7 +50,7 @@ from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_unif
 from morphforge.stdimports import  apply_mechanism_everywhere_uniform, pq
 
 import random as R
-from morphforge.simulation.core.segmentation.cellsegmenter import CellSegmenter_SingleSegment
+from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_SingleSegment
 import numpy as np
 import traceback
 import StringIO
