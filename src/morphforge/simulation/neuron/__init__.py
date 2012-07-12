@@ -30,17 +30,17 @@
 # ----------------------------------------------------------------------
 
 
-from objects import MembraneVoltageRecord, MNeuronCell, NeuronSimSetupObj
+from morphforge.simulation.neuron.objects import MembraneVoltageRecord, MNeuronCell, NeuronSimSetupObj
 
-from core.neuronsimulation import MNeuronSimulation
+from morphforge.simulation.neuron.core.neuronsimulation import MNeuronSimulation
 
-from core.neuronsimulationenvironment import NeuronSimulationEnvironment
-from constants import NeuronSimulationConstants
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.misc import NeuronSimulationConstants
 
-from hocmodbuilders import HocModUtils
+from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 
 
-from biophysics import ModFile, ModFileCompiler, MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics import ModFile, ModFileCompiler, MM_Neuron_Base
 
 
 __all__ = [

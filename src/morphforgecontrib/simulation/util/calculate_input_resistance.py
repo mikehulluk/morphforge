@@ -43,9 +43,12 @@ from mhlibs.quantities_plot import QuantitiesFigure
 
 
 import itertools
-from morphforge.traces.std_methods.MMtrace_conversion import TraceConverter
+#from morphforge.traces.std_methods.MMtrace_conversion import TraceConverter
+from morphforge.traces.methods.MMtrace_conversion import TraceConverter
+
+
 from mreorg.scriptplots import PM
-from morphforge.traces.tagviewer.tagviewer import TagViewer
+from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 
 
 

@@ -44,22 +44,22 @@ class Trace(object):
 
     # Forward operator functions to be looked up:
     def __add__(self, rhs):
-        from trace_operators_ctrl import TraceOperatorCtrl
+        from traceobjpluginctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__add__, lhs=self, rhs=rhs)
     def __sub__(self, rhs):
-        from trace_operators_ctrl import TraceOperatorCtrl
+        from traceobjpluginctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__sub__, lhs=self, rhs=rhs)
     def __div__(self, rhs):
-        from trace_operators_ctrl import TraceOperatorCtrl
+        from traceobjpluginctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__div__, lhs=self, rhs=rhs)
 
     def __mul__(self, rhs):
-        from trace_operators_ctrl import TraceOperatorCtrl
+        from traceobjpluginctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__mul__, lhs=self, rhs=rhs)
 
     # Forward method lookup
     def __getattr__(self, name):
-        from trace_methods_ctrl import TraceMethodCtrl
+        from traceobjpluginctrl import TraceMethodCtrl
 
         if TraceMethodCtrl.has_method(self.__class__, name):
             func = TraceMethodCtrl.get_method(self.__class__, name)

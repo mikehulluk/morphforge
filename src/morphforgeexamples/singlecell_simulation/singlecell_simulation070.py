@@ -39,8 +39,7 @@ different graphs.
 
 
 from morphforge.stdimports import *
-from morphforge.traces.tagviewer.tagviewer import DefaultPlotSpec
-from morphforgecontrib.data_library.stdmodels import StandardModels
+from morphforgecontrib.stdimports import *
 
 
 

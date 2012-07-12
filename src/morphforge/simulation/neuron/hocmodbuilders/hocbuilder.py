@@ -36,7 +36,7 @@ from hocbuilder_cell import HocBuilder_Cell
 from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
-from morphforge.simulation.neuron.settings import MNeuronSettings
+from morphforge.simulation.neuron.misc import MNeuronSettings
 
 
 

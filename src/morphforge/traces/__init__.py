@@ -34,23 +34,22 @@ from tracetypes import *
 # Base Classes:
 
 
-#from trace import  Trace_PointBased
-#from traceFixedDT import  Trace_FixedDT
-#from traceVariableDT import  Trace_VariableDT
-#from tracePiecewise import  Trace_Piecewise, TracePieceFunctionLinear, TracePieceFunctionFlat
 
 
 # Conversion and splicing:
-#from trace_conversion import  TraceConverter
-from traceGenerator import TraceGenerator
-#from traceLoader import TraceLoader
+#from traceGenerator import TraceGenerator
 
 from eventset import *
 
 
 # Need so that they register the methods:
-import std_methods
-import std_operators
+import morphforge.traces.methods
+import morphforge.traces.operators
+
+
+
+from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
+from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 
 
 from tags import *
@@ -66,10 +65,12 @@ __all__ = [
 "TracePieceFunctionFlat",
 "TracePieceFunctionLinear",
 #"TraceConverter",
-"TraceGenerator",
+#"TraceGenerator",
 #"TraceLoader",
 "TagSelector",
 "TagSelect",
+"TraceOperatorCtrl",
+"TraceMethodCtrl",
 ]
 
 
