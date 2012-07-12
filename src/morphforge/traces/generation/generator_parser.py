@@ -39,7 +39,7 @@ import quantities as pq
 from morphforge.core.quantities import unit
 from morphforge.core import LocMgr, SettingsMgr
 from morphforge.traces.tagviewer import TagViewer
-from morphforge.traces.tracetypes.tracePiecewise import Trace_Piecewise
+from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
 
 
 # Lexing:
@@ -94,7 +94,7 @@ class TraceStringParser(object):
 
         # Convert to pieces
         pieces = [ tracePrototype.toTracePiece()  for tracePrototype in tracePrototypes]
-        tr = Trace_Piecewise(pieces=pieces)
+        tr = TracePiecewise(pieces=pieces)
         tr = tr * (1.0*unit)
         return tr
 

@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from traceFixedDT import Trace_FixedDT
-from tracePointBased import Trace_PointBased
-from traceVariableDT import Trace_VariableDT
-from tracePiecewise import Trace_Piecewise, TracePieceFunctionFlat, TracePieceFunctionLinear
+from tracefixeddt import TraceFixedDT
+from tracepointbased import TracePointBased
+from tracevariabledt import TraceVariableDT
+from tracepiecewise import TracePiecewise, TracePieceFunctionFlat, TracePieceFunctionLinear

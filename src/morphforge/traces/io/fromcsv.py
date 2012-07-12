@@ -36,7 +36,7 @@ import re
 import numpy as np
 
 from morphforge.core.quantities.fromcore import unit
-from morphforge.traces.tracetypes import Trace_VariableDT, Trace_FixedDT
+from morphforge.traces.tracetypes import TraceVariableDT, TraceFixedDT
 from morphforge.traces.tagviewer.tagviewer import TagViewer
 
 
@@ -195,7 +195,7 @@ class NeuroCSVParser(object):
         timeData = timeDataRaw * timeUnit
 
         # Do we build as fixed or variable array:
-        tBuilder = Trace_FixedDT if Trace_FixedDT.is_array_fixed_dt(timeData) else Trace_VariableDT
+        tBuilder = TraceFixedDT if TraceFixedDT.is_array_fixed_dt(timeData) else TraceVariableDT
 
         trcs = []
         for i in range(1,nCols):

@@ -42,7 +42,7 @@ from util import ReportLabTools
 
 from morphforge.core.quantities import unit
 
-from morphforge.traces import Trace_FixedDT
+from morphforge.traces import TraceFixedDT
 
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
@@ -92,7 +92,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         cell_density = (chl.conductance * cell_area)
         i_chl =  (chl.conductance * cell_area)  * state_equation_evaluation * (V- chl.reversalpotential)
 
-        return Trace_FixedDT( time=t * unit("1:ms"), data=i_chl.rescale("pA")  )
+        return TraceFixedDT( time=t * unit("1:ms"), data=i_chl.rescale("pA")  )
 
 
 

@@ -31,8 +31,8 @@
 
 
 import re
-from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionLinear,\
-    Trace_Piecewise, TracePieceFunctionFlat
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear,\
+    TracePiecewise, TracePieceFunctionFlat
 from morphforge.core.quantities.fromcore import unit
 import quantities as pq
 import itertools
@@ -174,7 +174,7 @@ class LevelSelectorGroup(object):
 
 
 
-l1 = Trace_Piecewise( pieces = [
+l1 = TracePiecewise( pieces = [
                                 TracePieceFunctionFlat( time_window=(0,50)*pq.ms, x=unit("0:pA") ),
                                 TracePieceFunctionFlat( time_window=(50,150)*pq.ms, x=unit("110:pA") ),
                                 TracePieceFunctionFlat( time_window=(150,350)*pq.ms, x=unit("0:pA") ),

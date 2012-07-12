@@ -32,8 +32,8 @@
 
 import quantities as pq
 
-from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionFlat
-from morphforge.traces.tracetypes.tracePiecewise import TracePieceFunctionLinear
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 
 from morphforge.core.quantities import unit
 

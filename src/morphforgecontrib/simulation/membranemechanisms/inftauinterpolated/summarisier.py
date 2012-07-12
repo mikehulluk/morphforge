@@ -51,7 +51,7 @@ from morphforge.core.quantities import unit
 
 from scipy.integrate import odeint
 import numpy as np
-from morphforge.traces import Trace_FixedDT
+from morphforge.traces import TraceFixedDT
 #import sympy
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 #from morphforgecontrib.default.core.mmalphabetabeta import MM_InfTauInterpolatedBetaChannel
@@ -100,7 +100,7 @@ from morphforge.stdimports import pq
 #        cellDensity = (chl.conductance * cell_area)
 #        iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
 #
-#        return Trace_FixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )
+#        return TraceFixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )
 
 
 

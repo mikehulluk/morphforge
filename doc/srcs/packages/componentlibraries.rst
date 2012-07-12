@@ -1,2 +1,0 @@
-[*] morphforge.core.componentlibraries
-======================================

@@ -56,11 +56,11 @@ from tags import *
 
 
 __all__ = [
-"Trace_FixedDT",
+"TraceFixedDT",
 #"TraceConverter",
-"Trace_VariableDT",
-"Trace_PointBased",
-"Trace_Piecewise",
+"TraceVariableDT",
+"TracePointBased",
+"TracePiecewise",
 "TracePieceFunctionLinear",
 "TracePieceFunctionFlat",
 "TracePieceFunctionLinear",
