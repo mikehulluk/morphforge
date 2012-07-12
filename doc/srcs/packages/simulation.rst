@@ -1,50 +1,66 @@
-[*] morphforge.simulation *(Simulation
---------------------------
-
-[*] morphforge.simulation.core 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
-[*] morphforge.simulation.core
-===============================
-
-Cell
-++++
-
-CellLocation
-++++++++++++
-
-Recordables
-++++++++++++
-
-Simulation
-++++++++++++
-
-SimulationEnvironment
-++++++++++++++++++++++
 
 
-[*] morphforge.simulation.biophysics
-====================================
 
-[*] morphforge.simulation.networks
-====================================
 
-[*] morphforge.simulation.result
-====================================
 
-[*] morphforge.simulation.segmentation
-======================================
+morphforge.simulation 
+---------------------
 
-[*] morphforge.simulation.stimulation
-=====================================
+.. automodule:: morphforge.simulation
+    :no-members:
 
-[*] morphforge.simulation.util
-======================================
+.. contents::
 
-[*] morphforge.simulation.simulationmetadatabundle
-==================================================
+
+
+morphforge.simulation.core 
+==========================
+
+
+.. automodule:: morphforge.simulation.core
+    :no-members:
+
+.. autosummary::
+   
+    morphforge.simulation.core.SimulationEnvironment
+    morphforge.simulation.core.Simulation
+    morphforge.simulation.core.CellLocation
+    morphforge.simulation.core.Cell
+    morphforge.simulation.core.Recordables
+    
+
+
+
+
+morphforge.simulation.core.biophysics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+morphforge.simulation.core.networks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+morphforge.simulation.core.result
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+morphforge.simulation.core.segmentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+morphforge.simulation.core.stimulation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+morphforge.simulation.core.util
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+morphforge.simulation.core.simulationmetadatabundle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 
 
@@ -52,5 +68,5 @@ SimulationEnvironment
 
 
 [*] morphforge.simulation.neuron
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+===================================
 

@@ -33,9 +33,18 @@
 """ A package for handling neuron morphology models
 
 This package provides an object model for representing neuronal morphologies,
-as well as tools for import, export, traversal, and rendering.
+as well as tools for import/export from files; construction of morphologies
+within python; traversal of the datastructures; rendering to MayaVI &
+matplotlib and export to triangular mesh.
 
-Internally, morphforge provides a dual representation for morphologies, either **TreeBased:** (:py:class:`~.core.tree.MorphologyTree` ) or **VertexBased:** (:py:class:`~.core.array.MorphologyArray` ) More information about these can found at....
+Internally, morphforge provides a dual representation for morphologies, either
+**TreeBased:** (:py:class:`~.core.tree.MorphologyTree` ) or **VertexBased:**
+(:py:class:`~.core.array.MorphologyArray` ). More information about these can
+found at XX.
+
+.. todo::
+
+    <LINK>
 
 
 """

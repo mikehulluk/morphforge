@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Overview
 =========
 
@@ -153,8 +153,6 @@ results of simulations, such as finding spikes, and plotting graphs.
 A workhorse of this modules is the TagViewer. This class makes it very simple
 to visualise various variables in a network, without lots of boilorplate code.
 
-
->>>>>>> d25b786a83994b945959dfd2b6ceeb9d0b08af89
 For more information on simulation analysis, see XX.
 
 

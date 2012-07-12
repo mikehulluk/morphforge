@@ -257,7 +257,7 @@ def maybe_skip_member(app, what, name, obj, skip, options):
     if name == "__weakref__":
         return True
 
-    print name
+    #print name
     if name in ['__weakref__' ,'__dict__','__doc__','__module__']:
         return True
     return False

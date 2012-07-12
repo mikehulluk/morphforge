@@ -30,12 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-"""
-This modules contains functions for building simple morphologies and for
-loading more complex morphologies from files:
- -- MorphologyBuilder:
-    * Single Compartment Neurons (Soma Only)
-    * Multi-compartmental Models (Soma + Axon Models)
+""" This modules contains methods for building simple morphologies.
 """
 
 from morphologybuilder import MorphologyBuilder

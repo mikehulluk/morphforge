@@ -4,9 +4,9 @@ morphforge.morphology
 ---------------------
 
 .. automodule:: morphforge.morphology
+    :no-members:
 
-
-
+.. contents::
 
 
 morphforge.morphology.core
@@ -14,20 +14,17 @@ morphforge.morphology.core
 
 .. automodule:: morphforge.morphology.core
     :no-members:
-    
-.. toctree::
- 
-    /srcs/details/morphology_details
 
 
 .. autosummary::
-   :toctree: DIRNAME
+      
+    morphforge.morphology.core.tree.MorphologyTree
+    morphforge.morphology.core.tree.Section
+    morphforge.morphology.core.tree.Region
+    morphforge.morphology.core.tree.MorphLocation 
+    morphforge.morphology.core.tree.MorphPath
    
-    morphforge.morphology.core.MorphologyTree
-    morphforge.morphology.core.Section
-    morphforge.morphology.core.Region
-    morphforge.morphology.core.MorphLocation 
-    morphforge.morphology.core.MorphPath
+    morphforge.morphology.core.array.MorphologyArray
 
    
      
@@ -38,8 +35,7 @@ morphforge.morphology.builders
     :no-members:
 
 .. autosummary::
-   :toctree: DIRNAME
-   
+      
     morphforge.morphology.builders.MorphologyBuilder
     
     
@@ -53,7 +49,6 @@ morphforge.morphology.comparison
 
 
 .. autosummary::
-   :toctree: DIRNAME
    
     morphforge.morphology.comparison.MorphologyConverter
 
@@ -66,7 +61,7 @@ morphforge.morphology.conventions
 
 
 .. autosummary::
-   :toctree: DIRNAME
+   
    
     morphforge.morphology.conventions.StdRegions
     morphforge.morphology.conventions.SWCRegionCodes
@@ -81,7 +76,6 @@ morphforge.morphology.conversion
 
 
 .. autosummary::
-   :toctree: DIRNAME
    
     morphforge.morphology.conversion.RegionToIntMapBiMap
     morphforge.morphology.conversion.AutoRegionToIntMapTable
@@ -95,7 +89,6 @@ morphforge.morphology.errors
     :no-members:
 
 .. autosummary::
-   :toctree: DIRNAME
    
     morphforge.morphology.errors.MorphologyImportError
     morphforge.morphology.errors.MorphologyExportError
@@ -109,57 +102,79 @@ morphforge.morphology.exporter
     :no-members:
 
 .. autosummary::
-   :toctree: DIRNAME
 
-   morphforge.morphology.exporter.MorphologyExporter(object):
-   morphforge.morphology.exporter.ExportArray_SWC():
-   morphforge.morphology.exporter.SWCTreeWriter(object):
+   morphforge.morphology.exporter.MorphologyExporter
+   morphforge.morphology.exporter.ExportArray_SWC
+   morphforge.morphology.exporter.SWCTreeWriter
+
 
 
 morphforge.morphology.importer
-==================================
-  NewSWCLoader(object):
-
-  DictionaryLoader(object):
-
-   MorphologyImporter(object):
-
-[*] morphforge.morphology.mesh
 ==============================
-   69 : class MeshBuilderRings(object):
-./mesh/mesh.py:
-   36 : class TriangleMesh(object):
-./mesh/writer_ply.py:
-   37 : class MeshWriterPLY(object):
+
+.. automodule:: morphforge.morphology.importer
+    :no-members:
+
+.. autosummary::
+
+    morphforge.morphology.importer.NewSWCLoader
+    morphforge.morphology.importer.DictionaryLoader
+    morphforge.morphology.importerMorphologyImporter
 
 
-[*] morphforge.morphology.util
-==================================
-   31 : class MorphLocator(object):
+morphforge.morphology.mesh
+==========================
 
+.. automodule:: morphforge.morphology.mesh
+    :no-members:
 
-[*] morphforge.morphology.ui
-==================================
-   43 : class MatPlotLibViewer(object):
-./ui/mayavirenderer.py:
-   48 : class MayaViRenderer(object):
+.. autosummary::
+   
+    morphforge.morphology.mesh.MeshBuilderRings
+    morphforge.morphology.mesh.TriangleMesh
+    morphforge.morphology.mesh.MeshWriterPLY
+   
+   
 
+morphforge.morphology.util
+==========================
 
-[*] morphforge.morphology.visitor
-==================================
-   45 : class SectionVisitorDF(object):
-  112 : class SectionVisitorDFOverrider(SectionVisitorDF):
-  126 : class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
-  146 : class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
-  157 : class ListBuilderSectionVisitor(SectionVisitorDF):
-  175 : #class NumpyBuilderSectionVisitor(SectionVisitorDF):
-  207 : class SectionIndexerDF(DictBuilderSectionVisitorHomo):
-  216 : # I reckon this can probably be combined into the class above, but I have not tried it yet!
-  217 : #class SectionIndexerWithOffsetDF(DictBuilderSectionVisitor):
-  225 : class SectionListerDF(ListBuilderSectionVisitor):
-./visitor/visitorfactory.py:
-   40 : class SectionVistorFactory(object):
+.. automodule:: morphforge.morphology.util
+    :no-members:
+
+.. autosummary::
+  
+   morphforge.morphology.util.MorphLocator
 
 
 
-.. automodule:: morphforge.morphology
+morphforge.morphology.ui
+========================
+
+.. automodule:: morphforge.morphology.ui
+    :no-members:
+
+.. autosummary::
+   
+    morphforge.morphology.ui.MatPlotLibViewer
+    morphforge.morphology.ui.MayaViRenderer
+
+
+morphforge.morphology.visitor
+=============================
+
+.. automodule:: morphforge.morphology.visitor
+    :no-members:
+
+.. autosummary::
+   
+    morphforge.morphology.visitor.
+    morphforge.morphology.visitor.SectionVisitorDF
+    morphforge.morphology.visitor.SectionVisitorDFOverrider
+    morphforge.morphology.visitor.SectionVisitorHomogenousOverrider
+    morphforge.morphology.visitor.DictBuilderSectionVisitorHomo
+    morphforge.morphology.visitor.ListBuilderSectionVisitor
+    morphforge.morphology.visitor.SectionIndexerDF
+    morphforge.morphology.visitor.SectionListerDF
+    morphforge.morphology.visitor.SectionVistorFactory
+
