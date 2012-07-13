@@ -38,7 +38,7 @@ help:
 
 clean:
 	-rm -rf $(BUILDDIR)/
-	 rm -rf srcs/packages/DIRNAME/
+	 rm -rf srcs/packages/GENERATED*
 
 
 html:

@@ -38,7 +38,7 @@ from cStringIO import StringIO
 from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 from morphforge.morphology.core.array import MorphologyArray
 
-class ExportArray_SWC():
+class ExportArray_SWC(object):
 
     @classmethod
     def _export_single_swc(cls, morphology, swc_vertex_offset = 1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):

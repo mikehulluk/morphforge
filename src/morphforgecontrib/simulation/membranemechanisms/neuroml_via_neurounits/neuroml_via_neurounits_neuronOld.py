@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 
+assert False
 
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base

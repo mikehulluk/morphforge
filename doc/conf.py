@@ -43,9 +43,7 @@ extensions = [
 
 
 inheritance_graph_attrs = dict(rankdir="LR", size='"9.0, 8.0"',
-                               fontsize=14, ratio='compress')
-inheritance_node_attrs = dict(shape='ellipse', fontsize=14, height=0.75,
-                              color='dodgerblue1', style='filled')
+                               fontsize=10, ratio='compress')
 
 
 
@@ -262,5 +260,15 @@ def maybe_skip_member(app, what, name, obj, skip, options):
         return True
     return False
 
+
+    
 def setup(app):
     app.connect('autodoc-skip-member', maybe_skip_member)
+
+
+
+templates_path = ["_templates",]
+
+
+
+

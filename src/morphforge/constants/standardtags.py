@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-class StandardTags():
+class StandardTags(object):
 
     # Its important the spellings are the same;
     # since we use the values in setattr() to automatically populate classes.

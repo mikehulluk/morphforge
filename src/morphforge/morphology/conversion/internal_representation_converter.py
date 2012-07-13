@@ -39,7 +39,7 @@ from morphforge.morphology.conversion import AutoRegionToIntMapTable
 from morphforge.morphology.core import Region
 import copy
 
-class MorphologyConverter():
+class MorphologyConverter(object):
 
     @classmethod
     def tree_to_array(cls, tree, region_number_to_name_bidict=None):

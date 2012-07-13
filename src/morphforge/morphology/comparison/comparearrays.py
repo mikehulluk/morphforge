@@ -39,7 +39,7 @@ import numpy as np
 
 
 
-class MorphArrayComparison():
+class MorphArrayComparison(object):
 
     @classmethod
     def are_same(cls, m1, m2, max_node_distance = 0.01, max_radius_distance=None):
