@@ -33,18 +33,17 @@
 
 from morphforge.core.quantities import  unit
 from morphforge.simulation.base import MembraneMechanism
-from morphforge.constants import StdRec
 
-
+from morphforge.constants import StandardTags
 
 class MM_AlphaBetaChannel(MembraneMechanism):
 
     class Recordables():
-        ConductanceDensity = StdRec.ConductanceDensity
-        CurrentDensity = StdRec.CurrentDensity
-        StateVar = StdRec.StateVariable
-        StateVarSteadyState = StdRec.StateVarSteadyState
-        StateVarTimeConstant = StdRec.StateVarTimeConstant
+        ConductanceDensity = StandardTags.ConductanceDensity
+        CurrentDensity = StandardTags.CurrentDensity
+        StateVar = StandardTags.StateVariable
+        StateVarSteadyState = StandardTags.StateSteadyState
+        StateVarTimeConstant = StandardTags.StateTimeConstant
         all = [ConductanceDensity,CurrentDensity,StateVar,StateVarSteadyState,StateVarTimeConstant]
 
 

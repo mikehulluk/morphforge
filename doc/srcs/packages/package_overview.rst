@@ -79,7 +79,7 @@ A workhorse of this modules is the TagViewer. This class makes it very simple
 to visualise various variables in a network, without lots of boilorplate code.
 
 
-=======
+================
 Package Overview
 ================
 

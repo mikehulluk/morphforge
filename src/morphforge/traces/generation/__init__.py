@@ -29,3 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
+from morphforge.traces.generation.generator_parser import TraceStringParser
+from morphforge.traces.generation.gen_parser_lexer import TraceGeneratorParserLexer
+from morphforge.traces.generation.gen_parser_yacc import FunctionPrototype
+

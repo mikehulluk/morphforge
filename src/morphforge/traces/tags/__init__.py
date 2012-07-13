@@ -30,4 +30,6 @@
 # ----------------------------------------------------------------------
 
 
-from tagselector import TagSelector, TagSelect
+#from tagselector import TagSelector, TagSelect
+from tagselector import *
+from tagselectorstringparser import *

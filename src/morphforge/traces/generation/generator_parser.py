@@ -35,10 +35,10 @@ import ply.lex
 import ply.yacc
 
 
-import quantities as pq
-from morphforge.core.quantities import unit
+#import quantities as pq
+#from morphforge.core.quantities import unit
 from morphforge.core import LocMgr, SettingsMgr
-from morphforge.traces.tagviewer import TagViewer
+#from morphforge.traces.tagviewer import TagViewer
 from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
 
 
@@ -101,18 +101,18 @@ class TraceStringParser(object):
 
 
 
-tests = [
-"""{d:pA} AT 0ms FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 120ms THEN FLAT(50) FOR 20ms """,
-"""{d:pA} AT 0ms FLAT(0) UNTIL 150ms THEN FLAT(120) FOR 20ms THEN FLAT(0) FOR 20ms""",
-"""{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 160ms""",
-"""{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 130ms THEN FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms""",
-"""{d:pA} FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms""",
-  ]
-
-
-for t in tests:
-    tr = TraceStringParser.Parse(t)
-    #tr = trace_from_string(t)
-    tr.tags = ['Current']
-    TagViewer(tr)
-
+#tests = [
+#"""{d:pA} AT 0ms FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 120ms THEN FLAT(50) FOR 20ms """,
+#"""{d:pA} AT 0ms FLAT(0) UNTIL 150ms THEN FLAT(120) FOR 20ms THEN FLAT(0) FOR 20ms""",
+#"""{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 160ms""",
+#"""{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 130ms THEN FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms""",
+#"""{d:pA} FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms""",
+#  ]
+#
+#
+#for t in tests:
+#    tr = TraceStringParser.Parse(t)
+#    #tr = trace_from_string(t)
+#    tr.tags = ['Current']
+#    TagViewer(tr)
+#

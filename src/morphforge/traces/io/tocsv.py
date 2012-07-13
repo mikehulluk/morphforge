@@ -30,7 +30,6 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.core.quantities.fromcore import quantity_unit_to_string
 import json
 
 
@@ -51,8 +50,6 @@ class NeuroCSVWriter(object):
         traces=traces or []
         event_sets=event_sets or []
 
-        #if not time_indices:
-        #    assert False
 
         # Column Headers:
         colHeaders=[ cls.generate_column_header( tr,i) for i,tr in enumerate(traces) ]

@@ -370,9 +370,9 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #        #Record the Currents & Conductances:
 #        for chlname, mech in mech_dict.iteritems():
-#                sim.record( mech,  what = StdRec.CurrentDensity, where=cell.get_location('soma'), name="%s_i"%chlname, description="")
+#                sim.record( mech,  what = StandardTags.CurrentDensity, where=cell.get_location('soma'), name="%s_i"%chlname, description="")
 #                if chlname != 'Ca':
-#                    sim.record( mech,  what = StdRec.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
+#                    sim.record( mech,  what = StandardTags.ConductanceDensity, where=cell.get_location('soma'), name="%s_g"%chlname, description="")
 #
 #        # States:
 #        print mech_dict.keys()
@@ -386,7 +386,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #
 #        # Record Voltages:
-#        sim.record( cell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
+#        sim.record( cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
 #
 #
 #

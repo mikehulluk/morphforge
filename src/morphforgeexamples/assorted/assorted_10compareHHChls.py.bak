@@ -54,6 +54,7 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neur
 #from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.neuron import MM_Neuron_SimulatorSpecificChannel
 #from neurounits.tools.nmodl import WriteToNMODL
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
+from morphforge.constants.stdrecordables import StdRec
 
 from morphforge.stdimports import *
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
@@ -162,13 +163,13 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
 
 
     mySim.record(naChls, what='m', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
     mySim.record(naChls, what='h', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
     mySim.record(kChls, what='n', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StdRec.StateVarTimeConstant] )
 
 
 

@@ -46,7 +46,7 @@ import lxml.etree as etree
 import pylab
 
 from morphforge.stdimports import NeuronSimulationEnvironment,MorphologyTree, unit
-from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform, StdRec
+from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform
 from morphforge.stdimports import  apply_mechanism_everywhere_uniform, pq
 
 import random as R
@@ -101,8 +101,8 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
-    mySim.record( cc, what=StdRec.Current, name="CurrentClamp" )
+    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
+    mySim.record( cc, what=StandardTags.Current, name="CurrentClamp" )
 
 
 

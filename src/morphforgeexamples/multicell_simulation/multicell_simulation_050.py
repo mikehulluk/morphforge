@@ -38,7 +38,6 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neur
 #from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.neuron import MM_Neuron_SimulatorSpecificChannel
 #from neurounits.tools.nmodl import WriteToNMODL
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
-from morphforge.constants.stdrecordables import StdRec
 
 from neurounits import NeuroUnitParser
 
@@ -122,8 +121,8 @@ def simulate_chls_on_neuron():
 
 
     # Define what to record:
-    mySim.record( myCell1, what=StdRec.MembraneVoltage, name="SomaVoltage1", cell_location = somaLoc1 )
-    mySim.record( myCell2, what=StdRec.MembraneVoltage, name="SomaVoltage2", cell_location = somaLoc2 )
+    mySim.record( myCell1, what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1 )
+    mySim.record( myCell2, what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2 )
 
 
     # run the simulation

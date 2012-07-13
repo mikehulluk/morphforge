@@ -137,10 +137,10 @@ def simulate(current_inj_level):
 
     # Create the stimulus and record the injected current:
     cc = mySim.create_currentclamp( amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-    mySim.record(cc, what=StdRec.Current)
+    mySim.record(cc, what=StandardTags.Current)
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location = somaLoc )
+    mySim.record( myCell, what=StandardTags.Voltage, cell_location = somaLoc )
 
     # run the simulation
     results = mySim.run()

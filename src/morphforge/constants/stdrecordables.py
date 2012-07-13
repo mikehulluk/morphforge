@@ -30,15 +30,15 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.constants.standardtags import StandardTags
-
-class StdRec(object):
-    MembraneVoltage = StandardTags.Voltage
-
-    ConductanceDensity = StandardTags.ConductanceDensity
-    CurrentDensity = StandardTags.CurrentDensity
-    StateVariable = StandardTags.StateVariable
-    StateVarSteadyState = StandardTags.StateSteadyState
-    StateVarTimeConstant = StandardTags.StateTimeConstant
-
-    Current = StandardTags.Current
+#from morphforge.constants.standardtags import StandardTags
+#
+#class StdRec(object):
+#    MembraneVoltage = StandardTags.Voltage
+#
+#    ConductanceDensity = StandardTags.ConductanceDensity
+#    CurrentDensity = StandardTags.CurrentDensity
+#    StateVariable = StandardTags.StateVariable
+#    StateVarSteadyState = StandardTags.StateSteadyState
+#    StateVarTimeConstant = StandardTags.StateTimeConstant
+#
+#    Current = StandardTags.Current

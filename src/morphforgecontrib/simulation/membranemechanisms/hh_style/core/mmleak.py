@@ -34,13 +34,13 @@
 from morphforge.core.quantities import  unit
 from morphforge.simulation.base import MembraneMechanism
 
-from morphforge.constants import StdRec
+from morphforge.constants import StandardTags
 
 class MM_LeakChannel(MembraneMechanism):
 
     class Recordables():
-        ConductanceDensity = StdRec.ConductanceDensity
-        CurrentDensity = StdRec.CurrentDensity
+        ConductanceDensity = StandardTags.ConductanceDensity
+        CurrentDensity = StandardTags.CurrentDensity
         all = [ConductanceDensity, CurrentDensity]
 
     def __init__(self, name, conductance, reversalpotential, mechanism_id=None):

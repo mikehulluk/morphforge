@@ -111,9 +111,9 @@ somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
 cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mySim.record( cc, what=StdRec.Current)
+mySim.record( cc, what=StandardTags.Current)
 # Define what to record:
-mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
+mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
 
 # run the simulation
 results = mySim.run()

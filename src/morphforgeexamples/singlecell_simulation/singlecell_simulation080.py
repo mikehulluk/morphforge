@@ -77,11 +77,11 @@ def sim( glk_multiplier, gna_multiplier, tag):
 
 
     for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100) ):
-        mySim.record( myCell, what=StdRec.MembraneVoltage, cell_location=cell_location, user_tags=[tag])
+        mySim.record( myCell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
 
     # Create the stimulus and record the injected current:
     cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=myCell.get_location("soma"))
-    mySim.record( cc, what=StdRec.Current)
+    mySim.record( cc, what=StandardTags.Current)
 
     # run the simulation
     return mySim.run()

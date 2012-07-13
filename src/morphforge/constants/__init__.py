@@ -30,11 +30,9 @@
 # ----------------------------------------------------------------------
 
 
-from stdrecordables import StdRec
 from ions import ChlIon
 from standardtags import StandardTags
 __all__ = [
-    'StdRec',
     'ChlIon',
     'StandardTags'
 ]

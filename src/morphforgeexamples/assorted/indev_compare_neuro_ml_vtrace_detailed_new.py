@@ -156,8 +156,8 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
 
 
     # Define what to record:
-    mySim.record( myCell, what=StdRec.MembraneVoltage, name="SomaVoltage", cell_location = somaLoc )
-    mySim.record( cc, what=StdRec.Current, name="CurrentClamp" )
+    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
+    mySim.record( cc, what=StandardTags.Current, name="CurrentClamp" )
 
 
 

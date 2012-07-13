@@ -37,7 +37,6 @@ import numpy as np
 
 from morphforge.core.quantities.fromcore import unit
 from morphforge.traces.tracetypes import TraceVariableDT, TraceFixedDT
-from morphforge.traces.tagviewer.tagviewer import TagViewer
 
 
 
