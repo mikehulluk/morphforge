@@ -38,7 +38,6 @@ from plotspecs import PlotSpec_DefaultNew
 from morphforge.traces import  TraceFixedDT, TraceVariableDT, TracePiecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
-from mreorg.scriptplots import PM
 
 
 
@@ -169,9 +168,12 @@ class TagViewer(object):
 
 
 
+        # 'svae' is deprecated'
+        assert save is None, ' "save" parameter is deprecated (15 July 2012)'
         # Save the figure:
-        if save:
-            PM.save_figure( figtitle )
+        #if save:
+        #    from mreorg.scriptplots import PM
+        #    PM.save_figure( figtitle )
 
 
         if TagViewer.MPL_AUTO_SHOW and show:

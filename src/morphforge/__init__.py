@@ -30,11 +30,15 @@
 # ----------------------------------------------------------------------
 
 
-"""Morphforge root package"""
 
-# Import mreorg before we do anything, so that tyhe monkey patching of
+# Import mreorg before we do anything, so that the monkey patching of
 # 'show' and 'savefig' take effect
-import mreorg
+import os
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if not on_rtd:
+    import mreorg
+    # By default, lets save all figures:
+    mreorg.ScriptFlags.MREORG_SAVEALL = True
 
 # Import quantities, so that custom quantities are registered appropriately.
 from morphforge.core.quantities import *

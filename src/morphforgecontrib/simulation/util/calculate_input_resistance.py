@@ -37,17 +37,11 @@ from morphforge.stdimports import *
 import scipy.stats as stats
 
 import numpy as np
-#import pylab
 from mhlibs.quantities_plot import QuantitiesFigure
-#from mhlibs.quantities_plot.quantities_plot_new import QuantitiesFigureNew
 
 
 import itertools
-#from morphforge.traces.std_methods.MMtrace_conversion import TraceConverter
 from morphforge.traces.methods.MMtrace_conversion import TraceConverter
-
-
-from mreorg.scriptplots import PM
 from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 
 
@@ -317,6 +311,7 @@ class CellAnalysis_IVCurve(object):
         ax.axvspan(self.tSteaddyStateStart, self.tSteaddyStateStop, facecolor='g', alpha=0.25)
         ax.legend()
 
+        from mreorg.scriptplots import PM
         PM.save_figure(figname= title)
 
 

@@ -71,7 +71,10 @@ Root:
 
 from morphforge.simulation.base import Simulation
 
-import mredoc as mrd
+try:
+    import mredoc as mrd
+except ImportError:
+    print 'Unable to import mredoc, you will be unable to produce pdf/html summaries'
 
 
 class MembraneMechanismSummariserLibrary(object):

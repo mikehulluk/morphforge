@@ -31,29 +31,7 @@
 
 
 
-
-
-
-# Import the
-import mreorg.requiredpreimport
-import mreorg
-# By default, lets save all figures:
-mreorg.ScriptFlags.MREORG_SAVEALL = True
-
-
-
-## MayaVI
-#def _MonkeyPatchMayaVi():
-#    print 'Monkey Patching Mayavi'
-#    #import enthought.mayavi.mlab as mlab
-#    import mayavi
-#    from mayavi import mlab
-#    #my_pass(mlab)
-
-
-
-
-# Set-up the defaul priting:
+# Set-up the default priting:
 import numpy as np
 np.set_printoptions(precision=2)
 
