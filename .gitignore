@@ -1829,6 +1829,12 @@
 
 
 
+!src/morphforgecontrib/simulation/synapses_neurounit/
+!src/morphforgecontrib/simulation/synapses_neurounit/__init__.py
+
+
+!src/morphforgeexamples/poster_examples/
+!src/morphforgeexamples/poster_examples/*.py
 
 
 
