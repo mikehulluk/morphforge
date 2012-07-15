@@ -37,6 +37,6 @@ from post_ax_functors import *
 
 __all__ = [
     'TagViewer',
-'DefaultPlotSpec',
+    'DefaultPlotSpec',
 ]
 

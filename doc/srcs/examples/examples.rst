@@ -1,3 +1,5 @@
+Note: [*] denotes the example is missing.
+
 
 Morphology Examples
 ===================
@@ -75,3 +77,13 @@ Assorted Examples:
    
    /srcs_generated_examples/assorted_*
    
+
+      
+From OCNS-2012 Poster:
+=======================
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+   
+   /srcs_generated_examples/poster*

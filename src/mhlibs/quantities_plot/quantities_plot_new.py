@@ -30,7 +30,6 @@
 # ----------------------------------------------------------------------
 
 
-from matplotlib.ticker import FuncFormatter
 import quantities as pq
 
 from decimal import Decimal
@@ -67,12 +66,16 @@ class QuantitiesAxisNew(object):
         return '(%s)'%s
 
     def xTickFormatGenerator(self, scaling, symbol):
+
+        from matplotlib.ticker import FuncFormatter
         if self.units_in_label:
             return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=None) )
         else:
             return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=symbol) )
 
     def yTickFormatGenerator(self, scaling, symbol):
+
+        from matplotlib.ticker import FuncFormatter
         if self.units_in_label:
             return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=None) )
         else:

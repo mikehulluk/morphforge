@@ -56,7 +56,6 @@ class RCMgr(object):
     #Expose the same interface as the config parser does:
     @classmethod
     def has(cls, section, option):
-        assert False, 'HasConfig %s'%(section,option)
         return cls.get_config().has_option(section, option)
 
     @classmethod
@@ -66,7 +65,6 @@ class RCMgr(object):
         on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
         if on_rtd:
             return ""
-
 
         return cls.get_config().get(section, option)
 

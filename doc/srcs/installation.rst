@@ -31,7 +31,9 @@ morphforge has the following hard dependancies:
  * `python-lex-yacc (python-ply) <http://www.dabeaz.com/ply/>`_
  * `quantities <https://github.com/python-quantities/python-quantities>`_
  * `cheetah <http://www.cheetahtemplate.org/>`_
- 
+ * `NeuroUnits <http://neurounit.readthedocs.org/>_`
+
+
 
 And the following soft-dependancies 
 
@@ -71,6 +73,15 @@ install what you need.
     # and check it installed OK:
     $ sudo pip install quantities
     $ python -c 'import quantities'
+    $ # <No output displayed means everything is OK>
+    
+    # Install NeuroUnits
+    $ cd ~/hw
+    $ git clone git://github.com/mikehulluk/NeuroUnits.git
+    # Add something like this to the end of your login script (eg ~/.bashrc):
+    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/NeuroUnits/src/"
+    $ source ~/.bashrc
+    $ python -c 'import neurounits'
     $ # <No output displayed means everything is OK>
     
     

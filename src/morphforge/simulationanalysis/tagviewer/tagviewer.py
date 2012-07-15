@@ -102,7 +102,7 @@ class TagViewer(object):
                  #post_ax_functors= None,
                  figtitle = None,
                  show=True,
-                 save=True,
+                 save=None,
                  linkage = None,
                  timerange=None,
                  additional_plotspecs = None,

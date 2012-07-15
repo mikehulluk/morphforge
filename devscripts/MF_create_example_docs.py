@@ -32,6 +32,9 @@ examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
 
 
 dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples']#, 'assorted' ]
+example_subdirs = [ d for d in os.listdir(examples_src_dir) if d.startswith("""exset""") ]
+dirs = sorted(example_subdirs)
+
 example_srcs = list( itertools.chain( *[ sorted(Glob( Join(examples_src_dir, dir) + "/*.py") ) for dir in dirs] ) )
 
 
@@ -75,13 +78,6 @@ Code
 $code
 
 
-Output
-~~~~~~
-
-.. code-block:: bash
-
-    $output
-
 
 
 #if $figures
@@ -99,6 +95,19 @@ Figures
 #end for
 
 #end if
+
+
+
+
+Output
+~~~~~~
+
+.. code-block:: bash
+
+    $output
+
+
+
 
 """
 

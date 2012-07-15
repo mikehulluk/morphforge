@@ -24,6 +24,15 @@ locs = [
         "srcs/morphforge/*/*/__init__.py",
         "srcs/morphforge/*/*/*/__init__.py",
         "srcs/morphforge/*/*/*/*/__init__.py",
+        "srcs/morphforge/*/*/*/*/*/__init__.py",
+        "srcs/morphforge/*/*/*/*/*/__init__.py",
+        "srcs/morphforgecontrib/__init__.py",
+        "srcs/morphforgecontrib/*/__init__.py",
+        "srcs/morphforgecontrib/*/*/__init__.py",
+        "srcs/morphforgecontrib/*/*/*/__init__.py",
+        "srcs/morphforgecontrib/*/*/*/*/__init__.py",
+        "srcs/morphforgecontrib/*/*/*/*/*/__init__.py",
+        "srcs/morphforgecontrib/*/*/*/*/*/__init__.py",
         ]
 glob_pkgs =itertools.chain( *[glob.glob(loc) for loc in locs] )
 glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs]
