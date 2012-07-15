@@ -201,6 +201,7 @@
 
 !src/morphforge/simulation/
 !src/morphforge/simulation/base/
+!src/morphforge/simulation/base/__init__.py
 
 
 !src/morphforge/simulation/base/stimulation/
@@ -281,6 +282,13 @@
 #!src/morphforge/simulation/core/util/celllocator.py
 
 !src/morphforge/simulation/neuron/
+!src/morphforge/simulation/neuron/core/
+!src/morphforge/simulation/neuron/core/__init__.py
+
+!src/morphforge/simulation/neuron/core/neuronsimulationenvironment.py
+!src/morphforge/simulation/neuron/core/neuronsimulation.py
+!src/morphforge/simulation/neuron/core/neuronsimulationsettings.py
+
 !src/morphforge/simulation/neuron/biophysics/
 !src/morphforge/simulation/neuron/biophysics/__init__.py
 !src/morphforge/simulation/neuron/biophysics/mm_neuron.py
