@@ -40,7 +40,7 @@ def parse(s):
 
 
     on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-    if not on_rtd:
+    if on_rtd:
         print ' WARNING!! Read the Docs Hack - Not parsing unit.'
         return 0 * pq.dimensionless
 
