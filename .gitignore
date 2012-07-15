@@ -359,6 +359,10 @@
 
 
 
+!src/morphforge/simulationanalysis/summaries_new/
+!src/morphforge/simulationanalysis/summaries_new/__init__.py
+
+
 # Example scripts:
 !src/morphforgeexamples/
 !src/morphforgeexamples/Makefile
