@@ -28,6 +28,8 @@ clean:
 	$(MAKE) -C doc/ clean
 	$(MAKE) -C src/morphforgecontrib/simulation/neuron_gsl/cpp clean
 	find . -name "*.pyc" -exec rm {} \;
+	find . -name "*.swp" -exec rm {} \;
+	find . -name "*~" -exec rm {} \;
 	find . -name "*.bak" -exec rm {} \;
 	find . -name "parser.out" -exec rm {} \;
 	rm -rf dist/

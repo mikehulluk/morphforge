@@ -74,12 +74,7 @@ install what you need.
     $ # <No output displayed means everything is OK>
     
     
-
-    
-
-
 .. code-block:: bash
-
 
     # Install NEURON with Python bindings (thanks to Eilif Muller)
     # Download from here: http://neuralensemble.org/people/eilifmuller/

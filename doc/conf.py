@@ -60,7 +60,7 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index_api'
+master_doc = 'index'
 
 # General information about the project.
 project = u'morphforge'
@@ -173,7 +173,7 @@ html_static_path = ['_static']
 #html_show_sourcelink = True
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
+html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #html_show_copyright = True
@@ -181,7 +181,7 @@ html_static_path = ['_static']
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
 # base URL from which the finished HTML is served.
-#html_use_opensearch = ''
+html_use_opensearch = False
 
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = None

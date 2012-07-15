@@ -3,6 +3,7 @@
 
 
 *.pyc
+*~
 
 # Allow specific files:
 !.gitignore
@@ -398,7 +399,14 @@
 !doc/srcs/tests/
 !doc/srcs/tests/*.rst
 
-
+!doc/_templates/
+!doc/srcs/concepts/
+!doc/srcs/details/
+!doc/srcs/packages/morphforge/
+!doc/_templates/*
+!doc/srcs/concepts/*
+!doc/srcs/details/*
+!doc/srcs/packages/morphforge/*
 
 
 
@@ -1708,39 +1716,4 @@ y
 
 
 
-!devscripts/.MF_create_example_docs.py.swp
-!doc/_static/
-!doc/_templates/
-!doc/index_api.rst
-!doc/out.txt
-!doc/srcs/concepts/
-!doc/srcs/details/
-!doc/srcs/packages/complete_class_list.rst
-!doc/srcs/packages/morphforge/
-!etc/.coveragerc
-!src/mhlibs/simulation_manager/
-!src/morphforge/core/mockcontrol.py
-!src/morphforge/simulation/base/
-!src/morphforge/simulation/neuron/core/
-!src/morphforge/simulation/neuron/misc.py
-!src/morphforge/simulationanalysis/summaries_new/
-!src/morphforge/simulationanalysis/tagviewer/
-!src/morphforge/stdimports/.__init__.py.swp
-!src/morphforge/traces/methods/
-!src/morphforge/traces/operators/
-!src/morphforge/traces/traceobjpluginctrl.py
-!src/morphforge/traces/tracetypes/__init__.py~
-!src/morphforge/traces/tracetypes/trace.py
-!src/morphforge/traces/tracetypes/trace.py~
-!src/morphforge/traces/tracetypes/tracefixeddt.py
-!src/morphforge/traces/tracetypes/tracepiecewise.py
-!src/morphforge/traces/tracetypes/tracepointbased.py
-!src/morphforge/traces/tracetypes/tracevariabledt.py
-!src/morphforgecontrib/pyNN/
-!src/morphforgecontrib/simulation/synapses_neurounit/
-!src/morphforgeexamples/assorted/old/
-!src/morphforgeexamples/morphology/_output/
-!src/morphforgeexamples/poster_examples/
-!src/morphforgeexamples/summary_generation/
-!src/morphforgetest/morphforgecontrib/
 

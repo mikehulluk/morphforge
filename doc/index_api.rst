@@ -1,14 +1,24 @@
-
+======================
+Morphforge Users Guide
+======================
 
 
 .. contents::
+  
+Package Overview
+++++++++++++++++
+
+.. toctree::
+    :maxdepth: 1
+    
+    /srcs/packages/package_overview
     
 
 morphforge
 ++++++++++++
 
-Conceptual overviews
----------------------
+Key Concepts
+------------
 
 .. toctree::
     :maxdepth: 2
@@ -16,26 +26,29 @@ Conceptual overviews
     /srcs/concepts/morphology.rst
     /srcs/concepts/simulation.rst
     /srcs/concepts/simulationanalysis.rst
-   
 
-morphforge simulation packages
+*~/.morphforgerc* configuration
 --------------------------------
 
 .. toctree::
-   :maxdepth: 3
+    
+    /srcs/morphforgerc
+    
+
+
+[Package List]
+--------------------
+
+.. toctree::
+   :maxdepth: 2
 
    /srcs/packages/morphforge/core.rst
    /srcs/packages/morphforge/morphology.rst
    /srcs/packages/morphforge/simulation.rst
    /srcs/packages/morphforge/simulationanalysis.rst
-
-
-morphforge additional packages
---------------------------------
-   
    
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    
    /srcs/packages/morphforge/traces.rst
    /srcs/packages/morphforge/componentlibraries.rst
@@ -43,12 +56,7 @@ morphforge additional packages
 
 
 
-*.morphforgerc* configuration
------------------------------
 
-.. toctree::
-    
-    /srcs/morphforgerc
 
 
 
@@ -59,8 +67,8 @@ morphforgecontrib
 +++++++++++++++++
 
 
-morphforgecontrib plugins
----------------------------
+Plugins
+-------
 
 Morphology-Formats
 ~~~~~~~~~~~~~~~~~~
@@ -167,8 +175,8 @@ Post-Synaptic Mechanism                                                         
 
 
 
-morphforgecontrib models
-------------------------
+Models
+------
 HH model
 
 
@@ -194,7 +202,7 @@ Cells
 
 
 
-morphforgecontrib packages 
+[Package List]
 ---------------------------
 
 .. toctree::
@@ -248,34 +256,6 @@ Indices and tables
 
 
 
-
-
-morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core.SimulatorSpecificChannel
-morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.neuron.MM_Neuron_SimulatorSpecificChannel
- 
- 
-.hh_style.core.mmalphabeta.MM_AlphaBetaChannel
-.hh_style.core.mmalphabetabeta.MM_AlphaBetaBetaChannel
-.hh_style.core.mmleak.MM_LeakChannel
-
-.hh_style.neuron.mm_neuron_alphabeta.MM_Neuron_AlphaBeta
-.hh_style.neuron.mm_neuron_alphabetabeta.MM_Neuron_AlphaBetaBeta
-.hh_style.neuron.mm_neuron_leak.MM_Neuron_Leak
-
-.inftauinterpolated.core.MM_InfTauInterpolatedChannel
-.inftauinterpolated.neuron.MM_Neuron_InfTauInterpolated
-
-.neuroml_via_neurounits.neuroml_via_neurounits_core.NeuroML_Via_NeuroUnits_Channel
-.neuroml_via_neurounits.neuroml_via_neurounits_neuron.py.NeuroML_Via_NeuroUnits_ChannelNEURON
-
-.neuroml_via_xsl.neuroml_via_xsl_core.NeuroML_Via_XSL_Channel
-.neuroml_via_xsl.neuroml_via_xsl_neuron.NeuroML_Via_XSL_ChannelNEURON
-  
-.neurounits.neuro_units_bridge.NeuroUnitEqnsetMechanism
-.neurounits.neuro_units_bridge.Neuron_NeuroUnitEqnsetMechanism
-
-.simulatorbuiltin.sim_builtin_core.BuiltinChannel
-.simulatorbuiltin.sim_builtin_neuron.BuiltinChannelNEURON
 
 
 
