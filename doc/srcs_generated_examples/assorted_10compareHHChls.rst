@@ -21,36 +21,7 @@ Code
 
 .. code-block:: python
 
-	#!/usr/bin/python
-	# -*- coding: utf-8 -*-
 	
-	# ---------------------------------------------------------------------
-	# Copyright (c) 2012 Michael Hull.
-	# All rights reserved.
-	#
-	# Redistribution and use in source and binary forms, with or without
-	# modification, are permitted provided that the following conditions
-	# are met:
-	#
-	#  - Redistributions of source code must retain the above copyright 
-	#    notice, this list of conditions and the following disclaimer. 
-	#  - Redistributions in binary form must reproduce the above copyright 
-	#    notice, this list of conditions and the following disclaimer in 
-	#    the documentation and/or other materials provided with the 
-	#    distribution.
-	#
-	# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-	# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-	# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-	# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-	# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-	# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-	# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-	# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-	# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-	# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-	#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-	# ----------------------------------------------------------------------
 	
 	
 	
@@ -58,11 +29,6 @@ Code
 	
 	
 	from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
-	#from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import MM_Neuron_NeuroUnits_GenRecord
-	#from neurounits.neurounitparser import NeuroUnitParser
-	#from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
-	#from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.neuron import MM_Neuron_SimulatorSpecificChannel
-	#from neurounits.tools.nmodl import WriteToNMODL
 	from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 	
 	from morphforge.stdimports import *
@@ -353,19 +319,6 @@ Code
 	
 	
 	
-	
-	
-	
-	
-	#
-	#resultsE = simulate_chls_on_neuron( apply_hh_chls_neurounits_direct )
-	#TagViewer([resultsE], timeranges=[(95, 200)*pq.ms], show=True )
-	#
-	#import sys
-	#sys.exit(0)
-	
-	
-	
 	resultsA =None
 	resultsB =None
 	resultsC =None
@@ -383,58 +336,22 @@ Code
 	trs = [tr for tr in trs if tr is not None]
 	TagViewer(trs, timeranges=[(95, 200)*pq.ms], show=True )
 	
-	import sys
-	sys.exit(0)
 	
-	
-	
-	import pylab
-	
-	
-	
-	
-	
-	resultsC = simulate_chls_on_neuron( apply_hh_chls_neuroml_neurounits )
-	resultsD = simulate_chls_on_neuron( apply_hh_chls_neuroml_xsl )
-	resultsE = simulate_chls_on_neuron( apply_hh_chls_neurounits_direct )
-	
-	
-	TagViewer([resultsC,resultsD,resultsE], timeranges=[(95, 200)*pq.ms], show=True )
-	#TagViewer([resultsC], timeranges=[(95, 200)*pq.ms], show=True )
-	
-	
-	
-	for v in vars:
-	    ax = pylab.figure().add_subplot(111)
-	    tr = resultsC.get_trace(v)
-	    ax.plot( tr._time.magnitude, tr._data.magnitude, label=v )
-	    ax.legend()
-	#pylab.show()
-	
-	
-	#import sys
-	#sys.exit(1)
-	
-	
-	
-	TagViewer([resultsC,resultsD], timeranges=[(95, 200)*pq.ms], show=True )
-	
-	
-	
-	
-	import sys
-	sys.exit(1)
-	
-	
-	resultsA = simulate_chls_on_neuron( apply_hh_chls_morphforge_format )
-	resultsB = simulate_chls_on_neuron( apply_hh_chls_NEURON_builtin )
-	# Display the results:
-	TagViewer([resultsA,resultsB,resultsC], timeranges=[(95, 200)*pq.ms], show=True )
-	
-	
+	pylab.show()
 	
 
 
+
+
+Figures
+~~~~~~~~
+
+
+.. figure:: /srcs_generated_examples/images/assorted_10compareHHChls_out1.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/assorted_10compareHHChls_out1.png>`
 
 
 
@@ -446,1740 +363,557 @@ Output
 
 .. code-block:: bash
 
-    	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s2012-07-15 15:57:45,076 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:45,076 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <cla2012-07-15 15:57:45,749 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:45,750 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+    	2012-07-15 16:22:02,195 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:02,195 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
+	2012-07-15 16:22:02,876 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:02,876 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
 	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
 	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
 	See http://www.neuron.yale.edu/credits.html
 	
-	ss 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
-	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/67/6759cbddebb1ebe9c3417fbd7d9b3779.bundle
+	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/5a/5ac98c2e5ea924159dbd36c4c0ce3ec8.bundle
 	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
-	Time for Building Mod-Files:  0.000946998596191
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_60c3176ccd39a2716e59acb4aae32c6c.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_e38908b5bc02fc80d5b0e1d97d5b1aa7.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_714554be3b0a5b42eb0b14c97a5be284.so
+	Time for Building Mod-Files:  0.000953912734985
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_84d1bd07ca97dcd5fbbd02b9f9e24292.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_5802f621da7bdb78d8cf28aa6f52a53d.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_84aedd04410d6d41b5f3d80aec3853c1.so
 		1 
 		1 
 		1 
 		50000 
 		1 
 	Running Simulation
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 0.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 5.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 10.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 15.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 20.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 25.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 30.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 35.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 40.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 45.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 50.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 55.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 60.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 65.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 70.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 75.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 80.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 85.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 90.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 95.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 100.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 105.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 110.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 115.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 120.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 125.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 130.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 135.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 140.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 145.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 150.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 155.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 160.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 165.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 170.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 175.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 180.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 185.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 190.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 195.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 200.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 205.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 210.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 215.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 220.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 225.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 230.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 235.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 240.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 245.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 250.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 255.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 260.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 265.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 270.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 275.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 280.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 285.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 290.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 295.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 300.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 305.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 310.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 315.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 320.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 325.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 330.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 335.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 340.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 345.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 350.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 355.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 360.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 365.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 370.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 375.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 380.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 385.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 390.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 395.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 400.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 405.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 410.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 415.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 420.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 425.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 430.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 435.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 440.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 445.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 450.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 455.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 460.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 465.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 470.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 475.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 480.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 485.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 490.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa0668cc> t= 495.0 ms
-	Time for Simulation:  0.0392339229584
-	Time for Extracting Data: (1 records) 0.0185830593109
-	Simulation Time Elapsed:  0.218359947205
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 0.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 5.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 10.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 15.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 20.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 25.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 30.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 35.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 40.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 45.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 50.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 55.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 60.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 65.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 70.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 75.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 80.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 85.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 90.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 95.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 100.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 105.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 110.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 115.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 120.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 125.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 130.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 135.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 140.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 145.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 150.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 155.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 160.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 165.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 170.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 175.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 180.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 185.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 190.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 195.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 200.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 205.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 210.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 215.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 220.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 225.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 230.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 235.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 240.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 245.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 250.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 255.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 260.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 265.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 270.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 275.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 280.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 285.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 290.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 295.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 300.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 305.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 310.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 315.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 320.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 325.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 330.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 335.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 340.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 345.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 350.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 355.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 360.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 365.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 370.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 375.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 380.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 385.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 390.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 395.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 400.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 405.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 410.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 415.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 420.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 425.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 430.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 435.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 440.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 445.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 450.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 455.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 460.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 465.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 470.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 475.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 480.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 485.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 490.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xabb47cc> t= 495.0 ms
+	Time for Simulation:  0.039715051651
+	Time for Extracting Data: (1 records) 0.0158109664917
+	Simulation Time Elapsed:  0.218096971512
 	Suceeded
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <claNEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
 	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
 	See http://www.neuron.yale.edu/credits.html
 	
-	ss 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
-	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/ed/ed62f525466986e2eb61620af86c056e.bundle
+	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/e6/e66cf60034b9e48fed79502a07d31dde.bundle
 	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
-	Time for Building Mod-Files:  5.00679016113e-06
+	Time for Building Mod-Files:  4.05311584473e-06
 		1 
 		1 
 		1 
 		50000 
 		1 
 	Running Simulation
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 0.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 5.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 10.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 15.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 20.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 25.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 30.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 35.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 40.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 45.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 50.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 55.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 60.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 65.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 70.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 75.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 80.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 85.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 90.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 95.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 100.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 105.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 110.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 115.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 120.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 125.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 130.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 135.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 140.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 145.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 150.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 155.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 160.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 165.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 170.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 175.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 180.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 185.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 190.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 195.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 200.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 205.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 210.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 215.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 220.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 225.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 230.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 235.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 240.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 245.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 250.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 255.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 260.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 265.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 270.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 275.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 280.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 285.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 290.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 295.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 300.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 305.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 310.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 315.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 320.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 325.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 330.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 335.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 340.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 345.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 350.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 355.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 360.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 365.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 370.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 375.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 380.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 385.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 390.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 395.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 400.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 405.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 410.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 415.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 420.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 425.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 430.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 435.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 440.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 445.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 450.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 455.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 460.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 465.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 470.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 475.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 480.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 485.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 490.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa3ac8ac> t= 495.0 ms
-	2012-07-15 15:57:46,690 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:46,690 - DISABLEDLOGGING - INFO - Simulation Ran OK. Post Processing:
-	Time for Simulation:  0.0378789901733
-	Time for Extracting Data: (1 records) 0.0142049789429
-	Simulation Time Elapsed:  0.152791976929
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 0.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 5.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 10.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 15.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 20.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 25.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 30.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 35.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 40.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 45.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 50.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 55.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 60.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 65.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 70.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 75.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 80.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 85.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 90.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 95.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 100.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 105.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 110.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 115.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 120.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 125.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 130.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 135.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 140.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 145.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 150.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 155.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 160.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 165.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 170.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 175.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 180.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 185.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 190.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 195.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 200.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 205.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 210.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 215.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 220.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 225.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 230.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 235.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 240.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 245.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 250.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 255.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 260.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 265.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 270.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 275.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 280.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 285.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 290.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 295.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 300.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 305.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 310.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 315.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 320.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 325.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 330.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 335.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 340.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 345.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 350.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 355.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 360.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 365.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 370.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 375.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 380.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 385.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 390.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 395.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 400.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 405.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 410.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 415.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 420.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 425.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 430.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 435.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 440.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 445.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 450.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 455.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 460.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 465.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 470.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 475.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 480.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 485.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 490.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa1818ac> t= 495.0 ms
+	2012-07-15 16:22:03,709 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:03,710 - DISABLEDLOGGING - INFO - Simulation Ran OK. Post Processing:
+	Time for Simulation:  0.0295219421387
+	Time for Extracting Data: (1 records) 0.0139319896698
+	Simulation Time Elapsed:  0.161772012711
 	Suceeded
-	 -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
+	2012-07-15 16:22:04,624 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:04,624 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+	See http://www.neuron.yale.edu/credits.html
+	
+	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/37/37b112b364ffe89e5ea45a738ae68cf7.bundle
+	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
+	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.mod
+	/mnt/sdb5/home/michael/mftmp/modbuild_1870
+	Executing: /opt/nrn/i686/bin/nocmodl tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.lo tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.la  -rpath /opt/nrn/i686/libs  tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.c  -fPIC -DPIC -o .libs/tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.o
+	
+	OP2: libtool: link: gcc -shared  .libs/tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0 -o .libs/tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0.0.0
+	libtool: link: (cd ".libs" && rm -f "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0" && ln -s "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0.0.0" "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0")
+	libtool: link: (cd ".libs" && rm -f "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so" && ln -s "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so.0.0.0" "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.so")
+	libtool: link: ( cd ".libs" && rm -f "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.la" && ln -s "../tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.la" "tmp_3e41c7b0a82b3d23e1a4b214e4b61fbc.la" )
+	
+	Time for Building Mod-Files:  0.543470144272
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_46e7d42aa7b4c050c823bdd80e99d0d7.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_1efc531eaf0bae2e49f6a5c8a91797f1.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_6a13c7a5c1256b824ea32520f372f65e.so
+		1 
+		1 
+		1 
+		50000 
+		1 
+	Running Simulation
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 0.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 5.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 10.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 15.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 20.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 25.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 30.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 35.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 40.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 45.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 50.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 55.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 60.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 65.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 70.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 75.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 80.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 85.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 90.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 95.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 100.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 105.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 110.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 115.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 120.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 125.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 130.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 135.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 140.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 145.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 150.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 155.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 160.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 165.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 170.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 175.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 180.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 185.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 190.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 195.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 200.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 205.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 210.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 215.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 220.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 225.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 230.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 235.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 240.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 245.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 250.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 255.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 260.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 265.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 270.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 275.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 280.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 285.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 290.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 295.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 300.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 305.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 310.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 315.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 320.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 325.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 330.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 335.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 340.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 345.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 350.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 355.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 360.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 365.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 370.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 375.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 380.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 385.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 390.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 395.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 400.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 405.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 410.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 415.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 420.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 425.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 430.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 435.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 440.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 445.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 450.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 455.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 460.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 465.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 470.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 475.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 480.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 485.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 490.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x98d6cac> t= 495.0 ms
+	Time for Simulation:  0.0422339439392
+	Time for Extracting Data: (1 records) 0.0147619247437
+	Simulation Time Elapsed:  0.789886951447
+	Suceeded
+	2012-07-15 16:22:06,072 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:06,072 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+	See http://www.neuron.yale.edu/credits.html
+	
+	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/dd/dd826ad8301a22237eb9df0bb2de3e6b.bundle
+	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
+	Time for Building Mod-Files:  0.000976085662842
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_a46bf2f1691a80cf44bb3239e7721133.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_1efc531eaf0bae2e49f6a5c8a91797f1.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_5a083cfce4e72edc3d6a4e32ec25038e.so
+		1 
+		1 
+		1 
+		50000 
+		1 
+	Running Simulation
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 0.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 5.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 10.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 15.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 20.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 25.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 30.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 35.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 40.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 45.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 50.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 55.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 60.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 65.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 70.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 75.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 80.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 85.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 90.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 95.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 100.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 105.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 110.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 115.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 120.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 125.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 130.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 135.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 140.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 145.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 150.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 155.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 160.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 165.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 170.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 175.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 180.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 185.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 190.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 195.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 200.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 205.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 210.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 215.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 220.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 225.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 230.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 235.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 240.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 245.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 250.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 255.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 260.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 265.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 270.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 275.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 280.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 285.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 290.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 295.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 300.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 305.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 310.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 315.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 320.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 325.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 330.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 335.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 340.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 345.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 350.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 355.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 360.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 365.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 370.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 375.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 380.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 385.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 390.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 395.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 400.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 405.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 410.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 415.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 420.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 425.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 430.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 435.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 440.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 445.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 450.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 455.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 460.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 465.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 470.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 475.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 480.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 485.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 490.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa55e60c> t= 495.0 ms
+	Time for Simulation:  0.0482721328735
+	Time for Extracting Data: (1 records) 0.0148410797119
+	Simulation Time Elapsed:  0.249479055405
+	Suceeded
 	['name', 'simulation']
 	['name', 'simulation']
 	Loading Channel Type: NaChannel
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
 	Reading JSON: {"mf":{"role":"TRANSMEMBRANECURRENT"}}
 	Reading JSON: {"mf":{"role":"MEMBRANEVOLTAGE"}}
 	Reading JSON: {"mf":{"role":"TEMPERATURE"}}
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) K 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
 	CHECKING
-	<neurounits.ast.astobjects.Parameter object at 0xa69074c>
+	<neurounits.ast.astobjects.Parameter object at 0xb18da0c>
 	VREV
 	iii 1.0 kg*m**2/(s**3*A) <class 'quantities.quantity.Quantity'>
 	iiii 0.05 kg*m**2/(s**3*A) <class 'quantities.quantity.Quantity'>
 	OK
 	
 	CHECKING
-	<neurounits.ast.astobjects.Parameter object at 0xa692c6c>
+	<neurounits.ast.astobjects.Parameter object at 0xb1402cc>
 	GMAX
 	iii 1.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
 	iiii 1200.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
 	OK
 	
-	T [<class 'neurounits.ast.astobjects.DivOp'>]
-	V <class 'neurounits.ast.astobjects.SuppliedValue'>
-	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
-	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
-	h_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
-	m <class 'neurounits.ast.astobjects.StateVariable'>
-	m <class 'neurounits.ast.astobjects.StateVariable'>
-	m <class 'neurounits.ast.astobjects.StateVariable'>
-	h <class 'neurounits.ast.astobjects.StateVariable'>
-	m_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
-	m_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
-	T [<class 'neurounits.ast.astobjects.DivOp'>]
-	V <class 'neurounits.ast.astobjects.SuppliedValue'>
-	GMAX <class 'neurounits.ast.astobjects.Parameter'>
-	GATEPROP <class 'neurounits.ast.astobjects.AssignedVariable'>
-	V <class 'neurounits.ast.astobjects.SuppliedValue'>
-	T [<class 'neurounits.ast.astobjects.MulOp'>]
-	V <class 'neurounits.ast.astobjects.SuppliedValue'>
-	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
-	h_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
 	g <class 'neurounits.ast.astobjects.AssignedVariable'>
 	V <class 'neurounits.ast.astobjects.SuppliedValue'>
 	VREV <class 'neurounits.ast.astobjects.Parameter'>
-	m_alpha <class 'neurounits.ast.astobje<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 2012-07-15 15:57:47,591 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:47,591 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-	See http://www.neuron.yale.edu/credits.html
-	
-	'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
-	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/8c/8c925284a589522fc85cdef5eb16686b.bundle
-	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
-	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.mod
-	/mnt/sdb5/home/michael/mftmp/modbuild_30273
-	Executing: /opt/nrn/i686/bin/nocmodl tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.lo tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.la  -rpath /opt/nrn/i686/libs  tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.c  -fPIC -DPIC -o .libs/tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.o
-	
-	OP2: libtool: link: gcc -shared  .libs/tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0 -o .libs/tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0.0.0
-	libtool: link: (cd ".libs" && rm -f "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0" && ln -s "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0.0.0" "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0")
-	libtool: link: (cd ".libs" && rm -f "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so" && ln -s "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so.0.0.0" "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.so")
-	libtool: link: ( cd ".libs" && rm -f "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.la" && ln -s "../tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.la" "tmp_435bbe1a7a4c8b8db2f609f46cf1b81f.la" )
-	
-	Time for Building Mod-Files:  0.574654817581
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_84d1bd07ca97dcd5fbbd02b9f9e24292.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_1efc531eaf0bae2e49f6a5c8a91797f1.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_47fdb5990ae9776703ab34b5a9ef2fe2.so
-		1 
-		1 
-		1 
-		50000 
-		1 
-	Running Simulation
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 0.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 5.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 10.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 15.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 20.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 25.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 30.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 35.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 40.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 45.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 50.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 55.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 60.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 65.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 70.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 75.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 80.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 85.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 90.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 95.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 100.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 105.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 110.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 115.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 120.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 125.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 130.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 135.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 140.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 145.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 150.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 155.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 160.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 165.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 170.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 175.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 180.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 185.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 190.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 195.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 200.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 205.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 210.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 215.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 220.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 225.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 230.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 235.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 240.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 245.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 250.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 255.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 260.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 265.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 270.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 275.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 280.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 285.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 290.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 295.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 300.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 305.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 310.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 315.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 320.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 325.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 330.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 335.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 340.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 345.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 350.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 355.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 360.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 365.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 370.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 375.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 380.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 385.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 390.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 395.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 400.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 405.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 410.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 415.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 420.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 425.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 430.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 435.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 440.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 445.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 450.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 455.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 460.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 465.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 470.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 475.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 480.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 485.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 490.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xa315c8c> t= 495.0 ms
-	Time for Simulation:  0.04168176651
-	Time for Extracting Data: (1 records) 0.0147309303284
-	Simulation Time Elapsed:  0.823637008667
-	Suceeded
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <cla2012-07-15 15:57:49,094 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:49,095 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-	NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-	See http://www.neuron.yale.edu/credits.html
-	
-	ss 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
-	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/2a/2adf789e31bcfedde4dcaa4ab6497efd.bundle
-	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
-	Time for Building Mod-Files:  0.000787973403931
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_714554be3b0a5b42eb0b14c97a5be284.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_a46bf2f1691a80cf44bb3239e7721133.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_1efc531eaf0bae2e49f6a5c8a91797f1.so
-		1 
-		1 
-		1 
-		50000 
-		1 
-	Running Simulation
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 0.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 5.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 10.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 15.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 20.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 25.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 30.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 35.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 40.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 45.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 50.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 55.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 60.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 65.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 70.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 75.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 80.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 85.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 90.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 95.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 100.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 105.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 110.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 115.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 120.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 125.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 130.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 135.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 140.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 145.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 150.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 155.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 160.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 165.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 170.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 175.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 180.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 185.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 190.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 195.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 200.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 205.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 210.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 215.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 220.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 225.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 230.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 235.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 240.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 245.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 250.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 255.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 260.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 265.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 270.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 275.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 280.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 285.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 290.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 295.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 300.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 305.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 310.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 315.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 320.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 325.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 330.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 335.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 340.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 345.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 350.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 355.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 360.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 365.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 370.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 375.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 380.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 385.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 390.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 395.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 400.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 405.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 410.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 415.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 420.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 425.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 430.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 435.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 440.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 445.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 450.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 455.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 460.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 465.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 470.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 475.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 480.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 485.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 490.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9f3d5ec> t= 495.0 ms
-	Time for Simulation:  0.0433671474457
-	Time for Extracting Data: (1 records) 0.0183081626892
-	Simulation Time Elapsed:  0.273189067841
-	Suceeded
-	cts.AssignedVariable'>
+	T [<class 'neurounits.ast.astobjects.DivOp'>]
+	V <class 'neurounits.ast.astobjects.SuppliedValue'>
+	m_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
+	m_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
+	m_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
+	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
+	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
+	h_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
+	GMAX <class 'neurounits.ast.astobjects.Parameter'>
+	GATEPROP <class 'neurounits.ast.astobjects.AssignedVariable'>
+	T [<class 'neurounits.ast.astobjects.DivOp'>]
+	V <class 'neurounits.ast.astobjects.SuppliedValue'>
+	V <class 'neurounits.ast.astobjects.SuppliedValue'>
+	T [<class 'neurounits.ast.astobjects.MulOp'>]
+	V <class 'neurounits.ast.astobjects.SuppliedValue'>
+	h <class 'neurounits.ast.astobjects.StateVariable'>
+	m <class 'neurounits.ast.astobjects.StateVariable'>
+	m <class 'neurounits.ast.astobjects.StateVariable'>
+	m <class 'neurounits.ast.astobjects.StateVariable'>
+	h_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
+	h_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m_alpha <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m_beta <class 'neurounits.ast.astobjects.AssignedVariable'>
 	T [<class 'neurounits.ast.astobjects.DivOp'>]
 	V <class 'neurounits.ast.astobjects.SuppliedValue'>
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa64df2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa69612c>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa64df2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa69612c>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa65392c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa650cac>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa65392c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa650cac>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb149b0c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb149dec>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb149b0c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb149dec>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb146d2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb19a0ec>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb146d2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb19a0ec>])
 	[]
 	Unexpected: []
 	[]
@@ -2196,182 +930,31 @@ Output
 	Unexpected: []
 	[]
 	Unexpected: []
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa69022c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa69004c>])
-	m_inf <class 'neurounits.ast.astobjects.AssignedVariable'>
-	m <class 'neurounits.ast.astobjects.StateVariable'>
-	m_tau <class 'neurounits.ast.astobjects.AssignedVariable'>
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb183d0c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb183d6c>])
 	h_inf <class 'neurounits.ast.astobjects.AssignedVariable'>
 	h <class 'neurounits.ast.astobjects.StateVariable'>
 	h_tau <class 'neurounits.ast.astobjects.AssignedVariable'>
-	o1 m <MMUnit: (10e0) >
-	o2 m_inf <MMUnit: (10e0) >
-	o1 h <MMUnit: (10e0) >
-	o2 h_inf <MMUnit: (10e0) >
-	0
+	m_inf <class 'neurounits.ast.astobjects.AssignedVariable'>
+	m <class 'neurounits.ast.astobjects.StateVariable'>
+	m_tau <class 'neurounits.ast.astobjects.AssignedVariable'>
 	Loading Channel Type: KConductance
 	['name', 'simulation']
 	Loading Channel Type: NaChannel
 	Loading Channel Type: KConductance
 	['name', 'simulation']
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
 	Reading JSON: {"mf":{"role":"TRANSMEMBRANECURRENT"}}
 	Reading JSON: {"mf":{"role":"MEMBRANEVOLTAGE"}}
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
 	CHECKING
-	<neurounits.ast.astobjects.Parameter object at 0xa69406c>
+	<neurounits.ast.astobjects.Parameter object at 0xb18216c>
 	g
 	iii 1.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
 	iiii 1200.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
 	OK
 	
-	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
-	v <class 'neurounits.ast.astobjects.SuppliedValue'>
 	m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
+	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
+	v <class 'neurounits.ast.astobjects.SuppliedValue'>
 	h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	h_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
@@ -2383,17 +966,17 @@ Output
 	h_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
 	v <class 'neurounits.ast.astobjects.SuppliedValue'>
-	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
-	v <class 'neurounits.ast.astobjects.SuppliedValue'>
 	m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
 	v <class 'neurounits.ast.astobjects.SuppliedValue'>
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa8495cc>, <neurounits.ast.astobjects.AssignedVariable object at 0xa84956c>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa8495cc>, <neurounits.ast.astobjects.AssignedVariable object at 0xa84956c>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa84906c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa849eec>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa84906c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa849eec>])
+	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
+	v <class 'neurounits.ast.astobjects.SuppliedValue'>
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb33fe2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb33f0cc>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb33fe2c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb33f0cc>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb33ff8c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb33f4ec>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb33ff8c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb33f4ec>])
 	[]
 	Unexpected: []
 	[]
@@ -2411,12 +994,12 @@ Output
 	[]
 	Unexpected: []
 	Deps; set([])
-	hinf <class 'neurounits.ast.astobjects.AssignedVariable'>
-	h <class 'neurounits.ast.astobjects.StateVariable'>
-	htau <class 'neurounits.ast.astobjects.AssignedVariable'>
 	minf <class 'neurounits.ast.astobjects.AssignedVariable'>
 	m <class 'neurounits.ast.astobjects.StateVariable'>
 	mtau <class 'neurounits.ast.astobjects.AssignedVariable'>
+	hinf <class 'neurounits.ast.astobjects.AssignedVariable'>
+	h <class 'neurounits.ast.astobjects.StateVariable'>
+	htau <class 'neurounits.ast.astobjects.AssignedVariable'>
 	a1 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	a2 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	V <class 'neurounits.ast.astobjects.FunctionDefParameter'>
@@ -2425,362 +1008,48 @@ Output
 	V <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	a4 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	a5 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
-	0
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
 	Reading JSON: {"mf":{"role":"TRANSMEMBRANECURRENT"}}
 	Reading JSON: {"mf":{"role":"MEMBRANEVOLTAGE"}}
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
 	v <class 'neurounits.ast.astobjects.SuppliedValue'>
 	Deps; set([])
-	0
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
 	Reading JSON: {"mf":{"role":"TRANSMEMBRANECURRENT"}}
 	Reading JSON: {"mf":{"role":"MEMBRANEVOLTAGE"}}
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -4 kg -1 s 3 A 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-	n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-	n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.Symbol<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <cla2012-07-15 15:57:50,319 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:50,320 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-	ss 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
-	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/1c/1cb87b1a43e0d160af007e39f3289f7f.bundle
+	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.as2012-07-15 16:22:07,097 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:22:07,097 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+	Loading Bundle from  /home/michael/old_home/mftmp/simulationresults/57/57bc2e28f6fe6de86999781e352ad7ed.bundle
 	{'sectionpos': 0.5, 'sectionindex': 0, 'cellname': 'cell_Cell1', 'recVecName': 'SomaVoltage'}
-	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_00ed65b55e583a1928f884b3267f93ea.mod
-	/mnt/sdb5/home/michael/mftmp/modbuild_30441
-	Executing: /opt/nrn/i686/bin/nocmodl tmp_00ed65b55e583a1928f884b3267f93ea.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_00ed65b55e583a1928f884b3267f93ea.lo tmp_00ed65b55e583a1928f884b3267f93ea.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_00ed65b55e583a1928f884b3267f93ea.la  -rpath /opt/nrn/i686/libs  tmp_00ed65b55e583a1928f884b3267f93ea.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_00ed65b55e583a1928f884b3267f93ea.c  -fPIC -DPIC -o .libs/tmp_00ed65b55e583a1928f884b3267f93ea.o
+	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_bbefa8032bf31fa5452bfc7f83a7d671.mod
+	/mnt/sdb5/home/michael/mftmp/modbuild_2081
+	Executing: /opt/nrn/i686/bin/nocmodl tmp_bbefa8032bf31fa5452bfc7f83a7d671.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_bbefa8032bf31fa5452bfc7f83a7d671.lo tmp_bbefa8032bf31fa5452bfc7f83a7d671.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_bbefa8032bf31fa5452bfc7f83a7d671.la  -rpath /opt/nrn/i686/libs  tmp_bbefa8032bf31fa5452bfc7f83a7d671.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_bbefa8032bf31fa5452bfc7f83a7d671.c  -fPIC -DPIC -o .libs/tmp_bbefa8032bf31fa5452bfc7f83a7d671.o
 	
-	OP2: libtool: link: gcc -shared  .libs/tmp_00ed65b55e583a1928f884b3267f93ea.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_00ed65b55e583a1928f884b3267f93ea.so.0 -o .libs/tmp_00ed65b55e583a1928f884b3267f93ea.so.0.0.0
-	libtool: link: (cd ".libs" && rm -f "tmp_00ed65b55e583a1928f884b3267f93ea.so.0" && ln -s "tmp_00ed65b55e583a1928f884b3267f93ea.so.0.0.0" "tmp_00ed65b55e583a1928f884b3267f93ea.so.0")
-	libtool: link: (cd ".libs" && rm -f "tmp_00ed65b55e583a1928f884b3267f93ea.so" && ln -s "tmp_00ed65b55e583a1928f884b3267f93ea.so.0.0.0" "tmp_00ed65b55e583a1928f884b3267f93ea.so")
-	libtool: link: ( cd ".libs" && rm -f "tmp_00ed65b55e583a1928f884b3267f93ea.la" && ln -s "../tmp_00ed65b55e583a1928f884b3267f93ea.la" "tmp_00ed65b55e583a1928f884b3267f93ea.la" )
+	OP2: libtool: link: gcc -shared  .libs/tmp_bbefa8032bf31fa5452bfc7f83a7d671.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0 -o .libs/tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0.0.0
+	libtool: link: (cd ".libs" && rm -f "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0" && ln -s "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0.0.0" "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0")
+	libtool: link: (cd ".libs" && rm -f "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so" && ln -s "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so.0.0.0" "tmp_bbefa8032bf31fa5452bfc7f83a7d671.so")
+	libtool: link: ( cd ".libs" && rm -f "tmp_bbefa8032bf31fa5452bfc7f83a7d671.la" && ln -s "../tmp_bbefa8032bf31fa5452bfc7f83a7d671.la" "tmp_bbefa8032bf31fa5452bfc7f83a7d671.la" )
 	
-	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_091c5e7bfc2fd34a4f0a40f475588350.mod
-	/mnt/sdb5/home/michael/mftmp/modbuild_30441
-	Executing: /opt/nrn/i686/bin/nocmodl tmp_091c5e7bfc2fd34a4f0a40f475588350.mod
-	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/oNEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+	Executing: /opt/nrn/i686/bin/modlunit /home/michael/old_home/mftmp/tmp_93aba50cdaa2c963a67d5c47b385a8dc.mod
+	/mnt/sdb5/home/michael/mftmp/modbuild_2081
+	Executing: /opt/nrn/i686/bin/nocmodl tmp_93aba50cdaa2c963a67d5c47b385a8dc.mod
+	Executing: /opt/nrn/share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_93aba50cdaa2c963a67d5c47b385a8dc.lo tmp_93aba50cdaa2c963a67d5c47b385a8dc.c  
+	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_93aba50cdaa2c963a67d5c47b385a8dc.la  -rpath /opt/nrn/i686/libs  tmp_93aba50cdaa2c963a67d5c47b385a8dc.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
+	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_93aba50cdaa2c963a67d5c47b385a8dc.c  -fPIC -DPIC -o .libs/tmp_93aba50cdaa2c963a67d5c47b385a8dc.o
+	
+	OP2: libtool: link: gcc -shared  .libs/tmp_93aba50cdaa2c963a67d5c47b385a8dc.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-sonNEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
 	Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
 	See http://www.neuron.yale.edu/credits.html
 	
-	pt/nrn/include/nrn"  -I"/opt/nrn/i686/lib"    -g -O2 -c -o tmp_091c5e7bfc2fd34a4f0a40f475588350.lo tmp_091c5e7bfc2fd34a4f0a40f475588350.c  
-	Executing: /opt/nrn/share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_091c5e7bfc2fd34a4f0a40f475588350.la  -rpath /opt/nrn/i686/libs  tmp_091c5e7bfc2fd34a4f0a40f475588350.lo  -L/opt/nrn/i686/lib -L/opt/nrn/i686/lib  /opt/nrn/i686/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-	OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn/include/nrn -I/opt/nrn/i686/lib -g -O2 -c tmp_091c5e7bfc2fd34a4f0a40f475588350.c  -fPIC -DPIC -o .libs/tmp_091c5e7bfc2fd34a4f0a40f475588350.o
+	ame -Wl,tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0 -o .libs/tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0.0.0
+	libtool: link: (cd ".libs" && rm -f "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0" && ln -s "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0.0.0" "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0")
+	libtool: link: (cd ".libs" && rm -f "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so" && ln -s "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so.0.0.0" "tmp_93aba50cdaa2c963a67d5c47b385a8dc.so")
+	libtool: link: ( cd ".libs" && rm -f "tmp_93aba50cdaa2c963a67d5c47b385a8dc.la" && ln -s "../tmp_93aba50cdaa2c963a67d5c47b385a8dc.la" "tmp_93aba50cdaa2c963a67d5c47b385a8dc.la" )
 	
-	OP2: libtool: link: gcc -shared  .libs/tmp_091c5e7bfc2fd34a4f0a40f475588350.o   -Wl,-rpath -Wl,/opt/nrn/i686/lib -Wl,-rpath -Wl,/opt/nrn/i686/lib -L/opt/nrn/i686/lib /opt/nrn/i686/lib/libnrniv.so /opt/nrn/i686/lib/libnrnoc.so /opt/nrn/i686/lib/liboc.so /opt/nrn/i686/lib/libmemacs.so /opt/nrn/i686/lib/libnrnmpi.so /opt/nrn/i686/lib/libscopmath.so /opt/nrn/i686/lib/libsparse13.so -lreadline -lncurses /opt/nrn/i686/lib/libivoc.so /opt/nrn/i686/lib/libneuron_gnu.so /opt/nrn/i686/lib/libmeschach.so /opt/nrn/i686/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0 -o .libs/tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0.0.0
-	libtool: link: (cd ".libs" && rm -f "tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0" && ln -s "tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0.0.0" "tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0")
-	libtool: link: (cd ".libs" && rm -f "tmp_091c5e7bfc2fd34a4f0a40f475588350.so" && ln -s "tmp_091c5e7bfc2fd34a4f0a40f475588350.so.0.0.0" "tmp_091c5e7bfc2fd34a4f0a40f475588350.so")
-	libtool: link: ( cd ".libs" && rm -f "tmp_091c5e7bfc2fd34a4f0a40f475588350.la" && ln -s "../tmp_091c5e7bfc2fd34a4f0a40f475588350.la" "tmp_091c5e7bfc2fd34a4f0a40f475588350.la" )
-	
-	Time for Building Mod-Files:  1.13530111313
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_0612813cb4a4d61a21a5f182a457546c.so
+	Time for Building Mod-Files:  1.18869113922
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_94ba4a90fa3b0d26f840892caf229c9b.so
 	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_7e1b2d96b76f63ca29b09c7fa3dbd568.so
-	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_ecb7e039ce9ae6f8d9f77ef7ef71a16c.so
+	loading membrane mechanisms from /home/michael/old_home/mftmp/modout/mod_0101db8482f49353d63063a9b1f83197.so
 		1 
 		1 
 		1 
@@ -2799,123 +1068,126 @@ Output
 		50000 
 		1 
 	Running Simulation
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 0.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 5.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 10.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 15.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 20.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 25.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 30.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 35.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 40.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 45.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 50.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 55.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 60.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 65.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 70.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 75.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 80.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 85.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 90.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 95.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 100.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 105.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 110.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 115.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 120.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 125.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 130.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 135.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 140.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 145.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 150.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 155.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 160.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 165.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 170.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 175.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 180.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 185.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 190.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 195.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 200.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 205.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 210.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 215.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 220.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 225.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 230.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 235.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 240.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 245.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 250.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 255.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 260.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 265.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 270.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 275.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 280.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 285.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 290.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 295.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 300.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 305.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 310.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 315.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 320.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 325.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 330.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 335.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 340.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 345.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 350.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 355.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 360.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 365.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 370.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 375.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 380.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 385.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 390.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 395.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 400.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 405.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 410.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 415.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 420.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 425.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 430.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 435.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 440.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 445.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 450.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 455.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 460.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 465.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 470.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 475.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 480.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 485.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 490.0 ms
-	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0xb5481ec> t= 495.0 ms
-	Time for Simulation:  0.0451729297638
-	Time for Extracting Data: (7 records) 0.017077922821
-	Simulation Time Elapsed:  1.38450098038
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 0.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 5.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 10.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 15.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 20.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 25.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 30.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 35.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 40.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 45.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 50.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 55.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 60.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 65.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 70.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 75.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 80.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 85.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 90.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 95.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 100.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 105.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 110.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 115.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 120.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 125.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 130.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 135.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 140.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 145.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 150.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 155.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 160.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 165.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 170.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 175.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 180.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 185.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 190.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 195.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 200.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 205.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 210.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 215.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 220.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 225.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 230.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 235.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 240.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 245.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 250.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 255.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 260.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 265.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 270.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 275.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 280.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 285.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 290.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 295.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 300.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 305.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 310.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 315.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 320.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 325.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 330.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 335.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 340.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 345.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 350.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 355.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 360.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 365.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 370.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 375.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 380.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 385.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 390.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 395.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 400.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 405.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 410.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 415.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 420.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 425.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 430.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 435.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 440.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 445.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 450.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 455.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 460.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 465.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 470.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 475.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 480.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 485.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 490.0 ms
+	<morphforge.simulation.neuron.core.neuronsimulation.Event object at 0x9fd71ec> t= 495.0 ms
+	Time for Simulation:  0.0450081825256
+	Time for Extracting Data: (7 records) 0.0168869495392
+	Simulation Time Elapsed:  1.38690781593
 	Suceeded
-	icConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
+	tobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
+	v <class 'neurounits.ast.astobjects.SuppliedValue'>
+	n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
+	n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
+	n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
+	v <class 'neurounits.ast.astobjects.SuppliedValue'>
+	n <class 'neurounits.ast.astobjects.StateVariable'>
+	n <class 'neurounits.ast.astobjects.StateVariable'>
+	n <class 'neurounits.ast.astobjects.StateVariable'>
+	n <class 'neurounits.ast.astobjects.StateVariable'>
+	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
 	v <class 'neurounits.ast.astobjects.SuppliedValue'>
 	n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
 	n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-	T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
-	v <class 'neurounits.ast.astobjects.SuppliedValue'>
-	v <class 'neurounits.ast.astobjects.SuppliedValue'>
-	n <class 'neurounits.ast.astobjects.StateVariable'>
-	n <class 'neurounits.ast.astobjects.StateVariable'>
-	n <class 'neurounits.ast.astobjects.StateVariable'>
-	n <class 'neurounits.ast.astobjects.StateVariable'>
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa740b8c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa740f2c>])
-	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xa740b8c>, <neurounits.ast.astobjects.AssignedVariable object at 0xa740f2c>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb24668c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb18dfec>])
+	Deps; set([<neurounits.ast.astobjects.AssignedVariable object at 0xb24668c>, <neurounits.ast.astobjects.AssignedVariable object at 0xb18dfec>])
 	[]
 	Unexpected: []
 	[]
@@ -2936,11 +1208,10 @@ Output
 	V <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	a4 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
 	a5 <class 'neurounits.ast.astobjects.FunctionDefParameter'>
-	0
 	['name', 'simulation']
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa54eb2c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55a1ac>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55a42c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xb042a8c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xb05010c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xb05038c>
 	Saving File _output/figures/assorted_10compareHHChls/eps/fig000_Autosave_figure_1.eps
 	Saving File _output/figures/assorted_10compareHHChls/pdf/fig000_Autosave_figure_1.pdf
 	Saving File _output/figures/assorted_10compareHHChls/png/fig000_Autosave_figure_1.png

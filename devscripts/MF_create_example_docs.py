@@ -52,7 +52,7 @@ def parse_src_file(filename, docstring):
     d = open(filename,'r').read()
 
     # Remove copyright notice:
-    d = re.split("""[#][-]+""", d)[-1]
+    d = re.split("""[#]\s?[-]+""", d)[-1]
 
     # Remove the docstring:
     if docstring is not None:

@@ -13,36 +13,7 @@ Code
 
 .. code-block:: python
 
-	#!/usr/bin/python
-	# -*- coding: utf-8 -*-
 	
-	# ---------------------------------------------------------------------
-	# Copyright (c) 2012 Michael Hull.
-	# All rights reserved.
-	#
-	# Redistribution and use in source and binary forms, with or without
-	# modification, are permitted provided that the following conditions
-	# are met:
-	#
-	#  - Redistributions of source code must retain the above copyright 
-	#    notice, this list of conditions and the following disclaimer. 
-	#  - Redistributions in binary form must reproduce the above copyright 
-	#    notice, this list of conditions and the following disclaimer in 
-	#    the documentation and/or other materials provided with the 
-	#    distribution.
-	#
-	# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-	# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-	# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-	# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-	# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-	# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-	# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-	# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-	# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-	# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-	#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-	# ----------------------------------------------------------------------
 	
 	
 	
@@ -172,243 +143,34 @@ Output
 
 .. code-block:: bash
 
-    	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.math
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.geom
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m -2 kg -1 s 2 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Searching for library:  std.math
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 3 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 4 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) > <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -3 A -2> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.neuro
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) s 1 A 1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	<MMUnit: (10e0) m 2 kg 1 s -2 K -1 mol -1> <class 'neurounits.units_backends.mh.MMUnit'>
-	Name std.physics
+    	2012-07-15 16:21:47,295 - morphforge.core.logmgr - INFO - Logger Started OK
+	2012-07-15 16:21:47,295 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
 	['name', 'simulation']
-	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'state': 'm', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'state': 'h', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	kwargs {'state': 'n', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeur2012-07-15 15:57:12,043 - morphforge.core.logmgr - INFO - Logger Started OK
-	2012-07-15 15:57:12,043 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
-	onSimulation object at 0xabd3c6c>}
-	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xabe958c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xabd3c6c>}
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa54ccac>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b84c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b5cc>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b50c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55ba4c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa54ccac>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b5cc>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b84c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa54ccac>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55b50c>
-	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xa55ba4c>
+	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'state': 'm', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'state': 'h', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs {'state': 'n', 'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	kwargs2: {'cell_location': <morphforge.simulation.base.core.celllocation.CellLocation object at 0xb28248c>, 'simulation': <morphforge.simulation.neuron.core.neuronsimulation.MNeuronSimulation object at 0xb28bd4c>}
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabe9cac>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf884c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf85cc>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf850c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf8a4c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabe9cac>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf85cc>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf884c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabe9cac>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf850c>
+	Plotting For PlotSpec: <morphforge.simulationanalysis.tagviewer.plotspecs.PlotSpec_DefaultNew object at 0xabf8a4c>
 	Saving File _output/figures/singlecell_simulation070/eps/fig000_Autosave_figure_1.eps
 	Saving File _output/figures/singlecell_simulation070/pdf/fig000_Autosave_figure_1.pdf
 	Saving File _output/figures/singlecell_simulation070/png/fig000_Autosave_figure_1.png
