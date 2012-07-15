@@ -362,6 +362,15 @@
 !src/morphforge/simulationanalysis/summaries_new/
 !src/morphforge/simulationanalysis/summaries_new/__init__.py
 
+!src/morphforge/simulationanalysis/tagviewer/
+!src/morphforge/simulationanalysis/tagviewer/plotspecs.py
+!src/morphforge/simulationanalysis/tagviewer/tagviewer.py
+!src/morphforge/simulationanalysis/tagviewer/post_ax_functors.py
+!src/morphforge/simulationanalysis/tagviewer/linkage
+!src/morphforge/simulationanalysis/tagviewer/linkage/__init__.py
+!src/morphforge/simulationanalysis/tagviewer/__init__.py
+
+
 
 # Example scripts:
 !src/morphforgeexamples/
@@ -1015,11 +1024,11 @@ y
 !src/morphforge/traces/io/traceio.py
 !src/morphforge/traces/io/fromcsv.py
 !src/morphforge/traces/io/tocsv.py
-!src/morphforge/traces/tagviewer/
-!src/morphforge/traces/tagviewer/__init__.py
-!src/morphforge/traces/tagviewer/post_ax_functors.py
-!src/morphforge/traces/tagviewer/plotspecs.py
-!src/morphforge/traces/tagviewer/tagviewer.py
+#!src/morphforge/traces/tagviewer/
+#!src/morphforge/traces/tagviewer/__init__.py
+#!src/morphforge/traces/tagviewer/post_ax_functors.py
+#!src/morphforge/traces/tagviewer/plotspecs.py
+#!src/morphforge/traces/tagviewer/tagviewer.py
 !src/morphforge/traces/generation/
 !src/morphforge/traces/generation/__init__.py
 !src/morphforge/traces/generation/gen_parser_lexer.py
