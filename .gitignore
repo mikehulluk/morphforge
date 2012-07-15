@@ -1850,3 +1850,7 @@
 !src/morphforgecontrib/pyNN/pyNnTest1.py
 !src/morphforgecontrib/pyNN/__init__.py
 
+
+
+!src/morphforgeexamples/summary_generation/
+!src/morphforgeexamples/summary_generation/summary_gen_all_neuroml.py
