@@ -1844,3 +1844,9 @@
 !src/morphforge_testdata/mod_files
 !src/morphforge_testdata/mod_files/exampleChannels3a.mod
 !src/morphforge_testdata/mod_files/exampleChannels3b.mod
+
+
+!src/morphforgecontrib/pyNN/
+!src/morphforgecontrib/pyNN/pyNnTest1.py
+!src/morphforgecontrib/pyNN/__init__.py
+
