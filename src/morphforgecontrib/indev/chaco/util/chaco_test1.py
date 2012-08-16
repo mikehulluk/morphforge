@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-#from tutorial8 import PlotExample
+
 from scipy import arange
 from scipy.special import jn
 

@@ -148,7 +148,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
 
     def build_mod(self, modfile_set):
-        #import postsynaptic_mechanisms_exp2syn_nmda_modfile
+
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile.get_exp2_syn_nmda_mg_block_time_dependance_modfile(), name='UnusedParameterXXXExpSyn2')
         modfile_set.append(modfile)
 

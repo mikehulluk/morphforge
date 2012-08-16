@@ -44,14 +44,14 @@ from morphforge.stdimports import *
 
 import random as R
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
-#from morphforge.simulation.neuron.core.neuronsimulationsettings import NeuronSimulationSettings
 
-#from neurounits.importers.neuroml.core import parse_channelml_file,  MorphforgeNotImplementedException
+
+
 
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_SingleSegment
 from mhlibs.test_data.neuroml import NeuroMLDataLibrary
 from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplementedException
-#from morphforgecontrib.mhdev.junk import NEURONHACKRevVoltageSetter
+
 
 
 

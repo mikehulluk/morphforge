@@ -172,7 +172,7 @@ class TagViewer(object):
         assert save is None, ' "save" parameter is deprecated (15 July 2012)'
         # Save the figure:
         #if save:
-        #    from mreorg.scriptplots import PM
+
         #    PM.save_figure( figtitle )
 
 

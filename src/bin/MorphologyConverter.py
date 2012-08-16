@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#import morphforge.stdimports as mf
+
 
 import sys
 
-#from morphforge.morphology.builders import MorphologyLoader
+
 from morphforge.morphology.mesh import MeshWriterPLY
 from morphforge.morphology.mesh import MeshBuilderRings
 

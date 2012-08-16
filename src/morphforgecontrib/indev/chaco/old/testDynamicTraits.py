@@ -43,7 +43,7 @@ import wx
 
 from enthought.traits.ui.api import View,Item,Group
 from enthought.traits import *
-#from enthought.traits.ui import View
+
 
 import random
 

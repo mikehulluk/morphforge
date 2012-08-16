@@ -33,7 +33,7 @@
 
 assert False
 
-# import ply.lex as lex
+
 #
 #tokens = (
 #   'ID',

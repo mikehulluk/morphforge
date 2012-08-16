@@ -30,9 +30,9 @@
 # ----------------------------------------------------------------------
 
 
-#from morphforge.core.mgrs.settingsmgr import SettingsMgr
+
 import morphforge.core.quantities.unit_string_parser
-#import morphforge.core.quantities.unit_string_lexer
+
 import quantities as pq
 from morphforge.core.misc import is_float, is_int
 

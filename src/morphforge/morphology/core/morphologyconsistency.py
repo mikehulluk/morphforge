@@ -31,8 +31,8 @@
 
 
 from morphforge.core import  SeqUtils,  check_cstyle_varname
-#from morphforge.morphology.md5 import _get_md5_of_morphology
-#from morphforge.core import getStringMD5Checksum
+
+
 from morphforge.core.misc import StrUtils
 
 def _get_md5_of_region(r):

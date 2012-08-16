@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-#from morphforge.constants.standardtags import StandardTags
+
 #
 #class StdRec(object):
 #    MembraneVoltage = StandardTags.Voltage

@@ -31,7 +31,7 @@
 
 
 
-#from util import get_chl_info_dir
+
 import shutil
 import os
 from os.path import join as Join
@@ -160,7 +160,7 @@ class ComparisonResult(object):
 
 from xml.sax.saxutils import escape
 
-#import xml
+
 
 local_tmpl = """
 <html>
@@ -269,7 +269,7 @@ def compareNeuroMLChl( xmlFile ):
         chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlFile,  mechanism_id="Blhkjl")
         c.chl_neurounits = chl_neuro
 
-        #from neurounits.tools.writepdf import WriteToPDF
+
         op_pdf_file = Join(op_dir, 'Op1.pdf')
         #WriteToPDF(eqnset = chl_neuro.eqnset, filename = op_pdf_file)
         c.chl_neurounits_pdf = op_pdf_file

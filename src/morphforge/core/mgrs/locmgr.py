@@ -89,7 +89,7 @@ class LocMgr(object):
 
     @classmethod
     def get_temporary_filename(cls, suffix="", filedirectory=None):
-        #from morphforge.core.misc import getStringMD5Checksum
+
 
         rnd_string = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
         from morphforge.core.misc import StrUtils

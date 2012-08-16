@@ -25,7 +25,7 @@ from morphforge.core import LogMgr
 
 
 
-#from morphforge.morphology.visitor import  SectionVistorFactory
+
 from morphforge.morphology.visitor.visitorfactory import SVVisitorFactory
 
 def _pca(X):
@@ -46,7 +46,7 @@ def _pca(X):
 
 class PCAAxes(object):
     def __init__(self, morph):
-        #from morphforge.morphology.visitor import  SVVisitorFactory
+
         axes = _pca(SVVisitorFactory.array3_all_points(morph)())
 
         e1 = axes[0][1] / norm(axes[0][1])

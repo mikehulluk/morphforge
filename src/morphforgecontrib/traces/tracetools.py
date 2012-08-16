@@ -119,7 +119,7 @@ class SpikeFinderThreshCross(object):
 
 
         # t = range(d.shape[0])
-        # import pylab
+
         # pylab.figure()
         # pylab.plot( t, d)
         # pylab.plot( t, above_zero*100)

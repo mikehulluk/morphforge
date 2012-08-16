@@ -37,7 +37,7 @@ from tracetypes import *
 
 
 # Conversion and splicing:
-#from traceGenerator import TraceGenerator
+
 
 from eventset import *
 

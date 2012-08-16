@@ -81,7 +81,7 @@ if gethostname() in ["michael-DQ57TM"]:
     from morphforgecontrib.mhdev import *
 
 
-#from morphforgecontrib.simulation.plotting import Plot2Dimensional
+
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 
 

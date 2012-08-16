@@ -40,7 +40,7 @@ Created on Oct 12, 2009
 import numpy
 from morphforge.core import SeqUtils
 from morphforge.morphology.visitor import ListBuilderSectionVisitor
-#from morphforge.core.monkey_patching import MonkeyPatchMayaVi
+
 
 import itertools
 
@@ -69,7 +69,7 @@ class MayaViRenderer(object):
         with very small section lengths compared to radii
         """
         #MonkeyPatchMayaVi()
-        #import enthought.mayavi.mlab as mlab
+
         from mayavi import mlab
 
         @mlab.show
@@ -131,14 +131,14 @@ class MayaViRenderer(object):
         Slightly more complex plotting - plot each
         section as a cylinders.
         """
-        #from morphforge.morphology.util import  TriMeshBuilderVerySimple
+
         import sys
         sys.path.append('/usr/share/pyshared/')
 
-        #import morphforge
+
         from morphforge.morphology.mesh import MeshBuilderRings
         #MonkeyPatchMayaVi()
-        #import enthought.mayavi.mlab as mlab
+
         from mayavi import mlab
 
         assert len(self.morphs)==1
@@ -162,14 +162,14 @@ class MayaViRenderer(object):
         section as a cylinders.
         """
 
-        #from morphforge.morphology.util import  TriMeshBuilderVerySimple
+
         import sys
         sys.path.append('/usr/share/pyshared/')
 
-        #import morphforge
+
         from morphforge.morphology.mesh import MeshBuilderRings
         #MonkeyPatchMayaVi()
-        #import enthought.mayavi.mlab as mlab
+
         from mayavi import mlab
 
         assert len(self.morphs)==1

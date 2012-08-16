@@ -298,7 +298,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        pass
 #
 #
-#from time import gmtime, strftime
+
 #class SimulationConfig(HasTraits):
 #
 #    data = Instance( ArrayPlotData)

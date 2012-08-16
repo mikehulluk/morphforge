@@ -31,15 +31,15 @@
 
 
 
-#from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
-from io import StringIO
-#from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 
-#import morphforge.morphology.exporter.export_tree_swc
+from io import StringIO
+
+
+
 
 from morphforge.core.misc import StrUtils, find_files_recursively
 
-#import os
+
 import numpy as np
 from morphforge.morphology.core.morphologyarray import MorphologyArray
 from morphforge.morphology.exporter.export_array_swc import ExportArray_SWC

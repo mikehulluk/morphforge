@@ -32,9 +32,9 @@
 
 """ Visitor Base Classes: Here be Dragons!"""
 
-#import numpy
 
-#from morphforge.core import ExactlyOneNotNone
+
+
 from morphforge.core import SeqUtils
 
 

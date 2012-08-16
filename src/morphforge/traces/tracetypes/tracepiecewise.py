@@ -153,7 +153,7 @@ class TracePiecewise(Trace):
 
 
     def get_values(self, times):
-        #from morphforge.core.quantities import unit
+
         _datas = []
         _times =[]
         assert (times <= self.get_max_time() ).all()

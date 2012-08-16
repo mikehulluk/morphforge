@@ -213,7 +213,7 @@ class CellAnalysis_ReboundResponse(object):
 
         res = sim.run()
 
-        #from morphforge.simulationanalysis.summaries.simsummariser import SimulationSummariser
+
         #SimulationSummariser(res, "/home/michael/Desktop/ForRoman.pdf")
 
         i = res.get_trace('Current1').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current2').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current3').convert_to_fixed( unit("0.5:ms") )

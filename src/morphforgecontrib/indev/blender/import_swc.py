@@ -38,7 +38,7 @@ Tooltip: 'Mike Hull - SWC Importer'
 """
 import Blender
 import bpy
-#import morphforge.stdimports as mf
+
 
 
 import sys

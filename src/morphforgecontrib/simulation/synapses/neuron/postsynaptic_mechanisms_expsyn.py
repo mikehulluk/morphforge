@@ -33,7 +33,7 @@
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, \
     MHOCSections
 from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import PostSynapticMech_ExpSyn
-# from morphforgecontrib.stdimports import PostSynapticMech_ExpSyn
+
 # PostSynapticMech_ExpSyn
 from Cheetah.Template import Template
 from morphforge.simulation.neuron.networks import NeuronSynapse

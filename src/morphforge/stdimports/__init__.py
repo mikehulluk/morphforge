@@ -43,7 +43,7 @@ from morphforge.core import  *
 
 from morphforge.traces import *
 from morphforge.traces.eventset import EventSet, Event
-#from morphforge.traces.tagviewer import TagViewer, PlotSpec_DefaultNew
+
 from morphforge.simulationanalysis.tagviewer import TagViewer, PlotSpec_DefaultNew, DefaultPlotSpec
 
 
@@ -74,7 +74,7 @@ from morphforge.simulationanalysis.summaries import *
 from morphforge.componentlibraries import *
 
 
-#from morphforge.simulation.shortcuts import *
+
 from morphforge.simulation.base.biophysics.mta_helpers import *
 
 

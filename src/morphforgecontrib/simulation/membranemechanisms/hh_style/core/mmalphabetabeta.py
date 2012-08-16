@@ -70,8 +70,8 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
 
 
     def get_alpha_beta_at_voltage(self, V, statevar):
-        #from morphforgecontrib.simulation.default.summarisers.util import AlphaBetaCalculator
-        #from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalphabeta import Summarise_MM_AlphaBetaCal
+
+
         from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import AlphaBetaCalculator
         alpha = self.statevars[statevar][0]
         beta1 = self.statevars[statevar][1]

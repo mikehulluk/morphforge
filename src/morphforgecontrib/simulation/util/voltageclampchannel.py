@@ -35,7 +35,7 @@
 from morphforge.core.quantities import unit
 from morphforge.stdimports import apply_mechanism_everywhere_uniform
 
-#from morphforge.simulation import shortcuts
+
 
 def get_voltageclamp_soma_current_trace(env, V,mech_builder, morphology):
     sim = build_voltageclamp_soma_simulation(env, V,mech_builder, morphology)
