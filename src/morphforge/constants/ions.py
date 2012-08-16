@@ -31,11 +31,12 @@
 
 
 class ChlIon(object):
-    Na = "na"
-    Ks = "ks"
-    Kf = "kf"
-    Ca = "ca"
-    Lk = "lk"
+ 
+    Na = 'na'
+    Ks = 'ks'
+    Kf = 'kf'
+    Ca = 'ca'
+    Lk = 'lk'
 
-    Chls = [Na,Ks,Kf,Ca,Lk]
+    Chls = [Na, Ks, Kf, Ca, Lk]
 

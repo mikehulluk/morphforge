@@ -83,7 +83,7 @@ class SimulationSummariser(object):
         self.simulation = simulationresult.simulation
 
 
-        self.make_graphs= make_graphs
+        self.make_graphs = make_graphs
 
         self.elements = defaultdict(list)
 
@@ -118,7 +118,7 @@ class SimulationSummariser(object):
             elements.extend(self.elements[sect] )
 
         # Build PDF:
-        dname, fname = os.path.split(filename)
+        (dname, fname) = os.path.split(filename)
         LocMgr.ensure_dir_exists(dname)
         doc = SimpleDocTemplate(filename,
                                 pagesize=A4,
@@ -136,7 +136,8 @@ class SimulationSummariser(object):
         from reportlab.platypus import Paragraph, Table, PageBreak
         local_elements = []
 
-        local_elements.append( Paragraph("Overview", self.reportlabconfig.styles['Heading1'] ) )
+        local_elements.append(Paragraph('Overview',
+                              self.reportlabconfig.styles['Heading1']))
 
 
         # Cells:
@@ -183,7 +184,7 @@ class SimulationSummariser(object):
 
 
         # Finish Up:
-        local_elements.append( PageBreak() )
+        local_elements.append(PageBreak())
         return local_elements
 
 
@@ -225,13 +226,14 @@ class SimulationSummariser(object):
 
 
             # Membrane Mechanisms:
-            data = [ ["Mechanism", "Targettor", "Applicator" ],     ]
+            data = [['Mechanism', 'Targettor', 'Applicator']]
             for mta in cell.get_biophysics().get_applied_mtas():
                 m = mta.mechanism.name
                 t = mta.targetter.get_description()
                 a = mta.applicator.get_description()
-                data.append( [m,t,a] )
-            local_elements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
+                data.append([m, t, a])
+            local_elements.append(Table(data,
+                                  style=self.reportlabconfig.defaultTableStyle))
 
 
 
@@ -293,7 +295,7 @@ class SimulationSummariser(object):
 
         local_elements.append( Table(data, style=self.reportlabconfig.defaultTableStyle) )
 
-        local_elements.append( PageBreak() )
+        local_elements.append(PageBreak())
         return local_elements
 
     def summarise_synapses(self):
@@ -301,7 +303,7 @@ class SimulationSummariser(object):
         local_elements = []
         local_elements.append( Paragraph("Synapses", self.reportlabconfig.styles['Heading1'] ) )
 
-        local_elements.append( PageBreak() )
+        local_elements.append(PageBreak())
         return local_elements
 
 
@@ -319,16 +321,16 @@ class SimulationSummariser(object):
 
 
             f = QuantitiesFigure(figsize=self.reportlabconfig.imagesize)
-            width,height =self.reportlabconfig.imagesize
-            ax = f.add_subplot(111,  ylabel="?", xlabel="time")
+            (width, height) = self.reportlabconfig.imagesize
+            ax = f.add_subplot(111, ylabel='?', xlabel='time')
             for trName in keyTraces:
                 tr = self.simulation.result.get_trace(trName)
-                ax.plotTrace( tr )
+                ax.plotTrace(tr)
             ax.legend()
             #localElements.append( self.reportlabconfig.save_mpl_to_rl_image( f, "KeyTrace") )
 
 
-        local_elements.append( PageBreak() )
+        local_elements.append(PageBreak())
         return local_elements
 
 

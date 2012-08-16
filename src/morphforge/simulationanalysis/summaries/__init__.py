@@ -34,9 +34,5 @@ from simsummariser import SimulationSummariser, SS_Sections
 from mmsummariser import MembraneMechanismSummariser
 from summariser_library import SummariserLibrary
 
-__all__ = [
-"SimulationSummariser",
-"SS_Sections",
-"MembraneMechanismSummariser",
-"SummariserLibrary",
-]
+__all__ = ['SimulationSummariser', 'SS_Sections',
+           'MembraneMechanismSummariser', 'SummariserLibrary']

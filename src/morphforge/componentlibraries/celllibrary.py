@@ -39,11 +39,11 @@ class CellLibrary(object):
     def register_cell(cls, cell_builder):
         celltype = cell_builder.get_cell_type()
         modelsrc = cell_builder.get_model()
-        cls.cells[ (modelsrc, celltype) ] = cell_builder
+        cls.cells[(modelsrc, celltype)] = cell_builder
 
     @classmethod
     def get_cellfunctor(cls, modelsrc, celltype):
-        return cls.cells[ (modelsrc, celltype) ]
+        return cls.cells[(modelsrc, celltype)]
 
     @classmethod
     def create_cell(cls,sim,  modelsrc, celltype, **kwargs):
@@ -53,6 +53,6 @@ class CellLibrary(object):
     @classmethod
     def list_cells(cls):
         for k in cls.cells:
-            print "Cell Registered:", k
+            print 'Cell Registered:', k
 
 

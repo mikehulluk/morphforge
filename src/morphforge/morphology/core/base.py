@@ -50,13 +50,14 @@ class MorphologyBase(object):
 
 
 
-    def __init__(self, region_number_to_name_bidict=None, name=None, metadata=None):
+    def __init__(self, region_number_to_name_bidict=None, name=None,
+                 metadata=None):
         self.region_number_to_name_bidict = region_number_to_name_bidict
 
         self._name = name or ObjectLabeller.get_next_unamed_object_name(MorphologyBase)
         check_cstyle_varname(self._name)
 
-        self.metadata = metadata if metadata else {}
+        self.metadata = (metadata if metadata else {})
 
 
     # Properties:

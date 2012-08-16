@@ -35,7 +35,9 @@ from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from plotspecs import PlotSpec_DefaultNew
-from morphforge.traces import  TraceFixedDT, TraceVariableDT, TracePiecewise
+from morphforge.traces import TraceFixedDT
+from morphforge.traces import TraceVariableDT
+from morphforge.traces import TracePiecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
 
@@ -46,9 +48,9 @@ from morphforge.core import quantities as pq
 def _resolve_time_range(time_range):
     # Sort out the time_range:
     if time_range is not None:
-        if  isinstance(time_range, (tuple, list, Quantity) ):
+        if isinstance(time_range, (tuple, list, Quantity)):
             if len(time_range) == 2:
-                if isinstance(time_range[0], Quantity ):
+                if isinstance(time_range[0], Quantity):
                     pass
                 else:
                     assert False
@@ -99,7 +101,6 @@ class TagViewer(object):
                  fig_kwargs = {'figsize': (12, 8)},
                  timeranges=(None,),
                  plotspecs = None,
-                 #post_ax_functors= None,
                  figtitle = None,
                  show=True,
                  save=None,
@@ -114,10 +115,10 @@ class TagViewer(object):
 
 
         if timerange is not None:
-            timeranges = [timerange,]
+            timeranges = [timerange]
 
 
-        if not is_iterable( input ):
+        if not is_iterable(input):
             input = [input]
 
 
@@ -134,7 +135,7 @@ class TagViewer(object):
                             }
 
         for i in input:
-            tr_extractor = trace_extractors[ type(i) ]
+            tr_extractor = trace_extractors[type(i)]
             tr_extractor(i)
 
 
@@ -156,11 +157,8 @@ class TagViewer(object):
         self.figtitle = figtitle
         self.mpl_tight_bounds = mpl_tight_bounds
 
-        #self.post_ax_functors = post_ax_functors
-
         self.timeranges = timeranges
         self.share_x_labels = share_x_labels
-
 
         self.fig = None
         self.subaxes = []
@@ -201,23 +199,21 @@ class TagViewer(object):
         n_plots = len(self.plot_specs)
 
 
-        #time_axis = None
-
-        for i, plot_spec in enumerate( self.plot_specs ):
+        for (i, plot_spec) in enumerate(self.plot_specs):
 
             print 'Plotting For PlotSpec:', plot_spec
 
-            for iT, time_range in enumerate(self.timeranges):
+            for (iT, time_range) in enumerate(self.timeranges):
 
 
                 time_range = _resolve_time_range(time_range)
 
                 # Create the axis:
-                ax = self.fig.add_subplot(n_plots, n_time_ranges, i*n_time_ranges + iT  + 1 )
+                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + iT  + 1 )
                 ax.set_xunit(pq.millisecond)
 
                 # Leave the plotting to the PlotSpecification
-                is_bottom_plot = i==n_plots-1
+                is_bottom_plot = i == n_plots - 1
                 plot_xaxis_details = is_bottom_plot or not self.share_x_labels
                 plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details )
 

@@ -37,13 +37,13 @@ from morphforge.morphology.errors import MorphologyFrameworkRegistrationError
 
 class MorphologyImporter(object):
 
-    method_name_prefix = "from"
+    method_name_prefix = 'from'
 
     @classmethod
     def register(cls, method_name, import_functor, as_type, allow_override=False):
 
-        if not isinstance( method_name, basestring):
-            raise MorphologyFrameworkRegistrationError("method_name must be a string")
+        if not isinstance(method_name, basestring):
+            raise MorphologyFrameworkRegistrationError('method_name must be a string')
 
         if not method_name.startswith(cls.method_name_prefix):
             raise MorphologyFrameworkRegistrationError("method_name must begin with '%s' "% cls.method_name_prefix)

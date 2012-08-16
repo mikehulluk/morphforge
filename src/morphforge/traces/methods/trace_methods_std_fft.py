@@ -35,21 +35,23 @@ from morphforge.traces import TraceFixedDT
 
 import numpy as np
 def _fft(tr, normalise=True):
-    ft = np.fft.fft( tr._data )
+    ft = np.fft.fft(tr._data)
     if normalise:
         ft /= ft.max()
-    ftfreq = np.fft.fftfreq( tr._data.size, tr.get_dt_new().rescale("s").magnitude )
-    return ftfreq, ft
+    ftfreq = np.fft.fftfreq(tr._data.size, 
+                            tr.get_dt_new().rescale('s').magnitude)
+    return (ftfreq, ft)
 
 
 def _psd(tr, normalise=True):
-    ft = np.fft.fft( tr._data )
-    ft = ft.real()**2 + ft.imag()**2
+    ft = np.fft.fft(tr._data)
+    ft = ft.real() ** 2 + ft.imag() ** 2
     if normalise:
         ft /= ft.max()
 
-    ftfreq = np.fft.fftfreq( tr._data.size, tr.get_dt_new().rescale("s").magnitude )
-    return ftfreq, ft
+    ftfreq = np.fft.fftfreq(tr._data.size, 
+                            tr.get_dt_new().rescale("s").magnitude)
+    return (ftfreq, ft)
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'fft', _fft, can_fallback_to_fixed_trace=True )

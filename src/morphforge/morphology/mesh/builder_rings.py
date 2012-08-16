@@ -36,12 +36,6 @@ from morphforge.morphology.mesh import find_closest_points, get_point_circle_abo
 
 
 
-
-
-
-
-
-
 def _build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
 
     assert len( pts1 ) == len( pts2 )
@@ -69,15 +63,15 @@ def _build_triangle_mesh_between_rings( pts1, pts2, pts1_offset, pts2_offset):
 class MeshBuilderRings(object):
 
     @classmethod
-    def build(cls, morph,region_color_map=None, n=20 ):
+    def build(cls, morph, region_color_map=None, n=20):
 
         section_distal_offsets = {}
 
-        vertices = np.empty( (0,3) )
-        vertex_colors = np.empty( (0,3) )
+        vertices = np.empty((0, 3))
+        vertex_colors = np.empty((0, 3))
         triangles = []
 
-        default_color= np.array( ((128,128,128),)  )
+        default_color = np.array(((128, 128, 128), ))
 
 
         if region_color_map:

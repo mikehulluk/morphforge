@@ -37,16 +37,16 @@ class PluginDict(object):
     the intention of code clearer.
     """
 
-    def __init__(self,):
+    def __init__(self):
         self.dict = {}
 
-    def register_plugin(self,plugin_name, plugin):
+    def register_plugin(self, plugin_name, plugin):
         """ Registers a plugin"""
 
         assert not plugin_name in self.dict
         self.dict[plugin_name] = plugin
 
-    def get_plugin(self,plugin_name):
+    def get_plugin(self, plugin_name):
         """ Returns a previously registered plugin"""
 
         assert plugin_name in self.dict

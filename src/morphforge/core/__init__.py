@@ -67,6 +67,7 @@ __all__ = [
     'Join',
     'PluginDict',
     'MFRandom',
-    'unit','U'
+    'unit',
+    'U',
     ]
 

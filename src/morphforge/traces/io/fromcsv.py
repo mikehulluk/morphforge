@@ -50,8 +50,8 @@ class InvalidNeuroCSVFile(RuntimeError):
 
 
 def parse_json_helpful(s):
-    #S = clean_for_json(s)
-    S =  s.replace("'",'"')
+
+    S = s.replace("'", '"')
     try:
         return json.loads(S)
     except:
@@ -59,7 +59,7 @@ def parse_json_helpful(s):
 
 
 class NeuroCSVHeaderData(object):
-    def __init__(self,headerlines):
+    def __init__(self, headerlines):
         self.column_data = {}
         self.file_data = None
         self.load_hints = None
@@ -73,21 +73,21 @@ class NeuroCSVHeaderData(object):
 
     def summarise(self):
         print self.file_data
-        for k in sorted( self.column_data):
-            print 'Column: ',k, self.column_data[k]
-        print "LoadHints", self.load_hints
-        print "Ignored Lines:", self.ignored_lines
+        for k in sorted(self.column_data):
+            print 'Column: ', k, self.column_data[k]
+        print 'LoadHints', self.load_hints
+        print 'Ignored Lines:', self.ignored_lines
 
     def parse(self, headerlines):
-        actions =  { '@': self.parse_at,
-                     '!': self.parse_exclaim }
+        actions = {'@': self.parse_at, 
+                   '!': self.parse_exclaim}
         for hl in headerlines:
             hl = hl.strip()
             if not hl:
                 continue
-            action =  actions.get(hl[0],None)
+            action = actions.get(hl[0], None)
             if action:
-                action( hl[1:].strip() )
+                action(hl[1:].strip())
             else:
                 self.ignored_lines.append(hl)
 
@@ -97,7 +97,7 @@ class NeuroCSVHeaderData(object):
 
         pass
 
-    def parse_exclaim(self,line):
+    def parse_exclaim(self, line):
 
         # Either the first Character is a { or something of the form 'COLUMN1' or 'LOADHINT'
         if line[0] == '{':
@@ -140,14 +140,15 @@ class NeuroCSVParser(object):
         data_array = cls.readbodydata(filename)
 
         # Build the traces:
-        trs = cls.build_traces( header_info = header, data_array=data_array)
+        trs = cls.build_traces(header_info=header,
+                               data_array=data_array)
         return trs
 
     @classmethod
     def extract_header(cls, filename):
         """ Reads just the header out of a file"""
         header = []
-        with open(filename,'r') as f:
+        with open(filename, 'r') as f:
             for line in f.readlines():
                 line = line.strip()
                 if not line.startswith('#'):
@@ -158,30 +159,27 @@ class NeuroCSVParser(object):
     @classmethod
     def resolve_header_backslashes(cls, header_data):
         new_header_data = []
-        current_line = ""
+        current_line = ''
         for l in header_data:
             # Drop the leading '#':
             current_line += l.strip()
 
-            if l.endswith("\\"):
+            if l.endswith('\\'):
                 # Strip the '\' and replace it with a space
-                current_line = current_line[:-1] + " "
+                current_line = current_line[:-1] + ' '
             else:
                 new_header_data.append(current_line)
                 current_line = ''
 
         # Check no trailing backslash:
-        assert current_line==""
+        assert current_line == ''
         return new_header_data
 
 
     @classmethod
     def readbodydata(cls, filename):
         print filename
-        d = np.loadtxt(fname = filename,
-                       comments= '#',
-                       #delimiter
-                       )
+        d = np.loadtxt(fname=filename, comments='#')
         return d
 
     @classmethod
@@ -189,12 +187,12 @@ class NeuroCSVParser(object):
         nCols = data_array.shape[1]
 
         # Get the time column:
-        timeDataRaw  = data_array[:,0]
-        timeUnit  = unit( str(header_info.column_data[0]['unit'] ) )
+        timeDataRaw = data_array[:, 0]
+        timeUnit = unit(str(header_info.column_data[0]['unit']))
         timeData = timeDataRaw * timeUnit
 
         # Do we build as fixed or variable array:
-        tBuilder = TraceFixedDT if TraceFixedDT.is_array_fixed_dt(timeData) else TraceVariableDT
+        tBuilder = (TraceFixedDT if TraceFixedDT.is_array_fixed_dt(timeData) else TraceVariableDT)
 
         trcs = []
         for i in range(1,nCols):

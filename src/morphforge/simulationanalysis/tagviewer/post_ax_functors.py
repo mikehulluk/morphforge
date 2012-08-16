@@ -34,4 +34,4 @@ class Ax_TimeLine(object):
         self.time = time
 
     def __call__(self, ax):
-        ax.axvline(self.time, linestyle='--', color='black' )
+        ax.axvline(self.time, linestyle='--', color='black')

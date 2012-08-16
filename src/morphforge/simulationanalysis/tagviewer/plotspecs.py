@@ -54,21 +54,20 @@ class YAxisConfig(object):
         self.yrange = yrange
         self.yunit = yunit
         self.ylabel = ylabel
-        self.ynticks= ynticks if ynticks is not None else 5
+        self.ynticks = (ynticks if ynticks is not None else 5)
         pass
 
     def format_axes(self, ax):
-        ax.set_ylabel( self.ylabel )
+        ax.set_ylabel(self.ylabel)
         if self.yrange is not None:
-            ax.set_ylim( self.yrange )
+            ax.set_ylim(self.yrange)
         if self.yunit is not None:
             ax.set_display_unit(y=self.yunit)
 
-        #ax.xaxis.set_major_locator( mpl.ticker.MaxNLocator(4) )
         ax.set_yaxis_maxnlocator(self.ynticks)
 
 
-class PlotSpec_DefaultNew( object):
+class PlotSpec_DefaultNew(object):
 
     def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
         #self.yrange = yrange
@@ -100,10 +99,6 @@ class PlotSpec_DefaultNew( object):
         else:
             assert False
 
-
-    #def _get_selector_ylabel(self):
-    #    return self.ylabel
-
     # Used by TagViewer
     def addtrace_predicate(self, trace):
         return self.selector(trace)
@@ -114,9 +109,9 @@ class PlotSpec_DefaultNew( object):
     # Plot in order by name; this is normally fine, since annonymous objects
     # will be plotted in the order they were created.
     def _sort_traces(self, traces):
-        return sorted( traces, key=lambda t : t.name)
+        return sorted(traces, key=lambda t: t.name)
     def _sort_eventsets(self, event_sets):
-        return sorted( event_sets, key=lambda t : t.name)
+        return sorted(event_sets, key=lambda t: t.name)
 
 
     def _plot_trace(self, trace,  ax, index, color=None):
@@ -133,7 +128,7 @@ class PlotSpec_DefaultNew( object):
             if self.colors:
                 plot_kwargs['color'] = self.colors[ index % len(self.colors) ]
 
-        plt_tr =  ax.plotTrace(trace, **plot_kwargs)
+        plt_tr = ax.plotTrace(trace, **plot_kwargs)
         return plt_tr
 
     def _plot_eventset(self, eventset, ax, index):
@@ -153,7 +148,7 @@ class PlotSpec_DefaultNew( object):
             assert isinstance(plot_kwargs['label'], basestring)
 
         i_range = 0.2
-        i_scale = i_range / len( list(eventset.times) )
+        i_scale = i_range / len(list(eventset.times))
 
         data = np.array( [ (t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times) ] )
 
@@ -184,7 +179,7 @@ class PlotSpec_DefaultNew( object):
         for index, event_set in enumerate( self._sort_eventsets(eventsets) ):
             self._plot_eventset( event_set,  ax=ax, index=index+len(trcs) )
 
-            #ax.set_ylim( ( (-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless ) )
+            # ax.set_ylim( ( (-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless ) )
 
 
         if len(trcs) == 0:
@@ -192,15 +187,15 @@ class PlotSpec_DefaultNew( object):
             ax.set_yunit( 1*pq.dimensionless )
             ax.set_ylim( ( (-padding) * pq.dimensionless, (len(eventsets)-1+padding) * pq.dimensionless ) )
 
-        #Legend:
+        # Legend:
         if self.legend_labeller is not None:
             import math
             import __builtin__ as BI
-            ncols = BI.max( int( math.floor( len(trcs) / 5.0) ), 1)
+            ncols = BI.max(int(math.floor(len(trcs) / 5.0)), 1)
             ax.legend(ncol=ncols)
 
         if self.title:
-            ax.set_title( self.title )
+            ax.set_title(self.title)
 
         # Label up the axis:
         if plot_xaxis_details:
@@ -209,27 +204,20 @@ class PlotSpec_DefaultNew( object):
             ax.set_xlabel('')
             ax.set_xticklabels([])
 
-        #ax.set_xunit( unit('ms') )
-        #print ax.xyUnitBase[0]
-        #print ax.xyUnitDisplay[0]
-        #assert False
+        # ax.set_xunit( unit('ms') )
+        # print ax.xyUnitBase[0]
+        # print ax.xyUnitDisplay[0]
+        # assert False
 
 
         # Setup the y-axis:
-        #ax.set_ylabel( self.yaxisconfig.ylabel )
         self.yaxisconfig.format_axes(ax)
 
 
 
         if time_range is not None:
-            #print 'Setting Time Range', time_range
-            ax.set_xlim( time_range )
-        #if self.yaxisconfig.yrange is not None:
-        #    ax.set_ylim( self.yaxisconfig.yrange )
+            ax.set_xlim(time_range)
 
-        #if self.yunit is not None:
-        #    #print 'Setting Yunit', self.yaxisconfig.yunit
-        #    ax.set_display_unit(y=self.yaxisconfig.yunit)
 
         # Turn the grid on:
         ax.grid('on')

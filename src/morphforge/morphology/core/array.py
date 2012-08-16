@@ -73,19 +73,19 @@ class MorphologyArray(MorphologyBase):
 
 
         # Save the data in the correct formats:
-        self._connectivity = np.array( connectivity).reshape(-1, 2)
+        self._connectivity = np.array(connectivity).reshape(-1, 2)
         N = self._connectivity.shape[0]
-        self._vertices = np.array(vertices).reshape(-1,4)
+        self._vertices = np.array(vertices).reshape(-1, 4)
         M = self._vertices.shape[0]
 
-        self._section_types = np.array(section_types) if section_types else np.zeros( len(connectivity) )
+        self._section_types = (np.array(section_types) if section_types else np.zeros(len(connectivity)))
 
-        self._dummy_vertex_index= dummy_vertex_index
+        self._dummy_vertex_index = dummy_vertex_index
 
 
         # Some Error Checking:
 
-        assert N == M-1, 'N != M-1 (N:%d, M:%d)'%(N,M)
+        assert N == M - 1, 'N != M-1 (N:%d, M:%d)' % (N, M)
 
 
         if self.is_directed():
@@ -98,11 +98,11 @@ class MorphologyArray(MorphologyBase):
 
 
     def get_leaf_vertices_indices(self):
-        vertex_connections = np.zeros( len(self._vertices) )
-        for i,j in self._connectivity:
+        vertex_connections = np.zeros(len(self._vertices))
+        for (i, j) in self._connectivity:
             vertex_connections[i] = vertex_connections[i] + 1
             vertex_connections[j] = vertex_connections[j] + 1
-        leaf_vertices = np.where( vertex_connections== 1)[0]
+        leaf_vertices = np.where(vertex_connections == 1)[0]
         return leaf_vertices
 
 
@@ -110,10 +110,10 @@ class MorphologyArray(MorphologyBase):
         return self._dummy_vertex_index is not None
 
     def get_vertex_by_index(self, i):
-        return self._vertices[i,:]
+        return self._vertices[i, :]
 
     def get_connection_by_index(self, i):
-        return self._connectivity[i,:]
+        return self._connectivity[i, :]
 
     def __len__(self):
         """ Returns the number of cylinders in the morphology
@@ -123,13 +123,13 @@ class MorphologyArray(MorphologyBase):
 
 
     def connections_to_index(self, pid):
-        return [ i for (i,j) in self._connectivity if j == pid] + [ j for (i,j) in self._connectivity if i == pid]
+        return [ i for (i, j) in self._connectivity if j == pid] + [j for (i,j) in self._connectivity if i == pid]
 
     def index_of_connection(self, id, pid):
-        for index, (i,j) in enumerate(self._connectivity):
-            if i==id and j==pid:
+        for (index, (i, j)) in enumerate(self._connectivity):
+            if i == id and j == pid:
                 return index
-            if i==pid and j==id:
+            if i == pid and j == id:
                 return index
         assert False, ' Connection not found'
 

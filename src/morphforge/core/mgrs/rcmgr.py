@@ -30,11 +30,12 @@
 # ----------------------------------------------------------------------
 
 
-import ConfigParser, os
+import ConfigParser
+import os
 
 
 class RCMgr(object):
-    rcFilename = os.path.expanduser("~/.morphforgerc")
+    rcFilename = os.path.expanduser('~/.morphforgerc')
     rcConfParser = None
 
     @classmethod
@@ -64,7 +65,7 @@ class RCMgr(object):
         # Allow building on RTD:
         on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
         if on_rtd:
-            return ""
+            return ''
 
         return cls.get_config().get(section, option)
 

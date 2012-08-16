@@ -34,53 +34,54 @@ import numpy as np
 
 
 def norm_vec(v):
-    return v / np.sqrt( np.dot(v, v) )
+    return v / np.sqrt(np.dot(v, v))
 
 
 def get_normal_vectors(vec):
-    vec_norm = vec / np.sqrt( np.dot(vec, vec) )
+    vec_norm = vec / np.sqrt(np.dot(vec, vec))
     vec_norm = norm_vec(vec)
 
 
     # Decided which vector to use as a basis to find the normals
     # We want something that is not too parallel...
-    nC1 = np.array( [1.0, 0.0, 0.0] )
-    nC2 = np.array( [0.0, 1.0, 0.0] )
-    nC = nC1 if np.dot(vec_norm, nC1) < 0.4 else nC2
+    nC1 = np.array([1.0, 0.0, 0.0])
+    nC2 = np.array([0.0, 1.0, 0.0])
+    nC = (nC1 if np.dot(vec_norm, nC1) < 0.4 else nC2)
 
     perp1 = norm_vec(nC - np.dot(nC, vec))
     perp2 = norm_vec(np.cross(vec, perp1))
 
-    return perp1, perp2
+    return (perp1, perp2)
 
 
 
-def get_point_circle_about( pt, normal, radius, n):
-    p1, p2 = get_normal_vectors( normal )
+def get_point_circle_about(pt, normal, radius, n):
+    (p1, p2) = get_normal_vectors(normal)
     angle_step = 2 * np.pi / n
-    angles = [ i*angle_step for i in range(0, n) ]
-    pts = [ pt + radius * (p1 * np.sin(angle) + p2 * np.cos(angle)) for angle in angles]
+    angles = [i * angle_step for i in range(0, n)]
+    pts = [pt + radius * (p1 * np.sin(angle) + p2 * np.cos(angle))
+           for angle in angles]
     return np.array(pts)
 
 
-def find_closest_points( pts1, pts2 ):
+def find_closest_points(pts1, pts2):
     def dist_sqd_between_indices(i1, i2):
         joining = pts1[i1] - pts2[i2]
         return np.dot(joining, joining)
 
     min_dist = dist_sqd_between_indices(0, 0)
-    min_inds = 0, 0
+    min_inds = (0, 0)
 
     for i in range(0, len(pts1)):
         for j in range(0, len(pts2)):
             d = dist_sqd_between_indices(i, j)
             if d < min_dist:
                 min_dist = d
-                min_inds = i, j
+                min_inds = (i, j)
     return min_inds
 
 
-def get_best_joining_offset( pts1, pts2 ):
+def get_best_joining_offset(pts1, pts2):
 
     assert len(pts1) == len(pts2)
     n = len(pts1)
@@ -93,8 +94,8 @@ def get_best_joining_offset( pts1, pts2 ):
 
         joiningvectors = []
         for i in range(n):
-            jv = pts1[ i ] - pts2[(i+offset)%n]
-            joiningvectors.append( jv )
+            jv = pts1[i] - pts2[(i + offset) % n]
+            joiningvectors.append(jv)
 
         s = np.sum(joiningvectors)
 
@@ -103,7 +104,7 @@ def get_best_joining_offset( pts1, pts2 ):
             bestlength = l
             bestoffset = 0
 
-    return 0, bestoffset
+    return (0, bestoffset)
 
 
 

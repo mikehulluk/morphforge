@@ -38,19 +38,18 @@ import quantities as pq
 import numpy as np
 
 def _butterworthfilter(self, filterorder, cutoff_frequency):
-        cutoff_frequency.rescale("Hz")
-        import scipy.signal
-        frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
-        n_frq_hz = frequency_hz / 2.0
+    cutoff_frequency.rescale('Hz')
+    import scipy.signal
+    frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
+    n_frq_hz = frequency_hz / 2.0
 
-        cuttoff_norm = cutoff_frequency / n_frq_hz
-        b, a = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
-        filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
+    cuttoff_norm = cutoff_frequency / n_frq_hz
+    (b, a) = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
+    filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
 
-        return clone_trace(self,
-                          data=filteredsignal * self._data.units,
-                          comment="+(Butterworth Filtered)"
-                          )
+    return clone_trace(self, 
+                       data=filteredsignal * self._data.units,
+                       comment='+(Butterworth Filtered)')
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, can_fallback_to_fixed_trace=True )
@@ -59,23 +58,21 @@ TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, 
 
 
 def _besselfilter(self, filterorder, cutoff_frequency):
-        cutoff_frequency.rescale("Hz")
-        import scipy.signal
-        frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
-        n_frq_hz = frequency_hz / 2.0
+    cutoff_frequency.rescale('Hz')
+    import scipy.signal
+    frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
+    n_frq_hz = frequency_hz / 2.0
 
-        cuttoff_norm = cutoff_frequency / n_frq_hz
-        print "CutoffNorm:",cuttoff_norm
-        b, a = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
-        filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
+    cuttoff_norm = cutoff_frequency / n_frq_hz
+    print 'CutoffNorm:', cuttoff_norm
+    (b, a) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
+    filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
 
-        time_shift = self.get_dt_new() * max( len(a), len(b) )
+    time_shift = self.get_dt_new() * max(len(a), len(b))
 
-        return clone_trace(self,
-                          data=filteredsignal * self._data.units,
-                          time = self._time - time_shift,
-                          comment="+(Bessel Filtered)"
-                          )
+    return clone_trace(self, data=filteredsignal * self._data.units,
+                       time=self._time - time_shift,
+                       comment='+(Bessel Filtered)')
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True  )
@@ -89,14 +86,14 @@ def _filterlowpassrc(tr, tau):
     import scipy.signal
     assert isinstance(tr, TraceFixedDT)
     dt = tr.get_dt_new()
-    k = (1./tau) *dt
-    k = float( k.rescale(pq.dimensionless) )
+    k = 1. / tau * dt
+    k = float(k.rescale(pq.dimensionless))
 
-    a = np.array( [1,(k-1)] )
-    b = np.array( [0,k] )
+    a = np.array([1, k - 1])
+    b = np.array([0, k])
 
-    xp = scipy.signal.lfilter( b,a, tr._data.magnitude)
-    return clone_trace(tr=tr, data=xp*tr._data.units, comment="+ (LP RC Filtered)")
+    xp = scipy.signal.lfilter( b, a, tr._data.magnitude)
+    return clone_trace(tr=tr, data=xp * tr._data.units, comment="+ (LP RC Filtered)")
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True )

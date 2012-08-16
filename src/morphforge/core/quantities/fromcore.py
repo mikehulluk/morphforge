@@ -45,39 +45,16 @@ import morphforge
 
 
 
-#def quantity_unit_to_string(pquantity):
-#    return str( pquantity )
-#
-
-
-
-def factorise_units_from_list( seq ):
+def factorise_units_from_list(seq):
     assert len(seq) > 0
 
     for o in seq:
-        assert isinstance( o, Quantity)
+        assert isinstance(o, Quantity)
 
     s0unit = seq[0].units
-    new_list = [ o.rescale(s0unit).magnitude for o in seq] * s0unit
+    new_list = [o.rescale(s0unit).magnitude for o in seq] * s0unit
     return new_list
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#definedUnitStrings = {
-#                      "J/K/mol": pq.J / pq.K / pq.mol
-#                      }
-#
 
 def unit(s):
     if isinstance(s, pq.quantity.Quantity):
@@ -87,44 +64,26 @@ def unit(s):
         return float(s) * pq.dimensionless
 
     if isinstance(s, list):
-        return [ unit(x) for x in s]
+        return [unit(x) for x in s]
     if isinstance(s, dict):
-        return dict([ (k, unit(v)) for k, v in s.iteritems()])
+        return dict([(k, unit(v)) for (k, v) in s.iteritems()])
 
-    if ":" in s:
-        value_str, unit_str = s.split(":")
-
-#        if SettingsMgr.allowEvalInLoading:
-#            v = float(eval(value_str))
-#        else:
+    if ':' in s:
+        (value_str, unit_str) = s.split(':')
         v = float(value_str)
-
-
-        #if unit_str in definedUnitStrings:
-        #    unt = definedUnitStrings[unit_str]
-        #else:
         unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
 
         return v * unt
 
-    if " " in s:
-        t = s.split(" ")
-
+    if ' ' in s:
+        t = s.split(' ')
         if len(t) == 2:
-
             value_str, unit_str = t
-            #if SettingsMgr.allowEvalInLoading:
             v = float(value_str)
-            #else:
-            #    v = float(value_str)
-
             unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
-
             return v * unt
 
-
-
-    return  morphforge.core.quantities.unit_string_parser.parse( s )
+    return  morphforge.core.quantities.unit_string_parser.parse(s)
 
 
 

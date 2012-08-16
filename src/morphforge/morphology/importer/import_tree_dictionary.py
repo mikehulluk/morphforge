@@ -42,7 +42,7 @@ from morphforge.morphology.core import MorphologyTree
 
 class DictionaryLoader(object):
     @classmethod
-    def load(cls,  morph_dict, name=None, metadata=None):
+    def load(cls, morph_dict, name=None, metadata=None):
         """ Load a morphology from a recursive dictionary such as:
         {'root': {'length': 20, 'diam': 20, 'sections':
             [
@@ -66,27 +66,17 @@ class DictionaryLoader(object):
 
 
         # Does the root has a length variable? if it does, then lets add an intermediate node and remove it.
-        root_node = morph_dict["root"]
+        root_node = morph_dict['root']
         if root_node.has_key('length'):
-          # Lets assume it extends backwards on the X-axis. This isn't great, but will work, although
-          # visualisations are likely to look a bit screwy:
+            # Lets assume it extends backwards on the X-axis. This isn't great, but will work, although
+            # visualisations are likely to look a bit screwy:
 
-          assert not root_node.has_key('xyz')
+            assert not root_node.has_key('xyz')
 
-          #print root_node
+            new_root_node = {'region': 'soma', 'diam': root_node['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [root_node]}
+            root_node = new_root_node
 
-
-          #del root_node['length']
-          new_root_node =  {'region': 'soma', 'diam': root_node['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [root_node]}
-
-          #print new_root_node
-
-          root_node = new_root_node
-
-          #assert False
-
-          #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
-
+          
 
 
 
@@ -98,12 +88,15 @@ class DictionaryLoader(object):
         yaml_section_dict = {} # id to paramDict
         def recursivelyAddSectionToList(sectionNode, sectionNodeParentID, sectionDictInt):
             for k in sectionNode.keys():
-                if not k in valid_keywords: raise ValueError("Invalid Keyword: " + k)
+                if not k in valid_keywords:
+                    raise ValueError('Invalid Keyword: ' + k)
             for rK in required_keywords:
-                if not rK in sectionNode.keys(): raise ValueError("Required Key: %s not found." % rK)
+                if not rK in sectionNode.keys():
+                    raise ValueError('Required Key: %s not found.' % rK)
 
-            children = sectionNode.get("sections", [])
-            if sectionNode.has_key("sections"): del sectionNode["sections"]
+            children = sectionNode.get('sections', [])
+            if sectionNode.has_key('sections'):
+                del sectionNode['sections']
             section_id = len(sectionDictInt)
             sectionDictInt[section_id] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
             for c in children:  recursivelyAddSectionToList(c, section_id, sectionDictInt)
@@ -123,14 +116,14 @@ class DictionaryLoader(object):
 
         #Map a lack of region to region:"NoRegionGiven"
         for yml in yaml_section_dict.values():
-            if not ("region" in yml or "regions" in yml):
-                yml["region"] = "NoRegionGiven"
+            if not ('region' in yml or 'regions' in yml):
+                yml['region'] = 'NoRegionGiven'
 
         region_names1 = [ yml["region"] for yml in yaml_section_dict.values() if yml.has_key("region") ]
         region_names2 = SeqUtils.flatten([ yml["regions"] for yml in yaml_section_dict.values() if yml.has_key("regions") ])
 
-        region_names = list(set( region_names1 + region_names2) )
-        region_dict = dict([ (n, Region(n)) for n in region_names])
+        region_names = list(set(region_names1 + region_names2))
+        region_dict = dict([(n, Region(n)) for n in region_names])
         section_angles_dict = {}
         section_id_tags = []
 
@@ -160,14 +153,14 @@ class DictionaryLoader(object):
         section_dict[0] = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
 
         # Add the remaining nodes:
-        for yamlID, yamlSect in yaml_section_dict.iteritems():
+        for (yamlID, yamlSect) in yaml_section_dict.iteritems():
 
             if yamlSect['parent'] == None:
                 continue
 
-            #print yamlID, yamlSect
+            # print yamlID, yamlSect
 
-            parent_section = section_dict[ yamlSect["parent"] ]
+            parent_section = section_dict[yamlSect['parent']]
 
             #Region:
             rg_names1 = [ yamlSect["region"] ] if yamlSect.has_key("region") else []

@@ -35,33 +35,33 @@ import numpy as np
 
 class NpPqWrappers(object):
 
-  @classmethod
-  def linspace(cls,start,stop,num,endpoint=True):
-    from morphforge.core.quantities import unit
-    start = unit(start)
-    stop = unit(stop)
+    @classmethod
+    def linspace(cls,start,stop,num,endpoint=True):
+        from morphforge.core.quantities import unit
+        start = unit(start)
+        stop = unit(stop)
 
-    # Lets us the same base unit:
-    stop = 1.0 * stop
-    stop.units = start.units
+        # Lets us the same base unit:
+        stop = 1.0 * stop
+        stop.units = start.units
 
-    vals = np.linspace( start.magnitude, stop.magnitude, num=num, endpoint=endpoint )
-    return vals * start.units
+        vals = np.linspace( start.magnitude, stop.magnitude, num=num, endpoint=endpoint )
+        return vals * start.units
 
 
-  @classmethod
-  def arange(cls, start, stop, step ):
-    from morphforge.core.quantities import unit
-    start = unit(start)
-    stop = unit(stop)
-    step = unit(step)
+    @classmethod
+    def arange(cls, start, stop, step ):
+        from morphforge.core.quantities import unit
+        start = unit(start)
+        stop = unit(stop)
+        step = unit(step)
 
-    # Lets us the same base unit:
-    stop = 1.0 * stop
-    step = 1.0 * step
-    stop.units = start.units
-    step.units = start.units
+        # Lets us the same base unit:
+        stop = 1.0 * stop
+        step = 1.0 * step
+        stop.units = start.units
+        step.units = start.units
 
-    vals = np.arange( start.magnitude, stop.magnitude, step=step.magnitude)
-    return vals * start.units
+        vals = np.arange( start.magnitude, stop.magnitude, step=step.magnitude)
+        return vals * start.units
 

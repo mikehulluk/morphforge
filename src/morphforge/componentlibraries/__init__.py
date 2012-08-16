@@ -31,14 +31,10 @@
 
 
 from celllibrary import CellLibrary
-from channellibrary import  ChannelLibrary
+from channellibrary import ChannelLibrary
 from morphologylibrary import MorphologyLibrary
 
 from builderbaseclass import CellBuilder
 
-__all__ = [
-    "CellLibrary",
-    "ChannelLibrary",
-    "CellBuilder",
-    "MorphologyLibrary",
-]
+__all__ = ['CellLibrary', 'ChannelLibrary', 'CellBuilder',
+           'MorphologyLibrary']

@@ -32,15 +32,15 @@
 
 
 
-class SummariserLibrary():
+class SummariserLibrary(object):
 
-    summarisers = { }
+    summarisers = {}
 
     @classmethod
-    def register_summariser(cls, channel_baseclass, summariser_class ):
+    def register_summariser(cls, channel_baseclass, summariser_class):
         # Check it has a to_report_lab Method:
         # Todo: Replace this with 'hasattr'
-        assert "to_report_lab" in summariser_class.__dict__
+        assert 'to_report_lab' in summariser_class.__dict__
 
         # Add it to the dictionary of summarisers:
         cls.summarisers[channel_baseclass] = summariser_class
@@ -52,14 +52,15 @@ class SummariserLibrary():
     @classmethod
     def get_summarisier(cls, obj):
         possible_summarisers = []
-        for ChlType, summarisier in SummariserLibrary.summarisers.iteritems():
-            if issubclass(type(obj), ChlType ):
-                possible_summarisers.append( summarisier )
+        for (ChlType, summarisier) in SummariserLibrary.summarisers.iteritems():
+            if issubclass(type(obj), ChlType):
+                possible_summarisers.append(summarisier)
 
         if len(possible_summarisers) == 0:
             return None
         if len(possible_summarisers) == 1:
             return possible_summarisers[0]
         else:
-            assert False, "I have to many options for summarising: " + str(obj)
+            assert False, 'I have to many options for summarising: ' \
+                + str(obj)
 

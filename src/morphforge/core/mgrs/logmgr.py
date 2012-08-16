@@ -36,9 +36,9 @@ import inspect
 
 
 class LogMgrState(object):
-    Ready = "Ready"
-    Configuring = "Configuring"
-    Uninitialised = "Uninitalised"
+    Ready = 'Ready'
+    Configuring = 'Configuring'
+    Uninitialised = 'Uninitalised'
 
 
 class LogMgr(object):
@@ -51,8 +51,10 @@ class LogMgr(object):
     def config(cls):
         from locmgr import LocMgr
 
-        if cls.initState == LogMgrState.Configuring: return
-        if cls.initState == LogMgrState.Ready: return
+        if cls.initState == LogMgrState.Configuring:
+            return
+        if cls.initState == LogMgrState.Ready:
+            return
 
 
         cls.initState = LogMgrState.Configuring
@@ -70,12 +72,12 @@ class LogMgr(object):
     def _pyfile_to_modulename(cls, filename):
         local_path = filename
         morphforge_lib = False
-        if "morphforge" in filename:
-            local_path = "morphforge" + filename.split("morphforge")[-1]
+        if 'morphforge' in filename:
+            local_path = 'morphforge' + filename.split('morphforge')[-1]
             morphforge_lib = True
-        local_path = local_path.replace(".py", "")
-        local_path = local_path.replace("/", ".")
-        return local_path, morphforge_lib
+        local_path = local_path.replace('.py', '')
+        local_path = local_path.replace('/', '.')
+        return (local_path, morphforge_lib)
 
 
     @classmethod
@@ -86,11 +88,11 @@ class LogMgr(object):
 
         prev_call_frame = out_frames_not_this_class[0]
         caller = cls._pyfile_to_modulename(prev_call_frame[1])
-        return caller, prev_call_frame[2]
+        return (caller, prev_call_frame[2])
 
     @classmethod
     def info_from_logger(cls, msg):
-        package_name = "morphforge.core.logmgr"
+        package_name = 'morphforge.core.logmgr'
         if not package_name in cls.loggers:
             cls.loggers[package_name] = cls.create_logger(package_name)
         cls.loggers[package_name].info(msg)
@@ -105,9 +107,11 @@ class LogMgr(object):
 
         if cls.initState == LogMgrState.Ready:
             from settingsmgr import SettingsMgr
-            if not SettingsMgr.is_logging(): return False
+            if not SettingsMgr.is_logging():
+                return False
             return True
-        elif cls.initState == LogMgrState.Configuring: return False
+        elif cls.initState == LogMgrState.Configuring:
+            return False
         elif cls.initState == LogMgrState.Uninitialised:
             cls.config()
             return True
@@ -118,18 +122,21 @@ class LogMgr(object):
 
     @classmethod
     def info(cls, msg):
-        if not cls._is_logging_active_and_ready(): return
+        if not cls._is_logging_active_and_ready():
+            return
         cls.get_logger().info(msg)
 
 
     @classmethod
     def debug(cls, msg):
-        if not cls._is_logging_active_and_ready(): return
+        if not cls._is_logging_active_and_ready():
+            return
         cls.get_logger().debug(msg)
 
     @classmethod
     def warning(cls, msg):
-        if not cls._is_logging_active_and_ready(): return
+        if not cls._is_logging_active_and_ready():
+            return
         cls.get_logger().warning(msg)
 
 

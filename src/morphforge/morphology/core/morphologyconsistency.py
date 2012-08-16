@@ -30,13 +30,13 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.core import  SeqUtils,  check_cstyle_varname
+from morphforge.core import SeqUtils, check_cstyle_varname
 
 
 from morphforge.core.misc import StrUtils
 
 def _get_md5_of_region(r):
-    #assert False # Is this Cruft?? Added Jan 2011
+    # assert False # Is this Cruft?? Added Jan 2011
     return StrUtils.get_hash_md5(r.name)
 
 def _get_md5_of_section(s):
@@ -50,11 +50,11 @@ def _get_md5_of_section(s):
 
 
 def _get_md5_of_morphology(m):
-    #assert False # Is this Cruft?? Added Jan 2011
+    # assert False # Is this Cruft?? Added Jan 2011
     treemd5 = _get_md5_of_section(m._dummysection)
     name_md5 = StrUtils.get_hash_md5(m.name)
     assert not m.metadata
-    regions_md5 = ",".join( [ _get_md5_of_region(r) for r in m.get_regions() ])
+    regions_md5 = ','.join([_get_md5_of_region(r) for r in m.get_regions()])
     return StrUtils.get_hash_md5(treemd5 + name_md5 + regions_md5)
 
 
@@ -82,14 +82,14 @@ class MorphConsistencyChecker(object):
 
     def __init__(self, morph):
         from morphforge.morphology.core import MorphologyTree
-        assert isinstance( morph, MorphologyTree)
+        assert isinstance(morph, MorphologyTree)
         self.morph = morph
         self.morphmd5cache = None
 
         # If this is enabled, then enableStack will be 0.
         # We do this to prevent checking of the morph during
         # its construction
-        self.enableStack=0
+        self.enableStack = 0
 
     def disable(self):
         self.enableStack += 1
@@ -135,9 +135,9 @@ class MorphConsistencyChecker(object):
                 self.check_section(c, morph=morph, dummysection=False, recurse=recurse)
 
 
-    def check_section_infra_structure(self,section, morph, dummysection):
+    def check_section_infra_structure(self, section, morph, dummysection):
         from tree import Section
-        assert isinstance( self.morph._dummysection, Section)
+        assert isinstance(self.morph._dummysection, Section)
 
         # Check the parent/children connections:
         if dummysection:
@@ -166,7 +166,7 @@ class MorphConsistencyChecker(object):
         if not section.is_leaf():
 
             if section.d_r < 0.0001:
-                assert False, 'Very thin distal segment diameter: %f'%section.d_r
+                assert False, 'Very thin distal segment diameter: %f' % section.d_r
 
         # TODO: Check the radius of the near end of the dummysection segment.
 
@@ -177,16 +177,17 @@ class MorphConsistencyChecker(object):
         # Check no-other region has this name:
         #print "Checking region:", region.name
         #print "All Regions:", ",".join( [r.name for r in self.morph.get_regions()] )
-        assert SeqUtils.filter_expect_single( self.morph.get_regions(), lambda rgn: rgn.name == region.name) == region
+        assert SeqUtils.filter_expect_single(self.morph.get_regions(), lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
         for s in region.sections:
             assert region == s.region
 
 
     def check_tree(self):
-        if not self.morph.is_dummy_section_set(): return
+        if not self.morph.is_dummy_section_set():
+            return
 
-        dummy_section =  self.morph.get_dummy_section()
+        dummy_section = self.morph.get_dummy_section()
         self.check_dummy_section(dummy_section)
 
 
@@ -194,7 +195,7 @@ class MorphConsistencyChecker(object):
         morphmd5 = _get_md5_of_morphology(self.morph)
         if self.morphmd5cache:
             if morphmd5 != self.morphmd5cache:
-                raise Exception("MD5 of tree has changed!")
+                raise Exception('MD5 of tree has changed!')
             else:
                 return
         self.morphmd5cache = morphmd5
@@ -203,9 +204,9 @@ class MorphConsistencyChecker(object):
         self.check_section(self.morph._dummysection, self.morph, dummysection=True, recurse=True)
 
         # Check that there are not duplications of idTags in the tree:
-        idtags = SeqUtils.flatten( [s.idtag for s in self.morph if s.idtag]  )
+        idtags = SeqUtils.flatten([s.idtag for s in self.morph if s.idtag])
         #print idtags
-        assert len(idtags) == len( list(set(idtags) ) )
+        assert len(idtags) == len(list(set(idtags)))
 
         # Check the regions
         for rgn in self.morph.get_regions():

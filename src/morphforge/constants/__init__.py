@@ -32,8 +32,5 @@
 
 from ions import ChlIon
 from standardtags import StandardTags
-__all__ = [
-    'ChlIon',
-    'StandardTags'
-]
+__all__ = ['ChlIon', 'StandardTags']
 

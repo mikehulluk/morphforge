@@ -84,7 +84,7 @@ class SimulationMRedoc(object):
 
     @classmethod
     def build(self, obj):
-       return SimulationMRedoc(obj).mredoc
+        return SimulationMRedoc(obj).mredoc
 
     def __init__(self, obj):
         assert isinstance(obj, Simulation)
@@ -93,10 +93,10 @@ class SimulationMRedoc(object):
 
         pass
 
-    def save_dot(self, graph,**kwargs):
+    def save_dot(self, graph, **kwargs):
         from morphforge.core import ObjectLabeller
         name = ObjectLabeller.get_next_unamed_object_name(type(graph))
-        fname = '/tmp/dotout_%s.pdf'%name
+        fname = '/tmp/dotout_%s.pdf' % name
         graph.write_pdf(fname, **kwargs)
         return fname
 
@@ -157,7 +157,7 @@ class SimulationMRedoc(object):
             pops[p] = n
             graph.add_node(n)
 
-        for i,synpop in enumerate(self.sim.synapse_populations):
+        for (i, synpop) in enumerate(self.sim.synapse_populations):
             pre_pop = synpop.presynaptic_population
             post_pop = synpop.postsynaptic_population
 
@@ -191,23 +191,23 @@ class SimulationMRedoc(object):
             pops[p] = n
             graph.add_node(n)
 
-        for i,s in enumerate(self.sim.ss_synapses):
+        for (i, s) in enumerate(self.sim.ss_synapses):
             pre_cell = s.get_presynaptic_cell()
             post_cell = s.get_postsynaptic_cell()
 
             if not pre_cell:
-                pre_n = pydot.Node(name='SpikeTimes%d'%i, shape='point', color='lightsalmon',style='filled',**kwargs)
+                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon',style='filled',**kwargs)
                 graph.add_node(pre_n)
             else:
                 pre_n = pops[pre_cell]
             post_n = pops[post_cell]
 
-            syn_name = "%s"%(s.name)
+            syn_name = '%s' % (s.name)
             e = pydot.Edge(pre_n, post_n,label=syn_name, color='red', **kwargs)
             graph.add_edge(e)
 
-        fname = self.save_dot(graph, prog='circo' )
-        return mrd.Figure( mrd.Image(fname) )
+        fname = self.save_dot(graph, prog='circo')
+        return mrd.Figure(mrd.Image(fname))
 
 
 

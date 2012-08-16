@@ -33,7 +33,9 @@ from trace import Trace
 from tracefixeddt import TraceFixedDT
 from tracepointbased import TracePointBased
 from tracevariabledt import TraceVariableDT
-from tracepiecewise import TracePiecewise, TracePieceFunctionFlat, TracePieceFunctionLinear
+from tracepiecewise import TracePiecewise
+from tracepiecewise import TracePieceFunctionFlat
+from tracepiecewise import TracePieceFunctionLinear
 from tracepiecewise import PieceWiseComponentVisitor
 from tracepiecewise import TracePieceFunction
 

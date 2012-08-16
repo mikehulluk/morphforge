@@ -42,7 +42,7 @@ class PieceWiseComponentVisitor(object):
 
     @classmethod
     def visit(cls, o, **kwargs):
-        return o.accept_visitor(cls,**kwargs)
+        return o.accept_visitor(cls, **kwargs)
 
 
     @classmethod
@@ -97,14 +97,14 @@ class TracePieceFunctionLinear(TracePieceFunction):
         return visitor.visit_linear(self, **kwargs)
 
     def get_start_value(self):
-        return  self.x0
+        return self.x0
     def get_end_value(self):
-        return  self.x1
+        return self.x1
 
 
 
 class TracePieceFunctionFlat(TracePieceFunction):
-    def __init__(self, time_window, x=None,):
+    def __init__(self, time_window, x=None):
         TracePieceFunction.__init__(self, time_window=time_window)
         assert x is not None
         self.x = x
@@ -114,12 +114,12 @@ class TracePieceFunctionFlat(TracePieceFunction):
 
 
     def get_values(self, times):
-        return np.ones( len(times) ) * self.x
+        return np.ones(len(times)) * self.x
 
     def get_start_value(self):
-        return  self.x
+        return self.x
     def get_end_value(self):
-        return  self.x
+        return self.x
 
     def accept_visitor(self, visitor, **kwargs):
         return visitor.visit_flat(self, **kwargs)
@@ -149,16 +149,16 @@ class TracePiecewise(Trace):
         return len(self._pieces)
 
     def n_pieces_longer_than(self, t):
-        return len( [ p for p in self._pieces if p.get_duration() > t] )
+        return len([p for p in self._pieces if p.get_duration() > t])
 
 
     def get_values(self, times):
 
         _datas = []
-        _times =[]
-        assert (times <= self.get_max_time() ).all()
-        assert (times >= self.get_min_time() ).all()
-        done_times = np.ones( len(times) ) > 0.0
+        _times = []
+        assert (times <= self.get_max_time()).all()
+        assert (times >= self.get_min_time()).all()
+        done_times = np.ones(len(times)) > 0.0
         for p in self._pieces:
             ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude) )
             ind = np.logical_and(ind1,done_times)

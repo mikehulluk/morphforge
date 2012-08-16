@@ -29,11 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy
 import random
-
-
 
 class MFRandom(object):
     """ A class to centralise random numbers.
@@ -66,4 +63,4 @@ class MFRandom(object):
         numpy.random.seed(cls._seed)
 
 # Randomly initialise the seed:
-MFRandom.seed( random.randint(0,100000) )
+MFRandom.seed(random.randint(0, 100000))

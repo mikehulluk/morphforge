@@ -30,30 +30,27 @@
 # ----------------------------------------------------------------------
 
 
-import os#
+import os
 import quantities as pq
-#
+
 
 def parse(s):
 
-
-
-
     on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
     if on_rtd:
-        print ' WARNING!! Read the Docs Hack - Not parsing unit:',s
+        print ' WARNING!! Read the Docs Hack - Not parsing unit:', s
         return 0 * pq.dimensionless
 
 
     # Upgraded on 9th Jun 2012 to use neurounits.
-    #print "Parsing Unit:", s
+    # print "Parsing Unit:", s
     if s == 'ohmcm':
         s = 'ohm cm'
 
     # To resolve....
-    if s== 'nMol':
+    if s == 'nMol':
         s = 'nanomolar'
-    if s== 'uMol':
+    if s == 'uMol':
         s = 'micromolar'
 
     # In the case of units, lets rewrite '**' to nothing and '*' to space:
@@ -61,9 +58,8 @@ def parse(s):
     s = s.replace("*", " ")
 
 
-    if s.strip() == "":
+    if s.strip() == '':
         return pq.dimensionless
-    #print s
     import neurounits
     return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit()
 

@@ -41,25 +41,27 @@ class TriangleMesh(object):
         self.vertex_colors = vertex_colors
 
         if np.isnan(self.vertices).any():
-          raise ValueError("Mesh contains NaNs")
+            raise ValueError('Mesh contains NaNs')
         if np.isnan(self.vertex_colors).any():
-          raise ValueError("Mesh contains NaNs")
+            raise ValueError('Mesh contains NaNs')
 
         assert vertices.shape == self.vertex_colors.shape
         assert vertices.shape[1] == 3
 
         print self.vertex_colors.dtype
         if self.vertex_colors.dtype in ['float64']:
-            assert np.logical_and( self.vertex_colors>=0.0, self.vertex_colors <=1.0).all()
+            assert np.logical_and(self.vertex_colors >= 0.0,
+                                  self.vertex_colors <= 1.0).all()
         elif self.vertex_colors.dtype in ['int32']:
-            assert np.logical_and( self.vertex_colors>=0, self.vertex_colors <=255).all()
+            assert np.logical_and(self.vertex_colors >= 0,
+                                  self.vertex_colors <= 255).all()
             self.vertex_colors = self.vertex_colors / 255.0
 
         else:
             assert False
 
     def downshrink(self):
-        self.vertices /=1000.0
+        self.vertices /= 1000.0
     @property
     def nTriangles(self):
         return len(self.triangles)
@@ -72,19 +74,22 @@ class TriangleMesh(object):
     def merge(cls, meshes):
 
 
-        vertices = np.zeros( (0,3) )
+        vertices = np.zeros((0, 3))
         triangles = list()
-        vertex_colors = np.zeros( (0,3) )
+        vertex_colors = np.zeros((0, 3))
 
         for mesh in meshes:
             offset = vertices.shape[0]
-            vertices = np.vstack( (vertices, mesh.vertices) )
-            vertex_colors = np.vstack( (vertex_colors, mesh.vertex_colors) )
+            vertices = np.vstack((vertices, mesh.vertices))
+            vertex_colors = np.vstack((vertex_colors,
+                                       mesh.vertex_colors))
 
-            new_triangles = [ [a+offset, b+offset, c+offset] for a,b,c in mesh.triangles]
+            new_triangles = [[a + offset, b + offset, c + offset] for (a, b, c) in mesh.triangles]
             triangles.extend(new_triangles)
 
-        return TriangleMesh( vertices = vertices, triangles=triangles, vertex_colors=vertex_colors)
+        return TriangleMesh(vertices=vertices, 
+                            triangles=triangles,
+                            vertex_colors=vertex_colors)
 
         assert False
 

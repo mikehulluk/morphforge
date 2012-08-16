@@ -38,9 +38,9 @@ import functools
 
 class Trace(object):
     def __init__(self, name, comment, tags):
-        self.tags = [] if tags == None else tags
-        self.name = name if name else '<Unnamed Trace>'
-        self.comment = comment if comment else "UnknownSrc"
+        self.tags = ([] if tags == None else tags)
+        self.name = (name if name else '<Unnamed Trace>')
+        self.comment = (comment if comment else 'UnknownSrc')
 
     # Forward operator functions to be looked up:
     def __add__(self, rhs):

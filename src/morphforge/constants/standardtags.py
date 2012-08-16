@@ -35,45 +35,44 @@ class StandardTags(object):
     # Its important the spellings are the same;
     # since we use the values in setattr() to automatically populate classes.
 
-    Voltage = "Voltage"
-    CurrentDensity = "CurrentDensity"
-    Current = "Current"
-    Conductance = "Conductance"
-    ConductanceDensity = "ConductanceDensity"
+    Voltage = 'Voltage'
+    CurrentDensity = 'CurrentDensity'
+    Current = 'Current'
+    Conductance = 'Conductance'
+    ConductanceDensity = 'ConductanceDensity'
 
-    StateVariable = "StateVariable"
-    StateTimeConstant = "StateTimeConstant"
-    StateSteadyState = "StateSteadyState"
+    StateVariable = 'StateVariable'
+    StateTimeConstant = 'StateTimeConstant'
+    StateSteadyState = 'StateSteadyState'
 
-    NMDAVoltageDependancy = "NMDAVoltageDependancy"
-    NMDAVoltageDependancySS = "NMDAVoltageDependancySS"
+    NMDAVoltageDependancy = 'NMDAVoltageDependancy'
+    NMDAVoltageDependancySS = 'NMDAVoltageDependancySS'
 
-    Event = "Event"
+    Event = 'Event'
 
     DefaultUnits = {
-                    Voltage: "mV",
-                    CurrentDensity: "mA/cm2",
-                    Current: "pA",
-                    ConductanceDensity: "mS/cm2",
-                    Conductance: "pS",
-                    StateVariable: "",
-                    StateTimeConstant: "ms",
-                    StateSteadyState: "",
-                    NMDAVoltageDependancy:"",
-                    NMDAVoltageDependancySS:"",
-
-                    }
+        Voltage: 'mV',
+        CurrentDensity: 'mA/cm2',
+        Current: 'pA',
+        ConductanceDensity: 'mS/cm2',
+        Conductance: 'pS',
+        StateVariable: '',
+        StateTimeConstant: 'ms',
+        StateSteadyState: '',
+        NMDAVoltageDependancy: '',
+        NMDAVoltageDependancySS: '',
+        }
 
     label = {
-                    Voltage: "Voltage",
-                    CurrentDensity: "Current Density",
-                    Current: "Current",
-                    ConductanceDensity: "Conductance Density",
-                    Conductance: "Conductance",
-                    StateVariable: "State Variable",
-                    StateTimeConstant: "StateVariable Time Constant",
-                    StateSteadyState: "StateVariable Steddy State",
-                    NMDAVoltageDependancy: "NMDA Voltage Dependancy",
-                    NMDAVoltageDependancySS: "NMDA Voltage Dependancy Steady State",
-                    }
+        Voltage: 'Voltage',
+        CurrentDensity: 'Current Density',
+        Current: 'Current',
+        ConductanceDensity: 'Conductance Density',
+        Conductance: 'Conductance',
+        StateVariable: 'State Variable',
+        StateTimeConstant: 'StateVariable Time Constant',
+        StateSteadyState: 'StateVariable Steddy State',
+        NMDAVoltageDependancy: 'NMDA Voltage Dependancy',
+        NMDAVoltageDependancySS: 'NMDA Voltage Dependancy Steady State',
+        }
 

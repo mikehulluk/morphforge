@@ -37,18 +37,18 @@ from morphforge.morphology.errors import MorphologyFrameworkRegistrationError
 
 class MorphologyExporter(object):
 
-    method_name_prefix = "to"
+    method_name_prefix = 'to'
 
     @classmethod
     def register(cls, method_name, export_functor, from_type, allow_override=False):
 
-        if not isinstance( method_name, basestring):
+        if not isinstance(method_name, basestring):
             raise MorphologyFrameworkRegistrationError("method_name must be a string")
 
         if not method_name.startswith(cls.method_name_prefix):
             raise MorphologyFrameworkRegistrationError("method_name must begin with '%s' "% cls.method_name_prefix)
 
-        if  hasattr( from_type, method_name) and not allow_override:
+        if hasattr(from_type, method_name) and not allow_override:
             err = "Existing export functor defined for: %s.%s"%(from_type.__name__,method_name)
             err+= "(Perhaps use the 'allow_override' parameter on this function-call?)"
             raise MorphologyFrameworkRegistrationError(err)

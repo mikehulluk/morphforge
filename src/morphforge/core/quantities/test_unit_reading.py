@@ -37,17 +37,17 @@ import unit_string_parser as p
 
 
 strs = [
-         'm',
-         'm2',
-         'm-2',
-         'mV-2 s',
-         'mV-2 s/A Hz',
-         'ms',
-         '/V s'
-       ]
+    'm',
+    'm2',
+    'm-2',
+    'mV-2 s',
+    'mV-2 s/A Hz',
+    'ms',
+    '/V s',
+    ]
 
 
-#for s in strs:
+# for s in strs:
 #    l.lexer.input(s)
 #    # Tokenize
 #    while True:

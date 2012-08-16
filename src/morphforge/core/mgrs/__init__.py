@@ -36,9 +36,4 @@ from settingsmgr import SettingsMgr
 from rcmgr import RCMgr
 
 
-__all__ = [
-    'LocMgr',
-    'LogMgr',
-    'SettingsMgr',
-    'RCMgr',
-]
+__all__ = ['LocMgr', 'LogMgr', 'SettingsMgr', 'RCMgr']

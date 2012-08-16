@@ -95,13 +95,14 @@ class FileIO(object):
         parameter. Returns `filename`"""
 
         if file_expected and not fs.exists(filename):
-            raise IOError("Can't append to non-existant file: %s"%filename)
+            raise IOError("Can't append to non-existant file: %s" % filename)
         with open(filename, 'a') as f:
             f.write(txt)
         return filename
 
     @classmethod
-    def write_to_file( cls,
+    def write_to_file(
+        cls,
         txt,
         filename=None,
         filedirectory=None,
@@ -142,7 +143,7 @@ class SeqUtils(object):
     """ A collection of utility functions for working with sequences"""
 
     @classmethod
-    def flatten(cls, seq, flatten_types = (tuple, list)):
+    def flatten(cls, seq, flatten_types=(tuple, list)):
         """ 'Flattens' a sequence recursively.
 
         The objects types to flatten are specified by the flatten_types
@@ -152,7 +153,7 @@ class SeqUtils(object):
 
         res = []
         for item in seq:
-            if isinstance(item, flatten_types ):
+            if isinstance(item, flatten_types):
                 res.extend(SeqUtils.flatten(item, flatten_types=flatten_types))
             else:
                 res.append(item)

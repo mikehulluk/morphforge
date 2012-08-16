@@ -51,9 +51,9 @@ class NewSWCLoader(object):
         dtype= {'names':   ('id', 'type', 'x','y','z','r','pid'),
                 'formats': ('int32', 'int32', 'f4','f4','f4','f4','int32') }
 
-        d = np.loadtxt(src,dtype=dtype )
+        d = np.loadtxt(src, dtype=dtype)
 
-        if len( np.nonzero( d['pid']==-1)) != 1:
+        if len(np.nonzero(d['pid'] == -1)) != 1:
             assert False, "Unexpected number of id's of -1 in file"
 
         # We might not nessesarily have continuous indices in the
@@ -66,8 +66,8 @@ class NewSWCLoader(object):
             raise MorphologyImportError(s)
 
         # Vertices are easy:
-        vertices =  d[ ['x','y','z','r'] ]
-        vertices =  np.vstack( [d['x'], d['y'],d['z'],d['r'] ]).T
+        vertices = d[['x', 'y', 'z', 'r']]
+        vertices = np.vstack([d['x'], d['y'], d['z'], d['r']]).T
 
         # Connections need to translate id_to_index:
         connection_indices = [ (id_to_index_dict[ID], id_to_index_dict[pID]) for ID,pID in d[['id','pid']] if pID != -1 ]
@@ -88,17 +88,17 @@ class NewSWCLoader(object):
         splits = [[]]
         for l in lines:
 
-            if int( l.split()[-1] ) == -1:
-                splits.append( [] )
+            if int(l.split()[-1]) == -1:
+                splits.append([])
             splits[-1].append(l)
 
         splits = splits[1:]
 
-        data_blocks = [ "\n".join( blk  ) for blk in splits ]
-        file_objs = [ StringIO(blk) for blk in data_blocks ]
+        data_blocks = ['\n'.join(blk) for blk in splits]
+        file_objs = [StringIO(blk) for blk in data_blocks]
 
 
-        morphs = [ cls.load_swc_single( src=fO)  for fO in  file_objs ]
+        morphs = [cls.load_swc_single(src=fO) for fO in file_objs]
         return morphs
 
 
@@ -106,8 +106,8 @@ class NewSWCLoader(object):
 MorphologyImporter.register("fromSWC", NewSWCLoader.load_swc_single, as_type=MorphologyArray)
 
 # To Tree:
-def _load_swc_single_tree(*args,**kwargs):
-    return NewSWCLoader.load_swc_single(*args,**kwargs).to_tree()
+def _load_swc_single_tree(*args, **kwargs):
+    return NewSWCLoader.load_swc_single(*args, **kwargs).to_tree()
 MorphologyImporter.register("fromSWC", _load_swc_single_tree,  as_type=MorphologyTree)
 
 

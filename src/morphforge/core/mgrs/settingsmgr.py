@@ -35,70 +35,19 @@
 
 class SettingsMgr(object):
     """ Doc String for Settings Manager"""
-    #_showGui = True
-    #_showAllPlots = True
+
 
     # Don't Start Logging until everything is Configured!
     _logging = True and False
 
     _clearTempAllAt_start = True
-    _simulateWithMocks = False
 
-    ## Query Settings:
-    #@classmethod
-    #def showGUI(cls):
-    #    assert False
-    #    if os.environ.get('MF_PLOT',None) == 'OFF':
-    #        return False
-    #    if os.environ.get('MF_BATCH',None):
-    #        return False
-    #    return  cls._showGui
-
-    #@classmethod
-    #def showAllPlots(cls):
-    #    return cls._showAllPlots and cls._showGui
+  
 
     @classmethod
     def is_logging(cls):
         return cls._logging
 
-    #@classmethod
-    #def mockSimulation(cls):
-    #    return cls._simulateWithMocks
-
-    #@classmethod
-    #def clearAllTempAt_start(cls):
-    #    if os.environ.get('MF_BATCH',None):
-    #        return True
-    #    return cls._clearTempAllAt_start
-
-    #@classmethod
-    #def setCoverageRun(cls):
-    #    assert False
-
-    #    LogMgr.info("Setting Coverage run")
-    #    cls._showGui = False
-    #
-    #@classmethod
-    #def allowEvalInLoading(cls):
-    #    assert False
-    #    return False
-
-    #@classmethod
-    #def DecorateSimulations(cls):
-    #    assert False
-    #    if os.environ.get('MF_BATCH',None):
-    #        return True
-    #    return False
-
-
-    #@classmethod
-    #def tagViewerAutoShow(cls):
-    #    return True
-
-    #@classmethod
-    #def getPLYLexDebugFlag(cls):
-    #    return 0
 
     @classmethod
     def get_ply_yacc_debug_flag(cls):

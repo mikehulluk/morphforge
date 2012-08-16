@@ -39,23 +39,23 @@ class NeuroCSVWriter(object):
 
     @classmethod
     def write_to_file(cls, fileName, **kwargs):
-        with open(fileName,'w') as f:
-             return NeuroCSVWriter.write_to_buffer(fileObj=f, **kwargs)
+        with open(fileName, 'w') as f:
+            return NeuroCSVWriter.write_to_buffer(fileObj=f, **kwargs)
 
 
 
     @classmethod
     def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None  ):
         print 'Writing Out Traces:'
-        traces=traces or []
-        event_sets=event_sets or []
+        traces = traces or []
+        event_sets = event_sets or []
 
 
         # Column Headers:
-        colHeaders=[ cls.generate_column_header( tr,i) for i,tr in enumerate(traces) ]
+        colHeaders = [cls.generate_column_header(tr, i) for (i, tr) in enumerate(traces)]
 
         # Event Data:
-        evtHeaders=[cls.generate_eventset_header(evset) for evset in event_sets]
+        evtHeaders = [cls.generate_eventset_header(evset) for evset in event_sets]
 
         # Build the Header:
         header_meta = "" if csv_metadata is None else "!%s"%json.dumps(csv_metadata)
@@ -81,25 +81,24 @@ class NeuroCSVWriter(object):
 
             tr_valid_times_bool = tr.time_within_trace(time_indices)
             valid_time_indices = np.where(tr_valid_times_bool)[0]
-            valid_time_data_vals = tr.get_values( time_indices[valid_time_indices] )
+            valid_time_data_vals = tr.get_values(time_indices[valid_time_indices])
 
             for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals ):
-                data[tIndex] = dataFormat( float( data_val.magnitude ) )
-            #tr_data= tr.get_values
+                data[tIndex] = dataFormat(float(data_val.magnitude))
             colData.append(data)
 
 
 
         # Write the header
         fileObj.write(header)
-        fileObj.write("\n")
+        fileObj.write('\n')
 
         # Write the data:
-        for i,t in enumerate(time_indices):
+        for (i, t) in enumerate(time_indices):
             tStr = dataFormat(t)
-            cStrings = [ cData[i] for cData in colData]
-            l = "\t".join( [tStr] + cStrings )
-            fileObj.write( l + "\n"  )
+            cStrings = [cData[i] for cData in colData]
+            l = '\t'.join([tStr] + cStrings)
+            fileObj.write(l + '\n')
 
 
 
@@ -113,7 +112,7 @@ class NeuroCSVWriter(object):
              }
         s1 = "#! COLUMN%d: "%(index)
         s2 = json.dumps(d)
-        return s1+s2
+        return s1 + s2
 
     @classmethod
     def generate_eventset_header(self, eventset):

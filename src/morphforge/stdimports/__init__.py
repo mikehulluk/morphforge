@@ -34,7 +34,7 @@
 from morphforge.core.quantities import *
 import morphforge.core.quantities as u
 
-from mhlibs.quantities_plot import  *
+from mhlibs.quantities_plot import *
 
 
 # CORE
@@ -44,7 +44,9 @@ from morphforge.core import  *
 from morphforge.traces import *
 from morphforge.traces.eventset import EventSet, Event
 
-from morphforge.simulationanalysis.tagviewer import TagViewer, PlotSpec_DefaultNew, DefaultPlotSpec
+from morphforge.simulationanalysis.tagviewer import TagViewer
+from morphforge.simulationanalysis.tagviewer import PlotSpec_DefaultNew
+from morphforge.simulationanalysis.tagviewer import DefaultPlotSpec
 
 
 #
@@ -100,9 +102,7 @@ import neurounits
 
 import os
 
-#U=unit
 
 
 from morphforge.morphology.core.tree import MorphPath
-
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID

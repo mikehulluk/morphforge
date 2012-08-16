@@ -36,26 +36,26 @@ class ChannelLibrary(object):
 
 
     @classmethod
-    def register_channel(cls,channeltype , chl_functor,  modelsrc=None, celltype=None ):
+    def register_channel(cls,channeltype, chl_functor,  modelsrc=None, celltype=None ):
         assert modelsrc or celltype
-        key = modelsrc, celltype , channeltype
+        key = (modelsrc, celltype, channeltype)
         assert not key in cls.channels
-        cls.channels[ key ] = chl_functor
+        cls.channels[key] = chl_functor
 
 
 
     @classmethod
-    def get_channel_functor(cls, channeltype, modelsrc=None, celltype=None,):
-        return cls.channels [ (modelsrc, celltype, channeltype) ]
+    def get_channel_functor(cls, channeltype, modelsrc=None, celltype=None):
+        return cls.channels[(modelsrc, celltype, channeltype)]
 
     @classmethod
-    def get_channel(cls, channeltype, env, modelsrc=None, celltype=None, ):
-        functor = cls.channels [ (modelsrc, celltype, channeltype) ]
+    def get_channel(cls, channeltype, env, modelsrc=None, celltype=None):
+        functor = cls.channels[(modelsrc, celltype, channeltype)]
         return functor(env=env)
 
     @classmethod
     def list_channels(cls):
-        for chlType, chl in cls.channels.iteritems():
+        for (chlType, chl) in cls.channels.iteritems():
             print chlType
 
     @classmethod

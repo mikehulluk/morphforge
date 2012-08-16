@@ -31,17 +31,19 @@
 
 
 from mesh import TriangleMesh
-from util import  find_closest_points, get_normal_vectors, get_point_circle_about, norm_vec, get_best_joining_offset
+from util import find_closest_points, get_normal_vectors
+from util import get_point_circle_about, norm_vec, get_best_joining_offset
 from writer_ply import MeshWriterPLY
 from builder_rings import MeshBuilderRings
 
 
-__all__ = [ 'TriangleMesh',
-            'find_closest_points',
-            'get_normal_vectors',
-            'get_point_circle_about',
-            'norm_vec',
-            'get_best_joining_offset',
-            'MeshWriterPLY',
-            'MeshBuilderRings',
-            ]
+__all__ = [
+    'TriangleMesh',
+    'find_closest_points',
+    'get_normal_vectors',
+    'get_point_circle_about',
+    'norm_vec',
+    'get_best_joining_offset',
+    'MeshWriterPLY',
+    'MeshBuilderRings',
+    ]

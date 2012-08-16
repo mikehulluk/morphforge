@@ -34,4 +34,3 @@ import os
 
 class MockControl(object):
     is_mock_simulation = os.environ.get('MF_MOCK', None)
-    #is_mock_simulation = True

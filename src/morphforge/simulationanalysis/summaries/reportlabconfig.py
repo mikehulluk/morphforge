@@ -50,7 +50,7 @@ class ReportLabConfig(object):
 
         self.styles = getSampleStyleSheet()
 
-        ## Setup space to store images:
+        # Setup space to store images:
         self.images = []
         self.imageExt = "png"
         self.imageDir = os.path.normcase( os.path.join( LocMgr.get_tmp_path(), 'reportlab_image_build') )
