@@ -32,7 +32,5 @@
 
 from simulationresult import SimulationResult
 
-__all__ = [
-    'SimulationResult'
-]
+__all__ = ['SimulationResult']
 

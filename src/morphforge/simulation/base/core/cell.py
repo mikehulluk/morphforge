@@ -83,7 +83,9 @@ class Cell(NamedSimulationObject):
 
 
     def get_location(self, idtag, sectionpos=0.5):
-        return CellLocation(cell=self, section=self.morphology.get_section(idtag=idtag), sectionpos=sectionpos)
+        return CellLocation(cell=self,
+                            section=self.morphology.get_section(idtag=idtag),
+                            sectionpos=sectionpos)
 
     def get_region(self, region_name):
         return self.morphology.get_region(region_name)
@@ -106,12 +108,15 @@ class Cell(NamedSimulationObject):
 
     @property
     def presynaptic_connections(self):
-        return [ s for s in self.simulation.synapses if s.get_presynaptic_cell() == self]
+        return [s for s in self.simulation.synapses
+                if s.get_presynaptic_cell() == self]
 
     @property
     def postsynaptic_connections(self):
-        return [ s for s in self.simulation.synapses if s.get_postsynaptic_cell() == self]
+        return [s for s in self.simulation.synapses
+                if s.get_postsynaptic_cell() == self]
 
     @property
     def electrical_connections(self):
-        return [ s for s in self.simulation.gapjunctions if self in s.connected_cells]
+        return [s for s in self.simulation.gapjunctions if self
+                in s.connected_cells]

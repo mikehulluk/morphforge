@@ -38,11 +38,12 @@ class Recordable(NamedSimulationObject):
     def __init__(self, description=None, user_tags=None, **kwargs):
         super(Recordable, self).__init__(**kwargs)
 
-        self.user_tags = user_tags if user_tags else []
+        self.user_tags = (user_tags if user_tags else [])
         self._description = description
 
     def get_tags(self):
-        return list(itertools.chain(self.get_std_tags(), self.user_tags))
+        return list(itertools.chain(self.get_std_tags(),
+                    self.user_tags))
 
     def get_std_tags(self):
         raise NotImplementedError()
@@ -56,7 +57,8 @@ class Recordable(NamedSimulationObject):
     description = property(_get_desc)
 
     def get_description(self):
-        return ('-'.join(self.user_tags) if self.user_tags else 'No Description')
+        default_desc = 'No Description'
+        return ('-'.join(self.user_tags) if self.user_tags else default_desc)
 
 
 

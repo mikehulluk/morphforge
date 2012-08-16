@@ -127,7 +127,7 @@ class Simulation(object):
 
 
     def __init__(self, name, environment, **kwargs):
-        name = name if name else "Unnamed Simulation"
+        name = (name if name else 'Unnamed Simulation')
         self.name = name
         self.environment = environment
         self.simsettings = self.environment.SimulationSettings(**kwargs)
@@ -193,7 +193,9 @@ class Simulation(object):
 
     def recordall(self, membrane_mech, **kwargs):
         for recordable_value in membrane_mech.Recordables.all:
-            self.record(membrane_mech, what=recordable_value, description='[%s-%s]'%(membrane_mech.name, recordable_value) ,  **kwargs )
+            self.record(membrane_mech, what=recordable_value,
+                        description='[%s-%s]' % (membrane_mech.name,
+                        recordable_value), **kwargs)
 
     def get_cell(self, cellname=None):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """

@@ -81,8 +81,8 @@ class GapJunction(object):
 
 class PreSynapticTypes(object):
 
-    Cell = "Cell"
-    FixedTiming = "Timing"
+    Cell = 'Cell'
+    FixedTiming = 'Timing'
 
 
 

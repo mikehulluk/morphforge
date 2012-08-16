@@ -9,45 +9,41 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
 
-from morphforge.core import  FileIO, LocMgr, LogMgr
-#from morphforge.core import Join,  Basename
-
-from morphforge.core import RCMgr as RCReader
-
 import os
 import subprocess
-
-
 import shutil
+
+from morphforge.core import  FileIO, LocMgr, LogMgr
+from morphforge.core import RCMgr as RCReade
 from morphforge.core.mgrs.settingsmgr import SettingsMgr
 
 
 
 
 
-#TODO! NOTE THE LINKING LIBRARY ORDER HAS CHANGED!
+# TODO! NOTE THE LINKING LIBRARY ORDER HAS CHANGED!
 
 class ModBuilderParams(object):
     nocmodlpath = RCReader.get("Neuron", "nocmodlpath")
@@ -101,8 +97,11 @@ class ModBuilderParams(object):
 
 
 def _simple_exec(cmd, remaining):
-    print 'Executing: %s %s'%(cmd,remaining)
-    output = subprocess.Popen([cmd + " " + remaining], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0]
+    print 'Executing: %s %s' % (cmd, remaining)
+    output = subprocess.Popen([cmd + ' ' + remaining], 
+                              shell=True,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE).communicate()[0]
     if SettingsMgr.simulator_is_verbose():
         print output
     return output
@@ -111,16 +110,21 @@ def _simple_exec(cmd, remaining):
 
 def _build_modfile_local(mod_filename_short, modfile=None):
     print os.getcwd()
-    mod_file_basename = mod_filename_short.replace(".mod", "")
-    c_filename = mod_file_basename + ".c"
-    la_filename = mod_file_basename + ".la"
-    lo_filename = mod_file_basename + ".lo"
-    so_filename = mod_file_basename + ".so"
+    mod_file_basename = mod_filename_short.replace('.mod', '')
+    c_filename = mod_file_basename + '.c'
+    la_filename = mod_file_basename + '.la'
+    lo_filename = mod_file_basename + '.lo'
+    so_filename = mod_file_basename + '.so'
 
-    libs_dir = ".libs/"
+    libs_dir = '.libs/'
 
     # Check for some existing files:
-    gen_files = (libs_dir, c_filename, la_filename, lo_filename, so_filename)
+    gen_files = (libs_dir, 
+                 c_filename, 
+                 la_filename, 
+                 lo_filename,
+                 so_filename)
+
     for gen_file in gen_files:
         if os.path.exists(gen_file):
             LocMgr.BackupDirectory(gen_file)
@@ -129,17 +133,18 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
 
 
-    #run nocmodl: .mod -> .c
-    c_filename = mod_file_basename + ".c"
-    op  = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
+    c_filename = mod_file_basename + '.c'
+    op = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
     if not os.path.exists(c_filename):
-        print "Failed to compile modfile. Error:"
-        print op, "\n"
+        print 'Failed to compile modfile. Error:'
+        print op, '\n'
         assert False
 
-    #Add the extra registration function into our mod file:
-    new_register_func = """\n modl_reg(){ _%s_reg(); }""" % (mod_file_basename)
+    # Add the extra registration function into our mod file:
+
+    new_register_func = """\n modl_reg(){ _%s_reg(); }""" \
+        % mod_file_basename
     FileIO.append_to_file(new_register_func, c_filename)
 
 
@@ -158,8 +163,8 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(lo_filename, la_filename, additional_link_flags=link_flags))
 
     if SettingsMgr.simulator_is_verbose() or True:
-        print "OP1:", op1
-        print "OP2:", op2
+        print 'OP1:', op1
+        print 'OP2:', op2
 
     # Copy the correct .so from the libDir to the build_dir:
     shutil.move(os.path.join(libs_dir, mod_file_basename + ".so.0.0.0"), so_filename)
@@ -169,9 +174,9 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     if True:
         os.remove(c_filename)
         os.remove(mod_filename_short)
-        for f in [".la", ".lo"]:
+        for f in ['.la', '.lo']:
             os.remove(mod_file_basename + f)
-        for f in [".la", ".lai", ".o", ".so", ".so.0" ]:
+        for f in ['.la', '.lai', '.o', '.so', '.so.0']:
             os.remove(os.path.join(libs_dir, mod_file_basename + f))
         os.rmdir(libs_dir)
 
@@ -232,9 +237,9 @@ class ModFileCompiler(object):
             print 'OP',op
 
         # Check line by line:
-        for l, le in zip( op.split("\n"), op_expected.split("\n")  ):
+        for (l, le) in zip(op.split('\n'), op_expected.split('\n')):
             if not le.strip() == l.strip():
-                print "ERROR ERROR ERROR WITH UNITS!!"
+                print 'ERROR ERROR ERROR WITH UNITS!!'
                 print 'Seen', l
                 print 'Expt', le
                 #assert False
@@ -245,7 +250,8 @@ class ModFileCompiler(object):
         output_filename = modfile.get_built_filename_full(ensure_built=False)
 
         if not os.path.exists(output_filename):
-            LogMgr.info("Does not exist: building: %s" % output_filename)
+            LogMgr.info('Does not exist: building: %s'
+                        % output_filename)
 
             mod_txt_filename = FileIO.write_to_file(modfile.modtxt, suffix=".mod")
             ModFileCompiler.check_modfile_units(mod_txt_filename)
@@ -254,6 +260,6 @@ class ModFileCompiler(object):
 
 
         else:
-            LogMgr.info("Already Built")
+            LogMgr.info('Already Built')
         return output_filename
 

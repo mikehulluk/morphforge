@@ -9,35 +9,36 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
-from morphforge.core.quantities  import unit
+from morphforge.core.quantities import unit
 
 
 from neuronobject import NeuronObject
 from morphforge.simulation.base import Cell
 
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 
 
@@ -67,7 +68,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
 
 
     def get_unit(self):
-        return unit("mV")
+        return unit('mV')
 
     def get_std_tags(self):
         return [StandardTags.Voltage]
@@ -86,11 +87,11 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
 
 
         tmpl_dict = {
-                    "recVecName": self.name,
-                    "cellname":cell_name,
-                    "sectionindex":section_index,
-                    "sectionpos":self.cell_location.morphlocation.sectionpos,
-                    }
+            'recVecName': self.name,
+            'cellname': cell_name,
+            'sectionindex': section_index,
+            'sectionpos': self.cell_location.morphlocation.sectionpos,
+            }
         print tmpl_dict
 
         hocfile_obj.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmpl_dict).respond() )
@@ -113,9 +114,10 @@ class MNeuronCell(Cell, NeuronObject):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
 
     def build_mod(self, modfile_set):
-        mechanisms = set( [ mta.mechanism for mta in self.get_biophysics().appliedmechanisms ] )
+        mechanisms = set([mta.mechanism for mta in
+                         self.get_biophysics().appliedmechanisms])
         for m in mechanisms:
-            m.create_modfile( modfile_set)
+            m.create_modfile(modfile_set)
 
     def get_recordable(self, what, **kwargs):
         recordables = {

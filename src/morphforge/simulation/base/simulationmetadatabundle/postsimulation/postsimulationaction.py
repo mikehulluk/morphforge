@@ -55,7 +55,7 @@ class PostSimulationActionPickleSimulation(object):
 
     def __call__(self, result, bundle):
         assert self.filename
-        filename = self.filename 
+        filename = self.filename
         resstring = cPickle.dumps(result)
         FileIO.write_to_file(txt=resstring, filename=filename)
 

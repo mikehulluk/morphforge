@@ -52,37 +52,37 @@ from biophysics import PassiveProperty
 
 
 
-from networks import  Synapse, GapJunction, PostSynapticMech, PreSynapticMechanism
+from networks import Synapse, GapJunction
+from networks import PostSynapticMech, PreSynapticMechanism
 
 
 __all__ = [
-"CurrentClamp",
-"VoltageClamp",
-"CurrentClampStepChange",
-"VoltageClampStepChange",
-"Simulation",
-"SimulationResult",
-"Cell",
-"CellLocation",
-"SimulationEnvironment",
-"AbstCellSegmenter",
-"CellSegmenter_MaxCompartmentLength",
-"CellBiophysics",
-"MembraneMechanism",
-"MembraneMechanismApplicator",
-"MembraneMechanismApplicator_Uniform",
-"Targeter",
-"MembraneMechanismTargeter_Everywhere",
-"MembraneMechanismTargeter_Region",
-"MembraneMechanismTargeter_Section",
-"MembraneMechanismTargeter_SectionPath",
-"PassiveTargeter_Everywhere",
-"PassiveTargeter_EverywhereDefault",
-"PassiveProperty",
+    'CurrentClamp',
+    'VoltageClamp',
+    'CurrentClampStepChange',
+    'VoltageClampStepChange',
+    'Simulation',
+    'SimulationResult',
+    'Cell',
+    'CellLocation',
+    'SimulationEnvironment',
+    'AbstCellSegmenter',
+    'CellSegmenter_MaxCompartmentLength',
+    'CellBiophysics',
+    'MembraneMechanism',
+    'MembraneMechanismApplicator',
+    'MembraneMechanismApplicator_Uniform',
+    'Targeter',
+    'MembraneMechanismTargeter_Everywhere',
+    'MembraneMechanismTargeter_Region',
+    'MembraneMechanismTargeter_Section',
+    'MembraneMechanismTargeter_SectionPath',
+    'PassiveTargeter_Everywhere',
+    'PassiveTargeter_EverywhereDefault',
+    'PassiveProperty',
 
-"Synapse",
-"GapJunction",
-"PostSynapticMech",
-"PreSynapticMechanism",
-
+    "Synapse",
+    "GapJunction",
+    "PostSynapticMech",
+    "PreSynapticMechanism",
 ]

@@ -73,17 +73,17 @@ def apply_mechanism_everywhere_uniform( cell, mechanism, parameter_multipliers={
                                     parameter_overrides=parameter_overrides)
 
 def apply_mechanism_region_uniform( cell, mechanism, region, parameter_multipliers={}, parameter_overrides= {}):
-    return _apply_mechanism_uniform( cell=cell,
-                                  mechanism=mechanism,
-                                  targetter=MembraneMechanismTargeter_Region(region),
-                                  parameter_multipliers=parameter_multipliers,
-                                  parameter_overrides= parameter_overrides)
+    return _apply_mechanism_uniform(cell=cell,
+                                   mechanism=mechanism,
+                                   targetter=MembraneMechanismTargeter_Region(region),
+                                   parameter_multipliers=parameter_multipliers,
+                                   parameter_overrides=parameter_overrides)
 
 
 
 def apply_passive_everywhere_uniform(cell, passiveproperty, value):
     assert passiveproperty in PassiveProperty.all
     cell.get_biophysics().add_passive(passiveproperty=passiveproperty,
-                                        targetter=PassiveTargeter_Everywhere(),
-                                        value=value)
+                                      targetter=PassiveTargeter_Everywhere(),
+                                      value=value)
 

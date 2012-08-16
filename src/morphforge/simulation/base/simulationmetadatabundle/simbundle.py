@@ -103,7 +103,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
         bundle_exec_bin = Join(LocMgr.get_bin_path(),
                                simulation_binary_file)
         sim_cmd = '%s %s' % (bundle_exec_bin, bundle_fname)
-        return bundle_fname, sim_cmd
+        return (bundle_fname, sim_cmd)
 
 
 

@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -44,7 +44,7 @@ class NeuronPopulation(object):
 
         user_tags = user_tags or []
         if pop_name:
-            user_tags.extend( pop_name.split("_") )
+            user_tags.extend(pop_name.split('_'))
 
 
         self.pop_name = pop_name if pop_name is not None else ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d" )
@@ -55,20 +55,23 @@ class NeuronPopulation(object):
         name_tmpl = string.Template(name_tmpl_str)
         self.sim = sim
 
-        #Create the neurons:
+        # Create the neurons:
         self.nrns = []
         for i in range(n):
-            cell_name = name_tmpl.substitute({'i':i})
-            #print cell_name
-            #assert False
-            cell_tags = user_tags + ['Index%d'%i]
-            n = neuron_functor(sim=sim, name=cell_name, cell_tags=cell_tags )
+            cell_name = name_tmpl.substitute({'i': i})
+
+            # print cell_name
+            # assert False
+
+            cell_tags = user_tags + ['Index%d' % i]
+            n = neuron_functor(sim=sim, name=cell_name,
+                               cell_tags=cell_tags)
             n.population = self
             self.nrns.append(n)
 
 
     def __len__(self):
-        return len( self.nrns )
+        return len(self.nrns)
 
     def __getitem__(self, i):
         return self.nrns[i]
@@ -79,7 +82,7 @@ class NeuronPopulation(object):
 
     @property
     def cell_types(self):
-        return set( ["<Unknown>"] )
+        return set(['<Unknown>'])
 
 
 
@@ -97,7 +100,8 @@ class NeuronPopulation(object):
         location_func = location_func or ( lambda cell: cell.get_location("soma") )
         cell_location=location_func(cell)
 
-        kw_utf = { 'cell_location':cell_location,'neuron_population':self,'neuron':cell}
+        kw_utf = {'cell_location': cell_location,
+                  'neuron_population': self, 'neuron': cell}
 
         functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
         r = self.sim.record( cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
@@ -106,13 +110,13 @@ class NeuronPopulation(object):
 
     def record_all(self, **kwargs):
         assert False, "Method renamed to 'record_from_all"
-        return [self.record(cell,**kwargs) for cell in self.nrns ]
+        return [self.record(cell, **kwargs) for cell in self.nrns]
 
     def record_from_all(self, **kwargs):
-        return [self.record(cell,**kwargs) for cell in self.nrns ]
+        return [self.record(cell, **kwargs) for cell in self.nrns]
 
-    def for_each(self, func ):
-        return [ func(cell=nrn ) for nrn in self.nrns ]
+    def for_each(self, func):
+        return [func(cell=nrn) for nrn in self.nrns]
 
 
 
@@ -133,7 +137,7 @@ class SynapsePopulation(object):
             elif is_iterable(s):
                 self.synapses.extend(s)
             else:
-                print 'Not Iterable:',s
+                print 'Not Iterable:', s
                 self.synapses.append(s)
 
 
@@ -159,23 +163,26 @@ class SynapsePopulation(object):
 
 
         user_tags = user_tags or []
-        user_tag_functors = user_tag_functors or StdTagFunctors.get_record_functors_synapse()
+        user_tag_functors = user_tag_functors \
+            or StdTagFunctors.get_record_functors_synapse()
 
-        kw_utf = { 'synapse':synapse,'synapse_population':self }
-        functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
-        return self.sim.record( synapse,  what=what, user_tags=user_tags + functor_tags, **kwargs)
+        kw_utf = {'synapse': synapse, 'synapse_population': self}
+        functor_tags = list(itertools.chain(*[utf(**kw_utf) for utf in
+                            user_tag_functors]))
+        return self.sim.record(synapse, what=what, user_tags=user_tags
+                               + functor_tags, **kwargs)
 
 
 
     def record_all(self, **kwargs):
         assert False, "method renamed to 'record_from_all'"
-        return [ self.record( syn, **kwargs) for syn in self.synapses]
+        return [self.record(syn, **kwargs) for syn in self.synapses]
 
     def record_from_all(self, **kwargs):
-        return [ self.record( syn, **kwargs) for syn in self.synapses]
+        return [self.record(syn, **kwargs) for syn in self.synapses]
 
     def __len__(self):
-        return len( self.synapses )
+        return len(self.synapses)
 
     def __getitem__(self, i):
         return self.synapses[i]
@@ -185,24 +192,33 @@ class SynapsePopulation(object):
 
 
     def where_presynaptic(self, cell=None):
-        return [ syn for syn in self.synapses if syn.get_presynaptic_cell()==cell ]
+        return [syn for syn in self.synapses
+                if syn.get_presynaptic_cell() == cell]
 
     def where_postsynaptic(self, cell=None):
-        return [ syn for syn in self.synapses if syn.get_postsynaptic_cell()==cell ]
+        return [syn for syn in self.synapses
+                if syn.get_postsynaptic_cell() == cell]
 
 
 
     def get_where_presynaptic(self, cell=None):
         assert False
-        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.get_presynaptic_cell()==cell ] )
+        return SynapsePopulation(sim=self.sim,
+                                 synapse_pop_name=self.synapse_pop_name,
+                                 synapses=[syn for syn in self.synapses
+                                 if syn.get_presynaptic_cell() == cell])
 
     def get_where_postsynaptic(self, cell=None):
         assert False
-        return SynapsePopulation( sim=self.sim, synapse_pop_name=self.synapse_pop_name, synapses = [ syn for syn in self.synapses if syn.get_postsynaptic_cell()==cell ] )
+        return SynapsePopulation(sim=self.sim,
+                                 synapse_pop_name=self.synapse_pop_name,
+                                 synapses=[syn for syn in self.synapses
+                                 if syn.get_postsynaptic_cell()
+                                 == cell])
 
 
     @property
-    def presynaptic_population(self,):
+    def presynaptic_population(self):
         pre_pops = set([])
         for syn in self.synapses:
             pre = syn.get_presynaptic_cell()
@@ -211,14 +227,14 @@ class SynapsePopulation(object):
         if not pre_pops:
             return None
         else:
-            assert len(pre_pops)==1
+            assert len(pre_pops) == 1
             return list(pre_pops)[0]
 
 
 
 
     @property
-    def postsynaptic_population(self,):
+    def postsynaptic_population(self):
         post_pops = set([])
         for syn in self.synapses:
             post = syn.get_postsynaptic_cell()
@@ -227,7 +243,7 @@ class SynapsePopulation(object):
         if not post_pops:
             return None
         else:
-            assert len(post_pops)==1
+            assert len(post_pops) == 1
             return list(post_pops)[0]
 
 

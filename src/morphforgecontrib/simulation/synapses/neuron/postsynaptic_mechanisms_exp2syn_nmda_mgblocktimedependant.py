@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -60,11 +60,12 @@ class Neuron_PSM_Exp2SynNMDA_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord)
 class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
-        super(Neuron_PSM_Std_NMDAVoltageDependanceRecord, self).__init__(**kwargs)
+        super(Neuron_PSM_Std_NMDAVoltageDependanceRecord,
+              self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
-        return unit("")
+        return unit('')
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]
 
@@ -79,11 +80,12 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
-        super(Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord, self).__init__(**kwargs)
+        super(Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord,
+              self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
-        return unit("")
+        return unit('')
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancySS]
 
@@ -109,14 +111,15 @@ ${synnamepost}.popening = $pOpening
 
 """
 
-class PostSynapticMech_Exp2SynNMDAMGTimeDepBlock( PostSynapticMech_Exp2SynNMDA ):
+class PostSynapticMech_Exp2SynNMDAMGTimeDepBlock(PostSynapticMech_Exp2SynNMDA):
+
     pass
 
 class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock):
 
 
     def __init__(self, simulation, **kwargs):
-        PostSynapticMech_Exp2SynNMDA.__init__( self,  **kwargs)
+        PostSynapticMech_Exp2SynNMDA.__init__(self, **kwargs)
 
 
 
@@ -124,7 +127,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
-        syn_name_post = self.synapse.get_name() + "Post"
+        syn_name_post = self.synapse.get_name() + 'Post'
         data = {
                "synnamepost":syn_name_post,
                "cell":cell,
@@ -142,7 +145,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data
+        hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
 
     def build_mod(self, modfile_set):
         #import postsynaptic_mechanisms_exp2syn_nmda_modfile
@@ -153,13 +156,17 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
 
     def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_Exp2SynNMDA_CurrentRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Exp2SynNMDA_CurrentRecord(neuron_syn_post=self,
+                    **kwargs)
         if what == Synapse.Recordables.SynapticConductance:
-            return Neuron_PSM_Exp2SynNMDA_ConductanceRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Exp2SynNMDA_ConductanceRecord(neuron_syn_post=self,
+                    **kwargs)
         if what == StandardTags.NMDAVoltageDependancy:
-            return Neuron_PSM_Std_NMDAVoltageDependanceRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=self,
+                    **kwargs)
         if what == StandardTags.NMDAVoltageDependancySS:
-            return Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(neuron_syn_post=self,
+                    **kwargs)
 
         assert False
 

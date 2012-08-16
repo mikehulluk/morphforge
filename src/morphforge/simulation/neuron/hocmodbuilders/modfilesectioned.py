@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -32,7 +32,7 @@
 
 from collections import defaultdict
 
-class NeuronParameter():
+class NeuronParameter(object):
     def __init__(self, parametername, parameterunit, initialvalue = None, parameterrange=None):
         self.parametername = parametername
         self.parameterunit = parameterunit
@@ -40,9 +40,11 @@ class NeuronParameter():
         self.initialvalue = initialvalue
 
     def get_unit_str(self):
-        if not self.parameterunit: return ""
-        if self.parameterunit.startswith("("): return self.parameterunit
-        return "(%s)"%self.parameterunit
+        if not self.parameterunit:
+            return ''
+        if self.parameterunit.startswith('('):
+            return self.parameterunit
+        return '(%s)' % self.parameterunit
 
 
 
@@ -62,7 +64,7 @@ class NeuronParameter():
 
 class ModFileSectioned(object):
 
-    class Sections():
+    class Sections(object):
         Header = "HEADER"
         Units = "UNITS"
         Neuron = "NEURON"
@@ -84,7 +86,7 @@ class ModFileSectioned(object):
         self.create_header(title, comment)
 
     def prepend_to_section(self, section, line):
-        self.sectiondata[section].insert(0,line)
+        self.sectiondata[section].insert(0, line)
 
     def append_to_section(self, section, line):
         self.sectiondata[section].append(line)
@@ -94,8 +96,8 @@ class ModFileSectioned(object):
 
 
 
-    def get_section_text(self,section):
-        return "\n".join(self.sectiondata[section])
+    def get_section_text(self, section):
+        return '\n'.join(self.sectiondata[section])
 
     def get_text(self):
         self.finalise()
@@ -107,7 +109,8 @@ class ModFileSectioned(object):
 
     # Initialisation
     def initialise(self):
-        self.append_to_section( ModFileSectioned.Sections.Neuron, "THREADSAFE")
+        self.append_to_section(ModFileSectioned.Sections.Neuron,
+                               'THREADSAFE')
 
 
     # Finalisation:
@@ -153,15 +156,19 @@ class ModFileSectioned(object):
 
     def create_neuron_interface(self, suffix, ranges, nonspecificcurrents, ioncurrents=None, ):
         assert ioncurrents == None
-        self.append_to_section( ModFileSectioned.Sections.Neuron, "SUFFIX %s"%suffix)
+        self.append_to_section(ModFileSectioned.Sections.Neuron,
+                               'SUFFIX %s' % suffix)
 
-        self.append_to_section( ModFileSectioned.Sections.Neuron, "RANGE %s"% ",".join(ranges) )
+        self.append_to_section(ModFileSectioned.Sections.Neuron,
+                               'RANGE %s' % ','.join(ranges))
 
         for current in nonspecificcurrents:
-            self.append_to_section( ModFileSectioned.Sections.Neuron, "NONSPECIFIC_CURRENT %s"%current)
+            self.append_to_section(ModFileSectioned.Sections.Neuron,
+                                   'NONSPECIFIC_CURRENT %s' % current)
 
     def add_parameter(self, parameter):
-        self.append_to_section( ModFileSectioned.Sections.Parameter, parameter.initialisation_string() )
+        self.append_to_section(ModFileSectioned.Sections.Parameter,
+                               parameter.initialisation_string())
 
 
 
@@ -188,13 +195,16 @@ class ModFileSectioned(object):
 
 
     def add_assigned(self, assigned):
-        self.append_to_section( ModFileSectioned.Sections.Assigned, assigned.declaration_string() )
+        self.append_to_section(ModFileSectioned.Sections.Assigned,
+                               assigned.declaration_string())
 
     def add_breakpoint(self, equation):
-        self.append_to_section( ModFileSectioned.Sections.Breakpoint, equation )
+        self.append_to_section(ModFileSectioned.Sections.Breakpoint,
+                               equation)
 
     def add_function(self, func):
-        self.append_to_section( ModFileSectioned.Sections.Functions, func )
+        self.append_to_section(ModFileSectioned.Sections.Functions,
+                               func)
 
 
 

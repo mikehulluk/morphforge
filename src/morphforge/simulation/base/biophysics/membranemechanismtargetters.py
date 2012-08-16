@@ -55,7 +55,7 @@ class PassiveTargeter_Everywhere(Targeter):
     def does_target_section(self, section):
         return True
     def get_description(self):
-        return "PassiveDefault"
+        return 'PassiveDefault'
 
 class PassiveTargeter_Region(Targeter):
     def __init__(self, region):

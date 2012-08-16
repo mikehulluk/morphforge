@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -36,7 +36,7 @@ import time
 
 import numpy as np
 
-from morphforge.core import  FileIO
+from morphforge.core import FileIO
 from morphforge.core import RCMgr
 from morphforge.simulation.base import Simulation, SimulationResult
 from morphforge.simulation.base.simulationmetadatabundle.builders import MetaDataBundleBuilder
@@ -49,7 +49,7 @@ from morphforge.core.mgrs.logmgr import LogMgr
 
 
 def _random_walk(t_steps, std_dev):
-    nums = (np.random.rand(t_steps)-0.5) * std_dev
+    nums = (np.random.rand(t_steps) - 0.5) * std_dev
     walk = np.cumsum(nums)
     return walk
 
@@ -57,14 +57,18 @@ def _random_walk(t_steps, std_dev):
 class MNeuronSimulation(Simulation):
 
     def __init__(self, name=None, environment=None, **kwargs):
-        super(MNeuronSimulation, self).__init__(name=name, environment=environment, **kwargs)
+        super(MNeuronSimulation, self).__init__(
+                name=name,
+                environment=environment, 
+                **kwargs)
 
-        self.simulation_objects = [ NeuronSimSetupObj(self.simsettings, simulation=self) ]
+        self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
+                                   simulation=self)]
         self.recordableNames = set()
 
 
     def run(self, do_spawn=True):
-        #return
+
         if do_spawn:
             return self._run_spawn()
         else:
@@ -73,9 +77,9 @@ class MNeuronSimulation(Simulation):
 
     def _run_spawn(self):
 
-        LogMgr.info("_run_spawn() [Pickling Sim]")
-        b, resfilename = MetaDataBundleBuilder.build_std_pickler(self)
-        bundlefilename, sim_cmd = b.write_to_file_and_get_exec_string()
+        LogMgr.info('_run_spawn() [Pickling Sim]')
+        (b, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
+        (bundlefilename, sim_cmd) = b.write_to_file_and_get_exec_string()
 
         #if Exists(resfilename):
         #    os.unlink(resfilename)
@@ -98,7 +102,7 @@ class MNeuronSimulation(Simulation):
 
 
         # Load back the results:
-        LogMgr.info("_run_spawn() [Loading results]")
+        LogMgr.info('_run_spawn() [Loading results]')
         self.result = SimulationResult.load_from_file(resfilename)
         LogMgr.info("_run_spawn() [Finished loading results]")
 
@@ -114,7 +118,7 @@ class MNeuronSimulation(Simulation):
 
 
     def run_return_random_walks(self):
-        from morphforge.traces import  TraceVariableDT
+        from morphforge.traces import TraceVariableDT
         # Create the HOC and ModFiles:
         hoc_data = MHocFile()
         mod_files = MModFileSet()
@@ -126,7 +130,7 @@ class MNeuronSimulation(Simulation):
         time_array = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
         traces = []
         records = hoc_data[MHocFileData.Recordables]
-        for r, hocDetails in records.iteritems():
+        for (r, hocDetails) in records.iteritems():
 
             data_array = _random_walk(len(time_array), 0.05 ) * r.get_unit()
 
@@ -138,7 +142,7 @@ class MNeuronSimulation(Simulation):
 
 
     def _run_no_spawn(self):
-        from morphforge.traces import  TraceVariableDT
+        from morphforge.traces import TraceVariableDT
 
 
         # Generate Random data:
@@ -160,16 +164,17 @@ class MNeuronSimulation(Simulation):
 
         def nrn(func, *args, **kwargs):
             f = func(*args, **kwargs)
-            if f != 1.0: raise ValueError("nrn Command Failed")
+            if f != 1.0:
+                raise ValueError('nrn Command Failed')
 
 
         # Create the HOC and ModFiles:
         hoc_data = MHocFile()
         mod_files = MModFileSet()
         for o in self.simulation_objects:
-            #print 'BUILDING HOC:', o
+            # print 'BUILDING HOC:', o
             o.build_hoc(hoc_data)
-            #print 'BUILDING MOD:', o
+            # print 'BUILDING MOD:', o
             o.build_mod(mod_files)
 
 
@@ -200,14 +205,14 @@ class MNeuronSimulation(Simulation):
                 self.interval = 5.0
                 self.fih = h.FInitializeHandler(0.01, self.callback)
 
-            def callback(self) :
-                print self, "t=", h.t , "ms"
+            def callback(self):
+                print self, 't=', h.t, 'ms'
                 sys.stdout.flush()
                 if h.t + self.interval  < h.tstop:
                     h.cvode.event(h.t + self.interval, self.callback)
 
         e = Event()
-        print "Running Simulation"
+        print 'Running Simulation'
         h.run()
         #nrn( h.run )
         assert h.t+1 >= h.tstop
@@ -223,11 +228,11 @@ class MNeuronSimulation(Simulation):
         records = hoc_data[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            data_array = np.array( neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.get_unit()
+            data_array = np.array(neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.get_unit()
 
             tr = TraceVariableDT(name=r.name, comment=r.get_description(), time=time_array, data=data_array, tags=r.get_tags() )
             traces.append(tr)
-        print "Time for Extracting Data: (%d records)"%(len(records)),  time.time() - t_trace_read_start
+        print "Time for Extracting Data: (%d records)" % (len(records)),  time.time() - t_trace_read_start
 
 
 
@@ -246,19 +251,19 @@ class MNeuronSimulation(Simulation):
     def add_currentclamp_backend_specific(self, cc):
         self.simulation_objects.append(cc)
 
-    def add_voltageclamp_backend_specific(self,vc):
+    def add_voltageclamp_backend_specific(self, vc):
         self.simulation_objects.append(vc)
 
-    def add_synapse_backend_specific(self,synapse):
+    def add_synapse_backend_specific(self, synapse):
         self.simulation_objects.append(synapse)
 
-    def add_gapjunction_backend_specific(self,gapjunction):
+    def add_gapjunction_backend_specific(self, gapjunction):
         self.simulation_objects.append(gapjunction)
 
     def add_recordable(self, recordable):
         if recordable.name in self.recordableNames:
             assert False, 'Duplicate recordable name added'
-        self.recordableNames.add( recordable.name )
+        self.recordableNames.add(recordable.name)
         self.simulation_objects.append(recordable)
 
 

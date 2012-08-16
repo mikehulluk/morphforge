@@ -33,6 +33,7 @@
 from morphforge.core import ObjectLabeller
 
 class NamedSimulationObject(object):
+    
     """ A base class for any object in a simulation that needs a name.
 
     This class ensures that no two objects in a simulation have the same
@@ -41,6 +42,7 @@ class NamedSimulationObject(object):
 
     """ A dictionary -> set mapping, recording what object names are in 
     use at all simulations"""
+    
     _obj_names = {}
 
 

@@ -55,10 +55,12 @@ class AbstCellSegmenter(object):
                 yield seg
 
     def get_num_segment_total(self):
-        return sum( [ self.get_num_segments(section) for section in self.cell.morphology] )
+        return sum([self.get_num_segments(section) for section in
+                   self.cell.morphology])
 
     def get_num_segment_region(self, region):
-        return sum( [ self.get_num_segments(section) for section in region] )
+        return sum([self.get_num_segments(section) for section in
+                   region])
 
 
 
@@ -132,10 +134,10 @@ class CellSegmenter_MaxLengthByID(CellSegmenterStd):
 
     def __init__(self, cell=None, section_id_segment_maxsizes=None, default_segment_length=5):
         self.default_segment_length = default_segment_length
-        self.section_id_segment_sizes =section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
+        self.section_id_segment_sizes = section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
 
         CellSegmenterStd.__init__(self, cell)
 
     def _get_n_segments(self, section):
-        max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length )
-        return  int(section.get_length() / max_size )  +1
+        max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length)
+        return int(section.get_length() / max_size) + 1
