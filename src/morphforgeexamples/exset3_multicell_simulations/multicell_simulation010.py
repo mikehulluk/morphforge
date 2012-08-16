@@ -57,13 +57,13 @@ def simulate_chls_on_neuron():
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
     myCell1 = mySim.create_cell(name="Cell1", morphology=m1)
-    apply_mechanism_everywhere_uniform( myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) )
-    apply_passive_everywhere_uniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform(myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
+    apply_passive_everywhere_uniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
     myCell2 = mySim.create_cell(name="Cell2", morphology=m2)
-    apply_mechanism_everywhere_uniform( myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" ) )
-    apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform(myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
+    apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     # Get a cell_location on the cell:
     somaLoc1 = myCell1.get_location("soma")
@@ -81,8 +81,8 @@ def simulate_chls_on_neuron():
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
                                      cell_location = somaLoc1
-                                     )
-            )
+                                    )
+           )
 
     syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
@@ -96,13 +96,13 @@ def simulate_chls_on_neuron():
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
                                      cell_location = somaLoc2
-                                     )
-            )
+                                    )
+           )
 
 
     # Define what to record:
-    mySim.record( what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1 )
-    mySim.record( what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2 )
+    mySim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1)
+    mySim.record(what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2)
 
 
     # run the simulation
@@ -111,5 +111,5 @@ def simulate_chls_on_neuron():
 
 
 results = simulate_chls_on_neuron()
-TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True )
+TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True)
 #

@@ -54,17 +54,17 @@ def _get_piecewise_linear_points(tr):
     y_points = []
 
     for p in tr._pieces:
-        x_points.append( float(p.get_min_time().rescale(x_unit).magnitude) )
-        x_points.append( float(p.get_max_time().rescale(x_unit).magnitude) )
+        x_points.append(float(p.get_min_time().rescale(x_unit).magnitude))
+        x_points.append(float(p.get_max_time().rescale(x_unit).magnitude))
 
-        y_points.append( float(p.get_start_value().rescale(y_unit).magnitude) )
-        y_points.append( float(p.get_end_value().rescale(y_unit).magnitude) )
+        y_points.append(float(p.get_start_value().rescale(y_unit).magnitude))
+        y_points.append(float(p.get_end_value().rescale(y_unit).magnitude))
 
     return np.array(x_points) * x_unit, np.array(y_points) * y_unit
 
 # Plotting:
-TraceMethodCtrl.register(TraceFixedDT,    'plotpoints', lambda tr: (tr._time, tr._data) )
-TraceMethodCtrl.register(TraceVariableDT, 'plotpoints', lambda tr: (tr._time, tr._data) )
+TraceMethodCtrl.register(TraceFixedDT,    'plotpoints', lambda tr: (tr._time, tr._data))
+TraceMethodCtrl.register(TraceVariableDT, 'plotpoints', lambda tr: (tr._time, tr._data))
 TraceMethodCtrl.register(TracePiecewise,  'plotpoints', _get_piecewise_linear_points)
 
 

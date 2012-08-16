@@ -126,7 +126,7 @@ INITIAL {
     voltage_dependancy_ss = vdep(v)
     VERBATIM
     {
-        $COMMENT srand( $randomseed );
+        $COMMENT srand($randomseed);
     }
     ENDVERBATIM
 
@@ -135,7 +135,7 @@ INITIAL {
 
 FUNCTION vdep(Vin)
 {
-    vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
+    vdep = (1. / (1.+ 0.1*0.5*exp(-0.08*Vin)))
 }
 
 
@@ -152,14 +152,14 @@ DERIVATIVE state {
     A' = -A/tau1
     B' = -B/tau2
 
-    voltage_dep_state' = ( vdep(v) - voltage_dep_state ) / 5.0
+    voltage_dep_state' = (vdep(v) - voltage_dep_state) / 5.0
 }
 
 NET_RECEIVE(weight (uS)) {
 
     VERBATIM
-    float x = ( (float) rand() ) /  RAND_MAX;
-    if( x < popening )
+    float x = ((float) rand()) /  RAND_MAX;
+    if(x < popening)
     {
     ENDVERBATIM
 
@@ -176,4 +176,4 @@ NET_RECEIVE(weight (uS)) {
 """
     seed_val = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     comment_val = "//" if  mfrandom.MFRandom._seed is not None else ""
-    return x.replace('$randomseed', "%d"%seed_val ).replace("$COMMENT",comment_val)
+    return x.replace('$randomseed', "%d"%seed_val).replace("$COMMENT",comment_val)

@@ -65,7 +65,7 @@ def get_sample_na(env):
         reversalpotential=unit('50:mV'),
         statevars=naStateVars,
         mechanism_id='HH_NA_CURRENT',
-        )
+       )
     return naChannels
 
 
@@ -81,7 +81,7 @@ def get_sample_k(env):
         reversalpotential=unit('-77:mV'),
         statevars=kStateVars,
         mechanism_id='HH_K_CURRENT',
-        )
+       )
     return kChannels
 
 

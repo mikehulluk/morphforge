@@ -41,7 +41,7 @@ class ScalarFormatterWithUnit(object):
         self.symbol = symbol
 
 
-    def __call__(self, x, pos ):
+    def __call__(self, x, pos):
         x = x * float(self.scaling)
 
         d = Decimal(str(x))
@@ -69,22 +69,22 @@ class QuantitiesAxisNew(object):
 
         from matplotlib.ticker import FuncFormatter
         if self.units_in_label:
-            return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=None) )
+            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=None))
         else:
-            return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=symbol) )
+            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol))
 
     def yTickFormatGenerator(self, scaling, symbol):
 
         from matplotlib.ticker import FuncFormatter
         if self.units_in_label:
-            return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=None) )
+            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=None))
         else:
-            return FuncFormatter( ScalarFormatterWithUnit(scaling=scaling, symbol=symbol) )
+            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol))
 
 
 
 
-    def __init__(self, ax, units_in_label=True ):
+    def __init__(self, ax, units_in_label=True):
         self.xyUnitBase = [None,None]
         self.xyUnitDisplay = [None,None]
 
@@ -127,7 +127,7 @@ class QuantitiesAxisNew(object):
             symbol = self.getSymbolFromUnit(self.xyUnitDisplay[0])
             scaling = (self.xyUnitBase[0]/self.xyUnitDisplay[0]).rescale(pq.dimensionless)
             xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol)
-            self.ax.xaxis.set_major_formatter( xFormatterFunc )
+            self.ax.xaxis.set_major_formatter(xFormatterFunc)
 
         if unitY is not None:
 
@@ -136,7 +136,7 @@ class QuantitiesAxisNew(object):
             symbol = self.getSymbolFromUnit(self.xyUnitDisplay[1])
             scaling = (self.xyUnitBase[1]/self.xyUnitDisplay[1]).rescale(pq.dimensionless)
             yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol)
-            self.ax.yaxis.set_major_formatter( yFormatterFunc )
+            self.ax.yaxis.set_major_formatter(yFormatterFunc)
 
         # Update the labels
         self._update_labels()
@@ -190,9 +190,9 @@ class QuantitiesAxisNew(object):
 
         # Set the limits
         if x0 is not None:
-            self.ax.set_xlim(left = x0.rescale(self.xyUnitBase[0]).magnitude, **kwargs )
+            self.ax.set_xlim(left = x0.rescale(self.xyUnitBase[0]).magnitude, **kwargs)
         if x1 is not None:
-            self.ax.set_xlim(right =  x1.rescale(self.xyUnitBase[0]).magnitude, **kwargs )
+            self.ax.set_xlim(right =  x1.rescale(self.xyUnitBase[0]).magnitude, **kwargs)
 
 
     def set_ylim(self, *args, **kwargs):
@@ -222,9 +222,9 @@ class QuantitiesAxisNew(object):
 
         # Set the limits
         if x0 is not None:
-            self.ax.set_ylim(bottom = x0.rescale(self.xyUnitBase[1]).magnitude, **kwargs )
+            self.ax.set_ylim(bottom = x0.rescale(self.xyUnitBase[1]).magnitude, **kwargs)
         if x1 is not None:
-            self.ax.set_ylim(top =  x1.rescale(self.xyUnitBase[1]).magnitude, **kwargs )
+            self.ax.set_ylim(top =  x1.rescale(self.xyUnitBase[1]).magnitude, **kwargs)
 
 
     def _update_labels(self):
@@ -235,7 +235,7 @@ class QuantitiesAxisNew(object):
 
         elif self.units_in_label:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[0]) if self.xyUnitDisplay[0] is not None else "??"
-            self.ax.set_xlabel( "%s %s"%( self.labelX, unit_str ) )
+            self.ax.set_xlabel("%s %s"%(self.labelX, unit_str))
         else:
             self.ax.set_xlabel(self.labelX)
 
@@ -244,7 +244,7 @@ class QuantitiesAxisNew(object):
             self.ax.set_ylabel(self.labelY)
         elif self.units_in_label:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[1]) if self.xyUnitDisplay[1] is not None else "??"
-            self.ax.set_ylabel( "%s %s"%( self.labelY, unit_str ) )
+            self.ax.set_ylabel("%s %s"%(self.labelY, unit_str))
         else:
             self.ax.set_ylabel(self.labelY)
 
@@ -257,7 +257,7 @@ class QuantitiesAxisNew(object):
 
     def set_yaxis_maxnlocator(self, n):
         import matplotlib as mpl
-        self.ax.yaxis.set_major_locator( mpl.ticker.MaxNLocator(n) )
+        self.ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
 
 
 
@@ -291,7 +291,7 @@ class QuantitiesAxisNew(object):
         self._setxyUnitDisplay(unitX=x, unitY=y)
 
 
-    def __getattr__(self, name ):
+    def __getattr__(self, name):
         protected_objects = ['xaxis','yaxis',
                              'transData','transAxes',
                              'bar','hist']
@@ -319,7 +319,7 @@ class QuantitiesFigureNew(object):
 
         # Create a proxy object, that acts like an axes object, but
         # intercepts certain calls:
-        return self.subplot_class( subplot_ax )
+        return self.subplot_class(subplot_ax)
 
     def add_axes(self, *args, **kwargs):
         subplot_ax = self.fig.add_axes(*args, **kwargs)
@@ -327,7 +327,7 @@ class QuantitiesFigureNew(object):
 
         # Create a proxy object, that acts like an axes object, but
         # intercepts certain calls:
-        return self.subplot_class( subplot_ax )
+        return self.subplot_class(subplot_ax)
     def __getattr__(self, name):
         return getattr(self.fig, name)
 

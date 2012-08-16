@@ -56,15 +56,15 @@ class MembraneMechanismSummariser(object):
 
         for (modelsrc, celltype, channeltype), membranemechanismFunctor in ChannelLibrary.iteritems():
             print "Summarising:", modelsrc, celltype, channeltype
-            membranemechanism = membranemechanismFunctor( NeuronSimulationEnvironment() )
-            filename = "%s_%s_%s.pdf"%( modelsrc,celltype,channeltype)
+            membranemechanism = membranemechanismFunctor(NeuronSimulationEnvironment())
+            filename = "%s_%s_%s.pdf"%(modelsrc,celltype,channeltype)
             f_name = Join(cell_location, filename)
             cls.create_pdf(mechanism=membranemechanism, filename=f_name,reportlabconfig=reportlabconfig)
 
 
 
     @classmethod
-    def create_pdf(cls, mechanism, filename, reportlabconfig =None ):
+    def create_pdf(cls, mechanism, filename, reportlabconfig =None):
         from reportlab.platypus import SimpleDocTemplate, Paragraph
         from reportlab.lib.pagesizes import A4
         if not reportlabconfig: reportlabconfig = ReportLabConfig()
@@ -72,8 +72,8 @@ class MembraneMechanismSummariser(object):
 
         doc = SimpleDocTemplate(filename,pagesize=A4)
 
-        elements = [ Paragraph("Filename: %s"%filename, style=reportlabconfig.styles['Heading2'] ) ]
-        elements.extend( cls.summarise_membranemechanism(mechanism, reportlabconfig ) )
+        elements = [ Paragraph("Filename: %s"%filename, style=reportlabconfig.styles['Heading2']) ]
+        elements.extend(cls.summarise_membranemechanism(mechanism, reportlabconfig))
 
         doc.build(elements)
 
@@ -81,29 +81,29 @@ class MembraneMechanismSummariser(object):
 
 
     @classmethod
-    def summarise_membranemechanism(self, membranemechanism,  reportlabconfig, make_graphs=True ):
+    def summarise_membranemechanism(self, membranemechanism,  reportlabconfig, make_graphs=True):
         from reportlab.platypus import Paragraph, Table
         local_elements = []
-        local_elements.append( Paragraph(membranemechanism.name, reportlabconfig.styles['Heading2'] ) )
-        summariser = SummariserLibrary.get_summarisier( membranemechanism )
+        local_elements.append(Paragraph(membranemechanism.name, reportlabconfig.styles['Heading2']))
+        summariser = SummariserLibrary.get_summarisier(membranemechanism)
 
         # Parameters:
-        local_elements.append( Paragraph("Parameters", reportlabconfig.styles['Heading2'] ) )
+        local_elements.append(Paragraph("Parameters", reportlabconfig.styles['Heading2']))
         table_header = ['Parameter Name', 'Default', ]
 
         data = [table_header, ]
         for param in membranemechanism.get_variables():
-            data.append( [ param, membranemechanism.get_default(param) ] )
+            data.append([ param, membranemechanism.get_default(param) ])
 
 
-        local_elements.append( Table(data, style=reportlabconfig.listTableStyle) )
+        local_elements.append(Table(data, style=reportlabconfig.listTableStyle))
 
 
         # Detailed Summary:
         if summariser:
-            local_elements.extend( summariser.to_report_lab( membranemechanism, reportlabconfig, make_graphs=make_graphs ) )
+            local_elements.extend(summariser.to_report_lab(membranemechanism, reportlabconfig, make_graphs=make_graphs))
         else:
-            local_elements.append( Paragraph("[No Summariser Available]", reportlabconfig.styles['Italic'] ) )
+            local_elements.append(Paragraph("[No Summariser Available]", reportlabconfig.styles['Italic']))
 
 
         return local_elements

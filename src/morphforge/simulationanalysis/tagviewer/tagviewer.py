@@ -63,15 +63,15 @@ def _resolve_time_range(time_range):
 
 
 class DefaultPlotSpec(object):
-    Voltage =            PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV), yunit=pq.millivolt  )
-    CurrentDensity =     PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2  )
-    Current =            PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp )
-    Conductance =        PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" )
-    ConductanceDensity = PlotSpec_DefaultNew( s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2  )
-    StateVariable =      PlotSpec_DefaultNew( s="StateVariable", ylabel="StateVariable" )
-    StateVariableTau =   PlotSpec_DefaultNew( s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  )
-    StateVariableInf =   PlotSpec_DefaultNew( s="StateSteadyState", ylabel="Steady State" )
-    Event =              PlotSpec_DefaultNew( s="Event", ylabel="Events" )
+    Voltage =            PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV), yunit=pq.millivolt )
+    CurrentDensity =     PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2 )
+    Current =            PlotSpec_DefaultNew(s="Current", ylabel='Current',yunit=pq.picoamp)
+    Conductance =        PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance")
+    ConductanceDensity = PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
+    StateVariable =      PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable")
+    StateVariableTau =   PlotSpec_DefaultNew(s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant" )
+    StateVariableInf =   PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State")
+    Event =              PlotSpec_DefaultNew(s="Event", ylabel="Events")
 
 
 
@@ -92,7 +92,7 @@ class TagViewer(object):
         DefaultPlotSpec.StateVariableTau,
         DefaultPlotSpec.StateVariableInf,
         DefaultPlotSpec.Event,
-        )
+       )
 
 
 
@@ -109,7 +109,7 @@ class TagViewer(object):
                  additional_plotspecs = None,
                  share_x_labels=True,
                  mpl_tight_bounds = True
-                 ):
+                ):
 
         self.linkage = linkage
 
@@ -127,10 +127,10 @@ class TagViewer(object):
         self.allTraceObjs = []
         self.allEventSetObjs = []
         trace_extractors = {
-            SimulationResult:       lambda i: self.allTraceObjs.extend( i.traces ),
-            TraceFixedDT:          lambda i: self.allTraceObjs.append( i ),
-            TraceVariableDT:       lambda i: self.allTraceObjs.append( i ),
-            TracePiecewise:        lambda i: self.allTraceObjs.append( i ),
+            SimulationResult:       lambda i: self.allTraceObjs.extend(i.traces),
+            TraceFixedDT:          lambda i: self.allTraceObjs.append(i),
+            TraceVariableDT:       lambda i: self.allTraceObjs.append(i),
+            TracePiecewise:        lambda i: self.allTraceObjs.append(i),
             EventSet:               lambda i: self.allEventSetObjs.append(i)
                             }
 
@@ -145,7 +145,7 @@ class TagViewer(object):
         plotspecs = plotspecs if plotspecs is not None else TagViewer.defaultPlotSpecs
 
         if additional_plotspecs:
-            plotspecs = tuple( list(plotspecs) + list(additional_plotspecs) )
+            plotspecs = tuple(list(plotspecs) + list(additional_plotspecs))
 
         self.plot_specs = [ sp for sp in plotspecs if
                             [ tr for tr in self.allTraceObjs if sp.addtrace_predicate(tr)] or  \
@@ -171,7 +171,7 @@ class TagViewer(object):
         # Save the figure:
         #if save:
 
-        #    PM.save_figure( figtitle )
+        #    PM.save_figure(figtitle)
 
 
         if TagViewer.MPL_AUTO_SHOW and show:
@@ -209,13 +209,13 @@ class TagViewer(object):
                 time_range = _resolve_time_range(time_range)
 
                 # Create the axis:
-                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + iT  + 1 )
+                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + iT  + 1)
                 ax.set_xunit(pq.millisecond)
 
                 # Leave the plotting to the PlotSpecification
                 is_bottom_plot = i == n_plots - 1
                 plot_xaxis_details = is_bottom_plot or not self.share_x_labels
-                plot_spec.plot( ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details )
+                plot_spec.plot(ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
 
                 # Save the Axis:
                 self.subaxes.append(ax)

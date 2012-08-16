@@ -71,7 +71,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def build_hoc(self, hocfile_obj):
         obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dependancy", recordobj=self )
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dependancy", recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -82,7 +82,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 exp2HOCTmpl = """
 // Post-Synapse [ $synnamepost ]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynNMDAMorphforge ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynNMDAMorphforge ($sectionpos)
 ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude
 ${synnamepost}.tau2 = $tau_close.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
@@ -94,7 +94,7 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
 
     def __init__(self, simulation, **kwargs):
-        PostSynapticMech_Exp2SynNMDA.__init__( self,  **kwargs)
+        PostSynapticMech_Exp2SynNMDA.__init__(self,  **kwargs)
 
 
 
@@ -117,7 +117,7 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
                'random_seed': MFRandom.get_seed(),
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data
@@ -132,11 +132,11 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
     def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_Exp2SynNMDA_CurrentRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Exp2SynNMDA_CurrentRecord(neuron_syn_post=self, **kwargs)
         if what == Synapse.Recordables.SynapticConductance:
-            return Neuron_PSM_Exp2SynNMDA_ConductanceRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Exp2SynNMDA_ConductanceRecord(neuron_syn_post=self, **kwargs)
         if what == StandardTags.NMDAVoltageDependancy:
-            return Neuron_PSM_Std_NMDAVoltageDependanceRecord( neuron_syn_post=self, **kwargs)
+            return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=self, **kwargs)
         assert False
 
 
@@ -144,6 +144,6 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
 
 
-#NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
+#NeuronSimulationEnvironment.registerPostSynapticMechanism(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
 NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
 

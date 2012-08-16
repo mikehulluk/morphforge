@@ -88,13 +88,13 @@ class TracePlot(HasTraits):
     view = View(
             Group(
                   Item('plot',editor=ComponentEditor(size=(50,50)),show_label=False),
-                ),
+               ),
                 resizable=True)
 
     def __init__(self, sim_conf, plot_what, colors, xRange=None, yRange=None):
         super(TracePlot, self).__init__()
 
-        sim_conf.add_simulation_display_functor( self.update_display )
+        sim_conf.add_simulation_display_functor(self.update_display)
 
         self.plot = Plot(sim_conf.data,resizable='v')
         self.plot.padding =25
@@ -108,7 +108,7 @@ class TracePlot(HasTraits):
         if yRange:
             self.plot.y_mapper.range.set_bounds(*yRange)
 
-        for what,color in zip( plot_what,colors ):
+        for what,color in zip(plot_what,colors):
             render = self.plot.plot((what+"_t",what + "_d"),type='line' ,color=color)
 
 
@@ -130,7 +130,7 @@ class TracePlot(HasTraits):
 
 class SimulationConfig(HasTraits):
 
-    data = Instance( ArrayPlotData)
+    data = Instance(ArrayPlotData)
 
 
     def __init__(self):
@@ -155,11 +155,11 @@ class SimulationConfig(HasTraits):
 
 
     def add_simulation_chl_functor(self, simulation_chl_functor):
-        self.simulation_chl_functors.append( simulation_chl_functor)
+        self.simulation_chl_functors.append(simulation_chl_functor)
 
 
     def add_simulation_display_functor(self, display_functor):
-        self.display_functors.append( display_functor)
+        self.display_functors.append(display_functor)
 
 
 
@@ -198,20 +198,20 @@ class SimulationConfig(HasTraits):
 
         #Record the Currents & Conductances:
         for chlname, mech in mech_dict.iteritems():
-                sim.record( mech,  what = StandardTags.CurrentDensity, cell_location=cell.get_location('soma'), name="%s_i"%chlname, description="")
+                sim.record(mech,  what = StandardTags.CurrentDensity, cell_location=cell.get_location('soma'), name="%s_i"%chlname, description="")
                 if chlname != 'Ca':
-                    sim.record( mech,  what = StandardTags.ConductanceDensity, cell_location=cell.get_location('soma'), name="%s_g"%chlname, description="")
+                    sim.record(mech,  what = StandardTags.ConductanceDensity, cell_location=cell.get_location('soma'), name="%s_g"%chlname, description="")
 
 
 
 
-        sim.record( mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  cell_location = cell.get_location('soma'), description='Kf State')
-        sim.record( mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  cell_location = cell.get_location('soma'), description='Ks State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  cell_location = cell.get_location('soma'), description='Na-m State')
-        sim.record( mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  cell_location = cell.get_location('soma'), description='Na-h State')
+        sim.record(mech_dict['Kf'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='kf',  name="Kf_kf",  cell_location = cell.get_location('soma'), description='Kf State')
+        sim.record(mech_dict['Ks'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='ks',  name="Ks_ks",  cell_location = cell.get_location('soma'), description='Ks State')
+        sim.record(mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='m',  name="Na_m",  cell_location = cell.get_location('soma'), description='Na-m State')
+        sim.record(mech_dict['Na'], what=MM_InfTauInterpolatedChannel.Recordables.StateVar, state='h',  name="Na_h",  cell_location = cell.get_location('soma'), description='Na-h State')
 
         # Record Voltages:
-        sim.record( cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
+        sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.get_location('soma'), description='Membrane Voltage')
 
 
 
@@ -223,8 +223,8 @@ class SimulationConfig(HasTraits):
         # Update the array of data:
         for trace_name, trace_unit in trace_names:
             tr = res.get_trace(trace_name)
-            self.data.set_data(trace_name+'_t', tr._time.rescale('ms').magnitude )
-            self.data.set_data(trace_name+'_d', tr._data.rescale(trace_unit).magnitude )
+            self.data.set_data(trace_name+'_t', tr._time.rescale('ms').magnitude)
+            self.data.set_data(trace_name+'_d', tr._data.rescale(trace_unit).magnitude)
 
 
         # Update the display:
@@ -253,7 +253,7 @@ class MorphologyConfig(HasTraits):
     view = View(Group(
                   Item('surfacearea',),
                   Item('capacitance',),
-                ),
+               ),
                 resizable=True,title='Morphology')
 
     def __init__(self,sim_conf):
@@ -270,14 +270,14 @@ class MorphologyConfig(HasTraits):
 
 
     def get_cell(self, env, sim):
-        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2 )
+        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2)
         #m1 =
 
-        morph_functor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN )
+        morph_functor = MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN)
         m1 = morph_functor(axonDiam = 0.4)
 
         myCell = sim.create_cell(name="Cell1", morphology=m1)
-        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance) )
+        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance))
         return myCell
 
 
@@ -290,18 +290,18 @@ class InputConfig(HasTraits):
     delay2 =    Range(0.0, 1000., 105)
     dur2 =      Range(0.0, 1000., 5)
 
-    sim_conf = Instance( SimulationConfig )
+    sim_conf = Instance(SimulationConfig)
     view = View(
             Group(
                   Item('amp1'),
                   Item('delay1'),
                   Item('dur1'),
-                ),
+               ),
             Group(
                   Item('amp2'),
                   Item('delay2'),
                   Item('dur2'),
-                ),
+               ),
                 resizable=True,title='Current Inj')
 
     def __init__(self,sim_conf):
@@ -315,8 +315,8 @@ class InputConfig(HasTraits):
 
     def getInputStimulus(self, sim, cell):
         somaLoc = cell.get_location("soma")
-        s1 = sim.create_currentclamp( name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), cell_location=somaLoc)
-        s2 = sim.create_currentclamp( name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), cell_location=somaLoc)
+        s1 = sim.create_currentclamp(name="Stim1", amp=unit("%2.2f:pA"%self.amp1), dur=unit("%f:ms"%self.dur1), delay=unit("%f:ms"%self.delay1), cell_location=somaLoc)
+        s2 = sim.create_currentclamp(name="Stim2", amp=unit("%2.2f:pA"%self.amp2), dur=unit("%f:ms"%self.dur2), delay=unit("%f:ms"%self.delay2), cell_location=somaLoc)
         return None
 
 
@@ -325,18 +325,18 @@ class InputConfig(HasTraits):
 
 class Double(HasTraits):
 
-    s3 = Instance( TracePlot )
-    s4 = Instance( TracePlot )
-    s5 = Instance( TracePlot )
-    s6 = Instance( TracePlot )
-    conf_morph= Instance( MorphologyConfig )
-    conf_input = Instance( InputConfig )
+    s3 = Instance(TracePlot)
+    s4 = Instance(TracePlot)
+    s5 = Instance(TracePlot)
+    s6 = Instance(TracePlot)
+    conf_morph= Instance(MorphologyConfig)
+    conf_input = Instance(InputConfig)
 
-    hhKf = Instance( HHChannelPaneInfTau1 )
-    hhKs = Instance( HHChannelPaneInfTau1 )
-    hhNa = Instance( HHChannelPaneInfTau2 )
-    hhCa = Instance( HHChannelExistingChannel )
-    hhLk = Instance( HHChannelPaneLk )
+    hhKf = Instance(HHChannelPaneInfTau1)
+    hhKs = Instance(HHChannelPaneInfTau1)
+    hhNa = Instance(HHChannelPaneInfTau2)
+    hhCa = Instance(HHChannelExistingChannel)
+    hhLk = Instance(HHChannelPaneLk)
 
     view = View(
             HGroup(
@@ -347,21 +347,21 @@ class Double(HasTraits):
                      Item('hhKs', style='custom',show_label=False),
                      Item('hhNa', style='custom',show_label=False),
                      Item('hhCa', style='custom',show_label=False),
-                     )
+                    )
+            ),
+              VGroup(
+               Item('s3', style='custom', show_label=False),
+               Item('s4', style='custom', show_label=False),
+               Item('s5', style='custom', show_label=False),
+               Item('s6', style='custom', show_label=False),
              ),
               VGroup(
-               Item('s3', style='custom', show_label=False ),
-               Item('s4', style='custom', show_label=False ),
-               Item('s5', style='custom', show_label=False ),
-               Item('s6', style='custom', show_label=False ),
-              ),
-              VGroup(
-               Item('conf_morph', style='custom', show_label=False ),
-               Item('conf_input', style='custom', show_label=False ),
-              ),
-              ),
+               Item('conf_morph', style='custom', show_label=False),
+               Item('conf_input', style='custom', show_label=False),
+             ),
+             ),
 
-            resizable=True, width=1200, height=1200, )
+            resizable=True, width=1200, height=1200,)
 
 
 
@@ -381,11 +381,11 @@ class Double(HasTraits):
 #ksFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ks)
 #lkFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Lk)
 #caFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chl_functor=getCaChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chl_functor=getKfChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chl_functor=getKsChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chl_functor=getLkChannels )
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chl_functor=get_naChannels )
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chl_functor=getCaChannels)
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chl_functor=getKfChannels)
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chl_functor=getKsChannels)
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chl_functor=getLkChannels)
+##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chl_functor=get_naChannels)
 #
 ##
 #
@@ -394,42 +394,42 @@ class Double(HasTraits):
 #kfMult = 0.6
 #ksMult = 1.0
 #lkMult = 1.2
-##nrnParams = NeuronParameters( { ChlIon.Na: 1.6, ChlIon.Ca: 1.0, ChlIon.Kf: 0.6, ChlIon.Lk: 1.2 } )
+##nrnParams = NeuronParameters({ ChlIon.Na: 1.6, ChlIon.Ca: 1.0, ChlIon.Kf: 0.6, ChlIon.Lk: 1.2 })
 #
 #
-##nrnParams = NeuronParameters( { ChlIon.Na: 1.0, ChlIon.Ca: 1.6, ChlIon.Kf: 0.5, ChlIon.Lk: 0.4 } )
+##nrnParams = NeuronParameters({ ChlIon.Na: 1.0, ChlIon.Ca: 1.6, ChlIon.Kf: 0.5, ChlIon.Lk: 0.4 })
 
 
 
 
 """
         for mechFunctor in mechFunctors:
-            mech = mechFunctor( env=sim.environment )
+            mech = mechFunctor(env=sim.environment)
             if mechFunctor == lkFunctor:
 
                 if coupled_leak:
-                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
+                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")} )
                 else:
-                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")}  )
+                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")} )
 
 
             elif mechFunctor == naFunctor:
                 if disable_sodium:
                     continue
 
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5} )
-                apply_mechanism_region_uniform(    cell=myCell, mechanism=mech, region=myCell.morphology.get_region('axon'), parameter_multipliers={'gScale':5.0} )
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5})
+                apply_mechanism_region_uniform(   cell=myCell, mechanism=mech, region=myCell.morphology.get_region('axon'), parameter_multipliers={'gScale':5.0})
 
 
             elif mechFunctor == kfFunctor:
                 if disable_kf:
                     continue
 
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5})
                 apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.get_region('soma'))
 
             elif mechFunctor == ksFunctor:
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} )
+                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5})
 
             else:
                 apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech)
@@ -440,11 +440,11 @@ naMult = 5.0
 lkMult = 1.0
 ksMult = 0.5
 kfMult = 2.5
-lkFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Lk)
-caFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Ca)
-naFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Dale95, celltype=CellType.RB,  channeltype=ChlType.Na)
-kfFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.DL,  channeltype=ChlType.Kf)
-ksFunctorBase = ChannelLibrary.get_channel_functor( modelsrc=Model.Hull12, celltype=CellType.RB,  channeltype=ChlType.Ks)
+lkFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Lk)
+caFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12, celltype=CellType.dIN, channeltype=ChlType.Ca)
+naFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.Dale95, celltype=CellType.RB,  channeltype=ChlType.Na)
+kfFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12, celltype=CellType.DL,  channeltype=ChlType.Kf)
+ksFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull12, celltype=CellType.RB,  channeltype=ChlType.Ks)
 
 def caFunctor(env):
     chl = caFunctorBase(env)
@@ -492,12 +492,12 @@ def main():
             conf_morph= MorphologyConfig(sim_conf=sim_conf),
             conf_input= InputConfig(sim_conf=sim_conf),
 
-            hhKs = buildPaneFromExistingChannelInfTau1State( ksFunctor, sim_config=sim_config, chlname='Ks' ) ,
-            hhKf = buildPaneFromExistingChannelInfTau1State( kfFunctor, sim_config=sim_config, chlname='Kf' ) ,
-            hhNa = buildPaneFromExistingChannelInfTau2State( naFunctor, sim_config=sim_config, chlname='Na' ) ,
-            hhCa = buildPaneFromExistingChannel( caFunctor, sim_config=sim_config,chlname='Ca' ) ,
-            hhLk = buildPaneFromExistingChannelLk(lkFunctor, sim_config=sim_config, chlname='Lk' ) ,
-            )
+            hhKs = buildPaneFromExistingChannelInfTau1State(ksFunctor, sim_config=sim_config, chlname='Ks') ,
+            hhKf = buildPaneFromExistingChannelInfTau1State(kfFunctor, sim_config=sim_config, chlname='Kf') ,
+            hhNa = buildPaneFromExistingChannelInfTau2State(naFunctor, sim_config=sim_config, chlname='Na') ,
+            hhCa = buildPaneFromExistingChannel(caFunctor, sim_config=sim_config,chlname='Ca') ,
+            hhLk = buildPaneFromExistingChannelLk(lkFunctor, sim_config=sim_config, chlname='Lk') ,
+           )
     d.configure_traits()
 
 

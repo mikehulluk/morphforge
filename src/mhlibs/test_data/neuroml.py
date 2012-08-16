@@ -59,7 +59,7 @@ class NeuroMLDataLibrary(object):
 
         files = []
         for subdir in subdirs:
-            files.extend(  glob.glob( Join(simSrcDir, subdir) + '/*.xml') )
+            files.extend( glob.glob(Join(simSrcDir, subdir) + '/*.xml'))
         #print files
         #assert False
         return files

@@ -189,7 +189,7 @@ class Demo(HasTraits):
                              show_label=False),
                         orientation = "vertical"),
                     resizable=True, title=title
-                    )
+                   )
 
     def _plot_default(self):
          return _create_plot_component()

@@ -160,7 +160,7 @@ class xyzXYZMultiLoader(object):
 
             centre = ((xyz[0] + XYZ[0]) / 2.0, (xyz[1] + XYZ[1]) / 2.0, (xyz[2] + XYZ[2]) / 2.0)
             rad = np.sqrt(sum([ (xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2] ]))
-            rad = max(rad, minimumradius )
+            rad = max(rad, minimumradius)
 
             cellid = int(toks[0])
             parent = int(toks[8])
@@ -169,7 +169,7 @@ class xyzXYZMultiLoader(object):
                 sections = {}
                 sections[-1] = Section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
                 newSect = sections[-1].create_distal_section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
-                morphRoots.append( sections[-1] )
+                morphRoots.append(sections[-1])
             else:
                 newSect = sections[parent].create_distal_section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
 

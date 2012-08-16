@@ -64,7 +64,7 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(),
             recordobj=self,
-            )
+           )
 
     def get_description(self):
         return '%s %s %s' % (self.modvar, self.alphabeta_beta_chl.name,
@@ -155,8 +155,8 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
 
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        return MM_WriterAlphaBetaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        return MM_WriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
 
 
@@ -170,20 +170,20 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
             MM_AlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
         }
 
-        return recorders[what]( alphabeta_beta_chl=self, cell_location= cell_location, name=name, **kwargs  )
+        return recorders[what](alphabeta_beta_chl=self, cell_location= cell_location, name=name, **kwargs )
 
 
     def get_mod_file_changeables(self):
 
          # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id' ] )
-        assert set( self.__dict__) == set( ['mm_neuronNumber', 'cachedNeuronSuffix'] ) | change_attrs
+        change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id' ])
+        assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
         attrs = ['name','ion','eqn','conductance','statevars','reversalpotential','mechanism_id','beta2threshold']
-        return dict ( [ (a, getattr(self, a)) for a in attrs ] )
+        return dict ([ (a, getattr(self, a)) for a in attrs ])
 
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism( MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
+#NeuronSimulationEnvironment.registerMembraneMechanism(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)

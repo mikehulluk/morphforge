@@ -132,7 +132,7 @@ class TestMorphologyArrayComparison(object):
 
         m = MorphologyArray.fromSWC(StringIO(swc_srcs['Ci']))
 
-        for i in range( len(m) ):
+        for i in range(len(m)):
             for j in range(4):
 
                 m1 = MorphologyArray.fromSWC(StringIO(swc_srcs['Ci']))
@@ -169,7 +169,7 @@ class TestMorphologyArrayComparison(object):
 
         m = MorphologyArray.fromSWC(srcSWCFile)
         MFRandom.seed(0)
-        for i in range( len(m) ):
+        for i in range(len(m)):
             print i, len(m)
             for j in range(4):
 

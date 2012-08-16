@@ -43,7 +43,7 @@ from morphforge.simulation.neuron.misc import MNeuronSettings
 ccTmpl = """
 // Current Clamp [ $stimname ]
 objref $stimname
-${cellname}.internalsections[$sectionindex] $stimname = new IClamp( $sectionpos )
+${cellname}.internalsections[$sectionindex] $stimname = new IClamp($sectionpos)
 ${stimname}.dur = $dur
 ${stimname}.del = $delay
 ${stimname}.amp = $amp
@@ -54,7 +54,7 @@ ${stimname}.amp = $amp
 vcTmpl = """
 // Current Clamp [ $stimname ]
 objref $stimname
-${cellname}.internalsections[$sectionindex] $stimname = new $VClampType ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $stimname = new $VClampType ($sectionpos)
 ${stimname}.dur1 = $dur1
 ${stimname}.dur2 = $dur2
 ${stimname}.dur3 = $dur3
@@ -85,7 +85,7 @@ ${stim.name}.rs = $stim.rs
 class HocBuilder(object):
 
     @classmethod
-    def VoltageClamp(cls, hocfile_obj, voltageclamp ):
+    def VoltageClamp(cls, hocfile_obj, voltageclamp):
 
         cell = voltageclamp.cell_location.cell
         section = voltageclamp.cell_location.morphlocation.section
@@ -113,12 +113,12 @@ class HocBuilder(object):
         hocfile_obj[MHocFileData.VoltageClamps][voltageclamp] = data
 
         # Create the HOC
-        hocfile_obj.add_to_section( MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond())
 
 
 
     @classmethod
-    def CurrentClamp(cls, hocfile_obj, currentclamp ):
+    def CurrentClamp(cls, hocfile_obj, currentclamp):
         cell = currentclamp.cell_location.cell
         section = currentclamp.cell_location.morphlocation.section
         data = {
@@ -136,7 +136,7 @@ class HocBuilder(object):
         hocfile_obj[MHocFileData.CurrentClamps][currentclamp] = data
 
         # Create the HOC
-        hocfile_obj.add_to_section( MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond())
 
 
 

@@ -46,11 +46,11 @@ class ChannelConverter(object):
 
 
     @classmethod
-    def AlphaBetaToInterpolateInfTauFunctorConvertor(cls, chl_functor, new_id=None, new_name=None, clone_id_suffix="_AsInfTau",clone_name_suffix="_AsInfTau", voltage_interpolation_values=None,   ):
+    def AlphaBetaToInterpolateInfTauFunctorConvertor(cls, chl_functor, new_id=None, new_name=None, clone_id_suffix="_AsInfTau",clone_name_suffix="_AsInfTau", voltage_interpolation_values=None,  ):
 
 
         # Create a new functor:
-        def newFunctor( env, _voltage_interpolation_values=voltage_interpolation_values):
+        def newFunctor(env, _voltage_interpolation_values=voltage_interpolation_values):
 
 
 
@@ -96,7 +96,7 @@ class ChannelConverter(object):
                 conductance=old_chl.conductance,
                 reversalpotential=old_chl.reversalpotential,
                 statevars_new=new_state_vars,
-                )
+               )
             return mech
 
         return newFunctor
@@ -121,25 +121,25 @@ class ChannelConverter(object):
 #                self.state_var_name2: InfTauInterpolation(V=V2, inf=inf2, tau=tau2),
 #                }
 #
-#        #inf_data1 = zip( self.state1.plotinf.mx.tolist(), self.state1.plotinf.my.tolist() )
-#        #tau_data1 = zip( self.state1.plottau.mx.tolist(), self.state1.plottau.my.tolist() )
+#        #inf_data1 = zip(self.state1.plotinf.mx.tolist(), self.state1.plotinf.my.tolist())
+#        #tau_data1 = zip(self.state1.plottau.mx.tolist(), self.state1.plottau.my.tolist())
 #
-#        #inf_data2 = zip( self.state2.plotinf.mx.tolist(), self.state2.plotinf.my.tolist() )
-#        #tau_data2 = zip( self.state2.plottau.mx.tolist(), self.state2.plottau.my.tolist() )
+#        #inf_data2 = zip(self.state2.plotinf.mx.tolist(), self.state2.plotinf.my.tolist())
+#        #tau_data2 = zip(self.state2.plottau.mx.tolist(), self.state2.plottau.my.tolist())
 #        #
 #        #ks_vars = {
 #        #        self.state_var_name1: { 'inf': inf_data1, 'tau': tau_data1, },
 #        #        self.state_var_name2: { 'inf': inf_data2, 'tau': tau_data2, },
 #        #
 #        #        }
-#        ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel,
+#        ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
 #                                      name=self.chlname,
 #                                      ion='None',
 #                                      equation=self.eqn,
 #                                      mechanism_id=self.mechanism_id,
 #                                      conductance = '%2.2f:mS/cm2'%gbar,
 #                                      reversalpotential = '%2.2f:mV'%vrev,
-#                                      statevars_new = ks_vars )
+#                                      statevars_new = ks_vars)
 #
 #
 #
@@ -156,7 +156,7 @@ class ChannelConverter(object):
 #                            beta2threshold = unit("-25:mV"),
 #                            statevars=caStateVars,
 #                            mechanism_id = 'HULL12_RB_CA_ID'
-#                            )
+#                           )
 #    return caChannels
 #
 #
@@ -169,13 +169,13 @@ class ChannelConverter(object):
 #            state_name1 = state_names[0]
 #            state_name2 = state_names[1]
 #
-#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated( chl, state_name1, 10)
-#            state1=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV] )
+#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name1, 10)
+#            state1=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV])
 #
-#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated( chl, state_name2, 10)
-#            state2=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV] )
+#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name2, 10)
+#            state2=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV])
 #
-#            return HHChannelPaneInfTau2( sim_config=sim_config,
+#            return HHChannelPaneInfTau2(sim_config=sim_config,
 #                                         general_pane=general,
 #                                         state_pane1=state1,
 #                                         state_pane2=state2,
@@ -184,7 +184,7 @@ class ChannelConverter(object):
 #                                         state_var_name1 = state_name1,
 #                                         state_var_name2 = state_name2,
 #                                         chlname = chlname
-#                                        )
+#                                       )
 #
 
 

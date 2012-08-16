@@ -62,7 +62,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
             modvariable=modvar,
             mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(),
             recordobj=self,
-            )
+           )
 
     def get_tags(self):
         return []
@@ -117,7 +117,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_Calcium
         return [StandardTags.StateSteddyState]
 
     def build_hoc(self, hocfile_obj):
-        self.buildHocRecVar( hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state  )
+        self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state )
 
 
 
@@ -165,12 +165,12 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
         recorder = recorders[what]
         #print recorder
         #print kwargs
-        recordable = recorder( caAlphaBetaBetaChl=self,  **kwargs )
+        recordable = recorder(caAlphaBetaBetaChl=self,  **kwargs)
         return recordable
 
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        return MM_WriterCalciumAlphaBetaBeta.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        return MM_WriterCalciumAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
 
     def create_modfile(self, modfile_set):
@@ -180,13 +180,13 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
     def get_mod_file_changeables(self):
 
         change_attrs = set([ 'CaZ', 'name', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration' ])
-        #print set( self.__dict__ )
-        assert set( self.__dict__) == set( ['mm_neuronNumber', 'cachedNeuronSuffix'] ) | change_attrs
+        #print set(self.__dict__)
+        assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
-        return dict ( [ (a, getattr(self, a)) for a in change_attrs ] )
+        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
 
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism( MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
-NeuronSimulationEnvironment.membranemechanisms.register_plugin( MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
+#NeuronSimulationEnvironment.registerMembraneMechanism(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)

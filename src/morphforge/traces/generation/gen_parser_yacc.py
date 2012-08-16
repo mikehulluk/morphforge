@@ -69,7 +69,7 @@ class FunctionPrototype(object):
                     TracePieceFunctionLinear(time_window=window, x0=start_value, x1=arg),
         }
 
-        p = builddict[self.funcname]( window=(self.start_time,self.end_time), arg=self.funcarg, start_value=self.start_value)
+        p = builddict[self.funcname](window=(self.start_time,self.end_time), arg=self.funcarg, start_value=self.start_value)
         return p
 
 

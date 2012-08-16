@@ -57,8 +57,8 @@ morph = mf.MorphologyTree.fromSWC(src=open(srcSWCFile))
 for region in  morph.get_regions():
     #print region
     print "Region: %s (%d)"%(region.name, 0)# len(region))
-    print " - Surface Area: ", sum( [section.area for section in region] ), "um2"
-    print " - Volume: ", sum( [section.volume for section in region] ), "um3"
+    print " - Surface Area: ", sum([section.area for section in region]), "um2"
+    print " - Volume: ", sum([section.volume for section in region]), "um3"
 
 
 

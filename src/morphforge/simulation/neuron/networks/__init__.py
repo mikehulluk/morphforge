@@ -47,7 +47,7 @@ class NeuronSynapse(NeuronObject, Synapse):
 
     def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):
         NeuronObject.__init__(self, name=name,simulation=simulation)
-        Synapse.__init__( self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
+        Synapse.__init__(self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech)
 
 
     def build_hoc(self, hocfile_obj):
@@ -91,14 +91,14 @@ expTmpl = """
 // Gap Junction [ $name ]
 objref $name1
 objref $name2
-${cellname1}.internalsections[$sectionindex1] $name1 = new Gap ( $sectionpos1 )
-${cellname2}.internalsections[$sectionindex2] $name2 = new Gap ( $sectionpos2 )
+${cellname1}.internalsections[$sectionindex1] $name1 = new Gap ($sectionpos1)
+${cellname2}.internalsections[$sectionindex2] $name2 = new Gap ($sectionpos2)
 
 ${name1}.r = $resistance.rescale("MOhm").magnitude
 ${name2}.r = $resistance.rescale("MOhm").magnitude
 
-setpointer ${name1}.vgap,  ${cellname2}.internalsections[$sectionindex2].v( $sectionpos2 )
-setpointer ${name2}.vgap,  ${cellname1}.internalsections[$sectionindex1].v( $sectionpos1 )
+setpointer ${name1}.vgap,  ${cellname2}.internalsections[$sectionindex2].v($sectionpos2)
+setpointer ${name2}.vgap,  ${cellname1}.internalsections[$sectionindex1].v($sectionpos1)
 
 """
 
@@ -178,7 +178,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
                "resistance": self.resistance
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitGapJunction,  Template(expTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitGapJunction,  Template(expTmpl, data).respond())
 
         hocfile_obj[MHocFileData.GapJunctions][self] = data
 

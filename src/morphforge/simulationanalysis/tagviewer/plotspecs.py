@@ -150,18 +150,18 @@ class PlotSpec_DefaultNew(object):
         i_range = 0.2
         i_scale = i_range / len(list(eventset.times))
 
-        data = np.array( [ (t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times) ] )
+        data = np.array([ (t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times) ])
 
 
 
         from morphforge.stdimports import pq
-        p= ax.plot( data[:,0] * pq.ms, data[:,1] * pq.dimensionless ,'o',ms=2, **plot_kwargs )
+        p= ax.plot(data[:,0] * pq.ms, data[:,1] * pq.dimensionless ,'o',ms=2, **plot_kwargs)
         return p
 
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None, ) :
+    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None,) :
         if self.time_range is not None:
             time_range = self.time_range
 
@@ -171,21 +171,21 @@ class PlotSpec_DefaultNew(object):
 
 
         # Sort and plot:
-        for index, trace in enumerate( self._sort_traces(trcs) ):
+        for index, trace in enumerate(self._sort_traces(trcs)):
             color = linkage.color_allocations.get(trace, None) if linkage else None
-            self._plot_trace( trace, ax=ax, index=index, color=color)
+            self._plot_trace(trace, ax=ax, index=index, color=color)
 
 
-        for index, event_set in enumerate( self._sort_eventsets(eventsets) ):
-            self._plot_eventset( event_set,  ax=ax, index=index+len(trcs) )
+        for index, event_set in enumerate(self._sort_eventsets(eventsets)):
+            self._plot_eventset(event_set,  ax=ax, index=index+len(trcs))
 
-            # ax.set_ylim( ( (-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless ) )
+            # ax.set_ylim(((-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless))
 
 
         if len(trcs) == 0:
             padding =0.5
-            ax.set_yunit( 1*pq.dimensionless )
-            ax.set_ylim( ( (-padding) * pq.dimensionless, (len(eventsets)-1+padding) * pq.dimensionless ) )
+            ax.set_yunit(1*pq.dimensionless)
+            ax.set_ylim(((-padding) * pq.dimensionless, (len(eventsets)-1+padding) * pq.dimensionless))
 
         # Legend:
         if self.legend_labeller is not None:
@@ -204,7 +204,7 @@ class PlotSpec_DefaultNew(object):
             ax.set_xlabel('')
             ax.set_xticklabels([])
 
-        # ax.set_xunit( unit('ms') )
+        # ax.set_xunit(unit('ms'))
         # print ax.xyUnitBase[0]
         # print ax.xyUnitDisplay[0]
         # assert False

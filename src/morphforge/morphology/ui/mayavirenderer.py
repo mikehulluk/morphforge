@@ -75,7 +75,7 @@ class MayaViRenderer(object):
         @mlab.show
         def _showSimple():
             morphPts = [ SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs ]
-            pts = numpy.concatenate( morphPts)
+            pts = numpy.concatenate(morphPts)
             return mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], colormap=self.colormap, scale_factor=self.scale_factor)
         _showSimple()
 
@@ -99,19 +99,19 @@ class MayaViRenderer(object):
                 sEnd = section.get_proximal_npa4()
                 length = section.get_length()
                 rad = min(section.d_r, section.p_r)
-                n = min( max( int( lToRRatio * length / rad ), 1 ), maxInterpolPts)
-                jVecSteps = ( sEnd-sStart ) / n
+                n = min(max(int(lToRRatio * length / rad), 1), maxInterpolPts)
+                jVecSteps = (sEnd-sStart) / n
 
                 intPts = [ sStart + k*jVecSteps for k in range(0,n) ]
                 return intPts
 
             lbs = []
             for morph in self.morphs:
-                lb = SeqUtils.flatten( ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph ) () )
-                lbs.extend( lb )
+                lb = SeqUtils.flatten(ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph) ())
+                lbs.extend(lb)
 
 
-            pts = numpy.array( lbs )
+            pts = numpy.array(lbs)
 
             x = pts[:, 0]
             y = pts[:, 1]
@@ -180,10 +180,10 @@ class MayaViRenderer(object):
 
 
         @mlab.show
-        @mlab.animate(delay=100 )#, ui=False) #(delay=500, ui=False)
+        @mlab.animate(delay=100)#, ui=False) #(delay=500, ui=False)
         def _showSimpleCylinders():
 
-            f = mlab.figure( bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
+            f = mlab.figure(bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
             #f = mlab.gcf()
             #c = TriMeshBuilderVerySimple(self.morphs[0])
             #mlab.triangular_mesh(c.x, c.y, c.z, c.triangles, colormap=self.colormap)

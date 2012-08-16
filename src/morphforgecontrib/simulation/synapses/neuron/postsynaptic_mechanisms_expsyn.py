@@ -64,7 +64,7 @@ class Neuron_PSM_Exp2Syn_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
 expTmpl = """
 // Post-Synapse [ $synnamepost ]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSyn ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSyn ($sectionpos)
 ${synnamepost}.tau = $tau.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 """
@@ -120,5 +120,5 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         assert False
 
 
-#NeuronSimulationEnvironment.registerPostSynapticMechanism( PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
+#NeuronSimulationEnvironment.registerPostSynapticMechanism(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
 NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)

@@ -116,7 +116,7 @@ def _window_fixed_trace(trace, time_window):
         tw0 = time_window[0]
         tw1 = time_window[1]
 
-        # get_values( time_window )
+        # get_values(time_window)
 
         # trace_new1 = trace.get_value_at_time(tw0)
         # trace_new2 = trace.get_value_at_time(tw1)
@@ -150,8 +150,8 @@ TraceMethodCtrl.register(TraceVariableDT, 'window', _window_fixed_trace)
 
 # WindowAndShift:
 #################
-TraceMethodCtrl.register(TraceFixedDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]) )
-TraceMethodCtrl.register(TraceVariableDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]) )
+TraceMethodCtrl.register(TraceFixedDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]))
+TraceMethodCtrl.register(TraceVariableDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]))
 
 
 

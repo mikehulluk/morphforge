@@ -45,12 +45,12 @@ class NpPqWrappers(object):
         stop = 1.0 * stop
         stop.units = start.units
 
-        vals = np.linspace( start.magnitude, stop.magnitude, num=num, endpoint=endpoint )
+        vals = np.linspace(start.magnitude, stop.magnitude, num=num, endpoint=endpoint)
         return vals * start.units
 
 
     @classmethod
-    def arange(cls, start, stop, step ):
+    def arange(cls, start, stop, step):
         from morphforge.core.quantities import unit
         start = unit(start)
         stop = unit(stop)
@@ -62,6 +62,6 @@ class NpPqWrappers(object):
         stop.units = start.units
         step.units = start.units
 
-        vals = np.arange( start.magnitude, stop.magnitude, step=step.magnitude)
+        vals = np.arange(start.magnitude, stop.magnitude, step=step.magnitude)
         return vals * start.units
 

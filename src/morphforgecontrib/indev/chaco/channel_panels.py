@@ -81,10 +81,10 @@ class HHGeneralPanel(HasTraits):
     view = View(Group(
                   Item('gbar',show_label=True),
                   Item('vrev',show_label=True),
-                ),
+               ),
                 resizable=True,title='HHGeneral')
 
-    def __init__(self, vrev, gbar ):
+    def __init__(self, vrev, gbar):
         self.parentchlpane = None
         HasTraits.__init__(self,vrev=vrev, gbar=gbar)
 
@@ -110,14 +110,14 @@ class HHGeneralStatePanel(HasTraits):
                     Item('plottau',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                     Item('plotinf',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                     padding=0,
-                    ),
+                   ),
                 HGroup(
                     Item('plotalpha',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                     Item('plotbeta',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                   padding=0,
-                    ),
-                  ),
-            )
+                   ),
+                 ),
+           )
 
 
     else:
@@ -128,12 +128,12 @@ class HHGeneralStatePanel(HasTraits):
                     Item('plottau',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                     Item('plotinf',editor=ComponentEditor(size = (50,50),),show_label=False,resizable=True),
                     padding=0,
-                ),
+               ),
 
-                    ), resizable=True, )
+                   ), resizable=True,)
 
 
-    def on_change_inftau(self, ):
+    def on_change_inftau(self,):
         self.parentchlpane.notify_chl_changed()
 
 
@@ -168,18 +168,18 @@ class HHGeneralStatePanel(HasTraits):
 
 
 class HHChannelPaneLk(HasTraits):
-    general = Instance( HHGeneralPanel )
+    general = Instance(HHGeneralPanel)
     view = View(
             VGroup(
-              Item('general', style='custom', show_label=True ),
+              Item('general', style='custom', show_label=True),
               padding=0
-              ) )
+             ))
 
     def __init__(self,  sim_config, general_pane=None,chlname=None,):
-        HasTraits.__init__(self )
+        HasTraits.__init__(self)
 
         self.sim_config = sim_config
-        self.sim_config.add_simulation_chl_functor( self )
+        self.sim_config.add_simulation_chl_functor(self)
 
         self.general=general_pane
 
@@ -192,7 +192,7 @@ class HHChannelPaneLk(HasTraits):
 
 
     def getMechanism(self,env):
-        lk = env.MembraneMechanism(  MM_LeakChannel,
+        lk = env.MembraneMechanism( MM_LeakChannel,
                                      name='Leak',
                                      mechanism_id='LKID',
                                      conductance = '%2.2f:mS/cm2'%self.general.gbar,
@@ -205,20 +205,20 @@ class HHChannelPaneLk(HasTraits):
 
 
 class HHChannelPaneInfTau1(HasTraits):
-    general = Instance( HHGeneralPanel )
-    state = Instance( HHGeneralStatePanel )
+    general = Instance(HHGeneralPanel)
+    state = Instance(HHGeneralStatePanel)
     view = View(
             VGroup(
-              Item('general', style='custom', show_label=True ),
-              Item('state', style='custom', show_label=True ),
+              Item('general', style='custom', show_label=True),
+              Item('state', style='custom', show_label=True),
               padding=0
-              ) )
+             ))
 
     def __init__(self,  sim_config, general_pane=None, state_pane=None, eqn=None, mechanism_id=None, chlname=None, state_var_name=None,):
-        HasTraits.__init__(self )
+        HasTraits.__init__(self)
 
         self.sim_config = sim_config
-        self.sim_config.add_simulation_chl_functor( self )
+        self.sim_config.add_simulation_chl_functor(self)
 
         self.general=general_pane
         self.state= state_pane
@@ -244,7 +244,7 @@ class HHChannelPaneInfTau1(HasTraits):
                                                           inf=self.state.plotinf.my.tolist(),
                                                           tau=self.state.plottau.my.tolist()) }
 
-        ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel,
+        ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
                                       name='InfTau1',
                                       ion='ks',
                                       equation=self.eqn,
@@ -252,7 +252,7 @@ class HHChannelPaneInfTau1(HasTraits):
                                       conductance = '%2.2f:mS/cm2'%gbar,
                                       reversalpotential = '%2.2f:mV'%vrev,
                                       statevars_new = intp
-                                       )
+                                      )
         return ks
 
 
@@ -261,22 +261,22 @@ class HHChannelPaneInfTau1(HasTraits):
 
 
 class HHChannelPaneInfTau2(HasTraits):
-    general = Instance( HHGeneralPanel )
-    state1 = Instance( HHGeneralStatePanel )
-    state2 = Instance( HHGeneralStatePanel )
+    general = Instance(HHGeneralPanel)
+    state1 = Instance(HHGeneralStatePanel)
+    state2 = Instance(HHGeneralStatePanel)
     view = View(
             VGroup(
-              Item('general', style='custom', show_label=True ),
-              Item('state1', style='custom', show_label=True ),
-              Item('state2', style='custom', show_label=True ),
+              Item('general', style='custom', show_label=True),
+              Item('state1', style='custom', show_label=True),
+              Item('state2', style='custom', show_label=True),
               padding=0
-              ) )
+             ))
 
     def __init__(self,  sim_config, general_pane=None, state_pane1=None,state_pane2=None, eqn=None, mechanism_id=None, chlname=None, state_var_name1=None,state_var_name2=None):
-        HasTraits.__init__(self )
+        HasTraits.__init__(self)
 
         self.sim_config = sim_config
-        self.sim_config.add_simulation_chl_functor( self )
+        self.sim_config.add_simulation_chl_functor(self)
 
         self.general=general_pane
         self.state1= state_pane1
@@ -311,7 +311,7 @@ class HHChannelPaneInfTau2(HasTraits):
                 }
         self.state1.label='m'
         self.state1.label='h'
-        ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel,
+        ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
                                       name='InfTau1',
                                       ion='ks',
                                       equation=self.eqn,
@@ -319,7 +319,7 @@ class HHChannelPaneInfTau2(HasTraits):
                                       conductance = '%2.2f:mS/cm2'%gbar,
                                       reversalpotential = '%2.2f:mV'%vrev,
                                       statevars_new = intp
-                                       )
+                                      )
         return ks
 
 
@@ -330,10 +330,10 @@ class HHChannelPaneInfTau2(HasTraits):
 class HHChannelExistingChannel(HasTraits):
 
     def __init__(self,  sim_config, mechanism_functor, chlname, **kwargs):
-        HasTraits.__init__(self )
+        HasTraits.__init__(self)
 
         self.sim_config = sim_config
-        self.sim_config.add_simulation_chl_functor( self )
+        self.sim_config.add_simulation_chl_functor(self)
 
         self.mechanism_functor = mechanism_functor
         self.chlname = chlname
@@ -356,14 +356,14 @@ def buildStatePane(chl, state_name):
     aP = chl.statevars[state_name][0]
     bP = chl.statevars[state_name][1]
     nPts = 10
-    intV = np.linspace( -100, 60, nPts )
-    alphaV = ( aP[0] + aP[1]*intV)/( aP[2] + np.exp( (aP[3]+intV)/aP[4] ) )
-    betaV  = ( bP[0] + bP[1]*intV)/( bP[2] + np.exp( (bP[3]+intV)/bP[4] ) )
+    intV = np.linspace(-100, 60, nPts)
+    alphaV = (aP[0] + aP[1]*intV)/(aP[2] + np.exp((aP[3]+intV)/aP[4]))
+    betaV  = (bP[0] + bP[1]*intV)/(bP[2] + np.exp((bP[3]+intV)/bP[4]))
 
     tauV = 1.0/(alphaV + betaV)
     infV = alphaV/(alphaV + betaV)
 
-    state=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV] )
+    state=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV])
     return state
 
 
@@ -373,23 +373,23 @@ def buildPaneFromExistingChannelInfTau1State(existing_channel_functor, sim_confi
     # Setup the channel, so we can look at inf_tau:
     chl =  existing_channel_functor(NeuronSimulationEnvironment())
 
-    state_name = SeqUtils.expect_single( chl.statevars.keys() )
+    state_name = SeqUtils.expect_single(chl.statevars.keys())
 
     state=buildStatePane(chl, state_name)
     general=HHGeneralPanel(
             gbar=float(chl.conductance.rescale('mS/cm2').magnitude),
             vrev=float(chl.reversalpotential.rescale("mV").magnitude)
-            )
+           )
 
 
-    return  HHChannelPaneInfTau1( sim_config=sim_config,
+    return  HHChannelPaneInfTau1(sim_config=sim_config,
                                  general_pane=general,
                                  state_pane=state,
                                  eqn = chl.eqn,
                                  mechanism_id = chl.mechanism_id,
                                  state_var_name = state_name,
                                  chlname = chlname
-                                )
+                               )
 
 
 
@@ -399,7 +399,7 @@ def buildPaneFromExistingChannelInfTau2State(existing_channel_functor, sim_confi
     # Setup the channel, so we can look at inf_tau:
     chl =  existing_channel_functor(NeuronSimulationEnvironment())
 
-    assert set(["m","h"]) == set( chl.statevars.keys() )
+    assert set(["m","h"]) == set(chl.statevars.keys())
 
 
     state1=buildStatePane(chl, "m")
@@ -407,10 +407,10 @@ def buildPaneFromExistingChannelInfTau2State(existing_channel_functor, sim_confi
     general=HHGeneralPanel(
             gbar=float(chl.conductance.rescale('mS/cm2').magnitude),
             vrev=float(chl.reversalpotential.rescale("mV").magnitude)
-            )
+           )
 
 
-    return  HHChannelPaneInfTau2( sim_config=sim_config,
+    return  HHChannelPaneInfTau2(sim_config=sim_config,
                                  general_pane=general,
                                  state_pane1=state1,
                                  state_pane2=state2,
@@ -419,7 +419,7 @@ def buildPaneFromExistingChannelInfTau2State(existing_channel_functor, sim_confi
                                  state_var_name1 = 'm',
                                  state_var_name2 = 'h',
                                  chlname = chlname
-                                )
+                               )
 
 
 def buildPaneFromExistingChannelLk(lkFunctor ,sim_config, chlname):
@@ -429,23 +429,23 @@ def buildPaneFromExistingChannelLk(lkFunctor ,sim_config, chlname):
     general=HHGeneralPanel(
                 gbar=float(lkChl.conductance.rescale('mS/cm2').magnitude),
                 vrev=float(lkChl.reversalpotential.rescale("mV").magnitude)
-            )
+           )
 
-    return HHChannelPaneLk( sim_config=sim_config,
+    return HHChannelPaneLk(sim_config=sim_config,
                             general_pane=general,
                             chlname=chlname,
-                                )
+                               )
 
 
 
 def buildPaneFromExistingChannel(existing_channel_functor, sim_config, chlname):
-    return HHChannelExistingChannel( sim_config=sim_config,
+    return HHChannelExistingChannel(sim_config=sim_config,
                                      mechanism_functor = existing_channel_functor,
                                      chlname = chlname
-                                     )
+                                    )
 
 
 def buildPaneFromExistingChannelWithInfTau(existing_channel_functor, sim_config):
 
-    return HHChannelExistingChannel( sim_config=sim_config,
-                                     mechanism_functor = existing_channel_functor )
+    return HHChannelExistingChannel(sim_config=sim_config,
+                                     mechanism_functor = existing_channel_functor)

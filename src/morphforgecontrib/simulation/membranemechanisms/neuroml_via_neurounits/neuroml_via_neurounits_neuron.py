@@ -44,10 +44,10 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, Neur
     def __init__(self, xml_filename, chlname=None, mechanism_id=None):
         #self.mechanism_id = mechanism_id
 
-        eqnset,chlinfo,default_params = ChannelMLReader.BuildEqnset( xml_filename )
+        eqnset,chlinfo,default_params = ChannelMLReader.BuildEqnset(xml_filename)
         #eqnset,chlinfo,default_params = EqnSetFromNeuroML.load(xml_filename)
 
-        default_params = dict( [(k,v.as_quantities_quantity()) for (k,v) in default_params.iteritems()] )
+        default_params = dict([(k,v.as_quantities_quantity()) for (k,v) in default_params.iteritems()])
 
         Neuron_NeuroUnitEqnsetMechanism.__init__(self, name=chlname, eqnset=eqnset, mechanism_id=mechanism_id, default_parameters=default_params, recordables_map=None, recordables_data=None)
         NeuroML_Via_NeuroUnits_Channel.__init__(self, xml_filename=xml_filename, chlname=chlname, mechanism_id=mechanism_id)

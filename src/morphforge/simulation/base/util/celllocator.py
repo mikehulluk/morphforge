@@ -52,9 +52,9 @@ class CellLocator(object):
 
     @classmethod
     def get_locations_at_distances_away_from_dummy(cls, cell, distances, section_predicate=None):
-        return list(itertools.chain(*[cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate) for distance in distances]  ) )
+        return list(itertools.chain(*[cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate) for distance in distances] ))
 
     @classmethod
     def get_location_at_distance_away_from_dummy(cls, cell, distance, section_predicate=None):
         """Utility Function"""
-        return SeqUtils.expect_single(cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate) )
+        return SeqUtils.expect_single(cls.get_locations_at_distance_away_from_dummy(cell=cell, distance=distance, section_predicate=section_predicate))

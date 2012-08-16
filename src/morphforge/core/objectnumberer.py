@@ -55,7 +55,7 @@ class ObjectLabeller(object):
         obj_type,
         prefix=None,
         num_fmt_string=None,
-        ):
+       ):
         """ Returns the next 'anonymous' name for an object of 'obj_type'.
         """
         if num_fmt_string is None:

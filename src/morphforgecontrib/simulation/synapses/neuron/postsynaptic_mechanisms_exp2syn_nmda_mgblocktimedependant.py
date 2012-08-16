@@ -71,7 +71,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def build_hoc(self, hocfile_obj):
         obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dep_state", recordobj=self )
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dep_state", recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -91,7 +91,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
 
     def build_hoc(self, hocfile_obj):
         obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dependancy_ss", recordobj=self )
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="voltage_dependancy_ss", recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -103,7 +103,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
 exp2HOCTmpl = """
 // Post-Synapse [ $synnamepost ]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynNMDATimeDepBlockMorphforge ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynNMDATimeDepBlockMorphforge ($sectionpos)
 ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude
 ${synnamepost}.tau2 = $tau_close.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
@@ -142,7 +142,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
                'random_seed': MFRandom.get_seed(),
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data

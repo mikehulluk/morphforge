@@ -50,7 +50,7 @@ class MorphLocator(object):
 
                 if distance < dist_to_section_distal[section]:
                     #assert False, 'Not implemented'
-                    locations.append( MorphLocation( section = section, sectionpos = distance/dist_to_section_distal[section] )  )
+                    locations.append(MorphLocation(section = section, sectionpos = distance/dist_to_section_distal[section]) )
 
                 else:
 
@@ -63,18 +63,18 @@ class MorphLocator(object):
 
                 # Does a distance fall on this section:
                 if proximal_dist < distance < distal_dist:
-                    prop = (distance - proximal_dist) / ( distal_dist - proximal_dist)
+                    prop = (distance - proximal_dist) / (distal_dist - proximal_dist)
                     assert 0.0 <= prop <= 1.0
-                    locations.append( MorphLocation( section=section, sectionpos=prop) )
+                    locations.append(MorphLocation(section=section, sectionpos=prop))
                 else:
                     pass
 
 
-        dummy = MorphLocation( morphology.get_dummy_section().children[0], 0.0)
+        dummy = MorphLocation(morphology.get_dummy_section().children[0], 0.0)
         # Some sanity checking:
         for loc in locations:
-            p = MorphPath( loc, dummy  )
-            assert np.fabs( p.get_length() - distance) < 0.01
+            p = MorphPath(loc, dummy )
+            assert np.fabs(p.get_length() - distance) < 0.01
 
 
         return locations
@@ -84,6 +84,6 @@ class MorphLocator(object):
 
     @classmethod
     def get_locations_at_distances_away_from_dummy(cls, morphology, distances, section_predicate=None):
-        return list( itertools.chain( *[cls.get_locations_at_distance_away_from_dummy(morphology, distance, section_predicate=section_predicate) for distance in distances]  ) )
+        return list(itertools.chain(*[cls.get_locations_at_distance_away_from_dummy(morphology, distance, section_predicate=section_predicate) for distance in distances] ))
 
 

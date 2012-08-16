@@ -59,7 +59,7 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.leak_chl.get_neuron_suffix(),
             recordobj=self,
-            )
+           )
 
 
 
@@ -76,7 +76,7 @@ class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
 
 
     def get_description(self):
-        t1 ="g %s "%( self.leak_chl.name)
+        t1 ="g %s "%(self.leak_chl.name)
         r = "%s"%self.cell_location.cell.name
         t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
         return t1 + r + t
@@ -93,7 +93,7 @@ class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
         return [StandardTags.CurrentDensity]
 
     def get_description(self):
-        t1 ="i %s "%( self.leak_chl.name)
+        t1 ="i %s "%(self.leak_chl.name)
         r = "%s"%self.cell_location.cell.name
         t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
         return t1 + r + t
@@ -116,8 +116,8 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
         return recorders[what](lkchannel=self, **kwargs)
 
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        return MM_WriterLeak.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        return MM_WriterLeak.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
         m = MM_WriterLeak.build_mod(leak_chl=self,
@@ -126,12 +126,12 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set( ['conductance', 'name','reversalpotential','mechanism_id' ] )
-        assert set( self.__dict__) == set( ['mm_neuronNumber','cachedNeuronSuffix'] ) | change_attrs
-        return dict ( [ (a, getattr(self, a)) for a in change_attrs ] )
+        change_attrs = set(['conductance', 'name','reversalpotential','mechanism_id' ])
+        assert set(self.__dict__) == set(['mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
+        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism( MM_LeakChannel, MM_Neuron_Leak)
-NeuronSimulationEnvironment.membranemechanisms.register_plugin( MM_LeakChannel, MM_Neuron_Leak)
+#NeuronSimulationEnvironment.registerMembraneMechanism(MM_LeakChannel, MM_Neuron_Leak)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_LeakChannel, MM_Neuron_Leak)
 

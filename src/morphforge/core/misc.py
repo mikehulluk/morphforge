@@ -107,7 +107,7 @@ class FileIO(object):
         filename=None,
         filedirectory=None,
         suffix=None,
-        ):
+       ):
         """ Writes text to a file
         This function will overwrite an existing file. If no filename is given,
         a filename will be invented, using LocMgr.get_temporary_filename().

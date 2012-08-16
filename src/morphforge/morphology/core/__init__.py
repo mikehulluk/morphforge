@@ -59,8 +59,8 @@ There are 2 ways of considering these sets of frustra:
 Underneath, these two representations contain the same information, but the different object model representations have strengths for different tasks.
 In morphforge, they are represented as two different classes:  :py:class:`~.core.tree.MorphologyTree` and :py:class:`~.core.array.MorphologyArray`.
 
- * **TreeBased:** (:py:class:`~.core.tree.MorphologyTree` ) is arguably more intuitive to read. It is also what the :py:mod:`morphforge.simulation` layer handles.
- * **VertexBased:** (:py:class:`~.core.array.MorphologyArray` ) is more efficient in speed & memory size for large morphologies.
+ * **TreeBased:** (:py:class:`~.core.tree.MorphologyTree`) is arguably more intuitive to read. It is also what the :py:mod:`morphforge.simulation` layer handles.
+ * **VertexBased:** (:py:class:`~.core.array.MorphologyArray`) is more efficient in speed & memory size for large morphologies.
 
 
 For more information about the representations, see the documentation for the submodules :py:mod:`~.core.tree` and :py:mod:`~.core.array`

@@ -57,7 +57,7 @@ class MembraneVoltageRecord(NeuronRecordable):
 objref $recVecName
 $recVecName = new Vector()
 ${recVecName}.buffer_size(%d)
-${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectionpos ) )
+${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($sectionpos))
     """%initial_buffer_size
 
     def __init__(self, cell, cell_location=None, **kwargs):
@@ -94,7 +94,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ( $sectio
             }
         print tmpl_dict
 
-        hocfile_obj.add_to_section( MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmpl_dict).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitRecords,  Template(MembraneVoltageRecord.tmplObjRef,tmpl_dict).respond())
 
         hocfile_obj[MHocFileData.Recordables][self] = tmpl_dict
 

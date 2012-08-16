@@ -53,7 +53,7 @@ class RecordableData(object):
 
 class MM_Neuron_RecGen(NeuronRecordableOnLocation):
     def __init__(self, src_chl, modvar,unit_in_nrn, std_tags, **kwargs):
-        super( MM_Neuron_RecGen, self).__init__(**kwargs)
+        super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.modvar=modvar
         self.unit_in_nrn = unit_in_nrn
@@ -70,7 +70,7 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.src_chl.NRNSUFFIX,
             recordobj=self,
-            )
+           )
 
     def get_description(self):
         return '%s %s %s' % (self.modvar, self.src_chl.name,
@@ -93,7 +93,7 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
         if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
-        self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name( NeuroUnitEqnsetMechanism)
+        self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name(NeuroUnitEqnsetMechanism)
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
@@ -104,9 +104,9 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
-            print "iiii",default_parameters[param.symbol], type( default_parameters[param.symbol])
+            print "iiii",default_parameters[param.symbol], type(default_parameters[param.symbol])
             assert param.symbol in default_parameters
-            assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol] ).rescale("")
+            assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol]).rescale("")
             print 'OK\n'
 
     def get_defaults(self):
@@ -117,12 +117,12 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
 
 
 
-class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism):
+class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
     def __init__(self, **kwargs):
         MM_Neuron_Base.__init__(self)
         NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
 
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism,prefix="" ))
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism,prefix=""))
 
 
 
@@ -136,19 +136,19 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
         self.NRNSUFFIX = self.buildparameters.suffix
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix)
 
     def create_modfile(self, modfile_set):
-        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt ))
+        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt))
 
 
     def get_mod_file_changeables(self):
         change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set( ['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',] )
-        print set( self.__dict__)
-        assert set( self.__dict__) == fixed_attrs | change_attrs
-        return dict ( [ (a, getattr(self, a)) for a in change_attrs ] )
+        fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
+        print set(self.__dict__)
+        assert set(self.__dict__) == fixed_attrs | change_attrs
+        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
 
 
 
@@ -174,15 +174,15 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
             err ="Unknown record value: %s. Expecting one of: %s "%(what, valid_symbols)
             raise ValueError(err)
 
-        obj = self.eqnset.get_terminal_obj( what )
+        obj = self.eqnset.get_terminal_obj(what)
         unit_in_nrn = self.buildparameters.symbol_units[obj].as_quantities_unit()
 
         std_tags = []
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen( src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return MM_Neuron_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin( NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)

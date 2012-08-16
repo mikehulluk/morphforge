@@ -51,7 +51,7 @@ class Summarise_MM_LeakChannel(object):
                              ["Reversal Potential",  chl.reversalpotential],
                             ]
 
-        local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle) )
+        local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 
         return local_elements
 

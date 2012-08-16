@@ -58,7 +58,7 @@ class Neuron_PSM_Exp2Syn_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
 exp2HOCTmpl = """
 // Post-Synapse [ $synnamepost ]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynMorphforge ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynMorphforge ($sectionpos)
 ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude
 ${synnamepost}.tau2 = $tau_close.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
@@ -94,7 +94,7 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
 
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data

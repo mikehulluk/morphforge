@@ -63,16 +63,16 @@ def simulate_chl_vclamp(chl, voltage_level):
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation( tstop=unit("1500:ms") )
+    mySim = env.Simulation(tstop=unit("1500:ms"))
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment() )
+    myCell = mySim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment())
 
     # Setup the HH-channels on the cell:
     #chl = chl_applicator_functor(env, myCell, mySim)
-    apply_mechanism_everywhere_uniform(myCell, chl )
+    apply_mechanism_everywhere_uniform(myCell, chl)
 
 
 
@@ -80,7 +80,7 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
@@ -89,21 +89,21 @@ def simulate_chl_vclamp(chl, voltage_level):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
-    cc = mySim.create_voltageclamp( name="Stim1",
+    cc = mySim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    #dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
                                    dur2=unit("500:ms"), amp2=voltage_level,
                                    #dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
                                    dur3=unit("500:ms"), amp3=unit("-50:mV"),
                                    cell_location=somaLoc,
-                                   )
+                                  )
 
 
     # Define what to record:
-    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
-    mySim.record( cc, what=StandardTags.Current, name="CurrentClamp" )
+    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    mySim.record(cc, what=StandardTags.Current, name="CurrentClamp")
 
 
 
@@ -121,11 +121,11 @@ def simulate_chl_vclamp(chl, voltage_level):
 def simulate_chl_all(chl):
     #res = {}
     return [
-        #simulate_chl_vclamp(chl, unit("-80:mV") ),
-        #simulate_chl_vclamp(chl, unit("-50:mV") ),
-        #simulate_chl_vclamp(chl, unit("-20:mV") ),
-        #simulate_chl_vclamp(chl, unit("10:mV") ),
-        simulate_chl_vclamp(chl, unit("40:mV") ),
+        #simulate_chl_vclamp(chl, unit("-80:mV")),
+        #simulate_chl_vclamp(chl, unit("-50:mV")),
+        #simulate_chl_vclamp(chl, unit("-20:mV")),
+        #simulate_chl_vclamp(chl, unit("10:mV")),
+        simulate_chl_vclamp(chl, unit("40:mV")),
         ]
 
 
@@ -239,14 +239,14 @@ No Hoc
 
 def write_local_page(data):
     x = etree.parse(data.xmlfile)
-    xml_pretty = escape ( etree.tostring(x, pretty_print = True) )
+    xml_pretty = escape (etree.tostring(x, pretty_print = True))
 
     context = { 'data':data,
                 'src_xml':xml_pretty,
               }
 
     with open(data.op_file,"w") as f:
-        f.write( Template(local_tmpl, context).respond() )
+        f.write(Template(local_tmpl, context).respond())
 
 
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
@@ -255,13 +255,13 @@ from mhlibs.quantities_plot import QuantitiesFigure
 
 
 
-def compareNeuroMLChl( xmlFile ):
+def compareNeuroMLChl(xmlFile):
     model, chl_type = os.path.splitext(xmlFile)[0].split("/")[-2:]
     print model, chl_type
 
-    op_dir = LocMgr.ensure_dir_exists(Join(html_output_dir, model, chl_type) )
+    op_dir = LocMgr.ensure_dir_exists(Join(html_output_dir, model, chl_type))
     op_html = Join(op_dir, "index.html")
-    c = ComparisonResult( xmlfile=xmlFile, op_file = op_html, same_chl=True, exception=None)
+    c = ComparisonResult(xmlfile=xmlFile, op_file = op_html, same_chl=True, exception=None)
 
     try:
 
@@ -287,21 +287,21 @@ def compareNeuroMLChl( xmlFile ):
         c.chl_neurounit_hoc = []
 
 
-        for i,(rN,rX) in enumerate( zip(chl_neuro_res, chl_xsl_res)):
+        for i,(rN,rX) in enumerate(zip(chl_neuro_res, chl_xsl_res)):
 
-            c.chl_neurounit_hoc.append( rN.hocfilename  )
-            c.chl_xsl_hoc.append( rX.hocfilename  )
+            c.chl_neurounit_hoc.append(rN.hocfilename )
+            c.chl_xsl_hoc.append(rX.hocfilename )
 
             tN = rN.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
             tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
 
             # Compare current traces:
-            tN._data[ np.fabs( tN._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tX._data[ np.fabs( tX._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tN._data[ np.fabs( tN._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tX._data[ np.fabs( tX._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tN._data[ np.fabs( tN._time.rescale("ms").magnitude - 700) <0.05] *=0
-            tX._data[ np.fabs( tX._time.rescale("ms").magnitude - 700) <0.05] *=0
+            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 0) <0.05] *=0
+            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 0) <0.05] *=0
+            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 200) <0.05] *=0
+            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 200) <0.05] *=0
+            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 700) <0.05] *=0
+            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 700) <0.05] *=0
             print "TR1"
             f = QuantitiesFigure()
             ax1 = f.add_subplot(4,1,1)
@@ -324,7 +324,7 @@ def compareNeuroMLChl( xmlFile ):
             if num.max()[1] > unit("0.1:pA"):
                 c.same_chl = False
 
-            out_im = Join( op_dir, "out_im%03d"%i)
+            out_im = Join(op_dir, "out_im%03d"%i)
             pylab.savefig(out_im+".png")
             pylab.savefig(out_im+".pdf")
             c.output_image_files.append(out_im)
@@ -456,11 +456,11 @@ def main():
         #    continue
 
         # Compare:
-        data.append( compareNeuroMLChl(xmlfile) )
+        data.append(compareNeuroMLChl(xmlfile))
 
         # Re-update the html:
         with open(root_html,"w") as f:
-            f.write( Template(root_html_tmpl, {'data': data}).respond())
+            f.write(Template(root_html_tmpl, {'data': data}).respond())
 
         #break
 

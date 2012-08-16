@@ -41,21 +41,21 @@ class TestMorphologyArray(object):
     def testValidConstruction1(self):
         m = MorphologyArray(vertices= ([0,0,0,1],[0,0,1,1]) , connectivity = ([1,0],))
         assert len(m) == 1
-        assert set( m.connections_to_index(0) ) == set([1])
-        assert set( m.connections_to_index(1) ) == set([0])
+        assert set(m.connections_to_index(0)) == set([1])
+        assert set(m.connections_to_index(1)) == set([0])
 
 
 
         m = MorphologyArray(vertices= ([0,0,0,1],[0,0,1,1],[0,0,2,1]) , connectivity = ([1,0],[1,2]))
-        assert set( m.connections_to_index(0) ) == set([1])
-        assert set( m.connections_to_index(1) ) == set([0,2])
-        assert set( m.connections_to_index(2) ) == set([1])
+        assert set(m.connections_to_index(0)) == set([1])
+        assert set(m.connections_to_index(1)) == set([0,2])
+        assert set(m.connections_to_index(2)) == set([1])
         assert len(m) == 2
 
         m = MorphologyArray(vertices= ([0,0,0,1],[0,0,1,1],[0,0,2,1]) , connectivity = ([1,0],[2,0]))
-        assert set( m.connections_to_index(0) ) == set([1,2])
-        assert set( m.connections_to_index(1) ) == set([0])
-        assert set( m.connections_to_index(2) ) == set([0])
+        assert set(m.connections_to_index(0)) == set([1,2])
+        assert set(m.connections_to_index(1)) == set([0])
+        assert set(m.connections_to_index(2)) == set([0])
         assert len(m) == 2
 
 

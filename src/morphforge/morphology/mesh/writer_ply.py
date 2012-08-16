@@ -48,7 +48,7 @@ element face $mesh.nTriangles
 property list uchar int vertex_index
 end_header
 #for i in range($mesh.nVertices):
-$mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv( $mesh.vertex_colors[i,0] ) $conv( $mesh.vertex_colors[i,1]) $conv( $mesh.vertex_colors[i,2])
+$mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv($mesh.vertex_colors[i,0]) $conv($mesh.vertex_colors[i,1]) $conv($mesh.vertex_colors[i,2])
 #end for
 #for t in $mesh.triangles:
 3 $t[0] $t[1] $t[2]

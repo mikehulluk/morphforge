@@ -71,7 +71,7 @@ def get_sample_lk(env):
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
-                        )
+                       )
     return lkChannels
 
 
@@ -92,7 +92,7 @@ def get_sample_na(env):
                             reversalpotential=unit("50:mV"),
                             statevars=naStateVars,
                             mechanism_id="HH_NA_CURRENT"
-                            )
+                           )
     return naChannels
 
 
@@ -108,7 +108,7 @@ def get_sample_k(env):
                             reversalpotential=unit("-77:mV"),
                             statevars=kStateVars,
                             mechanism_id="HH_K_CURRENT"
-                            )
+                           )
     return kChannels
 
 
@@ -140,31 +140,31 @@ mySim = env.Simulation()
 
 # Create a cell:
 morphology=MorphologyLibrary.get_morphology(modelsrc=modelsrc, celltype=celltype)
-myCell = mySim.create_cell(morphology=morphology )
+myCell = mySim.create_cell(morphology=morphology)
 
 # Apply the channels uniformly over the cell
 naChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
 kChls  = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
 lkChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env)
 
-apply_mechanism_everywhere_uniform(myCell, naChls )
-apply_mechanism_everywhere_uniform(myCell, kChls  )
-apply_mechanism_everywhere_uniform(myCell, lkChls )
+apply_mechanism_everywhere_uniform(myCell, naChls)
+apply_mechanism_everywhere_uniform(myCell, kChls )
+apply_mechanism_everywhere_uniform(myCell, lkChls)
 
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp( name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = mySim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
-mySim.record( cc, what=StandardTags.Current)
-mySim.record( myCell, what=StandardTags.Voltage, cell_location=somaLoc )
+mySim.record(cc, what=StandardTags.Current)
+mySim.record(myCell, what=StandardTags.Voltage, cell_location=somaLoc)
 
 
 # run the simulation
 results = mySim.run()
 
 # Display the results:
-TagViewer([results], timeranges=[(97.5, 140)*pq.ms] )
+TagViewer([results], timeranges=[(97.5, 140)*pq.ms])

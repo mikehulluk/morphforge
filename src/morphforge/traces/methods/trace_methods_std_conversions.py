@@ -38,21 +38,21 @@ from MMtrace_conversion import TraceConverter, TraceApproximator
 
 # Conversion to: FixedDT:
 #########################
-TraceMethodCtrl.register(TraceFixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
-TraceMethodCtrl.register(TraceVariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
-TraceMethodCtrl.register(TracePiecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt) ) )
+TraceMethodCtrl.register(TraceFixedDT,     'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt)))
+TraceMethodCtrl.register(TraceVariableDT,  'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt)))
+TraceMethodCtrl.register(TracePiecewise,   'convert_to_fixed', lambda tr,dt: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.rebase_to_fixed_dt(tr,dt)))
 
 
 # Conversion to VariableDT:
 ###########################
-TraceMethodCtrl.register(TraceFixedDT,     'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace() ) )
-TraceMethodCtrl.register(TraceVariableDT,  'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace() ) )
+TraceMethodCtrl.register(TraceFixedDT,     'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace()))
+TraceMethodCtrl.register(TraceVariableDT,  'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace()))
 # MISSING: PIECEWISE
 
 
 # Conversion to Piecewise:
 ##########################
-TraceMethodCtrl.register(TraceFixedDT, 'convert_to_piecewise', TraceApproximator.fit_piecewise_linear_trace )
+TraceMethodCtrl.register(TraceFixedDT, 'convert_to_piecewise', TraceApproximator.fit_piecewise_linear_trace)
 # MISSING: VariableDT
 # MISSING: Piecewise
 

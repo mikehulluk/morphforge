@@ -38,7 +38,7 @@ class VariableDTRebaseTimeValues(object):
     def All(cls, tr1, tr2):
         t1 = tr1._time.rescale("ms").magnitude
         t2 = tr2._time.rescale("ms").magnitude
-        t = np.hstack( (t1,t2) )
+        t = np.hstack((t1,t2))
         t = np.sort(t)
         return t * pq.ms
 

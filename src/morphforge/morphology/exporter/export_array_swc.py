@@ -53,20 +53,20 @@ class ExportArray_SWC(object):
         # Add Each Vertex
         for conn_index,(v_index, v_index_parent) in enumerate(morphology._connectivity):
             rgn =  morphology._section_types[conn_index]
-            data.append( vertexToData(v_index, v_index_parent, rgn) )
+            data.append(vertexToData(v_index, v_index_parent, rgn))
 
         # Save the file:
         if op:
-            np.savetxt(op, np.array(data), fmt=fmt )
+            np.savetxt(op, np.array(data), fmt=fmt)
         else:
             op = StringIO()
-            np.savetxt(op, np.array(data), fmt=fmt )
+            np.savetxt(op, np.array(data), fmt=fmt)
             return op.getvalue()
 
 
 #Wrapper function to avoid binding error:
-def _export_single_swc( morphology, **kwargs):
+def _export_single_swc(morphology, **kwargs):
     return ExportArray_SWC._export_single_swc(morphology=morphology, **kwargs)
 
 
-MorphologyExporter.register("toSWC",_export_single_swc, allow_override=False, from_type=MorphologyArray )
+MorphologyExporter.register("toSWC",_export_single_swc, allow_override=False, from_type=MorphologyArray)

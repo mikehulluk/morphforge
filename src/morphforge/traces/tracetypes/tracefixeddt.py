@@ -89,7 +89,7 @@ class TraceFixedDT(TracePointBased):
                                 data=self._data[np.nonzero(mask)[0]])
 
 
-        assert isinstance(time, pq.quantity.Quantity), "Times Shoudl be quanitity. Found: %s %s"%(time, type(time) )
+        assert isinstance(time, pq.quantity.Quantity), "Times Shoudl be quanitity. Found: %s %s"%(time, type(time))
         # Rebase the Time:
         time.rescale(self._time.units)
         interpolator = interp1d(self._time.magnitude, self._data.magnitude)

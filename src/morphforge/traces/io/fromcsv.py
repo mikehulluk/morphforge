@@ -104,7 +104,7 @@ class NeuroCSVHeaderData(object):
             self.file_data = parse_json_helpful(line)
 
         else:
-            r = re.compile(r"""\s* ( LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
+            r = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
             m = r.match(line)
             if not m:
                 raise InvalidNeuroCSVFile('Could not parse line: %s'%line)
@@ -114,13 +114,13 @@ class NeuroCSVHeaderData(object):
                 col_num=int(m.group(2))
                 if col_num in self.column_data:
                     raise InvalidNeuroCSVFile('Repeated Column Description Found: %d'%col_num)
-                self.column_data[col_num] = parse_json_helpful( m.group(3) )
+                self.column_data[col_num] = parse_json_helpful(m.group(3))
 
             # Load 'LOADHINT' info
             else:
                 if self.load_hints is not None:
                     raise InvalidNeuroCSVFile('Repeated LOADHINT Description Found')
-                self.load_hints = parse_json_helpful( m.group(3) )
+                self.load_hints = parse_json_helpful(m.group(3))
 
     #def getColumnData(self, index, data):
 
@@ -198,9 +198,9 @@ class NeuroCSVParser(object):
         for i in range(1,nCols):
             d_i = data_array[:,i]
             column_metadict = header_info.column_data[i]
-            dataUnit  = unit( str(column_metadict.get('unit',"") ) )
-            dataLabel  = str( column_metadict.get('label','Column%d'%i) )
-            dataTags  = str( column_metadict.get('tags','') ).split(',')
+            dataUnit  = unit(str(column_metadict.get('unit',"")))
+            dataLabel  = str(column_metadict.get('label','Column%d'%i))
+            dataTags  = str(column_metadict.get('tags','')).split(',')
             d = d_i * dataUnit
 
             tr = tBuilder(timeData, d, name=dataLabel, tags=dataTags)

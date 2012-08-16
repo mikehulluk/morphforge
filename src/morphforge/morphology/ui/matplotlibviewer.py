@@ -109,7 +109,7 @@ class MatPlotLibViewer(object):
 
             color = str((xyzProj[2] - zMin) / zRange) if zRange > 0.001 else 'grey'
 
-            linewidth = ( ( seg.d_r+seg.p_r)/2.0) *2.0
+            linewidth = ((seg.d_r+seg.p_r)/2.0) *2.0
 
             #Test if we have just tried to draw a point, if so then draw a circle:
             if numpy.linalg.norm(xyProj - xyProjParent) < 0.0001:
@@ -127,16 +127,16 @@ class MatPlotLibViewer(object):
                 joiningVec = xyProj - xyProjParent
                 joiningVecNorm = joiningVec / numpy.linalg.norm(joiningVec)
 
-                perpVec = np.array( (joiningVecNorm[1],joiningVecNorm[0] * -1) )
+                perpVec = np.array((joiningVecNorm[1],joiningVecNorm[0] * -1))
 
-                assert( np.fabs(np.dot(joiningVecNorm, perpVec ) ) < 0.01)
+                assert(np.fabs(np.dot(joiningVecNorm, perpVec)) < 0.01)
 
                 # The points:
-                p1 = xyProj + ( perpVec * seg.d_r)
-                p2 = xyProj - ( perpVec * seg.d_r)
+                p1 = xyProj + (perpVec * seg.d_r)
+                p2 = xyProj - (perpVec * seg.d_r)
 
-                p3 = xyProjParent - ( perpVec * seg.p_r)
-                p4 = xyProjParent + ( perpVec * seg.p_r)
+                p3 = xyProjParent - (perpVec * seg.p_r)
+                p4 = xyProjParent + (perpVec * seg.p_r)
 
                 verts = [p1,p2,p3,p4,(0,0)]
                 codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY, ]
@@ -166,11 +166,11 @@ class MatPlotLibViewer(object):
         # the centre when the cell is centred and rotated:
         rotator = lambda s: self.normaliser(s.get_distal_npa3())
 
-        rotatedSectionDict = DictBuilderSectionVisitorHomo(morph=self.morph, functor=rotator ) ()
+        rotatedSectionDict = DictBuilderSectionVisitorHomo(morph=self.morph, functor=rotator) ()
 
         # Add in the parents manually:
         p = self.morph._dummysection
-        rotatedSectionDict[ p ] = self.normaliser( p.get_distal_npa3() )
+        rotatedSectionDict[ p ] = self.normaliser(p.get_distal_npa3())
 
 
 

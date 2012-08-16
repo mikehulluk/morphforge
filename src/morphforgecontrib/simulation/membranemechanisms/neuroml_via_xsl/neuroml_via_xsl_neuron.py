@@ -60,7 +60,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocF
 
 class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
 
-    def __init__(self, xml_filename,xsl_filename, chlname=None, mechanism_id=None, ):
+    def __init__(self, xml_filename,xsl_filename, chlname=None, mechanism_id=None,):
         self.mechanism_id = mechanism_id
         MM_Neuron_Base.__init__(self)
         NeuroML_Via_XSL_Channel.__init__(self,
@@ -87,8 +87,8 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
 
 
 
-    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
 
         # ISSUE 'A': Hack around the reversal potential initialisation issue:
@@ -113,7 +113,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
                         }"""%(cell_name, section_indexer[s],
                             self.chlData.iv_ion,
                             vrev))
-            hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, "\n".join(d) )
+            hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, "\n".join(d))
 
 
 
@@ -136,7 +136,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         return {}
 
     def get_recordable(self, what, cell_location, nrn_unit, **kwargs):
-        return MM_Neuron_RecGen( src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
+        return MM_Neuron_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
 
 
 

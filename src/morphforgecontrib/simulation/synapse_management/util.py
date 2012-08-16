@@ -55,7 +55,7 @@ class SynapseParameter(object):
 
 
 
-def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_parameters, **kwargs ):
+def create_synapse_cell_to_cell(sim, presynaptic, postsynaptic, synapse_parameters, **kwargs):
 
     synapse_parameters = copy.copy(synapse_parameters)
 
@@ -100,11 +100,11 @@ def create_synapse_cell_to_cell( sim, presynaptic, postsynaptic, synapse_paramet
                                                 e_rev=erev,
                                                 popening=popening,
                                                 vdep=vdep),
-                            )
+                           )
 
     return syn
 
-def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, **kwargs ):
+def create_synapse_times_to_cell(sim, times, postsynaptic, synapse_parameters, **kwargs):
 
     # Copy the updates parameters:
     synapse_parameters = copy.copy(synapse_parameters)
@@ -140,8 +140,8 @@ def create_synapse_times_to_cell( sim, times, postsynaptic, synapse_parameters, 
                                                 tau_close=t_closing,
                                                 e_rev=erev,
                                                 vdep=vdep,
-                                                popening=popening  ),
-                            )
+                                                popening=popening ),
+                           )
 
     return syn
 

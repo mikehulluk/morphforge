@@ -79,7 +79,7 @@ class SynapseInPopulationRecordTags(object):
                 tags.append('PREPOP:%s'
                             % synapse.get_presynaptic_cell().population.pop_name)
         else:
-            tags.append( 'FIXEDTIMETRIGGER' )
+            tags.append('FIXEDTIMETRIGGER')
 
         # Post Synaptic Cell Tagging:
         tags.append('POSTCELL:%s'
@@ -94,7 +94,7 @@ class SynapseInPopulationRecordTags(object):
 
 
 
-        tags.append( synapse.name  )
-        tags.append( synapse_population.synapse_pop_name  )
+        tags.append(synapse.name )
+        tags.append(synapse_population.synapse_pop_name )
 
         return tags

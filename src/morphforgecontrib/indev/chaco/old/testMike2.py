@@ -133,25 +133,25 @@ def _create_plot_component():
 
 
 class Camera(HasTraits):
-    gain = Enum(1, 2, 3, )
-    exposure = CInt(10, label="Exposure", )
+    gain = Enum(1, 2, 3,)
+    exposure = CInt(10, label="Exposure",)
 
 class TextDisplay(HasTraits):
     string = String()
 
-    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+    view= View(Item('string', show_label=False, springy=True, style='custom'))
 
 class GraphDisplay(HasTraits):
     #plotcontainer = PlotComponent()
     #plotcontainer = VPlotContainer()
-    plot = Instance( Plot )
+    plot = Instance(Plot)
     string = String()
 
     view= View(
-            Item('string', show_label=False, springy=True, style='custom' ),
-            Item('plot', show_label=False,  editor=ComponentEditor() ),
+            Item('string', show_label=False, springy=True, style='custom'),
+            Item('plot', show_label=False,  editor=ComponentEditor()),
             resizable=True
-            )
+           )
 
     def __init__(self):
         HasTraits.__init__(self)
@@ -178,13 +178,13 @@ class AppContainer(HasTraits):
     graphdisplay = Instance(GraphDisplay)
 
     view = View(
-                Item('camera', style='custom', show_label=False, ),
-                Item('display', style='custom', show_label=False, ),
-                Item('graphdisplay', style='custom', show_label=False, ),
+                Item('camera', style='custom', show_label=False,),
+                Item('display', style='custom', show_label=False,),
+                Item('graphdisplay', style='custom', show_label=False,),
                 resizable=True, width=300, height=300,
-            )
+           )
 
 #container = Container(camera=Camera(), display=TextDisplay())
-container = AppContainer(display=TextDisplay(),camera=Camera(), graphdisplay=GraphDisplay() )
+container = AppContainer(display=TextDisplay(),camera=Camera(), graphdisplay=GraphDisplay())
 print container.__dict__
 container.configure_traits()

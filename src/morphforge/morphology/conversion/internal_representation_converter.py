@@ -46,12 +46,12 @@ class MorphologyConverter(object):
 
         if region_number_to_name_bidict is None:
             if tree.region_number_to_name_bidict is not None:
-                region_number_to_name_bidict = copy.deepcopy( tree.region_number_to_name_bidict )
+                region_number_to_name_bidict = copy.deepcopy(tree.region_number_to_name_bidict)
             else:
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
 
-        vertices= [ None ] * ( len(tree) + 1 )
+        vertices= [ None ] * (len(tree) + 1)
         connectivity = []
         section_types = []
         section_index = SectionIndexerDF(morph=tree, offset=1).dict
@@ -66,17 +66,17 @@ class MorphologyConverter(object):
 
             # Store the link to the parent:
             if not seg.is_dummy_section():
-                connectivity.append( (index,section_index[seg.parent]  ) )
+                connectivity.append((index,section_index[seg.parent] ))
 
             # Store the type:
             if not seg.is_dummy_section():
                 region = seg.region
                 if region:
-                    section_types.append( region_number_to_name_bidict.region_name_to_int(region.name) )
+                    section_types.append(region_number_to_name_bidict.region_name_to_int(region.name))
                 else:
-                    section_types.append( 0 )
+                    section_types.append(0)
 
-        m = MorphologyArray(vertices=vertices, connectivity=connectivity, dummy_vertex_index=0, section_types=section_types, )
+        m = MorphologyArray(vertices=vertices, connectivity=connectivity, dummy_vertex_index=0, section_types=section_types,)
         return m
 
 
@@ -85,7 +85,7 @@ class MorphologyConverter(object):
 
         if region_number_to_name_bidict is None:
             if array.region_number_to_name_bidict is not None:
-                region_number_to_name_bidict = copy.deepcopy( array.region_number_to_name_bidict )
+                region_number_to_name_bidict = copy.deepcopy(array.region_number_to_name_bidict)
             else:
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
@@ -100,7 +100,7 @@ class MorphologyConverter(object):
 
         # Create the root section:
         x,y,z,r = array._vertices[dummy_vertex_index]
-        dummy_section = Section( region=None,x=x,y=y,z=z,r=r )
+        dummy_section = Section(region=None,x=x,y=y,z=z,r=r)
 
 
         index_to_section_map[dummy_vertex_index] = dummy_section
@@ -138,12 +138,12 @@ class MorphologyConverter(object):
                             name_to_region_map[rgn_name] = Region(rgn_name)
                         rgn = name_to_region_map[rgn_name]
 
-                    newsection =  section.create_distal_section(region=rgn, x=x,y=y,z=z,r=r )
+                    newsection =  section.create_distal_section(region=rgn, x=x,y=y,z=z,r=r)
                     index_to_section_map[conn] = newsection
-                    indices_to_visit.append( conn )
+                    indices_to_visit.append(conn)
 
         from morphforge.morphology.core import MorphologyTree
-        tree = MorphologyTree(name=array.name, dummysection=dummy_section, region_number_to_name_bidict=region_number_to_name_bidict )
+        tree = MorphologyTree(name=array.name, dummysection=dummy_section, region_number_to_name_bidict=region_number_to_name_bidict)
 
 
         # A sanity check:

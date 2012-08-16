@@ -70,7 +70,7 @@ class VoltageClampStepChange(VoltageClamp):
         amp3='0:mV',
         rs='0.1:MOhm',
         **kwargs
-        ):
+       ):
         super(VoltageClamp, self).__init__(**kwargs)
 
         self.dur1 = unit(dur1)

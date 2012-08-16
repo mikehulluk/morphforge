@@ -121,7 +121,7 @@ INITIAL {
 
     VERBATIM
     {
-       $COMMENT srand( $randomseed );
+       $COMMENT srand($randomseed);
     }
     ENDVERBATIM
 
@@ -142,8 +142,8 @@ NET_RECEIVE(weight (uS)) {
 
 VERBATIM
 
-float x = ( (float) rand() ) /  RAND_MAX;
-if( x < popening )
+float x = ((float) rand()) /  RAND_MAX;
+if(x < popening)
 {
 ENDVERBATIM
 

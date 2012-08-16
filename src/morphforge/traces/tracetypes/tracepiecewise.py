@@ -132,10 +132,10 @@ class TracePiecewise(Trace):
         self._pieces = pieces
 
         # Check we link up:
-        for i in range( len(pieces) -1 ):
+        for i in range(len(pieces) -1):
             dist = self._pieces[i].get_max_time() - self._pieces[i+1].get_min_time()
             #print dist
-            assert np.fabs( dist.rescale('ms').magnitude ) < 0.001
+            assert np.fabs(dist.rescale('ms').magnitude) < 0.001
 
 
 
@@ -160,7 +160,7 @@ class TracePiecewise(Trace):
         assert (times >= self.get_min_time()).all()
         done_times = np.ones(len(times)) > 0.0
         for p in self._pieces:
-            ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude) )
+            ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude))
             ind = np.logical_and(ind1,done_times)
             ind_locs = np.where(ind)
 
@@ -170,7 +170,7 @@ class TracePiecewise(Trace):
             _times.append(_time)
 
             # Only visit these times once:
-            done_times = np.logical_and( done_times, np.logical_not(ind) )
+            done_times = np.logical_and(done_times, np.logical_not(ind))
 
         unit  = _data[0].units
-        return np.fromiter( itertools.chain(*[ list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float ) * unit
+        return np.fromiter(itertools.chain(*[ list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float) * unit

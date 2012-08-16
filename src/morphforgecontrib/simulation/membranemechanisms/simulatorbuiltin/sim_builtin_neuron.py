@@ -54,8 +54,8 @@ class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel):
         BuiltinChannel.__init__(self, **kwargs)
 
 
-    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.sim_chl_name )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.sim_chl_name)
 
     def create_modfile(self, modfile_set):
         pass

@@ -47,9 +47,9 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
         min_time = max(lhs.get_min_time(), rhs.get_min_time())
         max_time = min(lhs.get_max_time(), rhs.get_max_time())
 
-        new_dt = min( lhs.get_dt_new(), rhs.get_dt_new() )
+        new_dt = min(lhs.get_dt_new(), rhs.get_dt_new())
         assert max_time - min_time > new_dt * 2, 'The new trace will only have a single point'
-        return NpPqWrappers.arange( min_time, max_time, new_dt )
+        return NpPqWrappers.arange(min_time, max_time, new_dt)
 
     @classmethod
     def do_add(cls, lhs, rhs):
@@ -71,7 +71,7 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
     @classmethod
     def do_div(cls, lhs, rhs):
         time_axis = cls.get_new_time_axis(lhs,rhs)
-        return TraceFixedDT(time_axis, lhs.get_values(time_axis) / rhs.get_values(time_axis) )
+        return TraceFixedDT(time_axis, lhs.get_values(time_axis) / rhs.get_values(time_axis))
 
 
 # FixedDT (+-*/) FixedDT

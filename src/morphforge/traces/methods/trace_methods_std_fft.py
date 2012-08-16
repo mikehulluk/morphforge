@@ -54,6 +54,6 @@ def _psd(tr, normalise=True):
     return (ftfreq, ft)
 
 
-TraceMethodCtrl.register(TraceFixedDT, 'fft', _fft, can_fallback_to_fixed_trace=True )
-TraceMethodCtrl.register(TraceFixedDT, 'psd', _psd, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(TraceFixedDT, 'fft', _fft, can_fallback_to_fixed_trace=True)
+TraceMethodCtrl.register(TraceFixedDT, 'psd', _psd, can_fallback_to_fixed_trace=True)
 

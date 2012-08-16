@@ -48,7 +48,7 @@ from morphforge.stdimports import *
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
-def sim( glk_multiplier, gna_multiplier, tag):
+def sim(glk_multiplier, gna_multiplier, tag):
     # Create the environment:
     env = NeuronSimulationEnvironment()
 
@@ -65,23 +65,23 @@ def sim( glk_multiplier, gna_multiplier, tag):
     kChannels  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
     # Apply the channels uniformly over the cell
-    apply_mechanism_everywhere_uniform(myCell, lkChannels )
-    apply_mechanism_everywhere_uniform(myCell, naChannels )
-    apply_mechanism_everywhere_uniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, lkChannels)
+    apply_mechanism_everywhere_uniform(myCell, naChannels)
+    apply_mechanism_everywhere_uniform(myCell, kChannels)
 
     # Over-ride the parameters in the axon:
     apply_mechanism_region_uniform(cell=myCell, mechanism=lkChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})
     apply_mechanism_region_uniform(cell=myCell, mechanism=naChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':gna_multiplier})
 
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
-    for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100) ):
-        mySim.record( myCell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
+    for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100)):
+        mySim.record(myCell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=myCell.get_location("soma"))
-    mySim.record( cc, what=StandardTags.Current)
+    cc = mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=myCell.get_location("soma"))
+    mySim.record(cc, what=StandardTags.Current)
 
     # run the simulation
     return mySim.run()
@@ -89,34 +89,34 @@ def sim( glk_multiplier, gna_multiplier, tag):
 
 # Display the results:
 results_a = [
-    sim( glk_multiplier=0.1, gna_multiplier=1.0, tag="SIM1"),
-    sim( glk_multiplier=0.5, gna_multiplier=1.0, tag="SIM2"),
-    sim( glk_multiplier=1.0, gna_multiplier=1.0, tag="SIM3"),
-    sim( glk_multiplier=5.0, gna_multiplier=1.0, tag="SIM4"),
-    sim( glk_multiplier=10.0, gna_multiplier=1.0, tag="SIM5"),
+    sim(glk_multiplier=0.1, gna_multiplier=1.0, tag="SIM1"),
+    sim(glk_multiplier=0.5, gna_multiplier=1.0, tag="SIM2"),
+    sim(glk_multiplier=1.0, gna_multiplier=1.0, tag="SIM3"),
+    sim(glk_multiplier=5.0, gna_multiplier=1.0, tag="SIM4"),
+    sim(glk_multiplier=10.0, gna_multiplier=1.0, tag="SIM5"),
 ]
 
 TagViewer(results_a, timeranges=[(97.5, 140)*pq.ms], show=False,
           plotspecs = [
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                        ] )
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                        ])
 
 results_b = [
-    sim( gna_multiplier=0.1,  glk_multiplier=1.0, tag="SIM6"),
-    sim( gna_multiplier=0.5,  glk_multiplier=1.0, tag="SIM7"),
-    sim( gna_multiplier=0.75,  glk_multiplier=1.0, tag="SIM8"),
-    sim( gna_multiplier=1.0,  glk_multiplier=1.0, tag="SIM9"),
+    sim(gna_multiplier=0.1,  glk_multiplier=1.0, tag="SIM6"),
+    sim(gna_multiplier=0.5,  glk_multiplier=1.0, tag="SIM7"),
+    sim(gna_multiplier=0.75,  glk_multiplier=1.0, tag="SIM8"),
+    sim(gna_multiplier=1.0,  glk_multiplier=1.0, tag="SIM9"),
 ]
 
 TagViewer(results_b, timeranges=[(97.5, 140)*pq.ms],show=True,
           plotspecs = [
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                    PlotSpec_DefaultNew( s="ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None ),
-                        ] )
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                    PlotSpec_DefaultNew(s="ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
+                        ])
 

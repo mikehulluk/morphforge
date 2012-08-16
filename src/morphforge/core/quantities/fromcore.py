@@ -71,7 +71,7 @@ def unit(s):
     if ':' in s:
         (value_str, unit_str) = s.split(':')
         v = float(value_str)
-        unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
+        unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
 
         return v * unt
 
@@ -80,7 +80,7 @@ def unit(s):
         if len(t) == 2:
             value_str, unit_str = t
             v = float(value_str)
-            unt = morphforge.core.quantities.unit_string_parser.parse( unit_str )
+            unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
             return v * unt
 
     return  morphforge.core.quantities.unit_string_parser.parse(s)

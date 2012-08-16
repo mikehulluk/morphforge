@@ -46,9 +46,9 @@ from traitsui.api import Group
 
 
 def VGroup(*args, **kwargs):
-    return Group( *args, orientation='v', **kwargs)
+    return Group(*args, orientation='v', **kwargs)
 def HGroup(*args, **kwargs):
-    return Group( *args, orientation='h', **kwargs)
+    return Group(*args, orientation='h', **kwargs)
 
 
 
@@ -151,7 +151,7 @@ class PointDraggingTool(DragTool):
 #===============================================================================
 # # Create the Chaco plot.
 #===============================================================================
-def _create_plot_component(title, initial_values=None,on_change_functor=None ):
+def _create_plot_component(title, initial_values=None,on_change_functor=None):
 
     #return OverlayPlotContainer()
 

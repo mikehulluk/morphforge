@@ -60,7 +60,7 @@ class MM_Neuron_InfTauInterpolated_Record(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.alphabeta_chl.get_neuron_suffix(),
             recordobj=self,
-            )
+           )
 
 
 
@@ -157,8 +157,8 @@ class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel, MM_Neuron_Base)
         return recorders[what](alphabeta_chl=self, **kwargs)
 
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        return MM_WriterInfTauInterpolated.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        return MM_WriterInfTauInterpolated.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
         MM_WriterInfTauInterpolated.build_mod(alphabeta_chl=self,
@@ -169,13 +169,13 @@ class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel, MM_Neuron_Base)
 
          # If this fails, then the attirbute probably needs to be added to the list below:
         change_attrs = set(['conductance', 'name','ion','eqn','conductance','statevars_new','reversalpotential', 'mechanism_id' ])
-        assert set( self.__dict__) == set( ['mm_neuronNumber', 'cachedNeuronSuffix' ] ) | change_attrs
+        assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix' ]) | change_attrs
 
         #attrs = ['name','ion','eqn','conductance','statevars_new','reversalpotential','mechanism_id']
-        return dict ( [ (a, getattr(self, a)) for a in change_attrs ] )
+        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
 
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism( MM_InfTauInterpolatedChannel, MM_Neuron_InfTauInterpolated)
+#NeuronSimulationEnvironment.registerMembraneMechanism(MM_InfTauInterpolatedChannel, MM_Neuron_InfTauInterpolated)
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_InfTauInterpolatedChannel, MM_Neuron_InfTauInterpolated)

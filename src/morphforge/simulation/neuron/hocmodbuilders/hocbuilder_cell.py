@@ -42,7 +42,7 @@ cellTemplTmpl = """
 v_init = $cell.initial_voltage.rescale('mV').magnitude
 
 // Cell Template for: $cell_template_name
-#set nSections = len( $section_indexer )
+#set nSections = len($section_indexer)
 begintemplate $cell_template_name
     create internalsections[ $nSections ]
     public internalsections
@@ -62,8 +62,8 @@ begintemplate $cell_template_name
             diam(1.0) = $d_d
 
             // Passive Parameters:
-            cm = $cell.get_biophysics().get_passive_property_for_section($section, "SpecificCapacitance" ).rescale("uF/cm2").magnitude
-            Ra = $cell.get_biophysics().get_passive_property_for_section($section, "AxialResistance" ).rescale("ohmcm").magnitude
+            cm = $cell.get_biophysics().get_passive_property_for_section($section, "SpecificCapacitance").rescale("uF/cm2").magnitude
+            Ra = $cell.get_biophysics().get_passive_property_for_section($section, "AxialResistance").rescale("ohmcm").magnitude
 
             // Segmentation:
             nseg = $cell.get_segmenter().get_num_segments($section)
@@ -125,8 +125,8 @@ class HocBuilder_Cell(object):
             }
 
         # Create the Cell Topology Template:
-        hocfile_obj.add_to_section( MHOCSections.InitTemplates,  Template(cellTemplTmpl, data).respond() )
-        hocfile_obj.add_to_section( MHOCSections.InitCells,  Template(cellObjDeclTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitTemplates,  Template(cellTemplTmpl, data).respond())
+        hocfile_obj.add_to_section(MHOCSections.InitCells,  Template(cellObjDeclTmpl, data).respond())
 
 
         # Save the data about this cell:
@@ -138,5 +138,5 @@ class HocBuilder_Cell(object):
         for section in cell.morphology:
             # print section, section.region
             for mta in cb.get_resolved_mtas_for_section(section):
-                mta.mechanism.build_hoc_section( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta )
+                mta.mechanism.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 

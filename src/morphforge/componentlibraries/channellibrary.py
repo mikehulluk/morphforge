@@ -36,7 +36,7 @@ class ChannelLibrary(object):
 
 
     @classmethod
-    def register_channel(cls,channeltype, chl_functor,  modelsrc=None, celltype=None ):
+    def register_channel(cls,channeltype, chl_functor,  modelsrc=None, celltype=None):
         assert modelsrc or celltype
         key = (modelsrc, celltype, channeltype)
         assert not key in cls.channels

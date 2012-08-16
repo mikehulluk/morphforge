@@ -55,15 +55,15 @@ def build_simulation(modfilename):
     myCell = mySim.create_cell(morphology=m1)
     somaLoc = myCell.get_location("soma")
 
-    modChls = env.MembraneMechanism( SimulatorSpecificChannel,
+    modChls = env.MembraneMechanism(SimulatorSpecificChannel,
                                      modfilename =  modfilename,
                                      mechanism_id='ID1')
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(myCell, modChls )
+    apply_mechanism_everywhere_uniform(myCell, modChls)
 
-    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
-    mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
+    mySim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
     results = mySim.run()
     return results
@@ -71,17 +71,17 @@ def build_simulation(modfilename):
 
 
 mod3aFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3a.mod")
-results3a = build_simulation( mod3aFilename )
+results3a = build_simulation(mod3aFilename)
 
 mod3bFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3b.mod")
-results3b = build_simulation( mod3bFilename )
+results3b = build_simulation(mod3bFilename)
 
-TagViewer([results3a,results3b], timeranges=[(95, 200)*pq.ms] )
+TagViewer([results3a,results3b], timeranges=[(95, 200)*pq.ms])
 
 try:
     import os
     print 'Differences between the two mod files:'
-    os.system("diff %s %s"%(mod3aFilename,mod3bFilename) )
+    os.system("diff %s %s"%(mod3aFilename,mod3bFilename))
 except:
     print "<Can't run 'diff', so can't show differences!>"
 

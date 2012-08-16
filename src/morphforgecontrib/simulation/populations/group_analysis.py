@@ -40,7 +40,7 @@ class PopAnalSpiking(object):
 
 
     @classmethod
-    def evset_nth_spike(cls, res, tag_selector, n, comment=None ):
+    def evset_nth_spike(cls, res, tag_selector, n, comment=None):
         comment = comment or ""
 
         traces = [trace for trace in res.get_traces()
@@ -48,13 +48,13 @@ class PopAnalSpiking(object):
 
         spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
         spike_list = [ spl[n] for spl in spike_list if len(spl) > n ]
-        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (%d Spike)"%(comment,n) )
+        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (%d Spike)"%(comment,n))
         return spikes
 
 
     @classmethod
-    def evset_first_spike(cls, res, tag_selector, comment=None ):
-        return cls.evset_nth_spike( res=res, tag_selector=tag_selector, n=0, comment=comment, )
+    def evset_first_spike(cls, res, tag_selector, comment=None):
+        return cls.evset_nth_spike(res=res, tag_selector=tag_selector, n=0, comment=comment,)
 
 
 
@@ -67,5 +67,5 @@ class PopAnalSpiking(object):
 
         spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
         spike_list = itertools.chain(*spike_list)
-        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (All Spike)"%(comment) )
+        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (All Spike)"%(comment))
         return spikes

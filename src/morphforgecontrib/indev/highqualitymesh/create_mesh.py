@@ -89,14 +89,14 @@ class MeshFromGTS(object):
             vertex_objs = sect_surface.vertices()
             N = len(vertex_objs)
             dShape = (N,3)
-            v = np.array( [(v.x,v.y,v.z) for v in vertex_objs ] ).reshape( dShape)
+            v = np.array([(v.x,v.y,v.z) for v in vertex_objs ]).reshape(dShape)
 
-            color = np.array( (sect_color.r,sect_color.g,sect_color.b) )
-            colors = np.repeat( color, len(vertex_objs)).reshape( dShape, order='F' )
+            color = np.array((sect_color.r,sect_color.g,sect_color.b))
+            colors = np.repeat(color, len(vertex_objs)).reshape(dShape, order='F')
 
             triangles = sect_surface.face_indices(vertex_objs)
 
-            tm = TriangleMesh(vertices=v, triangles=triangles, vertex_colors=colors )
+            tm = TriangleMesh(vertices=v, triangles=triangles, vertex_colors=colors)
             meshes.append(tm)
         m = TriangleMesh.merge(meshes=meshes)
        
@@ -129,7 +129,7 @@ class MeshFromGTS(object):
         Y_to_close = Y + np.tri(Y.shape[0]) < min_dist
 
         # Now look for inices with no False in the columns
-        any_indices =  ( ~Y_to_close.any(axis=0) ).nonzero()[0]
+        any_indices =  (~Y_to_close.any(axis=0)).nonzero()[0]
 
         return  pts[any_indices,:]
 
@@ -167,9 +167,9 @@ class MeshFromGTS(object):
 
         nstep = 5
         print 'Building Spheres'
-        distal_offset = np.array((0.05,0.05,0.05) )
-        ptsP = GeomTools.produce_sphere(centre=s.get_proximal_npa3(),radius=s.p_r,n_steps=nstep  )
-        ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep  )
+        distal_offset = np.array((0.05,0.05,0.05))
+        ptsP = GeomTools.produce_sphere(centre=s.get_proximal_npa3(),radius=s.p_r,n_steps=nstep )
+        ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep )
 
         print 'Removing Close Points'
         pts = cls.only_pts_at_min_dist(ptsP + ptsD, min_dist=0.01)
@@ -206,20 +206,20 @@ class MeshFromGTS(object):
 
         print 'Writing STL'
         with open(fTemp3,'w') as fSTL:
-            fSTL.write( "solid name\n" )
-            for i in range( triangles.shape[0]):
+            fSTL.write("solid name\n")
+            for i in range(triangles.shape[0]):
                 a,b,c = triangles[i,:]
                 
 
                 fSTL.write("facet normal 0 0 0\n")
                 fSTL.write("outer loop \n")
-                fSTL.write("vertex %f %f %f\n"%(vertices[a,0],vertices[a,1],vertices[a,2] ) )
-                fSTL.write("vertex %f %f %f\n"%(vertices[b,0],vertices[b,1],vertices[b,2] ) )
-                fSTL.write("vertex %f %f %f\n"%(vertices[c,0],vertices[c,1],vertices[c,2] ) )
+                fSTL.write("vertex %f %f %f\n"%(vertices[a,0],vertices[a,1],vertices[a,2]))
+                fSTL.write("vertex %f %f %f\n"%(vertices[b,0],vertices[b,1],vertices[b,2]))
+                fSTL.write("vertex %f %f %f\n"%(vertices[c,0],vertices[c,1],vertices[c,2]))
                 fSTL.write("endloop \n")
                 fSTL.write("endfacet\n")
 
-            fSTL.write( "solid end" )
+            fSTL.write("solid end")
 
 
         print 'Running stl2gts...'

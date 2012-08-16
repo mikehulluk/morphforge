@@ -48,7 +48,7 @@ def exec_with_prob(p, func):
 
 
 
-def record_from_mechanism( sim, mechanism_name, cell_location, what, on_error_skip=False, user_tags = None, **kwargs ):
+def record_from_mechanism(sim, mechanism_name, cell_location, what, on_error_skip=False, user_tags = None, **kwargs):
     user_tags = user_tags or []
 
     assert on_error_skip == False
@@ -58,15 +58,15 @@ def record_from_mechanism( sim, mechanism_name, cell_location, what, on_error_sk
 
     #recs = []
 
-    mech = SeqUtils.filter_expect_single( seq=mechs, filter_func= lambda m:m.name==mechanism_name)
-    r = sim.record( mech, what=what, cell_location = cell_location, user_tags = user_tags + [mech.name], **kwargs )
+    mech = SeqUtils.filter_expect_single(seq=mechs, filter_func= lambda m:m.name==mechanism_name)
+    r = sim.record(mech, what=what, cell_location = cell_location, user_tags = user_tags + [mech.name], **kwargs)
 
     return r
 
 
 
 
-def record_from_all_mechanisms( sim, cell_location, what, on_error_skip=False, user_tags = None, **kwargs ):
+def record_from_all_mechanisms(sim, cell_location, what, on_error_skip=False, user_tags = None, **kwargs):
     user_tags = user_tags or []
 
     assert on_error_skip == False
@@ -78,7 +78,7 @@ def record_from_all_mechanisms( sim, cell_location, what, on_error_skip=False, u
     recs = []
     for mech in mechs:
         
-        r = sim.record(mech, what=what, cell_location=cell_location, user_tags=user_tags + [mech.name], **kwargs )
+        r = sim.record(mech, what=what, cell_location=cell_location, user_tags=user_tags + [mech.name], **kwargs)
         recs.append(r)
 
     return recs

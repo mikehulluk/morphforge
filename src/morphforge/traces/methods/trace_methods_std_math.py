@@ -42,16 +42,16 @@ import numpy as np
 ##############################
 
 # For FixedDT traces, these are simple:
-TraceMethodCtrl.register(TraceFixedDT, 'mean',   lambda tr: np.mean(tr._data) )
-TraceMethodCtrl.register(TraceFixedDT, 'stddev', lambda tr: np.std(tr._data) )
-TraceMethodCtrl.register(TraceFixedDT, 'var',    lambda tr: np.var(tr._data) )
-TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._data**2)) )
+TraceMethodCtrl.register(TraceFixedDT, 'mean',   lambda tr: np.mean(tr._data))
+TraceMethodCtrl.register(TraceFixedDT, 'stddev', lambda tr: np.std(tr._data))
+TraceMethodCtrl.register(TraceFixedDT, 'var',    lambda tr: np.var(tr._data))
+TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._data**2)))
 
 # For VariableDT traces
 def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
-    integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude )
+    integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude)
     mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
     #mean_safe = tr.convert_to_fixed(unit("0.1:ms")).mean()
     #print mean_safe, mean
@@ -74,9 +74,9 @@ TraceMethodCtrl.register(TraceVariableDT, 'mean', _variabledt_mean)
 
 # PTP Functions:
 ################
-TraceMethodCtrl.register(TraceFixedDT,    'ptp',  lambda tr: np.ptp(tr._data) )
-TraceMethodCtrl.register(TraceVariableDT, 'ptp',  lambda tr: np.ptp(tr._data) )
-TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[1] )
+TraceMethodCtrl.register(TraceFixedDT,    'ptp',  lambda tr: np.ptp(tr._data))
+TraceMethodCtrl.register(TraceVariableDT, 'ptp',  lambda tr: np.ptp(tr._data))
+TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[1])
 
 
 

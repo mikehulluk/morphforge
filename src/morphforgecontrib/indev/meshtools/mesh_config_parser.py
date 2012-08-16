@@ -169,7 +169,7 @@ def p_option_defaults_block_stmts(p):
 def p_option_block_block_stmt(p):
     r"""option_block_stmt : MIN_DIAMETER_ID COLON FLOAT SEMICOLON """
     # Set the option
-    p.parser.context.global_options[MeshGenerationOptions.minimum_diameter] = float( p[3])
+    p.parser.context.global_options[MeshGenerationOptions.minimum_diameter] = float(p[3])
 
 
 
@@ -244,12 +244,12 @@ def p_ply_block_stmt_color(p):
     """makeply_block_stmt_color : region_color_def"""
     rgns, color = p[1]
     for rgn in rgns:
-        p.parser.context.currentplyscope.set_region_color( region=rgn, color=color)
+        p.parser.context.currentplyscope.set_region_color(region=rgn, color=color)
 
 
 def p_ply_block_stmt_include(p):
     """makeply_block_stmt_include : INCLUDE_ID  FILENAME include_option_set SEMICOLON"""
-    p.parser.context.currentplyscope.include_file( filename= p[2], options = p[3] )
+    p.parser.context.currentplyscope.include_file(filename= p[2], options = p[3])
 
 
 def p_include_option_set(p):
@@ -304,7 +304,7 @@ def p_color3(p):
 
 def p_color1(p):
     r"""color_rgb : LPAREN INT COMMA INT COMMA INT RPAREN"""
-    p[0] = ColorDef(r=p[2], g=p[4],b=p[6], )
+    p[0] = ColorDef(r=p[2], g=p[4],b=p[6],)
 
 def p_color2(p):
     r"""color_alias : ID"""
@@ -336,7 +336,7 @@ def p_empty(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    raise MultiMeshParseError("Yacc Error on line: %d Token: '%s'"%(p.lineno, p.type) )
+    raise MultiMeshParseError("Yacc Error on line: %d Token: '%s'"%(p.lineno, p.type))
 
 
 

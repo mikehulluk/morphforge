@@ -274,7 +274,7 @@ class Section(object):
 
     def get_length(self):
         assert not self.is_dummy_section(), "Getting Length of dummy section!"
-        return numpy.linalg.norm( self.get_proximal_to_distal_vector_npa3() )
+        return numpy.linalg.norm(self.get_proximal_to_distal_vector_npa3())
 
 
     def get_area(self, include_end_if_terminal=False):
@@ -291,7 +291,7 @@ class Section(object):
         l = self.get_length()
         lateral_area = math.pi * (R + r) * math.sqrt((R - r) ** 2 + l ** 2)
 
-        if include_end_if_terminal and (self.is_leaf()  or self.is_a_root_section() ):
+        if include_end_if_terminal and (self.is_leaf()  or self.is_a_root_section()):
             A = lateral_area
             if self.is_leaf():
                 A += math.pi * R * R
@@ -460,7 +460,7 @@ class MorphologyTree(MorphologyBase):
                                                                        len(self),
                                                                        ",".join([rgn.name for rgn in self.get_regions()]),
                                                                        ",".join(self.get_idtags())
-                                                                       )
+                                                                      )
         return s
 
 
@@ -494,7 +494,7 @@ class MorphologyTree(MorphologyBase):
 
     def _every_section(self):
         """Includes dummy section"""
-        return itertools.chain( *[[self.get_dummy_section()], self  ] )
+        return itertools.chain(*[[self.get_dummy_section()], self  ])
 
 
     # Iteration over morphologies:
@@ -671,10 +671,10 @@ class MorphPath(object):
 
             # Is one a direct parent of the other?
             if morphloc1.section in s2_sects:
-                self._connecting_sections = set.symmetric_difference( s1_sects,s2_sects)
+                self._connecting_sections = set.symmetric_difference(s1_sects,s2_sects)
                 self.morphloc1_dir, self.morphloc2_dir =  self.DirDistal, self.DirProximal
             elif morphloc2.section in s1_sects:
-                self._connecting_sections = set.symmetric_difference( s1_sects,s2_sects)
+                self._connecting_sections = set.symmetric_difference(s1_sects,s2_sects)
                 self.morphloc1_dir, self.morphloc2_dir =  self.DirProximal, self.DirDistal
 
             else:
@@ -683,8 +683,8 @@ class MorphPath(object):
 
             # Remove the original sections,  from the list of
             # connecting sections:
-            self._connecting_sections.discard( morphloc1.section)
-            self._connecting_sections.discard( morphloc2.section)
+            self._connecting_sections.discard(morphloc1.section)
+            self._connecting_sections.discard(morphloc2.section)
 
 
 
@@ -697,7 +697,7 @@ class MorphPath(object):
 
         # Handle the special case of both being on the same section:
         if self.morphloc1.section == self.morphloc2.section:
-            return self.morphloc1.section.get_length() * np.fabs( self.morphloc1.sectionpos - self.morphloc2.sectionpos )
+            return self.morphloc1.section.get_length() * np.fabs(self.morphloc1.sectionpos - self.morphloc2.sectionpos)
 
 
         def s_len(loc, dir):
@@ -719,7 +719,7 @@ class MorphPath(object):
     #    return section in self._connecting_sections
 
     # def isSectionOnEndpoint(self, section):
-    #    return section in ( self.morphloc1.section, self.morphloc2.section )
+    #    return section in (self.morphloc1.section, self.morphloc2.section)
 
 
 

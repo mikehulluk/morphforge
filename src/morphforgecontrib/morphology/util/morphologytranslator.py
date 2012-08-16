@@ -75,7 +75,7 @@ class MorphologyTranslator(object):
                 z=sectionOld.d_z + offset[2],
                 r=sectionOld.d_r,
                 idtag=sectionOld.idtag,
-                )
+               )
             section_mapping_table[sectionOld] = section_new
 
         m = MorphologyTree('translatedNeuron',

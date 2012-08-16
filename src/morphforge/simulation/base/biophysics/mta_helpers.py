@@ -32,7 +32,7 @@
 
 from morphforge.simulation.base.biophysics import *
 
-def _apply_mechanism_uniform( cell, mechanism, targetter, parameter_multipliers=None, parameter_overrides=None):
+def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=None, parameter_overrides=None):
 
     if parameter_multipliers is None:
         parameter_multipliers = {}
@@ -65,14 +65,14 @@ def _apply_mechanism_uniform( cell, mechanism, targetter, parameter_multipliers=
 
 
 
-def apply_mechanism_everywhere_uniform( cell, mechanism, parameter_multipliers={}, parameter_overrides= {}):
+def apply_mechanism_everywhere_uniform(cell, mechanism, parameter_multipliers={}, parameter_overrides= {}):
     return _apply_mechanism_uniform(cell=cell,
                                     mechanism=mechanism,
                                     targetter=MembraneMechanismTargeter_Everywhere(),
                                     parameter_multipliers=parameter_multipliers,
                                     parameter_overrides=parameter_overrides)
 
-def apply_mechanism_region_uniform( cell, mechanism, region, parameter_multipliers={}, parameter_overrides= {}):
+def apply_mechanism_region_uniform(cell, mechanism, region, parameter_multipliers={}, parameter_overrides= {}):
     return _apply_mechanism_uniform(cell=cell,
                                    mechanism=mechanism,
                                    targetter=MembraneMechanismTargeter_Region(region),

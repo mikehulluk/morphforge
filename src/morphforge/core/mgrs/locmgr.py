@@ -72,7 +72,7 @@ class LocMgr(object):
     def get_root_path(cls):
         # Load it from the .rc file:
         if not "rootdir" in cls._locations:
-            cls._locations["rootdir"] = os.path.abspath( os.path.join( os.path.dirname(__file__), "../../../" ) )
+            cls._locations["rootdir"] = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
             cls.validate_exists(cls._locations["rootdir"])
         return cls.validate_exists(cls._locations["rootdir"])
 
@@ -130,7 +130,7 @@ class LocMgr(object):
 
     @classmethod
     def get_default_mod_builddir(cls):
-        loc = cls.get_path_from_rcfile("tmp_nrn_mod_builddir", Join(cls.get_tmp_path(), "modbuild_%d/"%os.getpid()) )
+        loc = cls.get_path_from_rcfile("tmp_nrn_mod_builddir", Join(cls.get_tmp_path(), "modbuild_%d/"%os.getpid()))
         return cls.ensure_dir_exists(loc)
 
 
@@ -142,18 +142,18 @@ class LocMgr(object):
 
     @classmethod
     def get_default_output_dir(cls):
-        loc = Join( cls.get_root_path(), "output")
+        loc = Join(cls.get_root_path(), "output")
         return cls.ensure_dir_exists(loc)
 
 
     @classmethod
     def get_default_summary_output_dir(cls):
-        loc = Join( cls.get_default_output_dir(), "summaries")
+        loc = Join(cls.get_default_output_dir(), "summaries")
         return cls.ensure_dir_exists(loc)
 
     @classmethod
     def get_default_channel_summary_output_dir(cls):
-        loc = Join( cls.get_default_summary_output_dir(), "channels" )
+        loc = Join(cls.get_default_summary_output_dir(), "channels")
         return cls.ensure_dir_exists(loc)
 
 
@@ -177,8 +177,8 @@ class LocMgr(object):
 
     @classmethod
     def get_ply_parsetab_path(cls, subdir):
-        dir_name = os.path.join( cls.get_tmp_path(), "parsetabs/")
-        return cls.ensure_dir_exists( os.path.join( dir_name, subdir) )
+        dir_name = os.path.join(cls.get_tmp_path(), "parsetabs/")
+        return cls.ensure_dir_exists(os.path.join(dir_name, subdir))
 
 
 

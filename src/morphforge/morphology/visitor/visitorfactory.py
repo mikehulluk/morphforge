@@ -49,21 +49,21 @@ class SectionVistorFactory(object):
     def array4_all_points(cls, morph=None):
         xyzr = []
         def functorRoot(s):
-            xyzr.append( s.get_proximal_npa4() )
-            xyzr.append( s.get_distal_npa4() )
+            xyzr.append(s.get_proximal_npa4())
+            xyzr.append(s.get_distal_npa4())
         def functor(s):
-            xyzr.append( s.get_distal_npa4() )
-        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr) )
+            xyzr.append(s.get_distal_npa4())
+        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr))
 
     @classmethod
     def array3_all_points(cls, morph=None):
         xyz = []
         def functorRoot(s):
-            xyz.append( s.get_proximal_npa3() )
-            xyz.append( s.get_distal_npa3() )
+            xyz.append(s.get_proximal_npa3())
+            xyz.append(s.get_distal_npa3())
         def functor(s):
-            xyz.append( s.get_distal_npa3() )
-        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyz) )
+            xyz.append(s.get_distal_npa3())
+        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyz))
 
 
 
@@ -131,13 +131,13 @@ class SectionVistorFactory(object):
 #        xyzr = []
 #        edges = []
 #        def functorRoot(s):
-#            xyzr.append( s.get_proximal_npa4() )
-#            xyzr.append( s.get_distal_npa4() )
-#            edges.append( (0,1) )
+#            xyzr.append(s.get_proximal_npa4())
+#            xyzr.append(s.get_distal_npa4())
+#            edges.append((0,1))
 #        def functor(s):
-#            xyzr.append( s.get_distal_npa4() )
-#            edges.append( (sI[s], sI[s.parent]) )
-#        return SectionVisitorDF(functor=functor , morph=morph, rootsectionfunctor=functorRoot, returnfunctor=lambda : (np.array(xyzr), np.array(edges)) )
+#            xyzr.append(s.get_distal_npa4())
+#            edges.append((sI[s], sI[s.parent]))
+#        return SectionVisitorDF(functor=functor , morph=morph, rootsectionfunctor=functorRoot, returnfunctor=lambda : (np.array(xyzr), np.array(edges)))
 #
 #    @classmethod
 #    def get_sectionIndexer(cls, **kwargs):

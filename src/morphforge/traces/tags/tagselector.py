@@ -59,7 +59,7 @@ class TagSelector(object):
 
 class TagSelectorAny(TagSelector):
     def __init__(self,tags):
-        self.tags = set( tags )
+        self.tags = set(tags)
 
     def __call__(self, tr):
         return not set(self.tags).isdisjoint(tr.tags)
@@ -70,7 +70,7 @@ class TagSelectorAll(TagSelector):
         self.tags = set(tags)
 
     def __call__(self, tr):
-        return self.tags.issubset(set( tr.tags))
+        return self.tags.issubset(set(tr.tags))
 
 
 

@@ -47,7 +47,7 @@ class NeuronPopulation(object):
             user_tags.extend(pop_name.split('_'))
 
 
-        self.pop_name = pop_name if pop_name is not None else ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d" )
+        self.pop_name = pop_name if pop_name is not None else ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d")
 
         if  name_tmpl_str is None:
             name_tmpl_str = "%s_$i"%self.pop_name
@@ -86,7 +86,7 @@ class NeuronPopulation(object):
 
 
 
-    def record(self, cell, location_func=None, what=None, user_tags=None, user_tag_functors=None, **kwargs  ):
+    def record(self, cell, location_func=None, what=None, user_tags=None, user_tag_functors=None, **kwargs ):
 
         # Indexable by index of cell reference
         if isinstance(cell, int):
@@ -97,14 +97,14 @@ class NeuronPopulation(object):
         what = what or Cell.Recordables.MembraneVoltage
         user_tags = user_tags or []
         user_tag_functors = user_tag_functors or  StdTagFunctors.get_record_functors_neuron()
-        location_func = location_func or ( lambda cell: cell.get_location("soma") )
+        location_func = location_func or (lambda cell: cell.get_location("soma"))
         cell_location=location_func(cell)
 
         kw_utf = {'cell_location': cell_location,
                   'neuron_population': self, 'neuron': cell}
 
-        functor_tags = list( itertools.chain( *[utf( **kw_utf ) for utf in user_tag_functors] ) )
-        r = self.sim.record( cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
+        functor_tags = list(itertools.chain(*[utf(**kw_utf) for utf in user_tag_functors]))
+        r = self.sim.record(cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
         return r
 
 
@@ -251,14 +251,14 @@ class SynapsePopulation(object):
 
 class Connectors(object):
     @classmethod
-    def all_to_all(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None ):
-        pre_post_it = itertools.product( presynaptic_population, postsynaptic_population )
+    def all_to_all(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None):
+        pre_post_it = itertools.product(presynaptic_population, postsynaptic_population)
         synapses = [ connect_functor(sim=sim,  presynaptic=pre, postsynaptic=post) for (pre,post) in pre_post_it if (pre != post) ]
         return SynapsePopulation(sim=sim, synapses=synapses,  synapse_pop_name=synapse_pop_name)
 
 
     @classmethod
-    def times_to_all(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None ):
+    def times_to_all(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None):
         synapses = [ connect_functor(sim=sim, postsynaptic=post, times=syncronous_times) for post in postsynaptic_population]
         return SynapsePopulation(sim=sim, synapses=synapses, synapse_pop_name=synapse_pop_name)
 

@@ -73,11 +73,11 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
         hinf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
         htau = 1.0 / (h_alpha_rate + h_beta_rate)
         h' = (hinf-h) / htau
-        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp( (V+a4)/a5) )
-        m_alpha_rate = StdFormAB( V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
-        m_beta_rate =  StdFormAB( V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
-        h_alpha_rate = StdFormAB( V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
-        h_beta_rate =  StdFormAB( V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
+        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+        m_alpha_rate = StdFormAB(V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
+        m_beta_rate =  StdFormAB(V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
+        h_alpha_rate = StdFormAB(V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
+        h_beta_rate =  StdFormAB(V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
         m_a1 = {-4.00 ms-1}
         m_a2 = {-0.10 mV-1 ms-1}
         m_a3 = -1.00
@@ -113,9 +113,9 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
         ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
         ntau = 1.0 / (n_alpha_rate + n_beta_rate)
         n' = (ninf-n) / ntau
-        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp( (V+a4)/a5) )
-        n_alpha_rate = StdFormAB( V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
-        n_beta_rate =  StdFormAB( V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
+        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+        n_alpha_rate = StdFormAB(V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
+        n_beta_rate =  StdFormAB(V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
 
         n_a1 = {-0.55 ms-1}
         n_a2 = {-0.01 mV-1 ms-1}
@@ -151,19 +151,19 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
     kChls  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
 
 
-    apply_mechanism_everywhere_uniform(myCell, naChls )
-    apply_mechanism_everywhere_uniform(myCell, lkChls )
-    apply_mechanism_everywhere_uniform(myCell, kChls )
+    apply_mechanism_everywhere_uniform(myCell, naChls)
+    apply_mechanism_everywhere_uniform(myCell, lkChls)
+    apply_mechanism_everywhere_uniform(myCell, kChls)
 
 
-    mySim.record(naChls, what='m', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(naChls, what='m', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    mySim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    mySim.record(naChls, what='h', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(naChls, what='h', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    mySim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    mySim.record(kChls, what='n', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable] )
-    mySim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant] )
+    mySim.record(kChls, what='n', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    mySim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
 
 
@@ -178,23 +178,23 @@ def apply_hh_chls_neuroml_xsl(env, myCell, mySim):
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
-                            )
+                           )
 
-    sodiumChannels = env.MembraneMechanism( NeuroML_Via_XSL_Channel,
+    sodiumChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
-                                            )
+                                           )
 
-    kChannels = env.MembraneMechanism( NeuroML_Via_XSL_Channel,
+    kChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
-                                            )
+                                           )
 
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
-    apply_mechanism_everywhere_uniform(myCell, leakChannels )
-    apply_mechanism_everywhere_uniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(myCell, leakChannels)
+    apply_mechanism_everywhere_uniform(myCell, kChannels)
 
 
 
@@ -213,24 +213,24 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mySim):
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
-                            )
+                           )
 
-    sodiumChannels = env.MembraneMechanism( NeuroML_Via_NeuroUnits_Channel,
+    sodiumChannels = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             #xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
-                                            )
+                                           )
 
-    kChannels = env.MembraneMechanism( NeuroML_Via_XSL_Channel,
-    #kChannels = env.MembraneMechanism( NeuroML_Via_NeuroUnits_Channel,
+    kChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    #kChannels = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
-                                            )
+                                           )
 
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
-    apply_mechanism_everywhere_uniform(myCell, leakChannels )
-    apply_mechanism_everywhere_uniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(myCell, leakChannels)
+    apply_mechanism_everywhere_uniform(myCell, kChannels)
 
 
     #for v in vars:
@@ -247,7 +247,7 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                              conductance=unit("0.3:mS/cm2"),
                              reversalpotential=unit("-54.3:mV"),
                              mechanism_id = 'HULL12_DIN_LK_ID'
-                            )
+                           )
 
     sodiumStateVars = { "m": {
                           "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
@@ -265,7 +265,7 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                             reversalpotential=unit("50:mV"),
                             statevars=sodiumStateVars,
                             mechanism_id="HH_NA_CURRENT"
-                            )
+                           )
     kStateVars = { "n": {
                           "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
                           "beta": [0.125,0,0,65,80]},
@@ -279,19 +279,19 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                             reversalpotential=unit("-77:mV"),
                             statevars=kStateVars,
                             mechanism_id="HH_K_CURRENT"
-                            )
+                           )
 
-    apply_mechanism_everywhere_uniform(myCell, leakChannels )
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
-    apply_mechanism_everywhere_uniform(myCell, kChannels )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels)
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(myCell, kChannels)
 
 
 
 
 def apply_hh_chls_NEURON_builtin(env, myCell,mySim):
 
-    hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA" )
-    apply_mechanism_everywhere_uniform(myCell, hhChls )
+    hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
+    apply_mechanism_everywhere_uniform(myCell, hhChls)
 
 
 
@@ -314,7 +314,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     chl_applicator_functor(env, myCell, mySim)
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
@@ -323,11 +323,11 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp( name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    cc = mySim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
 
     # Define what to record:
-    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
+    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 
     # run the simulation
@@ -345,15 +345,15 @@ resultsD =None
 resultsE =None
 
 
-resultsA = simulate_chls_on_neuron( apply_hh_chls_morphforge_format )
-resultsB = simulate_chls_on_neuron( apply_hh_chls_NEURON_builtin )
-resultsC = simulate_chls_on_neuron( apply_hh_chls_neuroml_neurounits )
-resultsD = simulate_chls_on_neuron( apply_hh_chls_neuroml_xsl )
-resultsE = simulate_chls_on_neuron( apply_hh_chls_neurounits_direct )
+resultsA = simulate_chls_on_neuron(apply_hh_chls_morphforge_format)
+resultsB = simulate_chls_on_neuron(apply_hh_chls_NEURON_builtin)
+resultsC = simulate_chls_on_neuron(apply_hh_chls_neuroml_neurounits)
+resultsD = simulate_chls_on_neuron(apply_hh_chls_neuroml_xsl)
+resultsE = simulate_chls_on_neuron(apply_hh_chls_neurounits_direct)
 #
 trs = [resultsA,resultsB,resultsC,resultsD,resultsE]
 trs = [tr for tr in trs if tr is not None]
-TagViewer(trs, timeranges=[(95, 200)*pq.ms], show=True )
+TagViewer(trs, timeranges=[(95, 200)*pq.ms], show=True)
 
 
 pylab.show()

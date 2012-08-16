@@ -64,43 +64,43 @@ from morphforge.stdimports import pq
 #class Summarise_MM_InfTauInterpolatedChannelVClamp(object):
 #
 #    @classmethod
-#    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
+#    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"),) :
 #
 #        vInMv = V.rescale("mV").magnitude
 #
 #        stateNames = chl.statevars.keys()
 #        nStates = len(stateNames)
-#        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateNames[0]], V)
+#        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateNames[0]], V)
 #        m_tauMS = m_tau.rescale("ms").magnitude
 #
-#        infTaus = [ InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateName], V)  for stateName in stateNames ]
+#        infTaus = [ InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in stateNames ]
 #        infTausMS = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus ]
 #
-#        stateToIndex = dict( [ (state,index) for state,index in enumerate(stateNames) ] )
+#        stateToIndex = dict([ (state,index) for state,index in enumerate(stateNames) ])
 #
 #        def odeFunc(y,t0):
 #            res = [None] * nStates
 #            for i in range(0,nStates):
 #                stateInf,stateTau = infTausMS[i]
 #                stateVal = y[i]
-#                dState = ( stateInf - stateVal ) / stateTau
+#                dState = (stateInf - stateVal) / stateTau
 #                res[i] = dState
 #            return res
 #
 #        # run the ODE for each variable:
 #        t = t.rescale("ms").magnitude
-#        y0 = np.zeros( (nStates, ) )
-#        res = odeint(func=odeFunc, y0=y0, t= t  )
+#        y0 = np.zeros((nStates,))
+#        res = odeint(func=odeFunc, y0=y0, t= t )
 #
-#        stateFunctor = sympy.lambdify( stateNames, sympy.sympify(chl.eqn)  )
+#        stateFunctor = sympy.lambdify(stateNames, sympy.sympify(chl.eqn) )
 #        stateData = [ res[:,i] for i in range(0,nStates) ]
 #
-#        stateEquationEvaluation = stateFunctor( *stateData )
+#        stateEquationEvaluation = stateFunctor(*stateData)
 #
 #        cellDensity = (chl.conductance * cell_area)
 #        iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
 #
-#        return TraceFixedDT( time=t * unit("1:ms"), data=iChl.rescale("pA")  )
+#        return TraceFixedDT(time=t * unit("1:ms"), data=iChl.rescale("pA") )
 
 
 
@@ -116,8 +116,8 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
         #@classmethod
-        #def getResolvedInfTauInterpolatedCurves(cls, V, chl, state ):
-        #    return InfTauInterpolatedCalculator.getInfTauInterpolated(V, chl.statevars[state][0], chl.statevars[state][1]   )
+        #def getResolvedInfTauInterpolatedCurves(cls, V, chl, state):
+        #    return InfTauInterpolatedCalculator.getInfTauInterpolated(V, chl.statevars[state][0], chl.statevars[state][1]  )
 
 
         @classmethod
@@ -127,15 +127,15 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
 
-            inf_v =  np.array( alphabeta_chl.statevars_new[state].V )
-            inf =   np.array( alphabeta_chl.statevars_new[state].inf )
-            tau =   np.array( alphabeta_chl.statevars_new[state].tau )
+            inf_v =  np.array(alphabeta_chl.statevars_new[state].V)
+            inf =   np.array(alphabeta_chl.statevars_new[state].inf)
+            tau =   np.array(alphabeta_chl.statevars_new[state].tau)
 
-            #tauV =  np.array( zip(*alphabeta_chl.statevars[state]['tau'])[0] )
-            #tau =   np.array( zip(*alphabeta_chl.statevars[state]['tau'])[1] )
+            #tauV =  np.array(zip(*alphabeta_chl.statevars[state]['tau'])[0])
+            #tau =   np.array(zip(*alphabeta_chl.statevars[state]['tau'])[1])
 
             # Check the two voltage arrays are the same:
-            #assert np.max( (inf_v-tauV)**2 ) < 1.0
+            #assert np.max((inf_v-tauV)**2) < 1.0
 
             alpha = inf/tau
             beta = (1 - alpha*tau) / tau
@@ -184,20 +184,20 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
         @classmethod
-        def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state, color="blue" ):
+        def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state, color="blue"):
 
             if isinstance(ax1, QuantitiesAxis):
 
 #                print alphabeta_chl.statevars[state]['inf']
-                inf_v =  np.array( alphabeta_chl.statevars_new[state].V )
-                inf =   np.array( alphabeta_chl.statevars_new[state].inf )
-                tau =   np.array( alphabeta_chl.statevars_new[state].tau )
+                inf_v =  np.array(alphabeta_chl.statevars_new[state].V)
+                inf =   np.array(alphabeta_chl.statevars_new[state].inf)
+                tau =   np.array(alphabeta_chl.statevars_new[state].tau)
 
-                #inf_v =  np.array( zip(*alphabeta_chl.statevars[state]['inf'])[0] )
-                #inf =   np.array( zip(*alphabeta_chl.statevars[state]['inf'])[1] )
+                #inf_v =  np.array(zip(*alphabeta_chl.statevars[state]['inf'])[0])
+                #inf =   np.array(zip(*alphabeta_chl.statevars[state]['inf'])[1])
 
-                #tauV =  np.array( zip(*alphabeta_chl.statevars[state]['tau'])[0] )
-                #tau =   np.array( zip(*alphabeta_chl.statevars[state]['tau'])[1] )
+                #tauV =  np.array(zip(*alphabeta_chl.statevars[state]['tau'])[0])
+                #tau =   np.array(zip(*alphabeta_chl.statevars[state]['tau'])[1])
 
 
 
@@ -229,11 +229,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             fig.suptitle("InfTauInterpolated Channel - %s : %s"%(alphabeta_chl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.plot_inf_tau_curves(ax1, ax2, alphabeta_chl,state )
+            cls.plot_inf_tau_curves(ax1, ax2, alphabeta_chl,state)
 
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.plot_alpha_beta_curves(ax3, ax4, alphabeta_chl,state )
+            cls.plot_alpha_beta_curves(ax3, ax4, alphabeta_chl,state)
             return fig
 
         @classmethod
@@ -249,7 +249,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
         @classmethod
         def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
             local_elements = []
-            local_elements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+            local_elements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
 
             # Summary:
             overview_table_data = [
@@ -258,14 +258,14 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                                  ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
                                 ]
 
-            local_elements.append( Table(overview_table_data, style=reportlabconfig.listTableStyle) )
+            local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 
 
             #return local_elements
 
             # Plot out the States:
             for state,params in alphabeta_chl.statevars_new.iteritems():
-                local_elements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
+                local_elements.append(Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']))
 
                 # Interpolated_values:
                 inf_table  = [
@@ -276,36 +276,36 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                                  ["Voltage", 'Tau'],
                             ] + [ ("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.tau) ]
 
-                #mergeTable = zip( inf_table,tau_table )
+                #mergeTable = zip(inf_table,tau_table)
 
 
-                local_elements.append( Table(inf_table, style=reportlabconfig.listTableStyle) )
-                local_elements.append( Table(tau_table, style=reportlabconfig.listTableStyle) )
-                #local_elements.append( Table(mergeTable, style=reportlabconfig.listTableStyle) )
+                local_elements.append(Table(inf_table, style=reportlabconfig.listTableStyle))
+                local_elements.append(Table(tau_table, style=reportlabconfig.listTableStyle))
+                #local_elements.append(Table(mergeTable, style=reportlabconfig.listTableStyle))
 
 
                 #continue
 
                 ##Equations:
                 #eqns = [
-                #        "alpha(V) = (A+BV)/(C+exp( (V+D)/E) )",
-                #        "beta(V) = (A+BV)/(C+exp( (V+D)/E) )",
+                #        "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
+                #        "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                 #        ]
                 #for eqn in eqns:
-                #    local_elements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
+                #    local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
                 # Alpha Beta
-                #ReportLabTools.buildInfTauInterpolatedTable( elements=local_elements,
+                #ReportLabTools.buildInfTauInterpolatedTable(elements=local_elements,
                 #                         reportlabconfig=reportlabconfig,
-                #                         title="Alpha", params=params[0] )
-                #ReportLabTools.buildInfTauInterpolatedTable( elements=local_elements,
+                #                         title="Alpha", params=params[0])
+                #ReportLabTools.buildInfTauInterpolatedTable(elements=local_elements,
                 #                         reportlabconfig=reportlabconfig,
-                #                         title="Beta1", params=params[1] )
+                #                         title="Beta1", params=params[1])
 
 
                 # Figures:
                 if make_graphs:
                     fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(7,7))
-                    local_elements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
+                    local_elements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
                     fig.close()
 
 

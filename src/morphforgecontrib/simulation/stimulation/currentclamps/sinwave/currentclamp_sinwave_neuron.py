@@ -94,7 +94,7 @@ BREAKPOINT {
 ccSinWaveHOCTmpl = """
 // Post-Synapse [ $stimname ]
 objref $stimname
-${cellname}.internalsections[$sectionindex] $stimname = new CurrentClampSinWave ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $stimname = new CurrentClampSinWave ($sectionpos)
 ${stimname}.freq =     $freq.rescale("Hz").magnitude
 ${stimname}.pkamp =      $amp.rescale("nA").magnitude
 ${stimname}.del =    $delay.rescale("ms").magnitude
@@ -118,7 +118,7 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
 
     def build_hoc(self, hocfile_obj):
         objNameHoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self )
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=objNameHoc, objvar="i", recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -137,7 +137,7 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
         #name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
 
         #NeuronObject.__init__(self, simulation=simulation, name=name)
-        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, cell_location=cell_location, name=name )
+        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, cell_location=cell_location, name=name)
 
 
     def build_hoc(self, hocfile_obj):
@@ -181,4 +181,4 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
 
 
-#NeuronSimulationEnvironment.registerMembraneMechanism( CurrentClamp_SinWave, Neuron_CurrentClamp_SinWave)
+#NeuronSimulationEnvironment.registerMembraneMechanism(CurrentClamp_SinWave, Neuron_CurrentClamp_SinWave)

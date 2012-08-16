@@ -201,7 +201,7 @@ class TraceApproximator(object):
 
 
    @classmethod
-   def fit_piecewise_linear_trace( cls, tr):
+   def fit_piecewise_linear_trace(cls, tr):
          d = tr._data.magnitude
 
          ranges = TraceApproximator.find_levels(d)
@@ -209,8 +209,8 @@ class TraceApproximator(object):
          pieces = []
          for r0,r1 in ranges:
              #print r0,r1
-             x = np.mean( tr._data[r0:r1] )
-             p = TracePieceFunctionFlat( time_window=(tr._time[r0],tr._time[r1]), x=x,)
+             x = np.mean(tr._data[r0:r1])
+             p = TracePieceFunctionFlat(time_window=(tr._time[r0],tr._time[r1]), x=x,)
              pieces.append(p)
 
          tr = TracePiecewise(pieces, name=tr.name, comment=tr.comment, tags=tr.tags)

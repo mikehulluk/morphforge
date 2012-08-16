@@ -43,10 +43,10 @@ def _get_md5_of_section(s):
     #assert False # Is this Cruft?? Added Jan 2011
     section_string = " %2.2f %2.2f %2.2f %2.2f "
     regions_string = _get_md5_of_region(s.region) if s.region else ""
-    children_string = ",".join( [_get_md5_of_section(s) for s in s.children] )
+    children_string = ",".join([_get_md5_of_section(s) for s in s.children])
     id_string = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
 
-    return StrUtils.get_hash_md5( section_string + regions_string + children_string + id_string)
+    return StrUtils.get_hash_md5(section_string + regions_string + children_string + id_string)
 
 
 def _get_md5_of_morphology(m):
@@ -176,7 +176,7 @@ class MorphConsistencyChecker(object):
         check_cstyle_varname(region.name)
         # Check no-other region has this name:
         #print "Checking region:", region.name
-        #print "All Regions:", ",".join( [r.name for r in self.morph.get_regions()] )
+        #print "All Regions:", ",".join([r.name for r in self.morph.get_regions()])
         assert SeqUtils.filter_expect_single(self.morph.get_regions(), lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
         for s in region.sections:

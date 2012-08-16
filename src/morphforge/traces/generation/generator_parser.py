@@ -75,9 +75,9 @@ class TraceStringParser(object):
 
     @classmethod
     def _trace_from_string(cls, s):
-        parser = ply.yacc.yacc( tabmodule='tracestring_parsetab',
+        parser = ply.yacc.yacc(tabmodule='tracestring_parsetab',
                                 outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'),
-                                debug=SettingsMgr.get_ply_yacc_debug_flag() )
+                                debug=SettingsMgr.get_ply_yacc_debug_flag())
 
         (unit, tracePrototypes) = parser.parse(t, lexer=l)
 

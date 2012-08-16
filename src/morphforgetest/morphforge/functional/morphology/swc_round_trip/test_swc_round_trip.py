@@ -74,7 +74,7 @@ class TestSWCRoundTrip(object):
 
     def get_neuroMorphFilenames(self):
         f = "/home/michael/hw/morphforge/src/test_data/neuromorpho/"
-        return list( find_files_recursively(f,"*.swc") )
+        return list(find_files_recursively(f,"*.swc"))
 
 
 
@@ -91,17 +91,17 @@ class TestSWCRoundTrip(object):
             swcOut = m.toSWC()
 
             dtype= {'names':   ('id', 'type', 'x','y','z','r','pid'), 'formats': ('int32', 'int32', 'f4','f4','f4','f4','int32') }
-            swcDataSrc = np.loadtxt(open(f),dtype=dtype )
-            swcDataOut = np.loadtxt(StringIO(swcOut),dtype=dtype )
+            swcDataSrc = np.loadtxt(open(f),dtype=dtype)
+            swcDataOut = np.loadtxt(StringIO(swcOut),dtype=dtype)
 
             eps = 0.01
-            assert ( swcDataSrc['id'] == swcDataOut['id'] ).all()
-            assert ( swcDataSrc['pid'] == swcDataOut['pid'] ).all()
-            maxX = np.max( np.fabs( swcDataSrc['x'] - swcDataOut['x'] ) )
-            maxY = np.max( np.fabs( swcDataSrc['y'] - swcDataOut['y'] ) )
-            maxZ = np.max( np.fabs( swcDataSrc['z'] - swcDataOut['z'] ) )
-            maxR = np.max( np.fabs( swcDataSrc['r'] - swcDataOut['r'] ) )
-            maxEPS = np.max( (maxX,maxY,maxZ,maxR) )
+            assert (swcDataSrc['id'] == swcDataOut['id']).all()
+            assert (swcDataSrc['pid'] == swcDataOut['pid']).all()
+            maxX = np.max(np.fabs(swcDataSrc['x'] - swcDataOut['x']))
+            maxY = np.max(np.fabs(swcDataSrc['y'] - swcDataOut['y']))
+            maxZ = np.max(np.fabs(swcDataSrc['z'] - swcDataOut['z']))
+            maxR = np.max(np.fabs(swcDataSrc['r'] - swcDataOut['r']))
+            maxEPS = np.max((maxX,maxY,maxZ,maxR))
             assert maxEPS < eps
             print ' -- Max EPS: %f'%maxEPS
 

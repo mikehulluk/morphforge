@@ -94,11 +94,11 @@ class MNeuronSimulation(Simulation):
             # ld_library_path_suffix = /home/michael/hw/morphforge/src/morphforgecontrib/neuron_gsl/cpp
             ld_path_additions = RCMgr.get("Neuron","ld_library_path_suffix").split(":")
             old_ld_path = os.environ.get('LD_LIBRARY_PATH','')
-            os.environ['LD_LIBRARY_PATH'] = ":".join( [old_ld_path] + ld_path_additions )
+            os.environ['LD_LIBRARY_PATH'] = ":".join([old_ld_path] + ld_path_additions)
 
             LogMgr.info("_run_spawn() [Spawning subprocess]")
             #ret_code = ExecCommandGetRetCode(sim_cmd)
-            ret_code = subprocess.call( sim_cmd, shell=True)
+            ret_code = subprocess.call(sim_cmd, shell=True)
             if ret_code != 1: raise ValueError("Unable to simulate %s" % self.name)
             LogMgr.info("_run_spawn() [Finished spawning subprocess]")
 
@@ -134,9 +134,9 @@ class MNeuronSimulation(Simulation):
         records = hoc_data[MHocFileData.Recordables]
         for (r, hocDetails) in records.iteritems():
 
-            data_array = _random_walk(len(time_array), 0.05 ) * r.get_unit()
+            data_array = _random_walk(len(time_array), 0.05) * r.get_unit()
 
-            tr = TraceVariableDT(name=r.name, comment=r.get_description(), time=time_array, data=data_array, tags=r.get_tags() )
+            tr = TraceVariableDT(name=r.name, comment=r.get_description(), time=time_array, data=data_array, tags=r.get_tags())
             traces.append(tr)
 
         self.result = SimulationResult(traces, self)
@@ -216,7 +216,7 @@ class MNeuronSimulation(Simulation):
         e = Event()
         print 'Running Simulation'
         h.run()
-        #nrn( h.run )
+        #nrn(h.run)
         assert h.t+1 >= h.tstop
 
         print "Time for Simulation: ", time.time() - t_sim_start
@@ -230,9 +230,9 @@ class MNeuronSimulation(Simulation):
         records = hoc_data[MHocFileData.Recordables]
         for r, hocDetails in records.iteritems():
 
-            data_array = np.array(neuron.h.__getattribute__(hocDetails["recVecName"] ) ) * r.get_unit()
+            data_array = np.array(neuron.h.__getattribute__(hocDetails["recVecName"])) * r.get_unit()
 
-            tr = TraceVariableDT(name=r.name, comment=r.get_description(), time=time_array, data=data_array, tags=r.get_tags() )
+            tr = TraceVariableDT(name=r.name, comment=r.get_description(), time=time_array, data=data_array, tags=r.get_tags())
             traces.append(tr)
         print "Time for Extracting Data: (%d records)" % (len(records)),  time.time() - t_trace_read_start
 

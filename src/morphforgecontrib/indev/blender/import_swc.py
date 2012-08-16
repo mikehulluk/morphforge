@@ -59,11 +59,11 @@ def import_obj(path):
         mf_mesh = MeshBuilderRings.build(morph=m)
         #MeshWriterPLY.write(mesh, '/tmp/testmesh.ply')
 
-        mesh = Blender.NMesh.New( name ) # create a new mesh
-        for i in range( mf_mesh.nVertices ):
-          mesh.verts.append(Blender.NMesh.Vert(mf_mesh.vertices[i,0], mf_mesh.vertices[i,1],  mf_mesh.vertices[i,2] ) )
+        mesh = Blender.NMesh.New(name) # create a new mesh
+        for i in range(mf_mesh.nVertices):
+          mesh.verts.append(Blender.NMesh.Vert(mf_mesh.vertices[i,0], mf_mesh.vertices[i,1],  mf_mesh.vertices[i,2]))
 
-        for i in range( mf_mesh.nTriangles ):
+        for i in range(mf_mesh.nTriangles):
           faceVertList = [
               mesh.verts[ mf_mesh.triangles[0] ],
               mesh.verts[ mf_mesh.triangles[1] ],

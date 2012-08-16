@@ -80,13 +80,13 @@ class InfTauCalculator(object):
 class ReportLabTools(object):
 
     @classmethod
-    def build_alpha_beta_table(cls, elements, reportlabconfig, title, params ):
+    def build_alpha_beta_table(cls, elements, reportlabconfig, title, params):
 
         from reportlab.platypus import Paragraph, Table
-        elements.append( Paragraph(title,reportlabconfig.styles['Heading4']) )
+        elements.append(Paragraph(title,reportlabconfig.styles['Heading4']))
         print params
         print
         alpha_params = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
         alpha_table_data = [ ["A","B","C","D","E"], alpha_params.split()  ]
-        elements.append( Table(alpha_table_data, style=reportlabconfig.defaultTableStyle) )
+        elements.append(Table(alpha_table_data, style=reportlabconfig.defaultTableStyle))
 

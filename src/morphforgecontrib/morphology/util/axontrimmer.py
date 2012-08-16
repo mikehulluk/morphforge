@@ -84,7 +84,7 @@ class AxonTrimmer(object):
                 z=sectionOld.d_z,
                 r=sectionOld.d_r,
                 idtag=sectionOld.idtag,
-                )
+               )
             section_mapping_table[sectionOld] = section_new
 
         m = MorphologyTree('TrimmedNeuron',

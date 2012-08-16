@@ -51,10 +51,10 @@ EQNSET sautois_hh_na {
     htau = 1.0 / (h_alpha_rate + h_beta_rate)
     h' = (hinf-h) / htau
     StdFormAB(V,a1,a2,a3,a4,a5) = (a1+a2*V)/(a3+std.math.exp((V+a4)/a5))
-    m_alpha_rate = StdFormAB( V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
-    m_beta_rate =  StdFormAB( V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
-    h_alpha_rate = StdFormAB( V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
-    h_beta_rate =  StdFormAB( V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
+    m_alpha_rate = StdFormAB(V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
+    m_beta_rate =  StdFormAB(V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
+    h_alpha_rate = StdFormAB(V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
+    h_beta_rate =  StdFormAB(V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
 
     <=> PARAMETER m_a1:{s-1}, m_a2:{V-1 s-1}, m_a3:{}, m_a4:{V}, m_a5:{V}
     <=> PARAMETER m_b1:{s-1}, m_b2:{V-1 s-1}, m_b3:{}, m_b4:{V}, m_b5:{V}
@@ -83,8 +83,8 @@ k_eqnset_txt = """
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
     n' = (ninf-n) / ntau
     StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))
-    n_alpha_rate = StdFormAB( V=v,a1=k_a1,a2=k_a2,a3=k_a3,a4=k_a4,a5=k_a5)
-    n_beta_rate =  StdFormAB( V=v,a1=k_b1,a2=k_b2,a3=k_b3,a4=k_b4,a5=k_b5)
+    n_alpha_rate = StdFormAB(V=v,a1=k_a1,a2=k_a2,a3=k_a3,a4=k_a4,a5=k_a5)
+    n_beta_rate =  StdFormAB(V=v,a1=k_b1,a2=k_b2,a3=k_b3,a4=k_b4,a5=k_b5)
 
     <=> PARAMETER k_a1:{s-1}, k_a2:{V-1 s-1}, k_a3:{}, k_a4:{V}, k_a5:{V}
     <=> PARAMETER k_b1:{s-1}, k_b2:{V-1 s-1}, k_b3:{}, k_b4:{V}, k_b5:{V}
@@ -97,9 +97,9 @@ k_eqnset_txt = """
 
 # Some Utility Functions:
 def extract_params(p, prefix, replace_prefix=""):
-    return dict( [ (replace_prefix+k[len(prefix):],v) for (k,v) in p.iteritems() if k.startswith(prefix) ])
+    return dict([ (replace_prefix+k[len(prefix):],v) for (k,v) in p.iteritems() if k.startswith(prefix) ])
 
-def remap_keys( dct, remap_dct):
+def remap_keys(dct, remap_dct):
     # Avoid collisions
     for v in remap_dct.values():
         assert not v in dct
@@ -242,13 +242,13 @@ def load_std_channels(param_str):
     #cache = {}
     #if not param_str in cache:
 
-        nrn_params = dict( [ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip( param_names.split(), param_units.split(';'), param_str.split()) ] )
-        nrn_params_na = extract_params( nrn_params, prefix='na_')
-        nrn_params_lk = extract_params( nrn_params, prefix='lk_')
-        nrn_params_ks = extract_params( nrn_params, prefix='ks_', replace_prefix='k_')
-        nrn_params_kf = extract_params( nrn_params, prefix='kf_', replace_prefix='k_')
-        nrn_params_ks = remap_keys(nrn_params_ks, {'k_gmax':'gmax','k_erev':'erev'} )
-        nrn_params_kf = remap_keys(nrn_params_kf, {'k_gmax':'gmax','k_erev':'erev'} )
+        nrn_params = dict([ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(param_names.split(), param_units.split(';'), param_str.split()) ])
+        nrn_params_na = extract_params(nrn_params, prefix='na_')
+        nrn_params_lk = extract_params(nrn_params, prefix='lk_')
+        nrn_params_ks = extract_params(nrn_params, prefix='ks_', replace_prefix='k_')
+        nrn_params_kf = extract_params(nrn_params, prefix='kf_', replace_prefix='k_')
+        nrn_params_ks = remap_keys(nrn_params_ks, {'k_gmax':'gmax','k_erev':'erev'})
+        nrn_params_kf = remap_keys(nrn_params_kf, {'k_gmax':'gmax','k_erev':'erev'})
         eqnsetna = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt)
         eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
         eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
@@ -289,8 +289,8 @@ def load_ka_channel():
     10.000   0   500 -22.09  -10.21
     """
 
-    nrn_params = dict( [ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip( ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split()) ] )
-    nrn_params_ka = extract_params( nrn_params, prefix='ka_')
+    nrn_params = dict([ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split()) ])
+    nrn_params_ka = extract_params(nrn_params, prefix='ka_')
     print nrn_params_ka
     eqnsetka = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt.replace("sautois","saut2"))
     kaChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl5", eqnset=eqnsetka, mechanism_id='mechid5',  default_parameters = nrn_params_ka)
@@ -316,35 +316,35 @@ def get_cin_chls():
 
 
 import random
-def make_cell( sim, cell_name, cell_chl_functor):
-    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2") )
+def make_cell(sim, cell_name, cell_chl_functor):
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     myCell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9,1.1)} )
-    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
+        mf.apply_mechanism_everywhere_uniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9,1.1)})
+    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
     return myCell
 
 
-def make_cell_ain( sim, name=None, cell_tags=[]):
-    return make_cell(sim, cell_name=name, cell_chl_functor= get_ain_chls )
-def make_cell_cin( sim, name=None, cell_tags=[]):
-    return make_cell(sim, cell_name=name, cell_chl_functor= get_cin_chls )
-def make_cell_din( sim, name=None, cell_tags=[]):
-    return make_cell(sim, cell_name=name, cell_chl_functor= get_din_chls )
-def make_cell_dinr( sim, name=None, cell_tags=[]):
-    return make_cell(sim, cell_name=name, cell_chl_functor= get_dinr_chls )
+def make_cell_ain(sim, name=None, cell_tags=[]):
+    return make_cell(sim, cell_name=name, cell_chl_functor= get_ain_chls)
+def make_cell_cin(sim, name=None, cell_tags=[]):
+    return make_cell(sim, cell_name=name, cell_chl_functor= get_cin_chls)
+def make_cell_din(sim, name=None, cell_tags=[]):
+    return make_cell(sim, cell_name=name, cell_chl_functor= get_din_chls)
+def make_cell_dinr(sim, name=None, cell_tags=[]):
+    return make_cell(sim, cell_name=name, cell_chl_functor= get_dinr_chls)
 
 
 
 celltypes = [
-    ( 'aIN', get_ain_chls),
-    ( 'MN',  get_mn_chls ),
-    ( 'dIN', get_din_chls),
-    ( 'RB',  get_rb_chls ),
-    ( 'dla', get_dla_chls),
-    ( 'dlc', get_dlc_chls),
-    ( 'cIN', get_cin_chls),
-    ( 'dINr', get_dinr_chls),
+    ('aIN', get_ain_chls),
+    ('MN',  get_mn_chls),
+    ('dIN', get_din_chls),
+    ('RB',  get_rb_chls),
+    ('dla', get_dla_chls),
+    ('dlc', get_dlc_chls),
+    ('cIN', get_cin_chls),
+    ('dINr', get_dinr_chls),
 ]
 
 
@@ -358,16 +358,16 @@ celltypes = [
 def test_cell_current(cell_name, cell_chl_functor, current):
     sim = mf.NeuronSimulationEnvironment().Simulation()
 
-    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2") )
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     myCell = sim.create_cell(name=cell_name, morphology=m1)
-    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma") )
+    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma"))
 
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(myCell, chl )
+        mf.apply_mechanism_everywhere_uniform(myCell, chl)
 
-    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2') )
+    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
 
-    sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
+    sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage)
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
     res =sim.run()
@@ -483,7 +483,7 @@ EQNSET syn_simple {
     o' = - o/{1.5 ms}
     c' = - c/{80 ms}
     i = {0.435nS} * (v- {0mV})  * (c-o)  * scale  * vdep
-    vdep = 1/( 1+ 0.1*0.5*std.math.exp( -0.08*v/{1mV}) )
+    vdep = 1/(1+ 0.1*0.5*std.math.exp(-0.08*v/{1mV}))
 
     <=> PARAMETER scale:()
     <=> INPUT     v: mV       METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
@@ -512,8 +512,8 @@ def onto_driver(sim, postsynaptic, times):
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_onto_driver),
                                         default_parameters= {},
                                         cell_location = postsynaptic.get_location("soma")
-                                        )
-            )
+                                       )
+           )
 
 
 
@@ -527,15 +527,15 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
                                         voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
-                                        ),
+                                       ),
             postsynaptic_mech = env.PostSynapticMechanism(
                                         mfc.NeuroUnitEqnsetPostSynaptic,
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_AMPA),
                                         default_parameters= {'scale':ampa_scale*mf.pq.dimensionless},
                                         cell_location = postsynaptic.get_location("soma")
-                                        )
-            )
+                                       )
+           )
     nmda = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_VoltageThreshold,
@@ -543,15 +543,15 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
                                         voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
-                                        ),
+                                       ),
             postsynaptic_mech = env.PostSynapticMechanism(
                                         mfc.NeuroUnitEqnsetPostSynaptic,
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_NMDA),
                                         default_parameters= {'scale':nmda_scale*mf.pq.dimensionless},
                                         cell_location = postsynaptic.get_location("soma")
-                                        )
-            )
+                                       )
+           )
     return [ampa,nmda]
 
 def inhib(sim, presynaptic, postsynaptic, scale):
@@ -562,29 +562,29 @@ def inhib(sim, presynaptic, postsynaptic, scale):
                                         voltage_threshold = mf.unit("0:mV"),
                                         delay = mf.unit("1:ms"),
                                         weight = mf.unit("1:nS"),
-                                        ),
+                                       ),
             postsynaptic_mech = env.PostSynapticMechanism(
                                         mfc.NeuroUnitEqnsetPostSynaptic,
                                         name = "mYName1",
                                         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
                                         default_parameters= {'scale':scale*mf.pq.dimensionless},
                                         cell_location = postsynaptic.get_location("soma")
-                                        )
-            )
+                                       )
+           )
     return [inhib_syn]
 
 def driver_onto_dinr(sim, presynaptic, postsynaptic):
-    return dual_driver( sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=1.0)
+    return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=1.0)
 def driver_onto_cin(sim, presynaptic, postsynaptic):
-    return dual_driver( sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=0.1)
+    return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=0.1)
 
 def dinr_onto_cin(sim, presynaptic, postsynaptic):
-    return dual_driver( sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.0, nmda_scale=1.0)
+    return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.0, nmda_scale=1.0)
 
 def cin_onto_cin(sim, presynaptic, postsynaptic):
-    return inhib( sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0, )
+    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0,)
 def cin_onto_dinr(sim, presynaptic, postsynaptic):
-    return inhib( sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0, )
+    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0,)
 
 
 
@@ -594,48 +594,48 @@ env = mf.NeuronSimulationEnvironment()
 sim = env.Simulation()
 
 nNeurons = 1
-dINr_LHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="dINR_LHS" )
-dINr_RHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="dINR_RHS" )
+dINr_LHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="dINR_LHS")
+dINr_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="dINR_RHS")
 
-cIN_LHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="cIN_LHS" )
-cIN_RHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="cIN_RHS" )
+cIN_LHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="cIN_LHS")
+cIN_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=5, pop_name="cIN_RHS")
 #
-#aIN_LHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_ain, n=nNeurons, pop_name="aIN_LHS" )
-#aIN_RHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_ain, n=nNeurons, pop_name="aIN_RHS" )
+#aIN_LHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_ain, n=nNeurons, pop_name="aIN_LHS")
+#aIN_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_ain, n=nNeurons, pop_name="aIN_RHS")
 
 
-driver_LHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=nNeurons, pop_name="driver_LHS" )
-driver_RHS =mfc.NeuronPopulation( sim=sim, neuron_functor=make_cell_dinr, n=nNeurons, pop_name="driver_RHS" )
+driver_LHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=nNeurons, pop_name="driver_LHS")
+driver_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=nNeurons, pop_name="driver_RHS")
 
 
 # Connect the drivers:
-mfc.Connectors.times_to_all( sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
-mfc.Connectors.times_to_all( sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
 
 # LHS
 #######
 # Connect the drivers to eveything:
-mfc.Connectors.all_to_all( sim, presynaptic_population=driver_LHS, postsynaptic_population= cIN_LHS, connect_functor = driver_onto_cin)
-mfc.Connectors.all_to_all( sim, presynaptic_population=driver_LHS, postsynaptic_population= dINr_LHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all(sim, presynaptic_population=driver_LHS, postsynaptic_population= cIN_LHS, connect_functor = driver_onto_cin)
+mfc.Connectors.all_to_all(sim, presynaptic_population=driver_LHS, postsynaptic_population= dINr_LHS, connect_functor = driver_onto_dinr)
 # Connect the dINrs to eveything:
-mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_LHS, postsynaptic_population= cIN_LHS, connect_functor = dinr_onto_cin)
+mfc.Connectors.all_to_all(sim, presynaptic_population=dINr_LHS, postsynaptic_population= cIN_LHS, connect_functor = dinr_onto_cin)
 
 # Connect the cINs to eveything contra-laterally:
-mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_LHS, postsynaptic_population= cIN_RHS, connect_functor = cin_onto_cin)
-syn_cin_dinr_lr = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_LHS, postsynaptic_population= dINr_RHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
+mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_LHS, postsynaptic_population= cIN_RHS, connect_functor = cin_onto_cin)
+syn_cin_dinr_lr = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_LHS, postsynaptic_population= dINr_RHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr')
 
 
 ## RHS
 ########
-mfc.Connectors.all_to_all( sim, presynaptic_population=driver_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
-mfc.Connectors.all_to_all( sim, presynaptic_population=driver_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all(sim, presynaptic_population=driver_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
+mfc.Connectors.all_to_all(sim, presynaptic_population=driver_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
 # Connect the dINrs to eveything:
-mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
-#mfc.Connectors.all_to_all( sim, presynaptic_population=dINr_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
+mfc.Connectors.all_to_all(sim, presynaptic_population=dINr_RHS, postsynaptic_population= cIN_RHS, connect_functor = driver_onto_cin)
+#mfc.Connectors.all_to_all(sim, presynaptic_population=dINr_RHS, postsynaptic_population= dINr_RHS, connect_functor = driver_onto_dinr)
 
 # Connect the cINs to eveything contra-laterally:
-mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = cin_onto_cin)
-syn_cin_dinr_rl = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr' )
+mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = cin_onto_cin)
+syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr')
 
 
 
@@ -647,7 +647,7 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS
 #syn = sim.create_synapse(
 #        presynaptic_mech =  env.PreSynapticMechanism(
 #                                    mfc.PreSynapticMech_TimeList,
-#                                    time_list =   ( (100,105,110,115,120, 125,130,135,140,145,150,155) + (300,305,310,315,320,325,330,335,340,345,350,355) ) * mf.ms ,
+#                                    time_list =   ((100,105,110,115,120, 125,130,135,140,145,150,155) + (300,305,310,315,320,325,330,335,340,345,350,355)) * mf.ms ,
 #                                    weight = mf.unit("1:nS")),
 #        postsynaptic_mech = env.PostSynapticMechanism(
 #                                    mfc.NeuroUnitEqnsetPostSynaptic,
@@ -655,8 +655,8 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all( sim, presynaptic_population=cIN_RHS
 #                                    eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
 #                                    default_parameters= {'scale': 1 *mf.dimensionless},
 #                                    cell_location = somaLoc1
-#                                    )
-#        )
+#                                   )
+#       )
 #
 
 
@@ -675,8 +675,8 @@ syn_cin_dinr_lr.record_from_all(what='g')
 
 
 
-#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma") )
-#sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage )
+#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma"))
+#sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage)
 #sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
 res =sim.run()
@@ -687,17 +687,17 @@ for tr in res.get_traces():
 
 mf.TagViewer(res,
         plotspecs=[
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV,50*mf.mV)  ),
-    mf.PlotSpec_DefaultNew( s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}' ),
-    mf.PlotSpec_DefaultNew( s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}' ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV,50*mf.mV) ),
+    mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
+    mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
 
             ])
 

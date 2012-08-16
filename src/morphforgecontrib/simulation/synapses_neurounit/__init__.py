@@ -56,7 +56,7 @@ class RecordableData(object):
 
 class MM_Neuron_RecGen(NeuronRecordable):
     def __init__(self, src_chl, objvar,unit_in_nrn, std_tags, **kwargs):
-        super( MM_Neuron_RecGen, self).__init__(**kwargs)
+        super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.objvar=objvar
         self.unit_in_nrn = unit_in_nrn
@@ -88,7 +88,7 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
     def __init__(self, cell_location, eqnset, default_parameters={}, recordables_map= None, recordables_data=None, name=None):
         PostSynapticMech.__init__(self, cell_location=cell_location)
 
-        if isinstance( eqnset, basestring):
+        if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
         self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic)
@@ -101,23 +101,23 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
-            print "iiii",default_parameters[param.symbol], type( default_parameters[param.symbol])
+            print "iiii",default_parameters[param.symbol], type(default_parameters[param.symbol])
             assert param.symbol in default_parameters
-            assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol] ).rescale("")
+            assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol]).rescale("")
 
 
 
 exp2HOCTmpl = """
 // Post-Synapse [ $synnamepost ]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new $synapsetypename ( $sectionpos )
+${cellname}.internalsections[$sectionindex] $synnamepost = new $synapsetypename ($sectionpos)
 #for param_name, param_value in $parameters:
     $(synnamepost).$(param_name) = $param_value      // $param_value
 #end for
 
 """
 
-class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSynaptic):
+class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSynaptic):
 
 
     def __init__(self, **kwargs):
@@ -125,7 +125,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
         NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
 
         #self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic,prefix="" ))
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic,prefix=""))
 
         assert self.buildparameters.mechanismtype == MechanismType.Point
         self.units = {}
@@ -155,7 +155,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
 
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
@@ -170,19 +170,19 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
 
 
 
-    def build_hoc_section( self, cell, section, hocfile_obj, mta ):
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix)
 
     def create_modfile(self, modfile_set):
-        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt ))
+        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt))
 
 
     def get_mod_file_changeables(self):
         change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set( ['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',] )
-        print set( self.__dict__)
-        assert set( self.__dict__) == fixed_attrs | change_attrs
-        return dict ( [ (a, getattr(self, a)) for a in change_attrs ] )
+        fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
+        print set(self.__dict__)
+        assert set(self.__dict__) == fixed_attrs | change_attrs
+        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
 
 
 
@@ -215,8 +215,8 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen( src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return MM_Neuron_RecGen(src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin( NeuroUnitEqnsetPostSynaptic, Neuron_NeuroUnitEqnsetPostSynaptic)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(NeuroUnitEqnsetPostSynaptic, Neuron_NeuroUnitEqnsetPostSynaptic)

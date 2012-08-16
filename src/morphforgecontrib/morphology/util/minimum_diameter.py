@@ -76,7 +76,7 @@ class MorphologyMinimumDiameter(object):
                 z=sectionOld.d_z,
                 r=max(sectionOld.d_r, min_radius),
                 idtag=sectionOld.idtag,
-                )
+               )
             section_mapping_table[sectionOld] = section_new
 
         m = MorphologyTree(name=None, dummysection=dummy_root_new,

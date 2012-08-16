@@ -50,19 +50,19 @@ def getKSInfTau(env):
         V   = [-100, -80,  -40,   0,   40,],
         inf = [ 0.0, 0.0,  0.2,   0.5, 1.0],
         tau = [ 0.0, 50,   12,    15,  10]
-    )
+   )
 
     ks_vars = {'ks': i }
 
 
-    ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel,
+    ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
                                           name='InfTau1',
                                           ion='ks',
                                           equation='ks*ks*ks*ks',
                                           conductance = '2.:pS/um2',
                                           reversalpotential = '-80:mV',
                                           statevars_new = ks_vars,
-                                          mechanism_id='KFInfTauMechID' )
+                                          mechanism_id='KFInfTauMechID')
     return ks
 
 
@@ -79,7 +79,7 @@ TagViewer([tr0,tr1,tr2])
 
 
 
-def build_simulation( gbar_multiplier):
+def build_simulation(gbar_multiplier):
     # Create the morphology for the cell:
     morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
     m1 = MorphologyLoader.fromDictionary(morphDict1, morphname="SimpleMorphology1")
@@ -124,9 +124,9 @@ def build_simulation( gbar_multiplier):
 
 
 
-    #eqnset = EquationSetLoader.load( 'std_na_chl.txt', dir= LocMgr.getTestEqnSetsPath() )
-    #sodiumChannels = env.MembraneMechanism( EqnSetChl, eqnset=eqnset, chlname='EqnsetTest1', mechanism_id='std_na_chl',
-    #                                        parameters = parameters )
+    #eqnset = EquationSetLoader.load('std_na_chl.txt', dir= LocMgr.getTestEqnSetsPath())
+    #sodiumChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset, chlname='EqnsetTest1', mechanism_id='std_na_chl',
+    #                                        parameters = parameters)
 
 
 
@@ -136,7 +136,7 @@ def build_simulation( gbar_multiplier):
 
 
     ks = getKSInfTau(env)
-    #ks = env.MembraneMechanism( MM_InfTauInterpolatedChannel,
+    #ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
     #                                      name='InfTau1',
     #                                      ion='ks',
     #                                      equation='ks*ks*ks*ks',
@@ -144,7 +144,7 @@ def build_simulation( gbar_multiplier):
     #                                      mechanism_id='testchl1',
     #                                      conductance = '2.:pS/um2',
     #                                      reversalpotential = '-80:mV',
-    #                                      statevars = ks_vars )
+    #                                      statevars = ks_vars)
 
     #def get_voltageclamp_soma_current_trace(env, V,mech_builder, morphology):
 
@@ -160,8 +160,8 @@ def build_simulation( gbar_multiplier):
 
 
 
-    eqnset = EquationSetLoader.load( 'std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath() )
-    leakChannels = env.MembraneMechanism( EqnSetChl, eqnset=eqnset, chlname="LeakChls", mechanism_id='std_lk_chl',
+    eqnset = EquationSetLoader.load('std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath())
+    leakChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset, chlname="LeakChls", mechanism_id='std_lk_chl',
                                           parameters= { 'gl':unit("5:pS/um2"), 'e_rev': unit("-70:mV")  })
 
 
@@ -169,20 +169,20 @@ def build_simulation( gbar_multiplier):
 
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(myCell, leakChannels )
-    apply_mechanism_everywhere_uniform(myCell, ks )#, parameter_multipliers={ 'gbar': gbar_multiplier })
+    apply_mechanism_everywhere_uniform(myCell, leakChannels)
+    apply_mechanism_everywhere_uniform(myCell, ks)#, parameter_multipliers={ 'gbar': gbar_multiplier })
 
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
     # Define a Point on the morphology - in this case the middle of the soma:
     somaLoc = myCell.get_location("soma")
 
-    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
+    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
-    mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    mySim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
     result = mySim.run()
@@ -190,10 +190,10 @@ def build_simulation( gbar_multiplier):
 
 
 results = [
-           build_simulation( gbar_multiplier = 1.0 ),
-           #build_simulation( gbar_multiplier = 2.0 ),
+           build_simulation(gbar_multiplier = 1.0),
+           #build_simulation(gbar_multiplier = 2.0),
            ]
 
-TagViewer(results, timeranges=[(95, 200)*pq.ms] )
+TagViewer(results, timeranges=[(95, 200)*pq.ms])
 pylab.show()
 

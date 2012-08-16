@@ -45,11 +45,11 @@ class TabbedPlots(HasTraits):
             Item('plot1', editor=ComponentEditor(), dock='tab'),
             Item('plot2', editor=ComponentEditor(), dock='tab'),
             show_labels=False
-        ),
+       ),
         width=0.67,
         height=0.4,
         resizable=True
-    )
+   )
     def create_plot(self, data, name, color):
         p = Plot(self.data)
         p.plot(data, name=name, color=color)

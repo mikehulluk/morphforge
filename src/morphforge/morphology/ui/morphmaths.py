@@ -93,7 +93,7 @@ class MorphologyMeanCenterer(Pointtranslater):
     def __init__(self, morph, PtSrc=None):
         PtSrc = SVVisitorFactory.array3_all_points() if PtSrc == None else PtSrc
         X = PtSrc(morph)
-        offset = (array(map(numpy.sum, X.T)) / len(X) )
+        offset = (array(map(numpy.sum, X.T)) / len(X))
         #_get_mean(PtSrc(morph)) * -1.0
         super(MorphologyMeanCenterer, self).__init__(offset)
 

@@ -47,15 +47,15 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
                StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id, ):
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id )
+    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id,):
+        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
 
         self.name = name
         self.ion = ion
 
         self.permeability = unit(permeability)
-        self.intracellular_concentration  =unit( intracellular_concentration )
-        self.extracellular_concentration = unit( extracellular_concentration )
+        self.intracellular_concentration  =unit(intracellular_concentration)
+        self.extracellular_concentration = unit(extracellular_concentration)
 
         self.eqn = equation
         self.statevars = dict([ (s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])

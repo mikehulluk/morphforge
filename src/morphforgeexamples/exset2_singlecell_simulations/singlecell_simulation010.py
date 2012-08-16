@@ -58,27 +58,27 @@ myCell = mySim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
-leakChannels = env.MembraneMechanism( MM_LeakChannel,
+leakChannels = env.MembraneMechanism(MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.25:mS/cm2"),
                          reversalpotential=unit("-51:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
-                        )
+                       )
 
-apply_mechanism_everywhere_uniform(myCell, leakChannels )
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_mechanism_everywhere_uniform(myCell, leakChannels)
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 # Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp( name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = mySim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
 # Define what to record:
-mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
-mySim.recordall( leakChannels, cell_location=somaLoc)
+mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+mySim.recordall(leakChannels, cell_location=somaLoc)
 
 
 # run the simulation
@@ -88,7 +88,7 @@ results = mySim.run()
 SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
 
 # Display the results:
-TagViewer([results], figtitle="The response of a neuron to step current injection", timeranges=[(95, 200)*pq.ms], show=True )
+TagViewer([results], figtitle="The response of a neuron to step current injection", timeranges=[(95, 200)*pq.ms], show=True)
 
 
 

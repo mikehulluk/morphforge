@@ -153,10 +153,10 @@ v_fit = np.linspace(-100,60,100)
 #assert False
 
 def fitfunc(p,x):
-    #return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )
-    return (p[0] )/(p[2] + np.exp( (p[3]+x)/p[4] ) )
+    #return (p[0])/(p[2] + np.exp((p[3]+x)/p[4]))
+    return (p[0])/(p[2] + np.exp((p[3]+x)/p[4]))
 
-    return (p[0] + p[1]*x)/(p[2] + np.exp( (p[3]+x)/p[4] ) )
+    return (p[0] + p[1]*x)/(p[2] + np.exp((p[3]+x)/p[4]))
 
 def errfunc(p,x,y):
     dist = fitfunc(p, x) - y
@@ -165,7 +165,7 @@ def errfunc(p,x,y):
     if np.isnan(fitfunc(p,v_fit)).any():
         assert False
         return 1000
-    r = np.dot( dist.T,  dist )
+    r = np.dot(dist.T,  dist)
     return r
 
 

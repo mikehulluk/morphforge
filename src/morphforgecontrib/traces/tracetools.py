@@ -121,8 +121,8 @@ class SpikeFinderThreshCross(object):
         # t = range(d.shape[0])
 
         # pylab.figure()
-        # pylab.plot( t, d)
-        # pylab.plot( t, above_zero*100)
+        # pylab.plot(t, d)
+        # pylab.plot(t, above_zero*100)
         # pylab.savefig("/home/michael/Desktop/temp.svg")
 
         thresh_indices = zip(rising_edge_ind, falling_edge_ind)
@@ -168,7 +168,7 @@ class Spike(object):
     def init_get_duration(self):
 
         self.fiftyPCLine = (self.trace._data.rescale('mV'
-                            ).magnitude[self.peakIndex]
+                           ).magnitude[self.peakIndex]
                             + self.firingthres) / 2.0
 
         d = numpy.copy(self.trace._data.rescale('mV').magnitude)

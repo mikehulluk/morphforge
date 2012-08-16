@@ -75,8 +75,8 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
 
 
         @classmethod
-        def getResolvedAlphaBetaCurves(cls, V, chl, state ):
-            return AlphaBetaBetaCalculator.getAlphaBetaBeta(V, chl.statevars[state][0],chl.statevars[state][1],chl.statevars[state][2], chl.beta2threshold   )
+        def getResolvedAlphaBetaCurves(cls, V, chl, state):
+            return AlphaBetaBetaCalculator.getAlphaBetaBeta(V, chl.statevars[state][0],chl.statevars[state][1],chl.statevars[state][2], chl.beta2threshold  )
 
 
         @classmethod
@@ -96,7 +96,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             ax2.set_ylabel("Beta")
 
         @classmethod
-        def plot_inf_tau_curves(cls, ax1,ax2,calciumAlphaBetaBetaChannel, state ):
+        def plot_inf_tau_curves(cls, ax1,ax2,calciumAlphaBetaBetaChannel, state):
 
             chl = calciumAlphaBetaBetaChannel
 
@@ -122,16 +122,16 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             fig.suptitle("Calcium AlphaBetaBeta Channel - %s : %s"%(alphabeta_chl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state )
+            cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state)
 
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state )
+            cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state)
             return fig
 
 
         @classmethod
-        def PlotGHKMaxCurrentFlow(cls,calciumAlphaBetaBetaChannel, figsize ):
+        def PlotGHKMaxCurrentFlow(cls,calciumAlphaBetaBetaChannel, figsize):
             V = StdLimits.get_default_voltage_array().rescale("mV")
             # Plot the
             fig = QuantitiesFigure(figsize=figsize)
@@ -143,7 +143,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             nmp = (chl.CaZ * chl.F) / (chl.R * chl.T)
             nmpV = (nmp * V).rescale("")
 
-            iCa = chl.permeability * nmpV * chl.F * ( chl.intracellular_concentration - chl.extracellular_concentration * np.exp( -1.0 * nmpV) ) / ( 1.0 - np.exp( -1.0 * nmpV))
+            iCa = chl.permeability * nmpV * chl.F * (chl.intracellular_concentration - chl.extracellular_concentration * np.exp(-1.0 * nmpV)) / (1.0 - np.exp(-1.0 * nmpV))
 
             iCa.rescale("pA/cm2")
 
@@ -154,7 +154,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
         @classmethod
         def to_screen(cls, calciumAlphaBetaBetaChannel, state):
             cls.plot_state_curve_summary(cls, calciumAlphaBetaBetaChannel, state, figsize=(5,5))
-            cls.PlotGHKMaxCurrentFlow(cls, calciumAlphaBetaBetaChannel, figsize=(4,4) )
+            cls.PlotGHKMaxCurrentFlow(cls, calciumAlphaBetaBetaChannel, figsize=(4,4))
 
 
         @classmethod
@@ -162,7 +162,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             chl = calciumAlphaBetaBetaChannel
 
             localElements = []
-            localElements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+            localElements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
 
             # Summary:
             overviewTableData = [
@@ -178,42 +178,42 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                                 ]
 
 
-            localElements.append( Table(overviewTableData, style=reportlabconfig.listTableStyle) )
+            localElements.append(Table(overviewTableData, style=reportlabconfig.listTableStyle))
 
             #GHK Max Current Flow
-            localElements.append( Paragraph("MaxCurrentFlow From GHK", reportlabconfig.styles['Heading3']) )
-            fig = cls.PlotGHKMaxCurrentFlow( calciumAlphaBetaBetaChannel, figsize=(4,4) )
-            localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "ghk") )
+            localElements.append(Paragraph("MaxCurrentFlow From GHK", reportlabconfig.styles['Heading3']))
+            fig = cls.PlotGHKMaxCurrentFlow(calciumAlphaBetaBetaChannel, figsize=(4,4))
+            localElements.append(reportlabconfig.save_mpl_to_rl_image(fig, "ghk"))
 
             # Plot out the States:
             for state,params in calciumAlphaBetaBetaChannel.statevars.iteritems():
-                localElements.append( Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']) )
+                localElements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
 
                 if make_graphs:
                     fig = cls.plot_state_curve_summary(chl, state, figsize=(5,5))
-                    localElements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
+                    localElements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
                     fig.close()
 
                 #Equations:
                 eqns = [
                         "beta2Threshold = %s"%calciumAlphaBetaBetaChannel.beta2threshold,
                         "beta = beta1 if V less than beta2Threshold otherwise beta2",
-                        "alpha(V) = (A+BV)/(C+exp( (V+D)/E) )",
-                        "beta(V) = (A+BV)/(C+exp( (V+D)/E) )",
+                        "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
+                        "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                         ]
                 for eqn in eqns:
-                    localElements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
+                    localElements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
 
                 # Alpha Beta
-                ReportLabTools.build_alpha_beta_table( elements=localElements,
+                ReportLabTools.build_alpha_beta_table(elements=localElements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Alpha", params=params[0] )
-                ReportLabTools.build_alpha_beta_table( elements=localElements,
+                                         title="Alpha", params=params[0])
+                ReportLabTools.build_alpha_beta_table(elements=localElements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Beta1", params=params[1] )
-                ReportLabTools.build_alpha_beta_table( elements=localElements,
+                                         title="Beta1", params=params[1])
+                ReportLabTools.build_alpha_beta_table(elements=localElements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Beta2", params=params[2] )
+                                         title="Beta2", params=params[2])
 
             return localElements
 

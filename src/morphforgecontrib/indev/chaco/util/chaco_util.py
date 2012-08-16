@@ -150,7 +150,7 @@ class PointDraggingTool(DragTool):
 #===============================================================================
 # # Create the Chaco plot.
 #===============================================================================
-def _create_draggable_plot_component(title, initial_values=None,on_change_functor=None,  ):
+def _create_draggable_plot_component(title, initial_values=None,on_change_functor=None, ):
 
     container = OverlayPlotContainer(padding = 30, fill_padding = True,
                                      bgcolor = "lightgray", use_backbuffer=True)

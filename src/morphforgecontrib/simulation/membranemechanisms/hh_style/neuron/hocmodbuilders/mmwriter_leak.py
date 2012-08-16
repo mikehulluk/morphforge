@@ -49,7 +49,7 @@ $(cell_name).internalsections [ $section_index ] {
     // Leak Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
-    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //( in $variable_unit, converted from $variable_value_with_unit)
+    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)
     #end for
 }
 """
@@ -62,7 +62,7 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_hoc_section(cls, cell, section, hocfile_obj, mta ):
+    def build_hoc_section(cls, cell, section, hocfile_obj, mta):
 
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
@@ -76,7 +76,7 @@ $(cell_name).internalsections [ $section_index ] {
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterLeak.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
-            variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
+            variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
 
         tmpl_dict = {
                     "cell_name":cell_name,
@@ -86,7 +86,7 @@ $(cell_name).internalsections [ $section_index ] {
                     }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmpl_dict ).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmpl_dict).respond())
 
 
 
@@ -105,7 +105,7 @@ $(cell_name).internalsections [ $section_index ] {
         # Parameters:
         # {name: (value, unit,range)}
         base_writer.parameters = {
-          gbar_name:   (leak_chl.conductance.rescale( gbar_units ).magnitude, (gbar_units), None),
+          gbar_name:   (leak_chl.conductance.rescale(gbar_units).magnitude, (gbar_units), None),
           e_rev_name:   (leak_chl.reversalpotential.rescale(e_rev_units).magnitude, (e_rev_units), None),
           g_scale_name: (1.0, None, None)
                       }

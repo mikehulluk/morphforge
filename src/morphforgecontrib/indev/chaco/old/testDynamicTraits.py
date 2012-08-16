@@ -86,7 +86,7 @@ class Counter(HasTraits):
 
     def __init__(self):
 
-        self.add_trait( 'R', Range(0,10,1) )
+        self.add_trait('R', Range(0,10,1))
 
         v = self.trait_view()
         v.updated = True

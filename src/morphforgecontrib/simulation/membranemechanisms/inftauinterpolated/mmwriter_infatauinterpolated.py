@@ -47,7 +47,7 @@ $(cell_name).internalsections [ $section_index ] {
     // InfTauInterpolated Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
-    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //( in $variable_unit, converted from $variable_value_with_unit)
+    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)
     #end for
 }
 """
@@ -60,7 +60,7 @@ $(cell_name).internalsections [ $section_index ] {
 
 
     @classmethod
-    def build_hoc_section(cls, cell, section, hocfile_obj, mta ):
+    def build_hoc_section(cls, cell, section, hocfile_obj, mta):
 
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
@@ -74,7 +74,7 @@ $(cell_name).internalsections [ $section_index ] {
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterInfTauInterpolated.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
-            variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
+            variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
 
         tmpl_dict = {
             'cell_name': cell_name,
@@ -84,7 +84,7 @@ $(cell_name).internalsections [ $section_index ] {
             }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict ).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict).respond())
 
 
 
@@ -135,11 +135,11 @@ $(cell_name).internalsections [ $section_index ] {
 
         def buildInterpolatorFunc(state, inftau, funcname):
             if inftau=='inf':
-                interp_str_x = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
-                interp_str_y = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ] )
+                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ])
+                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ])
             elif inftau=='tau':
-                interp_str_x = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ] )
-                interp_str_y = ",".join( ["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ] )
+                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ])
+                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ])
             else:
                 assert False
 
@@ -157,7 +157,7 @@ $(cell_name).internalsections [ $section_index ] {
                         int nPts = %(nPts)d;
                         pInterpolator = makeIntWrapper(x,y, nPts);
                     }
-                    _l%(funcname)s= interpolate2( _lV, pInterpolator);
+                    _l%(funcname)s= interpolate2(_lV, pInterpolator);
                 }
                 ENDVERBATIM
             }
@@ -166,8 +166,8 @@ $(cell_name).internalsections [ $section_index ] {
 
 
         for s in alphabeta_chl.statevars_new:
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s )
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s )
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s)
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s)
 
 
 
@@ -176,6 +176,6 @@ $(cell_name).internalsections [ $section_index ] {
         # TODO: Remove hard dependancy here
         additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
         additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
-        mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags )
+        mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags)
         modfile_set.append(mod_file)
 

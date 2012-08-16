@@ -42,8 +42,8 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 class TraceOperator_TraceFixedDT_Quantity(object):
     @classmethod
     def do_add(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs._time, lhs._data + rhs)
@@ -52,8 +52,8 @@ class TraceOperator_TraceFixedDT_Quantity(object):
 
     @classmethod
     def do_sub(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity ) or \
-             ( type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
+             (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs._time, lhs._data - rhs)
@@ -61,8 +61,8 @@ class TraceOperator_TraceFixedDT_Quantity(object):
             return TraceFixedDT(rhs._time, rhs._data - lhs)
     @classmethod
     def do_mul(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs._time, lhs._data * rhs)
@@ -71,8 +71,8 @@ class TraceOperator_TraceFixedDT_Quantity(object):
 
     @classmethod
     def do_div(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs._time, lhs._data / rhs)
@@ -86,8 +86,8 @@ class TraceOperator_TraceFixedDT_Quantity(object):
 class TraceOperator_TraceFixedDT_Scalar(object):
     @classmethod
     def do_add(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == float ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == float )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == float) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
             assert isinstance(lhs._data, pq.Dimensionless)
@@ -98,8 +98,8 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
     @classmethod
     def do_sub(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == float ) or \
-             ( type(rhs) == TraceFixedDT and type(lhs) == float )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == float) or \
+             (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
             assert isinstance(lhs._data, pq.Dimensionless)
@@ -110,8 +110,8 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
     @classmethod
     def do_mul(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == float ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == float )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == float) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs._time, lhs._data * rhs)
@@ -120,36 +120,36 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
     @classmethod
     def do_div(self, lhs, rhs):
-        assert ( type(lhs) == TraceFixedDT and type(rhs) == float ) or \
-               ( type(rhs) == TraceFixedDT and type(lhs) == float )
+        assert (type(lhs) == TraceFixedDT and type(rhs) == float) or \
+               (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
             #assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT( lhs._time,  lhs._data / rhs)
+            return TraceFixedDT(lhs._time,  lhs._data / rhs)
         else:
             #assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT( rhs._time,  rhs._data / lhs)
+            return TraceFixedDT(rhs._time,  rhs._data / lhs)
 
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__add__,
+TraceOperatorCtrl.add_trace_operator(operator_type = operator.__add__,
                                       lhs_type = TraceFixedDT,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TraceFixedDT_Quantity.do_add,
-                                      flag='default' )
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__sub__,
+                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(operator_type = operator.__sub__,
                                       lhs_type = TraceFixedDT,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TraceFixedDT_Quantity.do_sub,
-                                      flag='default' )
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__mul__,
+                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(operator_type = operator.__mul__,
                                       lhs_type = TraceFixedDT,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TraceFixedDT_Quantity.do_mul,
-                                      flag='default' )
-TraceOperatorCtrl.add_trace_operator( operator_type = operator.__div__,
+                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(operator_type = operator.__div__,
                                       lhs_type = TraceFixedDT,
                                       rhs_type = pq.Quantity,
                                       operator_func = TraceOperator_TraceFixedDT_Quantity.do_div,
-                                      flag='default' )
+                                      flag='default')
 
 
 TraceOperatorCtrl.add_trace_operator(

@@ -43,7 +43,7 @@ class TraceOperatorCtrl(object):
                        operator.__div__, operator.__mul__]
 
     @classmethod
-    def add_trace_operator( cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
+    def add_trace_operator(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
         assert operator_type in cls.trace_operators
 
         key = (operator_type, lhs_type, rhs_type)
@@ -61,8 +61,8 @@ class TraceOperatorCtrl(object):
             cls.trace_operators_active[key] = operator_func, flag
 
     @classmethod
-    def add_trace_operator_symmetrical( cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
-        cls.add_trace_operator( operator_type=operator_type,
+    def add_trace_operator_symmetrical(cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
+        cls.add_trace_operator(operator_type=operator_type,
                               lhs_type=lrhs_type,
                               rhs_type=lrhs_type,
                               operator_func=operator_func,
@@ -76,7 +76,7 @@ class TraceOperatorCtrl(object):
 
 
     @classmethod
-    def operate( cls, operator_type, lhs, rhs, use_flag=None, **kwargs ):
+    def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
         #toc = TraceOperatorCtrl
         key = (operator_type, type(lhs), type(rhs))
 
@@ -206,7 +206,7 @@ def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, ad
     # Create a new trace
 
     #if type(tr) == TraceFixedDT
-    #tr_new = TraceFixedDT(time=new_time, data=new_data )
+    #tr_new = TraceFixedDT(time=new_time, data=new_data)
     tr_new = type(tr)(time=new_time, data=new_data)
     return copy_trace_attrs(tr,tr_new, name=name, comment=comment, tags=tags, add_tags=add_tags)
 

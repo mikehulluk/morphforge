@@ -61,7 +61,7 @@ class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
         pass
 
     def build_hoc(self, hocfile_obj):
-        HocModUtils.create_record_from_modfile( hocfile_obj,
+        HocModUtils.create_record_from_modfile(hocfile_obj,
                                              vecname="RecVec%s"%self.name,
                                              cell_location=self.cell_location,
                                              modvariable=self.modvar,
@@ -113,8 +113,8 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
 
-    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.nrnsuffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):
         modFile = ModFile(name='NeuroMLViaNeuroUnitsChannelNEURON_%s'

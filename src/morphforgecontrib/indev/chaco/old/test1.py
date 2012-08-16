@@ -143,7 +143,7 @@ if __name__ == "__main__":
 #                        orientation = "vertical"),
 #                    resizable=True, title=title,
 #                    width=size[0], height=size[1]
-#                    )
+#                   )
 #
 #    def _plot_default(self):
 #         return _create_plot_component()

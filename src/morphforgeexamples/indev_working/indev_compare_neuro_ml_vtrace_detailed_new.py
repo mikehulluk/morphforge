@@ -55,17 +55,17 @@ from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplem
 
 
 
-def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
+def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype,):
     # Create the environment:
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation( tstop=unit("1500:ms") )
+    mySim = env.Simulation(tstop=unit("1500:ms"))
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.create_cell(name="Cell1%s"%simtype, morphology=m1, segmenter=CellSegmenter_SingleSegment() )
+    myCell = mySim.create_cell(name="Cell1%s"%simtype, morphology=m1, segmenter=CellSegmenter_SingleSegment())
 
     # Setup the HH-channels on the cell:
     chl = chl_applicator_functor(env, myCell, mySim)
@@ -76,7 +76,7 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
 
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
@@ -85,19 +85,19 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype, ):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp( name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
 
-    cc = mySim.create_voltageclamp( name="Stim1",
+    cc = mySim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
                                    dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
                                    cell_location=somaLoc,
-                                   )
+                                  )
 
 
     # Define what to record:
-    mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
-    mySim.record( cc, what=StandardTags.Current, name="CurrentClamp" )
+    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    mySim.record(cc, what=StandardTags.Current, name="CurrentClamp")
 
 
 
@@ -130,9 +130,9 @@ def testfile(xmlfile):
 
     vars = ["CurrentClamp",'SomaVoltage','h','hinf','htau','g']
     ax = []
-    for i in range( len(vars)):
+    for i in range(len(vars)):
         t = [f.add_subplot(len(vars),2,i*2+1),f.add_subplot(len(vars),2,i*2+2)]
-        ax.append( t )
+        ax.append(t)
 
 
 
@@ -152,19 +152,19 @@ def testfile(xmlfile):
     for i,v in enumerate(v_levels):
         #if i> 2:
         #    continue
-        res = testfile_voltage(xmlfile, unit("%d:mV"%v) )
+        res = testfile_voltage(xmlfile, unit("%d:mV"%v))
 
         for j,v in enumerate(vars):
             print 'Var', v
             trXSL = res[SimMode.XSL].get_trace(v)
             trNUnits = res[SimMode.NeuroUnit].get_trace(v)
 
-            trXSLMin = trXSL.window(min_max_window ).mean()
+            trXSLMin = trXSL.window(min_max_window).mean()
             if not view_min[j] or view_min[j] > trXSLMin:
                 view_min[j] = trXSLMin
             if not view_max[j] or view_max[j] < trXSLMin:
                 view_max[j] = trXSLMin
-            trNUMin = trNUnits.window( min_max_window ).mean()
+            trNUMin = trNUnits.window(min_max_window).mean()
             if not view_min[j] or view_min[j] > trNUMin:
                 view_min[j] = trNUMin
             if not view_max[j] or view_max[j] < trNUMin:
@@ -179,19 +179,19 @@ def testfile(xmlfile):
 
     for j in range(len(vars)):
         rRange = view_max[j] - view_min[j]
-        ax[j][0].set_ylim( (view_min[j]-0.1*rRange, view_max[j]+0.1*rRange ) )
-        ax[j][1].set_ylim( (view_min[j]-0.1*rRange, view_max[j]+0.1*rRange ) )
+        ax[j][0].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
+        ax[j][1].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
 
-        #ax[j][0].set_xlim( (190,250) * pq.ms )
-        #ax[j][1].set_xlim( (100,700) * pq.ms  )
+        #ax[j][0].set_xlim((190,250) * pq.ms)
+        #ax[j][1].set_xlim((100,700) * pq.ms )
 
 
     root_dir = "/home/michael/Desktop/fOut/"
 
     LocMgr.ensure_dir_exists(root_dir)
-    fName = root_dir + "_".join( xmlfile.split("/")[-3:] )
+    fName = root_dir + "_".join(xmlfile.split("/")[-3:])
     import pylab
-    pylab.savefig( fName + ".svg"  )
+    pylab.savefig(fName + ".svg" )
     print fName
     #assert False
 
@@ -207,32 +207,32 @@ def testfile_voltage(xmlfile, voltage):
 
     #  via the neurounits bridge:
     chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlfile,  mechanism_id="Blhkjl")
-    def applicator_neuro( env, cell, sim):
+    def applicator_neuro(env, cell, sim):
 
-        apply_mechanism_everywhere_uniform(cell, chl_neuro )
-        sim.record( chl_neuro, what= 'h', cell_location=cell.get_location("soma"),   name="h")
-        sim.record( chl_neuro,  what='h_inf', cell_location=cell.get_location("soma"),   name="hinf")
-        sim.record( chl_neuro, what = 'h_tau', cell_location=cell.get_location("soma"),   name="htau")
-        sim.record( chl_neuro, what= 'g', cell_location=cell.get_location("soma"),  name="g")
+        apply_mechanism_everywhere_uniform(cell, chl_neuro)
+        sim.record(chl_neuro, what= 'h', cell_location=cell.get_location("soma"),   name="h")
+        sim.record(chl_neuro,  what='h_inf', cell_location=cell.get_location("soma"),   name="hinf")
+        sim.record(chl_neuro, what = 'h_tau', cell_location=cell.get_location("soma"),   name="htau")
+        sim.record(chl_neuro, what= 'g', cell_location=cell.get_location("soma"),  name="g")
         return chl_neuro
 
     # via xsl transformation:
     xsl_file = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl"
     chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlfile, xsl_filename=xsl_file,  mechanism_id="Blah")
-    def applicator_xsl(env, cell, sim ):
+    def applicator_xsl(env, cell, sim):
 
-        apply_mechanism_everywhere_uniform(cell, chl_xsl )
-        sim.record( chl_xsl,  what='h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h")
-        sim.record( chl_xsl ,  what='hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf")
-        sim.record( chl_xsl,  what='htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau")
-        sim.record( chl_xsl, what='gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g")
+        apply_mechanism_everywhere_uniform(cell, chl_xsl)
+        sim.record(chl_xsl,  what='h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h")
+        sim.record(chl_xsl ,  what='hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf")
+        sim.record(chl_xsl,  what='htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau")
+        sim.record(chl_xsl, what='gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g")
         return chl_xsl
 
     import os
     os.system("cp %s /home/michael/mftmp/"%xmlfile)
 
-    resA = simulate_chls_on_neuron( applicator_xsl, voltage_level=voltage, simtype="_XSL" )
-    resB = simulate_chls_on_neuron( applicator_neuro,voltage_level=voltage, simtype="_NeuroUnit" )
+    resA = simulate_chls_on_neuron(applicator_xsl, voltage_level=voltage, simtype="_XSL")
+    resB = simulate_chls_on_neuron(applicator_neuro,voltage_level=voltage, simtype="_NeuroUnit")
 
 
     return {
@@ -296,7 +296,7 @@ for xmlfile in NeuroMLDataLibrary.get_channelMLV1FilesWithSingleChannel():
 
         except Exception, e:
             print xmlfile
-            fail3.append( (xmlfile, e) )
+            fail3.append((xmlfile, e))
             raise
 
 

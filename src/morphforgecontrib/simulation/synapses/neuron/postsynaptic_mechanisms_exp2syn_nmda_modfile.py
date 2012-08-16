@@ -129,7 +129,7 @@ INITIAL {
     voltage_dependancy = vdep(v)
     VERBATIM
     {
-        $COMMENT srand( $randomseed );
+        $COMMENT srand($randomseed);
     }
     ENDVERBATIM
 
@@ -138,7 +138,7 @@ INITIAL {
 
 FUNCTION vdep(Vin)
 {
-    __C1__ vdep = ( 1. / (1.+ 0.1*0.5*exp(-0.08*Vin) ) )
+    __C1__ vdep = (1. / (1.+ 0.1*0.5*exp(-0.08*Vin)))
     __C2__ vdep = 1.0
 }
 
@@ -160,8 +160,8 @@ DERIVATIVE state {
 NET_RECEIVE(weight (uS)) {
     LOCAL clip
     VERBATIM
-    float x = ( (float) rand() ) /  RAND_MAX;
-    if( x < popening )
+    float x = ((float) rand()) /  RAND_MAX;
+    if(x < popening)
     {
         //printf("%f %f",A,B);
     ENDVERBATIM

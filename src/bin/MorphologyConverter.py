@@ -46,11 +46,11 @@ def swc_to_ply(swc_path, ply_path=None):
 
     # Save the individual meshes:
     for i,mesh in enumerate(meshes):
-        MeshWriterPLY.write(mesh, ply_path.replace('.ply', '_%d.ply'%i) )
+        MeshWriterPLY.write(mesh, ply_path.replace('.ply', '_%d.ply'%i))
 
     # Save a set of meshes:
-    combined_mesh = TriangleMesh.merge( meshes )
-    MeshWriterPLY.write(combined_mesh, ply_path )
+    combined_mesh = TriangleMesh.merge(meshes)
+    MeshWriterPLY.write(combined_mesh, ply_path)
 
 
 

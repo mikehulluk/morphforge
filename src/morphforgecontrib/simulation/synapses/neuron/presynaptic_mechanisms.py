@@ -45,7 +45,7 @@ from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import Pr
 preTmpl = """
 // Pre-Synapse [ $synname ]
 objref $synnamepre
-${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon( &v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, $weight.rescale("uS").magnitude  )
+${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, $weight.rescale("uS").magnitude )
 """
 
 class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
@@ -73,7 +73,7 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
                "weight": self.weight,
                }
 
-        hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond() )
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,  Template(preTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse]["PRE"] = data
 
@@ -95,14 +95,14 @@ preTmplList = """
 // Pre-Synapse [ $synname ]
 objref ${synnamepre}_NullObj
 objref $synnamepre
-$synnamepre = new NetCon( ${synnamepre}_NullObj, $synnamepost, 0, 0, $weight.rescale("uS").magnitude  )
+$synnamepre = new NetCon(${synnamepre}_NullObj, $synnamepost, 0, 0, $weight.rescale("uS").magnitude )
 
 
 objref fih_${synnamepre}
 fih_${synnamepre} = new FInitializeHandler("loadqueue_${synnamepre}()")
 proc loadqueue_${synnamepre}() {
 #for $event in $timelist:
-${synnamepre}.event( $event.get_time.rescale("ms").magnitude )
+${synnamepre}.event($event.get_time.rescale("ms").magnitude)
 #end for
 }
 
@@ -135,8 +135,8 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
         pass
 
 
-#NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
-#NeuronSimulationEnvironment.registerPreSynapticMechanism( PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
+#NeuronSimulationEnvironment.registerPreSynapticMechanism(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
+#NeuronSimulationEnvironment.registerPreSynapticMechanism(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
 
 NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
 NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)

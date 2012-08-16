@@ -227,7 +227,7 @@ class ModFileCompiler(object):
 
     @classmethod
     def check_modfile_units(cls, modfilename):
-        op = _simple_exec( ModBuilderParams.modlunitpath, modfilename )
+        op = _simple_exec(ModBuilderParams.modlunitpath, modfilename)
 
         op_expected = """
         model   1.1.1.1   1994/10/12 17:22:51

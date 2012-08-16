@@ -45,7 +45,7 @@ class NeuroCSVWriter(object):
 
 
     @classmethod
-    def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None  ):
+    def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None ):
         print 'Writing Out Traces:'
         traces = traces or []
         event_sets = event_sets or []
@@ -60,8 +60,8 @@ class NeuroCSVWriter(object):
         # Build the Header:
         header_meta = "" if csv_metadata is None else "!%s"%json.dumps(csv_metadata)
         header_cols = "\n".join(colHeaders)
-        header_events = "\n".join( evtHeaders )
-        header = "\n".join( [header_meta,header_cols, header_events] )
+        header_events = "\n".join(evtHeaders)
+        header = "\n".join([header_meta,header_cols, header_events])
 
 
 
@@ -83,7 +83,7 @@ class NeuroCSVWriter(object):
             valid_time_indices = np.where(tr_valid_times_bool)[0]
             valid_time_data_vals = tr.get_values(time_indices[valid_time_indices])
 
-            for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals ):
+            for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals):
                 data[tIndex] = dataFormat(float(data_val.magnitude))
             colData.append(data)
 
@@ -107,8 +107,8 @@ class NeuroCSVWriter(object):
     @classmethod
     def generate_column_header(self, tr, index):
         d = {'label':tr.name,
-             'unit': str( tr._data.units),
-             'tags': ",".join( tr.tags )
+             'unit': str(tr._data.units),
+             'tags': ",".join(tr.tags)
              }
         s1 = "#! COLUMN%d: "%(index)
         s2 = json.dumps(d)
@@ -117,8 +117,8 @@ class NeuroCSVWriter(object):
     @classmethod
     def generate_eventset_header(self, eventset):
         d = {'label':eventset.name,
-             'tags': ",".join( eventset.tags )
+             'tags': ",".join(eventset.tags)
              }
         s1 = "#@ EVENT %s "%json.dumps(d)
-        s2 = " ".join( ["%2.2f"%e.get_time() for e in eventset] )
+        s2 = " ".join(["%2.2f"%e.get_time() for e in eventset])
         return s1+s2

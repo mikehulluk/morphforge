@@ -68,7 +68,7 @@ class SWCTreeWriter(object):
     @classmethod
     def to_str(cls, morph=None, morphs=None, regionname_to_int_map=None):
 
-        assert (morph or morphs) and not( morph and morphs)
+        assert (morph or morphs) and not(morph and morphs)
 
         if morph:
             return cls._to_str_multi(morphs = [morph], regionname_to_int_map=regionname_to_int_map)
@@ -77,8 +77,8 @@ class SWCTreeWriter(object):
 
 
     @classmethod
-    def to_file(cls, filename, morph=None, morphs=None, regionname_to_int_map=None ):
-        assert (morph or morphs) and not( morph and morphs)
+    def to_file(cls, filename, morph=None, morphs=None, regionname_to_int_map=None):
+        assert (morph or morphs) and not(morph and morphs)
 
         if morph:
             return cls._to_file_multi(morphs = [morph], filename=filename, regionname_to_int_map=regionname_to_int_map)
@@ -92,7 +92,7 @@ class SWCTreeWriter(object):
         return FileIO.write_to_file(txt=cls._to_str_multi(morphs, regionname_to_int_map=regionname_to_int_map) , filename=filename)
 
     @classmethod
-    def _to_str_multi(cls, morphs, regionname_to_int_map=None ):
+    def _to_str_multi(cls, morphs, regionname_to_int_map=None):
         offset = 0
         output = ""
         for morph in morphs:
@@ -109,12 +109,12 @@ class SWCTreeWriter(object):
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()
 
-            region_type_map = dict( (s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph )
+            region_type_map = dict((s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph)
 
             context = [{ 'morph':morph, 'ids':id_map, 'region_type_map':region_type_map }]
-            new_op = Template(swc_templ, context ).respond()
+            new_op = Template(swc_templ, context).respond()
             output += new_op
-            offset += len( id_map )
+            offset += len(id_map)
         return output
 
 
@@ -130,5 +130,5 @@ class SWCTreeWriter(object):
 
 
 
-MorphologyExporter.register("toSWCFile", lambda filename,morphology: SWCTreeWriter.to_file(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree )
-MorphologyExporter.register("toSWCStr",  lambda morphology: SWCTreeWriter.to_str(morph=morphology), allow_override=False, from_type=MorphologyTree )
+MorphologyExporter.register("toSWCFile", lambda filename,morphology: SWCTreeWriter.to_file(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree)
+MorphologyExporter.register("toSWCStr",  lambda morphology: SWCTreeWriter.to_str(morph=morphology), allow_override=False, from_type=MorphologyTree)

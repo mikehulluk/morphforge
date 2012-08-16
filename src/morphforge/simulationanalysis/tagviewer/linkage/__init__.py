@@ -44,7 +44,7 @@ def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict
 
         ps_allocated_indices = [ allocatedTraceColors.get(tr,None) for tr in ps_traces  ]
         ps_allocated_indices = [ a for a in ps_allocated_indices if a is not None]
-        clashes = ps_allocated_indices.count( colorIndex )
+        clashes = ps_allocated_indices.count(colorIndex)
 
         # Does this group have anything that would go into this plot-spec?
         # If not, then it doesn't matter about collisions!
@@ -119,14 +119,14 @@ class StandardLinkages(object):
 
         groups = nx.connected_components(G)
 
-        for grp in sorted(groups, key=lambda g:(len(g),id(g[0]) ) , reverse=True) :
-            #print 'Allocating', ''.join( g.name for g in grp)
+        for grp in sorted(groups, key=lambda g:(len(g),id(g[0])) , reverse=True) :
+            #print 'Allocating', ''.join(g.name for g in grp)
             #Calculate how many collisions we would have for each allocation:
             def indexScore(i):
                 s = _get_collision_of_color_index_for_group(colorIndex=i,
                                                         group=grp,
                                                         ps_to_traces_dict=ps_to_traces_dict,
-                                                        allocatedTraceColors=allocatedTraceColors )
+                                                        allocatedTraceColors=allocatedTraceColors)
                 #print "Score", i, s
                 return s
 
@@ -141,10 +141,10 @@ class StandardLinkages(object):
             self.color_allocations[tr] = self.color_cycle[ allocatedTraceColors[tr] ]
         #assert False
 
-#l = StandardLinkages( linkages_explicit = [ (trI1,trV1,trG1), (trI2,trV2,trG2) ] )
+#l = StandardLinkages(linkages_explicit = [ (trI1,trV1,trG1), (trI2,trV2,trG2) ])
 #
 ##TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=None)
 #TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=l)
-#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")])  )
+#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")]) )
 
 

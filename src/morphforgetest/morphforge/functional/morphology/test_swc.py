@@ -58,19 +58,19 @@ class TestSWC(unittest.TestCase):
         m = MorphologyLoader.fromSWC(src=f, morphname=None, regionNames=None)
         print m
 
-        self.assertEqual( len(m), 6 )
-        self.assertEqual( len(m.get_regions() ), 2 )
+        self.assertEqual(len(m), 6)
+        self.assertEqual(len(m.get_regions()), 2)
 
         root = m.get_root_section()
-        self.assertAlmostEqual( root.p_x,  1591.43 )
-        self.assertAlmostEqual( root.p_y,  53.87   )
-        self.assertAlmostEqual( root.p_z,  20.48   )
-        self.assertAlmostEqual( root.p_r,  0.15    )
+        self.assertAlmostEqual(root.p_x,  1591.43)
+        self.assertAlmostEqual(root.p_y,  53.87  )
+        self.assertAlmostEqual(root.p_z,  20.48  )
+        self.assertAlmostEqual(root.p_r,  0.15   )
 
-        self.assertAlmostEqual( root.d_x,  1590.78 )
-        self.assertAlmostEqual( root.d_y,  50.61   )
-        self.assertAlmostEqual( root.d_z,  20.48   )
-        self.assertAlmostEqual( root.d_r,  5.80    )
+        self.assertAlmostEqual(root.d_x,  1590.78)
+        self.assertAlmostEqual(root.d_y,  50.61  )
+        self.assertAlmostEqual(root.d_z,  20.48  )
+        self.assertAlmostEqual(root.d_r,  5.80   )
 
 
 

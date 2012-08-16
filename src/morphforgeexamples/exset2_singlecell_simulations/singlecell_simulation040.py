@@ -66,7 +66,7 @@ def get_Na_Channels(env):
                             reversalpotential=unit("50.0:mV"),
                             statevars=naStateVars,
                             mechanism_id = 'Na_ID'
-                            )
+                           )
 
 def get_Ks_Channels(env):
     kfStateVars = {"ks": {"alpha": [ 0.2,0,1,-6.96,-7.74  ], "beta": [0.05,0,2,-18.07,6.1  ] } }
@@ -79,7 +79,7 @@ def get_Ks_Channels(env):
                             reversalpotential=unit("-80.0:mV"),
                             statevars=kfStateVars,
                             mechanism_id = 'IN_Ks_ID'
-                            )
+                           )
 
 def get_Kf_Channels(env):
     kfStateVars = {"kf": {"alpha": [  3.1,0,1,-31.5,-9.3 ], "beta": [0.44,0,1,4.98,16.19  ] } }
@@ -92,7 +92,7 @@ def get_Kf_Channels(env):
                             reversalpotential=unit("-80.0:mV"),
                             statevars=kfStateVars,
                             mechanism_id = 'N_Kf_ID'
-                            )
+                           )
 
 def get_Lk_Channels(env):
     leakChannels = env.MembraneMechanism(
@@ -101,7 +101,7 @@ def get_Lk_Channels(env):
                          conductance=unit("3.6765:nS") / unit("400:um2"),
                          reversalpotential=unit("-51:mV"),
                          mechanism_id = 'Lk_ID'
-                        )
+                       )
     return leakChannels
 
 
@@ -125,22 +125,22 @@ def simulate(current_inj_level):
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
 
-    apply_mechanism_everywhere_uniform(myCell, leakChannels )
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
-    apply_mechanism_everywhere_uniform(myCell, potFastChannels )
-    apply_mechanism_everywhere_uniform(myCell, potSlowChannels )
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2') )
+    apply_mechanism_everywhere_uniform(myCell, leakChannels)
+    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(myCell, potFastChannels)
+    apply_mechanism_everywhere_uniform(myCell, potSlowChannels)
+    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
 
 
     # Get a cell_location on the cell:
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp( amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    cc = mySim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
     mySim.record(cc, what=StandardTags.Current)
 
     # Define what to record:
-    mySim.record( myCell, what=StandardTags.Voltage, cell_location = somaLoc )
+    mySim.record(myCell, what=StandardTags.Voltage, cell_location = somaLoc)
 
     # run the simulation
     results = mySim.run()
@@ -150,5 +150,5 @@ def simulate(current_inj_level):
 
 # Display the results:
 results = [ simulate(current_inj_level='%d:pA'%i) for i in [50,100,150,200, 250, 300]   ]
-TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True )
+TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True)
 

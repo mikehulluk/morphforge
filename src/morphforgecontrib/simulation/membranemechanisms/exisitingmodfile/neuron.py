@@ -75,12 +75,12 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
 
 
 
-    def build_hoc_section(self, cell, section, hocfile_obj, mta ):
-        #Units = dict( [ (p.symbol, pq.Quantity(1., p.get_dimension().simplified ) ) for p in self.eqnset.parameters] )
-        build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix )
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        #Units = dict([ (p.symbol, pq.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):
-        mod_file =  ModFile(name='EqnSetModfile', modtxt=self.mod_text )
+        mod_file =  ModFile(name='EqnSetModfile', modtxt=self.mod_text)
         modfile_set.append(mod_file)
 
 
@@ -99,7 +99,7 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
         return {}
 
     def get_recordable(self, what,  **kwargs):
-        raise ValueError( "Can't find Recordable: %s"%what)
+        raise ValueError("Can't find Recordable: %s"%what)
 
 
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(SimulatorSpecificChannel, MM_Neuron_SimulatorSpecificChannel)

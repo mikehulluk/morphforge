@@ -131,7 +131,7 @@ class PlyScope(object):
             return self.global_scope.region_color_defaults[None]
         assert False, ' What do I do with region: %d ' % rgn
 
-        # return ColorDef(200,50, np.min((rgn*20,255) ))
+        # return ColorDef(200,50, np.min((rgn*20,255)))
 
     def include_file(self, filename, options):
         src_obj = self.global_scope.getFileObjRead(filename)
@@ -166,16 +166,16 @@ class PlyScope(object):
 
             # Apply the options:
             if 'trim' in options:
-                m = AxonTrimmer.trim_axon_from_morphology(m, max_dist_to_parent=options['trim'] )
+                m = AxonTrimmer.trim_axon_from_morphology(m, max_dist_to_parent=options['trim'])
             if 'offset' in options:
-                m = MorphologyTranslator.translate(morphology=m, offset=options['offset'] )
-            if self.global_scope.has_option_set( MeshGenerationOptions.minimum_diameter):
-                m = MorphologyMinimumDiameter.ensure(m, min_diameter =self.global_scope.get_option(MeshGenerationOptions.minimum_diameter) )
+                m = MorphologyTranslator.translate(morphology=m, offset=options['offset'])
+            if self.global_scope.has_option_set(MeshGenerationOptions.minimum_diameter):
+                m = MorphologyMinimumDiameter.ensure(m, min_diameter =self.global_scope.get_option(MeshGenerationOptions.minimum_diameter))
 
 
 
 
-            mesh = MeshFromGTS.build( m, plot=False, region_color_map = rgn_colors)
+            mesh = MeshFromGTS.build(m, plot=False, region_color_map = rgn_colors)
             self.meshes.append(mesh)
 
 

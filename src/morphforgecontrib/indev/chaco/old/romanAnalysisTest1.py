@@ -73,10 +73,10 @@ minf = m_inf(v)
 
 SA = unit('1000:um2')
 
-iNa = ( naChl.conductance * SA * m_inf(v)*m_inf(v)*m_inf(v)*h_inf(v) * ( v*mV - naChl.reversalpotential) ).rescale('pA').magnitude
-iKf = ( kfChl.conductance * SA * kf_inf(v)*kf_inf(v)*kf_inf(v)*kf_inf(v) * ( v*mV - kfChl.reversalpotential) ).rescale('pA').magnitude
-iKs = ( ksChl.conductance * SA * ks_inf(v)*ks_inf(v) * ( v*mV - ksChl.reversalpotential) ).rescale('pA').magnitude
-iLk = ( lkChl.conductance * SA * ( v*mV - lkChl.reversalpotential) ).rescale('pA').magnitude
+iNa = (naChl.conductance * SA * m_inf(v)*m_inf(v)*m_inf(v)*h_inf(v) * (v*mV - naChl.reversalpotential)).rescale('pA').magnitude
+iKf = (kfChl.conductance * SA * kf_inf(v)*kf_inf(v)*kf_inf(v)*kf_inf(v) * (v*mV - kfChl.reversalpotential)).rescale('pA').magnitude
+iKs = (ksChl.conductance * SA * ks_inf(v)*ks_inf(v) * (v*mV - ksChl.reversalpotential)).rescale('pA').magnitude
+iLk = (lkChl.conductance * SA * (v*mV - lkChl.reversalpotential)).rescale('pA').magnitude
 
 
 sNa =  m_inf(v)*m_inf(v)*m_inf(v)*h_inf(v)
@@ -85,7 +85,7 @@ sKs =  ks_inf(v)*ks_inf(v)
 
 
 def get_nCurve(iExt):
-    n4 = ((iNa + iLk + iKf) + iExt) / ( ksChl.conductance * SA * (v*mV-ksChl.reversalpotential) ).rescale('pA').magnitude
+    n4 = ((iNa + iLk + iKf) + iExt) / (ksChl.conductance * SA * (v*mV-ksChl.reversalpotential)).rescale('pA').magnitude
     n = np.power(n4,0.5)
     return n
 

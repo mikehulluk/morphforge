@@ -52,7 +52,7 @@ def _butterworthfilter(self, filterorder, cutoff_frequency):
                        comment='+(Butterworth Filtered)')
 
 
-TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, can_fallback_to_fixed_trace=True)
 
 
 
@@ -75,7 +75,7 @@ def _besselfilter(self, filterorder, cutoff_frequency):
                        comment='+(Bessel Filtered)')
 
 
-TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True  )
+TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True )
 
 
 
@@ -92,11 +92,11 @@ def _filterlowpassrc(tr, tau):
     a = np.array([1, k - 1])
     b = np.array([0, k])
 
-    xp = scipy.signal.lfilter( b, a, tr._data.magnitude)
+    xp = scipy.signal.lfilter(b, a, tr._data.magnitude)
     return clone_trace(tr=tr, data=xp * tr._data.units, comment="+ (LP RC Filtered)")
 
 
-TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)
 
 
 

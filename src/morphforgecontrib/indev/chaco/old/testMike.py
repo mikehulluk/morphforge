@@ -58,7 +58,7 @@ from enthought.chaco.chaco_plot_editor import ChacoPlotItem
 from numpy import arange
 
 
-def addTitleOverlay( component, title):
+def addTitleOverlay(component, title):
     component.overlays.append(PlotLabel(title,
                               component=component,
                               font = "swiss 16",
@@ -71,14 +71,14 @@ class SimulationManager(HasTraits):
 
 
 
-    def trait_view ( self, name = None, view_element = None ):
+    def trait_view (self, name = None, view_element = None):
         return View(self._instance_traits().keys())
 
 
-    def _createVoltageTraceComponent(self, ):
+    def _createVoltageTraceComponent(self,):
 
         x = arange(-5,15,100)
-        tracedata = ArrayPlotData( x=x, y1=np.sin(x), y2=np.cos(x) )
+        tracedata = ArrayPlotData(x=x, y1=np.sin(x), y2=np.cos(x))
 
         plot = Plot(tracedata)
         plot.x_axis.title = "time"
@@ -100,10 +100,10 @@ class SimulationManager(HasTraits):
         return container
 
 
-    def _create_cellConfigComponent(self ):
+    def _create_cellConfigComponent(self):
 
         x = arange(-5,15,100)
-        tracedata = ArrayPlotData( x=x, y1=np.sin(x), y2=np.cos(x) )
+        tracedata = ArrayPlotData(x=x, y1=np.sin(x), y2=np.cos(x))
 
         plot = Plot(tracedata)
         plot.x_axis.title = "time"
@@ -128,32 +128,32 @@ class SimulationManager(HasTraits):
     def _createConfigurationPane(self,):
         container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
-        addTitleOverlay( container, 'Configuration Pane')
+        addTitleOverlay(container, 'Configuration Pane')
 
-        container.add( self._create_cellConfigComponent() )
+        container.add(self._create_cellConfigComponent())
         container.add_trait ('self.surface_area_um2',self.surface_area_um2)
-        #traits_view = View( Item('self.surface_area_um2', editor=ComponentEditor(), show_label=False), width=500, height=500, resizable=True, title="Chaco Plot")
+        #traits_view = View(Item('self.surface_area_um2', editor=ComponentEditor(), show_label=False), width=500, height=500, resizable=True, title="Chaco Plot")
 
-        #container.add( traits_view)
+        #container.add(traits_view)
         return container
 
     def _createResultsPane(self):
         container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
-        addTitleOverlay( container, 'Results Pane')
+        addTitleOverlay(container, 'Results Pane')
 
-        container.add( self._createVoltageTraceComponent() )
+        container.add(self._createVoltageTraceComponent())
 
         return container
 
-    def _createWindow(self ):
+    def _createWindow(self):
 
         container = HPlotContainer(resizable = "hv", bgcolor="lightgray",
         #container = Container(resizable = "hv", bgcolor="lightgray",
                                    fill_padding=True, padding = 10)
-        container.add( self._createConfigurationPane() )
-        container.add( self._createResultsPane() )
-        #container.add( self._create_plot_component() )
+        container.add(self._createConfigurationPane())
+        container.add(self._createResultsPane())
+        #container.add(self._create_plot_component())
         return container
 
 
@@ -258,7 +258,7 @@ if __name__ == "__main__":
 #                        orientation = "vertical"),
 #                    resizable=True, title=title,
 #                    width=size[0], height=size[1]
-#                    )
+#                   )
 #
 #    def _plot_default(self):
 #         return _create_plot_component()

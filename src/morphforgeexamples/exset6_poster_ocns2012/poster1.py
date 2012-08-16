@@ -80,7 +80,7 @@ EQNSET hh_k {
     ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
     n' = (ninf-n) / ntau
-    StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+std.math.exp( (V+a4)/a5) )
+    StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))
     n_alpha_rate = StdFormAB(V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
     n_beta_rate =  StdFormAB(V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
 
@@ -95,7 +95,7 @@ EQNSET hh_k {
 
 eqnset_txt_lk = """
 EQNSET hh_lk {
-    i = {0.3mS/cm2} * ( v- {-54.3mV} )
+    i = {0.3mS/cm2} * (v- {-54.3mV})
     <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
 } """
@@ -110,7 +110,7 @@ cell = sim.create_cell(name="Cell1", morphology=my_morph)
 soma = cell.get_location("soma")
 
 # Setup passive channels:
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Setup active channels:
 na_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
@@ -118,23 +118,23 @@ na_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eq
 k_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, mechanism_id="kChl")
 lk_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="LKChl",eqnset=eqnset_txt_lk, mechanism_id="lkChl")
 
-apply_mechanism_everywhere_uniform(cell, na_chl )
-apply_mechanism_everywhere_uniform(cell, lk_chl )
-apply_mechanism_everywhere_uniform(cell, k_chl )
+apply_mechanism_everywhere_uniform(cell, na_chl)
+apply_mechanism_everywhere_uniform(cell, lk_chl)
+apply_mechanism_everywhere_uniform(cell, k_chl)
 
 # Define what to record:
-sim.record( cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = soma )
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = soma)
 sim.record(na_chl, what='m', cell_location=soma, user_tags=[StandardTags.StateVariable])
 sim.record(na_chl, what='h', cell_location=soma, user_tags=[StandardTags.StateVariable])
 sim.record(k_chl,  what='n', cell_location=soma, user_tags=[StandardTags.StateVariable])
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp( name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay=U("100:ms"), cell_location=soma)
+cc = sim.create_currentclamp(name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay=U("100:ms"), cell_location=soma)
 sim.record(cc, what=StandardTags.Current)
 
 
 # run the simulation
 results = sim.run()
-TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True )
+TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True)
 
 

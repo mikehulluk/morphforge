@@ -36,20 +36,20 @@ from quantities_plot_new import QuantitiesFigureNew
 
 
 
-class QuantitiesFigure( QuantitiesFigureNew ):
+class QuantitiesFigure(QuantitiesFigureNew):
     def __init__(self, *args, **kwargs):
         QuantitiesFigureNew.__init__(self, subplot_class= QuantitiesAxis, *args, **kwargs)
 
 
-class QuantitiesAxis( QuantitiesAxisNew ):
+class QuantitiesAxis(QuantitiesAxisNew):
     def __init__(self, *args, **kwargs):
         QuantitiesAxisNew.__init__(self, *args, **kwargs)
 
 
     def plotTracePointBased(self, trace, *args, **kwargs):
-        return self.plot(trace._time, trace._data, *args, **kwargs )
+        return self.plot(trace._time, trace._data, *args, **kwargs)
     def plotTracePiecewise(self, trace, *args, **kwargs):
-        return self.plot(trace._time, trace._data, *args, **kwargs )
+        return self.plot(trace._time, trace._data, *args, **kwargs)
 
     def plotTrace(self, trace, *args, **kwargs):
         label = trace.comment
@@ -58,8 +58,8 @@ class QuantitiesAxis( QuantitiesAxisNew ):
             del kwargs['label']
 
         plotpoints = trace.plotpoints()
-        #return self.plot(plotpoints[0], plotpoints[1],'o-', *args, label=label, **kwargs )
-        return self.plot(plotpoints[0], plotpoints[1], *args, label=label, **kwargs )
+        #return self.plot(plotpoints[0], plotpoints[1],'o-', *args, label=label, **kwargs)
+        return self.plot(plotpoints[0], plotpoints[1], *args, label=label, **kwargs)
 
 
 

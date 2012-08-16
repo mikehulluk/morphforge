@@ -166,7 +166,7 @@ DERIVATIVE states {
 modTmplProcedure = """
 
 ? rates
-PROCEDURE ${updatefunctionname}( v(mV) ) {
+PROCEDURE ${updatefunctionname}(v(mV)) {
 
 #set $locals = [ r[0][0] for r in $rates.values() if r[0][0] ]
 #set $localString = "LOCAL " + ",".join(locals) if $locals else ""
@@ -174,7 +174,7 @@ PROCEDURE ${updatefunctionname}( v(mV) ) {
 UNITSOFF
 
 #for $rName in $ratecalcorder:
-#set ( ($rEqnLocals,$rEqn),$rUnit) = $rates[$rName]
+#set (($rEqnLocals,$rEqn),$rUnit) = $rates[$rName]
     $rEqn
 #end for
 }
@@ -213,7 +213,7 @@ class MM_ModFileWriterBase(object):
 
         self.suffix = suffix
 
-        # {name: ( initialvalue, equation ) }
+        # {name: (initialvalue, equation) }
         self.internalstates = (internalstates if internalstates else {})
 
         # {name: (value, unit,range)}
@@ -293,9 +293,9 @@ class MM_ModFileWriterBase(object):
         # Debug:
         # for blk in blks:
         #    print blk
-        #    print Template(blk, [self] ).respond()
+        #    print Template(blk, [self]).respond()
 
 
-        resps = [Template(blk, [self] ).respond() for blk in blks ]
+        resps = [Template(blk, [self]).respond() for blk in blks ]
         return "".join(resps)
 

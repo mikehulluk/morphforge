@@ -41,12 +41,12 @@ from morphforge.core.quantities.fromcore import unit
 
 def _convert_to_unit(o, default_unit):
     #assert False
-    assert not isinstance( default_unit, (pq.quantity.Quantity,) )
+    assert not isinstance(default_unit, (pq.quantity.Quantity,))
 
     if isinstance(o, pq.quantity.Quantity):
         return o.rescale(default_unit)
     elif is_float(o) or is_int(o):
-        return o * morphforge.core.quantities.unit_string_parser.parse( default_unit ).rescale(default_unit)
+        return o * morphforge.core.quantities.unit_string_parser.parse(default_unit).rescale(default_unit)
     elif isinstance(o, (str, unicode)) and ":" in o:
         return unit(o).rescale(default_unit)
     else:
@@ -67,12 +67,12 @@ class MorphologyBuilder(object):
 
 
         if area:
-            area = _convert_to_unit(area, default_unit="um2" ).rescale("um2").magnitude
+            area = _convert_to_unit(area, default_unit="um2").rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
 
         else:
             assert isinstance(int,rad) or isinstance(float,rad)
-            rad = _convert_to_unit(rad, default_unit="um" ).rescale("um").magnitude
+            rad = _convert_to_unit(rad, default_unit="um").rescale("um").magnitude
 
         soma_region = Region("soma")
         dummysection = Section(region=None, x=0.0, y=0.0, z=0.0, r=rad)

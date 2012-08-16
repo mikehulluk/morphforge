@@ -62,7 +62,7 @@ leakChannels = env.MembraneMechanism(
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
-                        )
+                       )
 
 sodiumStateVars = { "m": {
                       "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
@@ -80,7 +80,7 @@ sodiumChannels = env.MembraneMechanism(
                         reversalpotential=unit("50:mV"),
                         statevars=sodiumStateVars,
                         mechanism_id="HH_NA_CURRENT"
-                        )
+                       )
 kStateVars = { "n": {
                       "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
                       "beta": [0.125,0,0,65,80]},
@@ -94,27 +94,27 @@ kChannels = env.MembraneMechanism(
                         reversalpotential=unit("-77:mV"),
                         statevars=kStateVars,
                         mechanism_id="HH_K_CURRENT"
-                        )
+                       )
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(myCell, leakChannels )
-apply_mechanism_everywhere_uniform(myCell, sodiumChannels )
-apply_mechanism_everywhere_uniform(myCell, kChannels )
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
+apply_mechanism_everywhere_uniform(myCell, leakChannels)
+apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
+apply_mechanism_everywhere_uniform(myCell, kChannels)
+apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mySim.record( cc, what=StandardTags.Current)
+cc = mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+mySim.record(cc, what=StandardTags.Current)
 
 
 
 # To record along the axon, we create a set of 'CellLocations', at the distances
 # specified (start,stop,
-for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100) ):
+for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100)):
 
     print " -- ",cell_location.section
     print " -- ",cell_location.sectionpos
@@ -122,17 +122,17 @@ for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell
 
     # Create a path along the morphology from the centre of the
     # Soma
-    path = MorphPath( somaLoc, cell_location)
+    path = MorphPath(somaLoc, cell_location)
     print "Distance to Soma Centre:", path.get_length()
 
-    mySim.record( myCell, what=StandardTags.Voltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length() )
+    mySim.record(myCell, what=StandardTags.Voltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length())
 
 
 # Define what to record:
-mySim.record( myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc )
+mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 # run the simulation
 results = mySim.run()
 
 # Display the results:
-TagViewer([results], timeranges=[(97.5, 140)*pq.ms] )
+TagViewer([results], timeranges=[(97.5, 140)*pq.ms])

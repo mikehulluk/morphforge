@@ -75,7 +75,7 @@ class CellBiophysics(object):
         res = []
         for mechID in mechanism_i_ds:
             mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mechID]
-            highest_prority_mech = SeqUtils.max_with_unique_check( mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority() )
+            highest_prority_mech = SeqUtils.max_with_unique_check(mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority())
             res.append(highest_prority_mech)
         return res
 
@@ -94,7 +94,7 @@ class CellBiophysics(object):
 
     def get_mta_by_mechanism_id_for_section(self, id, section):
         assert False,'Deprecated? 2012-01-20'
-        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id ] )
+        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id ])
 
 
 
@@ -114,11 +114,11 @@ class CellBiophysics(object):
         passivemechs = {}
         for passiveproperty in PassiveProperty.all:
             section_property_ptas = [spta for spta in sectionptas if spta.passiveproperty == passiveproperty ]
-            highest_prority_mech = SeqUtils.max_with_unique_check( section_property_ptas, key=lambda pta: pta.targetter.get_priority() )
+            highest_prority_mech = SeqUtils.max_with_unique_check(section_property_ptas, key=lambda pta: pta.targetter.get_priority())
             passivemechs[passiveproperty] = highest_prority_mech
         return passivemechs
 
-    def get_passive_property_for_section(self, section, passive  ):
+    def get_passive_property_for_section(self, section, passive ):
         return self.get_passives_for_section(section)[passive].value
 
 

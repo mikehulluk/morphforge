@@ -38,8 +38,8 @@ within python; traversal of the datastructures; rendering to MayaVI &
 matplotlib and export to triangular mesh.
 
 Internally, morphforge provides a dual representation for morphologies, either
-**TreeBased:** (:py:class:`~.core.tree.MorphologyTree` ) or **VertexBased:**
-(:py:class:`~.core.array.MorphologyArray` ). More information about these can
+**TreeBased:** (:py:class:`~.core.tree.MorphologyTree`) or **VertexBased:**
+(:py:class:`~.core.array.MorphologyArray`). More information about these can
 found at XX.
 
 .. todo::

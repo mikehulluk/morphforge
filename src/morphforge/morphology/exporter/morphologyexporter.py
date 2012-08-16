@@ -53,5 +53,5 @@ class MorphologyExporter(object):
             err+= "(Perhaps use the 'allow_override' parameter on this function-call?)"
             raise MorphologyFrameworkRegistrationError(err)
 
-        setattr( from_type, method_name, export_functor)
+        setattr(from_type, method_name, export_functor)
 

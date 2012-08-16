@@ -34,10 +34,10 @@ import quantities as pq
 
 
 # Conductances:
-mS =  pq.UnitQuantity('milli-Siemen', pq.milli * pq.siemens, symbol="mS" )
-uS =  pq.UnitQuantity('micro-Siemen', pq.micro * pq.siemens, symbol="uS" )
-nS =  pq.UnitQuantity('nano-Siemen',  pq.nano *  pq.siemens, symbol="nS" )
-pS =  pq.UnitQuantity('pico-Siemen',  pq.pico *  pq.siemens, symbol="pS" )
+mS =  pq.UnitQuantity('milli-Siemen', pq.milli * pq.siemens, symbol="mS")
+uS =  pq.UnitQuantity('micro-Siemen', pq.micro * pq.siemens, symbol="uS")
+nS =  pq.UnitQuantity('nano-Siemen',  pq.nano *  pq.siemens, symbol="nS")
+pS =  pq.UnitQuantity('pico-Siemen',  pq.pico *  pq.siemens, symbol="pS")
 
 
 # Capacitances:

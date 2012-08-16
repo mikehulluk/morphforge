@@ -54,7 +54,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalph
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"), ) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"),) :
         from scipy.integrate import odeint
         import sympy
 
@@ -62,37 +62,37 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
 
         state_names = chl.statevars.keys()
         n_states = len(state_names)
-        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[state_names[0]], V)
+        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[state_names[0]], V)
         m_tau_ms = m_tau.rescale("ms").magnitude
 
-        inf_taus = [ InfTauCalculator.evaluate_inf_tau_for_v( chl.statevars[stateName], V)  for stateName in state_names ]
+        inf_taus = [ InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names ]
         inf_taus_ms = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus ]
 
-        state_to_index = dict( [ (state,index) for state,index in enumerate(state_names) ] )
+        state_to_index = dict([ (state,index) for state,index in enumerate(state_names) ])
 
         def odeFunc(y,t0):
             res = [None] * n_states
             for i in range(0,n_states):
                 state_inf,state_tau = inf_taus_ms[i]
                 state_val = y[i]
-                d_state = ( state_inf - state_val ) / state_tau
+                d_state = (state_inf - state_val) / state_tau
                 res[i] = d_state
             return res
 
         # run the ODE for each variable:
         t = t.rescale("ms").magnitude
-        y0 = np.zeros( (n_states, ) )
-        res = odeint(func=odeFunc, y0=y0, t= t  )
+        y0 = np.zeros((n_states,))
+        res = odeint(func=odeFunc, y0=y0, t= t )
 
-        state_functor = sympy.lambdify( state_names, sympy.sympify(chl.eqn)  )
+        state_functor = sympy.lambdify(state_names, sympy.sympify(chl.eqn) )
         state_data = [ res[:,i] for i in range(0,n_states) ]
 
-        state_equation_evaluation = state_functor( *state_data )
+        state_equation_evaluation = state_functor(*state_data)
 
         cell_density = (chl.conductance * cell_area)
         i_chl =  (chl.conductance * cell_area)  * state_equation_evaluation * (V- chl.reversalpotential)
 
-        return TraceFixedDT( time=t * unit("1:ms"), data=i_chl.rescale("pA")  )
+        return TraceFixedDT(time=t * unit("1:ms"), data=i_chl.rescale("pA") )
 
 
 
@@ -102,10 +102,10 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
 
         #@classmethod
-        #def getResolvedAlphaBetaBetaCurves(cls, V, chl, state ):
+        #def getResolvedAlphaBetaBetaCurves(cls, V, chl, state):
         #    alpha,beta = chl.get_alpha_beta_at_voltage(V, state)
         #    return  alpha,beta
-        #    #return AlphaBetaBetaCalculator.getAlphaBetaBeta(V, chl.statevars[state][0], chl.statevars[state][1],chl.statevars[state][2], chl.beta2threshold   )
+        #    #return AlphaBetaBetaCalculator.getAlphaBetaBeta(V, chl.statevars[state][0], chl.statevars[state][1],chl.statevars[state][2], chl.beta2threshold  )
 #
 
         #@classmethod
@@ -130,7 +130,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #
         #
         #@classmethod
-        #def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state, color="blue" ):
+        #def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state, color="blue"):
         #
         #    chl = alphabeta_chl
         #
@@ -169,11 +169,11 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
         #    fig.suptitle("AlphaBeta Channel - %s : %s"%(alphabeta_chl.name, state))
         #    ax1 = fig.add_subplot(221)
         #    ax2 = fig.add_subplot(222)
-        #    cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state )
+        #    cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state)
         #
         #    ax3 = fig.add_subplot(223)
         #    ax4 = fig.add_subplot(224)
-        #    cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state )
+        #    cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state)
         #    return fig
         #
         #
@@ -181,7 +181,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
 
         #@classmethod
-        #def plot_steddy_state_curve(cls, ax1,alphabeta_chl, state, power, color="blue" ):
+        #def plot_steddy_state_curve(cls, ax1,alphabeta_chl, state, power, color="blue"):
         #
         #    chl = alphabeta_chl
         #
@@ -215,17 +215,17 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
 
 #        @classmethod
-#        def build_alpha_beta_table(cls, elements, reportlabconfig, title, params ):
-#            elements.append( Paragraph(title,reportlabconfig.styles['Heading4']) )
+#        def build_alpha_beta_table(cls, elements, reportlabconfig, title, params):
+#            elements.append(Paragraph(title,reportlabconfig.styles['Heading4']))
 #            alphaParams = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
 #            alphaTableData = [ ["A","B","C","D","E"], alphaParams.split()  ]
-#            elements.append( Table(alphaTableData, style=reportlabconfig.defaultTableStyle) )
+#            elements.append(Table(alphaTableData, style=reportlabconfig.defaultTableStyle))
 
         @classmethod
         def to_report_lab(cls, alphabeta_beta_chl, reportlabconfig, make_graphs):
             from reportlab.platypus import Paragraph, Table
             local_elements = []
-            local_elements.append( Paragraph("Overview",reportlabconfig.styles['Heading3']) )
+            local_elements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
 
             # Summary:
             overview_table_data = [
@@ -234,41 +234,41 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                                  ["Reversal Potential", alphabeta_beta_chl.reversalpotential],
                                  ["Conductance Equation", "gBar * " + alphabeta_beta_chl.eqn],
                                 ]
-            local_elements.append( Table(overview_table_data, style=reportlabconfig.listTableStyle) )
+            local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 
 
             # Plot out the States:
             for state,params in alphabeta_beta_chl.statevars.iteritems():
-                local_elements.append( Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']) )
+                local_elements.append(Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']))
 
 
                 if make_graphs:
                     fig = Summarise_MM_AlphaBetaChannel.plot_state_curve_summary(alphabeta_beta_chl, state, figsize=(5,5))
-                    local_elements.append( reportlabconfig.save_mpl_to_rl_image(fig, "somestate") )
+                    local_elements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
 
 
-                local_elements.append( Paragraph("Equations",reportlabconfig.styles['Heading4']) )
+                local_elements.append(Paragraph("Equations",reportlabconfig.styles['Heading4']))
 
                 #Equations:
                 eqns = [
                         "beta2Threshold = %s"%alphabeta_beta_chl.beta2threshold,
                         "beta = beta1 if V less than beta2Threshold otherwise beta2",
-                        "alpha(V) = (A+BV)/(C+exp( (V+D)/E) )",
-                        "beta(V) = (A+BV)/(C+exp( (V+D)/E) )",
+                        "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
+                        "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                         ]
                 for eqn in eqns:
-                    local_elements.append( Paragraph(eqn,reportlabconfig.styles['Normal']) )
+                    local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
 
                 # Alpha Beta
-                ReportLabTools.build_alpha_beta_table( elements=local_elements,
+                ReportLabTools.build_alpha_beta_table(elements=local_elements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Alpha", params=params[0] )
-                ReportLabTools.build_alpha_beta_table( elements=local_elements,
+                                         title="Alpha", params=params[0])
+                ReportLabTools.build_alpha_beta_table(elements=local_elements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Beta1", params=params[1] )
-                ReportLabTools.build_alpha_beta_table( elements=local_elements,
+                                         title="Beta1", params=params[1])
+                ReportLabTools.build_alpha_beta_table(elements=local_elements,
                                          reportlabconfig=reportlabconfig,
-                                         title="Beta2", params=params[2] )
+                                         title="Beta2", params=params[2])
 
 
 

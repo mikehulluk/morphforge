@@ -60,8 +60,8 @@ print t
 cell.chls = {}
 channeltypes = [ChlType.Kf, ChlType.Ks, ChlType.Lk, ChlType.Na]
 for chltype in channeltypes:
-    #mech_builder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype )
-    mech =  ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env )
+    #mech_builder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype)
+    mech =  ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env)
 
     apply_mechanism_everywhere_uniform(
                             cell=cell,
@@ -72,24 +72,24 @@ for chltype in channeltypes:
     cell.chls[chltype] = mech
 
 
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2') )
-apply_passive_everywhere_uniform(cell, PassiveProperty.AxialResistance, unit('40:ohmcm') )
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+apply_passive_everywhere_uniform(cell, PassiveProperty.AxialResistance, unit('40:ohmcm'))
 
 
 
 
 somaLoc = cell.get_location("soma")
-sim.record( cell, name="SomaVoltage", cell_location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage" )
+sim.record(cell, name="SomaVoltage", cell_location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage")
 
 distances = range(50, 3000, 100)
-morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances )
+morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances)
 locations = [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs ]
 
 
 
 
 
-print len(distances), len(morph_locs )
+print len(distances), len(morph_locs)
 
 for loc in locations:
     sim.record(cell, cell_location=loc,
@@ -135,13 +135,13 @@ if os.path.exists(fName):
 
 h5file = tables.openFile(fName, mode = "w", title = "Test file")
 
-geom = h5file.createGroup("/", 'geometry', )
-#geom. = h5file.createGroup(geom, 'geom', )
+geom = h5file.createGroup("/", 'geometry',)
+#geom. = h5file.createGroup(geom, 'geom',)
 
-h5file.createArray(geom, 'geom', str(t) )
+h5file.createArray(geom, 'geom', str(t))
 
-results = h5file.createGroup("/", 'results', )
-varref = h5file.createGroup(results , 'VarRef', )
+results = h5file.createGroup("/", 'results',)
+varref = h5file.createGroup(results , 'VarRef',)
 
 
 time = None
@@ -153,16 +153,16 @@ for cell,segs in rec_dict.iteritems():
         seg_names,seg_ids = naming_info[cell]
 
         seg_name = seg_names[seg]
-        segGrp = h5file.createGroup(varref, seg_name )
+        segGrp = h5file.createGroup(varref, seg_name)
 
         for var,varname in vars.iteritems():
-            tr = res.get_trace( varname )
-            h5file.createArray(segGrp,  var, tr._data.magnitude )
+            tr = res.get_trace(varname)
+            h5file.createArray(segGrp,  var, tr._data.magnitude)
 
             if time is None:
                 time = tr._time.rescale("ms").magnitude
 
-h5file.createArray(varref,  "x", time )
+h5file.createArray(varref,  "x", time)
 
 
 h5file.close()

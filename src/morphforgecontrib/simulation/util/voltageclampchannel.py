@@ -65,7 +65,7 @@ def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
         dur2=unit('100:ms'),
         dur3=unit('100:ms'),
         cell_location=soma_loc,
-        )
+       )
     sim.add_recordable(vc.get_recordable(simulation=sim,
                        what=vc.Recordables.Current, name='VCCurrent'))
     return sim

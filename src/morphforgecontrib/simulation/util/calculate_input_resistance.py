@@ -48,7 +48,7 @@ from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 
 
 class CellAnalysis_StepInputResponse(object):
-    def __init__(self, cell_functor, currents, env, cell_description, plot_all=False, sim_kwargs=None,tagviewer_kwargs=None ):
+    def __init__(self, cell_functor, currents, env, cell_description, plot_all=False, sim_kwargs=None,tagviewer_kwargs=None):
         self.cell_functor = cell_functor
         self.currents = currents
         self.env = env
@@ -152,8 +152,8 @@ class CellAnalysis_ReboundResponse(object):
 
 
     # def plot_rebound_graphs(self):
-    #    c1Values = set( [k[0] for k in self.result_traces ])
-    #    c2Values = set( [k[1] for k in self.result_traces ])
+    #    c1Values = set([k[0] for k in self.result_traces ])
+    #    c2Values = set([k[1] for k in self.result_traces ])
     #
     #    f = pylab.figure()
     #    ax = f.add_subplot(1,1,1)
@@ -175,8 +175,8 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def plot_traces(self,):
-        c1_values = set( [k[0] for k in self.result_traces ])
-        c2_values = set( [k[1] for k in self.result_traces ])
+        c1_values = set([k[0] for k in self.result_traces ])
+        c2_values = set([k[1] for k in self.result_traces ])
 
         #print self.result_traces.keys()
         for c1 in c1_values:
@@ -186,8 +186,8 @@ class CellAnalysis_ReboundResponse(object):
                     continue
                 trs.extend(self.result_traces[(c1, c2)])
 
-            title = "%s- (Response to Current Injections [BaseCurrent %s pA ] )"%(self.cell_description, c1)
-            TagViewer( trs, show=False, figtitle=title, **self.tagviewer_kwargs )
+            title = "%s- (Response to Current Injections [BaseCurrent %s pA ])"%(self.cell_description, c1)
+            TagViewer(trs, show=False, figtitle=title, **self.tagviewer_kwargs)
 
 
 
@@ -201,29 +201,29 @@ class CellAnalysis_ReboundResponse(object):
 
         soma_loc = cell.get_location('soma')
 
-        cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", cell_location=soma_loc)
-        cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", cell_location=soma_loc)
-        cc3 = sim.create_currentclamp( name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", cell_location=soma_loc)
+        cc1 = sim.create_currentclamp(name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", cell_location=soma_loc)
+        cc2 = sim.create_currentclamp(name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", cell_location=soma_loc)
+        cc3 = sim.create_currentclamp(name="cclamp3", amp=-1*current_rebound, dur="5:ms", delay="120:ms", cell_location=soma_loc)
 
-        sim.record( cc1, name="Current1",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
-        sim.record( cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
-        sim.record( cc3, name="Current3",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
+        sim.record(cc1, name="Current1",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
+        sim.record(cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
+        sim.record(cc3, name="Current3",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
 
-        sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound) )
+        sim.record(cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound))
 
         res = sim.run()
 
 
         #SimulationSummariser(res, "/home/michael/Desktop/ForRoman.pdf")
 
-        i = res.get_trace('Current1').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current2').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current3').convert_to_fixed( unit("0.5:ms") )
+        i = res.get_trace('Current1').convert_to_fixed(unit("0.5:ms")) + res.get_trace('Current2').convert_to_fixed(unit("0.5:ms")) + res.get_trace('Current3').convert_to_fixed(unit("0.5:ms"))
 
         i = TraceConverter.rebase_to_fixed_dt(res.get_trace('Current1'
-                ), dt=unit('0.5:ms')) \
+               ), dt=unit('0.5:ms')) \
             + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current2'
-                ), dt=unit('0.5:ms')) \
+               ), dt=unit('0.5:ms')) \
             + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current3'
-                ), dt=unit('0.5:ms'))
+               ), dt=unit('0.5:ms'))
         i.tags = [StandardTags.Current]
         return (res.get_trace('SomaVoltage'), i)
 
@@ -240,7 +240,7 @@ class CellAnalysis_ReboundResponse(object):
 class CellAnalysis_IVCurve(object):
 
 
-    def __init__(self, cell_functor, currents, cell_description=None, v_regressor_limit= unit("-30:mV"), sim_kwargs=None, plot_all=False ):
+    def __init__(self, cell_functor, currents, cell_description=None, v_regressor_limit= unit("-30:mV"), sim_kwargs=None, plot_all=False):
         self.cell_functor = cell_functor
         self.v_regressor_limit = v_regressor_limit
 
@@ -282,8 +282,8 @@ class CellAnalysis_IVCurve(object):
 
         soma_loc = cell.get_location('soma')
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, cell_location=soma_loc)
-        sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
+        cc = sim.create_currentclamp(name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, cell_location=soma_loc)
+        sim.record(cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current)
 
         res = sim.run()
 
@@ -298,7 +298,7 @@ class CellAnalysis_IVCurve(object):
 
 
     def get_iv_point_steaddy_state(self, i_inj):
-        return  self.get_trace(i_inj).window( time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop )).Mean()
+        return  self.get_trace(i_inj).window(time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop)).Mean()
 
 
 
@@ -348,9 +348,9 @@ class CellAnalysis_IVCurve(object):
 
         low_v = v < self.v_regressor_limit
 
-        ax.plot( i[low_v], v[low_v], 'ro' )
-        ax.plot( i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx' )
-        ax.plot( i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx' )
+        ax.plot(i[low_v], v[low_v], 'ro')
+        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
+        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
 
 
         # Plot the regressor:
@@ -368,7 +368,7 @@ class CellAnalysis_IVCurve(object):
         self.input_resistance = input_resistance
         self.reversal_potential = reversal_potential
 
-        ax.plot( i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s,b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)   )
+        ax.plot(i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s,b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)  )
         ax.legend()
 
         PM.save_figure(figname=title)

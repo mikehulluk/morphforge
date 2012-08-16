@@ -40,7 +40,7 @@ from morphforge.traces.eventset import EventSet
 
 class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
 
-    def __init__(self, cell_location, voltage_threshold, delay, weight ):
+    def __init__(self, cell_location, voltage_threshold, delay, weight):
         self.cell_location = cell_location
         self.voltage_threshold = voltage_threshold
         self.delay = delay

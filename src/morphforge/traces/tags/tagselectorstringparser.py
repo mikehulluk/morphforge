@@ -113,7 +113,7 @@ def p_simple0(p):
 
 def p_simple1(p):
     """ tag_line_simple : tag_line_simple COMMA TAG"""
-    p[0] = TagSelectorAll( tags = list(p[1].tags) + [p[3]] )
+    p[0] = TagSelectorAll(tags = list(p[1].tags) + [p[3]])
 
 
 
@@ -139,7 +139,7 @@ def p_expression_not(p):
     """ expr : NOT expr
              | NOT_SYM expr
     """
-    p[0] = TagSelectorNot( p[2] )
+    p[0] = TagSelectorNot(p[2])
 
 
 
@@ -165,7 +165,7 @@ def p_tag_group_bracketed_all(p):
 
 def p_tag_group_bracketed_any(p):
     """tag_group_factor_any : ANY tag_group_bracketed"""
-    p[0] = TagSelectorAny( tags = p[2] )
+    p[0] = TagSelectorAny(tags = p[2])
 
 
 
@@ -207,7 +207,7 @@ def parse_tagselector_string(s):
     if not _ParseCache._lex:
         _ParseCache._lex = ply.lex.lex()
     if not _ParseCache._yacc:
-        _ParseCache._yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1 )
+        _ParseCache._yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1)
     return _ParseCache._yacc.parse(s, lexer=_ParseCache._lex.clone())
 
 
