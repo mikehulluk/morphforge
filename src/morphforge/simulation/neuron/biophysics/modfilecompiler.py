@@ -35,7 +35,7 @@ import os
 import subprocess
 import shutil
 
-from morphforge.core import  FileIO, LocMgr, LogMgr
+from morphforge.core import FileIO, LocMgr, LogMgr
 from morphforge.core import RCMgr as RCReade
 from morphforge.core.mgrs.settingsmgr import SettingsMgr
 
@@ -98,7 +98,7 @@ class ModBuilderParams(object):
 
 def _simple_exec(cmd, remaining):
     print 'Executing: %s %s' % (cmd, remaining)
-    output = subprocess.Popen([cmd + ' ' + remaining], 
+    output = subprocess.Popen([cmd + ' ' + remaining],
                               shell=True,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE).communicate()[0]
@@ -119,9 +119,9 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     libs_dir = '.libs/'
 
     # Check for some existing files:
-    gen_files = (libs_dir, 
-                 c_filename, 
-                 la_filename, 
+    gen_files = (libs_dir,
+                 c_filename,
+                 la_filename,
                  lo_filename,
                  so_filename)
 

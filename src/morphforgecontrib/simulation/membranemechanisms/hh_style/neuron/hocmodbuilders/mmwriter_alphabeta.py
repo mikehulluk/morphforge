@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -78,11 +78,11 @@ $(cell_name).internalsections [ $section_index ] {
             variables.append( [variable_name,variable_value_nounit, variable_value_with_unit,variable_unit] )
 
         tmpl_dict = {
-                    "cell_name":cell_name,
-                    "section_index":section_index,
-                    "neuron_suffix":neuron_suffix,
-                    "variables":variables
-                    }
+            'cell_name': cell_name,
+            'section_index': section_index,
+            'neuron_suffix': neuron_suffix,
+            'variables': variables,
+            }
 
         # Add the data to the HOC file
         hocfile_obj.add_to_section( MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBeta.chlHoc,tmpl_dict ).respond() )
@@ -92,12 +92,12 @@ $(cell_name).internalsections [ $section_index ] {
     @classmethod
     def build_mod(cls, alphabeta_chl, modfile_set):
 
-        gbar_name = "gBar"
-        e_rev_name = "e_rev"
-        g_scale_name = "gScale"
+        gbar_name = 'gBar'
+        e_rev_name = 'e_rev'
+        g_scale_name = 'gScale'
 
-        #gbarUnits = MM_WriterAlphaBeta.Units[gbar_name]
-        #eRevUnits = MM_WriterAlphaBeta.Units[e_rev_name]
+        # gbarUnits = MM_WriterAlphaBeta.Units[gbar_name]
+        # eRevUnits = MM_WriterAlphaBeta.Units[e_rev_name]
 
 
 
@@ -109,8 +109,6 @@ $(cell_name).internalsections [ $section_index ] {
         state_alpha = lambda s: "%s_alpha" % s
         state_beta = lambda s: "%s_beta" % s
 
-        #gbar_name = "g%sbar" % alphabeta_chl.ion
-        #e_rev_name = "e%s" % alphabeta_chl.ion
 
 
         # State Equations and initial values:
@@ -138,7 +136,7 @@ $(cell_name).internalsections [ $section_index ] {
         base_writer.conductanceequation = " %s * %s * %s" % (gbar_name, alphabeta_chl.eqn, g_scale_name)
         base_writer.functions = """FUNCTION StdAlphaBeta(A,B,C,D,E,V){ StdAlphaBeta = (A + B*V) / (C + exp((D+V)/E)) } """
 
-        txt =  base_writer.generate_modfile()
-        mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt )
+        txt = base_writer.generate_modfile()
+        mod_file = ModFile(name=alphabeta_chl.name, modtxt=txt)
         modfile_set.append(mod_file)
 

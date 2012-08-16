@@ -9,41 +9,43 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
-from morphforge.core.quantities import  unit
+from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 
 class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
 
-    class Recordables():
+    class Recordables(object):
 
-        CurrentDensity = "CurrentDensity"
-        StateVar = "StateVar"
-        StateVarSteadyState = "StateSteaddyState"
-        StateVarTimeConstant = "StateTimeConstant"
+        CurrentDensity = 'CurrentDensity'
+        StateVar = 'StateVar'
+        StateVarSteadyState = 'StateSteaddyState'
+        StateVarTimeConstant = 'StateTimeConstant'
 
-        all = [CurrentDensity, StateVar, StateVarSteadyState, StateVarTimeConstant]
+        all = [CurrentDensity, StateVar, StateVarSteadyState,
+               StateVarTimeConstant]
+
 
     def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id, ):
         MembraneMechanism.__init__(self, mechanism_id=mechanism_id )
@@ -59,9 +61,9 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.statevars = dict([ (s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.beta2threshold = unit(beta2threshold)
 
-        self.F = unit("96480:C/mol")
-        self.R = unit("8.314472:J/(K mol)")
-        self.CaZ = unit("2:")
+        self.F = unit('96480:C/mol')
+        self.R = unit('8.314472:J/(K mol)')
+        self.CaZ = unit('2:')
         self.T = unit(temperature)
 
 
@@ -70,5 +72,5 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         return ['gScale']
 
     def get_defaults(self):
-        return {"gScale": unit("1.0") }
+        return {'gScale': unit('1.0')}
 

@@ -187,7 +187,7 @@ class Simulation(object):
         if recordable_src is None:
             recordable_src = kwargs['cell_location'].cell
 
-        recordable = recordable_src.get_recordable(simulation=self, **kwargs )
+        recordable = recordable_src.get_recordable(simulation=self, **kwargs)
         self.add_recordable(recordable)
         return recordable
 

@@ -83,7 +83,7 @@ class HocModUtils(object):
     @classmethod
     def create_record_from_object(cls, hocfile_obj, vecname, objname, objvar, recordobj ):
 
-        data = {'recVecName': vecname, 
+        data = {'recVecName': vecname,
                 'objname': objname,
                 'objvar': objvar}
 

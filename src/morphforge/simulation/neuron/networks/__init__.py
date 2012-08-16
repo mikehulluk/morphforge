@@ -65,8 +65,12 @@ class NeuronSynapse(NeuronObject, Synapse):
         if what == StandardTags.Current:
             what = Synapse.Recordables.SynapticCurrent
 
-        if what in [ Synapse.Recordables.SynapticCurrent, Synapse.Recordables.SynapticConductance, StandardTags.NMDAVoltageDependancy,StandardTags.NMDAVoltageDependancySS]:
-            return self.postSynapticMech.get_recordable(what=what, **kwargs)
+        if what in [Synapse.Recordables.SynapticCurrent,
+                    Synapse.Recordables.SynapticConductance,
+                    StandardTags.NMDAVoltageDependancy,
+                    StandardTags.NMDAVoltageDependancySS]:
+            return self.postSynapticMech.get_recordable(what=what,
+                    **kwargs)
         if what in ['g']:
             return self.postSynapticMech.get_recordable(what=what, **kwargs)
 
@@ -136,13 +140,9 @@ BREAKPOINT{
 
 class NeuronGapJunction(GapJunction, NeuronObject):
 
-    def __init__(self, **kwargs):
-        print NeuronGapJunction.__mro__
-        # assert False
+    def __init__(self, **kwargs):        
         super(NeuronGapJunction, self).__init__(**kwargs)
-        #NeuronObject.__init__(self, simulation=simulation, **kwargs)
-        #GapJunction.__init__(self, **kwargs)
-        #super(NeuronGapJunction,self).__init__(**kwargs)
+
 
 
     isFirstBuild = True

@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -67,7 +67,7 @@ class MorphMLWriter(object):
         doc = Document()
 
         # MorphML Node:
-        morphml_node = doc.createElement("morphml")
+        morphml_node = doc.createElement('morphml')
         doc.appendChild(morphml_node)
 
 
@@ -79,7 +79,7 @@ class MorphMLWriter(object):
         # MorphML Node:
         cell_naming_data = {}
         for cell in cells:
-            res = cls.writeone(cell=cell, cells_node=cells_node, doc=doc )
+            res = cls.writeone(cell=cell, cells_node=cells_node, doc=doc)
             cell_naming_data[cell] = res
 
 
@@ -88,12 +88,12 @@ class MorphMLWriter(object):
         txt = doc.toprettyxml()
         txt = cls.hackAroundNamespace(txt)
 
-        return txt, cell_naming_data
+        return (txt, cell_naming_data)
 
     @classmethod
     def hackAroundNamespace(cls, txt):
 
-        return txt.replace("<morphml>", "<morphml >")
+        return txt.replace('<morphml>', '<morphml >')
 
     @classmethod
     def writeone(cls, cell, cells_node, doc, id_base=0):
@@ -101,7 +101,7 @@ class MorphMLWriter(object):
 
 
         cell_node = doc.createElement('cell')
-        cell_node.setAttribute("name", "%s"%cell.name)
+        cell_node.setAttribute('name', '%s' % cell.name)
         cells_node.appendChild(cell_node)
 
 
@@ -118,7 +118,7 @@ class MorphMLWriter(object):
 
 
             # Create the segments node:
-            seg_node = doc.createElement("segment")
+            seg_node = doc.createElement('segment')
             segments_node.appendChild(seg_node)
 
             # Set the ID:
@@ -142,9 +142,6 @@ class MorphMLWriter(object):
             seg_node_distal = doc.createElement("distal")
             seg_node.appendChild(seg_node_distal)
 
-
-            print seg
-
         return (segnamedict, segiddict)
 
 
@@ -152,12 +149,5 @@ class MorphMLWriter(object):
 
 
 
-
-
-
-
-
-
-        #assert False
 
 

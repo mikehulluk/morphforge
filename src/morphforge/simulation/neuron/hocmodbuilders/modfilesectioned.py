@@ -33,7 +33,7 @@
 from collections import defaultdict
 
 class NeuronParameter(object):
-    def __init__(self, parametername, parameterunit, initialvalue = None, parameterrange=None):
+    def __init__(self, parametername, parameterunit, initialvalue=None, parameterrange=None):
         self.parametername = parametername
         self.parameterunit = parameterunit
         self.parameterrange = parameterrange
@@ -65,19 +65,30 @@ class NeuronParameter(object):
 class ModFileSectioned(object):
 
     class Sections(object):
-        Header = "HEADER"
-        Units = "UNITS"
-        Neuron = "NEURON"
-        Parameter = "PARAMETER"
-        State = "STATE"
-        Assigned = "ASSIGNED"
-        Breakpoint = "BREAKPOINT"
-        Initial = "INITIAL"
-        Derivative = "DERIVATIVE"
-        Functions = "FUNCTIONS"
 
-        ordered = [ Header, Units, Neuron,  Parameter,  State,  Assigned,  Breakpoint, Initial,  Derivative,   Functions ]
+        Header = 'HEADER'
+        Units = 'UNITS'
+        Neuron = 'NEURON'
+        Parameter = 'PARAMETER'
+        State = 'STATE'
+        Assigned = 'ASSIGNED'
+        Breakpoint = 'BREAKPOINT'
+        Initial = 'INITIAL'
+        Derivative = 'DERIVATIVE'
+        Functions = 'FUNCTIONS'
 
+        ordered = [
+            Header,
+            Units,
+            Neuron,
+            Parameter,
+            State,
+            Assigned,
+            Breakpoint,
+            Initial,
+            Derivative,
+            Functions,
+            ]
 
     def __init__(self, title, comment=None):
         self.sectiondata = defaultdict(list)
@@ -130,9 +141,6 @@ class ModFileSectioned(object):
         self.simple_finalise_section( ModFileSectioned.Sections.Breakpoint, tabsection = True )
         self.simple_finalise_section( ModFileSectioned.Sections.Initial, tabsection = True )
 
-        #self.simple_finalise_section( ModFileSectioned.Sections.Derivative )
-
-
         # Nothing to do for Procedure
         # Nothing to do for Functions
 
@@ -142,15 +150,15 @@ class ModFileSectioned(object):
 
 
     # User Functions:
-    def create_header(self, title, comment ):
-        self.append_to_section( ModFileSectioned.Sections.Header, "TITLE %s"%title)
-        self.append_to_section( ModFileSectioned.Sections.Header, "COMMENT")
-        if comment: self.append_to_section( ModFileSectioned.Sections.Header, comment )
-        self.append_to_section( ModFileSectioned.Sections.Header, "ENDCOMMENT")
+    def create_header(self, title, comment):
+        self.append_to_section(ModFileSectioned.Sections.Header, "TITLE %s" % title)
+        self.append_to_section(ModFileSectioned.Sections.Header, "COMMENT")
+        if comment: self.append_to_section(ModFileSectioned.Sections.Header, comment )
+        self.append_to_section(ModFileSectioned.Sections.Header, "ENDCOMMENT")
 
     def add_unit_definition(self, unitname, unitsymbol):
-        symbol_str = "%s"%unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
-        name_str = "%s"%unitname if unitname.startswith("(") else "(%s)"%unitname
+        symbol_str = "%s" % unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
+        name_str = "%s" % unitname if unitname.startswith("(") else "(%s)"%unitname
         self.append_to_section( ModFileSectioned.Sections.Units, "%s = %s"%(symbol_str,name_str) )
 
 

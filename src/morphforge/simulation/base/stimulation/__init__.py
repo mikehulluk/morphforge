@@ -53,7 +53,7 @@ class VoltageClamp(Stimulation):
 class CurrentClampStepChange(CurrentClamp):
 
     def __init__(self, amp, dur, delay, **kwargs):
-        super(CurrentClampStepChange, self).__init__(**kwargs) 
+        super(CurrentClampStepChange, self).__init__(**kwargs)
         self.amp = unit(amp)
         self.dur = unit(dur)
         self.delay = unit(delay)

@@ -9,35 +9,35 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
 
-assert False, "Do not use this module ~ currently in development"
+assert False, 'Do not use this module ~ currently in development'
 
 from morphforge.core.misc import SeqUtils
 import string
 
 def _clean_name(name):
-    newName = ""
+    newName = ''
     for c in name:
         if c in string.ascii_letters + string.digits:
             newName += c
@@ -45,7 +45,7 @@ def _clean_name(name):
 
 
 
-from morphforge.morphology.core import MorphologyTree , Section, Region
+from morphforge.morphology.core import MorphologyTree, Section, Region
 import xml.dom.minidom as XML
 from morphforge.core.misc import SeqUtils
 import collections
@@ -65,7 +65,7 @@ def get_text(node):
 
 
 def FilterChildrenByTag(node, tag):
-    return Filter( node.childNodes, isElementWithTag(tag) )
+    return Filter(node.childNodes, isElementWithTag(tag))
 
 def FilterExpectSingleChildrenByTag(node, tag):
     return SeqUtils.filter_expect_single( node.childNodes, isElementWithTag(tag) )
@@ -133,7 +133,7 @@ class Level1NeuroMLRepresentation(object):
         # Read the XML:
 
         # Start with the declared Cables:
-        cablesNode = FilterExpectSingleChildrenByTag( cellNode, 'cables')
+        cablesNode = FilterExpectSingleChildrenByTag(cellNode, 'cables')
 
         # Load the individual cable objects
         for cableNode in FilterChildrenByTag(cablesNode, "cable"):

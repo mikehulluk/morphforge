@@ -52,7 +52,7 @@ class CellSegment(object):
     def get_cell_location(self, p_segment=0.5):
         from morphforge.simulation.base.core.celllocation import CellLocation
         sectionpos = self.get_section_pos(p_segment)
-        return CellLocation(cell=self.cell, 
+        return CellLocation(cell=self.cell,
                             section=self.section,
                             sectionpos=sectionpos)
 
@@ -79,5 +79,5 @@ class CellSegment(object):
                 return self.segmenter.get_segments(self.section.parent)[-1]
 
         else:
-            return self.segmenter.get_segments(self.section)[self.segmentno-1]
+            return self.segmenter.get_segments(self.section)[self.segmentno - 1]
 

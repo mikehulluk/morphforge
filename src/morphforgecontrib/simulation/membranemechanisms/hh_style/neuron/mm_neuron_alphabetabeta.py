@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -49,129 +49,79 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
     def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
-        super( MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
+        super(MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
         self.alphabeta_beta_chl = alphabeta_beta_chl
-        self.modvar=modvar
+        self.modvar = modvar
 
     def build_mod(self, modfile_set):
         pass
 
     def build_hoc(self, hocfile_obj):
-        HocModUtils.create_record_from_modfile( hocfile_obj,
-                                             vecname="RecVec%s"%self.name,
-                                             cell_location=self.cell_location,
-                                             modvariable=self.modvar,
-                                             mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(), recordobj=self)
+        HocModUtils.create_record_from_modfile(
+            hocfile_obj,
+            vecname='RecVec%s' % self.name,
+            cell_location=self.cell_location,
+            modvariable=self.modvar,
+            mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(),
+            recordobj=self,
+            )
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.alphabeta_beta_chl.name, self.cell_location.get_location_description_str() )
+        return '%s %s %s' % (self.modvar, self.alphabeta_beta_chl.name,
+                             self.cell_location.get_location_description_str())
 
 
 
 
 class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, **kwargs):
-        super( MM_Neuron_AlphaBetaBeta_CurrentDensityRecord, self).__init__( modvar='i', **kwargs)
+        super(MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
+              self).__init__(modvar='i', **kwargs)
     def get_unit(self):
-        return unit("mA/cm2")
+        return unit('mA/cm2')
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
 
 class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, **kwargs):
-        super( MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord, self).__init__( modvar='g', **kwargs)
+        super(MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord,
+              self).__init__(modvar='g', **kwargs)
     def get_unit(self):
-        return unit("S/cm2")
+        return unit('S/cm2')
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
 
 
 class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
-        super(MM_Neuron_AlphaBetaBeta_StateVariableRecord, self).__init__(modvar=state, **kwargs)
+        super(MM_Neuron_AlphaBetaBeta_StateVariableRecord,
+              self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
-        return unit("")
+        return unit('')
     def get_std_tags(self):
         return [StandardTags.StateVariable]
 
 class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
-        super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord, self).__init__(modvar=state+"tau", **kwargs)
+        super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord,
+              self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
-        return unit("ms")
+        return unit('ms')
     def get_std_tags(self):
-        return [StandardTags.StateTimeConstant ]
+        return [StandardTags.StateTimeConstant]
 
 
 class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Record):
     def __init__(self, state, **kwargs):
-        super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord, self).__init__(modvar=state+'inf', **kwargs)
+        super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord,
+              self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
-        return unit("")
+        return unit('')
     def get_std_tags(self):
-        return [StandardTags.StateSteadyState ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#from morphforge.simulation.base.biophysics.membranemechanisms.mmalphaBetaBetabeta import MM_AlphaBetaBetaBetaChannel
-##from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
-##    MHOCSections
-##from Cheetah.Template import Template
-#
-#from morphforge.core import unit
-#from ..hocmodbuilders.membranemechanisms.mmwriter_alphaBetaBetabeta import MM_WriterAlphaBetaBetaBeta
-#
-#
-#
-#from ..hocmodbuilders import HocModUtils
-#
-#from mm_neuron import MM_Neuron_Base
-#from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-
-
-#
-#
-#class MM_Neuron_AlphaBetaBetaBeta_CurrentRecord(NeuronRecordableOnLocation):
-#
-# def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
-#        super( MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
-#        self.alphabeta_beta_chl = alphabeta_beta_chl
-#        self.modvar=modvar
-#
-#
-#    def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
-#        super( MM_Neuron_AlphaBetaBetaBeta_CurrentRecord, self).__init__(**kwargs)
-#
-#        #self.name = name
-#        self.alphaBetaBetaBetaChl = alphaBetaBetaBetaChl
-#        self.modvar=modvar
-#        #self.cell_location = cell_location
-#
-#    def get_unit(self):
-#        return unit("mA/cm2")
-#    def get_std_tags(self):
-#        return [StandardTags.CurrentDensity]
-#
-#
-#    def build_hoc(self, hocfile_obj):
-#        HocModUtils.create_record_from_modfile( hocfile_obj, vecname="RecVec%s"%self.name, cell_location=self.cell_location, modvariable="i", mod_neuronsuffix=self.alphaBetaBetaBetaChl.get_neuron_suffix(), recordobj=self)
-#
-#    def build_mod(self, modfile_set):
-#        pass
+        return [StandardTags.StateSteadyState]
 
 
 
@@ -191,11 +141,14 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 
 
 
-class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
+
+
+
+class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
 
     def __init__(self, *args, **kwargs):
-        MM_AlphaBetaBetaChannel.__init__(self,*args,**kwargs)
+        MM_AlphaBetaBetaChannel.__init__(self, *args, **kwargs)
         MM_Neuron_Base.__init__(self)
 
 
@@ -212,15 +165,9 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel,MM_Neuron_Base):
 
 
     def get_recordable(self, what, name, cell_location, **kwargs):
-        #assert False
-
-        #cell_location = kwargs["cell_location"] if "cell_location" in kwargs else kwargs["where"]
-        #if "cell_location" in kwargs: del kwargs["cell_location"]
-        #if "where" in kwargs: del kwargs["where"]
-
+        
         recorders = {
-              MM_AlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
-
+            MM_AlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
         }
 
         return recorders[what]( alphabeta_beta_chl=self, cell_location= cell_location, name=name, **kwargs  )

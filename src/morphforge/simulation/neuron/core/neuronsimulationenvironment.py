@@ -32,7 +32,7 @@
 
 from morphforge.core import PluginDict
 from morphforge.simulation.base import SimulationEnvironment
-from morphforge.simulation.base import CurrentClampStepChange,
+from morphforge.simulation.base import CurrentClampStepChange
 from morphforge.simulation.base import VoltageClampStepChange
 
 from morphforge.simulation.neuron.core import NeuronSimulationSettings

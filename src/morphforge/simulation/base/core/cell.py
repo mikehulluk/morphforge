@@ -51,7 +51,7 @@ class Cell(NamedSimulationObject):
 
 
     def __init__(self,  morphology, segmenter=None, initial_voltage=None, cell_tags=None, cell_type=None, **kwargs):
-        
+
         if cell_tags == None:
             cell_tags = []
 
@@ -61,7 +61,7 @@ class Cell(NamedSimulationObject):
 
 
 
-       
+
         self.morphology = morphology
         self._cell_type = cell_type
 

@@ -31,9 +31,9 @@
 
 
 class MModFileSet(object):
+
     def __init__(self):
         self._modfiles = {}
-
 
     def append(self, modfile):
         md5 = modfile.get_md5_hash()

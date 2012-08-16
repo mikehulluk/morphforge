@@ -50,8 +50,7 @@ class SimulationResult(object):
 
     def get_trace(self, name):
         return SeqUtils.filter_expect_single(
-                self.traces, 
-                lambda s: s.name == name)
+                self.traces, lambda s: s.name == name)
 
 
     def get_traces(self):
@@ -62,7 +61,7 @@ class SimulationResult(object):
     def save_to_file(self, filename):
         res_string = pickle.dumps(self)
         return FileIO.write_to_file(
-                res_string, 
+                res_string,
                 filename=filename,
                 filedirectory=LocMgr.get_simulation_tmp_dir())
 

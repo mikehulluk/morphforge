@@ -28,9 +28,9 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-""" 
+"""
 A collection of utility functions.
-Often these are not the most efficient implementations, especially when 
+Often these are not the most efficient implementations, especially when
 dealing with large files, but for most files morphforge has to deal with,
 they work fine and make code more readable.
 
@@ -39,7 +39,7 @@ import os.path as fs
 
 import hashlib
 import re
-import random 
+import random
 import os
 import fnmatch
 
@@ -88,10 +88,10 @@ class FileIO(object):
 
     @classmethod
     def append_to_file(cls, txt, filename, file_expected=True):
-        """ Appends text to an existing file. 
+        """ Appends text to an existing file.
 
-        By default the file is expected to already exist, otherwise an IOError 
-        exception be thrown. This can be overridden with the file_expected 
+        By default the file is expected to already exist, otherwise an IOError
+        exception be thrown. This can be overridden with the file_expected
         parameter. Returns `filename`"""
 
         if file_expected and not fs.exists(filename):
@@ -130,9 +130,9 @@ class FileIO(object):
 
     @classmethod
     def get_hash_md5(cls, filename):
-        """ Returns the md5 checksum of a file. 
+        """ Returns the md5 checksum of a file.
 
-        This function should not be used for large files, since it loads 
+        This function should not be used for large files, since it loads
         the entire file into memory.
         """
         return StrUtils.get_hash_md5(FileIO.read_from_file(filename))
@@ -175,8 +175,8 @@ class SeqUtils(object):
 
     @classmethod
     def filter_expect_single(cls, seq, filter_func):
-        """ Filters a sequence according to the predicate filter_func, then 
-        expects a single item to remain, which it returns.  If 0 or more than 
+        """ Filters a sequence according to the predicate filter_func, then
+        expects a single item to remain, which it returns.  If 0 or more than
         1 objects are found, it raises an error.
         """
         filtered_seq = [s for s in seq if filter_func(s)]
@@ -197,9 +197,9 @@ class SeqUtils(object):
     @classmethod
     def max_with_unique_check(cls, collection, key):
         """ Return the maximum from a sequence, based on a key, but verify
-        that there is a unique maximum. 
+        that there is a unique maximum.
 
-        This is designed to be used when the 
+        This is designed to be used when the
         key generates integers."""
         assert len(collection)
         if len(collection) == 1:
@@ -225,7 +225,7 @@ def merge_dictionaries(dictionaries):
     This function merges dictionaries together, but ensures that there are
     not same keys which point to different values. That is,
     merge_dictionaries({'alpha':True}, {'alpha':True}) is OK, but
-    merge_dictionaries({'alpha':True}, {'alpha':False}) will raise an 
+    merge_dictionaries({'alpha':True}, {'alpha':False}) will raise an
     exception
     """
     res = {}

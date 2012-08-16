@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -210,10 +210,10 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_neuro( env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_neuro )
-        sim.record( chl_neuro, what= 'h', cell_location=cell.get_location("soma"),   name="h") 
+        sim.record( chl_neuro, what= 'h', cell_location=cell.get_location("soma"),   name="h")
         sim.record( chl_neuro,  what='h_inf', cell_location=cell.get_location("soma"),   name="hinf")
-        sim.record( chl_neuro, what = 'h_tau', cell_location=cell.get_location("soma"),   name="htau") 
-        sim.record( chl_neuro, what= 'g', cell_location=cell.get_location("soma"),  name="g") 
+        sim.record( chl_neuro, what = 'h_tau', cell_location=cell.get_location("soma"),   name="htau")
+        sim.record( chl_neuro, what= 'g', cell_location=cell.get_location("soma"),  name="g")
         return chl_neuro
 
     # via xsl transformation:
@@ -222,10 +222,10 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_xsl(env, cell, sim ):
 
         apply_mechanism_everywhere_uniform(cell, chl_xsl )
-        sim.record( chl_xsl,  what='h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h") 
-        sim.record( chl_xsl ,  what='hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf") 
-        sim.record( chl_xsl,  what='htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau") 
-        sim.record( chl_xsl, what='gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g") 
+        sim.record( chl_xsl,  what='h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h")
+        sim.record( chl_xsl ,  what='hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf")
+        sim.record( chl_xsl,  what='htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau")
+        sim.record( chl_xsl, what='gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g")
         return chl_xsl
 
     import os

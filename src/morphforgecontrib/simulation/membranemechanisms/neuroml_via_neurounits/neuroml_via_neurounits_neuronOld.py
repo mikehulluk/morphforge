@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -36,7 +36,7 @@ assert False
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.tools.nmodl import WriteToNMODL
 from morphforge.core.quantities.fromcore import unit
@@ -53,9 +53,9 @@ from neurounits.importers.neuroml import EqnSetFromNeuroML
 
 class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
     def __init__(self, chl, modvar, **kwargs):
-        super( MM_Neuron_NeuroUnits_GenRecord, self).__init__(**kwargs)
+        super(MM_Neuron_NeuroUnits_GenRecord, self).__init__(**kwargs)
         self.chl = chl
-        self.modvar=modvar
+        self.modvar = modvar
 
     def build_mod(self, modfile_set):
         pass
@@ -68,11 +68,12 @@ class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
                                              mod_neuronsuffix=self.chl.nrnsuffix, recordobj=self)
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.chl.name, self.cell_location.get_location_description_str() )
+        return '%s %s %s' % (self.modvar, self.chl.name,
+                             self.cell_location.get_location_description_str())
 
 
     def get_unit(self):
-        return unit("1.0")
+        return unit('1.0')
     def get_std_tags(self):
         return []
 
@@ -83,10 +84,9 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
     def __init__(self, xml_filename, chlname=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
         MM_Neuron_Base.__init__(self)
-        NeuroML_Via_NeuroUnits_Channel.__init__(self, xml_filename=xml_filename, chlname=chlname, mechanism_id=mechanism_id)
-
-
-
+        NeuroML_Via_NeuroUnits_Channel.__init__(self,
+                xml_filename=xml_filename, chlname=chlname,
+                mechanism_id=mechanism_id)
 
         eqnset,chlinfo,default_params = EqnSetFromNeuroML.load(xml_filename)
 
@@ -98,7 +98,7 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
         self.defaults = {}
         self.units = {}
         print 'Params:'
-        for param_str, value in default_params.iteritems():
+        for (param_str, value) in default_params.iteritems():
             print param_str, value
             sym = eqnset.get_terminal_obj(param_str)
             param_default_unit = buildparameters.symbol_units[sym]
@@ -117,7 +117,8 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
         build_hoc_default( cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.nrnsuffix )
 
     def create_modfile(self, modfile_set):
-        modFile =  ModFile(name='NeuroMLViaNeuroUnitsChannelNEURON_%s'%self.name, modtxt=self.modtxt )
+        modFile = ModFile(name='NeuroMLViaNeuroUnitsChannelNEURON_%s'
+                          % self.name, modtxt=self.modtxt)
         modfile_set.append(modFile)
 
 
@@ -132,8 +133,8 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
     class Recordables:
         all = []
 
-    def get_recordable(self, what,  **kwargs):
-        raise ValueError( "Can't find Recordable: %s"%what)
+    def get_recordable(self, what, **kwargs):
+        raise ValueError("Can't find Recordable: %s" % what)
 
 
 

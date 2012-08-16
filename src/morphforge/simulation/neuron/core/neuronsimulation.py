@@ -41,7 +41,9 @@ from morphforge.core import RCMgr
 from morphforge.simulation.base import Simulation, SimulationResult
 from morphforge.simulation.base.simulationmetadatabundle.builders import MetaDataBundleBuilder
 from morphforge.simulation.neuron.objects import NeuronSimSetupObj
-from morphforge.simulation.neuron.simulationdatacontainers import MHocFile, MHocFileData, MModFileSet
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFile, 
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MModFileSet
 from morphforge.simulation.neuron.misc import NeuronSimulationConstants
 
 from morphforge.core.mgrs.logmgr import LogMgr
@@ -59,7 +61,7 @@ class MNeuronSimulation(Simulation):
     def __init__(self, name=None, environment=None, **kwargs):
         super(MNeuronSimulation, self).__init__(
                 name=name,
-                environment=environment, 
+                environment=environment,
                 **kwargs)
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
@@ -104,7 +106,7 @@ class MNeuronSimulation(Simulation):
         # Load back the results:
         LogMgr.info('_run_spawn() [Loading results]')
         self.result = SimulationResult.load_from_file(resfilename)
-        LogMgr.info("_run_spawn() [Finished loading results]")
+        LogMgr.info('_run_spawn() [Finished loading results]')
 
 
         # We have to do this so that the simulation object
@@ -195,8 +197,8 @@ class MNeuronSimulation(Simulation):
 
         # Write the HOC file:
         t_sim_start = time.time()
-        hoc_filename = FileIO.write_to_file( str(hoc_data), suffix=".hoc")
-        nrn(h.load_file, hoc_filename )
+        hoc_filename = FileIO.write_to_file(str(hoc_data), suffix='.hoc')
+        nrn(h.load_file, hoc_filename)
         self.hocfilename = hoc_filename
 
         # run the simulation
@@ -208,7 +210,7 @@ class MNeuronSimulation(Simulation):
             def callback(self):
                 print self, 't=', h.t, 'ms'
                 sys.stdout.flush()
-                if h.t + self.interval  < h.tstop:
+                if h.t + self.interval < h.tstop:
                     h.cvode.event(h.t + self.interval, self.callback)
 
         e = Event()

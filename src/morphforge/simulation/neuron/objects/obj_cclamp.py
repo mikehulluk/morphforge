@@ -70,12 +70,13 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
 
 class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
-    def __init__( self, **kwargs): 
+    def __init__( self, **kwargs):
         super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
 
 
     def build_hoc(self, hocfile_obj):
-        HocBuilder.CurrentClamp( hocfile_obj=hocfile_obj, currentclamp=self)
+        HocBuilder.CurrentClamp(hocfile_obj=hocfile_obj,
+                                currentclamp=self)
 
     def build_mod(self, modfile_set):
         pass

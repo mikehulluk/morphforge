@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -43,19 +43,18 @@ class DBScan(object):
 
     @classmethod
     def query_region(cls, p, eps, pts):
-        nr_indices = np.nonzero( np.fabs(pts-p) < eps)[0]
-        #print nr_indices
-        return set( nr_indices )
+        nr_indices = np.nonzero(np.fabs(pts - p) < eps)[0]
+        return set(nr_indices)
 
 
     @classmethod
-    def cluster_points(cls, pts, eps, min_pts ):
+    def cluster_points(cls, pts, eps, min_pts):
         pts = np.array(pts)
-        visited_indices = [False] * np.zeros( len(pts) )
+        visited_indices = [False] * np.zeros(len(pts))
         noise = []
         clusters = []
 
-        for i,pt in enumerate(pts):
+        for (i, pt) in enumerate(pts):
             if visited_indices[i]:
                 continue
 
@@ -70,7 +69,7 @@ class DBScan(object):
                 cls.expand_cluster(pt_index=i, npoints=n_points, cluster=new_cluster, eps=eps, pts=pts, min_pts=min_pts,  visited_indices=visited_indices, clusters=clusters)
                 clusters.append(new_cluster)
 
-        return clusters, noise
+        return (clusters, noise)
 
 
     @classmethod
@@ -78,7 +77,7 @@ class DBScan(object):
 
         cluster.add(pt_index)
 
-        iter_n = list( npoints )
+        iter_n = list(npoints)
         while iter_n:
             pdash_index = iter_n.pop()
             if not visited_indices[pdash_index]:
@@ -97,7 +96,7 @@ class DBScan(object):
 
     @classmethod
     def cluster_spike_times(cls, event_set, eps, min_pts=5):
-        eps=float( eps.rescale("ms").magnitude )
+        eps = float(eps.rescale('ms').magnitude)
 
 
         data = [ float( ev.get_time().rescale("ms") ) for ev in event_set ]
@@ -108,7 +107,7 @@ class DBScan(object):
         for cluster in clusters:
             e = EventSet()
             for c in cluster:
-                e.add_event( event_set[c] )
+                e.add_event(event_set[c])
             new_eventsets.append(e)
 
         # Create a new EventSet for the noise points:
@@ -130,59 +129,8 @@ class DBScan(object):
 
         isi = np.diff(mean_times)
         freq = 1000.0 / isi
-        #pylab.hist(freq)
-        mean_freq = np.mean( freq)
+        mean_freq = np.mean(freq)
 
         return mean_freq
 
 
-#DBSCAN(D, eps, MinPts)
-#   C = 0
-#   for each unvisited point P in dataset D
-#      mark P as visited
-#      N = regionQuery(P, eps)
-#      if sizeof(N) < MinPts
-#         mark P as NOISE
-#      else
-#         C = next cluster
-#         expand_cluster(P, N, C, eps, MinPts)
-#
-#expand_cluster(P, N, C, eps, MinPts)
-#   add P to cluster C
-#   for each point P' in N
-#      if P' is not visited
-#         mark P' as visited
-#         N' = regionQuery(P', eps)
-#         if sizeof(N') >= MinPts
-#            N = N joined with N'
-#      if P' is not yet member of any cluster
-#         add P' to cluster C
-
-
-
-
-#
-#with open("/home/michael/Desktop/save_spikes.txt") as fIn:
-#    data = fIn.read().split()
-#
-#
-#
-#data = np.array( [ float(s) for s in data] )
-##data.sort()
-##data = data[0:50]
-#
-#clusters, noise = DBScan.run( pts = data, eps=5, min_pts=5)
-#
-#for c in clusters:
-#    print 'Cluster:', c
-#    #print c
-#
-#import pylab
-#colors = ['rgbykrgbykrgbykrgbykrgbykrgbykrgbykrgbyk']
-#for i,c in enumerate(clusters):
-#    indices = np.array( list(c) )
-#    print indices
-#    print data
-#    d = data[ indices ]
-#    pylab.scatter( d, [i]*len(d), colors[i]   )
-#pylab.show()

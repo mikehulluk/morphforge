@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -63,15 +63,18 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
         pass
 
     def build_hoc(self, hocfile_obj):
-        HocModUtils.create_record_from_modfile( hocfile_obj,
-                                             vecname="RecVec%s"%self.name,
-                                             cell_location=self.cell_location,
-                                             modvariable=self.modvar,
-                                             mod_neuronsuffix=self.src_chl.NRNSUFFIX,
-                                             recordobj=self)
+        HocModUtils.create_record_from_modfile(
+            hocfile_obj,
+            vecname='RecVec%s' % self.name,
+            cell_location=self.cell_location,
+            modvariable=self.modvar,
+            mod_neuronsuffix=self.src_chl.NRNSUFFIX,
+            recordobj=self,
+            )
 
     def get_description(self):
-        return "%s %s %s" % (self.modvar, self.src_chl.name, self.cell_location.get_location_description_str() )
+        return '%s %s %s' % (self.modvar, self.src_chl.name,
+                             self.cell_location.get_location_description_str())
 
     def get_unit(self):
         return self.unit_in_nrn
@@ -87,17 +90,17 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
     def __init__(self, eqnset ,mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
         MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
 
-        if isinstance( eqnset, basestring):
+        if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
         self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name( NeuroUnitEqnsetMechanism)
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
-        self.recordables_data =recordables_data or {}
+        self.recordables_data = recordables_data or {}
 
         for param in eqnset.parameters:
-            print'CHECKING'
+            print 'CHECKING'
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
@@ -126,7 +129,7 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
         assert self.buildparameters.mechanismtype == MechanismType.Distributed
         self.units = {}
-        for param_str, value in self._parameters.iteritems():
+        for (param_str, value) in self._parameters.iteritems():
             sym = self.eqnset.get_terminal_obj(param_str)
             param_default_unit = self.buildparameters.symbol_units[sym]
             self.units[param_str] = param_default_unit.as_quantities_unit()
@@ -151,12 +154,15 @@ class Neuron_NeuroUnitEqnsetMechanism( MM_Neuron_Base, NeuroUnitEqnsetMechanism)
 
 
     def get_recordables(self):
-        return  self._get_recordable_symbols()
+        return self._get_recordable_symbols()
         assert False
 
 
     def _get_recordable_symbols(self):
-        return [ s.symbol for s in list(self.eqnset.states) + list(self.eqnset.assignedvalues) + list(self.eqnset.suppliedvalues) + list(self.eqnset.parameters) ]
+        return [s.symbol for s in list(self.eqnset.states)
+                + list(self.eqnset.assignedvalues)
+                + list(self.eqnset.suppliedvalues)
+                + list(self.eqnset.parameters)]
 
     def get_recordable(self, what, cell_location, **kwargs):
 

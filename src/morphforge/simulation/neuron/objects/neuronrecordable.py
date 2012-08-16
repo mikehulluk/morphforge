@@ -35,7 +35,7 @@ from morphforge.simulation.base.core.recordable import Recordable
 
 
 class NeuronRecordable(Recordable):
-    
+
     pass
 
 

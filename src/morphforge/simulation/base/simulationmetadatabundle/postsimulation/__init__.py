@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from postsimulationaction import PostSimulationAction, \
-    PostSimulationActionPickleSimulation
+from postsimulationaction import PostSimulationAction
+from postsimulationaction import PostSimulationActionPickleSimulation
 
 
 __all__ = ['PostSimulationAction',

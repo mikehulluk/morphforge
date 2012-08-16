@@ -33,7 +33,7 @@ sys.path.append('../src/')
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-    'sphinx.ext.autodoc', 
+    'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
@@ -263,7 +263,7 @@ def maybe_skip_member(app, what, name, obj, skip, options):
     return False
 
 
-    
+
 def setup(app):
     app.connect('autodoc-skip-member', maybe_skip_member)
 

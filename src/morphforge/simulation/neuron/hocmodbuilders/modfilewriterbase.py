@@ -224,7 +224,7 @@ class MM_ModFileWriterBase(object):
         self.ratecalcorder = ratecalcorder if ratecalcorder else []
 
         #{name: code}
-        self.functions = functions if functions else ""
+        self.functions = (functions if functions else "")
 
 
         self.currentname = self.defaultCurrentName

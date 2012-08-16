@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -67,14 +67,13 @@ class MM_Neuron_RecGen(NeuronRecordable):
 
     def build_hoc(self, hocfile_obj):
         HocModUtils.create_record_from_object(
-                                            hocfile_obj = hocfile_obj,
-                                             vecname="RecVec%s"%self.name,
-                                             objname = self.src_chl.synapse.get_name() + "Post",
-                                             objvar=self.objvar,
-                                             recordobj=self)
+                hocfile_obj=hocfile_obj,
+                vecname='RecVec%s' % self.name,
+                objname=self.src_chl.synapse.get_name() + 'Post',
+                objvar=self.objvar, recordobj=self)
 
     def get_description(self):
-        return "%s %s" % (self.objvar, self.src_chl.name, )
+        return '%s %s' % (self.objvar, self.src_chl.name)
 
     def get_unit(self):
         return self.unit_in_nrn
@@ -96,7 +95,7 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
-        self.recordables_data =recordables_data or {}
+        self.recordables_data = recordables_data or {}
 
         for param in eqnset.parameters:
             print param
@@ -130,7 +129,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
 
         assert self.buildparameters.mechanismtype == MechanismType.Point
         self.units = {}
-        for param_str, value in self._parameters.iteritems():
+        for (param_str, value) in self._parameters.iteritems():
             sym = self.eqnset.get_terminal_obj(param_str)
             param_default_unit = self.buildparameters.symbol_units[sym]
             self.units[param_str] = param_default_unit.as_quantities_unit()
@@ -141,14 +140,15 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
-        syn_name_post = self.synapse.get_name() + "Post"
+        syn_name_post = self.synapse.get_name() + 'Post'
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                "synnamepost":syn_name_post,
                "cell":cell,
-               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
-               "sectionpos":self.cell_location.morphlocation.sectionpos,
-               "synapsetypename":self.NRNSUFFIX,
+               "cellname": cell_hoc['cell_name'],
+               "sectionindex": cell_hoc['section_indexer'][section],
+               "sectionpos": self.cell_location.morphlocation.sectionpos,
+               "synapsetypename": self.NRNSUFFIX,
 
                "parameters": [ (k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems() ]
 
@@ -158,12 +158,13 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
         hocfile_obj.add_to_section( MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond() )
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data
+        hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
 
 
 
     def build_mod(self, modfile_set):
-        modfile = ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2')
+        modfile = ModFile(modtxt=self.nmodl_txt,
+                          name='UnusedParameterXXXExpSyn2')
         modfile_set.append(modfile)
 
 
@@ -187,31 +188,33 @@ class Neuron_NeuroUnitEqnsetPostSynaptic( MM_Neuron_Base, NeuroUnitEqnsetPostSyn
 
 
     def get_recordables(self):
-        return  self._get_recordable_symbols()
+        return self._get_recordable_symbols()
         assert False
 
 
     def _get_recordable_symbols(self):
-        return [ s.symbol for s in list(self.eqnset.states) + list(self.eqnset.assignedvalues) + list(self.eqnset.suppliedvalues) + list(self.eqnset.parameters) ]
+        return [s.symbol for s in list(self.eqnset.states)
+                + list(self.eqnset.assignedvalues)
+                + list(self.eqnset.suppliedvalues)
+                + list(self.eqnset.parameters)]
 
-    def get_recordable(self, what,  **kwargs):
+    def get_recordable(self, what, **kwargs):
 
         # Map it through the recordables_map, so that we can alias to StandardTags:
-        what = self.recordables_map.get(what,what)
+        what = self.recordables_map.get(what, what)
 
         valid_symbols = self._get_recordable_symbols()
-        if not what in  valid_symbols:
+        if not what in valid_symbols:
             err ="Unknown record value: %s. Expecting one of: %s "%(what, valid_symbols)
             raise ValueError(err)
 
-        obj = self.eqnset.get_terminal_obj( what )
+        obj = self.eqnset.get_terminal_obj(what)
         unit_in_nrn = self.buildparameters.symbol_units[obj].as_quantities_unit()
 
         std_tags = []
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        #def __init__(self, src_chl, objvar,unit_in_nrn, std_tags, **kwargs):
         return MM_Neuron_RecGen( src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 

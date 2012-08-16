@@ -81,8 +81,8 @@ __all__ = [
     'PassiveTargeter_EverywhereDefault',
     'PassiveProperty',
 
-    "Synapse",
-    "GapJunction",
-    "PostSynapticMech",
-    "PreSynapticMechanism",
-]
+    'Synapse',
+    'GapJunction',
+    'PostSynapticMech',
+    'PreSynapticMechanism',
+    ]

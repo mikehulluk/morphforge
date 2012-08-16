@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -67,14 +67,16 @@ class CellAnalysis_StepInputResponse(object):
 
     def simulate_all(self):
         for c in self.currents:
-            tr_v,tr_i = self.simulate(c)
-            self.result_traces[c] = tr_v,tr_i
+            (tr_v, tr_i) = self.simulate(c)
+            self.result_traces[c] = (tr_v, tr_i)
 
-    def plot(self,):
-        trs = list( itertools.chain( *self.result_traces.values() ) )
+    def plot(self):
+        trs = list(itertools.chain(*self.result_traces.values()))
 
-        title = '%s- Step Current Inject Responses'%(self.cell_description)
-        TagViewer( trs, show=False, figtitle= title,**self.tagviewer_kwargs  )
+        title = '%s- Step Current Inject Responses' \
+            % self.cell_description
+        TagViewer(trs, show=False, figtitle=title,
+                  **self.tagviewer_kwargs)
 
 
 
@@ -85,17 +87,22 @@ class CellAnalysis_StepInputResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        soma_loc = cell.get_location("soma")
+        soma_loc = cell.get_location('soma')
 
-        cc = sim.create_currentclamp( name="cclamp", amp=current, dur="80:ms", delay="50:ms", cell_location=soma_loc)
+        cc = sim.create_currentclamp(name='cclamp', amp=current,
+                dur='80:ms', delay='50:ms', cell_location=soma_loc)
 
-        sim.record( cc, name="Current",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
-        sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
+        sim.record(cc, name='Current',
+                   what=CurrentClamp.Recordables.Current,
+                   description='CurrentClampCurrent')
+        sim.record(cell, name='SomaVoltage', cell_location=soma_loc,
+                   what=Cell.Recordables.MembraneVoltage,
+                   description='Response to i_inj=%s ' % current)
 
         res = sim.run()
 
 
-        return res.get_trace('SomaVoltage'), res.get_trace('Current')
+        return (res.get_trace('SomaVoltage'), res.get_trace('Current'))
 
 
 
@@ -119,8 +126,8 @@ class CellAnalysis_ReboundResponse(object):
         self.tagviewer_kwargs = tagviewer_kwargs or {}
         self.result_traces = {}
 
-        self.cell_description=cell_description
-        self.plot_all=plot_all
+        self.cell_description = cell_description
+        self.plot_all = plot_all
 
         self.simulate_all()
 
@@ -131,8 +138,10 @@ class CellAnalysis_ReboundResponse(object):
     def simulate_all(self):
         for c1 in self.currents_base:
             for c2 in self.currents_rebound:
-                tr_v,tr_i = self.simulate(c1,c2)
-                self.result_traces[( int(c1.rescale('pA').magnitude),int(c2.rescale('pA').magnitude))] = tr_v,tr_i
+                (tr_v, tr_i) = self.simulate(c1, c2)
+                self.result_traces[(int(c1.rescale('pA').magnitude),
+                                   int(c2.rescale('pA').magnitude))] = \
+                    (tr_v, tr_i)
 
 
 
@@ -142,7 +151,7 @@ class CellAnalysis_ReboundResponse(object):
 
 
 
-    #def plot_rebound_graphs(self):
+    # def plot_rebound_graphs(self):
     #    c1Values = set( [k[0] for k in self.result_traces ])
     #    c2Values = set( [k[1] for k in self.result_traces ])
     #
@@ -173,9 +182,9 @@ class CellAnalysis_ReboundResponse(object):
         for c1 in c1_values:
             trs = []
             for c2 in c2_values:
-                if c2>c1:
+                if c2 > c1:
                     continue
-                trs.extend( self.result_traces[(c1,c2)] )
+                trs.extend(self.result_traces[(c1, c2)])
 
             title = "%s- (Response to Current Injections [BaseCurrent %s pA ] )"%(self.cell_description, c1)
             TagViewer( trs, show=False, figtitle=title, **self.tagviewer_kwargs )
@@ -190,7 +199,7 @@ class CellAnalysis_ReboundResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        soma_loc = cell.get_location("soma")
+        soma_loc = cell.get_location('soma')
 
         cc1 = sim.create_currentclamp( name="cclamp", amp=current_base, dur="100:ms", delay="50:ms", cell_location=soma_loc)
         cc2 = sim.create_currentclamp( name="cclamp2", amp=-1*current_rebound, dur="5:ms", delay="80:ms", cell_location=soma_loc)
@@ -209,9 +218,14 @@ class CellAnalysis_ReboundResponse(object):
 
         i = res.get_trace('Current1').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current2').convert_to_fixed( unit("0.5:ms") ) + res.get_trace('Current3').convert_to_fixed( unit("0.5:ms") )
 
-        i = TraceConverter.rebase_to_fixed_dt(res.get_trace('Current1'), dt = unit("0.5:ms") ) + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current2'), dt = unit("0.5:ms") ) + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current3'), dt = unit("0.5:ms") )
-        i.tags=[StandardTags.Current]
-        return res.get_trace('SomaVoltage'), i
+        i = TraceConverter.rebase_to_fixed_dt(res.get_trace('Current1'
+                ), dt=unit('0.5:ms')) \
+            + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current2'
+                ), dt=unit('0.5:ms')) \
+            + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current3'
+                ), dt=unit('0.5:ms'))
+        i.tags = [StandardTags.Current]
+        return (res.get_trace('SomaVoltage'), i)
 
 
 
@@ -235,15 +249,15 @@ class CellAnalysis_IVCurve(object):
         self.tCurrentInjStart = unit('50:ms')
         self.tCurrentInjStop = unit('200:ms')
 
-        self.tSteaddyStateStart = unit( '100:ms' )
-        self.tSteaddyStateStop = unit( '151:ms' )
+        self.tSteaddyStateStart = unit('100:ms')
+        self.tSteaddyStateStop = unit('151:ms')
 
         self.traces = {}
 
         self.currents = currents
         self.cell_description = cell_description or 'Unknown Cell'
 
-        self.input_resistance=unit("-1:MOhm")
+        self.input_resistance = unit('-1:MOhm')
 
         if plot_all:
             self.plot_all()
@@ -254,7 +268,7 @@ class CellAnalysis_IVCurve(object):
 
 
 
-    def _get_cc_simulation_trace( self, current,   ):
+    def _get_cc_simulation_trace(self, current):
 
         if self.cell_functor:
             env = NeuronSimulationEnvironment()
@@ -266,7 +280,7 @@ class CellAnalysis_IVCurve(object):
             sim = self.sim
             cell = self.cell
 
-        soma_loc = cell.get_location("soma")
+        soma_loc = cell.get_location('soma')
 
         cc = sim.create_currentclamp( name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, cell_location=soma_loc)
         sim.record( cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current )
@@ -295,17 +309,19 @@ class CellAnalysis_IVCurve(object):
 
 
     def plot_traces(self, ax=None):
-        title = "%s: (Voltage Responses to Current Injections)"%(self.cell_description)
+        title = '%s: (Voltage Responses to Current Injections)' \
+            % self.cell_description
         if not ax:
             f = QuantitiesFigure()
-            f.suptitle( title )
-            ax = f.add_subplot(1,1,1)
+            f.suptitle(title)
+            ax = f.add_subplot(1, 1, 1)
             ax.set_xlabel('Time')
             ax.set_ylabel('Voltage')
 
         # Plot the traces
         for i_inj in self.currents:
-            ax.plotTrace( self.get_trace(i_inj), label='i_inj: %s'%i_inj)
+            ax.plotTrace(self.get_trace(i_inj), label='i_inj: %s'
+                         % i_inj)
 
         # Add the regions:
         ax.axvspan(self.tSteaddyStateStart, self.tSteaddyStateStop, facecolor='g', alpha=0.25)
@@ -316,21 +332,21 @@ class CellAnalysis_IVCurve(object):
 
 
     def plot_iv_curve(self, ax=None):
-        title = "%s: IV Curve"%(self.cell_description)
+        title = '%s: IV Curve' % self.cell_description
         if not ax:
             f = QuantitiesFigure()
-            f.suptitle(title )
-            ax = f.add_subplot( 1,1,1)
+            f.suptitle(title)
+            ax = f.add_subplot(1, 1, 1)
             ax.set_xlabel('Injected Current')
             ax.set_ylabel('SteadyStateVoltage')
 
 
-        V = [self.get_iv_point_steaddy_state(c) for c in self.currents ]
+        V = [self.get_iv_point_steaddy_state(c) for c in self.currents]
         i = factorise_units_from_list(self.currents)
         v = factorise_units_from_list(V)
 
 
-        low_v = v<self.v_regressor_limit
+        low_v = v < self.v_regressor_limit
 
         ax.plot( i[low_v], v[low_v], 'ro' )
         ax.plot( i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx' )
@@ -340,23 +356,21 @@ class CellAnalysis_IVCurve(object):
         # Plot the regressor:
         i_units = unit('1:pA').units
         v_units = unit('1:mV').units
-        iv = np.vstack(   (i.rescale(i_units).magnitude, v.rescale(v_units).magnitude) ).T
+        iv = np.vstack((i.rescale(i_units).magnitude,
+                       v.rescale(v_units).magnitude)).T
 
-        if not len(iv[low_v,0]):
+        if not len(iv[low_v, 0]):
             return
-        (a_s,b_s,r,tt,stderr)=stats.linregress( iv[low_v,0], iv[low_v,1])
-        input_resistance = (a_s * (v_units/i_units ) ).rescale('MOhm')
+        (a_s, b_s, r, tt, stderr) = stats.linregress(iv[low_v, 0], iv[low_v, 1])
+        input_resistance = (a_s * (v_units / i_units)).rescale('MOhm')
         reversal_potential = b_s * v_units
 
-        #print ' Input Resistance = ', input_resistance
-        #print ' Reversal Potential = ', reversal_potential
-
-        self.input_resistance =input_resistance
-        self.reversal_potential =reversal_potential
+        self.input_resistance = input_resistance
+        self.reversal_potential = reversal_potential
 
         ax.plot( i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s,b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)   )
         ax.legend()
 
-        PM.save_figure(figname= title)
+        PM.save_figure(figname=title)
 
 

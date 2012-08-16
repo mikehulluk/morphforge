@@ -32,7 +32,8 @@
 
 from Cheetah.Template import Template
 from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, 
+from morphforge.simulation.neuron.simulationdatacontainers import  MHocFileData
 
 
 
@@ -110,7 +111,8 @@ $cell_name = new  $cell_template_name ()
 
 
 
-class HocBuilder_Cell():
+class HocBuilder_Cell(object):
+
     @classmethod
     def build(cls, hocfile_obj, cell):
 

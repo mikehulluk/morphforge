@@ -98,7 +98,7 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
                "e_rev": self.e_rev,
                }
 
-        
+
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,
                                    Template(expTmpl, data).respond())
 

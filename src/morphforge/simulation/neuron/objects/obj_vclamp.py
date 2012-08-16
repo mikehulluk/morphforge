@@ -31,7 +31,7 @@
 
 
 from neuronobject import NeuronObject
-from morphforge.simulation.base import VoltageClamp, VoltageClampStepChange#, CurrentClamp
+from morphforge.simulation.base import VoltageClamp, VoltageClampStepChange
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
@@ -55,8 +55,10 @@ class VoltageClampCurrentRecord(NeuronRecordable):
 
 
     def build_hoc(self, hocfile_obj):
-        obj_name_hoc = hocfile_obj[MHocFileData.VoltageClamps][self.vclamp]["stimname"]
-        HocModUtils.create_record_from_object( hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=obj_name_hoc, objvar="i", recordobj=self )
+        obj_name_hoc = hocfile_obj[MHocFileData.VoltageClamps][self.vclamp]['stimname']
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj,
+                vecname='RecVec%s' % self.name, objname=obj_name_hoc,
+                objvar='i', recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -64,10 +66,10 @@ class VoltageClampCurrentRecord(NeuronRecordable):
 
 
 
-class MNeuronVoltageClampStepChange(VoltageClampStepChange ,NeuronObject):
+class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
 
-    def __init__(self,  **kwargs):
-        super(MNeuronVoltageClampStepChange,self).__init__(**kwargs)
+    def __init__(self, **kwargs):
+        super(MNeuronVoltageClampStepChange, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.VoltageClamp(hocfile_obj=hocfile_obj,
@@ -79,7 +81,8 @@ class MNeuronVoltageClampStepChange(VoltageClampStepChange ,NeuronObject):
 
     def get_recordable(self, what, name, **kwargs):
         recorders = {
-            VoltageClamp.Recordables.Current: VoltageClampCurrentRecord}
+            VoltageClamp.Recordables.Current: VoltageClampCurrentRecord
+        }
 
         return recorders[what](vclamp=self, name=name, **kwargs)
 

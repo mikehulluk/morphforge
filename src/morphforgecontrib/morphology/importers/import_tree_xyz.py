@@ -9,28 +9,28 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
-assert False, "Do not use this module ~ currently in development"
+assert False, 'Do not use this module ~ currently in development'
 
 
 from morphforge.morphology.core.morphologytree import MorphologyTree
@@ -75,21 +75,21 @@ class xyzXYZLoader(object):
         line1 = lines[0].translate(None, "\t ")
         assert line1 == "n,T,x,y,z,X,Y,Z,P"
 
-        #Create the regions:
-        regionTypes = dict([ (index, Region(name)) for index, name, in regionNames.iteritems()  ])
-        sections = []
+        line1 = lines[0].translate(None, '\t ')
+        assert line1 == 'n,T,x,y,z,X,Y,Z,P'
 
 
         for l in lines[1:]:
-            toks = l.split(",")
-            T = int( toks[1] )
-            xyz = float(toks[2]), float(toks[3]), float(toks[4]),
-            XYZ = float(toks[5]), float(toks[6]), float(toks[7]),
+            toks = l.split(',')
+            T = int(toks[1])
+            xyz = (float(toks[2]), float(toks[3]), float(toks[4]))
+            XYZ = (float(toks[5]), float(toks[6]), float(toks[7]))
 
             centre = ((xyz[0] + XYZ[0]) / 2.0, (xyz[1] + XYZ[1]) / 2.0, (xyz[2] + XYZ[2]) / 2.0)
             rad = np.sqrt(sum([ (xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2] ]))
 
-            if rad < 0.3: rad = 0.3
+            if rad < 0.3:
+                rad = 0.3
 
             if sections:
                 LogMgr.info("Loading ID: %d" % int(toks[0]))
@@ -153,17 +153,17 @@ class xyzXYZMultiLoader(object):
 
         morphRoots = []
         for l in lines[1:]:
-            toks = l.split(",")
-            T = int( toks[1] )
-            xyz = float(toks[2]), float(toks[3]), float(toks[4]),
-            XYZ = float(toks[5]), float(toks[6]), float(toks[7]),
+            toks = l.split(',')
+            T = int(toks[1])
+            xyz = (float(toks[2]), float(toks[3]), float(toks[4]))
+            XYZ = (float(toks[5]), float(toks[6]), float(toks[7]))
 
             centre = ((xyz[0] + XYZ[0]) / 2.0, (xyz[1] + XYZ[1]) / 2.0, (xyz[2] + XYZ[2]) / 2.0)
             rad = np.sqrt(sum([ (xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2] ]))
             rad = max(rad, minimumradius )
 
-            cellid = int( toks[0] )
-            parent = int( toks[8] )
+            cellid = int(toks[0])
+            parent = int(toks[8])
 
             if parent == -1:
                 sections = {}
@@ -174,17 +174,16 @@ class xyzXYZMultiLoader(object):
                 newSect = sections[parent].create_distal_section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
 
 
-            sections[ cellid ] = newSect
+            sections[cellid] = newSect
 
         morphs = []
         for mR in morphRoots:
-            nM = MorphologyTree(name="M", root=mR, metadata={})
+            nM = MorphologyTree(name='M', root=mR, metadata={})
             morphs.append(nM)
         return morphs
 
 
-        #Create the Cell
-        c = MorphologyTree(name="M", root=sections[0], metadata={})
+        c = MorphologyTree(name='M', root=sections[0], metadata={})
         return c
 
 

@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -83,14 +83,14 @@ TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[
 
 # Min & Max functions:
 ######################
-#These also return the times of min/max:
+# These also return the times of min/max:
 def _get_max(tr):
     ind_max = np.argmax(tr._data)
-    return tr._time[ind_max], tr._data[ind_max]
+    return (tr._time[ind_max], tr._data[ind_max])
 
 def _get_min(tr):
     ind_min = np.argmin(tr._data)
-    return tr._time[ind_min], tr._data[ind_min]
+    return (tr._time[ind_min], tr._data[ind_min])
 
 TraceMethodCtrl.register(TraceFixedDT, 'max', _get_max)
 TraceMethodCtrl.register(TraceFixedDT, 'min', _get_min)
@@ -124,6 +124,6 @@ TraceMethodCtrl.register(TraceFixedDT, 'gradient', _fixeddt_gradient)
 
 # Some aliases:
 ###############
-TraceMethodCtrl.register(TraceFixedDT, 'Mean', lambda tr: tr.mean() )
-TraceMethodCtrl.register(TraceVariableDT, 'Mean', lambda tr: tr.mean() )
-TraceMethodCtrl.register(TracePiecewise, 'Mean', lambda tr: tr.mean() )
+TraceMethodCtrl.register(TraceFixedDT, 'Mean', lambda tr: tr.mean())
+TraceMethodCtrl.register(TraceVariableDT, 'Mean', lambda tr: tr.mean())
+TraceMethodCtrl.register(TracePiecewise, 'Mean', lambda tr: tr.mean())

@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -42,20 +42,20 @@ class GeomTools(object):
     @classmethod
     def produce_sphere(cls, centre, radius, n_steps):
 
-        angles_step = ((2*np.pi)/n_steps)
+        angles_step = 2 * np.pi / n_steps
 
 
-        az_angles = [ i*angles_step for i in range(n_steps) ]
-        theta_angles = [ i*angles_step for i in range(n_steps) ]
+        az_angles = [i * angles_step for i in range(n_steps)]
+        theta_angles = [i * angles_step for i in range(n_steps)]
 
         pts = []
         for az in az_angles:
             for th in theta_angles:
-                r = 1.0 # np.random.normal(loc=1.0, scale=0.001)
+                r = 1.0
                 x = r * radius * np.cos(th) + centre[0]
                 y = r * radius * np.sin(th) * np.sin(az) + centre[1]
                 z = r * radius * np.sin(th) * np.cos(az) + centre[2]
-                pts.append ( (x,y,z) )
+                pts.append((x, y, z))
 
         return pts
 
@@ -68,19 +68,19 @@ class MeshFromGTS(object):
     @classmethod
     def build(cls, m, plot=True, region_color_map=None):
         import gts
-        surface_sections = cls.buildsurface_sectiondict( m.to_tree() )
+        surface_sections = cls.buildsurface_sectiondict(m.to_tree())
 
 
         meshes = []
-        for sect,sect_surface in surface_sections.iteritems():
+        for (sect, sect_surface) in surface_sections.iteritems():
             print sect
             assert sect.region is not None
 
             # Look up the region color:
             if not sect.region.name in region_color_map:
-                for rgn,color in region_color_map.iteritems():
+                for (rgn, color) in region_color_map.iteritems():
                     print rgn.name, rgn, color
-                print 'Looking for:',sect.region.name, sect.region
+                print 'Looking for:', sect.region.name, sect.region
                 assert False, "Can't find region in color map!"
             sect_color = region_color_map[sect.region.name]
             print sect_color
@@ -94,22 +94,20 @@ class MeshFromGTS(object):
             color = np.array( (sect_color.r,sect_color.g,sect_color.b) )
             colors = np.repeat( color, len(vertex_objs)).reshape( dShape, order='F' )
 
-            triangles= sect_surface.face_indices( vertex_objs )
+            triangles = sect_surface.face_indices(vertex_objs)
 
             tm = TriangleMesh(vertices=v, triangles=triangles, vertex_colors=colors )
             meshes.append(tm)
         m = TriangleMesh.merge(meshes=meshes)
-        #with open("/home/michael/Desktop/output.ply","w") as f:
-        #    f.write( MeshWriterPLY.build_string(m) )
-        #print 'Done building mesh'
-        #assert False
+       
 
         if plot:
             from mayavi import mlab
-            mlab.figure(size=(1024,768) )
+            mlab.figure(size=(1024, 768))
             for surface in surface_sections:
-                x,y,z,t = gts.get_coords_and_face_indices(surface,True)
-                mlab.triangular_mesh(x,y,z,t,color=(0.9,0.9,0.9))
+                (x, y, z, t) = gts.get_coords_and_face_indices(surface,
+                        True)
+                mlab.triangular_mesh(x, y, z, t, color=(0.9, 0.9, 0.9))
             mlab.show()
 
         return m
@@ -122,13 +120,13 @@ class MeshFromGTS(object):
         pts = np.array(pts)
 
         # Create a distance matrix of all the points:
-        Y = squareform( pdist(pts, 'euclidean') )
+        Y = squareform(pdist(pts, 'euclidean'))
 
         # We accept points that at not at a lower index and
         # are at a minumum distance to the other points. To do this,
         # we mask out the lower part of the distance matrix:
         assert min_dist < 1.0
-        Y_to_close = (Y + np.tri(Y.shape[0], ) ) < min_dist
+        Y_to_close = Y + np.tri(Y.shape[0]) < min_dist
 
         # Now look for inices with no False in the columns
         any_indices =  ( ~Y_to_close.any(axis=0) ).nonzero()[0]
@@ -140,7 +138,6 @@ class MeshFromGTS(object):
 
     @classmethod
     def buildsurface_sectiondict(cls, m):
-        #m = m.to_tree()
         surface_sections = {}
         for s in m:
             sect_surface = cls.buildsectionsurface(s)
@@ -161,12 +158,12 @@ class MeshFromGTS(object):
 
 
 
-        working_dir = LocMgr.ensure_dir_exists("/tmp/mf/mesh/")
-        fTemp1 = Join( working_dir, "pts.txt")
-        fTemp2  =Join( working_dir, "pts.off")
-        fTemp3  =Join( working_dir, "pts.stl")
-        fTemp2b =Join( working_dir, "pts_postSub.off")
-        fTemp4  =Join( working_dir, "pts.gts")
+        working_dir = LocMgr.ensure_dir_exists('/tmp/mf/mesh/')
+        fTemp1 = Join(working_dir, 'pts.txt')
+        fTemp2 = Join(working_dir, 'pts.off')
+        fTemp3 = Join(working_dir, 'pts.stl')
+        fTemp2b = Join(working_dir, 'pts_postSub.off')
+        fTemp4 = Join(working_dir, 'pts.gts')
 
         nstep = 5
         print 'Building Spheres'
@@ -175,18 +172,18 @@ class MeshFromGTS(object):
         ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep  )
 
         print 'Removing Close Points'
-        pts = cls.only_pts_at_min_dist( ptsP+ ptsD, min_dist=0.01 )
+        pts = cls.only_pts_at_min_dist(ptsP + ptsD, min_dist=0.01)
 
 
         print 'Writing:', fTemp2
-        with open(fTemp1,"w") as f:
-            f.write("3 %d\n"%len(pts) )
-            np.savetxt(f, np.array( pts  ))
+        with open(fTemp1, 'w') as f:
+            f.write('3 %d\n' % len(pts))
+            np.savetxt(f, np.array(pts))
 
 
         if os.path.exists(fTemp2):
             os.unlink(fTemp2)
-        os.system("qhull T1 QJ o < %s > %s"%(fTemp1,fTemp2))
+        os.system('qhull T1 QJ o < %s > %s' % (fTemp1, fTemp2))
 
 
         # Don't do the subdivision, just copy the files:
@@ -195,14 +192,15 @@ class MeshFromGTS(object):
 
 
         f = open(fTemp2b).read().split()
-        nVertex,nFace,nEdge = [int(i) for i in f[1:4] ]
+        (nVertex, nFace, nEdge) = [int(i) for i in f[1:4]]
         assert nVertex > 5
-        vertices = np.array( [float(t) for t in f[4:4+nVertex*3 ] ] ).reshape( nVertex, 3)
+        vertices = np.array([float(t) for t in f[4:4 + nVertex
+                            * 3]]).reshape(nVertex, 3)
 
 
-        triangles = np.array( [ int(t) for t in  f[4+nVertex*3: ] ] )
-        triangles = triangles.reshape( (nFace,4) )
-        triangles = triangles[ : , (1,2,3) ]
+        triangles = np.array([int(t) for t in f[4 + nVertex * 3:]])
+        triangles = triangles.reshape((nFace, 4))
+        triangles = triangles[:, (1, 2, 3)]
 
 
 
@@ -211,13 +209,7 @@ class MeshFromGTS(object):
             fSTL.write( "solid name\n" )
             for i in range( triangles.shape[0]):
                 a,b,c = triangles[i,:]
-                #print a,b,c
-                #print 'a',  vertices[a,:]
-                #print 'b',  vertices[b,:]
-                #print 'c',  vertices[c,:]
-                #assert np.sum( np.fabs( vertices[a,:] - vertices[b,:]) ) > 0.01
-                #assert np.sum( np.fabs( vertices[b,:] - vertices[c,:]) ) > 0.01
-                #assert np.sum( np.fabs( vertices[a,:] - vertices[c,:]) ) > 0.01
+                
 
                 fSTL.write("facet normal 0 0 0\n")
                 fSTL.write("outer loop \n")
@@ -234,7 +226,7 @@ class MeshFromGTS(object):
         if os.path.exists(fTemp4):
             os.unlink(fTemp4)
 
-        os.system( "stl2gts < %s > %s"%(fTemp3,fTemp4) )
+        os.system('stl2gts < %s > %s' % (fTemp3, fTemp4))
 
         assert os.path.exists(fTemp4)
 
@@ -247,6 +239,6 @@ class MeshFromGTS(object):
         assert s.is_closed()
         assert s.is_orientable()
 
-        #s.tessellate()
+        # s.tessellate()
         return s
 

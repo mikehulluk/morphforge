@@ -63,14 +63,21 @@ class MHOCSections(object):
         ]
 
 class MHocFileData(object):
-    Cells = "Cells"
-    Recordables = "Recordables"
-    CurrentClamps = "CurrentClamps"
-    VoltageClamps = "VoltageClamps"
-    Synapses = "Synapses"
-    GapJunctions = "GapJunctions"
-    root_infos = [Cells, Recordables, CurrentClamps, VoltageClamps, Synapses, GapJunctions]
-
+   
+    Cells = 'Cells'
+    Recordables = 'Recordables'
+    CurrentClamps = 'CurrentClamps'
+    VoltageClamps = 'VoltageClamps'
+    Synapses = 'Synapses'
+    GapJunctions = 'GapJunctions'
+    root_infos = [
+        Cells,
+        Recordables,
+        CurrentClamps,
+        VoltageClamps,
+        Synapses,
+        GapJunctions,
+        ]
 
 
 class MHocFile(object):
@@ -83,9 +90,9 @@ class MHocFile(object):
             return None
         return self.info[key]
 
-    def __init__(self, ):
-        self.info = dict( [ (root_info, {}) for root_info in MHocFileData.root_infos] )
-        self.sections = dict( [ (s, []) for s in MHOCSections.ordered] )
+    def __init__(self):
+        self.info = dict([(root_info, {}) for root_info in MHocFileData.root_infos])
+        self.sections = dict([(s, []) for s in MHOCSections.ordered])
 
     def add_to_section(self, section_name, text):
         self.sections[section_name].append(text)

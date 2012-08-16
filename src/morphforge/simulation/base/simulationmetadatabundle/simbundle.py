@@ -85,16 +85,17 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
         bundlesuffix = '.bundle'
 
         if bundlefilename is None:
-            bundledir = bundleloc + '/' + self.get_sim_md5sum()[0:2]
-            loc = LocMgr.ensure_dir_exists(bundledir)
-            bundlefilename = loc + '/' + self.get_sim_md5sum() + bundlesuffix
+            bundle_dir = bundleloc + '/' + self.get_sim_md5sum()[0:2]
+            bundle_dir = LocMgr.ensure_dir_exists(bundle_dir)
+            bundle_fname = self.get_sim_md5sum() + bundlesuffix
+            bundlefilename = os.path.join(bundle_dir, bundle_fname)
 
         FileIO.write_to_file(txt=cPickle.dumps(self),
                              filename=bundlefilename)
-        print 'bundlefilename', bundlefilename
+        # print 'bundlefilename', bundlefilename
         return bundlefilename
 
-    def write_to_file_and_get_exec_string(self, 
+    def write_to_file_and_get_exec_string(self,
             bundlefilename=None,
             simulation_binary_file='SimulateBundle.py'):
 

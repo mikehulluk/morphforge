@@ -120,7 +120,6 @@ class MNeuronCell(Cell, NeuronObject):
             m.create_modfile(modfile_set)
 
     def get_recordable(self, what, **kwargs):
-        recordables = {
-            MNeuronCell.Recordables.MembraneVoltage : MembraneVoltageRecord,
-        }
+        recordables = \
+            {MNeuronCell.Recordables.MembraneVoltage: MembraneVoltageRecord}
         return recordables[what](cell=self, **kwargs)

@@ -9,42 +9,42 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
 
 
-from morphforge.core.quantities import  unit
+from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 import numpy as np
 
 
 class MM_AlphaBetaBetaChannel(MembraneMechanism):
-    class Recordables():
-        Current = "Current"
+    class Recordables(object):
+        Current = 'Current'
         all = [Current]
 
     def __init__(self, name, ion, equation, conductance, reversalpotential, statevars, beta2threshold, mechanism_id):
 
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id )
+        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
 
         self.name = name
         self.ion = ion
@@ -53,7 +53,7 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
 
         self.beta2threshold = unit(beta2threshold)
 
-        self.statevars = dict([ (s, (sDict['alpha'], sDict['beta1'],sDict['beta2'])) for s, sDict in statevars.iteritems()])
+        self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'],sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.reversalpotential = unit(reversalpotential)
 
 
@@ -61,7 +61,8 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         return ['gBar', 'e_rev', 'gScale']
 
     def get_defaults(self):
-        return {"gBar":self.conductance, "e_rev":self.reversalpotential, "gScale": unit("1.0") }
+        return {'gBar': self.conductance,
+                'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
 
 
 
@@ -77,13 +78,13 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         beta2 = self.statevars[statevar][2]
         threshold = self.beta2threshold
 
-        alpha = AlphaBetaCalculator.calc_alpha_beta(V,alpha)
-        beta1 = AlphaBetaCalculator.calc_alpha_beta(V,beta1)
-        beta2 = AlphaBetaCalculator.calc_alpha_beta(V,beta2)
+        alpha = AlphaBetaCalculator.calc_alpha_beta(V, alpha)
+        beta1 = AlphaBetaCalculator.calc_alpha_beta(V, beta1)
+        beta2 = AlphaBetaCalculator.calc_alpha_beta(V, beta2)
 
-        beta_indices1 = np.nonzero( V <  threshold )
-        beta_indices2 = np.nonzero( V >= threshold )
+        beta_indices1 = np.nonzero(V < threshold)
+        beta_indices2 = np.nonzero(V >= threshold)
 
-        beta = np.hstack( [beta1[beta_indices1],beta2[beta_indices2] ] )
+        beta = np.hstack([beta1[beta_indices1], beta2[beta_indices2]])
 
-        return alpha, beta
+        return (alpha, beta)

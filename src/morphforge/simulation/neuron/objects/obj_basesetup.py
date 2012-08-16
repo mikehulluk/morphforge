@@ -42,8 +42,9 @@ class NeuronSimSetupObj(NeuronObject):
 
     def __init__(self, simsettings, simulation):
         super(NeuronSimSetupObj, self).__init__(
-                    name='mneuronbasesetup', 
+                    name='mneuronbasesetup',
                     simulation=simulation)
+
         self.simsettings = simsettings
 
     def build_hoc(self, hocfile_obj):

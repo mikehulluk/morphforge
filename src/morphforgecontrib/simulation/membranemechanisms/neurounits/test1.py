@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -92,18 +92,18 @@ textHH = r"""EQNSET chlstd_hh_k {
 from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
-#NeuroUnitEqnsetMechanism
+# NeuroUnitEqnsetMechanism
 
 # Create the morphology for the cell:
-morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
+morphDict1 = {'root': {'length': 20, 'diam': 20, 'id': 'soma'}}
 m1 = MorphologyLoader.fromDictionary(morphDict1)
 
 # Create the environment:
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation(name="TestSim1")
 
+mySim = env.Simulation(name='TestSim1')
 
 # Create a cell:
 myCell = mySim.create_cell(name="Cell1", morphology=m1)
@@ -172,7 +172,7 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels )
 
 
 # Get a cell_location on the cell:
-somaLoc = myCell.get_location("soma")
+somaLoc = myCell.get_location('soma')
 
 # Create the simulous:
 mySim.create_currentclamp( name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
@@ -196,15 +196,15 @@ results = mySim.run()
 
 
 ps = (
-                PlotSpec_DefaultNew( s="Voltage", ylabel='Voltage', yrange=(-60*mV,40*mV)  ),
-                PlotSpec_DefaultNew( s="CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2")  ),
-                PlotSpec_DefaultNew( s="Current", ylabel='Current',yunit=pq.picoamp ),
-                PlotSpec_DefaultNew( s="Conductance", ylabel="Conductance" ),
-                PlotSpec_DefaultNew( s="ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2")  ),
-                PlotSpec_DefaultNew( s="StateVariable", ylabel="StateVariable" ),
-                PlotSpec_DefaultNew( s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  ),
-                PlotSpec_DefaultNew( s="StateSteadyState", ylabel="Steady State" ),
-                PlotSpec_DefaultNew( s="Event", ylabel="Events" ),
+                PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-60*mV,40*mV)  ),
+                PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2")  ),
+                PlotSpec_DefaultNew(s="Current", ylabel='Current',yunit=pq.picoamp ),
+                PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance" ),
+                PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2")  ),
+                PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable" ),
+                PlotSpec_DefaultNew(s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant"  ),
+                PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State" ),
+                PlotSpec_DefaultNew(s="Event", ylabel="Events" ),
 
                 )
 
