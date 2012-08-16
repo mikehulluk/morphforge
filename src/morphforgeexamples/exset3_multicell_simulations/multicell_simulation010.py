@@ -70,7 +70,7 @@ def simulate_chls_on_neuron():
     somaLoc2 = myCell2.get_location("soma")
 
 
-    eqnsetfile = "/home/michael/hw_to_come/libs/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
+    eqnsetfile = "/home/mhtest/hw/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
     syn = mySim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,

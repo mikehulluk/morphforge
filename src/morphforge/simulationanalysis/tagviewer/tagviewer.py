@@ -227,7 +227,10 @@ class TagViewer(object):
 
         if self.mpl_tight_bounds:
             import pylab
-            pylab.tight_layout()
+            try:
+                pylab.tight_layout()
+            except:
+                pass # This is version specfic
 
 
 
