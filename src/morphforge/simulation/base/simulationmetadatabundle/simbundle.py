@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -40,7 +40,7 @@ from morphforge.core.misc import StrUtils
 
 import cPickle
 
-# This class is a work around for the circular loop caused by not being 
+# This class is a work around for the circular loop caused by not being
 # able to store the md5 hash of an object within that object:
 
 class SimMetaDataBundleBase(object):
@@ -70,7 +70,7 @@ class SimMetaDataBundleBase(object):
 
 
 
-class SimMetaDataBundle(SimMetaDataBundleBase) :
+class SimMetaDataBundle(SimMetaDataBundleBase):
 
     def __init__(self, sim):
         super(SimMetaDataBundle, self).__init__(sim=sim)
@@ -82,20 +82,28 @@ class SimMetaDataBundle(SimMetaDataBundleBase) :
 
     def _write_to_file(self, bundlefilename=None):
         bundleloc = LocMgr.get_simulation_tmp_dir()
-        bundlesuffix = ".bundle"
+        bundlesuffix = '.bundle'
 
-        if not bundlefilename:
-            loc = bundlefilename = LocMgr.ensure_dir_exists(bundleloc + "/" + self.get_sim_md5sum()[0:2])
-            bundlefilename = loc + "/" + self.get_sim_md5sum() + bundlesuffix
+        if bundlefilename is None:
+            bundledir = bundleloc + '/' + self.get_sim_md5sum()[0:2]
+            loc = LocMgr.ensure_dir_exists(bundledir)
+            bundlefilename = loc + '/' + self.get_sim_md5sum() + bundlesuffix
 
-        FileIO.write_to_file(txt=cPickle.dumps(self) , filename=bundlefilename)
+        FileIO.write_to_file(txt=cPickle.dumps(self),
+                             filename=bundlefilename)
+        print 'bundlefilename', bundlefilename
         return bundlefilename
 
-    def write_to_file_and_get_exec_string(self, bundlefilename=None, simulation_binary_file="SimulateBundle.py"):
+    def write_to_file_and_get_exec_string(self, 
+            bundlefilename=None,
+            simulation_binary_file='SimulateBundle.py'):
 
-        bundlefilename = self._write_to_file(bundlefilename=bundlefilename)
-        sim_cmd = Join(LocMgr.get_bin_path(), simulation_binary_file) + " " + bundlefilename
-        return bundlefilename, sim_cmd
+        bundle_fname = self._write_to_file(
+                        bundlefilename=bundlefilename)
+        bundle_exec_bin = Join(LocMgr.get_bin_path(),
+                               simulation_binary_file)
+        sim_cmd = '%s %s' % (bundle_exec_bin, bundle_fname)
+        return bundle_fname, sim_cmd
 
 
 

@@ -9,33 +9,31 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.simulation.base.base_classes import NamedSimulationObject
-
 class Synapse(object):
 
-    class Recordables():
-        SynapticCurrent = "SynapticCurrent"
-        SynapticConductance = "SynapticConductance"
+    class Recordables(object):
+        SynapticCurrent = 'SynapticCurrent'
+        SynapticConductance = 'SynapticConductance'
 
     def __init__(self, presynaptic_mech, postsynaptic_mech):
         self.preSynapticTrigger = presynaptic_mech
@@ -68,7 +66,7 @@ class Synapse(object):
 class GapJunction(object):
 
     def __init__(self, celllocation1, celllocation2, resistance, **kwargs):
-        super(GapJunction,self).__init__(**kwargs)
+        super(GapJunction, self).__init__(**kwargs)
         self.celllocation1 = celllocation1
         self.celllocation2 = celllocation2
         self.resistance = resistance
@@ -77,11 +75,12 @@ class GapJunction(object):
 
     @property
     def connected_cells(self):
-        return [ self.celllocation1.cell, self.celllocation2.cell ]
+        return [self.celllocation1.cell, self.celllocation2.cell]
 
 
 
-class PreSynapticTypes:
+class PreSynapticTypes(object):
+
     Cell = "Cell"
     FixedTiming = "Timing"
 
@@ -104,7 +103,7 @@ class PreSynapticMechanism(object):
 
 
 class PostSynapticMech(object):
-    def __init__(self,cell_location ):
+    def __init__(self, cell_location):
         self.cell_location = cell_location
         self.synapse = None
 

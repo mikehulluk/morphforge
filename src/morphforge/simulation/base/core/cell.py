@@ -9,22 +9,22 @@
 # modification, are permitted provided that the following conditions
 # are met:
 #
-#  - Redistributions of source code must retain the above copyright 
-#    notice, this list of conditions and the following disclaimer. 
-#  - Redistributions in binary form must reproduce the above copyright 
-#    notice, this list of conditions and the following disclaimer in 
-#    the documentation and/or other materials provided with the 
+#  - Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#  - Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in
+#    the documentation and/or other materials provided with the
 #    distribution.
 #
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR 
-# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
 # HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
@@ -33,55 +33,53 @@
 from morphforge.simulation.base.biophysics import CellBiophysics
 
 from morphforge.constants import StandardTags
-#from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.simulation.base.core.celllocation import CellLocation
 
 class Cell(NamedSimulationObject):
 
-
-
-    class Recordables:
+    class Recordables(object):
         MembraneVoltage = StandardTags.Voltage
-
-
 
     @property
     def cell_type(self):
         return self._cell_type
     @property
     def cell_type_str(self):
-        return self._cell_type if self._cell_type else "<?>"
+        return (self._cell_type if self._cell_type else '<?>')
 
 
-    def __init__(self,  morphology,  segmenter=None, initial_voltage=None, cell_tags = [], cell_type=None, **kwargs):
+    def __init__(self,  morphology, segmenter=None, initial_voltage=None, cell_tags=None, cell_type=None, **kwargs):
+        
+        if cell_tags == None:
+            cell_tags = []
+
         from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
-        super(Cell,self).__init__(**kwargs)
+        super(Cell, self).__init__(**kwargs)
 
 
 
 
-        #self.simulation = simulation
-        #self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Cell, 'AnonCell_')
+       
         self.morphology = morphology
         self._cell_type = cell_type
 
-        self.cellSegmenter = segmenter if segmenter else CellSegmenter_MaxCompartmentLength()
+        self.cellSegmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
         self.cellSegmenter.connect_to_cell(self)
 
 
         self.biophysics = CellBiophysics()
 
-        self.initial_voltage = initial_voltage or unit("-51:mV")
+        self.initial_voltage = initial_voltage or unit('-51:mV')
 
 
         self.cell_tags = cell_tags
 
         if self.name:
-            self.cell_tags = self.cell_tags +  [self.name]
+            self.cell_tags = self.cell_tags + [self.name]
 
-        self.population=None
+        self.population = None
 
 
     def get_location(self, idtag, sectionpos=0.5):

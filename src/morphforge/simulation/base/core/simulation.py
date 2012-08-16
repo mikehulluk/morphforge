@@ -55,14 +55,16 @@ class Simulation(object):
         self.add_voltageclamp(v)
         return v
 
-    def create_synapse(self, presynaptic_mech, postsynaptic_mech ):
-        syn = self.environment.Synapse( simulation = self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech )
-        self.add_synapse( syn )
+    def create_synapse(self, presynaptic_mech, postsynaptic_mech):
+        syn = self.environment.Synapse(simulation=self,
+                presynaptic_mech=presynaptic_mech,
+                postsynaptic_mech=postsynaptic_mech)
+        self.add_synapse(syn)
         return syn
 
     def create_gapjunction(self, **kwargs):
-        gj = self.environment.GapJunction( simulation = self, **kwargs )
-        self.add_gapjunction( gj )
+        gj = self.environment.GapJunction(simulation=self, **kwargs)
+        self.add_gapjunction(gj)
         return gj
 
 
@@ -82,15 +84,15 @@ class Simulation(object):
 
     def add_synapse(self, syn):
         self.ss_synapses.append(syn)
-        self.add_synapse_backend_specific( syn )
+        self.add_synapse_backend_specific(syn)
 
     def add_gapjunction(self, gj):
         self.ss_gapjunctions.append(gj)
-        self.add_gapjunction_backend_specific( gj )
+        self.add_gapjunction_backend_specific(gj)
 
 
 
-    def add_cell_backend_specific(self,cell):
+    def add_cell_backend_specific(self, cell):
         raise NotImplementedError()
     def add_currentclamp_backend_specific(self, vc):
         raise NotImplementedError()
@@ -105,10 +107,12 @@ class Simulation(object):
 
     @property
     def neuron_populations(self):
-        return set( [ cell.population for cell in self.ss_cells if cell.population])
+        return set([cell.population for cell in self.ss_cells
+                   if cell.population])
     @property
     def synapse_populations(self):
-        return set( [ syn.population for syn in self.ss_synapses if syn.population])
+        return set([syn.population for syn in self.ss_synapses
+                   if syn.population])
 
     @property
     def synapses(self):
@@ -174,8 +178,8 @@ class Simulation(object):
 
 
 
-    #Syntactic Sugar for making more readable scripts:
-    def record( self, recordable_src=None, **kwargs):
+    # Syntactic Sugar for making more readable scripts:
+    def record(self, recordable_src=None, **kwargs):
 
         # Allow 'recordable_src' to be missing. In this case; we expect
         # to be recording from the cell, and that there will be
@@ -183,20 +187,21 @@ class Simulation(object):
         if recordable_src is None:
             recordable_src = kwargs['cell_location'].cell
 
-        recordable = recordable_src.get_recordable( simulation=self, **kwargs )
-        self.add_recordable( recordable )
+        recordable = recordable_src.get_recordable(simulation=self, **kwargs )
+        self.add_recordable(recordable)
         return recordable
 
-    def recordall( self, membrane_mech, **kwargs):
+    def recordall(self, membrane_mech, **kwargs):
         for recordable_value in membrane_mech.Recordables.all:
             self.record(membrane_mech, what=recordable_value, description='[%s-%s]'%(membrane_mech.name, recordable_value) ,  **kwargs )
 
-    def get_cell(self,cellname=None):
+    def get_cell(self, cellname=None):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """
         if cellname:
-            return SeqUtils.filter_expect_single(self.ss_cells, lambda s: s.name==cellname)
+            return SeqUtils.filter_expect_single(self.ss_cells,
+                    lambda s: s.name == cellname)
         else:
-            return SeqUtils.expect_single( self.ss_cells)
+            return SeqUtils.expect_single(self.ss_cells)
 
 
 

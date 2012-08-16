@@ -14,6 +14,12 @@ env_NEURON_GSL: force_look
 	$(MAKE) -C src/morphforgecontrib/simulation/neuron_gsl/cpp/
 
 
+lint: force_look
+	pylint --output-format=html --disable='C0301,C0111,W0142,R0904,R0903' src/morphforge/ > pylint_out.html
+	# C0301 - long lines
+	# C0111 - 
+	# W0142 'Used * or ** magic'
+	# R0903/4 are too many or too few methods in class
 
 
 examples:
