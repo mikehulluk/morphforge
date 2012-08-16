@@ -88,7 +88,7 @@ class ModFileSectioned(object):
             Initial,
             Derivative,
             Functions,
-            ]
+           ]
 
     def __init__(self, title, comment=None):
         self.sectiondata = defaultdict(list)
@@ -112,7 +112,7 @@ class ModFileSectioned(object):
 
     def get_text(self):
         self.finalise()
-        headered = [ self.get_section_text(section) for section in ModFileSectioned.Sections.ordered]
+        headered = [self.get_section_text(section) for section in ModFileSectioned.Sections.ordered]
         return "\n\n".join(headered)
 
 
@@ -126,7 +126,7 @@ class ModFileSectioned(object):
 
     # Finalisation:
     def simple_finalise_section(self, section, tabsection=False):
-        if tabsection: self.sectiondata[section] = [ "\t" + l for l in self.sectiondata[section] ]
+        if tabsection: self.sectiondata[section] = ["\t" + l for l in self.sectiondata[section]]
         self.prepend_to_section(section, "%s {"%section)
         self.append_to_section(section, "}")
 

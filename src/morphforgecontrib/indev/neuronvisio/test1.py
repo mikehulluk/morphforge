@@ -83,7 +83,7 @@ sim.record(cell, name="SomaVoltage", cell_location=somaLoc, what=Cell.Recordable
 
 distances = range(50, 3000, 100)
 morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances)
-locations = [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs ]
+locations = [CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs]
 
 
 

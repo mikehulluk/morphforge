@@ -148,7 +148,7 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
         fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
-        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
+        return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 
 

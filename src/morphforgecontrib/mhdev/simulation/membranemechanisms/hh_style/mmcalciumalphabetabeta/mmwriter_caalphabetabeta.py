@@ -57,7 +57,7 @@ class MM_WriterCalciumAlphaBetaBeta(object):
 
     chlHoc = """
 
-$(cell_name).internalsections [ $section_index ] {
+$(cell_name).internalsections [$section_index] {
     // AlphaBeta Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
@@ -141,7 +141,7 @@ $(cell_name).internalsections [ $section_index ] {
                   ("F",     "fUnits",       caAlphaBetaBetaChl.F),
                   ("SCa_i", "M",      caAlphaBetaBetaChl.intracellular_concentration),
                   ("SCa_o", "M",      caAlphaBetaBetaChl.extracellular_concentration),
-                  ]
+                 ]
         for name,unit,initialvalueUnit in params:
             initval = initialvalueUnit.rescale(neuronUnitsToQuantities[unit]).magnitude
             m.add_parameter(NeuronParameter(parametername=name, parameterunit=unit, initialvalue = initval, parameterrange=None))
@@ -155,7 +155,7 @@ $(cell_name).internalsections [ $section_index ] {
         assignments = [
                     ("i","mA/cm2"),
                     ("v","mV"),
-        ]
+       ]
         for name,unit in assignments:
             m.add_assigned(NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))
 
@@ -167,7 +167,7 @@ $(cell_name).internalsections [ $section_index ] {
                                    NeuronParameter(parametername="m", parameterunit=None),
                                    NeuronParameter(parametername="mtau", parameterunit="ms"),
                                    NeuronParameter(parametername="minf", parameterunit=None),
-                                   ],
+                                  ],
                          derivative_code = ["rates(v)", "m' = (minf-m)/(mtau)"] ,
                          initial_code = ["rates(v)", "m=minf"],
                         )

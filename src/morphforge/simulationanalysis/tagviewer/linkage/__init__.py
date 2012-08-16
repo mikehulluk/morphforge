@@ -42,8 +42,8 @@ def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict
     collisions = 0
     for (ps, ps_traces) in ps_to_traces_dict.iteritems():
 
-        ps_allocated_indices = [ allocatedTraceColors.get(tr,None) for tr in ps_traces  ]
-        ps_allocated_indices = [ a for a in ps_allocated_indices if a is not None]
+        ps_allocated_indices = [allocatedTraceColors.get(tr,None) for tr in ps_traces ]
+        ps_allocated_indices = [a for a in ps_allocated_indices if a is not None]
         clashes = ps_allocated_indices.count(colorIndex)
 
         # Does this group have anything that would go into this plot-spec?
@@ -77,7 +77,7 @@ class LinkageRuleTagRegex(object):
                 grps[mT].append(tr)
 
         return grps.values()
-        #matches = [ tr for tr in allTraces]
+        #matches = [tr for tr in allTraces]
         #return []
 
 
@@ -86,7 +86,7 @@ class StandardLinkages(object):
     def __init__(self, linkages_explicit=None, linkage_rules=None):
         self.linkages_explicit = linkages_explicit or []
 
-        self.color_cycle = ['blue','green','red','cyan','yellow','black' ]
+        self.color_cycle = ['blue','green','red','cyan','yellow','black']
 
         self.linkage_rules = linkage_rules if linkage_rules else []
 
@@ -138,10 +138,10 @@ class StandardLinkages(object):
         # Make the allocation from index to colors:
         self.color_allocations = {}
         for tr in allTraces:
-            self.color_allocations[tr] = self.color_cycle[ allocatedTraceColors[tr] ]
+            self.color_allocations[tr] = self.color_cycle[allocatedTraceColors[tr]]
         #assert False
 
-#l = StandardLinkages(linkages_explicit = [ (trI1,trV1,trG1), (trI2,trV2,trG2) ])
+#l = StandardLinkages(linkages_explicit = [(trI1,trV1,trG1), (trI2,trV2,trG2)])
 #
 ##TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=None)
 #TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=l)

@@ -494,7 +494,7 @@ class MorphologyTree(MorphologyBase):
 
     def _every_section(self):
         """Includes dummy section"""
-        return itertools.chain(*[[self.get_dummy_section()], self  ])
+        return itertools.chain(*[[self.get_dummy_section()], self ])
 
 
     # Iteration over morphologies:

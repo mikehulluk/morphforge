@@ -86,7 +86,7 @@ class xyzXYZLoader(object):
             XYZ = (float(toks[5]), float(toks[6]), float(toks[7]))
 
             centre = ((xyz[0] + XYZ[0]) / 2.0, (xyz[1] + XYZ[1]) / 2.0, (xyz[2] + XYZ[2]) / 2.0)
-            rad = np.sqrt(sum([ (xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2] ]))
+            rad = np.sqrt(sum([(xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2]]))
 
             if rad < 0.3:
                 rad = 0.3
@@ -148,7 +148,7 @@ class xyzXYZMultiLoader(object):
         assert line1 == "n,T,x,y,z,X,Y,Z,P"
 
         #Create the regions:
-        regionTypes = dict([ (index, Region(name)) for index, name, in regionNames.iteritems()  ])
+        regionTypes = dict([(index, Region(name)) for index, name, in regionNames.iteritems() ])
         sections = []
 
         morphRoots = []
@@ -159,7 +159,7 @@ class xyzXYZMultiLoader(object):
             XYZ = (float(toks[5]), float(toks[6]), float(toks[7]))
 
             centre = ((xyz[0] + XYZ[0]) / 2.0, (xyz[1] + XYZ[1]) / 2.0, (xyz[2] + XYZ[2]) / 2.0)
-            rad = np.sqrt(sum([ (xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2] ]))
+            rad = np.sqrt(sum([(xyz[i] - centre[i]) ** 2.0 for i in [0, 1, 2]]))
             rad = max(rad, minimumradius)
 
             cellid = int(toks[0])

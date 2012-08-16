@@ -148,7 +148,7 @@ TagViewer(results, timeranges=[(98, 120)*pq.ms],
               PlotSpec_DefaultNew('Current', yunit=pq.picoamp),
               PlotSpec_DefaultNew('Voltage,cell1', yrange=(-80*mV,50*mV), yunit=pq.mV),
               PlotSpec_DefaultNew('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV,-55*mV), yunit=pq.millivolt),
-              ],
+             ],
            )
 
 

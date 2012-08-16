@@ -65,10 +65,10 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[state_names[0]], V)
         m_tau_ms = m_tau.rescale("ms").magnitude
 
-        inf_taus = [ InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names ]
-        inf_taus_ms = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus ]
+        inf_taus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names]
+        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus]
 
-        state_to_index = dict([ (state,index) for state,index in enumerate(state_names) ])
+        state_to_index = dict([(state,index) for state,index in enumerate(state_names)])
 
         def odeFunc(y,t0):
             res = [None] * n_states
@@ -85,7 +85,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         res = odeint(func=odeFunc, y0=y0, t= t )
 
         state_functor = sympy.lambdify(state_names, sympy.sympify(chl.eqn) )
-        state_data = [ res[:,i] for i in range(0,n_states) ]
+        state_data = [res[:,i] for i in range(0,n_states)]
 
         state_equation_evaluation = state_functor(*state_data)
 
@@ -195,10 +195,10 @@ class Summarise_MM_AlphaBetaChannel(object):
 
             # Summary:
             overview_table_data = [
-                                 ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2") ],
-                                 ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV") ],
-                                 ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
-                                ]
+                                 ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2")],
+                                 ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV")],
+                                 ["Conductance Equation", "gBar * " + alphabeta_chl.eqn],
+                               ]
 
             local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 
@@ -212,7 +212,7 @@ class Summarise_MM_AlphaBetaChannel(object):
                 eqns = [
                         "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
                         "beta(V) = (A+BV)/(C+exp((V+D)/E))",
-                        ]
+                       ]
                 for eqn in eqns:
                     local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
                 # Alpha Beta

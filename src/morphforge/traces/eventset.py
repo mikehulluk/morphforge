@@ -66,9 +66,9 @@ class EventSet(object):
         if events is None:
             events = []
 
-        self.events = [ (Event(e) if not isinstance(e,Event) else e) for e in events  ]
+        self.events = [(Event(e) if not isinstance(e,Event) else e) for e in events ]
 
-        self.tags = list(tags) if tags is not None else [ StandardTags.Event]
+        self.tags = list(tags) if tags is not None else [StandardTags.Event]
         self.name = name if name else '<Unnamed EventSet>'
         self.comment = comment if comment else "UnknownSrcEventSet"
         self.tags.append('Event')
@@ -94,7 +94,7 @@ class EventSet(object):
             yield e.get_time()
 
     def summarise_timings_in_comment(self):
-        times_a = np.array([ float(s.rescale('ms').magnitude) for s in self.times])
+        times_a = np.array([float(s.rescale('ms').magnitude) for s in self.times])
         self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)'%(len(self), np.mean(times_a), np.std(times_a))
 
 

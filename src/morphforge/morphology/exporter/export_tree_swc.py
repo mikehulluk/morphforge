@@ -53,7 +53,7 @@ swc_templ = """
 #set dummy = $morph.get_dummy_section
 $ids[dummy] 0 $dummy.d_x $dummy.d_y $dummy.d_z $dummy.d_r -1
 #for $seg in $morph :
-$ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[ $seg.parent ]
+$ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[$seg.parent]
 #end for
 
 #---------------------------------
@@ -103,7 +103,7 @@ class SWCTreeWriter(object):
             offset = offset + 1
 
             id_map = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
-            id_map[ morph.get_dummy_section() ] = dummy_offset
+            id_map[morph.get_dummy_section()] = dummy_offset
 
 
             if regionname_to_int_map is None:

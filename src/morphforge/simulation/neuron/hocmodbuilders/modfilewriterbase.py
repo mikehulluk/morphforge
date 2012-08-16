@@ -168,7 +168,7 @@ modTmplProcedure = """
 ? rates
 PROCEDURE ${updatefunctionname}(v(mV)) {
 
-#set $locals = [ r[0][0] for r in $rates.values() if r[0][0] ]
+#set $locals = [r[0][0] for r in $rates.values() if r[0][0]]
 #set $localString = "LOCAL " + ",".join(locals) if $locals else ""
     $localString
 UNITSOFF
@@ -264,7 +264,7 @@ class MM_ModFileWriterBase(object):
                 modTmplDerivative,
                 modTmplProcedure,
                 modTmplFunctions,
-                ]
+               ]
         elif self.conductanceequation:
             blks = [
                 modTmplHeader,
@@ -276,7 +276,7 @@ class MM_ModFileWriterBase(object):
                 modTmplBreakpoints,
                 modTmplProcedure,
                 modTmplFunctions,
-                ]
+               ]
         else:
             blks = [
                 modTmplHeader,
@@ -287,7 +287,7 @@ class MM_ModFileWriterBase(object):
                 modTmplBreakpoints,
                 modTmplProcedure,
                 modTmplFunctions,
-                ]
+               ]
 
 
         # Debug:
@@ -296,6 +296,6 @@ class MM_ModFileWriterBase(object):
         #    print Template(blk, [self]).respond()
 
 
-        resps = [Template(blk, [self]).respond() for blk in blks ]
+        resps = [Template(blk, [self]).respond() for blk in blks]
         return "".join(resps)
 

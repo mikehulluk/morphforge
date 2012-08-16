@@ -152,8 +152,8 @@ class CellAnalysis_ReboundResponse(object):
 
 
     # def plot_rebound_graphs(self):
-    #    c1Values = set([k[0] for k in self.result_traces ])
-    #    c2Values = set([k[1] for k in self.result_traces ])
+    #    c1Values = set([k[0] for k in self.result_traces])
+    #    c2Values = set([k[1] for k in self.result_traces])
     #
     #    f = pylab.figure()
     #    ax = f.add_subplot(1,1,1)
@@ -175,8 +175,8 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def plot_traces(self,):
-        c1_values = set([k[0] for k in self.result_traces ])
-        c2_values = set([k[1] for k in self.result_traces ])
+        c1_values = set([k[0] for k in self.result_traces])
+        c2_values = set([k[1] for k in self.result_traces])
 
         #print self.result_traces.keys()
         for c1 in c1_values:
@@ -186,7 +186,7 @@ class CellAnalysis_ReboundResponse(object):
                     continue
                 trs.extend(self.result_traces[(c1, c2)])
 
-            title = "%s- (Response to Current Injections [BaseCurrent %s pA ])"%(self.cell_description, c1)
+            title = "%s- (Response to Current Injections [BaseCurrent %s pA])"%(self.cell_description, c1)
             TagViewer(trs, show=False, figtitle=title, **self.tagviewer_kwargs)
 
 

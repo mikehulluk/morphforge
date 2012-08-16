@@ -39,5 +39,5 @@ def getInvalidNames():
                        " Cell 1" ,
                        "Cell ",
                        "Cell:1",
-                       "Cell!Name", ]
+                       "Cell!Name",]
     return invalidNames

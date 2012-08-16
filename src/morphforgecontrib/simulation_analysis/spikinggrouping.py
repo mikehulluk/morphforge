@@ -89,7 +89,7 @@ class DBScan(object):
                     for n in n_dash:
                         iter_n.append(n)
 
-                pt_in_clusters = [ True for c in clusters if pdash_index in c]
+                pt_in_clusters = [True for c in clusters if pdash_index in c]
                 if not pt_in_clusters:
                     cluster.add(pdash_index)
 
@@ -99,7 +99,7 @@ class DBScan(object):
         eps = float(eps.rescale('ms').magnitude)
 
 
-        data = [ float(ev.get_time().rescale("ms")) for ev in event_set ]
+        data = [float(ev.get_time().rescale("ms")) for ev in event_set]
         clusters, noise = DBScan.cluster_points(pts = np.array(data), eps=eps, min_pts=min_pts)
 
         # Create new eventsets for each cluster
@@ -120,8 +120,8 @@ class DBScan(object):
     def calculate_mean_frequency(cls, cluster_sets):
 
 
-        mean_times = [ np.mean([t.rescale("ms") for t in c.times]) for c in cluster_sets if len(c) != 0 ]
-        mean_times = np.array([ mt for mt in mean_times if mt > 200 ])
+        mean_times = [np.mean([t.rescale("ms") for t in c.times]) for c in cluster_sets if len(c) != 0]
+        mean_times = np.array([mt for mt in mean_times if mt > 200])
 
         np.sort(mean_times)
         mean_times.sort()

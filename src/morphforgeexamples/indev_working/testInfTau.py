@@ -48,8 +48,8 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 def getKSInfTau(env):
     i = InfTauInterpolation(
         V   = [-100, -80,  -40,   0,   40,],
-        inf = [ 0.0, 0.0,  0.2,   0.5, 1.0],
-        tau = [ 0.0, 50,   12,    15,  10]
+        inf = [0.0, 0.0,  0.2,   0.5, 1.0],
+        tau = [0.0, 50,   12,    15,  10]
    )
 
     ks_vars = {'ks': i }
@@ -155,7 +155,7 @@ def build_simulation(gbar_multiplier):
     #self.ion = ion
     #self.eqn = equation
     #self.conductance = unit(conductance)
-    #self.statevars = dict([ (s, (sDict['inf'], sDict['tau'])) for s, sDict in statevars.iteritems()])
+    #self.statevars = dict([(s, (sDict['inf'], sDict['tau'])) for s, sDict in statevars.iteritems()])
     #self.reversalpotential = unit(reversalpotential)
 
 
@@ -192,7 +192,7 @@ def build_simulation(gbar_multiplier):
 results = [
            build_simulation(gbar_multiplier = 1.0),
            #build_simulation(gbar_multiplier = 2.0),
-           ]
+          ]
 
 TagViewer(results, timeranges=[(95, 200)*pq.ms])
 pylab.show()

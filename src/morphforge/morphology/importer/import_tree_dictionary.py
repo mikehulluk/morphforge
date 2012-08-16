@@ -50,7 +50,7 @@ class DictionaryLoader(object):
                 {'absangle': 240, 'length': 40, 'diam': 5, 'sections':
                     [
                         {'region': 'dendrite', 'diam': 5, 'relangle': 240, 'length': 40}
-                    ], 'region': 'dendrite'},
+                   ], 'region': 'dendrite'},
                 {'absangle': 5, 'length': 500, 'diam': 0.29999999999999999, 'region': 'axon'}],
             'region': 'soma'}}
 
@@ -119,8 +119,8 @@ class DictionaryLoader(object):
             if not ('region' in yml or 'regions' in yml):
                 yml['region'] = 'NoRegionGiven'
 
-        region_names1 = [ yml["region"] for yml in yaml_section_dict.values() if yml.has_key("region") ]
-        region_names2 = SeqUtils.flatten([ yml["regions"] for yml in yaml_section_dict.values() if yml.has_key("regions") ])
+        region_names1 = [yml["region"] for yml in yaml_section_dict.values() if yml.has_key("region")]
+        region_names2 = SeqUtils.flatten([yml["regions"] for yml in yaml_section_dict.values() if yml.has_key("regions")])
 
         region_names = list(set(region_names1 + region_names2))
         region_dict = dict([(n, Region(n)) for n in region_names])
@@ -163,9 +163,9 @@ class DictionaryLoader(object):
             parent_section = section_dict[yamlSect['parent']]
 
             #Region:
-            rg_names1 = [ yamlSect["region"] ] if yamlSect.has_key("region") else []
+            rg_names1 = [yamlSect["region"]] if yamlSect.has_key("region") else []
             rg_names2 = yamlSect["regions"] if yamlSect.has_key("regions") else []
-            rgs = [ region_dict[rgName] for rgName in rg_names1 + rg_names2   ]
+            rgs = [region_dict[rgName] for rgName in rg_names1 + rg_names2  ]
             # Since December 2010 each section is only allowed to have one
             # region.
             assert len(rgs) <= 1

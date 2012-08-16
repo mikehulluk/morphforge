@@ -111,8 +111,8 @@ class MorphMLWriter(object):
         cell_node.appendChild(segments_node)
 
         # Give a name to each segment:
-        segnamedict = dict([ (seg, "%s_seg_%d"%(cell.name, i)) for i,seg in enumerate(cell.get_segmenter())])
-        segiddict = dict([ (seg,  "%d"%(i+id_base)) for i,seg in enumerate(cell.get_segmenter())])
+        segnamedict = dict([(seg, "%s_seg_%d"%(cell.name, i)) for i,seg in enumerate(cell.get_segmenter())])
+        segiddict = dict([(seg,  "%d"%(i+id_base)) for i,seg in enumerate(cell.get_segmenter())])
 
         for seg in cell.get_segmenter():
 

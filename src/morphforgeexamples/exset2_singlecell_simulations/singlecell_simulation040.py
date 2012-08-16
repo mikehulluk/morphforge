@@ -53,9 +53,9 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 
 def get_Na_Channels(env):
     naStateVars = {"m":
-                    {"alpha": [ 13.01,0,4,-1.01,-12.56 ], "beta": [5.73,0,1,9.01,9.69 ] },
+                    {"alpha": [13.01,0,4,-1.01,-12.56], "beta": [5.73,0,1,9.01,9.69] },
                    "h":
-                    {"alpha": [ 0.06,0,0,30.88,26 ], "beta": [3.06,0,1,-7.09,-10.21 ]}
+                    {"alpha": [0.06,0,0,30.88,26], "beta": [3.06,0,1,-7.09,-10.21]}
                    }
 
     return  env.MembraneMechanism(
@@ -69,7 +69,7 @@ def get_Na_Channels(env):
                            )
 
 def get_Ks_Channels(env):
-    kfStateVars = {"ks": {"alpha": [ 0.2,0,1,-6.96,-7.74  ], "beta": [0.05,0,2,-18.07,6.1  ] } }
+    kfStateVars = {"ks": {"alpha": [0.2,0,1,-6.96,-7.74 ], "beta": [0.05,0,2,-18.07,6.1 ] } }
 
     return  env.MembraneMechanism(
                             MM_AlphaBetaChannel,
@@ -82,7 +82,7 @@ def get_Ks_Channels(env):
                            )
 
 def get_Kf_Channels(env):
-    kfStateVars = {"kf": {"alpha": [  3.1,0,1,-31.5,-9.3 ], "beta": [0.44,0,1,4.98,16.19  ] } }
+    kfStateVars = {"kf": {"alpha": [ 3.1,0,1,-31.5,-9.3], "beta": [0.44,0,1,4.98,16.19 ] } }
 
     return  env.MembraneMechanism(
                             MM_AlphaBetaChannel,
@@ -149,6 +149,6 @@ def simulate(current_inj_level):
 
 
 # Display the results:
-results = [ simulate(current_inj_level='%d:pA'%i) for i in [50,100,150,200, 250, 300]   ]
+results = [simulate(current_inj_level='%d:pA'%i) for i in [50,100,150,200, 250, 300]  ]
 TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True)
 

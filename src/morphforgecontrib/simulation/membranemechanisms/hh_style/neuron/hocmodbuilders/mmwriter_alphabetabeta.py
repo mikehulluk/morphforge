@@ -46,7 +46,7 @@ class MM_WriterAlphaBetaBeta(object):
 
     chlHoc = """
 
-$(cell_name).internalsections [ $section_index ] {
+$(cell_name).internalsections [$section_index] {
     // AlphaBetaBeta Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
@@ -125,11 +125,11 @@ $(cell_name).internalsections [ $section_index ] {
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_beta_chl.statevars:
-            base_writer.rates[ state_alpha(s) ] = (("", state_alpha(s) + "= StdAlphaBeta(%f,%f,%f,%f,%f, v)" % tuple(alphabeta_beta_chl.statevars[s][0]))), None
-            #base_writer.rates[ state_beta(s) ] = (("", state_beta(s) + "= StdBetaBeta(%f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.toval(ounit="mV")]))), None
-            base_writer.rates[ state_beta(s) ] = (("", state_beta(s) + "= StdBetaBeta(%f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.rescale("mV").magnitude]))), None
-            base_writer.rates[ state_inf(s) ] = (("", state_inf(s) + "= %s/(%s+%s)" % (state_alpha(s), state_alpha(s), state_beta(s))), None)
-            base_writer.rates[ state_tau(s) ] = (("", state_tau(s) + "= 1.0/(%s+%s)" % (state_alpha(s), state_beta(s))), "ms")
+            base_writer.rates[state_alpha(s)] = (("", state_alpha(s) + "= StdAlphaBeta(%f,%f,%f,%f,%f, v)" % tuple(alphabeta_beta_chl.statevars[s][0]))), None
+            #base_writer.rates[state_beta(s)] = (("", state_beta(s) + "= StdBetaBeta(%f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.toval(ounit="mV")]))), None
+            base_writer.rates[state_beta(s)] = (("", state_beta(s) + "= StdBetaBeta(%f,%f,%f,%f,%f,  %f,%f,%f,%f,%f,  %f,  v)" % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.rescale("mV").magnitude]))), None
+            base_writer.rates[state_inf(s)] = (("", state_inf(s) + "= %s/(%s+%s)" % (state_alpha(s), state_alpha(s), state_beta(s))), None)
+            base_writer.rates[state_tau(s)] = (("", state_tau(s) + "= 1.0/(%s+%s)" % (state_alpha(s), state_beta(s))), "ms")
             base_writer.ratecalcorder.extend([state_alpha(s), state_beta(s), state_inf(s), state_tau(s)])
 
         base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn, g_scale_name)

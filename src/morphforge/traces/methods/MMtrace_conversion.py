@@ -193,7 +193,7 @@ class TraceApproximator(object):
                ranges.append((change_points[cpI], change_points[cpI + 1]))
            ranges.append((change_points[-1], len(d)-1))
        else:
-           ranges = [ (0, len(d)-1) ]
+           ranges = [(0, len(d)-1)]
 
        return ranges
 

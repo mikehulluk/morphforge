@@ -126,9 +126,9 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance', 'name','reversalpotential','mechanism_id' ])
+        change_attrs = set(['conductance', 'name','reversalpotential','mechanism_id'])
         assert set(self.__dict__) == set(['mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
-        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
+        return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 
 # Register the channel

@@ -48,9 +48,9 @@ class MatPlotLibViewer(object):
     plotViews = [0,1,2]
 
 
-    projMatXY = numpy.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0 ], [0.0, 0.0, 1.0 ]])
-    projMatXZ = numpy.array([[0.0, 0.0, 1.0], [0.0, 1.0, 0.0 ], [1.0, 0.0, 0.0 ]])
-    projMatYZ = numpy.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0 ], [0.0, 1.0, 0.0 ]])
+    projMatXY = numpy.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+    projMatXZ = numpy.array([[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]])
+    projMatYZ = numpy.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]])
 
     figureProjections = {0:projMatXY, 1:projMatXZ, 2:projMatYZ}
     figureLabels = {0:("X", "Y"), 1:("Z", "Y"), 2:("X", "Z")}
@@ -139,7 +139,7 @@ class MatPlotLibViewer(object):
                 p4 = xyProjParent + (perpVec * seg.p_r)
 
                 verts = [p1,p2,p3,p4,(0,0)]
-                codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY, ]
+                codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY,]
                 path = Path(verts, codes)
                 patch = patches.PathPatch(path, facecolor=color, lw=1)
                 ax.add_patch(patch)
@@ -170,16 +170,16 @@ class MatPlotLibViewer(object):
 
         # Add in the parents manually:
         p = self.morph._dummysection
-        rotatedSectionDict[ p ] = self.normaliser(p.get_distal_npa3())
+        rotatedSectionDict[p] = self.normaliser(p.get_distal_npa3())
 
 
 
-        maxAxis = max([ numpy.linalg.norm(rs) for rs in rotatedSectionDict.values() ])
+        maxAxis = max([numpy.linalg.norm(rs) for rs in rotatedSectionDict.values()])
         plotLims = (maxAxis * -1.1, maxAxis * 1.1)
 
-        maxX = max([ numpy.fabs(rs[0]) for rs in rotatedSectionDict.values() ])
-        maxY = max([ numpy.fabs(rs[1]) for rs in rotatedSectionDict.values() ])
-        maxZ = max([ numpy.fabs(rs[2]) for rs in rotatedSectionDict.values() ])
+        maxX = max([numpy.fabs(rs[0]) for rs in rotatedSectionDict.values()])
+        maxY = max([numpy.fabs(rs[1]) for rs in rotatedSectionDict.values()])
+        maxZ = max([numpy.fabs(rs[2]) for rs in rotatedSectionDict.values()])
 
         maxes = [maxX, maxY, maxZ]
 

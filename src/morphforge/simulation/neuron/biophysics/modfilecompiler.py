@@ -52,7 +52,7 @@ class ModBuilderParams(object):
     compileIncludes = ['.', '..'] + RCReader.get("Neuron", "compileincludes").split(":")
     compileDefs = ["HAVE_CONFIG_H"]
 
-    stdLinkLibs = ["nrnoc", "oc", "memacs", "nrnmpi", "scopmath", "sparse13", "readline", "ncurses", "ivoc", "neuron_gnu", "meschach", "sundials", "m", "dl", ]
+    stdLinkLibs = ["nrnoc", "oc", "memacs", "nrnmpi", "scopmath", "sparse13", "readline", "ncurses", "ivoc", "neuron_gnu", "meschach", "sundials", "m", "dl",]
     nrnLinkDirs = RCReader.get("Neuron", "nrnLinkDirs").split(":")
 
     #TODO: Find src of this:

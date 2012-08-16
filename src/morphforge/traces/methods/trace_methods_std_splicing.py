@@ -127,8 +127,8 @@ def _window_fixed_trace(trace, time_window):
         data_unts = trace_new1.units
         time_unts = time_window[0].units
 
-        time_trace_new = np.array([time_window[0].rescale(time_unts).magnitude, time_window[1].rescale(time_unts).magnitude, ]) * time_unts
-        trace_new = np.array([trace_new1.rescale(data_unts).magnitude, trace_new2.rescale(data_unts).magnitude, ]) * data_unts
+        time_trace_new = np.array([time_window[0].rescale(time_unts).magnitude, time_window[1].rescale(time_unts).magnitude,]) * time_unts
+        trace_new = np.array([trace_new1.rescale(data_unts).magnitude, trace_new2.rescale(data_unts).magnitude,]) * data_unts
 
 
 

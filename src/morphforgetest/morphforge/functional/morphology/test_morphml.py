@@ -51,7 +51,7 @@ class TestMorphMLLoading(unittest.TestCase):
              ("L23PyrFRB.morph.xml",  { 'dendrite_group': 'dendrite', 'soma_group':'soma' }),
              ("Simple.morph.xml", {}),
              ("SimpleNeuroML.xml", {}),
-             ]
+            ]
 
 
         for f,regions in filenames:
@@ -75,7 +75,7 @@ class TestMorphMLLoading(unittest.TestCase):
         # The morphology has 6 segments and 2 regions:
         self.assertEqual(len(m), 6)
         self.assertEqual(len(m.get_regions()),2)
-        self.assertEqual(set([ r.name for r in m.get_regions()]),set(['somagroup', 'dendritegroup']))
+        self.assertEqual(set([r.name for r in m.get_regions()]),set(['somagroup', 'dendritegroup']))
 
 
         s = list(m)
@@ -90,10 +90,10 @@ class TestMorphMLLoading(unittest.TestCase):
         # SECTION ID=0
         self.assertListAlmostEqual(
                               [s[0].p_x, s[0].p_y, s[0].p_z, s[0].p_r],
-                              [ 0.0, 0.0, 0.0, 5.0 ])
+                              [0.0, 0.0, 0.0, 5.0])
         self.assertListAlmostEqual(
                               [s[0].d_x, s[0].d_y, s[0].d_z, s[0].d_r],
-                              [ 10.0, 0.0, 0.0, 5.0 ])
+                              [10.0, 0.0, 0.0, 5.0])
         self.assertEqual(m.get_region('somagroup'), s[0].region)
         self.assertEqual(s[0].idtag, 'SomaSeg')
         root =  s[0]
@@ -105,7 +105,7 @@ class TestMorphMLLoading(unittest.TestCase):
         self.assertEqual(m.get_region('dendritegroup'), s1.region)
         self.assertListAlmostEqual(
                               [s1.d_x, s1.d_y, s1.d_z, s1.d_r],
-                              [ 5.0, 10.0, 0.0, 2.5 ])
+                              [5.0, 10.0, 0.0, 2.5])
 
         # SECTION ID=2
         s2 = m.get_section(idtag = 'DendSeg2')
@@ -113,7 +113,7 @@ class TestMorphMLLoading(unittest.TestCase):
         self.assertEqual(m.get_region('dendritegroup'), s2.region)
         self.assertListAlmostEqual(
                               [s2.d_x, s2.d_y, s2.d_z, s2.d_r],
-                              [ 5.0, 20.0, 0.0, 2.5 ])
+                              [5.0, 20.0, 0.0, 2.5])
 
 
         # SECTION ID=3
@@ -122,7 +122,7 @@ class TestMorphMLLoading(unittest.TestCase):
         self.assertEqual(m.get_region('dendritegroup'), s3.region)
         self.assertListAlmostEqual(
                               [s3.d_x, s3.d_y, s3.d_z, s3.d_r],
-                              [ 5.0, 30.0, 0.0, 2.5 ])
+                              [5.0, 30.0, 0.0, 2.5])
 
 
         # SECTION ID=4
@@ -131,7 +131,7 @@ class TestMorphMLLoading(unittest.TestCase):
         self.assertEqual(m.get_region('dendritegroup'), s4.region)
         self.assertListAlmostEqual(
                               [s4.d_x, s4.d_y, s4.d_z, s4.d_r],
-                              [ 10.0, 0.0, 10.0, 1.5 ])
+                              [10.0, 0.0, 10.0, 1.5])
 
         # SECTION ID=5
         s5 = m.get_section(idtag = 'DendSeg5')
@@ -139,7 +139,7 @@ class TestMorphMLLoading(unittest.TestCase):
         self.assertEqual(m.get_region('dendritegroup'), s5.region)
         self.assertListAlmostEqual(
                               [s5.d_x, s5.d_y, s5.d_z, s5.d_r],
-                              [ 10.0, 0.0, 20.0, 1.5 ])
+                              [10.0, 0.0, 20.0, 1.5])
 
 
 

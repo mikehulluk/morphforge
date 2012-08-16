@@ -42,7 +42,7 @@ def swc_to_ply(swc_path, ply_path=None):
     #morphologies = MorphologyLoader.fromSWCSet(src=open(swc_path))
     SWCLoader.LoadSet(src=open(swc_path), morphname="UnknownSWC", regionNames=regionNames)
 
-    meshes = [ MeshBuilderRings.build(morph) for morph in morphologies ]
+    meshes = [MeshBuilderRings.build(morph) for morph in morphologies]
 
     # Save the individual meshes:
     for i,mesh in enumerate(meshes):

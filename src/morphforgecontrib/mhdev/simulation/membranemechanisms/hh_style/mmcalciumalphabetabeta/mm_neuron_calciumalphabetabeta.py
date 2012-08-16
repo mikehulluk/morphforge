@@ -179,11 +179,11 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
 
     def get_mod_file_changeables(self):
 
-        change_attrs = set([ 'CaZ', 'name', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration' ])
+        change_attrs = set(['CaZ', 'name', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration'])
         #print set(self.__dict__)
         assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
-        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
+        return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 
 

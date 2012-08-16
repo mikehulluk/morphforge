@@ -126,7 +126,7 @@ def simulate_chl_all(chl):
         #simulate_chl_vclamp(chl, unit("-20:mV")),
         #simulate_chl_vclamp(chl, unit("10:mV")),
         simulate_chl_vclamp(chl, unit("40:mV")),
-        ]
+       ]
 
 
 
@@ -296,12 +296,12 @@ def compareNeuroMLChl(xmlFile):
             tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
 
             # Compare current traces:
-            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tN._data[ np.fabs(tN._time.rescale("ms").magnitude - 700) <0.05] *=0
-            tX._data[ np.fabs(tX._time.rescale("ms").magnitude - 700) <0.05] *=0
+            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 0) <0.05] *=0
+            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 0) <0.05] *=0
+            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 200) <0.05] *=0
+            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 200) <0.05] *=0
+            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 700) <0.05] *=0
+            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 700) <0.05] *=0
             print "TR1"
             f = QuantitiesFigure()
             ax1 = f.add_subplot(4,1,1)

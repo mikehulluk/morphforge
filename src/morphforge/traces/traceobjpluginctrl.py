@@ -147,8 +147,8 @@ class TraceMethodCtrl(object):
             return cls.registered_methods[key]
         # Fallback to FixedDT
         if method_name in cls.fallback_to_fixedtrace_methods:
-            method = cls.registered_methods[ (TraceFixedDT, method_name) ]
-            dt = cls.fallback_to_fixedtrace_methods[ method_name ]
+            method = cls.registered_methods[(TraceFixedDT, method_name)]
+            dt = cls.fallback_to_fixedtrace_methods[method_name]
             return _prepend_conversion_to_fixed_trace_to_function(method, fixed_trace_dt=dt)
 
         # Error!

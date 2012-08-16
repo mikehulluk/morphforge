@@ -229,13 +229,13 @@ class SimulationMRedoc(object):
 
     def build_population_details(self):
         return mrd.Section('Population Details:',
-                *[ self._build_population_details(pop) for pop in self.sim.neuron_populations]
+                *[self._build_population_details(pop) for pop in self.sim.neuron_populations]
        )
 
     def _build_population_details(self, pop):
         return mrd.Section('Population: %s'%pop.pop_name,
                 self._build_population_cell_table(pop),
-                *[ self.build_neuron_details(nrn) for nrn in pop ]
+                *[self.build_neuron_details(nrn) for nrn in pop]
        )
 
 

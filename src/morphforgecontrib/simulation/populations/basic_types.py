@@ -253,13 +253,13 @@ class Connectors(object):
     @classmethod
     def all_to_all(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None):
         pre_post_it = itertools.product(presynaptic_population, postsynaptic_population)
-        synapses = [ connect_functor(sim=sim,  presynaptic=pre, postsynaptic=post) for (pre,post) in pre_post_it if (pre != post) ]
+        synapses = [connect_functor(sim=sim,  presynaptic=pre, postsynaptic=post) for (pre,post) in pre_post_it if (pre != post)]
         return SynapsePopulation(sim=sim, synapses=synapses,  synapse_pop_name=synapse_pop_name)
 
 
     @classmethod
     def times_to_all(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None):
-        synapses = [ connect_functor(sim=sim, postsynaptic=post, times=syncronous_times) for post in postsynaptic_population]
+        synapses = [connect_functor(sim=sim, postsynaptic=post, times=syncronous_times) for post in postsynaptic_population]
         return SynapsePopulation(sim=sim, synapses=synapses, synapse_pop_name=synapse_pop_name)
 
 

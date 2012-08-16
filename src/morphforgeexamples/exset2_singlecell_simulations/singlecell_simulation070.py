@@ -114,7 +114,7 @@ TagViewer([results], timeranges=[(50, 250)*pq.ms], show=False,
                        DefaultPlotSpec.Voltage,
                        DefaultPlotSpec.Current,
                        DefaultPlotSpec.CurrentDensity,
-                       ])
+                      ])
 
 
 TagViewer([results], timeranges=[(100, 120)*pq.ms], show=True,
@@ -122,4 +122,4 @@ TagViewer([results], timeranges=[(100, 120)*pq.ms], show=True,
                        DefaultPlotSpec.Voltage,
                        DefaultPlotSpec.ConductanceDensity,
                        DefaultPlotSpec.StateVariable,
-                       ])
+                      ])

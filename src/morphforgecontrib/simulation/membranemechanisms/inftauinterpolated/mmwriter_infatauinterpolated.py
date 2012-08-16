@@ -43,7 +43,7 @@ class MM_WriterInfTauInterpolated(object):
 
     chlHoc = """
 
-$(cell_name).internalsections [ $section_index ] {
+$(cell_name).internalsections [$section_index] {
     // InfTauInterpolated Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
@@ -118,8 +118,8 @@ $(cell_name).internalsections [ $section_index ] {
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_chl.statevars_new:
-            base_writer.rates[ state_inf(s) ] = (("", state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
-            base_writer.rates[ state_tau(s) ] = (("", state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
+            base_writer.rates[state_inf(s)] = (("", state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
+            base_writer.rates[state_tau(s)] = (("", state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
             base_writer.ratecalcorder.extend([state_inf(s), state_tau(s)])
 
         base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_chl.eqn, g_scale_name)
@@ -135,11 +135,11 @@ $(cell_name).internalsections [ $section_index ] {
 
         def buildInterpolatorFunc(state, inftau, funcname):
             if inftau=='inf':
-                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ])
-                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf ])
+                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V])
+                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf])
             elif inftau=='tau':
-                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V ])
-                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau ])
+                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V])
+                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau])
             else:
                 assert False
 

@@ -41,7 +41,7 @@ from morphforge.simulation.neuron.misc import MNeuronSettings
 
 
 ccTmpl = """
-// Current Clamp [ $stimname ]
+// Current Clamp [$stimname]
 objref $stimname
 ${cellname}.internalsections[$sectionindex] $stimname = new IClamp($sectionpos)
 ${stimname}.dur = $dur
@@ -52,7 +52,7 @@ ${stimname}.amp = $amp
 
 
 vcTmpl = """
-// Current Clamp [ $stimname ]
+// Current Clamp [$stimname]
 objref $stimname
 ${cellname}.internalsections[$sectionindex] $stimname = new $VClampType ($sectionpos)
 ${stimname}.dur1 = $dur1

@@ -45,7 +45,7 @@ class MM_WriterLeak(object):
 
     lkChlHoc = """
 
-$(cell_name).internalsections [ $section_index ] {
+$(cell_name).internalsections [$section_index] {
     // Leak Channels
     insert $neuron_suffix
     #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:

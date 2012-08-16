@@ -276,7 +276,7 @@ for xmlfile in NeuroMLDataLibrary.get_channelMLV1FilesWithSingleChannel():
                        "/home/michael/hw/morphforge/src/test_data/NeuroML/V1/example_simulations/Thalamocortical_NeuroML/kc_fast.xml",
                        "/home/michael/hw/morphforge/src/test_data/NeuroML/V1/example_simulations/Thalamocortical_NeuroML/kc.xml",
 
-                       ]:
+                      ]:
             continue
 
 

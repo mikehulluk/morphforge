@@ -56,7 +56,7 @@ class Neuron_PSM_Exp2Syn_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
 
 
 exp2HOCTmpl = """
-// Post-Synapse [ $synnamepost ]
+// Post-Synapse [$synnamepost]
 objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynMorphforge ($sectionpos)
 ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude

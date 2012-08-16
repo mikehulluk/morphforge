@@ -63,7 +63,7 @@ class ReportLabConfig(object):
     listTableStyle = [('ALIGN', (1,1), (-1,-1), 'LEFT'),
                       ('FONT', (0,0), (0,-1), 'Times-Bold'),
                       ('VALIGN',(0,0),(-1,-1),'TOP'),
-                       ]
+                      ]
 
     defaultTableStyle = [('ALIGN', (1,1), (-1,-1), 'LEFT'),
                          ('VALIGN',(0,0),(-1,-1),'TOP'),
@@ -72,7 +72,7 @@ class ReportLabConfig(object):
                      ('FONT', (0,0), (-1,0), 'Times-Bold'),
                      ('FONT', (0,1), (-1,-1), 'Times-Roman'),
                      ('LINEBELOW', (0,-1), (-1,-1), 2, grey),
-                    ]
+                   ]
 
 
 

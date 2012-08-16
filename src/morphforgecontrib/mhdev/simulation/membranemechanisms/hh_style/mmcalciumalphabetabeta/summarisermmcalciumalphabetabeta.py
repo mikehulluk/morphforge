@@ -169,13 +169,13 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                                  ["permeability", chl.permeability],
                                  ["intracellular_concentration",  chl.intracellular_concentration],
                                  ["extracellular_concentration",  chl.extracellular_concentration],
-                                 ["Equation EXPLAIN", chl.eqn ],
-                                 ["beta2threshold", chl.beta2threshold ],
-                                 ["Temperature ", chl.T ],
-                                 ["F", chl.F ],
-                                 ["R", chl.R ],
-                                 ["CaZ", chl.CaZ ],
-                                ]
+                                 ["Equation EXPLAIN", chl.eqn],
+                                 ["beta2threshold", chl.beta2threshold],
+                                 ["Temperature ", chl.T],
+                                 ["F", chl.F],
+                                 ["R", chl.R],
+                                 ["CaZ", chl.CaZ],
+                               ]
 
 
             localElements.append(Table(overviewTableData, style=reportlabconfig.listTableStyle))
@@ -200,7 +200,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
                         "beta = beta1 if V less than beta2Threshold otherwise beta2",
                         "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
                         "beta(V) = (A+BV)/(C+exp((V+D)/E))",
-                        ]
+                       ]
                 for eqn in eqns:
                     localElements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
 

@@ -49,7 +49,7 @@ class Summarise_MM_LeakChannel(object):
         overview_table_data = [
                              ["Conductance", chl.conductance],
                              ["Reversal Potential",  chl.reversalpotential],
-                            ]
+                           ]
 
         local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 

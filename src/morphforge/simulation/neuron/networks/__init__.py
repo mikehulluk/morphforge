@@ -88,7 +88,7 @@ class NeuronSynapse(NeuronObject, Synapse):
 
 
 expTmpl = """
-// Gap Junction [ $name ]
+// Gap Junction [$name]
 objref $name1
 objref $name2
 ${cellname1}.internalsections[$sectionindex1] $name1 = new Gap ($sectionpos1)

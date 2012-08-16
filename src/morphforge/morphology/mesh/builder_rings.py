@@ -92,7 +92,7 @@ class MeshBuilderRings(object):
                 proximal_offset = 0
 
             else:
-                proximal_offset = section_distal_offsets[ s.parent ]
+                proximal_offset = section_distal_offsets[s.parent]
 
 
             # What direction do we want to point in?
@@ -115,8 +115,8 @@ class MeshBuilderRings(object):
 
             # Create the triangles to make a mesh
             tris = _build_triangle_mesh_between_rings(
-                  vertices[ proximal_offset:proximal_offset+n, :],
-                  vertices[ distal_offset:distal_offset+n, :],
+                  vertices[proximal_offset:proximal_offset+n, :],
+                  vertices[distal_offset:distal_offset+n, :],
                   pts1_offset = proximal_offset,
                   pts2_offset = distal_offset,
                  )

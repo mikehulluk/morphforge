@@ -176,11 +176,11 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
     def get_mod_file_changeables(self):
 
          # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id' ])
+        change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id'])
         assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
         attrs = ['name','ion','eqn','conductance','statevars','reversalpotential','mechanism_id','beta2threshold']
-        return dict ([ (a, getattr(self, a)) for a in attrs ])
+        return dict ([(a, getattr(self, a)) for a in attrs])
 
 
 

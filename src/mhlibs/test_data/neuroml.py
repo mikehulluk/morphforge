@@ -52,7 +52,7 @@ class NeuroMLDataLibrary(object):
             "SolinasEtAl_GolgiCell_NeuroML",
             "Thalamocortical_NeuroML",
             "VervaekeEtAl-GolgiCellNetwork_NeuroML",
-        ]
+       ]
 
         simSrcDir = "/home/michael/hw_to_come/mf_test_data/test_data/NeuroML/V1/example_simulations/"
         #simSrcDir = "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/"
@@ -83,5 +83,5 @@ class NeuroMLDataLibrary(object):
 
     @classmethod
     def get_channelMLV1FilesWithSingleChannel(cls,):
-        return [ f for f in cls.get_channelMLV1Files() if cls._fileContainsSingleChannel(f) ]
+        return [f for f in cls.get_channelMLV1Files() if cls._fileContainsSingleChannel(f)]
 

@@ -60,7 +60,7 @@ def Filter(seq, functor):
     return filter(functor, seq)
 
 def get_text(node):
-    return "".join([n.data for n in node.childNodes if n.nodeType == n.TEXT_NODE ])
+    return "".join([n.data for n in node.childNodes if n.nodeType == n.TEXT_NODE])
 
 
 
@@ -94,20 +94,20 @@ class SearchableSet(object):
 
     assert len(args) ==0
     if isinstance(k, collections.Callable):
-      return SeqUtils.expect_single([ k(o) for o in self.data ])
+      return SeqUtils.expect_single([k(o) for o in self.data])
 
 
     elif isinstance(k, basestring):
-      return SeqUtils.expect_single([ o for o in self.data if getattr(o,k) == v ])
+      return SeqUtils.expect_single([o for o in self.data if getattr(o,k) == v])
     else:
       print 'Unexpected Type of %s - %s'%(k, type(k))
       assert False
 
   def keys(self, k):
     if isinstance(k, collections.Callable):
-      return [ k(o) for o in self.data ]
+      return [k(o) for o in self.data]
     elif isinstance(k, basestring):
-      return [ getattr(o,k) for o in self.data ]
+      return [getattr(o,k) for o in self.data]
     else:
       assert False
 
@@ -317,11 +317,11 @@ class MorphMLLoader(object):
         # Make all the regions:
         regionNames = list(set(Filter(cableIDToRegionName.values(), lambda e:e is not None)))
         print 'RegionNames:', regionNames
-        regionNamesClean = [ _clean_name(str(region_name)) for region_name in regionNames]
+        regionNamesClean = [_clean_name(str(region_name)) for region_name in regionNames]
 
-        rgns = [ Region(name=region_name) for region_name in regionNamesClean]
-        region_nameToRegionDict = dict([ (rgn.name, rgn) for rgn in rgns])
-        cableIDToRegionDict = dict([ (cableId, region_nameToRegionDict[_clean_name(region_name)]) if region_name is not None else (cableId,None) for cableId, region_name in cableIDToRegionName.iteritems()  ])
+        rgns = [Region(name=region_name) for region_name in regionNamesClean]
+        region_nameToRegionDict = dict([(rgn.name, rgn) for rgn in rgns])
+        cableIDToRegionDict = dict([(cableId, region_nameToRegionDict[_clean_name(region_name)]) if region_name is not None else (cableId,None) for cableId, region_name in cableIDToRegionName.iteritems() ])
 
 
         # Find the node without a parent:
@@ -345,7 +345,7 @@ class MorphMLLoader(object):
             for c in childNodes:
                 #print c
                 newSect = curSect.create_distal_section(region=cableIDToRegionDict[c[2]], x=c[5][0], y=c[5][1], z=c[5][2], r=c[5][3] / 2.0, idtag=c[1])
-                idToSectionMap[ c[0] ] = newSect
+                idToSectionMap[c[0]] = newSect
                 recentlyAdded.append(c)
 
         return MorphologyTree(name="FromNeuroML", dummysection=rDummy, metadata={})
@@ -377,7 +377,7 @@ class MorphMLLoader(object):
             if group_nodes:
                 if regions:
                     metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: get_text(e) in regions)
-                    region_name = regions[ get_text(metaGroupNode) ]
+                    region_name = regions[get_text(metaGroupNode)]
                 else:
                     metaGroupNode = SeqUtils.expect_single(group_nodes)
                     region_name = get_text(metaGroupNode)

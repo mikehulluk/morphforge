@@ -51,12 +51,12 @@
 #                                                    {'length':5, 'diam':6, 'region':'process', 'id':'processID1', 'sections':[
 #                                                                   {'length':7, 'diam':8, 'region':'process', 'id':'processID1a'},
 #                                                                   {'length':9, 'diam':10, 'region':'process', 'id':'processID1b'},
-#                                                                                ]},
+#                                                                               ]},
 #                                                    {'length':11, 'diam':12, 'region':'process', 'id':'processID2', 'sections':[
 #                                                                    {'length':13, 'diam':14, 'region':'process', 'id':'processID2a'},
 #                                                                    {'length':15, 'diam':16, 'region':'process', 'id':'processID2b'},
-#                                                                       ]},
-#                                                                    ] } }
+#                                                                      ]},
+#                                                                   ] } }
 #
 #
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {})
@@ -76,12 +76,12 @@
 #                                                    {'length':5, 'diam':6, 'region':'process', 'id':'processID1', 'sections':[
 #                                                                   {'length':7, 'diam':8, 'region':'process', 'id':'processID1a'},
 #                                                                   {'length':9, 'diam':10, 'region':'process', 'id':'processID1b'},
-#                                                                                ]},
+#                                                                               ]},
 #                                                    {'length':11, 'diam':12, 'region':'process', 'id':'processID2', 'sections':[
 #                                                                    {'length':13, 'diam':14, 'region':'process', 'id':'processID2a'},
 #                                                                    {'length':15, 'diam':16, 'region':'process', 'id':'processID2b'},
-#                                                                       ]},
-#                                                                    ] } }
+#                                                                      ]},
+#                                                                   ] } }
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {})
 #
 #        self.assertAlmostEqual(SectionFarEndDistToRootCentre(m.get_section("somaID")), 3.0, 4)
@@ -98,12 +98,12 @@
 #                                                    {'length':5, 'diam':6, 'region':'process', 'id':'processID1', 'sections':[
 #                                                                   {'length':7, 'diam':8, 'region':'process', 'id':'processID1a'},
 #                                                                   {'length':9, 'diam':10, 'region':'process', 'id':'processID1b'},
-#                                                                                ]},
+#                                                                               ]},
 #                                                    {'length':11, 'diam':12, 'region':'process', 'id':'processID2', 'sections':[
 #                                                                    {'length':13, 'diam':14, 'region':'process', 'id':'processID2a'},
 #                                                                    {'length':15, 'diam':16, 'region':'process', 'id':'processID2b'},
-#                                                                       ]},
-#                                                                    ] } }
+#                                                                      ]},
+#                                                                   ] } }
 #
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {})
 #
@@ -173,12 +173,12 @@
 #                                                    {'length':5, 'diam':6, 'region':'process', 'id':'processID1', 'sections':[
 #                                                             {'length':7, 'diam':8, 'region':'process', 'id':'processID1a'},
 #                                                             {'length':9, 'diam':10, 'region':'process', 'id':'processID1b'},
-#                                                                                ]},
+#                                                                               ]},
 #                                                    {'length':11, 'diam':12, 'region':'process', 'id':'processID2', 'sections':[
 #                                                             {'length':13, 'diam':14, 'region':'process', 'id':'processID2a'},
 #                                                             {'length':15, 'diam':16, 'region':'process', 'id':'processID2b'},
-#                                                             ]},
-#                                            ] } }
+#                                                            ]},
+#                                           ] } }
 #
 #        m = MorphologyFactory.fromDictionary(validSimpleDict20, "MyCell1", {})
 #        rootMorphLoc = getRootMorphLocation(m)

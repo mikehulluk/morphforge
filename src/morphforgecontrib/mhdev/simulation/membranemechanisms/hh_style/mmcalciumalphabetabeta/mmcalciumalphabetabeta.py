@@ -58,7 +58,7 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.extracellular_concentration = unit(extracellular_concentration)
 
         self.eqn = equation
-        self.statevars = dict([ (s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
+        self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.beta2threshold = unit(beta2threshold)
 
         self.F = unit('96480:C/mol')

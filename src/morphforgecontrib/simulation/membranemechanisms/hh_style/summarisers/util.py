@@ -87,6 +87,6 @@ class ReportLabTools(object):
         print params
         print
         alpha_params = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
-        alpha_table_data = [ ["A","B","C","D","E"], alpha_params.split()  ]
+        alpha_table_data = [["A","B","C","D","E"], alpha_params.split() ]
         elements.append(Table(alpha_table_data, style=reportlabconfig.defaultTableStyle))
 

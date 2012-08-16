@@ -51,7 +51,7 @@ class MorphologyConverter(object):
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
 
-        vertices= [ None ] * (len(tree) + 1)
+        vertices= [None] * (len(tree) + 1)
         connectivity = []
         section_types = []
         section_index = SectionIndexerDF(morph=tree, offset=1).dict
@@ -62,7 +62,7 @@ class MorphologyConverter(object):
             index = section_index[seg]
 
             # Store the vertices:
-            vertices[ index ] = seg.get_distal_npa4()
+            vertices[index] = seg.get_distal_npa4()
 
             # Store the link to the parent:
             if not seg.is_dummy_section():

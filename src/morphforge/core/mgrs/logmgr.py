@@ -84,7 +84,7 @@ class LogMgr(object):
     def get_caller(cls):
         current_frame = inspect.currentframe()
         outer_frames = inspect.getouterframes(current_frame)
-        out_frames_not_this_class = [f for f in outer_frames if not f[1].endswith("logmgr.py") ]
+        out_frames_not_this_class = [f for f in outer_frames if not f[1].endswith("logmgr.py")]
 
         prev_call_frame = out_frames_not_this_class[0]
         caller = cls._pyfile_to_modulename(prev_call_frame[1])

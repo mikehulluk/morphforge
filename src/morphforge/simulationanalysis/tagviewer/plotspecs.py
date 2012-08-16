@@ -126,7 +126,7 @@ class PlotSpec_DefaultNew(object):
             plot_kwargs['color'] = color
         else:
             if self.colors:
-                plot_kwargs['color'] = self.colors[ index % len(self.colors) ]
+                plot_kwargs['color'] = self.colors[index % len(self.colors)]
 
         plt_tr = ax.plotTrace(trace, **plot_kwargs)
         return plt_tr
@@ -150,7 +150,7 @@ class PlotSpec_DefaultNew(object):
         i_range = 0.2
         i_scale = i_range / len(list(eventset.times))
 
-        data = np.array([ (t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times) ])
+        data = np.array([(t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times)])
 
 
 

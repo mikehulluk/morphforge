@@ -196,10 +196,10 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
 #
 #
 #    def visit_section(self, section):
-#        self.array[ self.sectionIndexer[section] ] = self.sectFunctor(section)
+#        self.array[self.sectionIndexer[section]] = self.sectFunctor(section)
 #
 #    def visit_root_section(self, section):
-#        self.array[ self.sectionIndexer[section] ] = self.sectRootFunctor(section)
+#        self.array[self.sectionIndexer[section]] = self.sectRootFunctor(section)
 
 
 

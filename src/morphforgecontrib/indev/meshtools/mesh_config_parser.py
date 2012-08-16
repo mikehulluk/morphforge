@@ -76,7 +76,7 @@ tokens = [
     'SEMICOLON',
     'STAR',
     'ID',
-    ] + list(reserved.values())
+   ] + list(reserved.values())
 
 
 def t_ID(t):

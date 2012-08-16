@@ -49,7 +49,7 @@ class RCMgr(object):
             cls.rcConfParser = ConfigParser.SafeConfigParser()
             if not os.path.exists(cls.rcFilename):
                 raise Exception("The resource file: %s does not exist!" % cls.rcFilename)
-            cls.rcConfParser.read([  cls.rcFilename ])
+            cls.rcConfParser.read([ cls.rcFilename])
         return cls.rcConfParser
 
 

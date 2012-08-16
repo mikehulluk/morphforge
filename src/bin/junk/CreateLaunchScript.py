@@ -35,7 +35,7 @@ from morphforge.core import LocMgr, Join
 hostlistfilename = Join(LocMgr.get_bin_path(), "DellMachines.txt")
 hostlistfile = open(hostlistfilename)
 
-hosts = [ l.strip() for l in hostlistfile.readlines() if not l.startswith("#") and l.strip() != ""]
+hosts = [l.strip() for l in hostlistfile.readlines() if not l.startswith("#") and l.strip() != ""]
 hosts = []
 
 

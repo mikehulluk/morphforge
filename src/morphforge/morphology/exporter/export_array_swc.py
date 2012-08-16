@@ -45,10 +45,10 @@ class ExportArray_SWC(object):
 
         def vertexToData(v_index, v_index_parent, rgn):
             x,y,z,r = morphology._vertices[v_index,:]
-            return [ v_index+swc_vertex_offset, rgn,  x, y, z, r,  v_index_parent+swc_vertex_offset if v_index_parent is not None else -1 ]
+            return [v_index+swc_vertex_offset, rgn,  x, y, z, r,  v_index_parent+swc_vertex_offset if v_index_parent is not None else -1]
 
         #Root Vertex:
-        data = [ vertexToData(morphology._dummy_vertex_index, None, 0)  ]
+        data = [vertexToData(morphology._dummy_vertex_index, None, 0) ]
 
         # Add Each Vertex
         for conn_index,(v_index, v_index_parent) in enumerate(morphology._connectivity):

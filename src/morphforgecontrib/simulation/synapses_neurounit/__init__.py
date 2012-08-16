@@ -108,7 +108,7 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
 
 
 exp2HOCTmpl = """
-// Post-Synapse [ $synnamepost ]
+// Post-Synapse [$synnamepost]
 objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new $synapsetypename ($sectionpos)
 #for param_name, param_value in $parameters:
@@ -150,7 +150,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
                "sectionpos": self.cell_location.morphlocation.sectionpos,
                "synapsetypename": self.NRNSUFFIX,
 
-               "parameters": [ (k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems() ]
+               "parameters": [(k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems()]
 
 
                }
@@ -182,7 +182,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
         fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
-        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
+        return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 
 

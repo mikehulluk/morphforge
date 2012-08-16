@@ -44,7 +44,7 @@ strs = [
     'mV-2 s/A Hz',
     'ms',
     '/V s',
-    ]
+   ]
 
 
 # for s in strs:

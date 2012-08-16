@@ -80,7 +80,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
 
 exp2HOCTmpl = """
-// Post-Synapse [ $synnamepost ]
+// Post-Synapse [$synnamepost]
 objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new Exp2SynNMDAMorphforge ($sectionpos)
 ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude

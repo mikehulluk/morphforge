@@ -173,4 +173,4 @@ class TracePiecewise(Trace):
             done_times = np.logical_and(done_times, np.logical_not(ind))
 
         unit  = _data[0].units
-        return np.fromiter(itertools.chain(*[ list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float) * unit
+        return np.fromiter(itertools.chain(*[list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float) * unit

@@ -72,7 +72,7 @@ class MembraneMechanismSummariser(object):
 
         doc = SimpleDocTemplate(filename,pagesize=A4)
 
-        elements = [ Paragraph("Filename: %s"%filename, style=reportlabconfig.styles['Heading2']) ]
+        elements = [Paragraph("Filename: %s"%filename, style=reportlabconfig.styles['Heading2'])]
         elements.extend(cls.summarise_membranemechanism(mechanism, reportlabconfig))
 
         doc.build(elements)
@@ -89,11 +89,11 @@ class MembraneMechanismSummariser(object):
 
         # Parameters:
         local_elements.append(Paragraph("Parameters", reportlabconfig.styles['Heading2']))
-        table_header = ['Parameter Name', 'Default', ]
+        table_header = ['Parameter Name', 'Default',]
 
-        data = [table_header, ]
+        data = [table_header,]
         for param in membranemechanism.get_variables():
-            data.append([ param, membranemechanism.get_default(param) ])
+            data.append([param, membranemechanism.get_default(param)])
 
 
         local_elements.append(Table(data, style=reportlabconfig.listTableStyle))

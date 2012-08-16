@@ -54,7 +54,7 @@ class TraceGeneratorParserLexer(object):
         'RPAREN',
         'FLOAT',
         'ID',
-        ] + list(reserved.values())
+       ] + list(reserved.values())
 
     t_CURLY_LBRACE = '{'
     t_CURLY_RBRACE = '}'

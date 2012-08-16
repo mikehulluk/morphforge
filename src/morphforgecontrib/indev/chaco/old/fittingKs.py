@@ -206,13 +206,13 @@ def getDINMorphology(axonDiam):
                                 {'diam': axonDiam, 'absangle': 0, 'length': 10, 'region':'axonhillock', 'sections':
                                 [
                                     {'diam': axonDiam, 'absangle': 900, 'length': 500,'region':'axon', 'sections':
-                                        [ {'diam': axonDiam , 'absangle': 90, 'length': 100, 'region':'axon', 'id':'axontip' }]
+                                        [{'diam': axonDiam , 'absangle': 90, 'length': 100, 'region':'axon', 'id':'axontip' }]
                                      }
-                                ]
+                               ]
                                 }
-                              ]
+                             ]
                               }
-                            ]
+                           ]
                 }
         }
 
@@ -232,11 +232,11 @@ def getDINMorphology(axonDiam):
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [ ('SomaVoltage',vUnit),
+trace_names = [('SomaVoltage',vUnit),
                 ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit),  ('Ca_i',iUnit),
                 ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
                 ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
-                ]
+               ]
 
 
 

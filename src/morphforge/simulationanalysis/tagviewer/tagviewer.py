@@ -147,10 +147,10 @@ class TagViewer(object):
         if additional_plotspecs:
             plotspecs = tuple(list(plotspecs) + list(additional_plotspecs))
 
-        self.plot_specs = [ sp for sp in plotspecs if
-                            [ tr for tr in self.allTraceObjs if sp.addtrace_predicate(tr)] or  \
-                            [ evset for evset in self.allEventSetObjs if sp.addeventset_predicate(evset)] \
-                           ]
+        self.plot_specs = [sp for sp in plotspecs if
+                            [tr for tr in self.allTraceObjs if sp.addtrace_predicate(tr)] or  \
+                            [evset for evset in self.allEventSetObjs if sp.addeventset_predicate(evset)] \
+                          ]
 
 
         self.fig_kwargs = fig_kwargs
@@ -190,7 +190,7 @@ class TagViewer(object):
 
 
         # Work out what traces are on what graphs:
-        ps_to_traces = dict([ (ps,[tr for tr in self.allTraceObjs if ps.addtrace_predicate(tr) ]) for ps in self.plot_specs  ])
+        ps_to_traces = dict([(ps,[tr for tr in self.allTraceObjs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
         if self.linkage:
             self.linkage.process(ps_to_traces)
 

@@ -60,7 +60,7 @@ class NeuronSimSetupObj(NeuronObject):
         # For testing: should be done properly:
         hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%(self.simsettings["tstop"].rescale("ms").magnitude))
         hocfile_obj.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%(self.simsettings["dt"].rescale("ms").magnitude))
-        hocfile_obj.add_to_section(MHOCSections.InitRecords, "\n".join([ "objref rect","rect = new Vector()","rect.record(&t)"]))
+        hocfile_obj.add_to_section(MHOCSections.InitRecords, "\n".join(["objref rect","rect = new Vector()","rect.record(&t)"]))
 
 
 

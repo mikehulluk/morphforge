@@ -180,9 +180,9 @@ class MM_Neuron_AlphaBeta(MM_AlphaBetaChannel, MM_Neuron_Base):
         # If this fails, then the attirbute probably needs to be added to the list below:
         change_attrs = set(['name','ion','eqn','conductance','statevars','reversalpotential','mechanism_id'])
         assert set(self.__dict__) == set(['mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
-        #['conductance', 'name','ion','eqn','conductance','statevars','reversalpotential','mm_neuronNumber', 'mechanism_id' ])
+        #['conductance', 'name','ion','eqn','conductance','statevars','reversalpotential','mm_neuronNumber', 'mechanism_id'])
 
-        return dict ([ (a, getattr(self, a)) for a in change_attrs ])
+        return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 # Register the channel
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_AlphaBetaChannel, MM_Neuron_AlphaBeta)

@@ -44,14 +44,14 @@ v_init = $cell.initial_voltage.rescale('mV').magnitude
 // Cell Template for: $cell_template_name
 #set nSections = len($section_indexer)
 begintemplate $cell_template_name
-    create internalsections[ $nSections ]
+    create internalsections[$nSections]
     public internalsections
 
     proc init() {
-        create internalsections[ $nSections ]
+        create internalsections[$nSections]
 
         #for $section in $cell.morphology:
-        internalsections[ $section_indexer[ $section ] ] {
+        internalsections[$section_indexer[$section]] {
 
 
             // Section Geometry:
@@ -85,14 +85,14 @@ begintemplate $cell_template_name
         #for $section in $cell.morphology:
         #if $section.is_a_root_section(): #continue
         // Make a Connection
-        connect internalsections[ $section_indexer[ $section.parent ] ](1.0),  internalsections[ $section_indexer[ $section ] ](0.0)
+        connect internalsections[$section_indexer[$section.parent]](1.0),  internalsections[$section_indexer[$section]](0.0)
         #end for
 
 
         // Root Sections:
         #set roots = $cell.morphology.get_root_sections
         #for r in roots[1:]:
-        connect internalsections[ $section_indexer[ $r ] ](0.0),  internalsections[ $section_indexer[ $r ] ](0.0)
+        connect internalsections[$section_indexer[$r]](0.0),  internalsections[$section_indexer[$r]](0.0)
         #end for
 
     }

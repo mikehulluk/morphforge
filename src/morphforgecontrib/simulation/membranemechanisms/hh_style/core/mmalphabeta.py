@@ -54,7 +54,7 @@ class MM_AlphaBetaChannel(MembraneMechanism):
         self.ion = ion
         self.eqn = equation
         self.conductance = unit(conductance)
-        self.statevars = dict([ (s, (sDict['alpha'], sDict['beta'])) for s, sDict in statevars.iteritems()])
+        self.statevars = dict([(s, (sDict['alpha'], sDict['beta'])) for s, sDict in statevars.iteritems()])
         self.reversalpotential = unit(reversalpotential)
 
     def get_variables(self):

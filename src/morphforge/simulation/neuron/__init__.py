@@ -58,6 +58,6 @@ __all__ = [
     'ModFile',
     'ModFileCompiler',
     'MM_Neuron_Base',
-    ]
+   ]
 
 

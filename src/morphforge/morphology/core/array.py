@@ -123,7 +123,7 @@ class MorphologyArray(MorphologyBase):
 
 
     def connections_to_index(self, pid):
-        return [ i for (i, j) in self._connectivity if j == pid] + [j for (i,j) in self._connectivity if i == pid]
+        return [i for (i, j) in self._connectivity if j == pid] + [j for (i,j) in self._connectivity if i == pid]
 
     def index_of_connection(self, id, pid):
         for (index, (i, j)) in enumerate(self._connectivity):

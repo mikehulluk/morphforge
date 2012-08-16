@@ -105,7 +105,7 @@ class MorphologyPCARotator(PointRotator):
 class MorphologyForRenderingOperator(PointOperator):
     def __init__(self, morph, usePCA=True):
 
-        ops = [ MorphologyMeanCenterer(morph) ]
+        ops = [MorphologyMeanCenterer(morph)]
         if usePCA: ops.append(MorphologyPCARotator(morph))
 
         super(MorphologyForRenderingOperator, self).__init__(ops)

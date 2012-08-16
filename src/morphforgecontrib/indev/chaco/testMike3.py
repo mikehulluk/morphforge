@@ -66,14 +66,14 @@ from channel_panels import HHChannelPaneInfTau2,buildPaneFromExistingChannelInfT
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [ ('SomaVoltage',vUnit),
+trace_names = [('SomaVoltage',vUnit),
                 ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit), ('Ca_i', iUnit),
                 ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
                 ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
-                ]
+               ]
 
 
-trace_names = [ ('SomaVoltage',vUnit), ]
+trace_names = [('SomaVoltage',vUnit),]
 
 
 

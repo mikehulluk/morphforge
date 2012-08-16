@@ -198,7 +198,7 @@ class TestMorphologyArrayComparison(object):
         # Find the leaf nodes:
         leaf_nodes = m.get_leaf_vertices_indices()
 
-        for new_parent in [0, 10, 20, leaf_nodes[-1] ]:
+        for new_parent in [0, 10, 20, leaf_nodes[-1]]:
 
             for l in leaf_nodes[:-1]:
                 v = m._vertices.copy()

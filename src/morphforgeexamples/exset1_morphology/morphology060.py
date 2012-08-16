@@ -79,8 +79,8 @@ ax1.set_color_cycle(['red','blue'])
 for region in  morph.get_regions():
     sections = list(region.sections)
 
-    dists = [ section_dist_to_dummy(s) for s in sections ]
-    radii = [ s.d_r for s in sections ]
+    dists = [section_dist_to_dummy(s) for s in sections]
+    radii = [s.d_r for s in sections]
 
     ax1.plot(dists, radii, 'o', label="Region: %s"%region.name)
 

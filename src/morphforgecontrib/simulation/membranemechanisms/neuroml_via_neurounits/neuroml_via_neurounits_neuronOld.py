@@ -103,7 +103,7 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
             sym = eqnset.get_terminal_obj(param_str)
             param_default_unit = buildparameters.symbol_units[sym]
 
-            self.defaults[ param_str] = value.as_quantities_quantity()
+            self.defaults[param_str] = value.as_quantities_quantity()
             self.units[param_str] = param_default_unit.as_quantities_unit()
 
 

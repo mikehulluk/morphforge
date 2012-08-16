@@ -103,7 +103,7 @@ TagViewer(results_a, timeranges=[(97.5, 140)*pq.ms], show=False,
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
-                        ])
+                       ])
 
 results_b = [
     sim(gna_multiplier=0.1,  glk_multiplier=1.0, tag="SIM6"),
@@ -118,5 +118,5 @@ TagViewer(results_b, timeranges=[(97.5, 140)*pq.ms],show=True,
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
                     PlotSpec_DefaultNew(s="ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV,50*mV), legend_labeller=None),
-                        ])
+                       ])
 

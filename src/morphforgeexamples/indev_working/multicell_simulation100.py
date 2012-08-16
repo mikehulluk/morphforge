@@ -97,7 +97,7 @@ k_eqnset_txt = """
 
 # Some Utility Functions:
 def extract_params(p, prefix, replace_prefix=""):
-    return dict([ (replace_prefix+k[len(prefix):],v) for (k,v) in p.iteritems() if k.startswith(prefix) ])
+    return dict([(replace_prefix+k[len(prefix):],v) for (k,v) in p.iteritems() if k.startswith(prefix)])
 
 def remap_keys(dct, remap_dct):
     # Avoid collisions
@@ -242,7 +242,7 @@ def load_std_channels(param_str):
     #cache = {}
     #if not param_str in cache:
 
-        nrn_params = dict([ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(param_names.split(), param_units.split(';'), param_str.split()) ])
+        nrn_params = dict([(p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(param_names.split(), param_units.split(';'), param_str.split())])
         nrn_params_na = extract_params(nrn_params, prefix='na_')
         nrn_params_lk = extract_params(nrn_params, prefix='lk_')
         nrn_params_ks = extract_params(nrn_params, prefix='ks_', replace_prefix='k_')
@@ -289,7 +289,7 @@ def load_ka_channel():
     10.000   0   500 -22.09  -10.21
     """
 
-    nrn_params = dict([ (p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split()) ])
+    nrn_params = dict([(p, mf.unit("%s:%s"%(v,u.strip()))) for (p,u,v) in zip(ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split())])
     nrn_params_ka = extract_params(nrn_params, prefix='ka_')
     print nrn_params_ka
     eqnsetka = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt.replace("sautois","saut2"))
@@ -376,7 +376,7 @@ def test_cell_current(cell_name, cell_chl_functor, current):
 
 def test_cell(cell_name, cell_chl_functor):
     current_levels = [0, 40, 80, 120, 160, 200, 240]
-    reses = [ test_cell_current(cell_name=cell_name, cell_chl_functor=cell_chl_functor, current=c) for c in current_levels]
+    reses = [test_cell_current(cell_name=cell_name, cell_chl_functor=cell_chl_functor, current=c) for c in current_levels]
     mf.TagViewer(reses, show=False)
 
 def test_step_current_injections():
@@ -699,7 +699,7 @@ mf.TagViewer(res,
     mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
     mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
 
-            ])
+           ])
 
 
 

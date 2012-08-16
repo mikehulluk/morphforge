@@ -56,7 +56,7 @@ tokens = [
     'AND_SYM',
     'OR_SYM',
     'NOT_SYM',
-    ] + list(reserved.keys())
+   ] + list(reserved.keys())
 
 
 

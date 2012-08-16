@@ -43,7 +43,7 @@ from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import Pr
 
 
 preTmpl = """
-// Pre-Synapse [ $synname ]
+// Pre-Synapse [$synname]
 objref $synnamepre
 ${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, $weight.rescale("uS").magnitude )
 """
@@ -92,7 +92,7 @@ class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
 
 
 preTmplList = """
-// Pre-Synapse [ $synname ]
+// Pre-Synapse [$synname]
 objref ${synnamepre}_NullObj
 objref $synnamepre
 $synnamepre = new NetCon(${synnamepre}_NullObj, $synnamepost, 0, 0, $weight.rescale("uS").magnitude )

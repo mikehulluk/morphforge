@@ -74,7 +74,7 @@ class MayaViRenderer(object):
 
         @mlab.show
         def _showSimple():
-            morphPts = [ SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs ]
+            morphPts = [SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs]
             pts = numpy.concatenate(morphPts)
             return mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], colormap=self.colormap, scale_factor=self.scale_factor)
         _showSimple()
@@ -102,7 +102,7 @@ class MayaViRenderer(object):
                 n = min(max(int(lToRRatio * length / rad), 1), maxInterpolPts)
                 jVecSteps = (sEnd-sStart) / n
 
-                intPts = [ sStart + k*jVecSteps for k in range(0,n) ]
+                intPts = [sStart + k*jVecSteps for k in range(0,n)]
                 return intPts
 
             lbs = []

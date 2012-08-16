@@ -102,7 +102,7 @@ class CellSegmenterStd(AbstCellSegmenter):
             # Segment the cell:
             for section in self.cell.morphology:
                 nSegs = self._get_n_segments(section)
-                self._cellSegments[section] = [ CellSegment(cell=self.cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs) ]
+                self._cellSegments[section] = [CellSegment(cell=self.cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs)]
         return self._cellSegments
 
 

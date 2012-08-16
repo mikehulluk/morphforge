@@ -45,5 +45,5 @@ __all__ = [
     'ModFileSectioned',
     'NeuronParameter',
     'MM_ModFileWriterBase',
-    ]
+   ]
 

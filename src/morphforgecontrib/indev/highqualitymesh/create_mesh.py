@@ -89,7 +89,7 @@ class MeshFromGTS(object):
             vertex_objs = sect_surface.vertices()
             N = len(vertex_objs)
             dShape = (N,3)
-            v = np.array([(v.x,v.y,v.z) for v in vertex_objs ]).reshape(dShape)
+            v = np.array([(v.x,v.y,v.z) for v in vertex_objs]).reshape(dShape)
 
             color = np.array((sect_color.r,sect_color.g,sect_color.b))
             colors = np.repeat(color, len(vertex_objs)).reshape(dShape, order='F')

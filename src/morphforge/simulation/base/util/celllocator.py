@@ -47,7 +47,7 @@ class CellLocator(object):
                                         morphology=cell.morphology,
                                         distance=distance,
                                         section_predicate=section_predicate)
-        return [ CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs]
+        return [CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs]
 
 
     @classmethod

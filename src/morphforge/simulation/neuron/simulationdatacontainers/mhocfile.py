@@ -60,7 +60,7 @@ class MHOCSections(object):
         InitRecords,
         InitSimParams,
         run,
-        ]
+       ]
 
 class MHocFileData(object):
    
@@ -77,7 +77,7 @@ class MHocFileData(object):
         VoltageClamps,
         Synapses,
         GapJunctions,
-        ]
+       ]
 
 
 class MHocFile(object):

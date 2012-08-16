@@ -109,7 +109,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
             section_indexer = tmpl_dict['section_indexer']
             d = []
             for s in cell.morphology:
-                d.append("""%s.internalsections [ %d ] { e%s=%f
+                d.append("""%s.internalsections [%d] { e%s=%f
                         }"""%(cell_name, section_indexer[s],
                             self.chlData.iv_ion,
                             vrev))

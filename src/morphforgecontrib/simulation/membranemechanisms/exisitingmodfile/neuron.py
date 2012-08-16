@@ -76,7 +76,7 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
 
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        #Units = dict([ (p.symbol, pq.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
+        #Units = dict([(p.symbol, pq.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):

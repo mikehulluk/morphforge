@@ -144,15 +144,15 @@ class SimulationSummariser(object):
         ########
         local_elements.append(Paragraph("Cells", self.reportlabconfig.styles['Heading2']))
         table_header = ['Cell',  'Total Surface Area', 'Sections', 'Segments','Active Channels (id,[Name])']
-        data = [table_header, ]
+        data = [table_header,]
 
         for cell in self.simulation.get_cells():
-            a = sum([ s.get_area() for s in cell.morphology]) * unit("1:um2")
+            a = sum([s.get_area() for s in cell.morphology]) * unit("1:um2")
             n_sections = len(cell.morphology)
             n_segments = sum([cell.get_segmenter().get_num_segments(section) for section in cell.morphology])
             active_mechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
             active_chl_list = "\n".join(["%s [%s]"%(am.get_mechanism_id(), am.name) for am in active_mechs])
-            data.append([ cell.name, a, n_sections, n_segments, active_chl_list ])
+            data.append([cell.name, a, n_sections, n_segments, active_chl_list])
 
         local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
@@ -162,10 +162,10 @@ class SimulationSummariser(object):
         if self.simulation.get_currentclamps():
             local_elements.append(Paragraph("Current Clamps", self.reportlabconfig.styles['Heading2']))
             table_header = ['Name', 'Location', 'Delay', 'Amplitude', 'Duration']
-            data = [table_header, ]
+            data = [table_header,]
             for cc in self.simulation.get_currentclamps():
                 cellname = cc.cell_location.cell.name
-                data.append([ cc.name, cellname, cc.delay, cc.amp, cc.dur ])
+                data.append([cc.name, cellname, cc.delay, cc.amp, cc.dur])
 
             local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
@@ -175,10 +175,10 @@ class SimulationSummariser(object):
         if self.simulation.get_voltageclamps():
             local_elements.append(Paragraph("Voltage Clamps", self.reportlabconfig.styles['Heading2']))
             table_header = ['Name', 'Location', 'Dur1', 'Dur2', 'Dur3', 'Amp1','Amp2','Amp3']
-            data = [table_header, ]
+            data = [table_header,]
             for vc in self.simulation.get_voltageclamps():
                 cellname = vc.cell_location.cell.name
-                data.append([ vc.name, cellname, vc.dur1, vc.dur2, vc.dur3, vc.amp1, vc.amp2, vc.amp3 ])
+                data.append([vc.name, cellname, vc.dur1, vc.dur2, vc.dur3, vc.amp1, vc.amp2, vc.amp3])
 
             local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
@@ -202,11 +202,11 @@ class SimulationSummariser(object):
             ##Summary:
             local_elements.append(Paragraph("Overview", self.reportlabconfig.styles['Heading3']))
             data = [
-                    ["Name", "value" ],
-                    ["Total Area", sum([s.get_area() for s in cell.morphology]) * unit("1:um2") ],
-                    ["Regions", ", ".join([ rgn.name for rgn in cell.get_regions() ]) ],
+                    ["Name", "value"],
+                    ["Total Area", sum([s.get_area() for s in cell.morphology]) * unit("1:um2")],
+                    ["Regions", ", ".join([rgn.name for rgn in cell.get_regions()])],
                     ["idTags", ",".join(cell.morphology.get_idtags())],
-                    ]
+                   ]
             local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
 
@@ -215,9 +215,9 @@ class SimulationSummariser(object):
 
             # Data about the size of each region - makes it easy to check the soma size:
             local_elements.append(Paragraph("MorphologyTree", self.reportlabconfig.styles['Heading3']))
-            data = [ ["Region", "n_segments", "Area" ],     ]
+            data = [["Region", "n_segments", "Area"],    ]
             for region in cell.get_regions():
-                data.append([region.name, "%d"%len(region.sections), sum([s.get_area() for s in region.sections]) ])
+                data.append([region.name, "%d"%len(region.sections), sum([s.get_area() for s in region.sections])])
             local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
 
@@ -239,7 +239,7 @@ class SimulationSummariser(object):
 
             ## Section Overview:
             local_elements.append(Paragraph("Sections", self.reportlabconfig.styles['Heading3']))
-            data = [ ["Section","Parent", "Region", "ID", "Radius (Proximal)", "Radius (Distal)", "Length", "Area", "n_segments" ], ]
+            data = [["Section","Parent", "Region", "ID", "Radius (Proximal)", "Radius (Distal)", "Length", "Area", "n_segments"],]
 
             si = SectionIndexerDF(cell.morphology)()
             for section in cell.morphology:
@@ -249,7 +249,7 @@ class SimulationSummariser(object):
                 rgn = section.region.name if section.region else "-"
                 idtag = section.idtag if section.idtag else "-"
                 n_segments = cell.get_segmenter().get_num_segments(section)
-                data.append([ section_id, parent_id, rgn, idtag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), n_segments ])
+                data.append([section_id, parent_id, rgn, idtag, "%2.2f"%section.p_r, "%2.2f"%section.d_r, "%2.2f"%section.get_length(), section.get_area(), n_segments])
 
             local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
@@ -269,7 +269,7 @@ class SimulationSummariser(object):
 
 
 
-        data = [ ["Cell1", "Cell2", "Resistance","Distance Soma1","Distance Soma2","PrePostDist" ]]
+        data = [["Cell1", "Cell2", "Resistance","Distance Soma1","Distance Soma2","PrePostDist"]]
         for gj in gap_junctions:
             cell1_name = gj.celllocation1.cell.name
             cell2_name = gj.celllocation2.cell.name
@@ -291,7 +291,7 @@ class SimulationSummariser(object):
             print  "SectionPos2:", gj.celllocation2.morphlocation.sectionpos
             print
 
-            data.append([cell1_name,cell2_name, str(resistance), cell1_distance, cell2_distance, pre_post_dist,r  ])
+            data.append([cell1_name,cell2_name, str(resistance), cell1_distance, cell2_distance, pre_post_dist,r ])
 
         local_elements.append(Table(data, style=self.reportlabconfig.defaultTableStyle))
 
@@ -348,7 +348,7 @@ class SimulationSummariser(object):
                 mechanisms.append(mta.mechanism)
 
                 #Do we already ahve the machanism, possibly with different targetters and selectors:
-                #if not [ True for m in mechanisms if m ]
+                #if not [True for m in mechanisms if m]
 
         # Summarise Each Membrane
         for mechanism in mechanisms:

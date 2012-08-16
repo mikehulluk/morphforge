@@ -92,7 +92,7 @@ BREAKPOINT {
 
 
 ccSinWaveHOCTmpl = """
-// Post-Synapse [ $stimname ]
+// Post-Synapse [$stimname]
 objref $stimname
 ${cellname}.internalsections[$sectionindex] $stimname = new CurrentClampSinWave ($sectionpos)
 ${stimname}.freq =     $freq.rescale("Hz").magnitude

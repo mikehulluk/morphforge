@@ -73,10 +73,10 @@ from morphforge.stdimports import pq
 #        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateNames[0]], V)
 #        m_tauMS = m_tau.rescale("ms").magnitude
 #
-#        infTaus = [ InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in stateNames ]
-#        infTausMS = [ (inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus ]
+#        infTaus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in stateNames]
+#        infTausMS = [(inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus]
 #
-#        stateToIndex = dict([ (state,index) for state,index in enumerate(stateNames) ])
+#        stateToIndex = dict([(state,index) for state,index in enumerate(stateNames)])
 #
 #        def odeFunc(y,t0):
 #            res = [None] * nStates
@@ -93,7 +93,7 @@ from morphforge.stdimports import pq
 #        res = odeint(func=odeFunc, y0=y0, t= t )
 #
 #        stateFunctor = sympy.lambdify(stateNames, sympy.sympify(chl.eqn) )
-#        stateData = [ res[:,i] for i in range(0,nStates) ]
+#        stateData = [res[:,i] for i in range(0,nStates)]
 #
 #        stateEquationEvaluation = stateFunctor(*stateData)
 #
@@ -253,10 +253,10 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             # Summary:
             overview_table_data = [
-                                 ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2") ],
-                                 ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV") ],
-                                 ["Conductance Equation", "gBar * " + alphabeta_chl.eqn ],
-                                ]
+                                 ["Max Conductance (gBar)", alphabeta_chl.conductance.rescale("mS/cm2")],
+                                 ["Reversal Potential", alphabeta_chl.reversalpotential.rescale("mV")],
+                                 ["Conductance Equation", "gBar * " + alphabeta_chl.eqn],
+                               ]
 
             local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
 
@@ -270,11 +270,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 # Interpolated_values:
                 inf_table  = [
                                  ["Voltage", 'Inf'],
-                            ] + [ ("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.inf) ]
+                           ] + [("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.inf)]
 
                 tau_table  = [
                                  ["Voltage", 'Tau'],
-                            ] + [ ("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.tau) ]
+                           ] + [("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.tau)]
 
                 #mergeTable = zip(inf_table,tau_table)
 
@@ -290,7 +290,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 #eqns = [
                 #        "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
                 #        "beta(V) = (A+BV)/(C+exp((V+D)/E))",
-                #        ]
+                #       ]
                 #for eqn in eqns:
                 #    local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
                 # Alpha Beta

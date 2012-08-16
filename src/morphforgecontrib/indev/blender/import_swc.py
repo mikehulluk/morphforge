@@ -65,10 +65,10 @@ def import_obj(path):
 
         for i in range(mf_mesh.nTriangles):
           faceVertList = [
-              mesh.verts[ mf_mesh.triangles[0] ],
-              mesh.verts[ mf_mesh.triangles[1] ],
-              mesh.verts[ mf_mesh.triangles[2] ],
-              ]
+              mesh.verts[mf_mesh.triangles[0]],
+              mesh.verts[mf_mesh.triangles[1]],
+              mesh.verts[mf_mesh.triangles[2]],
+             ]
           newFace = Blender.NMesh.Face(faceVertList)
           mesh.addFace(newFace)
 
