@@ -51,7 +51,7 @@ class MayaViRenderer(object):
     """
 
     def __init__(self, morph=None, morphs=None, scalefactor=1.0):
-        self.colormap = "copper"
+        self.colormap = 'copper'
         self.scale_factor = scalefactor
 
         assert morph or morphs
@@ -68,7 +68,7 @@ class MayaViRenderer(object):
         section as a sphere about its endpoint. Only works for neurons
         with very small section lengths compared to radii
         """
-        #MonkeyPatchMayaVi()
+        # MonkeyPatchMayaVi()
 
         from mayavi import mlab
 
@@ -76,17 +76,24 @@ class MayaViRenderer(object):
         def _showSimple():
             morphPts = [SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs]
             pts = numpy.concatenate(morphPts)
-            return mlab.points3d(pts[:, 0], pts[:, 1], pts[:, 2], pts[:, 3], colormap=self.colormap, scale_factor=self.scale_factor)
+            return mlab.points3d(
+                pts[:, 0],
+                pts[:, 1],
+                pts[:, 2],
+                pts[:, 3],
+                colormap=self.colormap,
+                scale_factor=self.scale_factor,
+                )
         _showSimple()
 
 
 
-    def showAsPointsInterpolated(self, lToRRatio = 2.0):
+    def showAsPointsInterpolated(self, lToRRatio=2.0):
         """
         Draws the points as spheres, but also interpolates inbetween the points, so the structure looks
         more 'whole'
         """
-        #MonkeyPatchMayaVi()
+        # MonkeyPatchMayaVi()
         import enthought.mayavi.mlab as mlab
         from mayavi import mlab
 
@@ -100,9 +107,9 @@ class MayaViRenderer(object):
                 length = section.get_length()
                 rad = min(section.d_r, section.p_r)
                 n = min(max(int(lToRRatio * length / rad), 1), maxInterpolPts)
-                jVecSteps = (sEnd-sStart) / n
+                jVecSteps = (sEnd - sStart) / n
 
-                intPts = [sStart + k*jVecSteps for k in range(0,n)]
+                intPts = [sStart + k * jVecSteps for k in range(0, n)]
                 return intPts
 
             lbs = []
@@ -137,21 +144,17 @@ class MayaViRenderer(object):
 
 
         from morphforge.morphology.mesh import MeshBuilderRings
-        #MonkeyPatchMayaVi()
+        # MonkeyPatchMayaVi()
 
         from mayavi import mlab
 
-        assert len(self.morphs)==1
+        assert len(self.morphs) == 1
         mesh = MeshBuilderRings().build(self.morphs[0])
 
 
         @mlab.show
         def _showSimpleCylinders():
-
-            #c = TriMeshBuilderVerySimple(self.morphs[0])
-            #mlab.triangular_mesh(c.x, c.y, c.z, c.triangles, colormap=self.colormap)
             mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
-
         _showSimpleCylinders()
 
 
@@ -172,11 +175,8 @@ class MayaViRenderer(object):
 
         from mayavi import mlab
 
-        assert len(self.morphs)==1
+        assert len(self.morphs) == 1
         mesh = MeshBuilderRings().build(self.morphs[0])
-
-
-        #mlab.options.offscreen = True
 
 
         @mlab.show
@@ -192,11 +192,11 @@ class MayaViRenderer(object):
             for i in  itertools.count():
                 print i
                 f.scene.camera.azimuth(0.1)
-                mlab.savefig('/home/michael/Desktop/out/O%04d.png'%i)#, size=(1024,768))
+                mlab.savefig('/home/michael/Desktop/out/O%04d.png' % i)
                 f.scene.render()
-                if i> 3600:
+                if i > 3600:
                     break
-                yield
+                yield None
 
         _showSimpleCylinders()
 

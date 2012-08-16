@@ -41,22 +41,20 @@ from visitorbaseclasses import SectionIndexerDF
 from visitorbaseclasses import SectionIndexerWithOffsetDF
 
 from visitorfactory import SectionVistorFactory
-from morphologyoperators import  SectionVisitorDFNeuronBuilder
+from morphologyoperators import SectionVisitorDFNeuronBuilder
 
 
 __all__ = [
-"SectionVisitorDF",
-"SectionVisitorDFOverrider",
-"ListBuilderSectionVisitor",
-#"NumpyBuilderSectionVisitor",
-"SectionIndexerDF",
-"SectionListerDF",
-"SectionVisitorDFNeuronBuilder",
-"SectionVistorFactory",
-
-"DictBuilderSectionVisitorHomo",
-"SectionIndexerDF",
-"SectionIndexerWithOffsetDF",
-]
+    'SectionVisitorDF',
+    'SectionVisitorDFOverrider',
+    'ListBuilderSectionVisitor',
+    'SectionIndexerDF',
+    'SectionListerDF',
+    'SectionVisitorDFNeuronBuilder',
+    'SectionVistorFactory',
+    'DictBuilderSectionVisitorHomo',
+    'SectionIndexerDF',
+    'SectionIndexerWithOffsetDF',
+    ]
 
 

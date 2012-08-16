@@ -41,7 +41,7 @@ from morphforgecontrib.stdimports import *
 
 
 env = NeuronSimulationEnvironment()
-morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
+morphDict1 = {'root': {'length': 20, 'diam': 20, 'id': 'soma'}}
 m1 = MorphologyTree.fromDictionary(morphDict1)
 
 
@@ -52,23 +52,28 @@ def getKSInfTau(env):
         tau = [0.0, 50,   12,    15,  10]
    )
 
-    ks_vars = {'ks': i }
+    ks_vars = {'ks': i}
 
 
-    ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
-                                          name='InfTau1',
-                                          ion='ks',
-                                          equation='ks*ks*ks*ks',
-                                          conductance = '2.:pS/um2',
-                                          reversalpotential = '-80:mV',
-                                          statevars_new = ks_vars,
-                                          mechanism_id='KFInfTauMechID')
+    ks = env.MembraneMechanism(
+        MM_InfTauInterpolatedChannel,
+        name='InfTau1',
+        ion='ks',
+        equation='ks*ks*ks*ks',
+        conductance='2.:pS/um2',
+        reversalpotential='-80:mV',
+        statevars_new=ks_vars,
+        mechanism_id='KFInfTauMechID',
+        )
     return ks
 
 
-tr0 = get_voltageclamp_soma_current_trace(env=env, V="-50:mV",mech_builder=getKSInfTau, morphology=m1)
-tr1 = get_voltageclamp_soma_current_trace(env=env, V="-20:mV",mech_builder=getKSInfTau, morphology=m1)
-tr2 = get_voltageclamp_soma_current_trace(env=env, V="20:mV",mech_builder=getKSInfTau, morphology=m1)
+tr0 = get_voltageclamp_soma_current_trace(env=env, V='-50:mV',
+        mech_builder=getKSInfTau, morphology=m1)
+tr1 = get_voltageclamp_soma_current_trace(env=env, V='-20:mV',
+        mech_builder=getKSInfTau, morphology=m1)
+tr2 = get_voltageclamp_soma_current_trace(env=env, V='20:mV',
+        mech_builder=getKSInfTau, morphology=m1)
 
 
 TagViewer([tr0,tr1,tr2])
@@ -120,49 +125,20 @@ def build_simulation(gbar_multiplier):
         'h_beta_c': unit('1:'),
         'h_beta_d': unit('-8.09e-3:V'),
         'h_beta_e': unit('-10.21e-3:V'),
-    }
-
-
-
-    #eqnset = EquationSetLoader.load('std_na_chl.txt', dir= LocMgr.getTestEqnSetsPath())
-    #sodiumChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset, chlname='EqnsetTest1', mechanism_id='std_na_chl',
-    #                                        parameters = parameters)
-
-
-
-
-
-
+        }
 
 
     ks = getKSInfTau(env)
-    #ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
-    #                                      name='InfTau1',
-    #                                      ion='ks',
-    #                                      equation='ks*ks*ks*ks',
-    #                                      #chlname="KsChls",
-    #                                      mechanism_id='testchl1',
-    #                                      conductance = '2.:pS/um2',
-    #                                      reversalpotential = '-80:mV',
-    #                                      statevars = ks_vars)
-
-    #def get_voltageclamp_soma_current_trace(env, V,mech_builder, morphology):
 
 
 
 
-    #self.name = name
-    #self.ion = ion
-    #self.eqn = equation
-    #self.conductance = unit(conductance)
-    #self.statevars = dict([(s, (sDict['inf'], sDict['tau'])) for s, sDict in statevars.iteritems()])
-    #self.reversalpotential = unit(reversalpotential)
-
-
-
-    eqnset = EquationSetLoader.load('std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath())
-    leakChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset, chlname="LeakChls", mechanism_id='std_lk_chl',
-                                          parameters= { 'gl':unit("5:pS/um2"), 'e_rev': unit("-70:mV")  })
+    eqnset = EquationSetLoader.load('std_leak_chl.txt',
+                                    dir=LocMgr.getTestEqnSetsPath())
+    leakChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset,
+            chlname='LeakChls', mechanism_id='std_lk_chl',
+            parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV'
+            )})
 
 
 
@@ -170,7 +146,7 @@ def build_simulation(gbar_multiplier):
 
     # Apply the mechanisms to the cells
     apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, ks)#, parameter_multipliers={ 'gbar': gbar_multiplier })
+    apply_mechanism_everywhere_uniform(myCell, ks)
 
     apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
@@ -182,7 +158,9 @@ def build_simulation(gbar_multiplier):
     mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
-    mySim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    mySim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
+                              dur=unit('100:ms'), delay=unit('100:ms'),
+                              cell_location=somaLoc)
 
 
     result = mySim.run()
@@ -191,7 +169,7 @@ def build_simulation(gbar_multiplier):
 
 results = [
            build_simulation(gbar_multiplier = 1.0),
-           #build_simulation(gbar_multiplier = 2.0),
+          
           ]
 
 TagViewer(results, timeranges=[(95, 200)*pq.ms])

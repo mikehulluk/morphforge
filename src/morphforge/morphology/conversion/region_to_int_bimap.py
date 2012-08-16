@@ -62,15 +62,15 @@ class AutoRegionToIntMapTable(RegionToIntMapBiMap):
         # Add the standard SWC conversions:
         self.add_mapping(regionname=None, int=0)
         from morphforge.morphology import conventions
-        for name,number in conventions.SWCRegionCodes.name2number.iteritems():
+        for (name, number) in conventions.SWCRegionCodes.name2number.iteritems():
             self.add_mapping(name, number)
 
 
     def int_to_region_name(self, int):
 
         if not int in self.int2regionname:
-            self.add_mapping(regionname="AutoRegion%d"%int, int=int)
-        return RegionToIntMapBiMap.int_to_region_name(self,int)
+            self.add_mapping(regionname='AutoRegion%d' % int, int=int)
+        return RegionToIntMapBiMap.int_to_region_name(self, int)
 
     def region_name_to_int(self, regionname):
         if not regionname in self.regionname2int:

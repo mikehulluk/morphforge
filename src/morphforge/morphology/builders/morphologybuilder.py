@@ -40,14 +40,14 @@ from morphforge.core.quantities.fromcore import unit
 
 
 def _convert_to_unit(o, default_unit):
-    #assert False
-    assert not isinstance(default_unit, (pq.quantity.Quantity,))
+   
+    assert not isinstance(default_unit, (pq.quantity.Quantity))
 
     if isinstance(o, pq.quantity.Quantity):
         return o.rescale(default_unit)
     elif is_float(o) or is_int(o):
         return o * morphforge.core.quantities.unit_string_parser.parse(default_unit).rescale(default_unit)
-    elif isinstance(o, (str, unicode)) and ":" in o:
+    elif isinstance(o, (str, unicode)) and ':' in o:
         return unit(o).rescale(default_unit)
     else:
         raise ValueError()
@@ -63,7 +63,7 @@ class MorphologyBuilder(object):
 
     @classmethod
     def get_single_section_soma(cls, rad=None, area=None):
-        assert (rad or area) and not(rad and area)
+        assert (rad or area) and not (rad and area)
 
 
         if area:
@@ -97,7 +97,3 @@ class MorphologyBuilder(object):
         return cell
 
 
-
-#class DummyClass1(object):
-#    def a(self):
-#        pass

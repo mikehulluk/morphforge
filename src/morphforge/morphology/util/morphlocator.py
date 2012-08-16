@@ -1,4 +1,7 @@
-#-------------------------------------------------------------------------------
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
 #
@@ -18,7 +21,7 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 import numpy as np
 import itertools
@@ -31,7 +34,8 @@ from morphforge.morphology.core import MorphPath
 class MorphLocator(object):
 
     @classmethod
-    def get_locations_at_distance_away_from_dummy(cls, morphology, distance, section_predicate=None):
+    def get_locations_at_distance_away_from_dummy(cls, morphology,
+            distance, section_predicate=None):
 
         dist_to_section_distal = SectionVistorFactory.dict_section_distal_dist_from_soma(morph=morphology)()
 
@@ -73,7 +77,7 @@ class MorphLocator(object):
         dummy = MorphLocation(morphology.get_dummy_section().children[0], 0.0)
         # Some sanity checking:
         for loc in locations:
-            p = MorphPath(loc, dummy )
+            p = MorphPath(loc, dummy)
             assert np.fabs(p.get_length() - distance) < 0.01
 
 

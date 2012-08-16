@@ -45,7 +45,7 @@ class MatPlotLibViewer(object):
     Plot Projections of a morphology onto XY, XZ, and YZ axes.
     """
 
-    plotViews = [0,1,2]
+    plotViews = [0, 1, 2]
 
 
     projMatXY = numpy.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
@@ -58,12 +58,10 @@ class MatPlotLibViewer(object):
     figureTitles = { 0:"View From Above", 1:"View From Side", 2:"View From Front"}
 
 
-    #plotViews = [0,]
-    #figurePositions = {0:111, 1:111, 2:111}
-
     def __init__(self, morph, use_pca=True):
 
-        if morph == None: raise ValueError("No Cell")
+        if morph == None:
+            raise ValueError('No Cell')
 
         self.morph = morph
 
@@ -91,12 +89,13 @@ class MatPlotLibViewer(object):
         ax = fig.add_subplot(subplotnum, aspect='equal')
 
 
-        #Find the depth extremes for coloring:
-        zMin, zMax = None, None
+        # Find the depth extremes for coloring:
+
+        (zMin, zMax) = (None, None)
         for seg in self.morph:
             xyzProj = numpy.dot(projMatrix, rotatedSectionDict[seg])
-            zMin = xyzProj[2] if not zMin else min(zMin, xyzProj[2])
-            zMax = xyzProj[2] if not zMax else max(zMax, xyzProj[2])
+            zMin = (xyzProj[2] if not zMin else min(zMin, xyzProj[2]))
+            zMax = (xyzProj[2] if not zMax else max(zMax, xyzProj[2]))
         zRange = zMax - zMin
 
 
@@ -109,9 +108,9 @@ class MatPlotLibViewer(object):
 
             color = str((xyzProj[2] - zMin) / zRange) if zRange > 0.001 else 'grey'
 
-            linewidth = ((seg.d_r+seg.p_r)/2.0) *2.0
+            linewidth = (seg.d_r + seg.p_r) / 2.0 * 2.0
 
-            #Test if we have just tried to draw a point, if so then draw a circle:
+            # Test if we have just tried to draw a point, if so then draw a circle:
             if numpy.linalg.norm(xyProj - xyProjParent) < 0.0001:
                 try:
                     ax.add_patch(pylab.Circle(xyProj, radius=linewidth, color=color))
@@ -121,7 +120,7 @@ class MatPlotLibViewer(object):
             else:
 
                 # Simple version, which doesn't work so well:
-                #ax.plot([xyProj[0], xyProjParent[0]], [xyProj[1], xyProjParent[1]], linewidth=linewidth, color=color)
+                # ax.plot([xyProj[0], xyProjParent[0]], [xyProj[1], xyProjParent[1]], linewidth=linewidth, color=color)
 
                 # More complex patch version:
                 joiningVec = xyProj - xyProjParent
@@ -129,7 +128,7 @@ class MatPlotLibViewer(object):
 
                 perpVec = np.array((joiningVecNorm[1],joiningVecNorm[0] * -1))
 
-                assert(np.fabs(np.dot(joiningVecNorm, perpVec)) < 0.01)
+                assert np.fabs(np.dot(joiningVecNorm, perpVec)) < 0.01
 
                 # The points:
                 p1 = xyProj + (perpVec * seg.d_r)
@@ -183,7 +182,7 @@ class MatPlotLibViewer(object):
 
         maxes = [maxX, maxY, maxZ]
 
-        #allMax = max(maxes)
+        # allMax = max(maxes)
         for i in self.plotViews:
             maxes[i] = maxes[i] + 0.2 * max([maxX, maxY, maxZ])
 
@@ -196,7 +195,14 @@ class MatPlotLibViewer(object):
 
 
         self.fig = pylab.figure(figsize=(7, 7))
-        self.fig.subplots_adjust(left=0.05, top=0.95, right=0.95, bottom=0.05, wspace=0.1, hspace=0.1)
+        self.fig.subplots_adjust(
+            left=0.05,
+            top=0.95,
+            right=0.95,
+            bottom=0.05,
+            wspace=0.1,
+            hspace=0.1,
+            )
 
 
 

@@ -31,7 +31,7 @@
 
 
 import numpy as np
-from morphforge.morphology.visitor.visitorbaseclasses import  DictBuilderSectionVisitorHomo#, NumpyBuilderSectionVisitor
+from morphforge.morphology.visitor.visitorbaseclasses import DictBuilderSectionVisitorHomo#, NumpyBuilderSectionVisitor
 from morphforge.morphology.visitor import SectionVisitorDF
 
 
@@ -53,7 +53,7 @@ class SectionVistorFactory(object):
             xyzr.append(s.get_distal_npa4())
         def functor(s):
             xyzr.append(s.get_distal_npa4())
-        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr))
+        return SectionVisitorDF(functor=functor, morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr))
 
     @classmethod
     def array3_all_points(cls, morph=None):
@@ -99,50 +99,6 @@ class SectionVistorFactory(object):
 
         return DictBuilderSectionVisitorHomo(functor=dictSectionDistalDistFromSoma, morph=morph)
 
-
-
-
-#    @classmethod
-#    def Array3FarPoint(cls, morph=None):
-#        functor = lambda s: s.get_distal_npa3()
-#        return NumpyBuilderSectionVisitor(functor=functor, morph=morph, ndims=3, datatype=float)
-#
-#    @classmethod
-#    def Array4FarPoint(cls, morph=None):
-#        functor = lambda s: s.get_distal_npa4()
-#        return NumpyBuilderSectionVisitor(functor=functor, morph=morph, ndims=4, datatype=float)
-
-#    @classmethod
-#    def DictSectionLength(cls, morph=None):
-#        return DictBuilderSectionVisitorHomo(functor=lambda s: s.get_length(), morph=morph)
-##
-#    @classmethod
-#    def DictSectionRadius(cls, morph=None):
-#        return DictBuilderSectionVisitorHomo(functor=lambda s:s.d_r, morph=morph)
-#
-#    @classmethod
-#    def DictSectionSA(self,morph=None):
-#        return DictBuilderSectionVisitorHomo(functor=lambda s: s.get_length() * numpy.pi * s.d_r * 2.0    , morph=morph)
-
-#    @classmethod
-#    def getVerticesAndEdges(cls, morph):
-#
-#        sI = SectionIndexerDF(offset=1)
-#        xyzr = []
-#        edges = []
-#        def functorRoot(s):
-#            xyzr.append(s.get_proximal_npa4())
-#            xyzr.append(s.get_distal_npa4())
-#            edges.append((0,1))
-#        def functor(s):
-#            xyzr.append(s.get_distal_npa4())
-#            edges.append((sI[s], sI[s.parent]))
-#        return SectionVisitorDF(functor=functor , morph=morph, rootsectionfunctor=functorRoot, returnfunctor=lambda : (np.array(xyzr), np.array(edges)))
-#
-#    @classmethod
-#    def get_sectionIndexer(cls, **kwargs):
-#        return SectionIndexerDF(**kwargs)
-#
 
 SVVisitorFactory = SectionVistorFactory
 

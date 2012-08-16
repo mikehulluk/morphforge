@@ -1,4 +1,7 @@
-#-------------------------------------------------------------------------------
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------------
 # Copyright (c) 2012 Michael Hull.
 # All rights reserved.
 #
@@ -8,7 +11,7 @@
 #  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 #
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 '''
 Created on Oct 23, 2009
 
@@ -32,12 +35,12 @@ def _pca(X):
     x_mean = array(map(sum, X.T)) / len(X)
     X_ = X - x_mean
     X_t = numpy.dot(X_.T, X_) / len(X)
-    lam, vec = linalg.eig(X_t)
+    (lam, vec) = linalg.eig(X_t)
     ans = zip(lam, vec.T)
     try:
         ans.sort(reverse=True)
     except:
-        LogMgr.warning("Unable to sort eigenvectors")
+        LogMgr.warning('Unable to sort eigenvectors')
     return ans
 
 
@@ -60,17 +63,13 @@ class PCAAxes(object):
 
 
 
-#def _get_mean(X):
-#    return array(map(numpy.sum, X.T)) / len(X)
-
-
-
 class PointOperator(object):
     def __init__(self, operations=None):
-        self.operations = operations if operations else []
+        self.operations = (operations if operations else [])
     def __call__(self, pt):
         t = pt
-        for operator in self.operations: t = operator(t)
+        for operator in self.operations:
+            t = operator(t)
         return t
 
 class PointRotator(object):
@@ -106,7 +105,8 @@ class MorphologyForRenderingOperator(PointOperator):
     def __init__(self, morph, usePCA=True):
 
         ops = [MorphologyMeanCenterer(morph)]
-        if usePCA: ops.append(MorphologyPCARotator(morph))
+        if usePCA:
+            ops.append(MorphologyPCARotator(morph))
 
         super(MorphologyForRenderingOperator, self).__init__(ops)
 

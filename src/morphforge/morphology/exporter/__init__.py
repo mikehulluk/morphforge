@@ -33,6 +33,6 @@
 
 from morphologyexporter import MorphologyExporter
 
-#Import specific loaders
+# Import specific loaders:
 import export_tree_swc
 import export_array_swc

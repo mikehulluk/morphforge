@@ -71,9 +71,11 @@ class SWCTreeWriter(object):
         assert (morph or morphs) and not(morph and morphs)
 
         if morph:
-            return cls._to_str_multi(morphs = [morph], regionname_to_int_map=regionname_to_int_map)
+            return cls._to_str_multi(
+                    morphs=[morph],
+                    regionname_to_int_map=regionname_to_int_map)
         else:
-            return cls._to_str_multi(morphs = morphs, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_str_multi(morphs=morphs, regionname_to_int_map=regionname_to_int_map)
 
 
     @classmethod
@@ -81,9 +83,13 @@ class SWCTreeWriter(object):
         assert (morph or morphs) and not(morph and morphs)
 
         if morph:
-            return cls._to_file_multi(morphs = [morph], filename=filename, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_file_multi(
+                    morphs=[morph],
+                    filename=filename,
+                    regionname_to_int_map=regionname_to_int_map)
         else:
-            return cls._to_file_multi(morphs = morphs, filename=filename, regionname_to_int_map=regionname_to_int_map)
+            return cls._to_file_multi(morphs=morphs, filename=filename,
+                    regionname_to_int_map=regionname_to_int_map)
 
 
 
@@ -94,7 +100,7 @@ class SWCTreeWriter(object):
     @classmethod
     def _to_str_multi(cls, morphs, regionname_to_int_map=None):
         offset = 0
-        output = ""
+        output = ''
         for morph in morphs:
             offset = offset + 1
 
@@ -109,9 +115,10 @@ class SWCTreeWriter(object):
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()
 
-            region_type_map = dict((s,0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph)
+            region_type_map = dict((s, 0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph)
 
-            context = [{ 'morph':morph, 'ids':id_map, 'region_type_map':region_type_map }]
+            context = [{'morph': morph, 'ids': id_map,
+                       'region_type_map': region_type_map}]
             new_op = Template(swc_templ, context).respond()
             output += new_op
             offset += len(id_map)

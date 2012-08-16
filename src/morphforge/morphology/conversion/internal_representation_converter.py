@@ -51,7 +51,7 @@ class MorphologyConverter(object):
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
 
-        vertices= [None] * (len(tree) + 1)
+        vertices = [None] * (len(tree) + 1)
         connectivity = []
         section_types = []
         section_index = SectionIndexerDF(morph=tree, offset=1).dict
@@ -66,7 +66,7 @@ class MorphologyConverter(object):
 
             # Store the link to the parent:
             if not seg.is_dummy_section():
-                connectivity.append((index,section_index[seg.parent] ))
+                connectivity.append((index, section_index[seg.parent]))
 
             # Store the type:
             if not seg.is_dummy_section():
@@ -90,7 +90,7 @@ class MorphologyConverter(object):
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
 
-        name_to_region_map= {}
+        name_to_region_map = {}
 
 
         dummy_vertex_index = array._dummy_vertex_index
@@ -122,7 +122,7 @@ class MorphologyConverter(object):
 
                 # No? Lets make a connection:
                 else:
-                    x,y,z,r = array._vertices[conn]
+                    (x, y, z, r) = array._vertices[conn]
                     index_of_connection = array.index_of_connection(index,conn)
 
                     # Create the region, if it doesn't already exist:
@@ -132,7 +132,7 @@ class MorphologyConverter(object):
                     rgn_name = region_number_to_name_bidict.int_to_region_name(int=rgn_int)
 
                     if rgn_name is None:
-                        rgn=None
+                        rgn = None
                     else:
                         if not rgn_name in name_to_region_map:
                             name_to_region_map[rgn_name] = Region(rgn_name)
@@ -148,7 +148,9 @@ class MorphologyConverter(object):
 
         # A sanity check:
 
-        assert len(tree) == len(array), 'The tree and array are not the same size! %d vs %d'%(len(tree), len(array))
+        assert len(tree) == len(array), \
+            'The tree and array are not the same size! %d vs %d' \
+            % (len(tree), len(array))
         return tree
 
 

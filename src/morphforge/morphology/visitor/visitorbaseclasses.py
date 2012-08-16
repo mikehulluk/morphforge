@@ -45,12 +45,6 @@ from morphforge.core import SeqUtils
 class SectionVisitorDF(object):
 
 
-    #@classmethod
-    #def build(cls, functor, morph):
-    #    v = SectionVisitorDF(functor=functor)
-    #    return v(morph)
-
-
     def __init__(self, functor, morph=None, dummysectionfunctor=None, rootsectionfunctor=None, returnfunctor=lambda:None, pretraversefunctor=lambda:None, posttraversefunctor=lambda:None):
         self.functor = functor
         self.dummysectionfunctor = dummysectionfunctor
@@ -66,7 +60,7 @@ class SectionVisitorDF(object):
             self.__call__()
 
     def __call__(self, morph=None):
-        #self.morph = ExactlyOneNotNone(morph, self.morph)
+       
         self.morph = SeqUtils.filter_expect_single(
                         [morph, self.morph], lambda s: s is not None)
         if not self.alreadycalled:
@@ -88,11 +82,8 @@ class SectionVisitorDF(object):
         """ Implements:  1. visit the node. 2. Traverse the subtrees. """
         if section.is_dummy_section():
             if self.is_visit_dummy():
-                #assert False
+                
                 assert False, 'Should not get here, refactoring starting Jun-12'
-            #if self.is_visit_dummy():
-            #    assert False
-            #    self.dummysectionfunctor(section)
         elif section.is_a_root_section():
             if self.is_visit_root():
                 self.rootsectionfunctor(section)
@@ -131,9 +122,9 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
         super(SectionVisitorHomogenousOverrider, self).__init__(**kwargs)
 
     def visit_section(self, section):
-        res =  self.myfunctor(section)
+        res = self.myfunctor(section)
         if self.section_result_operator:
-            self.section_result_operator(section,res)
+            self.section_result_operator(section, res)
         return res
 
     def visit_root_section(self, section):
@@ -144,11 +135,11 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
 
 
 class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
-    def __init__(self,  functor, morph=None):
+    def __init__(self, functor, morph=None):
         self.dict = {}
         super(DictBuilderSectionVisitorHomo, self).__init__(section_result_operator=self.add_to_dict, functor=functor, returnfunctor=lambda:self.dict, morph=morph)
 
-    def add_to_dict(self,section,result):
+    def add_to_dict(self, section, result):
         self.dict[section] = result
 
 
@@ -157,7 +148,7 @@ class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
 class ListBuilderSectionVisitor(SectionVisitorDF):
     def __init__(self, functor, rootfunctor=None, morph=None):
         self.sectFunctor = functor
-        self.sectRootFunctor = rootfunctor if rootfunctor else functor
+        self.sectRootFunctor = (rootfunctor if rootfunctor else functor)
         self.list = []
 
         super(ListBuilderSectionVisitor, self).__init__(morph=morph, functor=self.visit_section, rootsectionfunctor=self.visit_root_section, returnfunctor=lambda:self.list)
@@ -172,54 +163,17 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
 
 
 
-#class NumpyBuilderSectionVisitor(SectionVisitorDF):
-#    def __init__(self, functor, rootfunctor = None, morph=None, ndims=1, datatype=float):
-#        self.sectFunctor = functor
-#        self.sectRootFunctor = rootfunctor if rootfunctor else functor
-#
-#        self.array = None
-#        self.sectionIndexer = None
-#        self.ndims = ndims
-#        self.datatype = datatype
-#
-#        super(NumpyBuilderSectionVisitor, self).__init__(morph=morph,
-#                                                       functor=self.visit_section,
-#                                                       rootsectionfunctor=self.visit_root_section,
-#                                                       returnfunctor=lambda:self.array,
-#                                                       pretraversefunctor=self.buildIndexerAndArray
-#                                                      )
-#
-#
-#    def buildIndexerAndArray(self):
-#        self.sectionIndexer = SectionIndexerDF(self.morph)()
-#        self.array = numpy.zeros((len(self.sectionIndexer), self.ndims,), self.datatype)
-#
-#
-#    def visit_section(self, section):
-#        self.array[self.sectionIndexer[section]] = self.sectFunctor(section)
-#
-#    def visit_root_section(self, section):
-#        self.array[self.sectionIndexer[section]] = self.sectRootFunctor(section)
-
-
 
 
 class SectionIndexerDF(DictBuilderSectionVisitorHomo):
     """Create a dictionary that maps section objects to sequential integers"""
-    def __init__(self, morph=None,offset=0):
+    def __init__(self, morph=None, offset=0):
         functor = lambda s: len(self.dict) + offset
         super(SectionIndexerDF, self).__init__(morph=morph, functor=functor)
 
 
 
 SectionIndexerWithOffsetDF = SectionIndexerDF
-# I reckon this can probably be combined into the class above, but I have not tried it yet!
-#class SectionIndexerWithOffsetDF(DictBuilderSectionVisitor):
-#    pass
-#    """Create a dictionary that maps section objects to sequential integers"""
-#    def __init__(self, morph):
-#        functor = lambda s: len(self.dict) + offset
-#        super(SectionIndexerWithOffsetDF, self).__init__(morph=morph, functor=functor)
 
 
 class SectionListerDF(ListBuilderSectionVisitor):

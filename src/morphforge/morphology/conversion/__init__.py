@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from region_to_int_bimap import AutoRegionToIntMapTable, RegionToIntMapBiMap
+from region_to_int_bimap import AutoRegionToIntMapTable
+from region_to_int_bimap import RegionToIntMapBiMap
 from internal_representation_converter import MorphologyConverter
 

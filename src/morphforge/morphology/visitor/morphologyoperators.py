@@ -60,8 +60,8 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         self.rgnMappings = dict([(rgn,Region(rgn.name)) for rgn in self.morph.get_regions()])
         self.newMorph = None
 
-        x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r
-        X,Y,Z,R = self.transfuctor(x,y,z,r)
+        (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
+        (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
         new_section = Section(regions=[self.rgnMappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
 
@@ -75,8 +75,8 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
 
         new_parent = self.orig2newMapping[section.parent]
 
-        x,y,z,r = section.d_x, section.d_y,section.d_z, section.d_r
-        X,Y,Z,R = self.transfuctor(x,y,z,r)
+        (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
+        (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
         new_section = new_parent.create_distal_section(regions=[self.rgnMappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
         self.orig2newMapping[section] = new_section
