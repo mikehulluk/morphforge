@@ -31,7 +31,7 @@
 
 import numpy as np
 from morphforge.morphology.mesh import TriangleMesh
-from morphforge.morphology.mesh import find_closest_points 
+from morphforge.morphology.mesh import find_closest_points
 from morphforge.morphology.mesh import get_point_circle_about
 
 

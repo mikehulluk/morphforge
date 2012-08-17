@@ -66,9 +66,6 @@ class YAxisConfig(object):
 class PlotSpec_DefaultNew(object):
 
     def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
-        #self.yrange = yrange
-        #self.yunit = yunit
-        #self.ylabel = ylabel if ylabel else s
 
         if yaxisconfig is None:
             self.yaxisconfig = YAxisConfig(ylabel=ylabel if ylabel else s,

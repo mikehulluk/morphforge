@@ -42,24 +42,37 @@ from morphforge.core.mgrs.settingsmgr import SettingsMgr
 
 class ModBuilderParams(object):
 
-    nocmodlpath = RCReader.get("Neuron", "nocmodlpath")
-    libtoolpath = RCReader.get("Neuron", "libtoolpath")
+    nocmodlpath = RCReader.get('Neuron', 'nocmodlpath')
+    libtoolpath = RCReader.get('Neuron', 'libtoolpath')
 
-    compileIncludes = ['.', '..'] + RCReader.get("Neuron", "compileincludes").split(":")
-    compileDefs = ["HAVE_CONFIG_H"]
+    compileIncludes = ['.', '..'] + 
+                      RCReader.get('Neuron','compileincludes').split(':')
 
-    stdLinkLibs = ["nrnoc", "oc", "memacs", "nrnmpi", "scopmath", "sparse13", "readline", "ncurses", "ivoc", "neuron_gnu", "meschach", "sundials", "m", "dl",]
-    nrnLinkDirs = RCReader.get("Neuron", "nrnLinkDirs").split(":")
+    compileDefs = ['HAVE_CONFIG_H']
 
-    #TODO: Find src of this:
-    rpath = RCReader.get("Neuron", "rpath")
-    rndAloneLinkStatement = RCReader.get("Neuron", "rndAloneLinkStatement")
+    stdLinkLibs = [
+        'nrnoc',
+        'oc',
+        'memacs',
+        'nrnmpi',
+        'scopmath',
+        'sparse13',
+        'readline',
+        'ncurses',
+        'ivoc',
+        'neuron_gnu',
+        'meschach',
+        'sundials',
+        'm',
+        'dl',
+        ]
+    nrnLinkDirs = RCReader.get('Neuron', 'nrnLinkDirs').split(':')
 
+    # TODO: Find src of this:
+    rpath = RCReader.get('Neuron', 'rpath')
+    rndAloneLinkStatement = RCReader.get('Neuron', rndAloneLinkStatement')
 
-    modlunitpath = RCReader.get("Neuron","modlunitpath")
-
-
-
+    modlunitpath = RCReader.get('Neuron', 'modlunitpath')
 
     @classmethod
     def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=""):
@@ -138,7 +151,6 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         % mod_file_basename
     FileIO.append_to_file(new_register_func, c_filename)
 
-
     # Compile the .c file -> .so:
     compile_str = ModBuilderParams.get_compile_str(c_filename, lo_filename)
     link_str = ModBuilderParams.get_link_str(lo_filename, la_filename)
@@ -182,10 +194,10 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     output_dir = LocMgr().get_default_mod_outdir() if not output_dir else output_dir
 
     if SettingsMgr.simulator_is_verbose():
-        print " - Building: ", modfilename
+        print ' - Building: ', modfilename
 
     modfilenamebase = os.path.basename(modfilename)
-    sofilenamebase = modfilenamebase.replace(".mod", ".so")
+    sofilenamebase = modfilenamebase.replace('.mod', '.so')
 
     shutil.copyfile(modfilename, os.path.join(build_dir, modfilenamebase))
     so_filename_output = os.path.join(output_dir, sofilenamebase)
@@ -201,16 +213,6 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     if so_filename_build != so_filename_output:
         shutil.move(so_filename_build, so_filename_output)
     return so_filename_output
-
-
-
-
-
-
-
-
-
-
 
 
 class ModFileCompiler(object):
@@ -247,9 +249,9 @@ class ModFileCompiler(object):
             ModFileCompiler.check_modfile_units(mod_txt_filename)
             mod_dyn_filename = _build_mod_file(mod_txt_filename, modfile=modfile)
             shutil.move(mod_dyn_filename, output_filename)
-
-
         else:
+
             LogMgr.info('Already Built')
         return output_filename
+
 

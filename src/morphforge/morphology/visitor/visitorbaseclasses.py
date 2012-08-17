@@ -69,9 +69,9 @@ class SectionVisitorDF(object):
     def is_visit_dummy(self):
         return self.dummysectionfunctor != None
 
-
     def visit_section_internal(self, section):
         """ Implements:  1. visit the node. 2. Traverse the subtrees. """
+
         if section.is_dummy_section():
             if self.is_visit_dummy():
                 
@@ -89,6 +89,7 @@ class SectionVisitorDF(object):
 class SectionVisitorDFOverrider(SectionVisitorDF):
 
     def __init__(self, **kwargs):
+
         super(SectionVisitorDFOverrider,
               self).__init__(functor=self.visit_section,
                              rootsectionfunctor=self.visit_root_section,
@@ -106,6 +107,7 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
     def __init__(self, functor, section_result_operator=None, **kwargs):
         self.section_result_operator = section_result_operator
         self.myfunctor = functor
+
         super(SectionVisitorHomogenousOverrider,
               self).__init__(**kwargs)
 
@@ -123,6 +125,7 @@ class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
 
     def __init__(self, functor, morph=None):
         self.dict = {}
+
         super(DictBuilderSectionVisitorHomo,
               self).__init__(section_result_operator=self.add_to_dict,
                              functor=functor, returnfunctor=lambda : \

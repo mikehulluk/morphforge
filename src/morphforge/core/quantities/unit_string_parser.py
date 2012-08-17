@@ -61,8 +61,3 @@ def parse(s):
     return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit()
 
 
-
-
-
-
-

@@ -56,8 +56,8 @@ class PiecewiseScalarOperation(PieceWiseComponentVisitor):
                 x=operator(o.x, scalar))
 
 
-
 class TraceOperator_TracePiecewise_Quantity(object):
+
     @classmethod
     def do_op(self, lhs, rhs, operator):
         assert (type(lhs) == TracePiecewise and type(rhs) in (pq.Quantity,)) or \
@@ -74,15 +74,19 @@ class TraceOperator_TracePiecewise_Quantity(object):
     @classmethod
     def do_add(cls, lhs, rhs):
         return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__add__)
+
     @classmethod
     def do_sub(cls, lhs, rhs):
         return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__sub__)
+
     @classmethod
     def do_mul(cls, lhs, rhs):
         return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__mul__)
+
     @classmethod
     def do_div(cls, lhs, rhs):
         return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__div__)
+
 
 # Times quantity:
 TraceOperatorCtrl.add_trace_operator(

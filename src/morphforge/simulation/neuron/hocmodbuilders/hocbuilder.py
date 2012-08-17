@@ -87,32 +87,27 @@ class HocBuilder(object):
         section = voltageclamp.cell_location.morphlocation.section
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-                "stimname":voltageclamp.name,
-                "cell":cell,
-                "cellname": cell_hoc['cell_name'],
-                "sectionindex": cell_hoc['section_indexer'][section],
-                "sectionpos":voltageclamp.cell_location.morphlocation.sectionpos,
-
-                "dur1":voltageclamp.dur1.rescale("ms").magnitude,
-                "dur2":voltageclamp.dur2.rescale("ms").magnitude,
-                "dur3":voltageclamp.dur3.rescale("ms").magnitude,
-
-                "amp1":voltageclamp.amp1.rescale("mV").magnitude,
-                "amp2":voltageclamp.amp2.rescale("mV").magnitude,
-                "amp3":voltageclamp.amp3.rescale("mV").magnitude,
-
-                "rs":voltageclamp.rs.rescale("MOhm").magnitude,
-
-                "VClampType": MNeuronSettings.get_voltageclamp_type()
-                }
+            'stimname': voltageclamp.name,
+            'cell': cell,
+            'cellname': cell_hoc['cell_name'],
+            'sectionindex': cell_hoc['section_indexer'][section],
+            'sectionpos': voltageclamp.cell_location.morphlocation.sectionpos,
+            'dur1': voltageclamp.dur1.rescale('ms').magnitude,
+            'dur2': voltageclamp.dur2.rescale('ms').magnitude,
+            'dur3': voltageclamp.dur3.rescale('ms').magnitude,
+            'amp1': voltageclamp.amp1.rescale('mV').magnitude,
+            'amp2': voltageclamp.amp2.rescale('mV').magnitude,
+            'amp3': voltageclamp.amp3.rescale('mV').magnitude,
+            'rs': voltageclamp.rs.rescale('MOhm').magnitude,
+            'VClampType': MNeuronSettings.get_voltageclamp_type(),
+            }
 
         # Save the data about this Current Clamp:
         hocfile_obj[MHocFileData.VoltageClamps][voltageclamp] = data
 
         # Create the HOC
-        hocfile_obj.add_to_section(MHOCSections.InitVoltageClamps,  Template(vcTmpl, data).respond())
-
-
+        hocfile_obj.add_to_section(MHOCSections.InitVoltageClamps,
+                                   Template(vcTmpl, data).respond())
 
     @classmethod
     def CurrentClamp(cls, hocfile_obj, currentclamp):
@@ -120,15 +115,15 @@ class HocBuilder(object):
         section = currentclamp.cell_location.morphlocation.section
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-                "stimname":currentclamp.name,
-                "cell":cell,
-                "cellname": cell_hoc['cell_name'],
-                "sectionindex": cell_hoc['section_indexer'][section],
-                "sectionpos":currentclamp.cell_location.morphlocation.sectionpos,
-                "dur":currentclamp.dur.rescale("ms").magnitude,
-                "delay":currentclamp.delay.rescale("ms").magnitude,
-                "amp":currentclamp.amp.rescale("nA").magnitude
-                }
+            'stimname': currentclamp.name,
+            'cell': cell,
+            'cellname': cell_hoc['cell_name'],
+            'sectionindex': cell_hoc['section_indexer'][section],
+            'sectionpos': currentclamp.cell_location.morphlocation.sectionpos,
+            'dur': currentclamp.dur.rescale('ms').magnitude,
+            'delay': currentclamp.delay.rescale('ms').magnitude,
+            'amp': currentclamp.amp.rescale('nA').magnitude,
+            }
 
         # Save the data about this Current Clamp:
         hocfile_obj[MHocFileData.CurrentClamps][currentclamp] = data

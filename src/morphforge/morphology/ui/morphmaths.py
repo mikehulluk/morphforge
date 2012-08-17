@@ -93,7 +93,8 @@ class MorphologyMeanCenterer(Pointtranslater):
 class MorphologyPCARotator(PointRotator):
 
     def __init__(self, morph):
-        super(MorphologyPCARotator, self).__init__(PCAAxes(morph).invMat)
+        super(MorphologyPCARotator,
+              self).__init__(PCAAxes(morph).invMat)
 
 
 class MorphologyForRenderingOperator(PointOperator):

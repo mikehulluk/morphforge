@@ -46,8 +46,8 @@ class MorphologyImporter(object):
             raise MorphologyFrameworkRegistrationError("method_name must begin with '%s' "% cls.method_name_prefix)
 
         if  hasattr(as_type, method_name) and not allow_override:
-            err = "Existing import functor defined for: %s" % method_name
-            err += "(Perhaps use the 'allow_override' parameter on this function-call?)"
+            err = 'Existing import functor defined for: %s' % method_name
+            err += '(Perhaps use the 'allow_override' parameter on this function-call?)'
             raise MorphologyFrameworkRegistrationError(err)
 
         setattr(as_type, method_name, staticmethod(import_functor))

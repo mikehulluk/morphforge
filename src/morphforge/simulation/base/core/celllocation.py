@@ -31,6 +31,7 @@
 
 from morphforge.morphology.core import MorphLocation
 
+
 class CellLocation(object):
 
     def __init__(self, cell, morphlocation=None, section=None, sectionpos=None):
@@ -71,4 +72,5 @@ class CellLocation(object):
         if self.morphlocation.section.idtag:
             t = self.morphlocation.section.idtag
         return r + t
+
 

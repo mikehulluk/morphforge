@@ -34,12 +34,12 @@ import quantities as pq
 import numpy as np
 
 
-
 class TracePointBased(Trace):
 
     def __init__(self, time, data, name=None, comment=None, tags=None):
 
-        super(TracePointBased, self).__init__(name=name, comment=comment, tags=tags)
+        super(TracePointBased, self).__init__(name=name,
+                comment=comment, tags=tags)
 
         if not isinstance(time, pq.quantity.Quantity):
             raise ValueError("Time is not a 'unit'ed quantity")
@@ -67,12 +67,10 @@ class TracePointBased(Trace):
         from scipy.interpolate.interpolate import interp1d
         time_units = self._time.units
         data_units = self._data.units
-        interpolator = interp1d(self._time.magnitude, self._data.magnitude)
-        return interpolator(time_array.rescale(time_units).magnitude) * data_units
-
-
-
-
+        interpolator = interp1d(self._time.magnitude,
+                                self._data.magnitude)
+        return interpolator(time_array.rescale(time_units).magnitude) \
+            * data_units
 
     def get_n(self):
         return len(self._time)

@@ -37,9 +37,6 @@ from morphforge.core.misc import StrUtils
 from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
 
 
-
-
-
 class MetaDataBundleBuilder(object):
 
     """ Creates a bundle that:

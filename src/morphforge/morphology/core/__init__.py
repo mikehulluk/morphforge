@@ -88,10 +88,6 @@ In general, you will only need to use one of the two representations, depending 
 
 """
 
-
-
-
-
 from tree import MorphologyTree, Section, Region
 from tree import MorphLocation
 from tree import MorphPath

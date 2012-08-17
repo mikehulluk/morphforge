@@ -52,7 +52,10 @@ class SectionVistorFactory(object):
 
         def functor(s):
             xyzr.append(s.get_distal_npa4())
-        return SectionVisitorDF(functor=functor, morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr))
+
+        return SectionVisitorDF(functor=functor, morph=morph,
+                                rootsectionfunctor=functorRoot,
+                                returnfunctor=lambda : np.array(xyzr))
 
     @classmethod
     def array3_all_points(cls, morph=None):
@@ -70,7 +73,8 @@ class SectionVistorFactory(object):
                                 returnfunctor=lambda : np.array(xyz))
 
     @classmethod
-    def dict_section_proximal_dist_from_soma(cls, morph=None, soma_centre=False):
+    def dict_section_proximal_dist_from_soma(cls, morph=None,
+            soma_centre=False):
         assert not soma_centre
 
         def dict_section_proximal_dist_from_soma(s):
@@ -87,8 +91,6 @@ class SectionVistorFactory(object):
 
         return DictBuilderSectionVisitorHomo(functor=dict_section_proximal_dist_from_soma, morph=morph)
 
-
-
     @classmethod
     def dict_section_distal_dist_from_soma(cls, morph=None):
 
@@ -98,7 +100,8 @@ class SectionVistorFactory(object):
             else:
                 return dictSectionDistalDistFromSoma(s.parent) + s.get_length()
 
-        return DictBuilderSectionVisitorHomo(functor=dictSectionDistalDistFromSoma, morph=morph)
+        return DictBuilderSectionVisitorHomo(functor=dictSectionDistalDistFromSoma,
+                morph=morph)
 
 
 SVVisitorFactory = SectionVistorFactory

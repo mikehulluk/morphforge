@@ -80,7 +80,7 @@ class MNeuronSimulation(Simulation):
         (b, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
         (bundlefilename, sim_cmd) = b.write_to_file_and_get_exec_string()
 
-        #if Exists(resfilename):
+        # if Exists(resfilename):
         #    os.unlink(resfilename)
 
 
@@ -160,7 +160,8 @@ class MNeuronSimulation(Simulation):
 
         t_mod_build_start = time.time()
         mod_files.build_all()
-        print 'Time for Building Mod-Files: ', time.time() - t_mod_build_start
+        time_taken = time.time() - t_mod_build_start
+        print 'Time for Building Mod-Files: ', time_taken
 
 
         # Open Neuron:
@@ -173,7 +174,10 @@ class MNeuronSimulation(Simulation):
 
         # Write the HOC file:
         t_sim_start = time.time()
-        hoc_filename = FileIO.write_to_file(str(hoc_data), suffix='.hoc')
+        hoc_filename = FileIO.write_to_file(
+                        str(hoc_data), 
+                        suffix='.hoc')
+
         nrn(h.load_file, hoc_filename)
         self.hocfilename = hoc_filename
 

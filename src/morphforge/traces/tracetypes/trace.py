@@ -34,6 +34,7 @@ import functools
 
 
 class Trace(object):
+
     def __init__(self, name, comment, tags):
         self.tags = ([] if tags == None else tags)
         self.name = (name if name else '<Unnamed Trace>')
@@ -60,8 +61,8 @@ class Trace(object):
         if TraceMethodCtrl.has_method(self.__class__, name):
             func = TraceMethodCtrl.get_method(self.__class__, name)
             return functools.partial(func, self)
-        raise AttributeError('No Such method for trace type: %s.%s.' % (self.__class__, name))
-
+        raise AttributeError('No Such method for trace type: %s.%s.'
+                             % (self.__class__, name))
 
     # Subclasses must implement these:
     def get_min_time(self):

@@ -44,12 +44,14 @@ TraceMethodCtrl.register(TraceFixedDT, 'var',    lambda tr: np.var(tr._data))
 TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._data**2)))
 
 # For VariableDT traces
+
 def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
     integral = scipy.integrate.simps(y=tr._data.magnitude, x=tr._time.rescale('s').magnitude)
     mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
     return mean
+
 
 TraceMethodCtrl.register(TraceVariableDT, 'mean', _variabledt_mean)
 # MISSING: VariableDT - stddev
@@ -60,9 +62,6 @@ TraceMethodCtrl.register(TraceVariableDT, 'mean', _variabledt_mean)
 # MISSING: Piecewise - stddev
 # MISSING: Piecewise - var
 # MISSING: Piecewise - rms
-
-
-
 
 # PTP Functions:
 ################

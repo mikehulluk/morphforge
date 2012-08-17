@@ -53,7 +53,7 @@ class MorphLocator(object):
 
                 if distance < dist_to_section_distal[section]:
                     #assert False, 'Not implemented'
-                    locations.append(MorphLocation(section = section, sectionpos = distance/dist_to_section_distal[section]) )
+                    locations.append(MorphLocation(section=section, sectionpos=distance/dist_to_section_distal[section]) )
 
                 else:
 

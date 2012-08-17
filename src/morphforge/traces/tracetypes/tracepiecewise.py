@@ -66,6 +66,7 @@ class TracePieceFunction(object):
 
     def ge_start_value(self):
         raise NotImplementedError()
+
     def get_end_value(self):
         raise NotImplementedError()
 
@@ -75,6 +76,7 @@ class TracePieceFunction(object):
 
 
 class TracePieceFunctionLinear(TracePieceFunction):
+
     def __init__(self, time_window, x0=None, x1=None):
         assert x0 is not None and x1 is not None
 
@@ -87,11 +89,13 @@ class TracePieceFunctionLinear(TracePieceFunction):
 
     def get_start_value(self):
         return self.x0
+
     def get_end_value(self):
         return self.x1
 
 
 class TracePieceFunctionFlat(TracePieceFunction):
+
     def __init__(self, time_window, x=None):
         TracePieceFunction.__init__(self, time_window=time_window)
         assert x is not None
@@ -100,12 +104,12 @@ class TracePieceFunctionFlat(TracePieceFunction):
     def get_value(self):
         return self.x
 
-
     def get_values(self, times):
         return np.ones(len(times)) * self.x
 
     def get_start_value(self):
         return self.x
+
     def get_end_value(self):
         return self.x
 
@@ -119,10 +123,10 @@ class TracePiecewise(Trace):
         self._pieces = pieces
 
         # Check we link up:
-        for i in range(len(pieces) -1):
+        for i in range(len(pieces) - 1):
             i_stop = self._pieces[i].get_max_time()
-            i_next_start = self._pieces[i+1].get_min_time()
-            dist =  i_stop - i_next_start
+            i_next_start = self._pieces[i + 1].get_min_time()
+            dist = i_stop - i_next_start
             assert np.fabs(dist.rescale('ms').magnitude) < 0.001
 
     def get_min_time(self):

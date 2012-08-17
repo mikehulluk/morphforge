@@ -42,8 +42,8 @@ class NamedSimulationObject(object):
 
     """ A dictionary -> set mapping, recording what object names are in
     use at all simulations"""
-
     _obj_names = {}
+
 
     def __init__(self, simulation, name=None):
 

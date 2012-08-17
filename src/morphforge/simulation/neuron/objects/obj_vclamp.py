@@ -63,8 +63,6 @@ class VoltageClampCurrentRecord(NeuronRecordable):
         pass
 
 
-
-
 class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
 
     def __init__(self, **kwargs):

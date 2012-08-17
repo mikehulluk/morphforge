@@ -46,19 +46,15 @@ class NeuronParameter(object):
             return self.parameterunit
         return '(%s)' % self.parameterunit
 
-
-
     def declaration_string(self):
         unit_str = self.get_unit_str()
         range_str = "<%1.1e,%1.1e>" % self.parameterrange if self.parameterrange else ""
         return "%s %s %s" % (self.parametername, unit_str, range_str)
 
     def initialisation_string(self):
-        unit_str = self.get_unit_str() 
-        init_str = "= %s " % self.initialvalue if self.initialvalue else ""
-        return  "%s %s %s" % (self.parametername,init_str, unit_str)
-
-
+        unit_str = self.get_unit_str()
+        init_str = '= %s ' % self.initialvalue if self.initialvalue else ''
+        return '%s %s %s' % (self.parametername, init_str, unit_str)
 
 
 class ModFileSectioned(object):
@@ -122,30 +118,32 @@ class ModFileSectioned(object):
 
     # Finalisation:
     def simple_finalise_section(self, section, tabsection=False):
-        if tabsection: self.sectiondata[section] = ["\t" + l for l in self.sectiondata[section]]
-        self.prepend_to_section(section, "%s {" % section)
-        self.append_to_section(section, "}")
-
+        if tabsection:
+            self.sectiondata[section] = ['\t' + l for l in self.sectiondata[section]]
+        self.prepend_to_section(section, '%s {' % section)
+        self.append_to_section(section, '}')
 
     def finalise(self):
         # Nothing to do for Header
-        self.simple_finalise_section(ModFileSectioned.Sections.Units, tabsection=True)
-        self.simple_finalise_section(ModFileSectioned.Sections.Neuron, tabsection = True)
-        self.simple_finalise_section(ModFileSectioned.Sections.Parameter, tabsection = True)
-        self.simple_finalise_section(ModFileSectioned.Sections.State, tabsection = True)
-        self.simple_finalise_section(ModFileSectioned.Sections.Assigned, tabsection = True)
-        self.simple_finalise_section(ModFileSectioned.Sections.Breakpoint, tabsection = True)
-        self.simple_finalise_section(ModFileSectioned.Sections.Initial, tabsection = True)
+        
+        self.simple_finalise_section(sects.Units, tabsection=True)
+        self.simple_finalise_section(sects.Neuron, tabsection=True)
+        self.simple_finalise_section(sects.Parameter, tabsection=True)
+        self.simple_finalise_section(sects.State, tabsection=True)
+        self.simple_finalise_section(sects.Assigned, tabsection=True)
+        self.simple_finalise_section(sects.Breakpoint, tabsection=True)
+        self.simple_finalise_section(sects.Initial, tabsection=True)
 
         # Nothing to do for Procedure
         # Nothing to do for Functions
 
     # User Functions:
     def create_header(self, title, comment):
-        self.append_to_section(ModFileSectioned.Sections.Header, "TITLE %s" % title)
-        self.append_to_section(ModFileSectioned.Sections.Header, "COMMENT")
-        if comment: self.append_to_section(ModFileSectioned.Sections.Header, comment)
-        self.append_to_section(ModFileSectioned.Sections.Header, "ENDCOMMENT")
+        header = ModFileSectioned.Sections.Header
+        self.append_to_section(header, "TITLE %s" % title)
+        self.append_to_section(header, "COMMENT")
+        if comment: self.append_to_section(header, comment)
+        self.append_to_section(header, "ENDCOMMENT")
 
     def add_unit_definition(self, unitname, unitsymbol):
         symbol_str = "%s" % unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
@@ -173,7 +171,8 @@ class ModFileSectioned(object):
     def add_state_group(self, groupname, states, derivative_code, initial_code):
 
         # Initial Block:
-        self.append_to_section(ModFileSectioned.Sections.Initial, "\n".join(initial_code))
+        self.append_to_section(ModFileSectioned.Sections.Initial,
+                               '\n'.join(initial_code))
 
         # Derivative Block:
         der_block = """DERIVATIVE %s{
@@ -181,15 +180,15 @@ class ModFileSectioned(object):
         } """%(groupname, "\n".join(["\t"+l for l in derivative_code]))
         self.prepend_to_section(ModFileSectioned.Sections.Derivative, der_block)
 
-        #BreakPoint:
-        solve_statement = "SOLVE %s METHOD cnexp"% groupname
-        self.prepend_to_section(ModFileSectioned.Sections.Breakpoint,  solve_statement)
+        # BreakPoint:
+        solve_statement = 'SOLVE %s METHOD cnexp' % groupname
+        self.prepend_to_section(ModFileSectioned.Sections.Breakpoint,
+                                solve_statement)
 
-        #States Block:
+        # States Block:
         for state in states:
-            self.append_to_section(ModFileSectioned.Sections.State, state.initialisation_string())
-
-
+            self.append_to_section(ModFileSectioned.Sections.State,
+                                   state.initialisation_string())
 
     def add_assigned(self, assigned):
         self.append_to_section(ModFileSectioned.Sections.Assigned,

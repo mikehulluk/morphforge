@@ -31,6 +31,7 @@
 
 from morphforge.morphology.errors import MorphologyFrameworkRegistrationError
 
+
 class MorphologyExporter(object):
 
     method_name_prefix = 'to'

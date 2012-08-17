@@ -51,7 +51,8 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
             self.__call__()
 
     def build_root(self, section):
-        from morphforge.morphology.core import Section, Region, MorphologyTree
+        from morphforge.morphology.core import Section, Region
+        from morphforge.morphology.core import MorphologyTree
 
         self.orig2newMapping = {}
         self.rgnMappings = dict([(rgn,Region(rgn.name)) for rgn in self.morph.get_regions()])

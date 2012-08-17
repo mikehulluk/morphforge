@@ -58,15 +58,19 @@ capacitances = [pq.F, mF, uF, nF, pF]
 # Create the possible densities:
 for a in areas:
     for i in currents:
-        pq.UnitQuantity('%s per %s' % (i.name, a.name), i / a, symbol='%s/%s' % (i, a))
+        pq.UnitQuantity('%s per %s' % (i.name, a.name), 
+                        i / a,
+                        symbol='%s/%s' % (i, a))
 
     for g in conductances:
-        pq.UnitQuantity('%s per %s' % (g.name, a.name), g / a, symbol='%s/%s' % (g, a))
+        pq.UnitQuantity('%s per %s' % (g.name, a.name), 
+                        g / a,
+                        symbol='%s/%s' % (g, a))
 
     for c in capacitances:
-        pq.UnitQuantity('%s per %s' % (c.name, a.name), c / a, symbol='%s/%s' % (c, a))
-
-
+        pq.UnitQuantity('%s per %s' % (c.name, a.name), 
+                        c / a,
+                        symbol='%s/%s' % (c, a))
 
 ## Molar Quanities:
 # http://en.wikipedia.org/wiki/Mole_(unit)#Related_units

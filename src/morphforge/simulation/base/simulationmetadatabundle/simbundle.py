@@ -95,7 +95,8 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
 
         bundle_fname = self._write_to_file(
                         bundlefilename=bundlefilename)
-        bundle_exec_bin = os.path.join(LocMgr.get_bin_path(),
+        bundle_exec_bin = os.path.join(
+                               LocMgr.get_bin_path(),
                                simulation_binary_file)
         sim_cmd = '%s %s' % (bundle_exec_bin, bundle_fname)
         return (bundle_fname, sim_cmd)

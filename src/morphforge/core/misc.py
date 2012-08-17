@@ -28,6 +28,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
+
 """
 A collection of utility functions.
 Often these are not the most efficient implementations, especially when
@@ -100,7 +101,8 @@ class FileIO(object):
         parameter. Returns `filename`"""
 
         if file_expected and not fs.exists(filename):
-            raise IOError("Can't append to non-existant file: %s" % filename)
+            raise IOError("Can't append to non-existant file: %s"
+                          % filename)
         with open(filename, 'a') as f:
             f.write(txt)
         return filename
@@ -161,7 +163,10 @@ class SeqUtils(object):
         res = []
         for item in seq:
             if isinstance(item, flatten_types):
-                res.extend(SeqUtils.flatten(item, flatten_types=flatten_types))
+                new_items = SeqUtils.flatten(
+                                item, 
+                                flatten_types=flatten_types)
+                res.extend(new_items)
             else:
                 res.append(item)
         return res

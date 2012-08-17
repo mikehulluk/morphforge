@@ -109,6 +109,7 @@ def p_simple0(p):
     """ tag_line_simple : TAG"""
     p[0] = TagSelectorAll(tags=[p[1]])
 
+
 def p_simple1(p):
     """ tag_line_simple : tag_line_simple COMMA TAG"""
     p[0] = TagSelectorAll(tags=list(p[1].tags) + [p[3]])
@@ -125,11 +126,13 @@ def p_expression_and(p):
     """
     p[0] = TagSelectorAnd(p[1], p[3])
 
+
 def p_expression_or(p):
     """ expr : expr OR expr
              | expr OR_SYM expr
     """
     p[0] = TagSelectorOr(p[1], p[3])
+
 
 def p_expression_not(p):
     """ expr : NOT expr
@@ -161,7 +164,6 @@ def p_tag_group_bracketed_any(p):
     p[0] = TagSelectorAny(tags=p[2])
 
 
-
 def p_tag_group_bracketed(p):
     """ tag_group_bracketed : LCURLYBRACKET tag_group RCURLYBRACKET """
     p[0] = p[2]
@@ -171,9 +173,11 @@ def p_tag_group0(p):
     """tag_group : empty"""
     p[0] = []
 
+
 def p_tag_group1(p):
     """tag_group : TAG"""
     p[0] = [p[1]]
+
 
 def p_tag_group2(p):
     """tag_group : tag_group COMMA TAG"""
@@ -184,6 +188,7 @@ def p_empty(p):
     '''empty :'''
     pass
 
+
 def p_error(p):
     print 'Syntax error in input!'
     print p
@@ -191,8 +196,10 @@ def p_error(p):
 
 
 class _ParseCache(object):
+
     _lex = None
     _yacc = None
+
 
 def parse_tagselector_string(s):
     if not _ParseCache._lex:

@@ -125,8 +125,6 @@ class Simulation(object):
         self.simsettings = self.environment.SimulationSettings(**kwargs)
         self.result = None
 
-
-
         # For checksumming: we store links to additional classes:
         self.configClasses = [SettingsMgr, LocMgr]
 
@@ -161,8 +159,6 @@ class Simulation(object):
 
     def add_recordable(self, recordable):
         raise NotImplementedError()
-
-
 
     # Syntactic Sugar for making more readable scripts:
     def record(self, recordable_src=None, **kwargs):

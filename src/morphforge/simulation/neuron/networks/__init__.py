@@ -72,17 +72,7 @@ class NeuronSynapse(NeuronObject, Synapse):
         if what in ['g']:
             return self.postSynapticMech.get_recordable(what=what, **kwargs)
 
-
         assert False
-
-
-
-
-
-
-
-
-
 
 
 expTmpl = """
@@ -99,11 +89,6 @@ setpointer ${name1}.vgap,  ${cellname2}.internalsections[$sectionindex2].v($sect
 setpointer ${name2}.vgap,  ${cellname1}.internalsections[$sectionindex1].v($sectionpos1)
 
 """
-
-
-
-
-
 
 gapMod = """
 NEURON {
@@ -153,19 +138,19 @@ class NeuronGapJunction(GapJunction, NeuronObject):
         gp_obj2_name = self.get_name() + 'B'
         hoc_dct = hocfile_obj[MHocFileData.Cells]
         data = {
-               "name": self.get_name(),
-               "name1": gp_obj1_name,
-               "name2": gp_obj2_name,
-               "cell1": cell1,
-               "cell2": cell2,
-               "cellname1": hoc_dct[cell1]['cell_name'],
-               "cellname2": hoc_dct[cell2]['cell_name'],
-               "sectionindex1": hoc_dct[cell1]['section_indexer'][section1],
-               "sectionindex2": hoc_dct[cell2]['section_indexer'][section2],
-               "sectionpos1": self.celllocation1.morphlocation.sectionpos,
-               "sectionpos2": self.celllocation2.morphlocation.sectionpos,
-               "resistance": self.resistance
-               }
+            'name': self.get_name(),
+            'name1': gp_obj1_name,
+            'name2': gp_obj2_name,
+            'cell1': cell1,
+            'cell2': cell2,
+            'cellname1': hoc_dct[cell1]['cell_name'],
+            'cellname2': hoc_dct[cell2]['cell_name'],
+            'sectionindex1': hoc_dct[cell1]['section_indexer'][section1],
+            'sectionindex2': hoc_dct[cell2]['section_indexer'][section2],
+            'sectionpos1': self.celllocation1.morphlocation.sectionpos,
+            'sectionpos2': self.celllocation2.morphlocation.sectionpos,
+            'resistance': self.resistance,
+            }
 
         hocfile_obj.add_to_section(MHOCSections.InitGapJunction,
                                    Template(expTmpl, data).respond())

@@ -90,8 +90,7 @@ class MHocFile(object):
         return self.info[key]
 
     def __init__(self):
-        
-        _info = [(root_info, {}) for root_info in MHocFileData.root_infos]
+        _info = [(inf, {}) for inf in MHocFileData.root_infos]
         self.info = dict(_info)
         self.sections = dict([(s, []) for s in MHOCSections.ordered])
 

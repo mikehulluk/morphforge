@@ -66,7 +66,7 @@ class FunctionPrototype(object):
 
 def p_complete(p):
     """ l : unit_def p_pieceblock_chain_complete"""
-    p[0] =  (p[1], p[2])
+    p[0] = (p[1], p[2])
 
 
 
@@ -76,9 +76,11 @@ def p_unit_definiton(p):
     """ unit_def : CURLY_LBRACE D COLON ID CURLY_RBRACE """
     p[0] = unit(p[4])
 
+
 def p_time(p):
     """time : FLOAT MS"""
     p[0] = p[1] * pq.ms
+
 
 def p_abs_timespec(p):
     """ abs_timespec : AT time """
@@ -91,10 +93,12 @@ def p_end_timespec(p):
                      """
     p[0] = (p[1], p[2])
 
+
 def p_func(p):
     ''' func : func_name LPAREN FLOAT RPAREN'''
 
     p[0] = FunctionPrototype(funcname=p[1], funcarg=p[3])
+
 
 def p_func_name(p):
     """ func_name : FLAT
@@ -108,11 +112,13 @@ def p_pieceblock_chain1(p):
     f.start_time = p[1]
     p[0] = ([], f)
 
+
 def p_pieceblock_chain2(p):
     """pieceblock_chain : func """
     f = p[1]
     f.start_time = 0 * pq.ms
     p[0] = ([], f)
+
 
 def p_pieceblock_chain3(p):
     """pieceblock_chain : pieceblock_chain THEN abs_timespec func"""
@@ -122,6 +128,7 @@ def p_pieceblock_chain3(p):
     f = p[4]
     f.start_time = t
     p[0] = (chain + [last], f)
+
 
 def p_pieceblock_chain4(p):
     """pieceblock_chain : pieceblock_chain end_timespec THEN func"""
@@ -141,6 +148,7 @@ def p_pieceblock_chain_complete(p):
     t = {'UNTIL': tvalue, 'FOR': last.start_time + tvalue}[ttype]
     last.end_time = t
     p[0] = chain + [last]
+
 
 # Error rule for syntax errors
 def p_error(p):

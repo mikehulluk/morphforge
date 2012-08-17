@@ -73,23 +73,19 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
 
 
 # FixedDT (+-*/) FixedDT
-TraceOperatorCtrl.add_trace_operator(
-        operator_type=operator.__add__,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__add__,
         lhs_type=TraceFixedDT, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_TraceFixedDT_TraceFixedDT.do_add,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
-        operator_type=operator.__sub__,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__sub__,
         lhs_type=TraceFixedDT, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_TraceFixedDT_TraceFixedDT.do_sub,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
-        operator_type=operator.__mul__,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__mul__,
         lhs_type=TraceFixedDT, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_TraceFixedDT_TraceFixedDT.do_mul,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
-        operator_type=operator.__div__,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__div__,
         lhs_type=TraceFixedDT, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_TraceFixedDT_TraceFixedDT.do_div,
         flag='default')

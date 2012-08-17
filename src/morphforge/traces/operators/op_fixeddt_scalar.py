@@ -79,10 +79,8 @@ class TraceOperator_TraceFixedDT_Quantity(object):
             return TraceFixedDT(rhs._time, rhs._data / lhs)
 
 
-
-
-
 class TraceOperator_TraceFixedDT_Scalar(object):
+
     @classmethod
     def do_add(self, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == float) or \
@@ -128,7 +126,6 @@ class TraceOperator_TraceFixedDT_Scalar(object):
         else:
             # assert isinstance(rhs._data, pq.Dimensionless)
             return TraceFixedDT(rhs._time, rhs._data / lhs)
-
 
 
 TraceOperatorCtrl.add_trace_operator(

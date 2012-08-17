@@ -51,9 +51,9 @@ class MatPlotLibViewer(object):
     projMatYZ = numpy.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]])
 
     figureProjections = {0:projMatXY, 1:projMatXZ, 2:projMatYZ}
-    figureLabels = {0:("X", "Y"), 1:("Z", "Y"), 2:("X", "Z")}
+    figureLabels = {0: ('X', 'Y'), 1: ('Z', 'Y'), 2: ('X', 'Z')}
     figurePositions = {0:221, 1:222, 2:223}
-    figureTitles = { 0:"View From Above", 1:"View From Side", 2:"View From Front"}
+    figureTitles = {0:'View From Above', 1:'View From Side', 2:'View From Front'}
 
 
     def __init__(self, morph, use_pca=True):
@@ -67,10 +67,6 @@ class MatPlotLibViewer(object):
         self.subplots = {}
 
         self.buildPlot(use_pca)
-
-
-
-
 
     def buildDrawSubPlot(self, rotatedSectionDict, fig, i, plotLims):
         import pylab
@@ -148,8 +144,8 @@ class MatPlotLibViewer(object):
     def buildPlot(self, usePCA):
         import pylab
 
-
-        self.normaliser = MorphologyForRenderingOperator(self.morph, usePCA=usePCA)
+        self.normaliser = MorphologyForRenderingOperator(self.morph,
+                                                         usePCA=usePCA)
 
         # Find the Point that is the furthest distance way from
         # the centre when the cell is centred and rotated:
@@ -189,7 +185,5 @@ class MatPlotLibViewer(object):
         self.subplots = {}
         for i in self.plotViews:
             self.subplots[i] = self.buildDrawSubPlot(rotatedSectionDict, self.fig, i, plotLims)
-
-
 
 

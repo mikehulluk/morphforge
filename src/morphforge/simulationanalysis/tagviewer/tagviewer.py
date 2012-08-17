@@ -90,22 +90,21 @@ class TagViewer(object):
         DefaultPlotSpec.Event,
        )
 
-
-
-    def __init__(self,
-                 input,
-                 fig_kwargs = {'figsize': (12, 8)},
-                 timeranges=(None,),
-                 plotspecs = None,
-                 figtitle = None,
-                 show=True,
-                 save=None,
-                 linkage = None,
-                 timerange=None,
-                 additional_plotspecs = None,
-                 share_x_labels=True,
-                 mpl_tight_bounds = True
-                ):
+    def __init__(
+        self,
+        input,
+        fig_kwargs={'figsize': (12, 8)},
+        timeranges=(None, ),
+        plotspecs=None,
+        figtitle=None,
+        show=True,
+        save=None,
+        linkage=None,
+        timerange=None,
+        additional_plotspecs=None,
+        share_x_labels=True,
+        mpl_tight_bounds=True,
+        ):
 
         self.linkage = linkage
 
@@ -160,7 +159,6 @@ class TagViewer(object):
         # Save the figure:
         # if save:
         #    PM.save_figure(figtitle)
-
 
         if TagViewer.MPL_AUTO_SHOW and show:
             import pylab

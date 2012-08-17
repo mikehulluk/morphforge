@@ -34,8 +34,6 @@ from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 
-
-
 cellTemplTmpl = """
 
 v_init = $cell.initial_voltage.rescale('mV').magnitude

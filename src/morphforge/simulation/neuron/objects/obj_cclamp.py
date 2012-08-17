@@ -71,6 +71,7 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
 
 class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
+
     def __init__(self, **kwargs):
         super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
 

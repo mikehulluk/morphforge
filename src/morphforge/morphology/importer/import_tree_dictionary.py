@@ -32,7 +32,7 @@
 import math
 
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
-from morphforge.core.misc import merge_dictionaries, SeqUtils 
+from morphforge.core.misc import merge_dictionaries, SeqUtils
 from morphforge.core.misc import check_cstyle_varname
 from morphforge.morphology.core import Region
 from morphforge.morphology.core import Section
@@ -82,7 +82,12 @@ class DictionaryLoader(object):
 
             assert not root_node.has_key('xyz')
 
-            new_root_node = {'region': 'soma', 'diam': root_node['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [root_node]}
+            new_root_node = {
+                'region': 'soma',
+                'diam': root_node['diam'],
+                'xyz': (0.0, 0.0, 0.0),
+                'sections': [root_node],
+                }
             root_node = new_root_node
 
 
@@ -139,7 +144,6 @@ class DictionaryLoader(object):
 
         if 'length' in root_yaml_sect.keys():
             assert False
-           
 
         xyz = root_yaml_sect['xyz']
         section_dict[0] = Section(
@@ -188,16 +192,17 @@ class DictionaryLoader(object):
             if int(yamlSect.has_key("absangle")) + int(yamlSect.has_key("relangle")) + int(yamlSect.has_key("xyz")) >= 2:
                 raise ValueError("Too many ways for specifying endpoint")
 
-            if yamlSect.has_key("xyz"):
-                if not parent_section: angle = 0
-                xyz = yamlSect["xyz"]
+            if yamlSect.has_key('xyz'):
+                if not parent_section: 
+                    angle = 0
+                xyz = yamlSect['xyz']
 
             elif yamlSect.has_key("absangle"):
                 length = getYamlLength(yamlSect)
-                angle = yamlSect["absangle"]
+                angle = yamlSect['absangle']
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
-            elif yamlSect.has_key("relangle"):
+            elif yamlSect.has_key('relangle'):
                 length = getYamlLength(yamlSect)
                 angle = section_angles_dict[parent_section] + yamlSect["relangle"]
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
@@ -212,7 +217,7 @@ class DictionaryLoader(object):
             if section_id_tag:
                 check_cstyle_varname(section_id_tag)
             if section_id_tag in section_id_tags:
-                raise ValueError("Duplicate Section ID: %s" % section_id_tag)
+                raise ValueError('Duplicate Section ID: %s' % section_id_tag)
             if section_id_tag:  section_id_tags.append(section_id_tag)
 
 

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from Cheetah.Template import Template
@@ -53,7 +52,7 @@ class HocModUtils(object):
         section = cell_location.morphlocation.section
         sectionpos = cell_location.morphlocation.sectionpos
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
-        section_index =  cell_hoc["section_indexer"][section]
+        section_index = cell_hoc['section_indexer'][section]
 
         data = {
             'cellname': cell_hoc['cell_name'],
@@ -92,6 +91,5 @@ class HocModUtils(object):
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Recordables][recordobj] = data
-
 
 

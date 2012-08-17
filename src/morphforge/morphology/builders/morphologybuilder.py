@@ -59,7 +59,6 @@ class MorphologyBuilder(object):
     def get_single_section_soma(cls, rad=None, area=None):
         assert (rad or area) and not (rad and area)
 
-
         if area:
             area = _convert_to_unit(area, default_unit="um2").rescale("um2").magnitude
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
@@ -74,7 +73,6 @@ class MorphologyBuilder(object):
         cell = MorphologyTree("SimpleSomaMorph", dummysection=dummysection, metadata={})
         return cell
 
-
     @classmethod
     def get_soma_axon_morph(cls, axon_length=1000.0, axon_radius=0.3, soma_radius=20.0, axon_sections=10):
         soma_region = Region("soma")
@@ -87,7 +85,8 @@ class MorphologyBuilder(object):
         for x in range(1, axon_sections):
             axon = prev_section.create_distal_section(region=axon_region, x=x * axon_section_length + 2.0 * soma_radius, y=0, z=0, r=axon_radius, idtag="axon_%d" % x)
             prev_section = axon
-        cell = MorphologyTree("SimpleSomaAxonMorph", dummysection=dummy_root, metadata={})
+        cell = MorphologyTree('SimpleSomaAxonMorph',
+                              dummysection=dummy_root, metadata={})
         return cell
 
 

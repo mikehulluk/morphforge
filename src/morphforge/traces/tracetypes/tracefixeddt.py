@@ -47,7 +47,6 @@ class TraceFixedDT(TracePointBased):
             return False
         return True
 
-
     def __init__(self, time, data, name=None, comment=None, tags=None):
         super(TraceFixedDT, self).__init__(time=time, data=data, name=name, comment=comment, tags=tags)
 
@@ -61,11 +60,7 @@ class TraceFixedDT(TracePointBased):
         return self._time[1] - self._time[0]
 
     def __str__(self):
-        return "TraceFixedDT: " + self.name + " Shape:" + str(self._time.shape)
-
-
-
-
+        return 'TraceFixedDT: ' + self.name + ' Shape:'  + str(self._time.shape)
 
     def __getitem__(self, time):
 
@@ -90,12 +85,9 @@ class TraceFixedDT(TracePointBased):
         assert isinstance(time, pq.quantity.Quantity), "Times Shoudl be quanitity. Found: %s %s"%(time, type(time))
         # Rebase the Time:
         time.rescale(self._time.units)
-        interpolator = interp1d(self._time.magnitude, self._data.magnitude)
+        interpolator = interp1d(self._time.magnitude,
+                                self._data.magnitude)
         d_mag = interpolator(time.magnitude)
         return d_mag * self._data.units
-
-
-
-
 
 

@@ -62,3 +62,5 @@ class NeuronSimulationSettings(object):
 
     def __getitem__(self, key):
         return self.params[key]
+
+

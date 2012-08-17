@@ -31,6 +31,7 @@
 
 from morphforge.core.quantities import unit
 
+
 class PassiveProperty(object):
 
     SpecificCapacitance = 'SpecificCapacitance'

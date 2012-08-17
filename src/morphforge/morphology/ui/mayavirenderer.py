@@ -195,6 +195,7 @@ class MayaViRenderer(object):
         @mlab.show
         def _showTest():
             """ Example from Enthought website: """
+
             t = numpy.linspace(0, 4 * numpy.pi, 20)
             cos = numpy.cos
             sin = numpy.sin

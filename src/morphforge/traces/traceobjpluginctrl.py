@@ -94,10 +94,6 @@ class TraceOperatorCtrl(object):
         return opfunctor(lhs=lhs, rhs=rhs, **kwargs)
 
 
-
-
-
-
 def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
     from morphforge.traces import TraceConverter
 
@@ -154,11 +150,6 @@ class TraceMethodCtrl(object):
         assert False
 
 
-
-
-
-
-
 def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tags=None):
     # NewName:
     if name is not None:
@@ -195,8 +186,6 @@ def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tag
     return tr_new
 
 
-
-
 def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
 
     new_data = (data if data is not None else tr._data)
@@ -204,6 +193,13 @@ def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, ad
 
     # Create a new trace
     tr_new = type(tr)(time=new_time, data=new_data)
-    return copy_trace_attrs(tr,tr_new, name=name, comment=comment, tags=tags, add_tags=add_tags)
+    return copy_trace_attrs(
+        tr,
+        tr_new,
+        name=name,
+        comment=comment,
+        tags=tags,
+        add_tags=add_tags,
+        )
 
 

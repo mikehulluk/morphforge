@@ -40,7 +40,7 @@ from morphforge.morphology.core import MorphologyTree
 class NewSWCLoader(object):
 
     @classmethod
-    def load_swc_single(cls,  src, name=None):
+    def load_swc_single(cls, src, name=None):
 
         dtype= {'names':   ('id', 'type', 'x','y','z','r','pid'),
                 'formats': ('int32', 'int32', 'f4','f4','f4','f4','int32') }
@@ -53,10 +53,10 @@ class NewSWCLoader(object):
         # We might not nessesarily have continuous indices in the
         # SWC file, so lets convert them:
         index_to_id = d['id']
-        id_to_index_dict = dict([(id,index) for index,id in enumerate(index_to_id)])
+        id_to_index_dict = dict([(id,index) for (index, id) in enumerate(index_to_id)])
         if len(id_to_index_dict) != len(index_to_id):
             s =  "Internal Error Loading SWC: Index and ID map are different lengths."
-            s += " [ID:%d, Index:%d]"%(len(index_to_id), len(id_to_index_dict))
+            s += " [ID:%d, Index:%d]" % (len(index_to_id), len(id_to_index_dict))
             raise MorphologyImportError(s)
 
         # Vertices are easy:
@@ -100,6 +100,7 @@ class NewSWCLoader(object):
 MorphologyImporter.register('fromSWC', NewSWCLoader.load_swc_single, as_type=MorphologyArray)
 
 # To Tree:
+
 def _load_swc_single_tree(*args, **kwargs):
     return NewSWCLoader.load_swc_single(*args, **kwargs).to_tree()
 MorphologyImporter.register('fromSWC', _load_swc_single_tree,  as_type=MorphologyTree)

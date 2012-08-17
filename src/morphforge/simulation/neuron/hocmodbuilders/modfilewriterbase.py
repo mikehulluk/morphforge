@@ -183,27 +183,36 @@ UNITSON
 
 class MM_ModFileWriterBase(object):
 
-    defaultTitle = "Untitled mod-file"
-    defaultComment = "Automatically generated modfile - morphforge @ "
-    default_units = { "mA":"milliamp", "mV":"millivolt", "S":"siemens", "pA":"picoamp", "um":"micrometer" }
-    defaultCurrentName = "i"
-    defaultupdatefunctionname = "rates"
+    defaultTitle = 'Untitled mod-file'
+    defaultComment = 'Automatically generated modfile - morphforge @ '
+    default_units = {
+        'mA': 'milliamp',
+        'mV': 'millivolt',
+        'S': 'siemens',
+        'pA': 'picoamp',
+        'um': 'micrometer',
+        }
+    defaultCurrentName = 'i'
+    defaultupdatefunctionname = 'rates'
 
-    def __init__(self, suffix,
-                 title=None,
-                 internalstates=None,
-                 parameters=None,
-                 functions=None,
-                 rates=None,
-                 ratecalcorder=None,
-                 currentequation=None,
-                 conductanceequation=None,
-                 chlsopenequation=None,
-                 units=None):
+    def __init__(
+        self,
+        suffix,
+        title=None,
+        internalstates=None,
+        parameters=None,
+        functions=None,
+        rates=None,
+        ratecalcorder=None,
+        currentequation=None,
+        conductanceequation=None,
+        chlsopenequation=None,
+        units=None,
+        ):
 
         self.title = (title if title else self.defaultTitle)
 
-        time_str = datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+        time_str = datetime.now().strftime('%A, %d. %B %Y %I:%M%p')
         self.comment = self.defaultComment + time_str
 
         self.suffix = suffix
@@ -216,7 +225,7 @@ class MM_ModFileWriterBase(object):
 
         # {name: ((locals, equnation),unit) }
         self.rates = (rates if rates else {})
-        self.ratecalcorder = ratecalcorder if ratecalcorder else []
+        self.ratecalcorder = (ratecalcorder if ratecalcorder else [])
 
         # {name: code}
         self.functions = (functions if functions else '')

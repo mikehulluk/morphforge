@@ -47,7 +47,6 @@ class NeuroCSVWriter(object):
         traces = traces or []
         event_sets = event_sets or []
 
-
         # Column Headers:
         colHeaders = [cls.generate_column_header(tr, i) for (i, tr) in enumerate(traces)]
 
@@ -55,10 +54,10 @@ class NeuroCSVWriter(object):
         evtHeaders = [cls.generate_eventset_header(evset) for evset in event_sets]
 
         # Build the Header:
-        header_meta = "" if csv_metadata is None else "!%s"%json.dumps(csv_metadata)
-        header_cols = "\n".join(colHeaders)
-        header_events = "\n".join(evtHeaders)
-        header = "\n".join([header_meta,header_cols, header_events])
+        header_meta = ('' if csv_metadata is None else '!%s' % json.dumps(csv_metadata))
+        header_cols = '\n'.join(colHeaders)
+        header_events = '\n'.join(evtHeaders)
+        header = '\n'.join([header_meta, header_cols, header_events])
 
 
 
@@ -67,7 +66,7 @@ class NeuroCSVWriter(object):
         # Build the Column Data:
         #time_indices = traces[0]._time
 
-        col_width=10
+        col_width = 10
         def missingFormat(): return "-".center(col_width)
         def dataFormat(d):    return ("%f"%d).ljust(col_width)
 
