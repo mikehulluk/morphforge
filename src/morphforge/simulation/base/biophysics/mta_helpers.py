@@ -29,7 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.biophysics import *
+from morphforge.simulation.base.biophysics import PassiveProperty
+from morphforge.simulation.base.biophysics import MembraneMechanismApplicator_Uniform
+from morphforge.simulation.base.biophysics import MembraneMechanismTargeter_Everywhere
+from morphforge.simulation.base.biophysics import MembraneMechanismTargeter_Region
+from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
+
 
 def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=None, parameter_overrides=None):
 

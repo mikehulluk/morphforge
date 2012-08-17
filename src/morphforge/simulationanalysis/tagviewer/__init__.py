@@ -30,8 +30,7 @@
 # ----------------------------------------------------------------------
 
 from tagviewer import TagViewer, DefaultPlotSpec
-from plotspecs import *
-from post_ax_functors import *
+from plotspecs import PlotSpec_DefaultNew
 
-__all__ = ['TagViewer', 'DefaultPlotSpec']
+__all__ = ['TagViewer', 'DefaultPlotSpec','PlotSpec_DefaultNew']
 

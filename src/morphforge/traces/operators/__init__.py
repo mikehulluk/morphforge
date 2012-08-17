@@ -28,9 +28,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-
-from piecewise_scalar import *
-from op_fixeddt_scalar import *
-from op_fixeddt_fixeddt import *
-from op_variabledt_scalar import *
+ 
+# Import the modules to allow dynamic loading:
+import piecewise_scalar
+import op_fixeddt_scalar
+import op_fixeddt_fixeddt
+import op_variabledt_scalar
 

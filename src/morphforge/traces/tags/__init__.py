@@ -29,5 +29,20 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tagselector import *
-from tagselectorstringparser import *
+from tagselector import TagSelector
+from tagselector import TagSelectorAny
+from tagselector import TagSelectorAll
+from tagselector import TagSelectorBinary
+from tagselector import TagSelectorOr
+from tagselector import TagSelectorAnd
+
+
+__all__ = [
+    'TagSelector',
+    'TagSelectorAny',
+    'TagSelectorAll',
+    'TagSelectorBinary',
+    'TagSelectorOr',
+    'TagSelectorAnd',
+]
+

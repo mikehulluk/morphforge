@@ -29,12 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tracetypes import *
-# Base Classes:
+from tracetypes import TraceFixedDT
+from tracetypes import TraceVariableDT
+from tracetypes import TracePointBased
+from tracetypes import TracePiecewise
+from tracetypes import TracePieceFunctionLinear
+from tracetypes import TracePieceFunctionFlat
+from tracetypes import TracePieceFunctionLinear
 
-# Conversion and splicing:
-
-from eventset import *
 
 # Need so that they register the methods:
 import morphforge.traces.methods
@@ -43,7 +45,7 @@ import morphforge.traces.operators
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 
-from tags import *
+from tags import TagSelector
 
 __all__ = [
     'TraceFixedDT',
@@ -54,7 +56,6 @@ __all__ = [
     'TracePieceFunctionFlat',
     'TracePieceFunctionLinear',
     'TagSelector',
-    'TagSelect',
     'TraceOperatorCtrl',
     'TraceMethodCtrl',
     ]
