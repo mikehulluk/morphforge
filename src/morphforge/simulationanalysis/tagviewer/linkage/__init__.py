@@ -47,9 +47,9 @@ def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict
 
         # Does this group have anything that would go into this plot-spec?
         # If not, then it doesn't matter about collisions!
-        nGroupInPS = set(group) & set(ps_traces)
+        n_group_in_ps = set(group) & set(ps_traces)
 
-        if len(nGroupInPS) > 0:
+        if len(n_group_in_ps) > 0:
             collisions += clashes
 
     return collisions + 1
@@ -60,20 +60,20 @@ class LinkageRuleTagRegex(object):
     def __init__(self, regex):
         self.regex = re.compile(regex, re.VERBOSE)
 
-    def getMatchTags(self, tr):
-        tMatches = []
+    def get_match_tags(self, tr):
+        matches = []
         for t in tr.tags:
             if self.regex.match(t):
-                tMatches.append(t)
-        return tMatches
+                matches.append(t)
+        return matches
 
     def __call__(self, allTraces):
         grps = defaultdict(list)
 
         for tr in allTraces:
-            matchTags = self.getMatchTags(tr)
-            for mT in matchTags:
-                grps[mT].append(tr)
+            match_tags = self.get_match_tags(tr)
+            for matchtag in match_tags:
+                grps[matchtag].append(tr)
 
         return grps.values()
         
@@ -88,7 +88,7 @@ class StandardLinkages(object):
 
         self.linkage_rules = (linkage_rules if linkage_rules else [])
 
-    def getLinkagesFromRules(self, allTraces):
+    def get_linkages_from_rules(self, allTraces):
         links = chain(*[link_rule(allTraces) for link_rule in self.linkage_rules])
         return list(links)
 
@@ -98,7 +98,7 @@ class StandardLinkages(object):
         allTraces = set(chain(*ps_to_traces_dict.values()))
 
         allocatedTraceColors = {}
-        colorIndices = range(len(self.color_cycle))
+        color_indices = range(len(self.color_cycle))
 
         G = nx.Graph()
         # Add a node per trace:
@@ -106,7 +106,7 @@ class StandardLinkages(object):
             G.add_node(tr)
 
         # Add the edges:
-        all_links = self.linkages_explicit + self.getLinkagesFromRules(allTraces)
+        all_links = self.linkages_explicit + self.get_linkages_from_rules(allTraces)
         for link in all_links:
             (first, remaining) = (link[0], link[1:])
             for r in remaining:
@@ -117,7 +117,7 @@ class StandardLinkages(object):
         for grp in sorted(groups, key=lambda g:(len(g),id(g[0])) , reverse=True) :
             #print 'Allocating', ''.join(g.name for g in grp)
             #Calculate how many collisions we would have for each allocation:
-            def indexScore(i):
+            def index_score(i):
                 s = _get_collision_of_color_index_for_group(colorIndex=i,
                                                         group=grp,
                                                         ps_to_traces_dict=ps_to_traces_dict,
@@ -125,10 +125,10 @@ class StandardLinkages(object):
                 #print "Score", i, s
                 return s
 
-            newIndex = bi.min(colorIndices, key=indexScore)
+            new_index = bi.min(color_indices, key=index_score)
             # Allocate to colorIndex:
             for g in grp:
-                allocatedTraceColors[g] = newIndex
+                allocatedTraceColors[g] = new_index
 
         # Make the allocation from index to colors:
         self.color_allocations = {}

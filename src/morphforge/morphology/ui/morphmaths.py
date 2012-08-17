@@ -25,9 +25,9 @@ from morphforge.morphology.visitor.visitorfactory import SVVisitorFactory
 
 def _pca(X):
     x_mean = array(map(sum, X.T)) / len(X)
-    X_ = X - x_mean
-    X_t = numpy.dot(X_.T, X_) / len(X)
-    (lam, vec) = linalg.eig(X_t)
+    x_ = X - x_mean
+    x_t = numpy.dot(x_.T, x_) / len(X)
+    (lam, vec) = linalg.eig(x_t)
     ans = zip(lam, vec.T)
     try:
         ans.sort(reverse=True)
@@ -46,8 +46,8 @@ class PCAAxes(object):
         e2 = axes[1][1] / norm(axes[1][1])
         e3 = axes[2][1] / norm(axes[2][1])
 
-        self.eigenMatrix = numpy.array((e1, e2, e3)).T
-        self.invMat = linalg.inv(self.eigenMatrix)
+        self.eigen_matrix = numpy.array((e1, e2, e3)).T
+        self.inv_mat = linalg.inv(self.eigen_matrix)
 
 
 class PointOperator(object):
@@ -94,7 +94,7 @@ class MorphologyPCARotator(PointRotator):
 
     def __init__(self, morph):
         super(MorphologyPCARotator,
-              self).__init__(PCAAxes(morph).invMat)
+              self).__init__(PCAAxes(morph).inv_mat)
 
 
 class MorphologyForRenderingOperator(PointOperator):

@@ -72,8 +72,8 @@ class CellBiophysics(object):
         mechanism_i_ds = set([mta.mechanism.get_mechanism_id() for mta in mechanisms_targetting_section])
 
         res = []
-        for mechID in mechanism_i_ds:
-            mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mechID]
+        for mech_id in mechanism_i_ds:
+            mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mech_id]
             highest_prority_mech = SeqUtils.max_with_unique_check(mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority())
             res.append(highest_prority_mech)
         return res

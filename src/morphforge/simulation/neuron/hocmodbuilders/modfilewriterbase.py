@@ -32,7 +32,7 @@
 from Cheetah.Template import Template
 from datetime import datetime
 
-modTmplHeader = """
+mod_tmpl_header = """
 TITLE $title
 
 COMMENT
@@ -42,7 +42,7 @@ SUFFIX: $suffix
 ENDCOMMENT
 """
 
-modTmplUnits = """
+mod_tmpl_units = """
 UNITS {
 #for ($uAbbr, $uName)  in $units.iteritems():
     ($uAbbr) = ($uName)
@@ -51,7 +51,7 @@ UNITS {
 """
 
 
-modTmplInterface = """
+mod_tmpl_interface = """
 ? interface
 NEURON {
     THREADSAFE
@@ -64,7 +64,7 @@ NEURON {
 """
 
 
-modTmplParams = """
+mod_tmpl_params = """
 PARAMETER {
 #for $pName,($pValue,$pUnit,$pRange) in $parameters.iteritems():
     #set $pUnitOut = "("+pUnit+")" if $pUnit else ""
@@ -76,7 +76,7 @@ PARAMETER {
 }
 """
 
-modTmplState = """
+mod_tmpl_state = """
 STATE {
 #for state in $internalstates:
     $state
@@ -92,7 +92,7 @@ STATE {
 }
 """
 
-modTmplAssigned = """
+mod_tmpl_assigned = """
 ASSIGNED {
     v (mV)
     celsius (degC)
@@ -113,7 +113,7 @@ ASSIGNED {
 
 
 
-modTmplBreakpoints = """
+mod_tmpl_breakpoints = """
 ? currents
 BREAKPOINT {
 #if $internalstates:
@@ -132,7 +132,7 @@ BREAKPOINT {
 }
 """
 
-modTmplInitial = """
+mod_tmpl_initial = """
 INITIAL {
     ${updatefunctionname}(v)
 #for $state, ($initialvalue, $equation) in $internalstates.iteritems():
@@ -142,7 +142,7 @@ INITIAL {
 }
 """
 
-modTmplDerivative = """
+mod_tmpl_derivative = """
 ? states
 DERIVATIVE states {
         ${updatefunctionname}(v)
@@ -157,7 +157,7 @@ DERIVATIVE states {
 
 
 
-modTmplProcedure = """
+mod_tmpl_procedure = """
 
 ? rates
 PROCEDURE ${updatefunctionname}(v(mV)) {
@@ -174,7 +174,7 @@ UNITSOFF
 }
 """
 
-modTmplFunctions = """
+mod_tmpl_functions = """
 $functions
 
 UNITSON
@@ -251,40 +251,40 @@ class MM_ModFileWriterBase(object):
 
         if self.internalstates:
             blks = [
-                modTmplHeader,
-                modTmplUnits,
-                modTmplInterface,
-                modTmplParams,
-                modTmplState,
-                modTmplAssigned,
-                modTmplBreakpoints,
-                modTmplInitial,
-                modTmplDerivative,
-                modTmplProcedure,
-                modTmplFunctions,
+                mod_tmpl_header,
+                mod_tmpl_units,
+                mod_tmpl_interface,
+                mod_tmpl_params,
+                mod_tmpl_state,
+                mod_tmpl_assigned,
+                mod_tmpl_breakpoints,
+                mod_tmpl_initial,
+                mod_tmpl_derivative,
+                mod_tmpl_procedure,
+                mod_tmpl_functions,
                 ]
         elif self.conductanceequation:
             blks = [
-                modTmplHeader,
-                modTmplUnits,
-                modTmplInterface,
-                modTmplParams,
-                modTmplState,
-                modTmplAssigned,
-                modTmplBreakpoints,
-                modTmplProcedure,
-                modTmplFunctions,
+                mod_tmpl_header,
+                mod_tmpl_units,
+                mod_tmpl_interface,
+                mod_tmpl_params,
+                mod_tmpl_state,
+                mod_tmpl_assigned,
+                mod_tmpl_breakpoints,
+                mod_tmpl_procedure,
+                mod_tmpl_functions,
                 ]
         else:
             blks = [
-                modTmplHeader,
-                modTmplUnits,
-                modTmplInterface,
-                modTmplParams,
-                modTmplAssigned,
-                modTmplBreakpoints,
-                modTmplProcedure,
-                modTmplFunctions,
+                mod_tmpl_header,
+                mod_tmpl_units,
+                mod_tmpl_interface,
+                mod_tmpl_params,
+                mod_tmpl_assigned,
+                mod_tmpl_breakpoints,
+                mod_tmpl_procedure,
+                mod_tmpl_functions,
                 ]
 
         # Debug:

@@ -94,13 +94,13 @@ class SectionVistorFactory(object):
     @classmethod
     def dict_section_distal_dist_from_soma(cls, morph=None):
 
-        def dictSectionDistalDistFromSoma(s):
+        def dict_section_distal_dist_from_soma(s):
             if s.is_a_root_section():
                 return s.get_length()
             else:
-                return dictSectionDistalDistFromSoma(s.parent) + s.get_length()
+                return dict_section_distal_dist_from_soma(s.parent) + s.get_length()
 
-        return DictBuilderSectionVisitorHomo(functor=dictSectionDistalDistFromSoma,
+        return DictBuilderSectionVisitorHomo(functor=dict_section_distal_dist_from_soma,
                 morph=morph)
 
 

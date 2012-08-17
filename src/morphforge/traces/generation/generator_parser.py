@@ -69,17 +69,17 @@ class TraceStringParser(object):
                                 outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'),
                                 debug=SettingsMgr.get_ply_yacc_debug_flag())
 
-        (unit, tracePrototypes) = parser.parse(t, lexer=l)
+        (unit, trace_prototypes) = parser.parse(t, lexer=l)
 
         # Copy accross the start values:
         v = 0
-        for prototype in tracePrototypes:
+        for prototype in trace_prototypes:
             prototype.start_value = v
             piece = prototype.toTracePiece()
             v = piece.get_end_value()
 
         # Convert to pieces
-        pieces = [tracePrototype.toTracePiece() for tracePrototype in tracePrototypes]
+        pieces = [tracePrototype.toTracePiece() for tracePrototype in trace_prototypes]
         tr = TracePiecewise(pieces=pieces)
         tr = tr * (1.0 * unit)
         return tr

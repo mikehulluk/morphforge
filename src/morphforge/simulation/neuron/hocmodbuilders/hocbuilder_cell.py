@@ -34,7 +34,7 @@ from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 
-cellTemplTmpl = """
+_cell_templ_tmpl = """
 
 v_init = $cell.initial_voltage.rescale('mV').magnitude
 
@@ -97,7 +97,7 @@ endtemplate $cell_template_name
 
 """
 
-cellObjDeclTmpl = """
+_cell_obj_decl_tmpl = """
 objref $cell_name
 $cell_name = new  $cell_template_name ()
 """
@@ -118,10 +118,10 @@ class HocBuilder_Cell(object):
         # Create the Cell Topology Template:
         hocfile_obj.add_to_section(
                         MHOCSections.InitTemplates,
-                        Template(cellTemplTmpl, data).respond())
+                        Template(_cell_templ_tmpl, data).respond())
         hocfile_obj.add_to_section(
                         MHOCSections.InitCells,
-                        Template(cellObjDeclTmpl,data).respond())
+                        Template(_cell_obj_decl_tmpl,data).respond())
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Cells][cell] = data

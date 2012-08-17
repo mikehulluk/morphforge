@@ -40,17 +40,17 @@ class ExportArray_SWC(object):
     @classmethod
     def _export_single_swc(cls, morphology, swc_vertex_offset=1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):
 
-        def vertexToData(v_index, v_index_parent, rgn):
+        def vertex_to_data(v_index, v_index_parent, rgn):
             (x, y, z, r) = morphology._vertices[v_index,:]
             return [v_index + swc_vertex_offset, rgn,  x, y, z, r, v_index_parent + swc_vertex_offset if v_index_parent is not None else -1]
 
         # Root Vertex:
-        data = [vertexToData(morphology._dummy_vertex_index, None, 0)]
+        data = [vertex_to_data(morphology._dummy_vertex_index, None, 0)]
 
         # Add Each Vertex
         for (conn_index, (v_index, v_index_parent)) in enumerate(morphology._connectivity):
             rgn = morphology._section_types[conn_index]
-            data.append(vertexToData(v_index, v_index_parent, rgn))
+            data.append(vertex_to_data(v_index, v_index_parent, rgn))
 
         # Save the file:
         if op:

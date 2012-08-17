@@ -46,11 +46,11 @@ class ReportLabConfig(object):
 
         # Setup space to store images:
         self.images = []
-        self.imageExt = "png"
-        self.imageDir = os.path.normcase(os.path.join(LocMgr.get_tmp_path(), 'reportlab_image_build'))
+        self.image_ext = "png"
+        self.image_dir = os.path.normcase(os.path.join(LocMgr.get_tmp_path(), 'reportlab_image_build'))
         self.imagesize = (5,3)
-        if not os.path.exists(self.imageDir):
-            os.makedirs(self.imageDir)
+        if not os.path.exists(self.image_dir):
+            os.makedirs(self.image_dir)
 
 
 
@@ -73,7 +73,7 @@ class ReportLabConfig(object):
     def save_mpl_to_rl_image(self, figure, fig_desc):
         import pylab
         from reportlab.platypus import Image
-        im_filename = Join(self.imageDir, "%s_%d.%s"% (fig_desc,len(self.images), self.imageExt))
+        im_filename = Join(self.image_dir, "%s_%d.%s"% (fig_desc,len(self.images), self.image_ext))
         self.images.append(im_filename)
         pylab.savefig(im_filename)
         return Image(im_filename)

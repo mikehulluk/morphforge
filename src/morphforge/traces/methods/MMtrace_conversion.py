@@ -182,8 +182,8 @@ class TraceApproximator(object):
             # Construct the ranges from the levels:
             ranges = []
             ranges.append((0, change_points[0]))
-            for cpI in range(len(change_points) - 1):
-                ranges.append((change_points[cpI], change_points[cpI + 1]))
+            for cp_i in range(len(change_points) - 1):
+                ranges.append((change_points[cp_i], change_points[cp_i + 1]))
             ranges.append((change_points[-1], len(d)-1))
        else:
             ranges = [(0, len(d)-1)]

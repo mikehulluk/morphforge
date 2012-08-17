@@ -51,8 +51,8 @@ class MorphologyLibrary(object):
 
     @classmethod
     def list_morphologys(cls):
-        for (morphKey, morph_functor) in cls.morphFuncs.iteritems():
-            print morphKey
+        for (morph_key, morph_functor) in cls.morphFuncs.iteritems():
+            print morph_key
 
     @classmethod
     def iteritems(cls):

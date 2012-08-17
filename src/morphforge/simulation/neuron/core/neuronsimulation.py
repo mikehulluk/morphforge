@@ -65,7 +65,7 @@ class MNeuronSimulation(Simulation):
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
-        self.recordableNames = set()
+        self.recordable_names = set()
 
     def run(self, do_spawn=True):
 
@@ -241,9 +241,9 @@ class MNeuronSimulation(Simulation):
         self.simulation_objects.append(gapjunction)
 
     def add_recordable(self, recordable):
-        if recordable.name in self.recordableNames:
+        if recordable.name in self.recordable_names:
             assert False, 'Duplicate recordable name added'
-        self.recordableNames.add(recordable.name)
+        self.recordable_names.add(recordable.name)
         self.simulation_objects.append(recordable)
 
 

@@ -115,14 +115,14 @@ class TagViewer(object):
             input = [input]
 
         # For each type of input; this should return a list of traces:
-        self.allTraceObjs = []
-        self.allEventSetObjs = []
+        self.all_trace_objs = []
+        self.all_event_set_objs = []
         trace_extractors = {
-            SimulationResult:       lambda i: self.allTraceObjs.extend(i.traces),
-            TraceFixedDT:          lambda i: self.allTraceObjs.append(i),
-            TraceVariableDT:       lambda i: self.allTraceObjs.append(i),
-            TracePiecewise:        lambda i: self.allTraceObjs.append(i),
-            EventSet:               lambda i: self.allEventSetObjs.append(i)
+            SimulationResult:       lambda i: self.all_trace_objs.extend(i.traces),
+            TraceFixedDT:          lambda i: self.all_trace_objs.append(i),
+            TraceVariableDT:       lambda i: self.all_trace_objs.append(i),
+            TracePiecewise:        lambda i: self.all_trace_objs.append(i),
+            EventSet:               lambda i: self.all_event_set_objs.append(i)
                             }
 
         for i in input:
@@ -138,8 +138,8 @@ class TagViewer(object):
             plotspecs = tuple(list(plotspecs) + list(additional_plotspecs))
 
         self.plot_specs = [sp for sp in plotspecs if
-                            [tr for tr in self.allTraceObjs if sp.addtrace_predicate(tr)] or  \
-                            [evset for evset in self.allEventSetObjs if sp.addeventset_predicate(evset)] \
+                            [tr for tr in self.all_trace_objs if sp.addtrace_predicate(tr)] or  \
+                            [evset for evset in self.all_event_set_objs if sp.addeventset_predicate(evset)] \
                           ]
 
 
@@ -172,7 +172,7 @@ class TagViewer(object):
             self.fig.suptitle(self.figtitle)
 
         # Work out what traces are on what graphs:
-        ps_to_traces = dict([(ps,[tr for tr in self.allTraceObjs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
+        ps_to_traces = dict([(ps,[tr for tr in self.all_trace_objs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
         if self.linkage:
             self.linkage.process(ps_to_traces)
 
@@ -183,18 +183,18 @@ class TagViewer(object):
 
             print 'Plotting For PlotSpec:', plot_spec
 
-            for (iT, time_range) in enumerate(self.timeranges):
+            for (i_t, time_range) in enumerate(self.timeranges):
 
                 time_range = _resolve_time_range(time_range)
 
                 # Create the axis:
-                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + iT  + 1)
+                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + i_t  + 1)
                 ax.set_xunit(pq.millisecond)
 
                 # Leave the plotting to the PlotSpecification
                 is_bottom_plot = i == n_plots - 1
                 plot_xaxis_details = is_bottom_plot or not self.share_x_labels
-                plot_spec.plot(ax=ax, all_traces=self.allTraceObjs, all_eventsets=self.allEventSetObjs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
+                plot_spec.plot(ax=ax, all_traces=self.all_trace_objs, all_eventsets=self.all_event_set_objs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
 
                 # Save the Axis:
                 self.subaxes.append(ax)

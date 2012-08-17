@@ -163,7 +163,7 @@ class Section(object):
     p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")
 
     region = property(lambda self: self._region, None)
-    idtag = property(lambda self: self._idTag, None)
+    idtag = property(lambda self: self._id_tag, None)
     parent = property(lambda self: self._parent, None)
     children = property(lambda self: self._children, None)
 
@@ -176,7 +176,7 @@ class Section(object):
         self._parent = parent
         self._children = []
         self._region = region
-        self._idTag = idtag
+        self._id_tag = idtag
 
         # Post Processing: tidy up loose ends:
         if region is not None:
@@ -241,8 +241,8 @@ class Section(object):
         if self.is_dummy_section():
             return 'DummySection'
 
-        def EndSummary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
-        end_string = "SectionObject: " + EndSummary(self.parent) + " -> " + EndSummary(self) + ", "
+        def end_summary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
+        end_string = "SectionObject: " + end_summary(self.parent) + " -> " + end_summary(self) + ", "
         rg_string = "Region:" + self.region.name +", " if self.region else ""
         id_string = "idtag:" + self.idtag + ", " if self.idtag else ""
         ln_string = "Length: %2.2f, " % self.get_length()

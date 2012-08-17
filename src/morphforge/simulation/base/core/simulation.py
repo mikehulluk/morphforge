@@ -66,11 +66,11 @@ class Simulation(object):
 
     # New API
     def add_currentclamp(self, cc):
-        self.ss_currentClamps.append(cc)
+        self.ss_current_clamps.append(cc)
         self.add_currentclamp_backend_specific(cc)
 
     def add_voltageclamp(self, cc):
-        self.ss_voltageClamps.append(cc)
+        self.ss_voltage_clamps.append(cc)
         self.add_voltageclamp_backend_specific(cc)
 
     def add_cell(self, cell):
@@ -126,14 +126,14 @@ class Simulation(object):
         self.result = None
 
         # For checksumming: we store links to additional classes:
-        self.configClasses = [SettingsMgr, LocMgr]
+        self.config_classes = [SettingsMgr, LocMgr]
 
         # These should only be used by this
         # class, subclasses should take care of the
         # management of cells, VC's and CC's themselves.
         self.ss_cells = []
-        self.ss_voltageClamps = []
-        self.ss_currentClamps = []
+        self.ss_voltage_clamps = []
+        self.ss_current_clamps = []
 
         self.ss_gapjunctions = []
         self.ss_synapses = []
@@ -143,10 +143,10 @@ class Simulation(object):
         return self.ss_cells[:]
 
     def get_voltageclamps(self):
-        return self.ss_voltageClamps[:]
+        return self.ss_voltage_clamps[:]
 
     def get_currentclamps(self):
-        return self.ss_currentClamps[:]
+        return self.ss_current_clamps[:]
 
     def get_gapjunctions(self):
         return self.ss_gapjunctions[:]

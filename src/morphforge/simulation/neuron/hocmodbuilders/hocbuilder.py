@@ -39,7 +39,7 @@ from morphforge.simulation.neuron.misc import MNeuronSettings
 
 
 
-ccTmpl = """
+_cc_tmpl = """
 // Current Clamp [$stimname]
 objref $stimname
 ${cellname}.internalsections[$sectionindex] $stimname = new IClamp($sectionpos)
@@ -50,7 +50,7 @@ ${stimname}.amp = $amp
 
 
 
-vcTmpl = """
+vc_tmpl = """
 // Current Clamp [$stimname]
 objref $stimname
 ${cellname}.internalsections[$sectionindex] $stimname = new $VClampType ($sectionpos)
@@ -107,7 +107,7 @@ class HocBuilder(object):
 
         # Create the HOC
         hocfile_obj.add_to_section(MHOCSections.InitVoltageClamps,
-                                   Template(vcTmpl, data).respond())
+                                   Template(vc_tmpl, data).respond())
 
     @classmethod
     def CurrentClamp(cls, hocfile_obj, currentclamp):
@@ -130,7 +130,7 @@ class HocBuilder(object):
 
         # Create the HOC
         hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,
-                                   Template(ccTmpl, data).respond())
+                                   Template(_cc_tmpl, data).respond())
 
     @classmethod
     def Cell(cls, hocfile_obj, cell):

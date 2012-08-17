@@ -38,14 +38,14 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
 
         self.transfuctor = transfunctor
 
-        self.orig2newMapping = None
-        self.rgnMappings = None
-        self.newMorph = None
+        self.orig2new_mapping = None
+        self.rgn_mappings = None
+        self.new_morph = None
 
         super(SectionVisitorDFNeuronBuilder,
               self).__init__(morph=morph, functor=self.build_extrusion,
                              dummysectionfunctor=self.build_root,
-                             returnfunctor=lambda : self.newMorph)
+                             returnfunctor=lambda : self.new_morph)
 
         if self.morph != None:
             self.__call__()
@@ -54,27 +54,27 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         from morphforge.morphology.core import Section, Region
         from morphforge.morphology.core import MorphologyTree
 
-        self.orig2newMapping = {}
-        self.rgnMappings = dict([(rgn,Region(rgn.name)) for rgn in self.morph.get_regions()])
-        self.newMorph = None
+        self.orig2new_mapping = {}
+        self.rgn_mappings = dict([(rgn,Region(rgn.name)) for rgn in self.morph.get_regions()])
+        self.new_morph = None
 
         (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
         (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
-        new_section = Section(regions=[self.rgnMappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
+        new_section = Section(regions=[self.rgn_mappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
 
-        self.newMorph = MorphologyTree('MorphCloned', dummysection=new_section, metadata={})
+        self.new_morph = MorphologyTree('MorphCloned', dummysection=new_section, metadata={})
 
-        self.orig2newMapping[section] = new_section
+        self.orig2new_mapping[section] = new_section
 
     def build_extrusion(self, section):
 
-        new_parent = self.orig2newMapping[section.parent]
+        new_parent = self.orig2new_mapping[section.parent]
 
         (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
         (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
-        new_section = new_parent.create_distal_section(regions=[self.rgnMappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
-        self.orig2newMapping[section] = new_section
+        new_section = new_parent.create_distal_section(regions=[self.rgn_mappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
+        self.orig2new_mapping[section] = new_section
 
 

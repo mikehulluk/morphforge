@@ -90,7 +90,7 @@ setpointer ${name2}.vgap,  ${cellname1}.internalsections[$sectionindex1].v($sect
 
 """
 
-gapMod = """
+gap_mod = """
 NEURON {
     POINT_PROCESS Gap
     POINTER vgap
@@ -125,7 +125,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
 
         if NeuronGapJunction.isFirstBuild:
             NeuronGapJunction.isFirstBuild = False
-            m = ModFile(modtxt=gapMod, name='GapJunction')
+            m = ModFile(modtxt=gap_mod, name='GapJunction')
             modfile_set.append(m)
 
     def build_hoc(self, hocfile_obj):

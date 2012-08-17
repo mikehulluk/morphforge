@@ -43,11 +43,11 @@ class VariableDTRebaseTimeValues(object):
         return t * pq.ms
 
     @classmethod
-    def MaintainMaximumDY(cls, tr1, tr2):
+    def maintain_maximum_dy(cls, tr1, tr2):
         assert False
 
     @classmethod
-    def MaintainMinimumFrequency(cls, tr1, tr2):
+    def maintain_minimum_frequency(cls, tr1, tr2):
         assert False
 
 

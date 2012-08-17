@@ -48,15 +48,15 @@ class NeuroCSVWriter(object):
         event_sets = event_sets or []
 
         # Column Headers:
-        colHeaders = [cls.generate_column_header(tr, i) for (i, tr) in enumerate(traces)]
+        col_headers = [cls.generate_column_header(tr, i) for (i, tr) in enumerate(traces)]
 
         # Event Data:
-        evtHeaders = [cls.generate_eventset_header(evset) for evset in event_sets]
+        evt_headers = [cls.generate_eventset_header(evset) for evset in event_sets]
 
         # Build the Header:
         header_meta = ('' if csv_metadata is None else '!%s' % json.dumps(csv_metadata))
-        header_cols = '\n'.join(colHeaders)
-        header_events = '\n'.join(evtHeaders)
+        header_cols = '\n'.join(col_headers)
+        header_events = '\n'.join(evt_headers)
         header = '\n'.join([header_meta, header_cols, header_events])
 
 
@@ -67,13 +67,15 @@ class NeuroCSVWriter(object):
         #time_indices = traces[0]._time
 
         col_width = 10
-        def missingFormat(): return "-".center(col_width)
-        def dataFormat(d):    return ("%f"%d).ljust(col_width)
+        def missing_format(): 
+            return "-".center(col_width)
+        def data_format(d):    
+            return ("%f"%d).ljust(col_width)
 
-        colData = []
+        col_data = []
         for tr in traces:
 
-            data = [missingFormat()] * len(time_indices)
+            data = [missing_format()] * len(time_indices)
 
             tr_valid_times_bool = tr.time_within_trace(time_indices)
             valid_time_indices = np.where(tr_valid_times_bool)[0]
@@ -81,7 +83,7 @@ class NeuroCSVWriter(object):
 
             for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals):
                 data[tIndex] = dataFormat(float(data_val.magnitude))
-            colData.append(data)
+            col_data.append(data)
 
         # Write the header
         fileObj.write(header)
@@ -89,9 +91,9 @@ class NeuroCSVWriter(object):
 
         # Write the data:
         for (i, t) in enumerate(time_indices):
-            tStr = dataFormat(t)
-            cStrings = [cData[i] for cData in colData]
-            l = '\t'.join([tStr] + cStrings)
+            tstr = dataFormat(t)
+            cstrings = [cData[i] for cData in col_data]
+            l = '\t'.join([tstr] + cstrings)
             fileObj.write(l + '\n')
 
         # print header

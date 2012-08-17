@@ -63,8 +63,8 @@ class Cell(NamedSimulationObject):
         self.morphology = morphology
         self._cell_type = cell_type
 
-        self.cellSegmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
-        self.cellSegmenter.connect_to_cell(self)
+        self.cell_segmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
+        self.cell_segmenter.connect_to_cell(self)
 
         self.biophysics = CellBiophysics()
 
@@ -92,12 +92,12 @@ class Cell(NamedSimulationObject):
         return self.biophysics
 
     def get_segmenter(self):
-        return self.cellSegmenter
+        return self.cell_segmenter
 
     # Make the object a bit more pythonic:
     @property
     def segmenter(self):
-        return self.cellSegmenter
+        return self.cell_segmenter
 
     @property
     def presynaptic_connections(self):

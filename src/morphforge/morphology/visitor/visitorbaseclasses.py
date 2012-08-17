@@ -138,8 +138,8 @@ class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
 class ListBuilderSectionVisitor(SectionVisitorDF):
 
     def __init__(self, functor, rootfunctor=None, morph=None):
-        self.sectFunctor = functor
-        self.sectRootFunctor = (rootfunctor if rootfunctor else functor)
+        self.sect_functor = functor
+        self.sect_root_functor = (rootfunctor if rootfunctor else functor)
         self.list = []
 
         super(ListBuilderSectionVisitor, self).__init__(morph=morph,
@@ -148,11 +148,11 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
                 returnfunctor=lambda : self.list)
 
     def visit_section(self, section):
-        self.list.append(self.sectFunctor(section))
+        self.list.append(self.sect_functor(section))
 
     def visit_root_section(self, section):
-        if self.sectRootFunctor:
-            self.list.append(self.sectRootFunctor(section))
+        if self.sect_root_functor:
+            self.list.append(self.sect_root_functor(section))
 
 
 class SectionIndexerDF(DictBuilderSectionVisitorHomo):

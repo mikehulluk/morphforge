@@ -94,24 +94,24 @@ class DictionaryLoader(object):
         #First flatten the recursion, by copy
         #the dictionary and adding a parent tag:
         yaml_section_dict = {} # id to paramDict
-        def recursivelyAddSectionToList(sectionNode, sectionNodeParentID, sectionDictInt):
+        def recursively_add_section_to_list(sectionNode, sectionNodeParentID, sectionDictInt):
             for k in sectionNode.keys():
                 if not k in valid_keywords:
                     raise ValueError('Invalid Keyword: ' + k)
-            for rK in required_keywords:
-                if not rK in sectionNode.keys():
-                    raise ValueError('Required Key: %s not found.' % rK)
+            for req_kw in required_keywords:
+                if not req_kw in sectionNode.keys():
+                    raise ValueError('Required Key: %s not found.' % req_kw)
 
             children = sectionNode.get('sections', [])
             if sectionNode.has_key('sections'):
                 del sectionNode['sections']
             section_id = len(sectionDictInt)
             sectionDictInt[section_id] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
-            for c in children:  recursivelyAddSectionToList(c, section_id, sectionDictInt)
+            for c in children:  recursively_add_section_to_list(c, section_id, sectionDictInt)
 
         #root_node = morph_dict["root"]
 
-        recursivelyAddSectionToList(root_node, None, yaml_section_dict)
+        recursively_add_section_to_list(root_node, None, yaml_section_dict)
 
 
         #We now have a dictionary similar to:
@@ -156,12 +156,12 @@ class DictionaryLoader(object):
             )
 
         # Add the remaining nodes:
-        for (yamlID, yamlSect) in yaml_section_dict.iteritems():
+        for (yaml_id, yamlSect) in yaml_section_dict.iteritems():
 
             if yamlSect['parent'] == None:
                 continue
 
-            # print yamlID, yamlSect
+            # print yaml_id, yamlSect
 
             parent_section = section_dict[yamlSect['parent']]
 
@@ -182,7 +182,7 @@ class DictionaryLoader(object):
 
 
             # End Point:
-            def getYamlLength(yamlSect):
+            def get_yaml_length(yamlSect):
                 if not yamlSect.has_key("length"): raise ValueError("No Length given")
                 length = yamlSect["length"]
                 if not length > 0: raise ValueError("Invalid Length")
@@ -198,17 +198,17 @@ class DictionaryLoader(object):
                 xyz = yamlSect['xyz']
 
             elif yamlSect.has_key("absangle"):
-                length = getYamlLength(yamlSect)
+                length = get_yaml_length(yamlSect)
                 angle = yamlSect['absangle']
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             elif yamlSect.has_key('relangle'):
-                length = getYamlLength(yamlSect)
+                length = get_yaml_length(yamlSect)
                 angle = section_angles_dict[parent_section] + yamlSect["relangle"]
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             else: # Default to 'abs'-angle to 0
-                length = getYamlLength(yamlSect)
+                length = get_yaml_length(yamlSect)
                 angle = 0
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
@@ -236,7 +236,7 @@ class DictionaryLoader(object):
 
 
             #Save the section:
-            section_dict[yamlID] = new_section
+            section_dict[yaml_id] = new_section
 
         # # TODO: THIS IS A HACK! Ensure the dummy node has no attached regions:
         # section_dict[None].regions = []

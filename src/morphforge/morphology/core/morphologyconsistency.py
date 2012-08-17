@@ -82,26 +82,26 @@ class MorphConsistencyChecker(object):
         self.morph = morph
         self.morphmd5cache = None
 
-        # If this is enabled, then enableStack will be 0.
+        # If this is enabled, then enable_stack will be 0.
         # We do this to prevent checking of the morph during
         # its construction
-        self.enableStack = 0
+        self.enable_stack = 0
 
     def disable(self):
-        self.enableStack += 1
+        self.enable_stack += 1
         return True
 
     def enable(self):
-        self.enableStack -= 1
-        assert self.enableStack >= 0
+        self.enable_stack -= 1
+        assert self.enable_stack >= 0
         return True
 
     def run_checks(self):
-        if self.enableStack > 0:
+        if self.enable_stack > 0:
             # print "Already Checking"
             return
 
-        if self.enableStack != 0:
+        if self.enable_stack != 0:
             return
 
         # Disable further checking:

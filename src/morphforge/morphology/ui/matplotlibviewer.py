@@ -66,16 +66,16 @@ class MatPlotLibViewer(object):
         self.fig = None
         self.subplots = {}
 
-        self.buildPlot(use_pca)
+        self.build_plot(use_pca)
 
-    def buildDrawSubPlot(self, rotatedSectionDict, fig, i, plotLims):
+    def build_draw_sub_plot(self, rotatedSectionDict, fig, i, plotLims):
         import pylab
         from matplotlib.path import Path
         from matplotlib import patches
 
         subplotnum = self.figurePositions[i]
         title = self.figureTitles[i]
-        projMatrix = self.figureProjections[i]
+        proj_matrix = self.figureProjections[i]
         labels = self.figureLabels[i]
 
         ax = fig.add_subplot(subplotnum, aspect='equal')
@@ -84,48 +84,48 @@ class MatPlotLibViewer(object):
 
         (zMin, zMax) = (None, None)
         for seg in self.morph:
-            xyzProj = numpy.dot(projMatrix, rotatedSectionDict[seg])
+            xyzProj = numpy.dot(proj_matrix, rotatedSectionDict[seg])
             zMin = (xyzProj[2] if not zMin else min(zMin, xyzProj[2]))
             zMax = (xyzProj[2] if not zMax else max(zMax, xyzProj[2]))
-        zRange = zMax - zMin
+        zrange = zMax - zMin
 
         for seg in self.morph:
-            xyzProj = numpy.dot(projMatrix, rotatedSectionDict[seg])
-            xyProj = numpy.array([xyzProj[0], xyzProj[1]])
+            xyzProj = numpy.dot(proj_matrix, rotatedSectionDict[seg])
+            xy_proj = numpy.array([xyzProj[0], xyzProj[1]])
 
-            xyzProjParent = numpy.dot(projMatrix, rotatedSectionDict[seg.parent])
-            xyProjParent = numpy.array([xyzProjParent[0], xyzProjParent[1]])
+            xyz_proj_parent = numpy.dot(proj_matrix, rotatedSectionDict[seg.parent])
+            xy_proj_parent = numpy.array([xyz_proj_parent[0], xyz_proj_parent[1]])
 
-            color = str((xyzProj[2] - zMin) / zRange) if zRange > 0.001 else 'grey'
+            color = str((xyzProj[2] - zMin) / zrange) if zrange > 0.001 else 'grey'
 
             linewidth = (seg.d_r + seg.p_r) / 2.0 * 2.0
 
             # Test if we have just tried to draw a point, if so then draw a circle:
-            if numpy.linalg.norm(xyProj - xyProjParent) < 0.0001:
+            if numpy.linalg.norm(xy_proj - xy_proj_parent) < 0.0001:
                 try:
-                    ax.add_patch(pylab.Circle(xyProj, radius=linewidth, color=color))
-                    ax.plot(xyProj[0], xyProj[1], '+', markersize=linewidth, color='red')
+                    ax.add_patch(pylab.Circle(xy_proj, radius=linewidth, color=color))
+                    ax.plot(xy_proj[0], xy_proj[1], '+', markersize=linewidth, color='red')
                 except:
                     pass
             else:
 
                 # Simple version, which doesn't work so well:
-                # ax.plot([xyProj[0], xyProjParent[0]], [xyProj[1], xyProjParent[1]], linewidth=linewidth, color=color)
+                # ax.plot([xy_proj[0], xy_proj_parent[0]], [xy_proj[1], xy_proj_parent[1]], linewidth=linewidth, color=color)
 
                 # More complex patch version:
-                joiningVec = xyProj - xyProjParent
-                joiningVecNorm = joiningVec / numpy.linalg.norm(joiningVec)
+                joining_vec = xy_proj - xy_proj_parent
+                joining_vec_norm = joining_vec / numpy.linalg.norm(joining_vec)
 
-                perpVec = np.array((joiningVecNorm[1],joiningVecNorm[0] * -1))
+                perp_vec = np.array((joining_vec_norm[1],joining_vec_norm[0] * -1))
 
-                assert np.fabs(np.dot(joiningVecNorm, perpVec)) < 0.01
+                assert np.fabs(np.dot(joining_vec_norm, perp_vec)) < 0.01
 
                 # The points:
-                p1 = xyProj + (perpVec * seg.d_r)
-                p2 = xyProj - (perpVec * seg.d_r)
+                p1 = xy_proj + (perp_vec * seg.d_r)
+                p2 = xy_proj - (perp_vec * seg.d_r)
 
-                p3 = xyProjParent - (perpVec * seg.p_r)
-                p4 = xyProjParent + (perpVec * seg.p_r)
+                p3 = xy_proj_parent - (perp_vec * seg.p_r)
+                p4 = xy_proj_parent + (perp_vec * seg.p_r)
 
                 verts = [p1, p2, p3, p4, (0,0)]
                 codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY,]
@@ -141,7 +141,7 @@ class MatPlotLibViewer(object):
         ax.grid(True)
         return ax
 
-    def buildPlot(self, usePCA):
+    def build_plot(self, usePCA):
         import pylab
 
         self.normaliser = MorphologyForRenderingOperator(self.morph,
@@ -159,8 +159,8 @@ class MatPlotLibViewer(object):
 
 
 
-        maxAxis = max([numpy.linalg.norm(rs) for rs in rotatedSectionDict.values()])
-        plotLims = (maxAxis * -1.1, maxAxis * 1.1)
+        max_axis = max([numpy.linalg.norm(rs) for rs in rotatedSectionDict.values()])
+        plotLims = (max_axis * -1.1, max_axis * 1.1)
 
         maxX = max([numpy.fabs(rs[0]) for rs in rotatedSectionDict.values()])
         maxY = max([numpy.fabs(rs[1]) for rs in rotatedSectionDict.values()])
@@ -184,6 +184,6 @@ class MatPlotLibViewer(object):
 
         self.subplots = {}
         for i in self.plotViews:
-            self.subplots[i] = self.buildDrawSubPlot(rotatedSectionDict, self.fig, i, plotLims)
+            self.subplots[i] = self.build_draw_sub_plot(rotatedSectionDict, self.fig, i, plotLims)
 
 

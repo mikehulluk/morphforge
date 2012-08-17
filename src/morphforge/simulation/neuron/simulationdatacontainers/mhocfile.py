@@ -99,12 +99,12 @@ class MHocFile(object):
 
     def __str__(self):
 
-        def strSect(sect):
+        def str_sect(sect):
             h = '// Section: %s ' % sect
             hu = '/' * len(h)
             d = '\n'.join(self.sections[sect])
             return '\n'.join([h, hu, d, '\n', '\n'])
 
-        return '\n'.join(strSect(s) for s in MHOCSections.ordered)
+        return '\n'.join(str_sect(s) for s in MHOCSections.ordered)
 
 

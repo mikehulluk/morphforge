@@ -58,7 +58,7 @@ class MayaViRenderer(object):
         elif morphs:
             self.morphs = morphs
 
-    def showAsPoints(self):
+    def show_as_points(self):
         """
         Very simple plotting for speed with complex neurons - plot each
         section as a sphere about its endpoint. Only works for neurons
@@ -71,8 +71,8 @@ class MayaViRenderer(object):
 
         @mlab.show
         def _showSimple():
-            morphPts = [SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs]
-            pts = numpy.concatenate(morphPts)
+            morph_pts = [SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs]
+            pts = numpy.concatenate(morph_pts)
             return mlab.points3d(
                 pts[:, 0],
                 pts[:, 1],
@@ -83,7 +83,7 @@ class MayaViRenderer(object):
                 )
         _showSimple()
 
-    def showAsPointsInterpolated(self, lToRRatio=2.0):
+    def show_as_points_interpolated(self, lToRRatio=2.0):
         """
         Draws the points as spheres, but also interpolates inbetween the points, so the structure looks
         more 'whole'
@@ -95,22 +95,22 @@ class MayaViRenderer(object):
 
         @mlab.show
         def _showSimple():
-            maxInterpolPts = 10
+            max_interpol_pts = 10
 
-            def interpolateSection(section):
-                sStart = section.get_distal_npa4()
-                sEnd = section.get_proximal_npa4()
+            def interpolate_section(section):
+                sec_start = section.get_distal_npa4()
+                sec_end = section.get_proximal_npa4()
                 length = section.get_length()
                 rad = min(section.d_r, section.p_r)
-                n = min(max(int(lToRRatio * length / rad), 1), maxInterpolPts)
-                jVecSteps = (sEnd - sStart) / n
+                n = min(max(int(lToRRatio * length / rad), 1), max_interpol_pts)
+                j_vec_steps = (sec_end - sec_start) / n
 
-                intPts = [sStart + k * jVecSteps for k in range(0, n)]
-                return intPts
+                int_pts = [sec_start + k * j_vec_steps for k in range(0, n)]
+                return int_pts
 
             lbs = []
             for morph in self.morphs:
-                lb = SeqUtils.flatten(ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph) ())
+                lb = SeqUtils.flatten(ListBuilderSectionVisitor(functor=interpolate_section,  morph=morph) ())
                 lbs.extend(lb)
 
             pts = numpy.array(lbs)
@@ -146,7 +146,7 @@ class MayaViRenderer(object):
             mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
         _showSimpleCylinders()
 
-    def makeVideo(self):
+    def make_video(self):
         """
         Slightly more complex plotting - plot each
         section as a cylinders.
@@ -181,7 +181,7 @@ class MayaViRenderer(object):
 
         _showSimpleCylinders()
 
-    def dummyTest(self):
+    def dummy_test(self):
         """
         Does not plot neuron - code copied from enthought
         website and only used to make sure that MayaVi is
@@ -193,7 +193,7 @@ class MayaViRenderer(object):
         from mayavi import mlab
 
         @mlab.show
-        def _showTest():
+        def _show_test():
             """ Example from Enthought website: """
 
             t = numpy.linspace(0, 4 * numpy.pi, 20)
@@ -205,5 +205,5 @@ class MayaViRenderer(object):
             z = cos(2 * t)
             s = 2 + sin(t)
             return mlab.points3d(x, y, z, s, colormap="copper", scale_factor=.25)
-        _showTest()
+        _show_test()
 

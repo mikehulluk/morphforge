@@ -60,7 +60,7 @@ class MorphArrayComparison(object):
 
         # Create a map between indices in each morphology,
         # based on positions:
-        (index_map, max_dist) = cls.getIDMappingFromPositions(m1, m2)
+        (index_map, max_dist) = cls.get_id_mapping_from_positions(m1, m2)
         if index_map is None:
             return False
         if max_dist > max_node_distance:
@@ -92,22 +92,22 @@ class MorphArrayComparison(object):
         return True
 
     @classmethod
-    def getIDMappingFromPositions(cls, m1, m2):
+    def get_id_mapping_from_positions(cls, m1, m2):
 
         import scipy.spatial
-        kdTree = scipy.spatial.KDTree(m2._vertices[:, 0:3])
+        kd_tree = scipy.spatial.KDTree(m2._vertices[:, 0:3])
 
-        idMap = {}
+        id_map = {}
         max_dist = 0
         for (vi, v) in enumerate(m1._vertices[:, 0:3]):
-            (dist, nearest_neighbour) = kdTree.query(v)
+            (dist, nearest_neighbour) = kd_tree.query(v)
 
-            if vi in idMap:
+            if vi in id_map:
                 return None
 
-            idMap[vi] = nearest_neighbour
+            id_map[vi] = nearest_neighbour
             max_dist = max(max_dist, dist)
 
-        return (idMap, max_dist)
+        return (id_map, max_dist)
 
 

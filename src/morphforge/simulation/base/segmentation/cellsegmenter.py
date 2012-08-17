@@ -64,7 +64,7 @@ class CellSegmenterStd(AbstCellSegmenter):
 
     def __init__(self, cell=None):
         AbstCellSegmenter.__init__(self, cell)
-        self._cellSegments = None
+        self._cell_segments = None
 
         if self.cell:
             self.connect_to_cell(cell)
@@ -78,22 +78,22 @@ class CellSegmenterStd(AbstCellSegmenter):
 
     def get_segments(self, section):
         assert False, 'What is using the cell segment objects??'
-        return self.cellSegments[section]
+        return self.cell_segments[section]
 
     def _get_n_segments(self, section):
         raise NotImplementedError()
 
     @property
-    def cellSegments(self):
+    def cell_segments(self):
         assert False, 'To remove, as off Jun-2012'
-        if self._cellSegments is None:
-            self._cellSegments = {}
+        if self._cell_segments is None:
+            self._cell_segments = {}
 
             # Segment the cell:
             for section in self.cell.morphology:
-                nSegs = self._get_n_segments(section)
-                self._cellSegments[section] = [CellSegment(cell=self.cell, section=section, nsegments=nSegs, segmentno=i, segmenter=self) for i in range(0, nSegs)]
-        return self._cellSegments
+                n_segs = self._get_n_segments(section)
+                self._cell_segments[section] = [CellSegment(cell=self.cell, section=section, nsegments=n_segs, segmentno=i, segmenter=self) for i in range(0, n_segs)]
+        return self._cell_segments
 
 
 class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):

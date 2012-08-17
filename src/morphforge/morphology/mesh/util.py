@@ -42,11 +42,11 @@ def get_normal_vectors(vec):
 
     # Decided which vector to use as a basis to find the normals
     # We want something that is not too parallel...
-    nC1 = np.array([1.0, 0.0, 0.0])
-    nC2 = np.array([0.0, 1.0, 0.0])
-    nC = (nC1 if np.dot(vec_norm, nC1) < 0.4 else nC2)
+    normc1 = np.array([1.0, 0.0, 0.0])
+    normc2 = np.array([0.0, 1.0, 0.0])
+    normc = (normc1 if np.dot(vec_norm, normc1) < 0.4 else normc2)
 
-    perp1 = norm_vec(nC - np.dot(nC, vec))
+    perp1 = norm_vec(normc - np.dot(normc, vec))
     perp2 = norm_vec(np.cross(vec, perp1))
 
     return (perp1, perp2)

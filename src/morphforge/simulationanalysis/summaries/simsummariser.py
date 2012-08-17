@@ -300,16 +300,16 @@ class SimulationSummariser(object):
         local_elements = []
         local_elements.append(Paragraph("Key-Traces", self.reportlabconfig.styles['Heading1']))
 
-        for traceSetName, keyTraces in self.key_tracesets:
-            local_elements.append(Paragraph("TraceSet: %s"%traceSetName, self.reportlabconfig.styles['Heading2']))
+        for trace_set_name, key_traces in self.key_tracesets:
+            local_elements.append(Paragraph("TraceSet: %s"%trace_set_name, self.reportlabconfig.styles['Heading2']))
 
 
 
             f = QuantitiesFigure(figsize=self.reportlabconfig.imagesize)
             (width, height) = self.reportlabconfig.imagesize
             ax = f.add_subplot(111, ylabel='?', xlabel='time')
-            for trName in keyTraces:
-                tr = self.simulation.result.get_trace(trName)
+            for tr_name in key_traces:
+                tr = self.simulation.result.get_trace(tr_name)
                 ax.plotTrace(tr)
             ax.legend()
             #localElements.append(self.reportlabconfig.save_mpl_to_rl_image(f, "KeyTrace"))

@@ -177,23 +177,23 @@ class NeuroCSVParser(object):
         nCols = data_array.shape[1]
 
         # Get the time column:
-        timeDataRaw = data_array[:, 0]
+        time_data_raw = data_array[:, 0]
         timeUnit = unit(str(header_info.column_data[0]['unit']))
-        timeData = timeDataRaw * timeUnit
+        time_data = time_data_raw * timeUnit
 
         # Do we build as fixed or variable array:
-        tBuilder = (TraceFixedDT if TraceFixedDT.is_array_fixed_dt(timeData) else TraceVariableDT)
+        trace_builder = (TraceFixedDT if TraceFixedDT.is_array_fixed_dt(time_data) else TraceVariableDT)
 
         trcs = []
         for i in range(1, nCols):
             d_i = data_array[:, i]
             column_metadict = header_info.column_data[i]
             dataUnit = unit(str(column_metadict.get('unit', '')))
-            dataLabel = str(column_metadict.get('label', 'Column%d' % i))
-            dataTags = str(column_metadict.get('tags', '')).split(',')
+            data_label = str(column_metadict.get('label', 'Column%d' % i))
+            data_tags = str(column_metadict.get('tags', '')).split(',')
             d = d_i * dataUnit
 
-            tr = tBuilder(timeData, d, name=dataLabel, tags=dataTags)
+            tr = trace_builder(time_data, d, name=data_label, tags=data_tags)
             trcs.append(tr)
         return trcs
 
