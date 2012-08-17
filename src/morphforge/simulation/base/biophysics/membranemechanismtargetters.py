@@ -133,7 +133,7 @@ class MembraneMechanismTargeter_Section(Targeter):
 
     def get_description(self):
         if self.section.idtag:
-            section_desc = if self.section.idtag
+            section_desc = self.section.idtag
         else:
             section_desc = '[No idtag]'
         return 'MM-Section: %s' % section_desc

@@ -177,7 +177,7 @@ class TraceApproximator(object):
                 i = np.argmax(edges[s])
                 i_max = s[i] #- min_level_size
 
-               change_points.append(i_max)
+                change_points.append(i_max)
 
             # Construct the ranges from the levels:
             ranges = []

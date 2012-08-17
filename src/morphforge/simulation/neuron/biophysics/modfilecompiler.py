@@ -45,7 +45,7 @@ class ModBuilderParams(object):
     nocmodlpath = RCReader.get('Neuron', 'nocmodlpath')
     libtoolpath = RCReader.get('Neuron', 'libtoolpath')
 
-    compileIncludes = ['.', '..'] + 
+    compileIncludes = ['.', '..'] + \
                       RCReader.get('Neuron','compileincludes').split(':')
 
     compileDefs = ['HAVE_CONFIG_H']
@@ -70,7 +70,7 @@ class ModBuilderParams(object):
 
     # TODO: Find src of this:
     rpath = RCReader.get('Neuron', 'rpath')
-    rndAloneLinkStatement = RCReader.get('Neuron', rndAloneLinkStatement')
+    rndAloneLinkStatement = RCReader.get('Neuron', 'rndAloneLinkStatement')
 
     modlunitpath = RCReader.get('Neuron', 'modlunitpath')
 
