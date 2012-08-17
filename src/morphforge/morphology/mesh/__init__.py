@@ -29,13 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from mesh import TriangleMesh
 from util import find_closest_points, get_normal_vectors
-from util import get_point_circle_about, norm_vec, get_best_joining_offset
+from util import get_point_circle_about, norm_vec
+from util import get_best_joining_offset
 from writer_ply import MeshWriterPLY
 from builder_rings import MeshBuilderRings
-
 
 __all__ = [
     'TriangleMesh',
@@ -46,4 +45,4 @@ __all__ = [
     'get_best_joining_offset',
     'MeshWriterPLY',
     'MeshBuilderRings',
-   ]
+    ]

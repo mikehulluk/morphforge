@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from visitorbaseclasses import SectionVisitorDF
 from visitorbaseclasses import SectionVisitorDFOverrider
 from visitorbaseclasses import ListBuilderSectionVisitor
@@ -43,7 +42,6 @@ from visitorbaseclasses import SectionIndexerWithOffsetDF
 from visitorfactory import SectionVistorFactory
 from morphologyoperators import SectionVisitorDFNeuronBuilder
 
-
 __all__ = [
     'SectionVisitorDF',
     'SectionVisitorDFOverrider',
@@ -56,5 +54,4 @@ __all__ = [
     'SectionIndexerDF',
     'SectionIndexerWithOffsetDF',
     ]
-
 

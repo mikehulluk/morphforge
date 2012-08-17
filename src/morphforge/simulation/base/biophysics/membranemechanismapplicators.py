@@ -31,12 +31,16 @@
 
 
 class MembraneMechanismApplicator(object):
+
     def get_variable_value_for_section(self, variablename, section):
         raise NotImplementedError()
+
     def get_description(self):
         raise NotImplementedError()
 
+
 class MembraneMechanismApplicator_Uniform(object):
+
     def __init__(self, variable_dict=None):
         self.variable_dict = variable_dict
 
@@ -49,3 +53,4 @@ class MembraneMechanismApplicator_Uniform(object):
                 self.variable_dict.iteritems()]
         v = ', '.join(vars)
         return 'Uniform [%s]' % v
+

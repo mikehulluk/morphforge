@@ -29,9 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
 class Synapse(object):
 
     class Recordables(object):
+
         SynapticCurrent = 'SynapticCurrent'
         SynapticConductance = 'SynapticConductance'
 
@@ -53,14 +55,11 @@ class Synapse(object):
     def get_postsynaptic_mechanism(self):
         return self.postSynapticMech
 
-
     def get_presynaptic_cell(self):
         return self.preSynapticTrigger.get_presynaptic_cell()
+
     def get_postsynaptic_cell(self):
         return self.postSynapticMech.get_postsynaptic_cell()
-
-
-
 
 
 class GapJunction(object):
@@ -71,12 +70,9 @@ class GapJunction(object):
         self.celllocation2 = celllocation2
         self.resistance = resistance
 
-
-
     @property
     def connected_cells(self):
         return [self.celllocation1.cell, self.celllocation2.cell]
-
 
 
 class PreSynapticTypes(object):
@@ -85,24 +81,20 @@ class PreSynapticTypes(object):
     FixedTiming = 'Timing'
 
 
-
-
 class PreSynapticMechanism(object):
+
     def __init__(self):
         self.synapse = None
 
     def get_presynaptic_cell(self):
         raise NotImplementedError()
 
-
-
     def get_type(self):
         raise NotImplementedError()
 
 
-
-
 class PostSynapticMech(object):
+
     def __init__(self, cell_location):
         self.cell_location = cell_location
         self.synapse = None

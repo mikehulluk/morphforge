@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import ObjectLabeller
+
 
 class NamedSimulationObject(object):
 
@@ -45,9 +45,7 @@ class NamedSimulationObject(object):
 
     _obj_names = {}
 
-
     def __init__(self, simulation, name=None):
-
 
         assert simulation is not None
 
@@ -73,4 +71,5 @@ class NamedSimulationObject(object):
     @property
     def simulation(self):
         return self._simulation
+
 

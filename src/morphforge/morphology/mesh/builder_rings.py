@@ -29,35 +29,29 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
 from morphforge.morphology.mesh import TriangleMesh
-from morphforge.morphology.mesh import find_closest_points, get_point_circle_about
+from morphforge.morphology.mesh import find_closest_points 
+from morphforge.morphology.mesh import get_point_circle_about
 
 
 
 def _build_triangle_mesh_between_rings(pts1, pts2, pts1_offset, pts2_offset):
 
     assert len(pts1) == len(pts2)
-    n =  len(pts1)
+    n = len(pts1)
     tris = []
 
-    i_p,i_d = find_closest_points(pts1, pts2)
+    (i_p, i_d) = find_closest_points(pts1, pts2)
 
-
-
-    for i in range(0,n):
+    for i in range(0, n):
         v_p1 = pts1_offset + (i_p + i) % n
         v_p2 = pts1_offset + (i_p + i + 1) % n
-        v_d1 = pts2_offset +   (i_d + i) % n
-        v_d2 = pts2_offset +   (i_d + i + 1) % n
+        v_d1 = pts2_offset + (i_d + i) % n
+        v_d2 = pts2_offset + (i_d + i + 1) % n
         tris.append([v_p1, v_d2, v_p2])
         tris.append([v_d1, v_d2, v_p1])
     return tris
-
-
-
-
 
 
 class MeshBuilderRings(object):
@@ -71,14 +65,11 @@ class MeshBuilderRings(object):
         vertex_colors = np.empty((0, 3))
         triangles = []
 
-        default_color = np.array(((128, 128, 128),))
-
+        default_color = np.array(((128, 128, 128), ))
 
         if region_color_map:
             for r in morph.get_regions():
                 assert r in region_color_map
-
-
 
         for s in morph:
 
@@ -90,10 +81,8 @@ class MeshBuilderRings(object):
                 color = region_color_map[s.region] if region_color_map else default_color
                 vertex_colors = np.vstack((vertex_colors,np.repeat(color, n, axis=0) ))
                 proximal_offset = 0
-
             else:
                 proximal_offset = section_distal_offsets[s.parent]
-
 
             # What direction do we want to point in?
             if len(s.children) == 0:
@@ -115,15 +104,15 @@ class MeshBuilderRings(object):
 
             # Create the triangles to make a mesh
             tris = _build_triangle_mesh_between_rings(
-                  vertices[proximal_offset:proximal_offset+n, :],
-                  vertices[distal_offset:distal_offset+n, :],
-                  pts1_offset = proximal_offset,
-                  pts2_offset = distal_offset,
+                  vertices[proximal_offset:proximal_offset + n, :],
+                  vertices[distal_offset:distal_offset + n, :],
+                  pts1_offset=proximal_offset,
+                  pts2_offset=distal_offset,
                  )
             triangles.extend(tris)
 
 
-        return TriangleMesh(vertices=vertices, triangles=triangles, vertex_colors = vertex_colors)
+        return TriangleMesh(vertices=vertices, triangles=triangles, vertex_colors=vertex_colors)
 
 
 

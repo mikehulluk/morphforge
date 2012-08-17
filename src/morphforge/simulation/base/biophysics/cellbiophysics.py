@@ -29,11 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import collections
+
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_EverywhereDefault
-
 
 # A type for holding a mechanism/passive, where it is applied, and how much where.
 
@@ -87,7 +86,6 @@ class CellBiophysics(object):
         ms = [mta.mechanism for mta in self.appliedmechanisms]
         return set(ms)
 
-
     def get_mechanism_ids(self):
         return set([mta.mechanism.get_mechanism_id() for mta in
                    self.appliedmechanisms])
@@ -106,7 +104,6 @@ class CellBiophysics(object):
         pta = PassiveTargetApplicator(passiveproperty=passiveproperty, targetter=targetter, value=value)
         self.appliedpassives.append(pta)
 
-
     def get_passives_for_section(self, section):
 
         sectionptas = [pta for pta in self.appliedpassives
@@ -121,15 +118,9 @@ class CellBiophysics(object):
     def get_passive_property_for_section(self, section, passive ):
         return self.get_passives_for_section(section)[passive].value
 
-
-
     # Used for summariser:
     def get_applied_mechanisms(self):
         assert False, 'should be using get_applied_mtas()'
         return self.appliedmechanisms
-
-
-
-
 
 

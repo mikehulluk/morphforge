@@ -29,12 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
-
-
-
 import numpy as np
 from morphforge.morphology.core import MorphologyArray
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
@@ -81,6 +75,7 @@ class NewSWCLoader(object):
     @classmethod
     def load_swc_set(cls, src):
         """Naive implementation, that doesn't take account of interleaving of nodes"""
+
         lines = [l.strip() for l in src.readlines()]
         lines = [l for l in lines if l and l[0] != '#']
 
@@ -97,21 +92,15 @@ class NewSWCLoader(object):
         data_blocks = ['\n'.join(blk) for blk in splits]
         file_objs = [StringIO(blk) for blk in data_blocks]
 
-
         morphs = [cls.load_swc_single(src=fO) for fO in file_objs]
         return morphs
 
 
 # To Array:
-MorphologyImporter.register("fromSWC", NewSWCLoader.load_swc_single, as_type=MorphologyArray)
+MorphologyImporter.register('fromSWC', NewSWCLoader.load_swc_single, as_type=MorphologyArray)
 
 # To Tree:
 def _load_swc_single_tree(*args, **kwargs):
     return NewSWCLoader.load_swc_single(*args, **kwargs).to_tree()
-MorphologyImporter.register("fromSWC", _load_swc_single_tree,  as_type=MorphologyTree)
-
-
-
-
-
+MorphologyImporter.register('fromSWC', _load_swc_single_tree,  as_type=MorphologyTree)
 

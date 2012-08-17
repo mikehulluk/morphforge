@@ -29,13 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from morphforge.morphology.core import MorphologyTree
 from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
-
-
 
 from Cheetah.Template import Template
 from morphforge.core import FileIO
@@ -60,23 +55,19 @@ $ids[seg] $region_type_map[$seg] $seg.d_x $seg.d_y $seg.d_z $seg.d_r $ids[$seg.p
 """
 
 
-
-
-
 class SWCTreeWriter(object):
 
     @classmethod
     def to_str(cls, morph=None, morphs=None, regionname_to_int_map=None):
 
-        assert (morph or morphs) and not(morph and morphs)
+        assert (morph or morphs) and not (morph and morphs)
 
         if morph:
-            return cls._to_str_multi(
-                    morphs=[morph],
+            return cls._to_str_multi(morphs=[morph],
                     regionname_to_int_map=regionname_to_int_map)
         else:
-            return cls._to_str_multi(morphs=morphs, regionname_to_int_map=regionname_to_int_map)
-
+            return cls._to_str_multi(morphs=morphs,
+                    regionname_to_int_map=regionname_to_int_map)
 
     @classmethod
     def to_file(cls, filename, morph=None, morphs=None, regionname_to_int_map=None):
@@ -110,7 +101,6 @@ class SWCTreeWriter(object):
 
             id_map = SectionIndexerWithOffsetDF(morph=morph, offset=offset)()
             id_map[morph.get_dummy_section()] = dummy_offset
-
 
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()

@@ -32,10 +32,8 @@
 import re
 from os.path import join as Join
 
-
 from morphforge.core import LocMgr, LogMgr
 from morphforge.core.misc import StrUtils
-
 
 
 class ModFile(object):
@@ -62,18 +60,13 @@ class ModFile(object):
         self.additional_link_flags = additional_link_flags
         self.additional_ld_library_path = additional_ld_library_path
 
-
     def ensure_built(self):
         LogMgr.info('Ensuring Modfile is built')
         from modfilecompiler import ModFileCompiler
         ModFileCompiler()._build_modfile(self)
 
-
-
     def get_md5_hash(self):
         return StrUtils.get_hash_md5(self.modtxt)
-
-
 
     def get_built_filename_short(self, ensure_built=True):
         if ensure_built:
@@ -85,6 +78,5 @@ class ModFile(object):
             self.ensure_built()
         return Join(LocMgr.get_default_mod_outdir(),
                     self.get_built_filename_short(ensure_built=ensure_built))
-
 
 

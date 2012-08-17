@@ -29,11 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core import LocMgr, SettingsMgr
 from morphforge.core.misc import SeqUtils
-
 
 
 class Simulation(object):
@@ -67,8 +64,6 @@ class Simulation(object):
         self.add_gapjunction(gj)
         return gj
 
-
-
     # New API
     def add_currentclamp(self, cc):
         self.ss_currentClamps.append(cc)
@@ -90,25 +85,26 @@ class Simulation(object):
         self.ss_gapjunctions.append(gj)
         self.add_gapjunction_backend_specific(gj)
 
-
-
     def add_cell_backend_specific(self, cell):
         raise NotImplementedError()
+
     def add_currentclamp_backend_specific(self, vc):
         raise NotImplementedError()
+
     def add_voltageclamp_backend_specific(self, vc):
         raise NotImplementedError()
+
     def add_synapse_backend_specific(self, syn):
         raise NotImplementedError()
+
     def add_gapjunction_backend_specific(self, syn):
         raise NotImplementedError()
-
-
 
     @property
     def neuron_populations(self):
         return set([cell.population for cell in self.ss_cells
                    if cell.population])
+
     @property
     def synapse_populations(self):
         return set([syn.population for syn in self.ss_synapses
@@ -122,10 +118,6 @@ class Simulation(object):
     def gapjunctions(self):
         return self.ss_gapjunctions
 
-
-
-
-
     def __init__(self, name, environment, **kwargs):
         name = (name if name else 'Unnamed Simulation')
         self.name = name
@@ -138,7 +130,6 @@ class Simulation(object):
         # For checksumming: we store links to additional classes:
         self.configClasses = [SettingsMgr, LocMgr]
 
-
         # These should only be used by this
         # class, subclasses should take care of the
         # management of cells, VC's and CC's themselves.
@@ -149,29 +140,24 @@ class Simulation(object):
         self.ss_gapjunctions = []
         self.ss_synapses = []
 
-
-
     # For use by summarisers:
     def get_cells(self):
         return self.ss_cells[:]
+
     def get_voltageclamps(self):
         return self.ss_voltageClamps[:]
+
     def get_currentclamps(self):
         return self.ss_currentClamps[:]
+
     def get_gapjunctions(self):
         return self.ss_gapjunctions[:]
+
     def get_synapses(self):
         return self.ss_synapses[:]
 
-
-
-
-
     def run(self):
         raise NotImplementedError()
-
-
-
 
     def add_recordable(self, recordable):
         raise NotImplementedError()
@@ -187,7 +173,8 @@ class Simulation(object):
         if recordable_src is None:
             recordable_src = kwargs['cell_location'].cell
 
-        recordable = recordable_src.get_recordable(simulation=self, **kwargs)
+        recordable = recordable_src.get_recordable(simulation=self,
+                **kwargs)
         self.add_recordable(recordable)
         return recordable
 
@@ -199,12 +186,11 @@ class Simulation(object):
 
     def get_cell(self, cellname=None):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """
+
         if cellname:
             return SeqUtils.filter_expect_single(self.ss_cells,
                     lambda s: s.name == cellname)
         else:
             return SeqUtils.expect_single(self.ss_cells)
-
-
 
 

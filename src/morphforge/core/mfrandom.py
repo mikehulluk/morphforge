@@ -32,7 +32,9 @@
 import numpy
 import random
 
+
 class MFRandom(object):
+
     """ A class to centralise random numbers.
 
     This is centralised so that a seed can be set in a single place in order
@@ -55,12 +57,14 @@ class MFRandom(object):
     @classmethod
     def get_seed(cls):
         """ Returns the current seed used"""
+
         return cls._seed
 
     @classmethod
     def _reseed(cls):
         random.seed(cls._seed)
         numpy.random.seed(cls._seed)
+
 
 # Randomly initialise the seed:
 MFRandom.seed(random.randint(0, 100000))

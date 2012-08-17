@@ -24,13 +24,18 @@
 # -------------------------------------------------------------------------------
 
 
-
-
 class MorphologyImportError(IOError):
+
     pass
+
 
 class MorphologyExportError(IOError):
+
     pass
 
+
 class MorphologyFrameworkRegistrationError(RuntimeError):
+
     pass
+
+

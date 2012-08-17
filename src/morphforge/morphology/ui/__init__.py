@@ -29,10 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from mayavirenderer import MayaViRenderer
 from matplotlibviewer import MatPlotLibViewer
 
-
-
-__all__ = ['MayaViRenderer','MatPlotLibViewer']
+__all__ = ['MayaViRenderer', 'MatPlotLibViewer']

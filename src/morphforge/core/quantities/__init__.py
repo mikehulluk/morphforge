@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from quantities import *
 from morphforge.core.quantities.fromcore import *
 from morphforge.core.quantities.common_neuroscience_defs import *

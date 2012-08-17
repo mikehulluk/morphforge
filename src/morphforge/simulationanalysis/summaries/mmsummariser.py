@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from os.path import join as Join
 
 from summariser_library import SummariserLibrary
@@ -40,15 +38,7 @@ from morphforge.componentlibraries import ChannelLibrary
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
-
-
-
-
-
-
 class MembraneMechanismSummariser(object):
-
-
 
     @classmethod
     def summarise_all(cls, cell_location, reportlabconfig=None):
@@ -64,21 +54,18 @@ class MembraneMechanismSummariser(object):
 
 
     @classmethod
-    def create_pdf(cls, mechanism, filename, reportlabconfig =None):
+    def create_pdf(cls, mechanism, filename, reportlabconfig=None):
         from reportlab.platypus import SimpleDocTemplate, Paragraph
         from reportlab.lib.pagesizes import A4
-        if not reportlabconfig: reportlabconfig = ReportLabConfig()
+        if not reportlabconfig:
+            reportlabconfig = ReportLabConfig()
 
+        doc = SimpleDocTemplate(filename, pagesize=A4)
 
-        doc = SimpleDocTemplate(filename,pagesize=A4)
-
-        elements = [Paragraph("Filename: %s"%filename, style=reportlabconfig.styles['Heading2'])]
+        elements = [Paragraph("Filename: %s" % filename, style=reportlabconfig.styles['Heading2'])]
         elements.extend(cls.summarise_membranemechanism(mechanism, reportlabconfig))
 
         doc.build(elements)
-
-
-
 
     @classmethod
     def summarise_membranemechanism(self, membranemechanism,  reportlabconfig, make_graphs=True):
@@ -91,7 +78,7 @@ class MembraneMechanismSummariser(object):
         local_elements.append(Paragraph("Parameters", reportlabconfig.styles['Heading2']))
         table_header = ['Parameter Name', 'Default',]
 
-        data = [table_header,]
+        data = [table_header]
         for param in membranemechanism.get_variables():
             data.append([param, membranemechanism.get_default(param)])
 

@@ -29,11 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import operator
 import functools
-
-
 
 
 class Trace(object):
@@ -79,7 +76,6 @@ class Trace(object):
 
     def time_within_trace(self, times):
         raise NotImplementedError()
-
 
     # Utility Functions:
     def get_duration(self):

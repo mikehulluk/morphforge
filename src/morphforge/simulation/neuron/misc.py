@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities import unit
 
 
@@ -38,9 +37,11 @@ class NeuronSimulationConstants(object):
     TimeVectorName = 'rect'
     TimeUnit = unit('1:ms')
 
+
 class MNeuronSettings(object):
 
     @classmethod
     def get_voltageclamp_type(cls):
         return 'SEClamp'
-        #return "VClamp"
+
+        # return "VClamp"

@@ -29,19 +29,18 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import ConfigParser
 import os
 
 
 class RCMgr(object):
+
     rcFilename = os.path.expanduser('~/.morphforgerc')
     rcConfParser = None
 
     @classmethod
     def has_config(cls):
         return os.path.exists(cls.rcFilename)
-
 
     @classmethod
     def get_config(cls):
@@ -52,9 +51,7 @@ class RCMgr(object):
             cls.rcConfParser.read([ cls.rcFilename])
         return cls.rcConfParser
 
-
-
-    #Expose the same interface as the config parser does:
+    # Expose the same interface as the config parser does:
     @classmethod
     def has(cls, section, option):
         return cls.get_config().has_option(section, option)
@@ -68,7 +65,5 @@ class RCMgr(object):
             return ''
 
         return cls.get_config().get(section, option)
-
-
 
 

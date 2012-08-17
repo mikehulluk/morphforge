@@ -29,19 +29,19 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import itertools
 import numpy as np
 from morphforge.constants.standardtags import StandardTags
 
+
 class Event(object):
+
     def __init__(self, time):
         time.rescale('ms')
         self.time = time
 
     def get_time(self):
         return self.time
-
 
 
 class EventSet(object):
@@ -57,7 +57,7 @@ class EventSet(object):
                 communal_tags = set(ev_set.tags) if communal_tags is None else communal_tags & set(ev_set.tags)
             tags = communal_tags
 
-        return EventSet(itertools.chain (*eventsets), tags=tags,comment=comment,name=name)
+        return EventSet(itertools.chain(*eventsets), tags=tags,comment=comment,name=name)
 
 
 

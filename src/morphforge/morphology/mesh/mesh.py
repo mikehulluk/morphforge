@@ -29,13 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
 
 
 class TriangleMesh(object):
+
     def __init__(self, vertices, triangles, vertex_colors):
         """ Vertices is an n,3 array, triangles is a list, vertex_colors is a n,3 array"""
+
         self.vertices = vertices
         self.triangles = triangles
         self.vertex_colors = vertex_colors
@@ -56,23 +57,23 @@ class TriangleMesh(object):
             assert np.logical_and(self.vertex_colors >= 0,
                                   self.vertex_colors <= 255).all()
             self.vertex_colors = self.vertex_colors / 255.0
-
         else:
+
             assert False
 
     def downshrink(self):
         self.vertices /= 1000.0
+
     @property
     def nTriangles(self):
         return len(self.triangles)
+
     @property
     def nVertices(self):
         return len(self.vertices)
 
-
     @classmethod
     def merge(cls, meshes):
-
 
         vertices = np.zeros((0, 3))
         triangles = list()
@@ -84,12 +85,12 @@ class TriangleMesh(object):
             vertex_colors = np.vstack((vertex_colors,
                                        mesh.vertex_colors))
 
-            new_triangles = [[a + offset, b + offset, c + offset] for (a, b, c) in mesh.triangles]
+            new_triangles = [[a + offset, b + offset, c + offset]
+                             for (a, b, c) in mesh.triangles]
             triangles.extend(new_triangles)
 
         return TriangleMesh(vertices=vertices, 
                             triangles=triangles,
                             vertex_colors=vertex_colors)
 
-        assert False
 

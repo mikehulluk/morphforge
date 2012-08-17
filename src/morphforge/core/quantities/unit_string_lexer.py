@@ -29,35 +29,33 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 # TODO: REMOVE THIS FILE!
 assert False
 
-
 #
-#tokens = (
+# tokens = (
 #   'ID',
 #   'NUMBER',
 #   'DIVIDE',
-#)
+# )
 #
 #
-#t_ID = r'[a-zA-Z]+'
-#t_DIVIDE = r'/'
+# t_ID = r'[a-zA-Z]+'
+# t_DIVIDE = r'/'
 #
 #
 #
-#def t_NUMBER(t):
+# def t_NUMBER(t):
 #    r'(-)?\d+'
 #    t.value = int(t.value)
 #    return t
 #
-#t_ignore  = ' \t'
+# t_ignore  = ' \t'
 #
 #
-#def t_error(t):
+# def t_error(t):
 #    print "Illegal character '%s'" % t.value[0]
 #    t.lexer.skip(1)
 #
 ## Build the lexer
-#lexer = lex.lex()
+# lexer = lex.lex()

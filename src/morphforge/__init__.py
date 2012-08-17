@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 # Import mreorg before we do anything, so that the monkey patching of
 # 'show' and 'savefig' take effect
 import os

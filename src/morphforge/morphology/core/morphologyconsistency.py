@@ -29,22 +29,22 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import SeqUtils, check_cstyle_varname
 
-
 from morphforge.core.misc import StrUtils
+
 
 def _get_md5_of_region(r):
     # assert False # Is this Cruft?? Added Jan 2011
     return StrUtils.get_hash_md5(r.name)
 
+
 def _get_md5_of_section(s):
-    #assert False # Is this Cruft?? Added Jan 2011
-    section_string = " %2.2f %2.2f %2.2f %2.2f "
-    regions_string = _get_md5_of_region(s.region) if s.region else ""
-    children_string = ",".join([_get_md5_of_section(s) for s in s.children])
-    id_string = "" if not s.idtag else StrUtils.get_hash_md5(s.idtag)
+    # assert False # Is this Cruft?? Added Jan 2011
+    section_string = ' %2.2f %2.2f %2.2f %2.2f '
+    regions_string = (_get_md5_of_region(s.region) if s.region else '')
+    children_string = ','.join([_get_md5_of_section(s) for s in s.children])
+    id_string = ('' if not s.idtag else StrUtils.get_hash_md5(s.idtag))
 
     return StrUtils.get_hash_md5(section_string + regions_string + children_string + id_string)
 
@@ -59,13 +59,13 @@ def _get_md5_of_morphology(m):
 
 
 class MorphologyConsistencyMgr(object):
+
     morphologyConsistencyCheckers = {}
 
     @classmethod
     def check_morphology(cls, morph):
-        #return
+        # return
         return cls.get_checker(morph).run_checks()
-
 
     @classmethod
     def get_checker(cls, morph):
@@ -74,11 +74,7 @@ class MorphologyConsistencyMgr(object):
         return cls.morphologyConsistencyCheckers[morph]
 
 
-
-
 class MorphConsistencyChecker(object):
-
-
 
     def __init__(self, morph):
         from morphforge.morphology.core import MorphologyTree
@@ -100,16 +96,13 @@ class MorphConsistencyChecker(object):
         assert self.enableStack >= 0
         return True
 
-
-
     def run_checks(self):
-        if self.enableStack > 0 :
-            #print "Already Checking"
+        if self.enableStack > 0:
+            # print "Already Checking"
             return
 
         if self.enableStack != 0:
             return
-
 
         # Disable further checking:
         self.disable()
@@ -143,7 +136,6 @@ class MorphConsistencyChecker(object):
         if dummysection:
             self.check_dummy_section(section)
             assert section.is_dummy_section()
-            #assert len(section.children)==1
         else:
             assert not section.is_dummy_section()
             assert section in section.parent.children
@@ -158,10 +150,7 @@ class MorphConsistencyChecker(object):
         assert dummysection.parent == None
         assert dummysection.region == None
 
-
-
-
-    def check_section_contents(self, section, morph,dummysection):
+    def check_section_contents(self, section, morph, dummysection):
         # Check the Radii:
         if not section.is_leaf():
 
@@ -170,18 +159,17 @@ class MorphConsistencyChecker(object):
 
         # TODO: Check the radius of the near end of the dummysection segment.
 
-
-    def check_region(self,region,morph):
+    def check_region(self, region, morph):
 
         check_cstyle_varname(region.name)
         # Check no-other region has this name:
-        #print "Checking region:", region.name
-        #print "All Regions:", ",".join([r.name for r in self.morph.get_regions()])
-        assert SeqUtils.filter_expect_single(self.morph.get_regions(), lambda rgn: rgn.name == region.name) == region
+        # print "Checking region:", region.name
+        # print "All Regions:", ",".join([r.name for r in self.morph.get_regions()])
+        assert SeqUtils.filter_expect_single(self.morph.get_regions(),
+                lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
         for s in region.sections:
             assert region == s.region
-
 
     def check_tree(self):
         if not self.morph.is_dummy_section_set():
@@ -189,7 +177,6 @@ class MorphConsistencyChecker(object):
 
         dummy_section = self.morph.get_dummy_section()
         self.check_dummy_section(dummy_section)
-
 
         # Check nothing changed in the tree:
         morphmd5 = _get_md5_of_morphology(self.morph)

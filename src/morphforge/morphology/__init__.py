@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 """ A package for handling neuron morphology models
 
 This package provides an object model for representing neuronal morphologies,
@@ -52,10 +51,7 @@ found at XX.
 from morphforge.morphology.core import MorphologyTree
 from morphforge.morphology.core import MorphologyArray
 
-
 # Ensure that the plugins get added dynamically:
 import importer
 import exporter
-
-
 

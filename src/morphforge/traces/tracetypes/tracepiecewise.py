@@ -35,15 +35,11 @@ import numpy as np
 import itertools
 
 
-
-
-
 class PieceWiseComponentVisitor(object):
 
     @classmethod
     def visit(cls, o, **kwargs):
         return o.accept_visitor(cls, **kwargs)
-
 
     @classmethod
     def visit_linear(cls, o, **kwargs):
@@ -52,8 +48,6 @@ class PieceWiseComponentVisitor(object):
     @classmethod
     def visit_flat(cls, o, **kwargs):
         raise NotImplementedError()
-
-
 
 
 class TracePieceFunction(object):
@@ -70,7 +64,6 @@ class TracePieceFunction(object):
     def get_duration(self):
         return self.get_max_time() - self.get_min_time()
 
-
     def ge_start_value(self):
         raise NotImplementedError()
     def get_end_value(self):
@@ -79,10 +72,6 @@ class TracePieceFunction(object):
     # To allow for manipulation:
     def accept_visitor(self):
         assert False
-
-
-
-
 
 
 class TracePieceFunctionLinear(TracePieceFunction):
@@ -100,7 +89,6 @@ class TracePieceFunctionLinear(TracePieceFunction):
         return self.x0
     def get_end_value(self):
         return self.x1
-
 
 
 class TracePieceFunctionFlat(TracePieceFunction):
@@ -125,7 +113,6 @@ class TracePieceFunctionFlat(TracePieceFunction):
         return visitor.visit_flat(self, **kwargs)
 
 
-
 class TracePiecewise(Trace):
     def __init__(self, pieces,name=None, comment=None, tags=None):
         Trace.__init__(self, name=name, comment=comment, tags=tags)
@@ -133,11 +120,10 @@ class TracePiecewise(Trace):
 
         # Check we link up:
         for i in range(len(pieces) -1):
-            dist = self._pieces[i].get_max_time() - self._pieces[i+1].get_min_time()
-            #print dist
+            i_stop = self._pieces[i].get_max_time()
+            i_next_start = self._pieces[i+1].get_min_time()
+            dist =  i_stop - i_next_start
             assert np.fabs(dist.rescale('ms').magnitude) < 0.001
-
-
 
     def get_min_time(self):
         return self._pieces[0].get_min_time()
@@ -150,7 +136,6 @@ class TracePiecewise(Trace):
 
     def n_pieces_longer_than(self, t):
         return len([p for p in self._pieces if p.get_duration() > t])
-
 
     def get_values(self, times):
 
@@ -172,5 +157,7 @@ class TracePiecewise(Trace):
             # Only visit these times once:
             done_times = np.logical_and(done_times, np.logical_not(ind))
 
-        unit  = _data[0].units
+        unit = _data[0].units
         return np.fromiter(itertools.chain(*[list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float) * unit
+
+

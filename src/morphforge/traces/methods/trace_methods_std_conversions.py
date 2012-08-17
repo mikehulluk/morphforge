@@ -29,12 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
-from morphforge.traces import TraceFixedDT, TraceVariableDT, TracePiecewise
+from morphforge.traces import TraceFixedDT
+from morphforge.traces import TraceVariableDT
+from morphforge.traces import TracePiecewise
 from MMtrace_conversion import TraceConverter, TraceApproximator
-
 
 # Conversion to: FixedDT:
 #########################
@@ -49,16 +49,9 @@ TraceMethodCtrl.register(TraceFixedDT,     'convert_to_variable', lambda tr: cop
 TraceMethodCtrl.register(TraceVariableDT,  'convert_to_variable', lambda tr: copy_trace_attrs(tr_old=tr, tr_new=TraceConverter.reduce_to_variable_dt_trace()))
 # MISSING: PIECEWISE
 
-
 # Conversion to Piecewise:
 ##########################
 TraceMethodCtrl.register(TraceFixedDT, 'convert_to_piecewise', TraceApproximator.fit_piecewise_linear_trace)
 # MISSING: VariableDT
 # MISSING: Piecewise
-
-
-
-
-
-
 

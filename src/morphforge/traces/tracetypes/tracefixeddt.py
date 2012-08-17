@@ -35,11 +35,10 @@ import numpy as np
 
 import quantities as pq
 
-
 from tracepointbased import TracePointBased
 
-class TraceFixedDT(TracePointBased):
 
+class TraceFixedDT(TracePointBased):
 
     @classmethod
     def is_array_fixed_dt(cls, time_array):
@@ -79,7 +78,6 @@ class TraceFixedDT(TracePointBased):
                 assert False, 'Time out of bounds'
             if stop > self._time[-1]:
                 assert False, 'Time out of bounds'
-
 
             mask = np.logical_and(start < self._time, self._time < stop)
 

@@ -29,17 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core.quantities import *
 import morphforge.core.quantities as u
 
 from mhlibs.quantities_plot import *
 
-
 # CORE
-from morphforge.core import  *
-
+from morphforge.core import *
 
 from morphforge.traces import *
 from morphforge.traces.eventset import EventSet, Event
@@ -48,11 +44,8 @@ from morphforge.simulationanalysis.tagviewer import TagViewer
 from morphforge.simulationanalysis.tagviewer import PlotSpec_DefaultNew
 from morphforge.simulationanalysis.tagviewer import DefaultPlotSpec
 
-
 #
 from morphforge.constants import *
-
-
 
 # MORPHOLOGY:
 from morphforge.morphology import *
@@ -60,7 +53,6 @@ from morphforge.morphology.core import *
 from morphforge.morphology.builders import *
 from morphforge.morphology.visitor import *
 from morphforge.morphology.util.morphlocator import MorphLocator
-
 
 # SIMULATION
 from morphforge.simulation.base import *
@@ -70,23 +62,14 @@ from morphforge.simulation.base.util.celllocator import CellLocator
 # Simulation Analysis
 from morphforge.simulationanalysis.summaries import *
 
-
-
-
 from morphforge.componentlibraries import *
 
-
-
 from morphforge.simulation.base.biophysics.mta_helpers import *
-
 
 import morphforge.simulation.neuron.objects.obj_cclamp
 import morphforge.simulation.neuron.objects.obj_vclamp
 
-
 from morphforge.morphology.conventions import SWCRegionCodes
-
-
 
 try:
     import pylab
@@ -94,15 +77,9 @@ try:
 except:
     pass
 
-
-
 import neurounits
 
-
-
 import os
-
-
 
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID

@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities import unit
-
 
 from neuronobject import NeuronObject
 from morphforge.simulation.base import Cell
@@ -41,12 +39,8 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 
-
 from Cheetah.Template import Template
 from morphforge.constants.standardtags import StandardTags
-
-
-
 
 
 class MembraneVoltageRecord(NeuronRecordable):
@@ -61,7 +55,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
     """%initial_buffer_size
 
     def __init__(self, cell, cell_location=None, **kwargs):
-        super(MembraneVoltageRecord,self).__init__(**kwargs)
+        super(MembraneVoltageRecord, self).__init__(**kwargs)
         self.cell = cell
         self.cell_location = cell_location if cell_location is not None else cell.get_location("soma")
 
@@ -74,10 +68,10 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
         return [StandardTags.Voltage]
 
     def get_description(self):
-        r = "Vm %s"%self.cell_location.cell.name
-        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
-        return r + t
-
+        r = 'Vm %s' % self.cell_location.cell.name
+        if self.cell_location.morphlocation.section.idtag
+            r += ':%s' % self.cell_location.morphlocation.section.idtag
+        return r
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell

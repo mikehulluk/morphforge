@@ -29,11 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 """ This modules contains methods for building simple morphologies.
 """
 
 from morphologybuilder import MorphologyBuilder
-
 
 __all__ = ['MorphologyBuilder']

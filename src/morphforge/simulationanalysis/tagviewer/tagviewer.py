@@ -42,9 +42,6 @@ from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
 
 
-
-
-
 def _resolve_time_range(time_range):
     # Sort out the time_range:
     if time_range is not None:
@@ -81,7 +78,6 @@ class TagViewer(object):
 
     MPL_AUTO_SHOW = True
 
-
     defaultPlotSpecs = (
         DefaultPlotSpec.Voltage,
         DefaultPlotSpec.CurrentDensity,
@@ -113,15 +109,11 @@ class TagViewer(object):
 
         self.linkage = linkage
 
-
         if timerange is not None:
             timeranges = [timerange]
 
-
         if not is_iterable(input):
             input = [input]
-
-
 
         # For each type of input; this should return a list of traces:
         self.allTraceObjs = []
@@ -137,7 +129,6 @@ class TagViewer(object):
         for i in input:
             tr_extractor = trace_extractors[type(i)]
             tr_extractor(i)
-
 
         # Use the new PlotSpec architecture:
         # Filter out which plotspecs are actually going to display something,
@@ -164,13 +155,10 @@ class TagViewer(object):
         self.subaxes = []
         self.create_figure()
 
-
-
         # 'svae' is deprecated'
         assert save is None, ' "save" parameter is deprecated (15 July 2012)'
         # Save the figure:
-        #if save:
-
+        # if save:
         #    PM.save_figure(figtitle)
 
 
@@ -178,33 +166,26 @@ class TagViewer(object):
             import pylab
             pylab.show()
 
-
-
     def create_figure(self):
         self.fig = QuantitiesFigure(**self.fig_kwargs)
-
 
         # Add a title to the plot:
         if self.figtitle:
             self.fig.suptitle(self.figtitle)
-
 
         # Work out what traces are on what graphs:
         ps_to_traces = dict([(ps,[tr for tr in self.allTraceObjs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
         if self.linkage:
             self.linkage.process(ps_to_traces)
 
-
         n_time_ranges = len(self.timeranges)
         n_plots = len(self.plot_specs)
-
 
         for (i, plot_spec) in enumerate(self.plot_specs):
 
             print 'Plotting For PlotSpec:', plot_spec
 
             for (iT, time_range) in enumerate(self.timeranges):
-
 
                 time_range = _resolve_time_range(time_range)
 
@@ -220,13 +201,11 @@ class TagViewer(object):
                 # Save the Axis:
                 self.subaxes.append(ax)
 
-
         if self.mpl_tight_bounds:
             import pylab
             try:
                 pylab.tight_layout()
             except:
-                pass # This is version specfic
-
+                pass  # This is version specfic
 
 

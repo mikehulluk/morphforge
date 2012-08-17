@@ -29,10 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 
+
 class NeuronObject(NamedSimulationObject):
+
     """ Base class for objects in a NEURON simulation.
 
     This includes cells, stimulations, recordables, templates, ....
@@ -46,3 +47,5 @@ class NeuronObject(NamedSimulationObject):
 
     def get_recordable(self, *args, **kwargs):
         raise NotImplementedError()
+
+

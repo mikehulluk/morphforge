@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from hocbuilder import HocBuilder
 from hocbuilder_cell import HocBuilder_Cell
 
@@ -45,5 +44,5 @@ __all__ = [
     'ModFileSectioned',
     'NeuronParameter',
     'MM_ModFileWriterBase',
-   ]
+    ]
 

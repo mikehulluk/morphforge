@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.objects import MembraneVoltageRecord
 from morphforge.simulation.neuron.objects import MNeuronCell
 from morphforge.simulation.neuron.objects import NeuronSimSetupObj
@@ -45,8 +44,6 @@ from morphforge.simulation.neuron.biophysics import ModFile
 from morphforge.simulation.neuron.biophysics import ModFileCompiler
 from morphforge.simulation.neuron.biophysics import MM_Neuron_Base
 
-
-
 __all__ = [
     'MembraneVoltageRecord',
     'MNeuronCell',
@@ -58,6 +55,5 @@ __all__ = [
     'ModFile',
     'ModFileCompiler',
     'MM_Neuron_Base',
-   ]
-
+    ]
 

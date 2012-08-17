@@ -29,23 +29,19 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import os
 import subprocess
 import shutil
 
 from morphforge.core import FileIO, LocMgr, LogMgr
-from morphforge.core import RCMgr as RCReade
+from morphforge.core import RCMgr as RCReader
 from morphforge.core.mgrs.settingsmgr import SettingsMgr
-
-
-
 
 
 # TODO! NOTE THE LINKING LIBRARY ORDER HAS CHANGED!
 
 class ModBuilderParams(object):
+
     nocmodlpath = RCReader.get("Neuron", "nocmodlpath")
     libtoolpath = RCReader.get("Neuron", "libtoolpath")
 
@@ -107,7 +103,6 @@ def _simple_exec(cmd, remaining):
     return output
 
 
-
 def _build_modfile_local(mod_filename_short, modfile=None):
     print os.getcwd()
     mod_file_basename = mod_filename_short.replace('.mod', '')
@@ -129,10 +124,6 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         if os.path.exists(gen_file):
             LocMgr.BackupDirectory(gen_file)
 
-
-
-
-
     c_filename = mod_file_basename + '.c'
     op = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
@@ -148,7 +139,7 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     FileIO.append_to_file(new_register_func, c_filename)
 
 
-    #Compile the .c file -> .so:
+    # Compile the .c file -> .so:
     compile_str = ModBuilderParams.get_compile_str(c_filename, lo_filename)
     link_str = ModBuilderParams.get_link_str(lo_filename, la_filename)
 
@@ -167,10 +158,10 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         print 'OP2:', op2
 
     # Copy the correct .so from the libDir to the build_dir:
-    shutil.move(os.path.join(libs_dir, mod_file_basename + ".so.0.0.0"), so_filename)
+    shutil.move(os.path.join(libs_dir, mod_file_basename + '.so.0.0.0'), so_filename)
 
 
-    #Clean up:
+    # Clean up:
     if True:
         os.remove(c_filename)
         os.remove(mod_filename_short)
@@ -179,7 +170,6 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         for f in ['.la', '.lai', '.o', '.so', '.so.0']:
             os.remove(os.path.join(libs_dir, mod_file_basename + f))
         os.rmdir(libs_dir)
-
 
     return so_filename
 

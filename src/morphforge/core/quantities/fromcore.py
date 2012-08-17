@@ -29,20 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import morphforge.core.quantities.unit_string_parser
 
 import quantities as pq
 from morphforge.core.misc import is_float, is_int
-
 
 # Required to initialise the unit definitions
 import common_neuroscience_defs
 from quantities.quantity import Quantity
 
 import morphforge
-
 
 
 def factorise_units_from_list(seq):
@@ -78,14 +74,11 @@ def unit(s):
     if ' ' in s:
         t = s.split(' ')
         if len(t) == 2:
-            value_str, unit_str = t
+            (value_str, unit_str) = t
             v = float(value_str)
             unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
             return v * unt
 
-    return  morphforge.core.quantities.unit_string_parser.parse(s)
-
-
-
+    return morphforge.core.quantities.unit_string_parser.parse(s)
 
 

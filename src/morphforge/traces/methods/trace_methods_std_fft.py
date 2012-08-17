@@ -29,17 +29,18 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
 
 import numpy as np
+
+
 def _fft(tr, normalise=True):
     ft = np.fft.fft(tr._data)
     if normalise:
         ft /= ft.max()
-    ftfreq = np.fft.fftfreq(tr._data.size, 
-                            tr.get_dt_new().rescale('s').magnitude)
+    dt_in_s = tr.get_dt_new().rescale('s').magnitude
+    ftfreq = np.fft.fftfreq(tr._data.size, dt_in_s)
     return (ftfreq, ft)
 
 
@@ -49,8 +50,8 @@ def _psd(tr, normalise=True):
     if normalise:
         ft /= ft.max()
 
-    ftfreq = np.fft.fftfreq(tr._data.size, 
-                            tr.get_dt_new().rescale("s").magnitude)
+    dt_in_s = tr.get_dt_new().rescale('s').magnitude
+    ftfreq = np.fft.fftfreq(tr._data.size, dt_in_s)
     return (ftfreq, ft)
 
 

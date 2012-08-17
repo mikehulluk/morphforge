@@ -29,16 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-from morphforge.core import FileIO, LocMgr, Join
-from morphforge.core.misc import StrUtils
-
-
 import cPickle
 
+import morphforge
+from morphforge.core import FileIO, LocMgr, Join
+from morphforge.core.misc import StrUtils
 from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
 
-import morphforge
 
 
 
@@ -53,14 +50,12 @@ class MetaDataBundleBuilder(object):
     simsuffix = '.neuronsim.pickle'
     ressuffix = '.neuronsim.results.pickle'
 
-
     @classmethod
     def build_std_pickler(cls, sim):
 
         from morphforge.simulation.base.simulationmetadatabundle.postsimulation import PostSimulationActionPickleSimulation
 
         reslocation = LocMgr.get_simulation_results_tmp_dir()
-
 
         b = MetaDataBundleBuilder.prepare_sim_bundle(sim)
         # Save the random number seed
@@ -73,7 +68,6 @@ class MetaDataBundleBuilder(object):
         b.add_postprocessing_action(PostSimulationActionPickleSimulation(resfilename))
 
         return (b, resfilename)
-
 
     @classmethod
     def prepare_sim_bundle(cls, sim):
@@ -88,9 +82,5 @@ class MetaDataBundleBuilder(object):
 
         b = SimMetaDataBundle(sim)
         return b
-
-
-
-
 
 

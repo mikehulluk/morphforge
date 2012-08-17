@@ -29,10 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
-
 from morphforge.morphology.errors import MorphologyFrameworkRegistrationError
 
 class MorphologyExporter(object):
@@ -54,4 +50,5 @@ class MorphologyExporter(object):
             raise MorphologyFrameworkRegistrationError(err)
 
         setattr(from_type, method_name, export_functor)
+
 

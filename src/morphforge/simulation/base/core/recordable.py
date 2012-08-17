@@ -29,9 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import itertools
+
 from morphforge.simulation.base.base_classes import NamedSimulationObject
+
 
 class Recordable(NamedSimulationObject):
 
@@ -48,9 +49,6 @@ class Recordable(NamedSimulationObject):
     def get_std_tags(self):
         raise NotImplementedError()
 
-
-
-
     def _get_desc(self):
         return (self._description if self._description else self.get_description())
 
@@ -59,6 +57,5 @@ class Recordable(NamedSimulationObject):
     def get_description(self):
         default_desc = 'No Description'
         return ('-'.join(self.user_tags) if self.user_tags else default_desc)
-
 
 

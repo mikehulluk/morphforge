@@ -29,14 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import operator
 
 from morphforge.core.quantities import unit
 from morphforge.traces.tracetypes import TraceFixedDT
 
+
 class TraceOperatorCtrl(object):
+
     trace_operators_all = {}
     trace_operators_active = {}
     trace_operators = [operator.__add__, operator.__sub__,
@@ -53,7 +53,7 @@ class TraceOperatorCtrl(object):
             cls.trace_operators_all[key] = {}
 
         # Check the flag is not already active:
-        assert not flag in cls.trace_operators_all[key]
+        assert not flag in cls.trace_operators_all[key], 'Duplicate key/flag %s %s:' % (flag, key)
         cls.trace_operators_all[key][flag] = operator_func
 
         # Set as default if there is no current default, or flag is default:
@@ -91,7 +91,6 @@ class TraceOperatorCtrl(object):
             assert use_flag in cls.trace_operators_all[key]
             opfunctor = cls.trace_operators_all[key][use_flag]
 
-
         return opfunctor(lhs=lhs, rhs=rhs, **kwargs)
 
 
@@ -101,11 +100,12 @@ class TraceOperatorCtrl(object):
 
 def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
     from morphforge.traces import TraceConverter
+
     def wrapped_func(self, *args, **kwargs):
         tr_new = TraceConverter.rebase_to_fixed_dt(self, dt=fixed_trace_dt)
         return func(tr_new, *args, **kwargs)
-    return wrapped_func
 
+    return wrapped_func
 
 
 class TraceMethodCtrl(object):
@@ -115,7 +115,6 @@ class TraceMethodCtrl(object):
     # A list of method names that can be used for anytrace
     # if a specific method is not available for a type of trace
     fallback_to_fixedtrace_methods = {}
-
 
     default_fallback_resolution = unit('0.1:ms')
 
@@ -204,9 +203,6 @@ def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, ad
     new_time = (time if time is not None else tr._time)
 
     # Create a new trace
-
-    #if type(tr) == TraceFixedDT
-    #tr_new = TraceFixedDT(time=new_time, data=new_data)
     tr_new = type(tr)(time=new_time, data=new_data)
     return copy_trace_attrs(tr,tr_new, name=name, comment=comment, tags=tags, add_tags=add_tags)
 

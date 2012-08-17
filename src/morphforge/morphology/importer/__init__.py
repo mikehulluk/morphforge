@@ -29,14 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from morphologyimporter import MorphologyImporter
-
 
 # Use this to dynamically register the particular loaders:
 import import_array_swc
 import import_tree_dictionary
-
 

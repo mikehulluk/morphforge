@@ -29,18 +29,19 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
+import math
 
 from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
-from morphforge.core.misc import merge_dictionaries, SeqUtils, check_cstyle_varname
+from morphforge.core.misc import merge_dictionaries, SeqUtils 
+from morphforge.core.misc import check_cstyle_varname
 from morphforge.morphology.core import Region
 from morphforge.morphology.core import Section
-import math
+
 from morphforge.morphology.core import MorphologyTree
 
 
 class DictionaryLoader(object):
+
     @classmethod
     def load(cls, morph_dict, name=None, metadata=None):
         """ Load a morphology from a recursive dictionary such as:
@@ -58,12 +59,20 @@ class DictionaryLoader(object):
 
         """
 
-
-        if not morph_dict or not morph_dict.has_key("root"): raise ValueError()
-        valid_keywords = ["length", "diam", "id", "sections", "region", 'regions', "relangle", "absangle", "xyz"]
-        required_keywords = ["diam"]
-
-
+        if not morph_dict or not morph_dict.has_key('root'):
+            raise ValueError()
+        valid_keywords = [
+            'length',
+            'diam',
+            'id',
+            'sections',
+            'region',
+            'regions',
+            'relangle',
+            'absangle',
+            'xyz',
+            ]
+        required_keywords = ['diam']
 
         # Does the root has a length variable? if it does, then lets add an intermediate node and remove it.
         root_node = morph_dict['root']
@@ -75,12 +84,6 @@ class DictionaryLoader(object):
 
             new_root_node = {'region': 'soma', 'diam': root_node['diam'], 'xyz':(0.0,0.0,0.0), 'sections': [root_node]}
             root_node = new_root_node
-
-          
-
-
-
-
 
 
         #First flatten the recursion, by copy
@@ -127,9 +130,6 @@ class DictionaryLoader(object):
         section_angles_dict = {}
         section_id_tags = []
 
-
-
-
         # We create a 'dummy' root node, and then the real root node.
         # This will be at index '0'
 
@@ -137,20 +137,19 @@ class DictionaryLoader(object):
         section_dict = {}
         root_yaml_sect = yaml_section_dict[0]
 
-
         if 'length' in root_yaml_sect.keys():
             assert False
-            #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
-        else:
-            pass
-            #section_dict[None] = Section(x=0.0, y=0.0, z=0.0, r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
-            #assert False
-
-
-
+           
 
         xyz = root_yaml_sect['xyz']
-        section_dict[0] = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=root_yaml_sect['diam'] / 2.0, region=None, parent=None)
+        section_dict[0] = Section(
+            x=xyz[0],
+            y=xyz[1],
+            z=xyz[2],
+            r=root_yaml_sect['diam'] / 2.0,
+            region=None,
+            parent=None,
+            )
 
         # Add the remaining nodes:
         for (yamlID, yamlSect) in yaml_section_dict.iteritems():
@@ -193,7 +192,6 @@ class DictionaryLoader(object):
                 if not parent_section: angle = 0
                 xyz = yamlSect["xyz"]
 
-
             elif yamlSect.has_key("absangle"):
                 length = getYamlLength(yamlSect)
                 angle = yamlSect["absangle"]
@@ -209,10 +207,8 @@ class DictionaryLoader(object):
                 angle = 0
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
-
-
-            #Possible ID's:
-            section_id_tag = yamlSect["id"] if yamlSect.has_key("id") else None
+            # Possible ID's:
+            section_id_tag = (yamlSect['id'] if yamlSect.has_key('id') else None)
             if section_id_tag:
                 check_cstyle_varname(section_id_tag)
             if section_id_tag in section_id_tags:
@@ -227,9 +223,6 @@ class DictionaryLoader(object):
                 new_section = Section(x=xyz[0], y=xyz[1], z=xyz[2], r=rad, region=None, idtag=section_id_tag)
                 section_dict[None] = new_section
 
-
-
-
             # Calculate the angle of the current section:
             if parent_section:
                 joining_vec = new_section.get_distal_npa3() - parent_section.get_distal_npa3()
@@ -240,9 +233,8 @@ class DictionaryLoader(object):
             #Save the section:
             section_dict[yamlID] = new_section
 
-
-        ## TODO: THIS IS A HACK! Ensure the dummy node has no attached regions:
-        #section_dict[None].regions = []
+        # # TODO: THIS IS A HACK! Ensure the dummy node has no attached regions:
+        # section_dict[None].regions = []
         assert section_dict[0].region == None
 
         if section_dict[0].children == []: raise ValueError("No segments found")
@@ -252,4 +244,4 @@ class DictionaryLoader(object):
 
 
 
-MorphologyImporter.register("fromDictionary", DictionaryLoader.load, allow_override=False, as_type=MorphologyTree)
+MorphologyImporter.register('fromDictionary', DictionaryLoader.load, allow_override=False, as_type=MorphologyTree)

@@ -29,24 +29,30 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.constants import StandardTags
 
+
 class Stimulation(NamedSimulationObject):
+
     def __init__(self, cell_location, **kwargs):
         print kwargs.keys()
         super(Stimulation, self).__init__(**kwargs)
         self.cell_location = cell_location
 
+
 class CurrentClamp(Stimulation):
+
     class Recordables(object):
+
         Current = StandardTags.Current
 
 
 class VoltageClamp(Stimulation):
+
     class Recordables(object):
+
         Current = StandardTags.Current
 
 
@@ -59,7 +65,6 @@ class CurrentClampStepChange(CurrentClamp):
         self.delay = unit(delay)
 
 
-
 class VoltageClampStepChange(VoltageClamp):
 
     def __init__(self,
@@ -70,7 +75,8 @@ class VoltageClampStepChange(VoltageClamp):
         amp3='0:mV',
         rs='0.1:MOhm',
         **kwargs
-       ):
+        ):
+
         super(VoltageClamp, self).__init__(**kwargs)
 
         self.dur1 = unit(dur1)
@@ -81,7 +87,6 @@ class VoltageClampStepChange(VoltageClamp):
         self.amp2 = unit(amp2)
         self.amp3 = unit(amp3)
         self.rs = unit(rs)
-
 
 
 __all__ = ['CurrentClamp', 'VoltageClamp', 'CurrentClampStepChange',

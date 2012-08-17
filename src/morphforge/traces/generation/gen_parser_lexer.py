@@ -29,12 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import ply
 import ply.lex
 import ply.yacc
 
+
 class TraceGeneratorParserLexer(object):
+
     reserved = {
         'AT': 'AT',
         'FOR': 'FOR',
@@ -54,7 +55,7 @@ class TraceGeneratorParserLexer(object):
         'RPAREN',
         'FLOAT',
         'ID',
-       ] + list(reserved.values())
+        ] + list(reserved.values())
 
     t_CURLY_LBRACE = '{'
     t_CURLY_RBRACE = '}'
@@ -63,33 +64,29 @@ class TraceGeneratorParserLexer(object):
     t_RPAREN = "\)"
     t_ignore = ' \t'
 
-
     def t_FLOAT(self, t):
         r"""[-]?[0-9]+(\.[0-9]*([eE][+-]?[0-9]+)?)?"""
         t.value = float(t.value)
         return t
 
-
     def t_ID(self, t):
-        r'[a-zA-Z_][a-zA-Z_0-9]*'
+        r'''[a-zA-Z_][a-zA-Z_0-9]*'''
 
-        t.type = self.reserved.get(t.value,'ID')
+        t.type = self.reserved.get(t.value, 'ID')
         return t
 
     def t_error(self, t):
         print "Illegal character '%s'" % t.value[0]
         assert False
 
-
-
     def __init__(self, **kwargs):
         self.lexer = ply.lex.lex(module=self, **kwargs)
 
-
-
     # Forward to lexer:
-    def input(self,*args, **kwargs):
+    def input(self, *args, **kwargs):
         return self.lexer.input(*args, **kwargs)
 
     def token(self, *args, **kwargs):
         return self.lexer.token(*args, **kwargs)
+
+

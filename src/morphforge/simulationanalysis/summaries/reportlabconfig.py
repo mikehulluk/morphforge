@@ -29,19 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
-
-
-
 from morphforge.core import Join
 
 import os
 from morphforge.core.mgrs.locmgr import LocMgr
 
-
 grey = '#808080'
+
 
 class ReportLabConfig(object):
 

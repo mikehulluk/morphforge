@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.morphology.core import MorphologyTree, Section, Region
 import numpy
 import quantities as pq
@@ -40,8 +38,8 @@ from morphforge.core.quantities.fromcore import unit
 
 
 def _convert_to_unit(o, default_unit):
-   
-    assert not isinstance(default_unit, (pq.quantity.Quantity))
+
+    assert not isinstance(default_unit, pq.quantity.Quantity)
 
     if isinstance(o, pq.quantity.Quantity):
         return o.rescale(default_unit)
@@ -53,12 +51,8 @@ def _convert_to_unit(o, default_unit):
         raise ValueError()
 
 
-
-
-
-
-
 class MorphologyBuilder(object):
+
     """ Class to build simple neuron morphologies """
 
     @classmethod

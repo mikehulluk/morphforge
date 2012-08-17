@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from obj_cell import MembraneVoltageRecord, MNeuronCell
 from obj_basesetup import NeuronSimSetupObj
-
 
 __all__ = ['MembraneVoltageRecord', 'MNeuronCell', 'NeuronSimSetupObj']

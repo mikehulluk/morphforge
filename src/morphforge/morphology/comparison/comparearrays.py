@@ -29,20 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import numpy as np
-
-
-
-
-
 
 
 class MorphArrayComparison(object):
 
     @classmethod
-    def are_same(cls, m1, m2, max_node_distance = 0.01, max_radius_distance=None):
+    def are_same(cls, m1, m2, max_node_distance=0.01, max_radius_distance=None):
         from scipy.spatial.distance import pdist
 
         max_radius_distance = max_radius_distance if max_radius_distance is not None else max_node_distance
@@ -65,15 +58,13 @@ class MorphArrayComparison(object):
 
         print 'd1,d2', d1, d2
 
-
-
         # Create a map between indices in each morphology,
         # based on positions:
         (index_map, max_dist) = cls.getIDMappingFromPositions(m1, m2)
         if index_map is None:
-            return False  # , {'max_dist':max_dist, 'reason':"couldn't build matching index (vertex) maps"}
+            return False
         if max_dist > max_node_distance:
-            return False  # , {'max_dist':max_dist, 'reason':"couldn't build matching index (vertex) maps ~ the distance between nodes could not be matched"}
+            return False
 
         # Check the connectivity:
         m2_connectivity = set([tuple(t) for t in m2._connectivity.tolist()])
@@ -81,7 +72,7 @@ class MorphArrayComparison(object):
             i2 = index_map[i1]
             j2 = index_map[j1]
             if not (i2,j2) in m2_connectivity:
-                return False #, {'max_dist':max_dist, 'reason':"couldn't match connectivity maps"}
+                return False 
 
 
         # Check the radii:
@@ -98,11 +89,7 @@ class MorphArrayComparison(object):
             if m1._section_types[c1] != m2._section_types[c2]:
                 return False  # , {'max_dist':max_dist, 'reason':'the section types were different'}
 
-
         return True
-
-
-
 
     @classmethod
     def getIDMappingFromPositions(cls, m1, m2):
@@ -117,9 +104,10 @@ class MorphArrayComparison(object):
 
             if vi in idMap:
                 return None
-            
+
             idMap[vi] = nearest_neighbour
             max_dist = max(max_dist, dist)
 
         return (idMap, max_dist)
+
 

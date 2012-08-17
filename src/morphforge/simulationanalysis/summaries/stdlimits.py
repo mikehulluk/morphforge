@@ -29,16 +29,15 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import quantities as pq
 
 import numpy as np
+
 
 class StdLimits(object):
 
     @classmethod
     def get_default_voltage_array(self):
         return np.arange(-80, 60, 1) * pq.milli * pq.volt
-
 
 

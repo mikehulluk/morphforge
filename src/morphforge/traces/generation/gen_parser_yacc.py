@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import quantities as pq
 
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
@@ -37,17 +36,10 @@ from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 
 from morphforge.core.quantities import unit
 
-
-
-
-
-
 # Lexing:
 from gen_parser_lexer import TraceGeneratorParserLexer
 l = TraceGeneratorParserLexer()
 tokens = l.tokens
-
-
 
 
 class FunctionPrototype(object):
@@ -58,7 +50,6 @@ class FunctionPrototype(object):
         self.end_time = end_time
 
         self.start_value = None
-
 
     def toTracePiece(self):
 
@@ -73,15 +64,9 @@ class FunctionPrototype(object):
         return p
 
 
-
-
-
-
-
-
 def p_complete(p):
     """ l : unit_def p_pieceblock_chain_complete"""
-    p[0] =  p[1],p[2]
+    p[0] =  (p[1], p[2])
 
 
 
@@ -117,9 +102,6 @@ def p_func_name(p):
     p[0] = p[1]
 
 
-
-
-
 def p_pieceblock_chain1(p):
     """pieceblock_chain : abs_timespec func """
     f = p[2]
@@ -152,7 +134,6 @@ def p_pieceblock_chain4(p):
     p[0] = (chain + [last], f)
 
 
-
 def p_pieceblock_chain_complete(p):
     """p_pieceblock_chain_complete : pieceblock_chain  end_timespec"""
     (chain, last) = p[1]
@@ -165,8 +146,5 @@ def p_pieceblock_chain_complete(p):
 def p_error(p):
     print 'Syntax error in input!', p
     assert False
-
-
-
 
 

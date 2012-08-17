@@ -29,11 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from locmgr import LocMgr
 from logmgr import LogMgr
 from settingsmgr import SettingsMgr
 from rcmgr import RCMgr
-
 
 __all__ = ['LocMgr', 'LogMgr', 'SettingsMgr', 'RCMgr']

@@ -29,15 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import ply
 import ply.lex
 import ply.yacc
 
-
 from morphforge.core import LocMgr, SettingsMgr
 from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
-
 
 # Lexing:
 from gen_parser_lexer import TraceGeneratorParserLexer
@@ -60,18 +57,11 @@ from gen_parser_yacc import p_pieceblock_chain_complete
 from gen_parser_yacc import p_error
 
 
-
-
-
-
-
-
 class TraceStringParser(object):
 
     @classmethod
     def Parse(cls, s):
         return cls._trace_from_string(s)
-
 
     @classmethod
     def _trace_from_string(cls, s):
@@ -87,7 +77,6 @@ class TraceStringParser(object):
             prototype.start_value = v
             piece = prototype.toTracePiece()
             v = piece.get_end_value()
-
 
         # Convert to pieces
         pieces = [tracePrototype.toTracePiece() for tracePrototype in tracePrototypes]

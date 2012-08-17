@@ -29,30 +29,24 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import os
 import time
 import socket
 import random
 
-
 from os.path import join as Join
-
-
-
 
 
 class LocMgr(object):
 
     _locations = {}
 
-
-
     @classmethod
     def validate_exists(cls, cell_location):
         """ Helper function to ensure that returned path actually does exist"""
+
         if cell_location and not os.path.exists(cell_location):
-            raise ValueError("Directory does not exist: %s"% cell_location)
+            raise ValueError('Directory does not exist: %s' % cell_location)
         return cell_location
 
     @classmethod
@@ -63,10 +57,10 @@ class LocMgr(object):
 
         if dir_location and not os.path.exists(dir_location):
             from logmgr import LogMgr
-            LogMgr.info("Creating FS Location - " + dir_location)
-            if  not os.path.exists(dir_location): os.makedirs(dir_location)
+            LogMgr.info('Creating FS Location - ' + dir_location)
+            if not os.path.exists(dir_location):
+                os.makedirs(dir_location)
         return cls.validate_exists(dir_location)
-
 
     @classmethod
     def get_root_path(cls):
@@ -79,25 +73,22 @@ class LocMgr(object):
 
     @classmethod
     def get_bin_path(cls):
-        return cls.validate_exists(Join(cls.get_root_path(), "bin/"))
+        return cls.validate_exists(Join(cls.get_root_path(), 'bin/'))
 
     @classmethod
     def get_log_path(cls):
-        return cls.ensure_dir_exists(Join(cls.get_tmp_path(), "log/"))
-
-
+        return cls.ensure_dir_exists(Join(cls.get_tmp_path(), 'log/'))
 
     @classmethod
-    def get_temporary_filename(cls, suffix="", filedirectory=None):
+    def get_temporary_filename(cls, suffix='', filedirectory=None):
 
 
         rnd_string = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
         from morphforge.core.misc import StrUtils
-        fn = "tmp_%s%s" % (StrUtils.get_hash_md5(rnd_string), suffix)
+        fn = 'tmp_%s%s' % (StrUtils.get_hash_md5(rnd_string), suffix)
 
         filedirectory = filedirectory if filedirectory else cls.get_tmp_path()
         return Join(filedirectory, fn)
-
 
     @classmethod
     def get_path_from_rcfile(cls, subsection, default):
@@ -107,93 +98,73 @@ class LocMgr(object):
 
         if not subsection in cls._locations:
 
-            if RCMgr.has("Locations", subsection):
-                cls._locations[subsection] = RCMgr.get("Locations", subsection)
+            if RCMgr.has('Locations', subsection):
+                cls._locations[subsection] = RCMgr.get('Locations', subsection)
             else:
                 cls._locations[subsection] = default
 
         cls._locations[subsection] = cls._locations[subsection].replace("${PID}", "%d" % os.getpid())
         return cls.ensure_dir_exists(cls._locations[subsection])
 
-
-
     @classmethod
     def get_tmp_path(cls):
         try:
             loc = cls.get_path_from_rcfile("tmpdir", Join(cls.get_root_path(), "tmp"))
         except:
-            loc = Join(cls.get_root_path(), "tmp")
+            loc = Join(cls.get_root_path(), 'tmp')
         return cls.ensure_dir_exists(loc)
-
-
-
 
     @classmethod
     def get_default_mod_builddir(cls):
         loc = cls.get_path_from_rcfile("tmp_nrn_mod_builddir", Join(cls.get_tmp_path(), "modbuild_%d/"%os.getpid()))
         return cls.ensure_dir_exists(loc)
 
-
     @classmethod
     def get_default_mod_outdir(cls):
         loc = cls.get_path_from_rcfile("tmp_nrn_mod_buildout", Join(cls.get_tmp_path(), "modout/"))
         return cls.ensure_dir_exists(loc)
 
-
     @classmethod
     def get_default_output_dir(cls):
-        loc = Join(cls.get_root_path(), "output")
+        loc = Join(cls.get_root_path(), 'output')
         return cls.ensure_dir_exists(loc)
-
 
     @classmethod
     def get_default_summary_output_dir(cls):
-        loc = Join(cls.get_default_output_dir(), "summaries")
+        loc = Join(cls.get_default_output_dir(), 'summaries')
         return cls.ensure_dir_exists(loc)
 
     @classmethod
     def get_default_channel_summary_output_dir(cls):
-        loc = Join(cls.get_default_summary_output_dir(), "channels")
+        loc = Join(cls.get_default_summary_output_dir(), 'channels')
         return cls.ensure_dir_exists(loc)
-
-
-
-
-
 
     @classmethod
     def get_simulation_tmp_dir(cls):
         loc = cls.get_path_from_rcfile("tmp_simulationpicklesdir", Join(cls.get_tmp_path(), "simulationdir"))
         return cls.ensure_dir_exists(loc)
 
-
-
     @classmethod
     def get_simulation_results_tmp_dir(cls):
         loc = cls.get_path_from_rcfile("tmp_simulationpicklesdir", Join(cls.get_tmp_path(), "simulationresults"))
         return cls.ensure_dir_exists(loc)
-
-
 
     @classmethod
     def get_ply_parsetab_path(cls, subdir):
         dir_name = os.path.join(cls.get_tmp_path(), "parsetabs/")
         return cls.ensure_dir_exists(os.path.join(dir_name, subdir))
 
-
-
-
-    ## Test Data:
-    ######################
-
-
-
+    # # Test Data:
+    # #####################
 
     @classmethod
     def get_test_srcs_path(cls):
-        return cls.validate_exists(Join(cls.get_root_path(), "morphforge_testdata"))
+        return cls.validate_exists(Join(cls.get_root_path(),
+                                   'morphforge_testdata'))
 
     @classmethod
     def get_test_mods_path(cls):
-        return cls.validate_exists(Join(cls.get_test_srcs_path(), "mod_files"))
+        return cls.validate_exists(Join(cls.get_test_srcs_path(),
+                                   'mod_files'))
+
 

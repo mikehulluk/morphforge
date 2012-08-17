@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces.tracetypes.tracevariabledt import TraceVariableDT
 
 from morphforge.traces.tracetypes import TracePointBased
@@ -40,6 +39,7 @@ import numpy as np
 from morphforge.traces.tracetypes import TraceFixedDT
 from morphforge.traces.tracetypes import TracePiecewise
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
+
 
 class TraceConverter(object):
 
@@ -58,7 +58,6 @@ class TraceConverter(object):
         assert isinstance(original_trace, TracePointBased)
         epsilon = unit(epsilon)
 
-
         time_units = original_trace._time.units
         time_data = original_trace._time.magnitude
 
@@ -69,19 +68,18 @@ class TraceConverter(object):
 
         pts = zip(time_data.tolist(), data_data.tolist())
 
-
         newpts = _simplify_points(pts, ep)
-        new_time, new_data = zip(*newpts)
+        (new_time, new_data) = zip(*newpts)
 
-        new_trace = TraceVariableDT(np.array(new_time) * time_units, np.array(new_data) * data_units, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)
+        new_trace = TraceVariableDT(np.array(new_time) * time_units,
+                                    np.array(new_data) * data_units,
+                                    name=original_trace.name,
+                                    comment=original_trace.comment,
+                                    tags=original_trace.tags)
 
-        print 'Simplified from N=%d to N=%d' % (original_trace.get_n(), new_trace.get_n())
+        print 'Simplified from N=%d to N=%d' % (original_trace.get_n(),
+                new_trace.get_n())
         return new_trace
-
-
-
-
-
 
 
 import math
@@ -94,7 +92,7 @@ def _simplify_points (pts, tolerance):
 
     stack.append((anchor, floater))
     while stack:
-        anchor, floater = stack.pop()
+        (anchor, floater) = stack.pop()
 
         # initialize line segment
         if pts[floater] != pts[anchor]:
@@ -126,16 +124,17 @@ def _simplify_points (pts, tolerance):
                 vec_y = float(pts[i][1] - pts[floater][1])
                 seg_len = math.sqrt(vec_x ** 2 + vec_y ** 2)
                 # dot product:
-                proj = vec_x * (-anchor_x) + vec_y * (-anchor_y)
+                proj = vec_x * -anchor_x + vec_y * -anchor_y
                 if proj < 0.0:
                     dist_to_seg = seg_len
-                else:  # calculate perpendicular distance to line (pythagorean theorem):
+                else:
+                    # calculate perpendicular distance to line (pythagorean theorem):
                     dist_to_seg = math.sqrt(abs(seg_len ** 2 - proj ** 2))
                 if max_dist < dist_to_seg:
                     max_dist = dist_to_seg
                     farthest = i
 
-        if max_dist <= tolerance: # use line segment
+        if max_dist <= tolerance:  # use line segment
             keep.add(anchor)
             keep.add(floater)
         else:
@@ -147,16 +146,10 @@ def _simplify_points (pts, tolerance):
     return [pts[i] for i in keep]
 
 
-
-
-
-
-
 class TraceApproximator(object):
 
    @classmethod
    def find_levels(cls, d, min_level_size=15, convolution_threshold=4):
-
 
        x = np.arange(len(d))
 
@@ -168,32 +161,32 @@ class TraceApproximator(object):
        edge_indices = np.where(edges > convolution_threshold)[0]
 
        if len(edge_indices) != 0:
-           # This returns a list of numbers.
-           # So, we need to find consecutive digits
-           continuous_numbers_forward = (edge_indices - np.roll(edge_indices, 1)) == 1
-           not_continuous_numbers_start = np.where(continuous_numbers_forward != True)[0]
-           subarrays = np.split(edge_indices, not_continuous_numbers_start)
+            # This returns a list of numbers.
+            # So, we need to find consecutive digits
+            continuous_numbers_forward = (edge_indices - np.roll(edge_indices, 1)) == 1
+            not_continuous_numbers_start = np.where(continuous_numbers_forward != True)[0]
+            subarrays = np.split(edge_indices, not_continuous_numbers_start)
 
-           change_points = []
-           for s in subarrays:
-               if len(s) == 0:
-                   continue
+            change_points = []
+            for s in subarrays:
+                if len(s) == 0:
+                    continue
 
-               # Find the highest 'edge' value corresponding to the
-               # to the indices in 's'
-               i = np.argmax(edges[s])
-               i_max = s[i] #- min_level_size
+                # Find the highest 'edge' value corresponding to the
+                # to the indices in 's'
+                i = np.argmax(edges[s])
+                i_max = s[i] #- min_level_size
 
                change_points.append(i_max)
 
-           # Construct the ranges from the levels:
-           ranges = []
-           ranges.append((0, change_points[0]))
-           for cpI in range(len(change_points) - 1):
-               ranges.append((change_points[cpI], change_points[cpI + 1]))
-           ranges.append((change_points[-1], len(d)-1))
+            # Construct the ranges from the levels:
+            ranges = []
+            ranges.append((0, change_points[0]))
+            for cpI in range(len(change_points) - 1):
+                ranges.append((change_points[cpI], change_points[cpI + 1]))
+            ranges.append((change_points[-1], len(d)-1))
        else:
-           ranges = [(0, len(d)-1)]
+            ranges = [(0, len(d)-1)]
 
        return ranges
 

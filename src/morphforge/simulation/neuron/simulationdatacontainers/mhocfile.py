@@ -30,8 +30,6 @@
 # ----------------------------------------------------------------------
 
 
-
-
 class MHOCSections(object):
 
     InitHeader = 'InitHeader'
@@ -60,10 +58,11 @@ class MHOCSections(object):
         InitRecords,
         InitSimParams,
         run,
-       ]
+        ]
+
 
 class MHocFileData(object):
-   
+
     Cells = 'Cells'
     Recordables = 'Recordables'
     CurrentClamps = 'CurrentClamps'
@@ -77,27 +76,30 @@ class MHocFileData(object):
         VoltageClamps,
         Synapses,
         GapJunctions,
-       ]
+        ]
 
 
 class MHocFile(object):
 
-
     def __setitem__(self, key, value):
         self.info[key] = value
+
     def __getitem__(self, key):
         if not key in self.info:
             return None
         return self.info[key]
 
     def __init__(self):
-        self.info = dict([(root_info, {}) for root_info in MHocFileData.root_infos])
+        
+        _info = [(root_info, {}) for root_info in MHocFileData.root_infos]
+        self.info = dict(_info)
         self.sections = dict([(s, []) for s in MHOCSections.ordered])
 
     def add_to_section(self, section_name, text):
         self.sections[section_name].append(text)
 
     def __str__(self):
+
         def strSect(sect):
             h = '// Section: %s ' % sect
             hu = '/' * len(h)

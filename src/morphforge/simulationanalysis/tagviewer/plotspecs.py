@@ -45,10 +45,6 @@ def default_legend_labeller(tr):
         return None
 
 
-
-
-
-
 class YAxisConfig(object):
     def __init__(self, yunit=None, yrange=None, ylabel=None, yticks=None, yticklabels=None, ymargin=None, ynticks=None):
         self.yrange = yrange
@@ -75,14 +71,12 @@ class PlotSpec_DefaultNew(object):
         #self.ylabel = ylabel if ylabel else s
 
         if yaxisconfig is None:
-            self.yaxisconfig=YAxisConfig(ylabel=ylabel if ylabel else s,
+            self.yaxisconfig = YAxisConfig(ylabel=ylabel if ylabel else s,
                                          yunit=yunit,
                                          yrange=yrange,
                                          ynticks=ynticks)
         else:
             self.yaxisconfig = yaxisconfig
-
-
 
         self.title = title
         self.legend_labeller = legend_labeller
@@ -90,7 +84,6 @@ class PlotSpec_DefaultNew(object):
 
         self.event_marker_size = event_marker_size
         self.time_range = time_range
-
 
         if isinstance(s, TagSelector):
             self.selector = s
@@ -102,25 +95,23 @@ class PlotSpec_DefaultNew(object):
     # Used by TagViewer
     def addtrace_predicate(self, trace):
         return self.selector(trace)
+
     def addeventset_predicate(self, trace):
         return self.selector(trace)
-
 
     # Plot in order by name; this is normally fine, since annonymous objects
     # will be plotted in the order they were created.
     def _sort_traces(self, traces):
         return sorted(traces, key=lambda t: t.name)
+
     def _sort_eventsets(self, event_sets):
         return sorted(event_sets, key=lambda t: t.name)
-
 
     def _plot_trace(self, trace,  ax, index, color=None):
         plot_kwargs = {}
 
-
         if self.legend_labeller is not None:
             plot_kwargs['label'] = self.legend_labeller(trace)
-
 
         if color is not None:
             plot_kwargs['color'] = color
@@ -135,7 +126,6 @@ class PlotSpec_DefaultNew(object):
         if len(eventset) == 0:
             return []
 
-
         plot_kwargs = {}
         if self.event_marker_size:
             plot_kwargs['markersize'] = self.event_marker_size
@@ -143,14 +133,13 @@ class PlotSpec_DefaultNew(object):
         if self.legend_labeller is not None:
             plot_kwargs['label'] = self.legend_labeller(eventset)
 
-
         if 'label' in plot_kwargs:
             assert isinstance(plot_kwargs['label'], basestring)
 
         i_range = 0.2
         i_scale = i_range / len(list(eventset.times))
 
-        data = np.array([(t.rescale("ms").magnitude,index+i*i_scale) for i,t in enumerate(eventset.times)])
+        data = np.array([(t.rescale("ms").magnitude,index + i * i_scale) for (i,t) in enumerate(eventset.times)])
 
 
 
@@ -167,8 +156,8 @@ class PlotSpec_DefaultNew(object):
 
         # Which traces are we plotting (rely on a mixon class):
         trcs = [tr for tr in all_traces if self.addtrace_predicate(tr)]
-        eventsets = [tr for tr in  all_eventsets if self.addeventset_predicate(tr)]
-
+        eventsets = [tr for tr in all_eventsets
+                     if self.addeventset_predicate(tr)]
 
         # Sort and plot:
         for index, trace in enumerate(self._sort_traces(trcs)):
@@ -180,7 +169,6 @@ class PlotSpec_DefaultNew(object):
             self._plot_eventset(event_set,  ax=ax, index=index+len(trcs))
 
             # ax.set_ylim(((-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless))
-
 
         if len(trcs) == 0:
             padding =0.5
@@ -209,15 +197,13 @@ class PlotSpec_DefaultNew(object):
         # print ax.xyUnitDisplay[0]
         # assert False
 
-
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)
-
-
 
         if time_range is not None:
             ax.set_xlim(time_range)
 
-
         # Turn the grid on:
         ax.grid('on')
+
+

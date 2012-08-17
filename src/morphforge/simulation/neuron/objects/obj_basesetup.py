@@ -29,13 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from neuronobject import NeuronObject
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
-
-
-
-
 
 
 class NeuronSimSetupObj(NeuronObject):
@@ -52,10 +47,9 @@ class NeuronSimSetupObj(NeuronObject):
                                    """load_file("noload.hoc")""")
 
         if self.simsettings['cvode']:
-            hocfile_obj.add_to_section(MHOCSections.InitHeader,
+            hocfile_obj.add_to_section(
+                    MHOCSections.InitHeader,
                     """cvode_active(1)""")
-
-
 
         # For testing: should be done properly:
         hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%(self.simsettings["tstop"].rescale("ms").magnitude))

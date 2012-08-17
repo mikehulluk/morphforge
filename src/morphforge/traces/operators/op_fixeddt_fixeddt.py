@@ -29,12 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import operator
 from morphforge.traces.tracetypes import TraceFixedDT
 from morphforge.core.quantities import NpPqWrappers
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
-
 
 
 class TraceOperator_TraceFixedDT_TraceFixedDT(object):

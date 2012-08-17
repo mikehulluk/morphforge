@@ -29,11 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import json
 
-
 import numpy as np
+
 
 class NeuroCSVWriter(object):
 
@@ -41,8 +40,6 @@ class NeuroCSVWriter(object):
     def write_to_file(cls, fileName, **kwargs):
         with open(fileName, 'w') as f:
             return NeuroCSVWriter.write_to_buffer(fileObj=f, **kwargs)
-
-
 
     @classmethod
     def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None ):
@@ -87,8 +84,6 @@ class NeuroCSVWriter(object):
                 data[tIndex] = dataFormat(float(data_val.magnitude))
             colData.append(data)
 
-
-
         # Write the header
         fileObj.write(header)
         fileObj.write('\n')
@@ -100,25 +95,23 @@ class NeuroCSVWriter(object):
             l = '\t'.join([tStr] + cStrings)
             fileObj.write(l + '\n')
 
-
-
-        #print header
+        # print header
 
     @classmethod
     def generate_column_header(self, tr, index):
-        d = {'label':tr.name,
+        d = {'label': tr.name, 
              'unit': str(tr._data.units),
-             'tags': ",".join(tr.tags)
-             }
-        s1 = "#! COLUMN%d: "%(index)
+             'tags': ','.join(tr.tags)}
+        s1 = '#! COLUMN%d: ' % index
         s2 = json.dumps(d)
         return s1 + s2
 
     @classmethod
     def generate_eventset_header(self, eventset):
-        d = {'label':eventset.name,
-             'tags': ",".join(eventset.tags)
-             }
-        s1 = "#@ EVENT %s "%json.dumps(d)
-        s2 = " ".join(["%2.2f"%e.get_time() for e in eventset])
-        return s1+s2
+        d = {'label': eventset.name, 
+             'tags': ','.join(eventset.tags)}
+        s1 = '#@ EVENT %s ' % json.dumps(d)
+        s2 = ' '.join(['%2.2f' % e.get_time() for e in eventset])
+        return s1 + s2
+
+

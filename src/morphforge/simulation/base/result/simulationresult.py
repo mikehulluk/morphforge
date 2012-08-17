@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import LocMgr, FileIO
 from morphforge.core.misc import SeqUtils
 import pickle
@@ -38,6 +37,7 @@ import pickle
 class SimulationResult(object):
 
     """ traces is a list of trace Objects"""
+
     def __init__(self, traces, simulation):
         self.traces = traces
         self.simulation = simulation
@@ -56,7 +56,6 @@ class SimulationResult(object):
     def get_traces(self):
         return self.traces
 
-
     # Loading & Saving:
     def save_to_file(self, filename):
         res_string = pickle.dumps(self)
@@ -68,4 +67,5 @@ class SimulationResult(object):
     @classmethod
     def load_from_file(cls, filename):
         return pickle.load(open(filename))
+
 

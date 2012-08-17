@@ -30,20 +30,16 @@
 # ----------------------------------------------------------------------
 
 
-
-
-
-
 class StdRegions(object):
 
-    soma = "soma"
-    axon = "axon"
-    dendrite = "dendrite"
-    apicaldendrite = "apicaldendrite"
-
+    soma = 'soma'
+    axon = 'axon'
+    dendrite = 'dendrite'
+    apicaldendrite = 'apicaldendrite'
 
 
 class SWCRegionCodes(object):
+
     name2number = {
         StdRegions.soma: 1,
         StdRegions.axon: 2,
@@ -54,6 +50,7 @@ class SWCRegionCodes(object):
     # Create the inverse
     @classmethod
     def number2name(cls):
-        return dict([(v, k) for (k, v) in SWCRegionCodes.name2number.iteritems()])
+        return dict([(v, k) for (k, v) in
+                    SWCRegionCodes.name2number.iteritems()])
 
 

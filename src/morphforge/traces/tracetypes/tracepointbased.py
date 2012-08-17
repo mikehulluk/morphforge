@@ -77,10 +77,10 @@ class TracePointBased(Trace):
     def get_n(self):
         return len(self._time)
 
-
     def time_within_trace(self, times):
         t = times.rescale('ms').magnitude
         t0 = self.get_min_time().rescale('ms').magnitude
         t1 = self.get_max_time().rescale('ms').magnitude
         return np.logical_and(t >= t0, t <= t1)
+
 

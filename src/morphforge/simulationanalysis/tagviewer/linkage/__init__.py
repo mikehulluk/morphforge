@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import re
 from collections import defaultdict
 from itertools import chain
@@ -56,8 +55,8 @@ def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict
     return collisions + 1
 
 
-
 class LinkageRuleTagRegex(object):
+
     def __init__(self, regex):
         self.regex = re.compile(regex, re.VERBOSE)
 
@@ -67,8 +66,8 @@ class LinkageRuleTagRegex(object):
             if self.regex.match(t):
                 tMatches.append(t)
         return tMatches
-        
-    def __call__(self,allTraces):
+
+    def __call__(self, allTraces):
         grps = defaultdict(list)
 
         for tr in allTraces:
@@ -77,8 +76,7 @@ class LinkageRuleTagRegex(object):
                 grps[mT].append(tr)
 
         return grps.values()
-        #matches = [tr for tr in allTraces]
-        #return []
+        
 
 
 
@@ -88,14 +86,11 @@ class StandardLinkages(object):
 
         self.color_cycle = ['blue','green','red','cyan','yellow','black']
 
-        self.linkage_rules = linkage_rules if linkage_rules else []
-
+        self.linkage_rules = (linkage_rules if linkage_rules else [])
 
     def getLinkagesFromRules(self, allTraces):
         links = chain(*[link_rule(allTraces) for link_rule in self.linkage_rules])
         return list(links)
-
-
 
     def process(self, ps_to_traces_dict):
         import networkx as nx

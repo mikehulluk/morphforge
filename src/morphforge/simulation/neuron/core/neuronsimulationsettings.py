@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities import unit
 
 
@@ -52,16 +51,14 @@ class NeuronSimulationSettings(object):
 
         return defs
 
-
-
     def __init__(self, **kwargs):
         self.params = NeuronSimulationSettings.get_defaults()
 
         for kw in kwargs:
             assert kw in self.params
             self.params[kw] = kwargs[kw]
-            print 'Over-riding parameter: %s to %s' %
-                    (str(kw), str(self.params[kw]))
+            print 'Over-riding parameter: %s to %s' % (str(kw),
+                    str(self.params[kw]))
 
     def __getitem__(self, key):
         return self.params[key]

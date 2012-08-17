@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from collections import defaultdict
+
 
 class NeuronParameter(object):
     def __init__(self, parametername, parameterunit, initialvalue=None, parameterrange=None):
@@ -49,15 +49,14 @@ class NeuronParameter(object):
 
 
     def declaration_string(self):
-        unit_str = self.get_unit_str() # "(%s)"%self.parameterunit if self.parameterunit else ""
-        range_str = "<%1.1e,%1.1e>"%self.parameterrange if self.parameterrange else ""
-        return "%s %s %s"%(self.parametername,unit_str,range_str)
+        unit_str = self.get_unit_str()
+        range_str = "<%1.1e,%1.1e>" % self.parameterrange if self.parameterrange else ""
+        return "%s %s %s" % (self.parametername, unit_str, range_str)
 
     def initialisation_string(self):
-        #unit_str =  "(%s)"%self.parameterunit if self.parameterunit else ""
-        unit_str = self.get_unit_str() #
-        init_str = "= %s "%self.initialvalue if self.initialvalue else ""
-        return  "%s %s %s"%(self.parametername,init_str, unit_str)
+        unit_str = self.get_unit_str() 
+        init_str = "= %s " % self.initialvalue if self.initialvalue else ""
+        return  "%s %s %s" % (self.parametername,init_str, unit_str)
 
 
 
@@ -88,7 +87,7 @@ class ModFileSectioned(object):
             Initial,
             Derivative,
             Functions,
-           ]
+            ]
 
     def __init__(self, title, comment=None):
         self.sectiondata = defaultdict(list)
@@ -104,8 +103,6 @@ class ModFileSectioned(object):
 
     def clear_section(self, section, line):
         del self.sectiondata[section]
-
-
 
     def get_section_text(self, section):
         return '\n'.join(self.sectiondata[section])
@@ -123,11 +120,10 @@ class ModFileSectioned(object):
         self.append_to_section(ModFileSectioned.Sections.Neuron,
                                'THREADSAFE')
 
-
     # Finalisation:
     def simple_finalise_section(self, section, tabsection=False):
         if tabsection: self.sectiondata[section] = ["\t" + l for l in self.sectiondata[section]]
-        self.prepend_to_section(section, "%s {"%section)
+        self.prepend_to_section(section, "%s {" % section)
         self.append_to_section(section, "}")
 
 
@@ -143,11 +139,6 @@ class ModFileSectioned(object):
 
         # Nothing to do for Procedure
         # Nothing to do for Functions
-
-
-
-
-
 
     # User Functions:
     def create_header(self, title, comment):
@@ -177,8 +168,6 @@ class ModFileSectioned(object):
     def add_parameter(self, parameter):
         self.append_to_section(ModFileSectioned.Sections.Parameter,
                                parameter.initialisation_string())
-
-
 
     # States
     def add_state_group(self, groupname, states, derivative_code, initial_code):
@@ -213,7 +202,5 @@ class ModFileSectioned(object):
     def add_function(self, func):
         self.append_to_section(ModFileSectioned.Sections.Functions,
                                func)
-
-
 
 

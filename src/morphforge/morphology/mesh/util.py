@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
 
 
@@ -40,7 +39,6 @@ def norm_vec(v):
 def get_normal_vectors(vec):
     vec_norm = vec / np.sqrt(np.dot(vec, vec))
     vec_norm = norm_vec(vec)
-
 
     # Decided which vector to use as a basis to find the normals
     # We want something that is not too parallel...
@@ -54,7 +52,6 @@ def get_normal_vectors(vec):
     return (perp1, perp2)
 
 
-
 def get_point_circle_about(pt, normal, radius, n):
     (p1, p2) = get_normal_vectors(normal)
     angle_step = 2 * np.pi / n
@@ -65,6 +62,7 @@ def get_point_circle_about(pt, normal, radius, n):
 
 
 def find_closest_points(pts1, pts2):
+
     def dist_sqd_between_indices(i1, i2):
         joining = pts1[i1] - pts2[i2]
         return np.dot(joining, joining)
@@ -86,7 +84,6 @@ def get_best_joining_offset(pts1, pts2):
     assert len(pts1) == len(pts2)
     n = len(pts1)
 
-
     bestoffset = 0
     bestlength = None
 
@@ -105,7 +102,5 @@ def get_best_joining_offset(pts1, pts2):
             bestoffset = 0
 
     return (0, bestoffset)
-
-
 
 

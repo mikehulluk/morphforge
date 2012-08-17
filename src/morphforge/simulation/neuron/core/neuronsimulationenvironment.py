@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import PluginDict
 from morphforge.simulation.base import SimulationEnvironment
 from morphforge.simulation.base import CurrentClampStepChange
@@ -39,7 +38,6 @@ from morphforge.simulation.neuron.core import NeuronSimulationSettings
 from morphforge.simulation.neuron.networks import NeuronGapJunction
 from morphforge.simulation.neuron.core import MNeuronCell
 from morphforge.simulation.neuron.core import MNeuronSimulation
-
 
 
 class NeuronSimulationEnvironment(SimulationEnvironment):
@@ -52,7 +50,6 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
 
     def SimulationSettings(self, **kwargs):
         return NeuronSimulationSettings(**kwargs)
-
 
     membranemechanisms = PluginDict()
     presynapticmechanisms = PluginDict()
@@ -79,12 +76,9 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
         cc = self.currentclamps.get_plugin(form)
         return cc(**kwargs)
 
-
     def VoltageClamp(self, form=VoltageClampStepChange, **kwargs):
         vc = self.voltageclamps.get_plugin(form)
         return vc(**kwargs)
-
-
 
     def GapJunction(self, **kwargs):
         return NeuronGapJunction(**kwargs)
@@ -92,4 +86,5 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
     def Synapse(self, **kwargs):
         from morphforge.simulation.neuron.networks import NeuronSynapse
         return NeuronSynapse(**kwargs)
+
 

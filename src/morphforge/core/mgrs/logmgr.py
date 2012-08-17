@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import logging
 import os
 import inspect
 
 
 class LogMgrState(object):
+
     Ready = 'Ready'
     Configuring = 'Configuring'
     Uninitialised = 'Uninitalised'
@@ -46,7 +46,6 @@ class LogMgr(object):
     initState = LogMgrState.Uninitialised
     loggers = {}
 
-
     @classmethod
     def config(cls):
         from locmgr import LocMgr
@@ -56,17 +55,14 @@ class LogMgr(object):
         if cls.initState == LogMgrState.Ready:
             return
 
-
         cls.initState = LogMgrState.Configuring
 
-        logfilename = os.path.join(LocMgr.get_log_path(), "log.html")
+        logfilename = os.path.join(LocMgr.get_log_path(), 'log.html')
         logging.basicConfig(filename=logfilename, level=logging.INFO)
 
         cls.initState = LogMgrState.Ready
 
-        cls.info_from_logger("Logger Started OK")
-
-
+        cls.info_from_logger('Logger Started OK')
 
     @classmethod
     def _pyfile_to_modulename(cls, filename):
@@ -78,7 +74,6 @@ class LogMgr(object):
         local_path = local_path.replace('.py', '')
         local_path = local_path.replace('/', '.')
         return (local_path, morphforge_lib)
-
 
     @classmethod
     def get_caller(cls):
@@ -97,13 +92,8 @@ class LogMgr(object):
             cls.loggers[package_name] = cls.create_logger(package_name)
         cls.loggers[package_name].info(msg)
 
-
-
-
-
     @classmethod
     def _is_logging_active_and_ready(cls):
-
 
         if cls.initState == LogMgrState.Ready:
             from settingsmgr import SettingsMgr
@@ -118,14 +108,11 @@ class LogMgr(object):
         else:
             raise ValueError()
 
-
-
     @classmethod
     def info(cls, msg):
         if not cls._is_logging_active_and_ready():
             return
         cls.get_logger().info(msg)
-
 
     @classmethod
     def debug(cls, msg):
@@ -138,10 +125,6 @@ class LogMgr(object):
         if not cls._is_logging_active_and_ready():
             return
         cls.get_logger().warning(msg)
-
-
-
-
 
     @classmethod
     def create_logger(cls, log_name):
@@ -156,14 +139,12 @@ class LogMgr(object):
         logger.addHandler(ch)
         return logger
 
-
     @classmethod
     def get_logger(cls):
 
         # Find Who called us:
-        call_mod = "DISABLEDLOGGING"
-        #(call_mod, isMorphforgeLib), lineNum = cls.get_caller()
-
+        call_mod = 'DISABLEDLOGGING'
+        # (call_mod, isMorphforgeLib), lineNum = cls.get_caller()
 
         if not call_mod in cls.loggers:
             cls.loggers[call_mod] = cls.create_logger(call_mod)

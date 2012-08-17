@@ -29,20 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 # Biophysics holder:
 from cellbiophysics import CellBiophysics
-
 
 # Base Classes:
 from membranemechanism import MembraneMechanism
 from passiveproperties import PassiveProperty
 
-
 # Applicators:
 from membranemechanismapplicators import MembraneMechanismApplicator
 from membranemechanismapplicators import MembraneMechanismApplicator_Uniform
-
 
 # Targettors:
 from membranemechanismtargetters import Targeter
@@ -54,8 +50,6 @@ from membranemechanismtargetters import MembraneMechanismTargeter_Everywhere
 from membranemechanismtargetters import MembraneMechanismTargeter_Region
 from membranemechanismtargetters import MembraneMechanismTargeter_Section
 from membranemechanismtargetters import MembraneMechanismTargeter_SectionPath
-
-
 
 __all__ = [
     'CellBiophysics',
@@ -71,5 +65,5 @@ __all__ = [
     'MembraneMechanismTargeter_Region',
     'MembraneMechanismTargeter_Section',
     'MembraneMechanismTargeter_SectionPath',
-   ]
+    ]
 

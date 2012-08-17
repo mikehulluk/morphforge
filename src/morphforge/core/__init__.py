@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 # First thing to do monkey patch  external libraries like matplotlib,
 #  mayavi, numpy.
 
@@ -43,8 +41,6 @@ from mgrs import LocMgr, LogMgr, SettingsMgr, RCMgr
 from misc import merge_dictionaries, check_cstyle_varname
 from misc import is_iterable, FileIO
 from misc import SeqUtils, StrUtils
-
-
 
 from objectnumberer import ObjectLabeller
 from os.path import join as Join
@@ -69,5 +65,5 @@ __all__ = [
     'MFRandom',
     'unit',
     'U',
-   ]
+    ]
 

@@ -30,8 +30,6 @@
 # ----------------------------------------------------------------------
 
 
-
-
 class SummariserLibrary(object):
 
     summarisers = {}
@@ -44,10 +42,6 @@ class SummariserLibrary(object):
 
         # Add it to the dictionary of summarisers:
         cls.summarisers[channel_baseclass] = summariser_class
-
-
-
-
 
     @classmethod
     def get_summarisier(cls, obj):
@@ -63,4 +57,5 @@ class SummariserLibrary(object):
         else:
             assert False, 'I have to many options for summarising: ' \
                 + str(obj)
+
 

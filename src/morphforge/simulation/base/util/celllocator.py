@@ -29,16 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import itertools
 
 from morphforge.morphology.util.morphlocator import MorphLocator
 from morphforge.simulation.base.core.celllocation import CellLocation
 from morphforge.core.misc import SeqUtils
 
-class CellLocator(object):
-    """Provides the same functionality as MorphLocator, except that it operates on cells."""
 
+class CellLocator(object):
+
+    """Provides the same functionality as MorphLocator, except that it operates on cells."""
 
     @classmethod
     def get_locations_at_distance_away_from_dummy(cls, cell, distance, section_predicate=None):

@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.segmentation.segment import CellSegment
-
 
 
 class AbstCellSegmenter(object):
@@ -41,7 +39,6 @@ class AbstCellSegmenter(object):
 
     def connect_to_cell(self, cell):
         raise NotImplementedError()
-
 
     def get_num_segments(self, section):
         raise NotImplementedError()
@@ -63,8 +60,6 @@ class AbstCellSegmenter(object):
                    region])
 
 
-
-
 class CellSegmenterStd(AbstCellSegmenter):
 
     def __init__(self, cell=None):
@@ -74,11 +69,9 @@ class CellSegmenterStd(AbstCellSegmenter):
         if self.cell:
             self.connect_to_cell(cell)
 
-
     def connect_to_cell(self, cell):
         assert not self.cell
         self.cell = cell
-
 
     def get_num_segments(self, section):
         return self._get_n_segments(section)
@@ -87,11 +80,8 @@ class CellSegmenterStd(AbstCellSegmenter):
         assert False, 'What is using the cell segment objects??'
         return self.cellSegments[section]
 
-
     def _get_n_segments(self, section):
         raise NotImplementedError()
-
-
 
     @property
     def cellSegments(self):
@@ -106,11 +96,6 @@ class CellSegmenterStd(AbstCellSegmenter):
         return self._cellSegments
 
 
-
-
-
-
-
 class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
     def __init__(self, cell=None, max_segment_length=5):
@@ -121,13 +106,10 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
         return int(section.get_length() / self.max_segment_length) + 1
 
 
-
 class CellSegmenter_SingleSegment(CellSegmenterStd):
 
     def _get_n_segments(self, section):
         return 1
-
-
 
 
 class CellSegmenter_MaxLengthByID(CellSegmenterStd):

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphmaths import MorphologyForRenderingOperator
 
 from morphforge.morphology.visitor import DictBuilderSectionVisitorHomo
@@ -38,9 +37,8 @@ import numpy
 import numpy as np
 
 
-
-
 class MatPlotLibViewer(object):
+
     """
     Plot Projections of a morphology onto XY, XZ, and YZ axes.
     """
@@ -79,15 +77,12 @@ class MatPlotLibViewer(object):
         from matplotlib.path import Path
         from matplotlib import patches
 
-
         subplotnum = self.figurePositions[i]
         title = self.figureTitles[i]
         projMatrix = self.figureProjections[i]
         labels = self.figureLabels[i]
 
-
         ax = fig.add_subplot(subplotnum, aspect='equal')
-
 
         # Find the depth extremes for coloring:
 
@@ -97,7 +92,6 @@ class MatPlotLibViewer(object):
             zMin = (xyzProj[2] if not zMin else min(zMin, xyzProj[2]))
             zMax = (xyzProj[2] if not zMax else max(zMax, xyzProj[2]))
         zRange = zMax - zMin
-
 
         for seg in self.morph:
             xyzProj = numpy.dot(projMatrix, rotatedSectionDict[seg])
@@ -137,14 +131,11 @@ class MatPlotLibViewer(object):
                 p3 = xyProjParent - (perpVec * seg.p_r)
                 p4 = xyProjParent + (perpVec * seg.p_r)
 
-                verts = [p1,p2,p3,p4,(0,0)]
+                verts = [p1, p2, p3, p4, (0,0)]
                 codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY,]
                 path = Path(verts, codes)
                 patch = patches.PathPatch(path, facecolor=color, lw=1)
                 ax.add_patch(patch)
-
-
-
 
         ax.set_title(title)
         ax.set_xlim(plotLims)
@@ -153,7 +144,6 @@ class MatPlotLibViewer(object):
         ax.set_ylabel(labels[1])
         ax.grid(True)
         return ax
-
 
     def buildPlot(self, usePCA):
         import pylab
@@ -186,14 +176,6 @@ class MatPlotLibViewer(object):
         for i in self.plotViews:
             maxes[i] = maxes[i] + 0.2 * max([maxX, maxY, maxZ])
 
-
-
-
-
-
-
-
-
         self.fig = pylab.figure(figsize=(7, 7))
         self.fig.subplots_adjust(
             left=0.05,
@@ -203,9 +185,6 @@ class MatPlotLibViewer(object):
             wspace=0.1,
             hspace=0.1,
             )
-
-
-
 
         self.subplots = {}
         for i in self.plotViews:

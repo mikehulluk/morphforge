@@ -135,12 +135,6 @@ exampl in simulations.
 
 """
 
-
-
-
-
-
-
 import numpy
 import numpy as np
 import math
@@ -152,8 +146,6 @@ from morphforge.core import check_cstyle_varname
 from morphforge.morphology.core.base import MorphologyBase
 from morphforge.morphology.visitor import SectionListerDF
 from morphologyconsistency import MorphologyConsistencyMgr
-
-
 
 
 class Section(object):
@@ -175,8 +167,6 @@ class Section(object):
     parent = property(lambda self: self._parent, None)
     children = property(lambda self: self._children, None)
 
-
-
     def __init__(self, x, y, z, r, region, parent=None, idtag=None):
         """ Creation of the section.  """
 
@@ -188,7 +178,6 @@ class Section(object):
         self._region = region
         self._idTag = idtag
 
-
         # Post Processing: tidy up loose ends:
         if region is not None:
             region.add_section(self)
@@ -196,12 +185,12 @@ class Section(object):
             if not self in self.parent.children:
                 self.parent.children.append(self)
 
-
     # Adding new sections:
     def create_distal_section(self, x, y, z, r, region, idtag=None):
         """Creates and returns a new Section object from its distal end.
         The parameters are the same as for the constructor.
         """
+
         return Section(parent=self, x=x, y=y, z=z, r=r, region=region, idtag=idtag)
 
 
@@ -216,8 +205,6 @@ class Section(object):
     def is_leaf(self):
         return len(self.children) == 0
 
-
-
     def get_npa3(self, position):
         assert 0 <= position <= 1
         return self.get_proximal_npa3() + self.get_proximal_to_distal_vector_npa3() * position
@@ -229,27 +216,26 @@ class Section(object):
 
     def get_distal_npa3(self):
         """Returns the 3 coordinates of the distal end of the section.  """
+
         return self._d_pos
 
     def get_distal_npa4(self):
         """Returns the 3 coordinates and the radius of the distal end of the
             section.  """
+
         return numpy.array((self.d_x, self.d_y, self.d_z, self.d_r))
 
     def get_proximal_npa3(self):
         """ Returns the 3 coordinates of the proximal end of the section.  """
+
         assert not self.is_dummy_section()
         return self.parent._d_pos
 
     def get_proximal_npa4(self):
         """Returns the 3 coordinates and the radius of the proximal end of the section.  """
+
         assert not self.is_dummy_section()
         return numpy.array((self.p_x, self.p_y, self.p_z, self.p_r))
-
-
-
-
-
 
     def __repr__(self):
         if self.is_dummy_section():
@@ -264,18 +250,17 @@ class Section(object):
 
     def get_proximal_to_distal_vector_npa3(self):
         """Returns the vector that joins the proximal end of the section to the distal end.  """
+
         return self.get_distal_npa3() - self.get_proximal_npa3()
 
     def get_proximal_to_distal_vector_npa4(self):
         """Returns the vector that joins the proximal end of the section to the distal end.  """
+
         return self.get_distal_npa4() - self.get_proximal_npa4()
-
-
 
     def get_length(self):
         assert not self.is_dummy_section(), "Getting Length of dummy section!"
         return numpy.linalg.norm(self.get_proximal_to_distal_vector_npa3())
-
 
     def get_area(self, include_end_if_terminal=False):
         """ Returns the area of the section.  """
@@ -299,10 +284,9 @@ class Section(object):
                 == 1:
                 A += math.pi * r * r
             return A
-
         else:
-            return lateral_area
 
+            return lateral_area
 
     def get_volume(self):
         """Returns the volume of the section."""
@@ -313,50 +297,36 @@ class Section(object):
         l = self.get_length()
         return 1.0 / 3.0 * math.pi * l * (R * R + R * r + r * r)
 
-
     area = property(get_area)
     surface_area = property(get_area)
     volume = property(get_volume)
 
-
     # Deprecated:
     def get_vectorfrom_parent_np4(self):
         """ Deprecated: Returns the directional vector and the radious difference in the section.  """
+
         assert False, 'Deprecated'
         return self.get_distal_npa4() - self.get_proximal_npa4()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Region(object):
+
     """
     Region is a collection of sections. It is used for annotating the sections
     (i.e. axon, soma, proximal dendrite, ...) and for collectively assigning
     the channels and membrane definitions to the sections.
     """
 
-
     def __str__(self):
         s = '<RegionObject: Name: %s, nSections: %d (ID:%s)>' \
             % (self.name, len(self.sections), id(self))
         return s
+
     def __init__(self, name):
         check_cstyle_varname(name)
         self.name = name
         self.sections = []
         self.morph = None
-
 
     def __iter__(self):
         return iter(self.sections)
@@ -373,7 +343,6 @@ class Region(object):
 
         self.sections.append(section)
 
-
     def set_morphology(self, morph):
 
         if not morph:
@@ -387,10 +356,8 @@ class Region(object):
         return sum(s.surface_area for s in self)
 
 
-
-
-
 class MorphLocation(object):
+
     """A MorphLocations represents a cell_location (more accurately a disk) on a
     morphology. It is specied by a Section, and the proportion of the distance
     along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0
@@ -401,29 +368,20 @@ class MorphLocation(object):
     @property
     def section(self):
         return self._section
+
     @property
     def sectionpos(self):
         return self._sectionpos
-
 
     def __init__(self, section, sectionpos, position_info=None):
         self._section = section
         self._sectionpos = sectionpos
         assert 0.0 <= sectionpos <= 1.0
 
-
     def get_3d_position(self):
         """Returns the 3D position of the morphology cell_location"""
         local_vector = self.sectionpos * self.section.get_proximal_to_distal_vector_npa3()
         return self.section.get_proximal_npa3() + local_vector
-
-
-
-
-
-
-
-
 
 
 class MorphologyTree(MorphologyBase):
@@ -434,13 +392,6 @@ class MorphologyTree(MorphologyBase):
     def to_array(self, **kwargs):
         from morphforge.morphology.conversion import MorphologyConverter
         return MorphologyConverter.tree_to_array(self, **kwargs)
-
-
-
-
-
-
-
 
     def __init__(self, name=None, dummysection=None, metadata=None, region_number_to_name_bidict=None):
         MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
@@ -463,13 +414,12 @@ class MorphologyTree(MorphologyBase):
                                                                       )
         return s
 
-
     # It is not nessesary to define the dummy node when we call __init__,
     # but we need to check it is set before being requested.
     def is_dummy_section_set(self):
         """ Returns whether a tree has been assigned to this morphology"""
-        return self._dummysection != None
 
+        return self._dummysection != None
 
     def set_dummy_section(self, dummysection):
         """ Set the tree node for the morphology. You can only do this to a morphology
@@ -488,14 +438,10 @@ class MorphologyTree(MorphologyBase):
 
         assert self.ensure_consistency(), 'Morphology is not consistent'
 
-
-
-
-
     def _every_section(self):
         """Includes dummy section"""
-        return itertools.chain(*[[self.get_dummy_section()], self ])
 
+        return itertools.chain(*[[self.get_dummy_section()], self])
 
     # Iteration over morphologies:
 
@@ -510,14 +456,11 @@ class MorphologyTree(MorphologyBase):
 
     def __len__(self):
         """Returns the numbers of sections in the morphology """
+
         assert self.ensure_consistency()
 
         # TODO: as per iter
         return len(SectionListerDF(self)())
-
-
-
-
 
     def get_dummy_section(self):
         assert self.ensure_consistency(), "MorphologyTree not consistent"
@@ -531,11 +474,10 @@ class MorphologyTree(MorphologyBase):
     def get_root_sections(self):
         return self._dummysection.children
 
-
-
     def get_regions(self):
         """ Returns a list of unique regions in the morphology
         """
+
         assert self.ensure_consistency()
 
         if self._regions is None:
@@ -555,6 +497,7 @@ class MorphologyTree(MorphologyBase):
 
     def get_region(self, name):
         """ Returns a Region object relevant to this tree, given a filename"""
+
         assert self.ensure_consistency()
 
         return SeqUtils.filter_expect_single(self.get_regions(), lambda r: r.name == name)
@@ -567,9 +510,6 @@ class MorphologyTree(MorphologyBase):
     def get_idtags(self):
         return [section.idtag for section in self if section.idtag]
 
-
-
-
     def ensure_consistency(self, requiretreeset=True):
         """
         This method is used to check the consistency of the tree. In production code, all calls to this should be optimised out using
@@ -577,39 +517,22 @@ class MorphologyTree(MorphologyBase):
         This requests a check from MorphologyConsistencyMgr. We do this to avoid storing additional attributes in the MorphologyTree
         Object, which could cause upset for calculating md5sums or pickling.
         """
+
         if requiretreeset:
             assert self.is_dummy_section_set()
 
-
         MorphologyConsistencyMgr.check_morphology(self)
         return True
-
-
 
     @property
     def surface_area(self):
         return sum(s.surface_area for s in self)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class MorphPath(object):
 
     DirDistal = 'DirDistal'
     DirProximal = 'DirProximal'
-
 
     # Find the paths back to the dummy_section()::
     @classmethod
@@ -621,7 +544,6 @@ class MorphPath(object):
             current_sect = current_sect.parent
         return sects
 
-
     def __init__(self, morphloc1, morphloc2):
 
         # Check they are on the same morphology!
@@ -632,8 +554,6 @@ class MorphPath(object):
         while not s2.is_dummy_section():
             s2 = s2.parent
         assert s1 is s2
-
-
 
         # Remap dummy sections to being proximal on the
         # first child section, to reduce special case handling:
@@ -653,21 +573,19 @@ class MorphPath(object):
         self.morphloc2_dir = None
         self._connecting_sections = []
 
-
         if morphloc1.section == morphloc2.section:
 
             # Points in the same section:
             self._connecting_sections = []
             if morphloc1.sectionpos < morphloc2.sectionpos:
-                self.morphloc1_dir, self.morphloc2_dir =  self.DirDistal, self.DirProximal
+                self.morphloc1_dir, self.morphloc2_dir = self.DirDistal, self.DirProximal
             else:
-                self.morphloc1_dir, self.morphloc2_dir =  self.DirProximal, self.DirDistal
+                self.morphloc1_dir, self.morphloc2_dir = self.DirProximal, self.DirDistal
 
         else:
 
             s1_sects = MorphPath.get_sections_to_root(morphloc1.section)
             s2_sects = MorphPath.get_sections_to_root(morphloc2.section)
-
 
             # Is one a direct parent of the other?
             if morphloc1.section in s2_sects:
@@ -680,18 +598,13 @@ class MorphPath(object):
             else:
                 assert False
 
-
             # Remove the original sections,  from the list of
             # connecting sections:
             self._connecting_sections.discard(morphloc1.section)
             self._connecting_sections.discard(morphloc2.section)
 
-
-
-
         assert not self.morphloc1.section in self._connecting_sections
         assert not self.morphloc2.section in self._connecting_sections
-
 
     def get_length(self):
 
@@ -720,8 +633,4 @@ class MorphPath(object):
 
     # def isSectionOnEndpoint(self, section):
     #    return section in (self.morphloc1.section, self.morphloc2.section)
-
-
-
-
 

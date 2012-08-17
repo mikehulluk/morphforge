@@ -31,6 +31,7 @@
 
 
 class PluginDict(object):
+
     """ Basic component for making features of morphforge 'pluggable'.
 
     This class simply wraps a dictionary, and exposes some methods to make

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import os
 import quantities as pq
 
@@ -40,7 +39,6 @@ def parse(s):
     if on_rtd:
         print ' WARNING!! Read the Docs Hack - Not parsing unit:', s
         return 0 * pq.dimensionless
-
 
     # Upgraded on 9th Jun 2012 to use neurounits.
     # print "Parsing Unit:", s
@@ -54,9 +52,8 @@ def parse(s):
         s = 'micromolar'
 
     # In the case of units, lets rewrite '**' to nothing and '*' to space:
-    s = s.replace("**", "")
-    s = s.replace("*", " ")
-
+    s = s.replace('**', '')
+    s = s.replace('*', ' ')
 
     if s.strip() == '':
         return pq.dimensionless

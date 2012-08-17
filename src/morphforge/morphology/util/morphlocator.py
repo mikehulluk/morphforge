@@ -49,7 +49,6 @@ class MorphLocator(object):
             if not section_predicate(section):
                 continue
 
-
             if section.is_a_root_section():
 
                 if distance < dist_to_section_distal[section]:
@@ -59,11 +58,9 @@ class MorphLocator(object):
                 else:
 
                     pass
-
             else:
                 proximal_dist = dist_to_section_distal[section.parent]
                 distal_dist = dist_to_section_distal[section]
-
 
                 # Does a distance fall on this section:
                 if proximal_dist < distance < distal_dist:
@@ -80,11 +77,7 @@ class MorphLocator(object):
             p = MorphPath(loc, dummy)
             assert np.fabs(p.get_length() - distance) < 0.01
 
-
         return locations
-
-
-
 
     @classmethod
     def get_locations_at_distances_away_from_dummy(cls, morphology, distances, section_predicate=None):

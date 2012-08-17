@@ -29,11 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
 
 import os
-
 
 from morphforge.core.quantities import unit
 from morphforge.stdimports import LocMgr
@@ -48,32 +46,31 @@ from morphforge.core.objectnumberer import ObjectLabeller
 from collections import defaultdict
 
 
-
-
-
 class SS_Sections(object):
-    Overview = "Overview"
-    KeyTraces = "KeyTraces"
-    Cells = "Cells"
-    GapJunctions = "Gap Junctions"
-    Synapses = "Synapses"
 
+    Overview = 'Overview'
+    KeyTraces = 'KeyTraces'
+    Cells = 'Cells'
+    GapJunctions = 'Gap Junctions'
+    Synapses = 'Synapses'
 
-    AppendixMembranes = "AppendixMembranes"
+    AppendixMembranes = 'AppendixMembranes'
 
-    ordered = [Overview, Cells, GapJunctions, Synapses,  KeyTraces, AppendixMembranes]
-
-
-
-
-
+    ordered = [
+        Overview,
+        Cells,
+        GapJunctions,
+        Synapses,
+        KeyTraces,
+        AppendixMembranes,
+        ]
 
 
 class SimulationSummariser(object):
 
 
 
-    def __init__(self, simulationresult, filename=None, key_tracesets = [], make_graphs=True):
+    def __init__(self, simulationresult, filename=None, key_tracesets=[], make_graphs=True):
 
         if not filename:
             filename = ObjectLabeller.get_next_unamed_object_name(SimulationSummariser, prefix='SimulationSummary') + '.pdf'
@@ -81,7 +78,6 @@ class SimulationSummariser(object):
 
         self.simulationresult = simulationresult
         self.simulation = simulationresult.simulation
-
 
         self.make_graphs = make_graphs
 
@@ -91,11 +87,8 @@ class SimulationSummariser(object):
 
         self.reportlabconfig = ReportLabConfig()
 
-
         # Do the Summarising:
         self.summarise(filename)
-
-
 
     def summarise(self, filename):
         from reportlab.lib.pagesizes import A4
@@ -110,8 +103,6 @@ class SimulationSummariser(object):
 
         self.elements[SS_Sections.AppendixMembranes].extend(self.summarise_appendix_membranes())
 
-
-
         # Reconstruct a list all the elements from all sections:
         elements = []
         for sect in SS_Sections.ordered:
@@ -120,17 +111,15 @@ class SimulationSummariser(object):
         # Build PDF:
         (dname, fname) = os.path.split(filename)
         LocMgr.ensure_dir_exists(dname)
-        doc = SimpleDocTemplate(filename,
-                                pagesize=A4,
-                                leftMargin=25,
-                                rightMargin=25,
-                                topMargin=25,
-                                bottomMargin=25
-                               )
+        doc = SimpleDocTemplate(
+            filename,
+            pagesize=A4,
+            leftMargin=25,
+            rightMargin=25,
+            topMargin=25,
+            bottomMargin=25,
+            )
         doc.build(elements)
-
-
-
 
     def summarise_overview(self):
         from reportlab.platypus import Paragraph, Table, PageBreak
@@ -139,12 +128,11 @@ class SimulationSummariser(object):
         local_elements.append(Paragraph('Overview',
                               self.reportlabconfig.styles['Heading1']))
 
-
         # Cells:
-        ########
+        # #######
         local_elements.append(Paragraph("Cells", self.reportlabconfig.styles['Heading2']))
-        table_header = ['Cell',  'Total Surface Area', 'Sections', 'Segments','Active Channels (id,[Name])']
-        data = [table_header,]
+        table_header = ['Cell', 'Total Surface Area', 'Sections', 'Segments','Active Channels (id,[Name])']
+        data = [table_header]
 
         for cell in self.simulation.get_cells():
             a = sum([s.get_area() for s in cell.morphology]) * unit("1:um2")
@@ -186,8 +174,6 @@ class SimulationSummariser(object):
         # Finish Up:
         local_elements.append(PageBreak())
         return local_elements
-
-
 
     def summarise_cells(self):
         from reportlab.platypus import  Paragraph, Table, PageBreak,Spacer
@@ -306,7 +292,6 @@ class SimulationSummariser(object):
         local_elements.append(PageBreak())
         return local_elements
 
-
     def summarise_key_traces(self):
         from reportlab.platypus import Paragraph, PageBreak
         if not self.make_graphs:
@@ -333,9 +318,6 @@ class SimulationSummariser(object):
         local_elements.append(PageBreak())
         return local_elements
 
-
-
-
     def summarise_appendix_membranes(self):
         from reportlab.platypus import Paragraph, PageBreak
         local_elements = []
@@ -347,8 +329,8 @@ class SimulationSummariser(object):
             for mta in cell.get_biophysics().get_applied_mtas():
                 mechanisms.append(mta.mechanism)
 
-                #Do we already ahve the machanism, possibly with different targetters and selectors:
-                #if not [True for m in mechanisms if m]
+                # Do we already ahve the machanism, possibly with different targetters and selectors:
+                # if not [True for m in mechanisms if m]
 
         # Summarise Each Membrane
         for mechanism in mechanisms:

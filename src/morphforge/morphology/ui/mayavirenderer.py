@@ -29,23 +29,21 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 '''
 Created on Oct 12, 2009
 
 @author: michael
 '''
 
-
 import numpy
 from morphforge.core import SeqUtils
 from morphforge.morphology.visitor import ListBuilderSectionVisitor
-
 
 import itertools
 
 
 class MayaViRenderer(object):
+
     """
     Display a morphology using the MayaVi interface
     """
@@ -60,14 +58,13 @@ class MayaViRenderer(object):
         elif morphs:
             self.morphs = morphs
 
-
-
     def showAsPoints(self):
         """
         Very simple plotting for speed with complex neurons - plot each
         section as a sphere about its endpoint. Only works for neurons
         with very small section lengths compared to radii
         """
+
         # MonkeyPatchMayaVi()
 
         from mayavi import mlab
@@ -86,13 +83,12 @@ class MayaViRenderer(object):
                 )
         _showSimple()
 
-
-
     def showAsPointsInterpolated(self, lToRRatio=2.0):
         """
         Draws the points as spheres, but also interpolates inbetween the points, so the structure looks
         more 'whole'
         """
+
         # MonkeyPatchMayaVi()
         import enthought.mayavi.mlab as mlab
         from mayavi import mlab
@@ -117,7 +113,6 @@ class MayaViRenderer(object):
                 lb = SeqUtils.flatten(ListBuilderSectionVisitor(functor=interpolateSection,  morph=morph) ())
                 lbs.extend(lb)
 
-
             pts = numpy.array(lbs)
 
             x = pts[:, 0]
@@ -129,10 +124,6 @@ class MayaViRenderer(object):
             mlab.outline()
         _showSimple()
 
-
-
-
-
     def showSimpleCylinders(self):
         """
         Slightly more complex plotting - plot each
@@ -142,6 +133,27 @@ class MayaViRenderer(object):
         import sys
         sys.path.append('/usr/share/pyshared/')
 
+        from morphforge.morphology.mesh import MeshBuilderRings
+        # MonkeyPatchMayaVi()
+
+        from mayavi import mlab
+
+        assert len(self.morphs) == 1
+        mesh = MeshBuilderRings().build(self.morphs[0])
+
+        @mlab.show
+        def _showSimpleCylinders():
+            mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
+        _showSimpleCylinders()
+
+    def makeVideo(self):
+        """
+        Slightly more complex plotting - plot each
+        section as a cylinders.
+        """
+
+        import sys
+        sys.path.append('/usr/share/pyshared/')
 
         from morphforge.morphology.mesh import MeshBuilderRings
         # MonkeyPatchMayaVi()
@@ -151,45 +163,14 @@ class MayaViRenderer(object):
         assert len(self.morphs) == 1
         mesh = MeshBuilderRings().build(self.morphs[0])
 
-
         @mlab.show
-        def _showSimpleCylinders():
-            mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
-        _showSimpleCylinders()
-
-
-
-    def makeVideo(self):
-        """
-        Slightly more complex plotting - plot each
-        section as a cylinders.
-        """
-
-
-        import sys
-        sys.path.append('/usr/share/pyshared/')
-
-
-        from morphforge.morphology.mesh import MeshBuilderRings
-        #MonkeyPatchMayaVi()
-
-        from mayavi import mlab
-
-        assert len(self.morphs) == 1
-        mesh = MeshBuilderRings().build(self.morphs[0])
-
-
-        @mlab.show
-        @mlab.animate(delay=100)#, ui=False) #(delay=500, ui=False)
+        @mlab.animate(delay=100) #, ui=False) #(delay=500, ui=False)
         def _showSimpleCylinders():
 
             f = mlab.figure(bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
-            #f = mlab.gcf()
-            #c = TriMeshBuilderVerySimple(self.morphs[0])
-            #mlab.triangular_mesh(c.x, c.y, c.z, c.triangles, colormap=self.colormap)
             mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
 
-            for i in  itertools.count():
+            for i in itertools.count():
                 print i
                 f.scene.camera.azimuth(0.1)
                 mlab.savefig('/home/michael/Desktop/out/O%04d.png' % i)
@@ -200,18 +181,14 @@ class MayaViRenderer(object):
 
         _showSimpleCylinders()
 
-
-
-
-
-
     def dummyTest(self):
         """
         Does not plot neuron - code copied from enthought
         website and only used to make sure that MayaVi is
         install propery for testing purposes.
         """
-        #MonkeyPatchMayaVi()
+
+        # MonkeyPatchMayaVi()
         import enthought.mayavi.mlab as mlab
         from mayavi import mlab
 

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from core.cell import Cell
 from core.celllocation import CellLocation
 from core.simulation import Simulation
@@ -50,11 +49,8 @@ from biophysics import PassiveTargeter_Everywhere, \
     PassiveTargeter_EverywhereDefault
 from biophysics import PassiveProperty
 
-
-
 from networks import Synapse, GapJunction
 from networks import PostSynapticMech, PreSynapticMechanism
-
 
 __all__ = [
     'CurrentClamp',
@@ -85,4 +81,4 @@ __all__ = [
     'GapJunction',
     'PostSynapticMech',
     'PreSynapticMechanism',
-   ]
+    ]

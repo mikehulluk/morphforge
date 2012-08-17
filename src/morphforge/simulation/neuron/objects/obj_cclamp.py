@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base import CurrentClamp
 from neuronobject import NeuronObject
 from morphforge.constants.standardtags import StandardTags
@@ -42,24 +41,26 @@ from morphforge.simulation.base.stimulation import CurrentClampStepChange
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
-
-
-
-
 class CurrentClampCurrentRecord(NeuronRecordable):
+
     def __init__(self, cclamp, **kwargs):
         super(CurrentClampCurrentRecord, self).__init__(**kwargs)
         self.cclamp = cclamp
 
     def get_unit(self):
         return unit('nA')
+
     def get_std_tags(self):
         return [StandardTags.Current]
 
-
     def build_hoc(self, hocfile_obj):
-        name_hoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
-        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s"%self.name, objname=name_hoc, objvar="i", recordobj=self)
+        name_hoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]['stimname']
+        HocModUtils.create_record_from_object(
+                        hocfile_obj=hocfile_obj,
+                        vecname="RecVec%s" % self.name, 
+                        objname=name_hoc,
+                        objvar="i",
+                        recordobj=self)
 
     def build_mod(self, modfile_set):
         pass
@@ -72,7 +73,6 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 class MNeuronCurrentClampStepChange(CurrentClampStepChange,NeuronObject):
     def __init__(self, **kwargs):
         super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
-
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.CurrentClamp(hocfile_obj=hocfile_obj,

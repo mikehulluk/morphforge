@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from mhocfile import MHOCSections, MHocFileData, MHocFile
 
 from mmodfileset import MModFileSet

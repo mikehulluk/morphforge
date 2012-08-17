@@ -34,10 +34,6 @@ from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl, clone_trace
 from morphforge.traces import TraceFixedDT, TraceVariableDT, TracePiecewise
 import numpy as np
 
-
-
-
-
 # Mean, rms, stddev, variance functions:
 ##############################
 
@@ -51,12 +47,8 @@ TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._
 def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
-    integral = scipy.integrate.simps(y = tr._data.magnitude,x= tr._time.rescale('s').magnitude)
+    integral = scipy.integrate.simps(y=tr._data.magnitude, x=tr._time.rescale('s').magnitude)
     mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
-    #mean_safe = tr.convert_to_fixed(unit("0.1:ms")).mean()
-    #print mean_safe, mean
-    #if np.fabs(mean-mean_safe)
-    #assert False, 'Check this'
     return mean
 
 TraceMethodCtrl.register(TraceVariableDT, 'mean', _variabledt_mean)
@@ -84,43 +76,36 @@ TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[
 # Min & Max functions:
 ######################
 # These also return the times of min/max:
+
 def _get_max(tr):
     ind_max = np.argmax(tr._data)
     return (tr._time[ind_max], tr._data[ind_max])
+
 
 def _get_min(tr):
     ind_min = np.argmin(tr._data)
     return (tr._time[ind_min], tr._data[ind_min])
 
+
 TraceMethodCtrl.register(TraceFixedDT, 'max', _get_max)
 TraceMethodCtrl.register(TraceFixedDT, 'min', _get_min)
 TraceMethodCtrl.register(TraceVariableDT, 'max', _get_max)
 TraceMethodCtrl.register(TraceVariableDT, 'min', _get_min)
+
+
 # MISSING: Piecewise - min
 # MISSING: Piecewise - max
 
-
-
-
-
-
-
 # Gradients:
 ############
+
 def _fixeddt_gradient(self, *args):
-    #assert False, 'ToCheck'
+    # assert False, 'ToCheck'
     return clone_trace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.get_dt_new(), comment='+ (Filtered)')
 
 TraceMethodCtrl.register(TraceFixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient
 # MISSING: Piecewise - gradient
-
-
-
-
-
-
-
 
 # Some aliases:
 ###############

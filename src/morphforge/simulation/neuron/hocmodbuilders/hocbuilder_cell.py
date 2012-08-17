@@ -29,11 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from Cheetah.Template import Template
 from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, 
-from morphforge.simulation.neuron.simulationdatacontainers import  MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 
 
 
@@ -100,22 +99,16 @@ endtemplate $cell_template_name
 
 """
 
-
-
 cellObjDeclTmpl = """
 objref $cell_name
 $cell_name = new  $cell_template_name ()
 """
 
 
-
-
-
 class HocBuilder_Cell(object):
 
     @classmethod
     def build(cls, hocfile_obj, cell):
-
 
         data = {
             'cell': cell,
@@ -125,18 +118,23 @@ class HocBuilder_Cell(object):
             }
 
         # Create the Cell Topology Template:
-        hocfile_obj.add_to_section(MHOCSections.InitTemplates,  Template(cellTemplTmpl, data).respond())
-        hocfile_obj.add_to_section(MHOCSections.InitCells,  Template(cellObjDeclTmpl, data).respond())
-
+        hocfile_obj.add_to_section(
+                        MHOCSections.InitTemplates,
+                        Template(cellTemplTmpl, data).respond())
+        hocfile_obj.add_to_section(
+                        MHOCSections.InitCells,
+                        Template(cellObjDeclTmpl,data).respond())
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Cells][cell] = data
-
 
         # Create the membrane properties:
         cb = cell.get_biophysics()
         for section in cell.morphology:
             # print section, section.region
             for mta in cb.get_resolved_mtas_for_section(section):
-                mta.mechanism.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+                mta.mechanism.build_hoc_section(cell=cell,
+                        section=section, hocfile_obj=hocfile_obj,
+                        mta=mta)
+
 

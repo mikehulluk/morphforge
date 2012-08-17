@@ -29,17 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 """ Visitor Base Classes: Here be Dragons!"""
 
-
-
-
 from morphforge.core import SeqUtils
-
-
-
-
 
 
 class SectionVisitorDF(object):
@@ -94,16 +86,13 @@ class SectionVisitorDF(object):
             self.visit_section_internal(c)
 
 
-
-
-
-
-
-
 class SectionVisitorDFOverrider(SectionVisitorDF):
 
     def __init__(self, **kwargs):
-        super(SectionVisitorDFOverrider, self).__init__(functor=self.visit_section, rootsectionfunctor=self.visit_root_section, **kwargs)
+        super(SectionVisitorDFOverrider,
+              self).__init__(functor=self.visit_section,
+                             rootsectionfunctor=self.visit_root_section,
+                             **kwargs)
 
     def visit_section(self, section):
         raise NotImplementedError()
@@ -112,14 +101,13 @@ class SectionVisitorDFOverrider(SectionVisitorDF):
         raise NotImplementedError()
 
 
-
-
 class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
 
     def __init__(self, functor, section_result_operator=None, **kwargs):
         self.section_result_operator = section_result_operator
         self.myfunctor = functor
-        super(SectionVisitorHomogenousOverrider, self).__init__(**kwargs)
+        super(SectionVisitorHomogenousOverrider,
+              self).__init__(**kwargs)
 
     def visit_section(self, section):
         res = self.myfunctor(section)
@@ -131,27 +119,30 @@ class SectionVisitorHomogenousOverrider(SectionVisitorDFOverrider):
         return self.visit_section(section)
 
 
-
-
-
 class DictBuilderSectionVisitorHomo(SectionVisitorHomogenousOverrider):
+
     def __init__(self, functor, morph=None):
         self.dict = {}
-        super(DictBuilderSectionVisitorHomo, self).__init__(section_result_operator=self.add_to_dict, functor=functor, returnfunctor=lambda:self.dict, morph=morph)
+        super(DictBuilderSectionVisitorHomo,
+              self).__init__(section_result_operator=self.add_to_dict,
+                             functor=functor, returnfunctor=lambda : \
+                             self.dict, morph=morph)
 
     def add_to_dict(self, section, result):
         self.dict[section] = result
 
 
-
-
 class ListBuilderSectionVisitor(SectionVisitorDF):
+
     def __init__(self, functor, rootfunctor=None, morph=None):
         self.sectFunctor = functor
         self.sectRootFunctor = (rootfunctor if rootfunctor else functor)
         self.list = []
 
-        super(ListBuilderSectionVisitor, self).__init__(morph=morph, functor=self.visit_section, rootsectionfunctor=self.visit_root_section, returnfunctor=lambda:self.list)
+        super(ListBuilderSectionVisitor, self).__init__(morph=morph,
+                functor=self.visit_section,
+                rootsectionfunctor=self.visit_root_section,
+                returnfunctor=lambda : self.list)
 
     def visit_section(self, section):
         self.list.append(self.sectFunctor(section))
@@ -161,41 +152,24 @@ class ListBuilderSectionVisitor(SectionVisitorDF):
             self.list.append(self.sectRootFunctor(section))
 
 
-
-
-
-
 class SectionIndexerDF(DictBuilderSectionVisitorHomo):
+
     """Create a dictionary that maps section objects to sequential integers"""
+
     def __init__(self, morph=None, offset=0):
         functor = lambda s: len(self.dict) + offset
-        super(SectionIndexerDF, self).__init__(morph=morph, functor=functor)
-
+        super(SectionIndexerDF, self).__init__(morph=morph,
+                functor=functor)
 
 
 SectionIndexerWithOffsetDF = SectionIndexerDF
 
 
 class SectionListerDF(ListBuilderSectionVisitor):
+
     def __init__(self, morph):
         functor = lambda s: s
-        super(SectionListerDF, self).__init__(morph=morph, functor=functor)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        super(SectionListerDF, self).__init__(morph=morph,
+                functor=functor)
 
 

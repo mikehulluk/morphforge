@@ -29,16 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.core.recordable import Recordable
-
 
 
 class NeuronRecordable(Recordable):
 
     pass
-
-
 
 
 class NeuronRecordableOnLocation(NeuronRecordable):
@@ -50,4 +46,5 @@ class NeuronRecordableOnLocation(NeuronRecordable):
     def get_tags(self):
         return NeuronRecordable.get_tags(self) \
             + list(self.cell_location.cell.cell_tags)
+
 

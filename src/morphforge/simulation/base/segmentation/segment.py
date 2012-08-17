@@ -40,8 +40,9 @@ class CellSegment(object):
         self.segmenter = segmenter
 
     def get_section_pos(self, p_segment):
-        # Converts a position from [0-1] within a segment into a
-        # position [0-1] within a section
+        ''' Converts a position from [0-1] within a segment into a
+        position [0-1] within a section '''
+
         segment_size = 1.0 / self.nsegments
         segment_pos_prox = segment_size * self.segmentno
         sectionpos = segment_pos_prox + p_segment * segment_size
@@ -56,8 +57,6 @@ class CellSegment(object):
                             section=self.section,
                             sectionpos=sectionpos)
 
-
-
     def get_proximal_np4a(self):
         return self.section.get_npa4(self.get_section_pos(0.0))
 
@@ -67,9 +66,6 @@ class CellSegment(object):
     def get_distance_from_proximal_section_end(self, p_segment=0.5):
         return self.get_section_pos(p_segment) * self.section.get_length()
 
-
-
-
     def get_parent_segment(self):
         if self.segmentno == 0:
             if self.section.is_a_root_section():
@@ -77,7 +73,6 @@ class CellSegment(object):
                 return None
             else:
                 return self.segmenter.get_segments(self.section.parent)[-1]
-
         else:
             return self.segmenter.get_segments(self.section)[self.segmentno - 1]
 

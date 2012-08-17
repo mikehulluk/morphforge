@@ -31,6 +31,7 @@
 
 
 class TagSelector(object):
+
     def __call__(self, tr):
         raise NotImplementedError()
 
@@ -38,7 +39,6 @@ class TagSelector(object):
     def from_string(cls, s):
         from tagselectorstringparser import parse_tagselector_string
         return parse_tagselector_string(s)
-
 
     def filter(self, traces):
         return [tr for tr in traces if self.__call__(tr)]
@@ -56,9 +56,9 @@ class TagSelector(object):
         return [tr for tr in trs if self(tr)]
 
 
-
 class TagSelectorAny(TagSelector):
-    def __init__(self,tags):
+
+    def __init__(self, tags):
         self.tags = set(tags)
 
     def __call__(self, tr):
@@ -66,6 +66,7 @@ class TagSelectorAny(TagSelector):
 
 
 class TagSelectorAll(TagSelector):
+
     def __init__(self, tags):
         self.tags = set(tags)
 
@@ -73,31 +74,38 @@ class TagSelectorAll(TagSelector):
         return self.tags.issubset(set(tr.tags))
 
 
-
-
 class TagSelectorBinary(TagSelector):
+
     def __init__(self, lhs, rhs):
         self.lhs = lhs
         self.rhs = rhs
 
+
 class TagSelectorOr(TagSelectorBinary):
+
     def __call__(self, tr):
         return self.lhs(tr) or self.rhs(tr)
 
+
 class TagSelectorAnd(TagSelectorBinary):
+
     def __call__(self, tr):
         return self.lhs(tr) and self.rhs(tr)
 
+
 class TagSelectorNot(TagSelector):
+
     def __init__(self, rhs):
         self.rhs = rhs
+
     def __call__(self, tr):
         return not self.rhs(tr)
 
+
 class TagSelect(TagSelectorAll):
+
     def __init__(self, s):
         assert isinstance(s, basestring)
         TagSelectorAll.__init__(self, tags=[s])
-
 
 

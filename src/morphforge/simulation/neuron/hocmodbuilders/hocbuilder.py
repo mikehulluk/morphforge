@@ -29,13 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from hocbuilder_cell import HocBuilder_Cell
-
 
 from Cheetah.Template import Template
 
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections,  MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.misc import MNeuronSettings
 
 
@@ -79,9 +78,6 @@ ${stim.name}.rs = $stim.rs
 """
 
 
-
-
-
 class HocBuilder(object):
 
     @classmethod
@@ -89,11 +85,12 @@ class HocBuilder(object):
 
         cell = voltageclamp.cell_location.cell
         section = voltageclamp.cell_location.morphlocation.section
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                 "stimname":voltageclamp.name,
                 "cell":cell,
-                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
-                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
+                "cellname": cell_hoc['cell_name'],
+                "sectionindex": cell_hoc['section_indexer'][section],
                 "sectionpos":voltageclamp.cell_location.morphlocation.sectionpos,
 
                 "dur1":voltageclamp.dur1.rescale("ms").magnitude,
@@ -121,11 +118,12 @@ class HocBuilder(object):
     def CurrentClamp(cls, hocfile_obj, currentclamp):
         cell = currentclamp.cell_location.cell
         section = currentclamp.cell_location.morphlocation.section
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                 "stimname":currentclamp.name,
                 "cell":cell,
-                "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
-                "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
+                "cellname": cell_hoc['cell_name'],
+                "sectionindex": cell_hoc['section_indexer'][section],
                 "sectionpos":currentclamp.cell_location.morphlocation.sectionpos,
                 "dur":currentclamp.dur.rescale("ms").magnitude,
                 "delay":currentclamp.delay.rescale("ms").magnitude,
@@ -136,17 +134,11 @@ class HocBuilder(object):
         hocfile_obj[MHocFileData.CurrentClamps][currentclamp] = data
 
         # Create the HOC
-        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,  Template(ccTmpl, data).respond())
-
-
-
-
-
+        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,
+                                   Template(ccTmpl, data).respond())
 
     @classmethod
     def Cell(cls, hocfile_obj, cell):
         HocBuilder_Cell.build(hocfile_obj=hocfile_obj, cell=cell)
-
-
 
 

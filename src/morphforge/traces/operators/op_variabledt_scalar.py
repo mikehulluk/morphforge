@@ -29,14 +29,15 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import quantities as pq
 
 import operator
 from morphforge.traces.tracetypes import TraceVariableDT
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
+
 class TraceOperator_TraceVariableDT_Quantity(object):
+
     @classmethod
     def do_add(self, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == pq.Quantity) or \
@@ -77,10 +78,8 @@ class TraceOperator_TraceVariableDT_Quantity(object):
             return TraceVariableDT(rhs._time, rhs._data / lhs)
 
 
-
-
-
 class TraceOperator_TraceVariableDT_Scalar(object):
+
     @classmethod
     def do_add(self, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == float) or \
@@ -100,10 +99,10 @@ class TraceOperator_TraceVariableDT_Scalar(object):
 
         if type(lhs) == TraceVariableDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceVariableDT(lhs._time,  lhs._data - rhs)
+            return TraceVariableDT(lhs._time, lhs._data - rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceVariableDT(rhs._time,  rhs._data - lhs)
+            return TraceVariableDT(rhs._time, rhs._data - lhs)
 
     @classmethod
     def do_mul(self, lhs, rhs):
@@ -111,9 +110,9 @@ class TraceOperator_TraceVariableDT_Scalar(object):
                (type(rhs) == TraceVariableDT and type(lhs) == float)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time,  lhs._data * rhs)
+            return TraceVariableDT(lhs._time, lhs._data * rhs)
         else:
-            return TraceVariableDT(rhs._time,  rhs._data * lhs)
+            return TraceVariableDT(rhs._time, rhs._data * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -127,27 +126,26 @@ class TraceOperator_TraceVariableDT_Scalar(object):
             assert isinstance(rhs._data, pq.Dimensionless)
             return TraceVariableDT(rhs._time, rhs._data / lhs)
 
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__add__,
-                                      lhs_type = TraceVariableDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceVariableDT_Quantity.do_add,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__add__,
+                                      lhs_type=TraceVariableDT,
+                                      rhs_type=pq.Quantity,
+                                      operator_func=TraceOperator_TraceVariableDT_Quantity.do_add,
                                       flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__sub__,
-                                      lhs_type = TraceVariableDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceVariableDT_Quantity.do_sub,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__sub__,
+                                      lhs_type=TraceVariableDT,
+                                      rhs_type=pq.Quantity,
+                                      operator_func=TraceOperator_TraceVariableDT_Quantity.do_sub,
                                       flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__mul__,
-                                      lhs_type = TraceVariableDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceVariableDT_Quantity.do_mul,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__mul__,
+                                      lhs_type=TraceVariableDT,
+                                      rhs_type=pq.Quantity,
+                                      operator_func=TraceOperator_TraceVariableDT_Quantity.do_mul,
                                       flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__div__,
-                                      lhs_type = TraceVariableDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceVariableDT_Quantity.do_div,
+TraceOperatorCtrl.add_trace_operator(operator_type=operator.__div__,
+                                      lhs_type=TraceVariableDT,
+                                      rhs_type=pq.Quantity,
+                                      operator_func=TraceOperator_TraceVariableDT_Quantity.do_div,
                                       flag='default')
-
 
 TraceOperatorCtrl.add_trace_operator(operator_type=operator.__add__,
         lhs_type=TraceVariableDT, rhs_type=float,

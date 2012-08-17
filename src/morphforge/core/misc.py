@@ -35,6 +35,7 @@ dealing with large files, but for most files morphforge has to deal with,
 they work fine and make code more readable.
 
 """
+
 import os.path as fs
 
 import hashlib
@@ -60,12 +61,14 @@ def find_files_recursively(directory, pattern):
 
 
 class StrUtils(object):
+
     """ A collection of string utility functions"""
 
     @classmethod
     def strip_comments_and_blank_lines(cls, text, cmt_sym='#'):
         """ Removes comments and blank lines from block of text
         """
+
         new = []
         for line in text.split('\n'):
             idx = line.find(cmt_sym)
@@ -78,12 +81,14 @@ class StrUtils(object):
     @classmethod
     def get_hash_md5(cls, s):
         """ Returns the md5 digest hash of a string"""
+
         m = hashlib.md5()
         m.update(s)
         return m.hexdigest()
 
 
 class FileIO(object):
+
     """ A collection of file utility functions"""
 
     @classmethod
@@ -107,7 +112,7 @@ class FileIO(object):
         filename=None,
         filedirectory=None,
         suffix=None,
-       ):
+        ):
         """ Writes text to a file
         This function will overwrite an existing file. If no filename is given,
         a filename will be invented, using LocMgr.get_temporary_filename().
@@ -136,10 +141,12 @@ class FileIO(object):
         This function should not be used for large files, since it loads
         the entire file into memory.
         """
+
         return StrUtils.get_hash_md5(FileIO.read_from_file(filename))
 
 
 class SeqUtils(object):
+
     """ A collection of utility functions for working with sequences"""
 
     @classmethod
@@ -180,6 +187,7 @@ class SeqUtils(object):
         expects a single item to remain, which it returns.  If 0 or more than
         1 objects are found, it raises an error.
         """
+
         filtered_seq = [s for s in seq if filter_func(s)]
         if len(filtered_seq) == 0:
             print seq
@@ -193,6 +201,7 @@ class SeqUtils(object):
         """ Returns a copy of the sequence, in which each item in the original
         has a fixed probability of being in the new sequence.
         """
+
         return [l for l in lst if random.random() < p]
 
     @classmethod
@@ -202,6 +211,7 @@ class SeqUtils(object):
 
         This is designed to be used when the
         key generates integers."""
+
         assert len(collection)
         if len(collection) == 1:
             return collection[0]
@@ -213,6 +223,7 @@ class SeqUtils(object):
 def is_iterable(f):
     """ Returns True if an object can be iterated over by using iter(obj)
     """
+
     try:
         iter(f)
         return True
@@ -229,6 +240,7 @@ def merge_dictionaries(dictionaries):
     merge_dictionaries({'alpha':True}, {'alpha':False}) will raise an
     exception
     """
+
     res = {}
     for d in dictionaries:
         for (k, v) in d.iteritems():
@@ -241,6 +253,7 @@ def merge_dictionaries(dictionaries):
 def check_cstyle_varname(name):
     """ Check a string conforms to a C-style variable name.
     """
+
     if not isinstance(name, basestring):
         print name, name.__class__
         raise ValueError('Invalid Name - Not String!')
@@ -256,6 +269,7 @@ def check_cstyle_varname(name):
 
 def is_float(f):
     """Deprecated"""
+
     # We are getting rid of the only function calling this './morphforge/src/morphforge/core/quantities/fromcore.py'
     try:
         float(f)
@@ -266,6 +280,7 @@ def is_float(f):
 
 def is_int(f):
     """Deprecated"""
+
     # We are getting rid of the only function calling this './morphforge/src/morphforge/core/quantities/fromcore.py'
     try:
         int(f)

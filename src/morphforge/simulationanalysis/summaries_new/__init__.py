@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 """
 DocumentLayout:
 
@@ -78,7 +76,9 @@ except ImportError:
 
 
 class MembraneMechanismSummariserLibrary(object):
+
     pass
+
 
 class SimulationMRedoc(object):
 
@@ -103,7 +103,6 @@ class SimulationMRedoc(object):
     # Todo:
     def build_simulationresult(self, sim):
         pass
-
 
     def build_simulation(self):
         return mrd.Section('Simulation Summary',
@@ -149,11 +148,12 @@ class SimulationMRedoc(object):
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph')
 
-        kwargs = {'fontsize':'6'}
+        kwargs = {'fontsize': '6'}
 
         pops = {}
         for p in self.sim.neuron_populations:
-            n = pydot.Node(p.pop_name, shape='square', color='lightblue', style='filled', **kwargs)
+            n = pydot.Node(p.pop_name, shape='square', color='lightblue'
+                           , style='filled', **kwargs)
             pops[p] = n
             graph.add_node(n)
 
@@ -162,32 +162,33 @@ class SimulationMRedoc(object):
             post_pop = synpop.postsynaptic_population
 
             if not pre_pop:
-                pre_n = pydot.Node(name='SpikeTimes%d'%i, shape='point', color='lightsalmon',style='filled',**kwargs)
+                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon',style='filled', **kwargs)
                 graph.add_node(pre_n)
             else:
                 pre_n = pops[pre_pop]
 
             post_n = pops[post_pop]
 
-            syn_name = "%s\\n(%s)"%(synpop.synapse_pop_name, len(synpop))
+            syn_name = "%s\\n(%s)" % (synpop.synapse_pop_name, len(synpop))
             e = pydot.Edge(pre_n, post_n,label=syn_name, color='red', **kwargs)
             graph.add_edge(e)
-
 
         fname = self.save_dot(graph)
         return mrd.Figure(mrd.Image(fname))
 
 
 
-    def build_population_complete_dot(self,):
+    def build_population_complete_dot(self):
         import pydot
-        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7', ratio='fill')
+        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7'
+                          , ratio='fill')
 
-        kwargs = {'fontsize':'10'}
+        kwargs = {'fontsize': '10'}
 
         pops = {}
         for p in self.sim.ss_cells:
-            n = pydot.Node(p.name, shape='square', color='lightblue', style='filled', **kwargs)
+            n = pydot.Node(p.name, shape='square', color='lightblue',
+                           style='filled', **kwargs)
             pops[p] = n
             graph.add_node(n)
 
@@ -196,21 +197,21 @@ class SimulationMRedoc(object):
             post_cell = s.get_postsynaptic_cell()
 
             if not pre_cell:
-                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon',style='filled',**kwargs)
+                pre_n = pydot.Node(name='SpikeTimes%d' % i,
+                                   shape='point', color='lightsalmon',
+                                   style='filled', **kwargs)
                 graph.add_node(pre_n)
             else:
                 pre_n = pops[pre_cell]
             post_n = pops[post_cell]
 
-            syn_name = '%s' % (s.name)
-            e = pydot.Edge(pre_n, post_n,label=syn_name, color='red', **kwargs)
+            syn_name = '%s' % s.name
+            e = pydot.Edge(pre_n, post_n, label=syn_name, color='red',
+                           **kwargs)
             graph.add_edge(e)
 
         fname = self.save_dot(graph, prog='circo')
         return mrd.Figure(mrd.Image(fname))
-
-
-
 
     def _build_population_cell_table(self, population):
 

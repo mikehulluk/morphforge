@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import quantities as pq
 
 import operator
@@ -47,7 +46,7 @@ class PiecewiseScalarOperation(PieceWiseComponentVisitor):
     def visit_linear(cls, o, operator, scalar):
         return TracePieceFunctionLinear(
                 time_window=o.time_window,
-                x0=operator(o.x0, scalar), 
+                x0=operator(o.x0, scalar),
                 x1=operator(o.x1, scalar))
 
     @classmethod
@@ -86,27 +85,27 @@ class TraceOperator_TracePiecewise_Quantity(object):
         return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__div__)
 
 # Times quantity:
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__add__,
-                                      lhs_type = TracePiecewise,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TracePiecewise_Quantity.do_add,
-                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__add__,
+        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        operator_func=TraceOperator_TracePiecewise_Quantity.do_add,
+        flag='default')
 
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__sub__,
-                                      lhs_type = TracePiecewise,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TracePiecewise_Quantity.do_sub,
-                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__sub__,
+        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        operator_func=TraceOperator_TracePiecewise_Quantity.do_sub,
+        flag='default')
 
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__mul__,
-                                      lhs_type = TracePiecewise,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TracePiecewise_Quantity.do_mul,
-                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__mul__,
+        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        operator_func=TraceOperator_TracePiecewise_Quantity.do_mul,
+        flag='default')
 
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__div__,
-                                      lhs_type = TracePiecewise,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TracePiecewise_Quantity.do_div,
-                                      flag='default')
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__div__,
+        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        operator_func=TraceOperator_TracePiecewise_Quantity.do_div,
+        flag='default')
 

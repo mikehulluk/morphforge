@@ -32,7 +32,6 @@
 
 class CellLibrary(object):
 
-
     cells = dict()
 
     @classmethod
@@ -47,8 +46,7 @@ class CellLibrary(object):
 
     @classmethod
     def create_cell(cls,sim,  modelsrc, celltype, **kwargs):
-        return cls.get_cellfunctor(modelsrc, celltype)(sim,**kwargs)
-
+        return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
 
     @classmethod
     def list_cells(cls):

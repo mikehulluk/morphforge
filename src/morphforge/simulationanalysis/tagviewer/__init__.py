@@ -29,11 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from tagviewer import TagViewer, DefaultPlotSpec
 from plotspecs import *
 from post_ax_functors import *
-
 
 __all__ = ['TagViewer', 'DefaultPlotSpec']
 

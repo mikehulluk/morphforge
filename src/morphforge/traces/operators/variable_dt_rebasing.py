@@ -36,9 +36,9 @@ class VariableDTRebaseTimeValues(object):
     # times. this will we bad for things like: A+B+C+D+E+...
     @classmethod
     def All(cls, tr1, tr2):
-        t1 = tr1._time.rescale("ms").magnitude
-        t2 = tr2._time.rescale("ms").magnitude
-        t = np.hstack((t1,t2))
+        t1 = tr1._time.rescale('ms').magnitude
+        t2 = tr2._time.rescale('ms').magnitude
+        t = np.hstack((t1, t2))
         t = np.sort(t)
         return t * pq.ms
 
@@ -47,13 +47,13 @@ class VariableDTRebaseTimeValues(object):
         assert False
 
     @classmethod
-    def MaintainMinimumFrequency(cls, tr1,tr2):
+    def MaintainMinimumFrequency(cls, tr1, tr2):
         assert False
+
 
         # 1. Create a high density time grid,
         # all zeros except 1's at the time points of
         # tr1
-
 
         # 2. Convolve this grid with a longer 'envelop'
         # function. (Gaussian 3 times the length of the

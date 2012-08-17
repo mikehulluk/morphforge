@@ -29,9 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
 class Ax_TimeLine(object):
+
     def __init__(self, time):
         self.time = time
 
     def __call__(self, ax):
         ax.axvline(self.time, linestyle='--', color='black')
+
+

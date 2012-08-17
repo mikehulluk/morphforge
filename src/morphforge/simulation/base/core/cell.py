@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.biophysics import CellBiophysics
 
 from morphforge.constants import StandardTags
@@ -37,14 +36,17 @@ from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.simulation.base.core.celllocation import CellLocation
 
+
 class Cell(NamedSimulationObject):
 
     class Recordables(object):
+
         MembraneVoltage = StandardTags.Voltage
 
     @property
     def cell_type(self):
         return self._cell_type
+
     @property
     def cell_type_str(self):
         return (self._cell_type if self._cell_type else '<?>')
@@ -58,21 +60,15 @@ class Cell(NamedSimulationObject):
         from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
         super(Cell, self).__init__(**kwargs)
 
-
-
-
-
         self.morphology = morphology
         self._cell_type = cell_type
 
         self.cellSegmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
         self.cellSegmenter.connect_to_cell(self)
 
-
         self.biophysics = CellBiophysics()
 
         self.initial_voltage = initial_voltage or unit('-51:mV')
-
 
         self.cell_tags = cell_tags
 
@@ -80,7 +76,6 @@ class Cell(NamedSimulationObject):
             self.cell_tags = self.cell_tags + [self.name]
 
         self.population = None
-
 
     def get_location(self, idtag, sectionpos=0.5):
         return CellLocation(cell=self,
@@ -98,8 +93,6 @@ class Cell(NamedSimulationObject):
 
     def get_segmenter(self):
         return self.cellSegmenter
-
-
 
     # Make the object a bit more pythonic:
     @property
@@ -120,3 +113,5 @@ class Cell(NamedSimulationObject):
     def electrical_connections(self):
         return [s for s in self.simulation.gapjunctions if self
                 in s.connected_cells]
+
+

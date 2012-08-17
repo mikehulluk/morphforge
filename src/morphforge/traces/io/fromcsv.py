@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import json
 import re
 
@@ -39,13 +38,8 @@ from morphforge.core.quantities.fromcore import unit
 from morphforge.traces.tracetypes import TraceVariableDT, TraceFixedDT
 
 
-
-
-
-
-
-
 class InvalidNeuroCSVFile(RuntimeError):
+
     pass
 
 
@@ -59,6 +53,7 @@ def parse_json_helpful(s):
 
 
 class NeuroCSVHeaderData(object):
+
     def __init__(self, headerlines):
         self.column_data = {}
         self.file_data = None
@@ -102,16 +97,15 @@ class NeuroCSVHeaderData(object):
         # Either the first Character is a { or something of the form 'COLUMN1' or 'LOADHINT'
         if line[0] == '{':
             self.file_data = parse_json_helpful(line)
-
         else:
             r = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
             m = r.match(line)
             if not m:
-                raise InvalidNeuroCSVFile('Could not parse line: %s'%line)
+                raise InvalidNeuroCSVFile('Could not parse line: %s' % line)
 
             # Load 'COLUMN' info:
             if m.group(1) == 'COLUMN':
-                col_num=int(m.group(2))
+                col_num = int(m.group(2))
                 if col_num in self.column_data:
                     raise InvalidNeuroCSVFile('Repeated Column Description Found: %d'%col_num)
                 self.column_data[col_num] = parse_json_helpful(m.group(3))
@@ -122,12 +116,8 @@ class NeuroCSVHeaderData(object):
                     raise InvalidNeuroCSVFile('Repeated LOADHINT Description Found')
                 self.load_hints = parse_json_helpful(m.group(3))
 
-    #def getColumnData(self, index, data):
-
-
 
 class NeuroCSVParser(object):
-
 
     @classmethod
     def parse(cls, filename):
@@ -147,6 +137,7 @@ class NeuroCSVParser(object):
     @classmethod
     def extract_header(cls, filename):
         """ Reads just the header out of a file"""
+
         header = []
         with open(filename, 'r') as f:
             for line in f.readlines():
@@ -175,7 +166,6 @@ class NeuroCSVParser(object):
         assert current_line == ''
         return new_header_data
 
-
     @classmethod
     def readbodydata(cls, filename):
         print filename
@@ -195,12 +185,12 @@ class NeuroCSVParser(object):
         tBuilder = (TraceFixedDT if TraceFixedDT.is_array_fixed_dt(timeData) else TraceVariableDT)
 
         trcs = []
-        for i in range(1,nCols):
-            d_i = data_array[:,i]
+        for i in range(1, nCols):
+            d_i = data_array[:, i]
             column_metadict = header_info.column_data[i]
-            dataUnit  = unit(str(column_metadict.get('unit',"")))
-            dataLabel  = str(column_metadict.get('label','Column%d'%i))
-            dataTags  = str(column_metadict.get('tags','')).split(',')
+            dataUnit = unit(str(column_metadict.get('unit', '')))
+            dataLabel = str(column_metadict.get('label', 'Column%d' % i))
+            dataTags = str(column_metadict.get('tags', '')).split(',')
             d = d_i * dataUnit
 
             tr = tBuilder(timeData, d, name=dataLabel, tags=dataTags)

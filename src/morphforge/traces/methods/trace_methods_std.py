@@ -29,21 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 
 import numpy as np
-from morphforge.traces.tracetypes import TraceVariableDT,TracePiecewise, TraceFixedDT
-
-
-
-
-
-
-
-
-
-
+from morphforge.traces.tracetypes import TraceVariableDT
+from morphforge.traces.tracetypes import TracePiecewise 
+from morphforge.traces.tracetypes import TraceFixedDT
 
 
 def _get_piecewise_linear_points(tr):
@@ -60,18 +51,10 @@ def _get_piecewise_linear_points(tr):
         y_points.append(float(p.get_start_value().rescale(y_unit).magnitude))
         y_points.append(float(p.get_end_value().rescale(y_unit).magnitude))
 
-    return np.array(x_points) * x_unit, np.array(y_points) * y_unit
+    return (np.array(x_points) * x_unit, np.array(y_points) * y_unit)
 
 # Plotting:
 TraceMethodCtrl.register(TraceFixedDT,    'plotpoints', lambda tr: (tr._time, tr._data))
 TraceMethodCtrl.register(TraceVariableDT, 'plotpoints', lambda tr: (tr._time, tr._data))
 TraceMethodCtrl.register(TracePiecewise,  'plotpoints', _get_piecewise_linear_points)
-
-
-
-
-
-
-
-
 

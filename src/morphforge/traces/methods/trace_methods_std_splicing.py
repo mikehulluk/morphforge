@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePointBased
@@ -39,7 +38,6 @@ import numpy as np
 from quantities.quantity import Quantity
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces.traceobjpluginctrl import clone_trace
-
 
 
 # Shifting:
@@ -76,12 +74,10 @@ def _window_fixed_trace(trace, time_window):
     if time_window[1] is None:
         time_window = (time_window[0], trace._time[-1])
 
-
     time_window[0].rescale('ms').magnitude
     time_window[1].rescale('ms').magnitude
     if not isinstance(trace, TracePointBased):
         raise ValueError()
-
 
     t_diff1 = time_window[0] - trace._time[0]
     if t_diff1 < 0:
@@ -105,10 +101,6 @@ def _window_fixed_trace(trace, time_window):
     time_indices2 = numpy.nonzero(time_trace_new < time_window[1])
     time_trace_new = time_trace_new[time_indices2]
     trace_new = trace_new[time_indices2]
-
-
-
-
 
     # Ensure we have at least 2 points:
     if len(time_trace_new) < 2:
@@ -142,11 +134,8 @@ def _window_fixed_trace(trace, time_window):
         assert False
 
 
-
-
 TraceMethodCtrl.register(TraceFixedDT, 'window', _window_fixed_trace)
 TraceMethodCtrl.register(TraceVariableDT, 'window', _window_fixed_trace)
-
 
 # WindowAndShift:
 #################

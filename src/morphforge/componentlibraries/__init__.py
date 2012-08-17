@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from celllibrary import CellLibrary
 from channellibrary import ChannelLibrary
 from morphologylibrary import MorphologyLibrary

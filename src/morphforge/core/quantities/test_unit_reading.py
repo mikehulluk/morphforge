@@ -29,12 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import unit_string_lexer as l
 import unit_string_parser as p
-
-
-
 
 strs = [
     'm',
@@ -44,8 +40,7 @@ strs = [
     'mV-2 s/A Hz',
     'ms',
     '/V s',
-   ]
-
+    ]
 
 # for s in strs:
 #    l.lexer.input(s)
@@ -54,9 +49,6 @@ strs = [
 #        tok = l.lexer.token()
 #        if not tok: break      # No more input
 #        print tok
-
-
-
 
 for s in strs:
     r = p.parser.parse(s)

@@ -31,7 +31,7 @@
 
 
 class ChlIon(object):
- 
+
     Na = 'na'
     Ks = 'ks'
     Kf = 'kf'
@@ -39,4 +39,5 @@ class ChlIon(object):
     Lk = 'lk'
 
     Chls = [Na, Ks, Kf, Ca, Lk]
+
 

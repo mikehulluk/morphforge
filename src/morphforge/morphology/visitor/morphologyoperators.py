@@ -29,12 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.morphology.visitor.visitorbaseclasses import SectionVisitorDF
 
 
 class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
-
 
     def __init__(self, transfunctor, morph=None):
 
@@ -44,14 +42,13 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         self.rgnMappings = None
         self.newMorph = None
 
-
-        super(SectionVisitorDFNeuronBuilder, self).__init__(morph=morph, functor=self.build_extrusion, dummysectionfunctor=self.build_root, returnfunctor= lambda: self.newMorph)
-
+        super(SectionVisitorDFNeuronBuilder,
+              self).__init__(morph=morph, functor=self.build_extrusion,
+                             dummysectionfunctor=self.build_root,
+                             returnfunctor=lambda : self.newMorph)
 
         if self.morph != None:
             self.__call__()
-
-
 
     def build_root(self, section):
         from morphforge.morphology.core import Section, Region, MorphologyTree
@@ -65,13 +62,11 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
 
         new_section = Section(regions=[self.rgnMappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
 
-        self.newMorph = MorphologyTree("MorphCloned", dummysection=new_section, metadata={})
+        self.newMorph = MorphologyTree('MorphCloned', dummysection=new_section, metadata={})
 
         self.orig2newMapping[section] = new_section
 
-
-
-    def build_extrusion(self,section):
+    def build_extrusion(self, section):
 
         new_parent = self.orig2newMapping[section.parent]
 

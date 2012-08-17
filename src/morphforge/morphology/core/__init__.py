@@ -29,12 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 """ Object-models for morphology representations.
-
-
-
 
 """
 
@@ -97,8 +92,16 @@ In general, you will only need to use one of the two representations, depending 
 
 
 
-from tree import MorphologyTree, Section, Region, MorphLocation, MorphPath
+from tree import MorphologyTree, Section, Region
+from tree import MorphLocation
+from tree import MorphPath
 from array import MorphologyArray
 
-
-__all__ = ['MorphologyTree','Section','Region','MorphLocation','MorphologyArray', 'MorphPath']
+__all__ = [
+    'MorphologyTree',
+    'Section',
+    'Region',
+    'MorphLocation',
+    'MorphologyArray',
+    'MorphPath',
+    ]

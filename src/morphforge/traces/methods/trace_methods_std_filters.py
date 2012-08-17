@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.traces.traceobjpluginctrl import clone_trace
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
 
 import quantities as pq
 import numpy as np
+
 
 def _butterworthfilter(self, filterorder, cutoff_frequency):
     cutoff_frequency.rescale('Hz')
@@ -78,10 +78,6 @@ def _besselfilter(self, filterorder, cutoff_frequency):
 TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True )
 
 
-
-
-
-
 def _filterlowpassrc(tr, tau):
     import scipy.signal
     assert isinstance(tr, TraceFixedDT)
@@ -97,7 +93,4 @@ def _filterlowpassrc(tr, tau):
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)
-
-
-
 

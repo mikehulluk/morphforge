@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from region_to_int_bimap import AutoRegionToIntMapTable
 from region_to_int_bimap import RegionToIntMapBiMap
 from internal_representation_converter import MorphologyConverter

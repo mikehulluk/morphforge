@@ -31,14 +31,15 @@
 
 from tracepointbased import TracePointBased
 
+
 class TraceVariableDT(TracePointBased):
 
     def __init__(self, time, data, name=None, comment=None, tags=None):
         super(TraceVariableDT, self).__init__(time=time, data=data, name=name, comment=comment, tags=tags)
 
     def __str__(self):
-        return '<Trace: %s (Variable dt)(N. Points: %d)(Min-Max: %s-%s)>' % (self.name, self.get_n(), self.get_min_time(), self.get_max_time())
-
-
+        return '<Trace: %s (Variable dt)(N. Points: %d)(Min-Max: %s-%s)>' \
+            % (self.name, self.get_n(), self.get_min_time(),
+               self.get_max_time())
 
 

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.biophysics import *
 
 def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=None, parameter_overrides=None):

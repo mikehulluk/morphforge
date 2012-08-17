@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.morphology.core import MorphLocation
 
 class CellLocation(object):
@@ -42,16 +41,15 @@ class CellLocation(object):
             self.morphlocation = morphlocation
         else:
             assert not morphlocation
-            self.morphlocation = MorphLocation(section=section, sectionpos=sectionpos)
+            self.morphlocation = MorphLocation(section=section,
+                                               sectionpos=sectionpos)
 
         assert not self.morphlocation.section.is_dummy_section()
-
 
     def get_cell(self):
         return self._cell
 
     cell = property(get_cell, None, None)
-
 
     # We want to be able to treat CellLocations as locations,
     # so that we can measure between them for example:
@@ -59,6 +57,7 @@ class CellLocation(object):
     @property
     def section(self):
         return self.morphlocation.section
+
     @property
     def sectionpos(self):
         return self.morphlocation.sectionpos
@@ -66,9 +65,10 @@ class CellLocation(object):
     def get_3d_position(self):
         return self.morphlocation.get_3d_position()
 
-
     def get_location_description_str(self):
         r = self.cell.name
-        t = ":%s"%self.morphlocation.section.idtag if self.morphlocation.section.idtag else ""
+        t = ''
+        if self.morphlocation.section.idtag:
+            t = self.morphlocation.section.idtag
         return r + t
 

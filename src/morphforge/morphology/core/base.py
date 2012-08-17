@@ -29,15 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.misc import check_cstyle_varname
-
-
-
-
-
-
 
 
 class MorphologyBase(object):
@@ -48,8 +41,6 @@ class MorphologyBase(object):
     def to_array(self):
         raise NotImplementedError()
 
-
-
     def __init__(self, region_number_to_name_bidict=None, name=None,
                  metadata=None):
         self.region_number_to_name_bidict = region_number_to_name_bidict
@@ -59,6 +50,7 @@ class MorphologyBase(object):
 
         self.metadata = (metadata if metadata else {})
 
-
     # Properties:
     name = property(lambda self: self._name, None)
+
+

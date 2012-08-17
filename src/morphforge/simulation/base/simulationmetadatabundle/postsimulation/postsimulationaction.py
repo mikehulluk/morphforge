@@ -29,12 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 import cPickle
-
-
 
 from morphforge.core import FileIO
 
@@ -43,8 +38,6 @@ class PostSimulationAction(object):
 
     def __call__(self, result, bundle):
         raise NotImplementedError()
-
-
 
 
 class PostSimulationActionPickleSimulation(object):

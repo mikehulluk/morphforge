@@ -29,11 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 # Set-up the default priting:
 import numpy as np
 np.set_printoptions(precision=2)
-
-
 

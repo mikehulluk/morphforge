@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 """Vertex-based object-model of morphologies.
 
 """
@@ -48,12 +46,7 @@ import numpy as np
 from morphforge.morphology.core.base import MorphologyBase
 
 
-
-
-
 class MorphologyArray(MorphologyBase):
-
-
 
     def to_array(self):
         return self
@@ -62,15 +55,8 @@ class MorphologyArray(MorphologyBase):
         from morphforge.morphology.conversion import MorphologyConverter
         return MorphologyConverter.array_to_tree(self, **kwargs)
 
-
-
-
-
-
     def __init__(self, vertices, connectivity, dummy_vertex_index=0, section_types=None,region_number_to_name_bidict=None, name=None, metadata=None):
         MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
-
-
 
         # Save the data in the correct formats:
         self._connectivity = np.array(connectivity).reshape(-1, 2)
@@ -82,20 +68,16 @@ class MorphologyArray(MorphologyBase):
 
         self._dummy_vertex_index = dummy_vertex_index
 
-
         # Some Error Checking:
 
         assert N == M - 1, 'N != M-1 (N:%d, M:%d)' % (N, M)
-
 
         if self.is_directed():
             # Lets check connectivity forms a tree:
             pass
 
-
         # If we store the data in arrays, then we no longer store which
         # is our dummy vertex, which we will need for generating trees
-
 
     def get_leaf_vertices_indices(self):
         vertex_connections = np.zeros(len(self._vertices))
@@ -104,7 +86,6 @@ class MorphologyArray(MorphologyBase):
             vertex_connections[j] = vertex_connections[j] + 1
         leaf_vertices = np.where(vertex_connections == 1)[0]
         return leaf_vertices
-
 
     def is_directed(self):
         return self._dummy_vertex_index is not None
@@ -119,11 +100,11 @@ class MorphologyArray(MorphologyBase):
         """ Returns the number of cylinders in the morphology
         (Chosen over the number for vertices, in order to maintain compatibility with MorphologyTree,
         """
-        return self._connectivity.size/2
 
+        return self._connectivity.size / 2
 
     def connections_to_index(self, pid):
-        return [i for (i, j) in self._connectivity if j == pid] + [j for (i,j) in self._connectivity if i == pid]
+        return [i for (i, j) in self._connectivity if j == pid] + [j for (i, j) in self._connectivity if i == pid]
 
     def index_of_connection(self, id, pid):
         for (index, (i, j)) in enumerate(self._connectivity):
@@ -132,6 +113,5 @@ class MorphologyArray(MorphologyBase):
             if i == pid and j == id:
                 return index
         assert False, ' Connection not found'
-
 
 

@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.morphology.core import Section
 import collections
 from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
@@ -38,6 +36,7 @@ from morphforge.morphology.core.array import MorphologyArray
 from morphforge.morphology.conversion import AutoRegionToIntMapTable
 from morphforge.morphology.core import Region
 import copy
+
 
 class MorphologyConverter(object):
 
@@ -50,13 +49,11 @@ class MorphologyConverter(object):
             else:
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
-
         vertices = [None] * (len(tree) + 1)
         connectivity = []
         section_types = []
         section_index = SectionIndexerDF(morph=tree, offset=1).dict
         section_index[tree.get_dummy_section()] = 0
-
 
         for seg in tree._every_section():
             index = section_index[seg]
@@ -76,9 +73,11 @@ class MorphologyConverter(object):
                 else:
                     section_types.append(0)
 
-        m = MorphologyArray(vertices=vertices, connectivity=connectivity, dummy_vertex_index=0, section_types=section_types,)
+        m = MorphologyArray(vertices=vertices,
+                            connectivity=connectivity,
+                            dummy_vertex_index=0,
+                            section_types=section_types)
         return m
-
 
     @classmethod
     def array_to_tree(cls, array, region_number_to_name_bidict=None):
@@ -89,22 +88,17 @@ class MorphologyConverter(object):
             else:
                 region_number_to_name_bidict = AutoRegionToIntMapTable()
 
-
         name_to_region_map = {}
 
-
         dummy_vertex_index = array._dummy_vertex_index
-
 
         index_to_section_map = {}
 
         # Create the root section:
-        x,y,z,r = array._vertices[dummy_vertex_index]
-        dummy_section = Section(region=None,x=x,y=y,z=z,r=r)
-
+        (x, y, z, r) = array._vertices[dummy_vertex_index]
+        dummy_section = Section(region=None, x=x, y=y, z=z, r=r)
 
         index_to_section_map[dummy_vertex_index] = dummy_section
-
 
         indices_to_visit = collections.deque([dummy_vertex_index])
 

@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from piecewise_scalar import *
 from op_fixeddt_scalar import *
 from op_fixeddt_fixeddt import *

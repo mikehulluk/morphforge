@@ -31,6 +31,7 @@
 
 
 class SimulationEnvironment(object):
+
     def __init__(self):
         pass
 
@@ -58,3 +59,5 @@ class SimulationEnvironment(object):
 
     def SimulationSettings(self, **kwargs):
         raise NotImplementedError()
+
+

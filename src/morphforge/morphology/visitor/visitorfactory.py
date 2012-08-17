@@ -29,12 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
-from morphforge.morphology.visitor.visitorbaseclasses import DictBuilderSectionVisitorHomo#, NumpyBuilderSectionVisitor
+from morphforge.morphology.visitor.visitorbaseclasses import DictBuilderSectionVisitorHomo
 from morphforge.morphology.visitor import SectionVisitorDF
-
-
 
 
 class SectionVistorFactory(object):
@@ -48,9 +45,11 @@ class SectionVistorFactory(object):
     @classmethod
     def array4_all_points(cls, morph=None):
         xyzr = []
+
         def functorRoot(s):
             xyzr.append(s.get_proximal_npa4())
             xyzr.append(s.get_distal_npa4())
+
         def functor(s):
             xyzr.append(s.get_distal_npa4())
         return SectionVisitorDF(functor=functor, morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyzr))
@@ -58,16 +57,17 @@ class SectionVistorFactory(object):
     @classmethod
     def array3_all_points(cls, morph=None):
         xyz = []
+
         def functorRoot(s):
             xyz.append(s.get_proximal_npa3())
             xyz.append(s.get_distal_npa3())
+
         def functor(s):
             xyz.append(s.get_distal_npa3())
-        return SectionVisitorDF(functor=functor , morph=morph,rootsectionfunctor=functorRoot, returnfunctor=lambda : np.array(xyz))
 
-
-
-
+        return SectionVisitorDF(functor=functor, morph=morph,
+                                rootsectionfunctor=functorRoot,
+                                returnfunctor=lambda : np.array(xyz))
 
     @classmethod
     def dict_section_proximal_dist_from_soma(cls, morph=None, soma_centre=False):
@@ -84,6 +84,7 @@ class SectionVistorFactory(object):
                 d2 = s.parent.get_length()
                 d = d1 + d2
                 return d
+
         return DictBuilderSectionVisitorHomo(functor=dict_section_proximal_dist_from_soma, morph=morph)
 
 
@@ -101,11 +102,4 @@ class SectionVistorFactory(object):
 
 
 SVVisitorFactory = SectionVistorFactory
-
-
-
-
-
-
-
 

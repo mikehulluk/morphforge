@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
@@ -57,7 +56,6 @@ class NeuronSynapse(NeuronObject, Synapse):
     def build_mod(self, modfile_set):
         self.postSynapticMech.build_mod(modfile_set)
         self.preSynapticTrigger.build_mod(modfile_set)
-
 
     def get_recordable(self, what, **kwargs):
         if what == StandardTags.Conductance:
@@ -131,28 +129,19 @@ BREAKPOINT{
 """
 
 
-
-
-
-
-
-
-
 class NeuronGapJunction(GapJunction, NeuronObject):
 
-    def __init__(self, **kwargs):        
+    def __init__(self, **kwargs):
         super(NeuronGapJunction, self).__init__(**kwargs)
 
-
-
     isFirstBuild = True
+
     def build_mod(self, modfile_set):
 
         if NeuronGapJunction.isFirstBuild:
             NeuronGapJunction.isFirstBuild = False
             m = ModFile(modtxt=gapMod, name='GapJunction')
             modfile_set.append(m)
-
 
     def build_hoc(self, hocfile_obj):
         cell1 = self.celllocation1.cell
@@ -162,30 +151,25 @@ class NeuronGapJunction(GapJunction, NeuronObject):
 
         gp_obj1_name = self.get_name() + 'A'
         gp_obj2_name = self.get_name() + 'B'
+        hoc_dct = hocfile_obj[MHocFileData.Cells]
         data = {
                "name": self.get_name(),
-               "name1":gp_obj1_name,
-               "name2":gp_obj2_name,
-               "cell1":cell1,
-               "cell2":cell2,
-               "cellname1":hocfile_obj[MHocFileData.Cells][cell1]['cell_name'],
-               "cellname2":hocfile_obj[MHocFileData.Cells][cell2]['cell_name'],
-               "sectionindex1":hocfile_obj[MHocFileData.Cells][cell1]['section_indexer'][section1],
-               "sectionindex2":hocfile_obj[MHocFileData.Cells][cell2]['section_indexer'][section2],
-               "sectionpos1":self.celllocation1.morphlocation.sectionpos,
-               "sectionpos2":self.celllocation2.morphlocation.sectionpos,
-
+               "name1": gp_obj1_name,
+               "name2": gp_obj2_name,
+               "cell1": cell1,
+               "cell2": cell2,
+               "cellname1": hoc_dct[cell1]['cell_name'],
+               "cellname2": hoc_dct[cell2]['cell_name'],
+               "sectionindex1": hoc_dct[cell1]['section_indexer'][section1],
+               "sectionindex2": hoc_dct[cell2]['section_indexer'][section2],
+               "sectionpos1": self.celllocation1.morphlocation.sectionpos,
+               "sectionpos2": self.celllocation2.morphlocation.sectionpos,
                "resistance": self.resistance
                }
 
-        hocfile_obj.add_to_section(MHOCSections.InitGapJunction,  Template(expTmpl, data).respond())
+        hocfile_obj.add_to_section(MHOCSections.InitGapJunction,
+                                   Template(expTmpl, data).respond())
 
         hocfile_obj[MHocFileData.GapJunctions][self] = data
-
-
-
-
-
-
 
 

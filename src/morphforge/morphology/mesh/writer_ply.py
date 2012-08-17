@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from Cheetah.Template import Template
-
 
 
 class MeshWriterPLY(object):
@@ -54,7 +52,6 @@ $mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv($mesh.vertex_c
 3 $t[0] $t[1] $t[2]
 #end for"""
 
-
     @classmethod
     def build_string(cls, mesh):
 
@@ -64,3 +61,5 @@ $mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv($mesh.vertex_c
         t = t[:-1]  # Trim the last, blank line.
 
         return t
+
+

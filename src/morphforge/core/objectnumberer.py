@@ -30,9 +30,8 @@
 # ----------------------------------------------------------------------
 
 
-
-
 class ObjectLabeller(object):
+
     """ Provides names for internal use for annoymous objects
 
     Often, we need to automatically generate names for objects. For example,
@@ -58,6 +57,7 @@ class ObjectLabeller(object):
        ):
         """ Returns the next 'anonymous' name for an object of 'obj_type'.
         """
+
         if num_fmt_string is None:
             num_fmt_string = '%04d'
         if prefix is None:

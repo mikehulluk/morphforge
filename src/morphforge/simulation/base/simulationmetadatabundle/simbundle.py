@@ -29,16 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
+import os
+import cPickle
 
 from morphforge.core import FileIO
-from os.path import join as Join
 from morphforge.core import LocMgr
 from morphforge.core.misc import StrUtils
 
-
-
-import cPickle
 
 # This class is a work around for the circular loop caused by not being
 # able to store the md5 hash of an object within that object:
@@ -64,10 +61,8 @@ class SimMetaDataBundleBase(object):
         bundle = cPickle.load(open(filename))
         return bundle
 
-
     def get_sim_md5sum(self):
         return self.simmd5sum
-
 
 
 class SimMetaDataBundle(SimMetaDataBundleBase):
@@ -78,7 +73,6 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
 
     def get_simulation(self):
         return self.sim
-
 
     def _write_to_file(self, bundlefilename=None):
         bundleloc = LocMgr.get_simulation_tmp_dir()
@@ -101,15 +95,9 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
 
         bundle_fname = self._write_to_file(
                         bundlefilename=bundlefilename)
-        bundle_exec_bin = Join(LocMgr.get_bin_path(),
+        bundle_exec_bin = os.path.join(LocMgr.get_bin_path(),
                                simulation_binary_file)
         sim_cmd = '%s %s' % (bundle_exec_bin, bundle_fname)
         return (bundle_fname, sim_cmd)
-
-
-
-
-
-
 
 

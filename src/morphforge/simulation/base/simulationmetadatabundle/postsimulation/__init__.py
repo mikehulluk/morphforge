@@ -32,6 +32,5 @@
 from postsimulationaction import PostSimulationAction
 from postsimulationaction import PostSimulationActionPickleSimulation
 
-
 __all__ = ['PostSimulationAction',
            'PostSimulationActionPickleSimulation']

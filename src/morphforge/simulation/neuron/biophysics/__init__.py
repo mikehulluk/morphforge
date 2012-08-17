@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from modfile import ModFile
 from modfilecompiler import ModFileCompiler
 from mm_neuron import MM_Neuron_Base

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from simsummariser import SimulationSummariser, SS_Sections
 from mmsummariser import MembraneMechanismSummariser
 from summariser_library import SummariserLibrary

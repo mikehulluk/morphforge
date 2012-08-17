@@ -30,30 +30,25 @@
 # ----------------------------------------------------------------------
 
 
-
-
-
 class SettingsMgr(object):
-    """ Doc String for Settings Manager"""
 
+    """ Doc String for Settings Manager"""
 
     # Don't Start Logging until everything is Configured!
     _logging = True and False
 
     _clearTempAllAt_start = True
 
-  
-
     @classmethod
     def is_logging(cls):
         return cls._logging
-
 
     @classmethod
     def get_ply_yacc_debug_flag(cls):
         return 0
 
-
     @classmethod
     def simulator_is_verbose(cls):
         return False
+
+

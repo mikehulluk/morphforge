@@ -31,12 +31,12 @@
 
 
 class MembraneMechanism(object):
+
     def __init__(self, mechanism_id):
         self.mechanism_id = mechanism_id
 
     def get_membranemechanism_name(self):
         raise NotImplementedError()
-
 
     def get_variables(self):
         raise NotImplementedError()
@@ -49,3 +49,4 @@ class MembraneMechanism(object):
 
     def get_mechanism_id(self):
         return self.mechanism_id
+

@@ -29,9 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from neuronobject import NeuronObject
-from morphforge.simulation.base import VoltageClamp, VoltageClampStepChange
+from morphforge.simulation.base import VoltageClamp
+from morphforge.simulation.base import VoltageClampStepChange
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
@@ -41,18 +41,17 @@ from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 
-
-
 class VoltageClampCurrentRecord(NeuronRecordable):
+
     def __init__(self, vclamp, **kwargs):
         super(VoltageClampCurrentRecord, self).__init__(**kwargs)
         self.vclamp = vclamp
 
     def get_unit(self):
         return unit('nA')
+
     def get_std_tags(self):
         return [StandardTags.Current]
-
 
     def build_hoc(self, hocfile_obj):
         obj_name_hoc = hocfile_obj[MHocFileData.VoltageClamps][self.vclamp]['stimname']
@@ -77,7 +76,6 @@ class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
 
     def build_mod(self, modfile_set):
         pass
-
 
     def get_recordable(self, what, name, **kwargs):
         recorders = {

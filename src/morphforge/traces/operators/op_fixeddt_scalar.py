@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import quantities as pq
 
 import operator
@@ -38,8 +37,8 @@ from morphforge.traces.tracetypes import TraceFixedDT
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
 
-
 class TraceOperator_TraceFixedDT_Quantity(object):
+
     @classmethod
     def do_add(self, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
@@ -124,32 +123,12 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            #assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs._time,  lhs._data / rhs)
+            # assert isinstance(lhs._data, pq.Dimensionless)
+            return TraceFixedDT(lhs._time, lhs._data / rhs)
         else:
-            #assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs._time,  rhs._data / lhs)
+            # assert isinstance(rhs._data, pq.Dimensionless)
+            return TraceFixedDT(rhs._time, rhs._data / lhs)
 
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__add__,
-                                      lhs_type = TraceFixedDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceFixedDT_Quantity.do_add,
-                                      flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__sub__,
-                                      lhs_type = TraceFixedDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceFixedDT_Quantity.do_sub,
-                                      flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__mul__,
-                                      lhs_type = TraceFixedDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceFixedDT_Quantity.do_mul,
-                                      flag='default')
-TraceOperatorCtrl.add_trace_operator(operator_type = operator.__div__,
-                                      lhs_type = TraceFixedDT,
-                                      rhs_type = pq.Quantity,
-                                      operator_func = TraceOperator_TraceFixedDT_Quantity.do_div,
-                                      flag='default')
 
 
 TraceOperatorCtrl.add_trace_operator(

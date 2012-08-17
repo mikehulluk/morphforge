@@ -34,14 +34,11 @@ class MorphologyLibrary(object):
 
     morphFuncs = dict()
 
-
     @classmethod
     def register_morphology(cls, modelsrc, celltype, morph_functor):
         key = (modelsrc, celltype)
         assert not key in cls.morphFuncs
         cls.morphFuncs[key] = morph_functor
-
-
 
     @classmethod
     def get_morphology_functor(cls, celltype, modelsrc=None):
@@ -60,3 +57,5 @@ class MorphologyLibrary(object):
     @classmethod
     def iteritems(cls):
         return cls.morphFuncs.iteritems()
+
+
