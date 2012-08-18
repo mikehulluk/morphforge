@@ -47,7 +47,8 @@ from morphforge.simulation.neuron.simulationdatacontainers import MModFileSet
 from morphforge.simulation.neuron.misc import NeuronSimulationConstants
 
 from morphforge.core.mgrs.logmgr import LogMgr
-
+from morphforge.traces import TraceVariableDT
+from morphforge.core.mockcontrol import MockControl
 
 def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps) - 0.5) * std_dev
@@ -66,6 +67,7 @@ class MNeuronSimulation(Simulation):
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
         self.recordable_names = set()
+        self.hocfilename = None
 
     def run(self, do_spawn=True):
 
@@ -111,7 +113,6 @@ class MNeuronSimulation(Simulation):
         return self.result
 
     def run_return_random_walks(self):
-        from morphforge.traces import TraceVariableDT
         # Create the HOC and ModFiles:
         hoc_data = MHocFile()
         mod_files = MModFileSet()
@@ -123,24 +124,22 @@ class MNeuronSimulation(Simulation):
         time_array = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
         traces = []
         records = hoc_data[MHocFileData.Recordables]
-        for (r, hocDetails) in records.iteritems():
+        for rec in records.keys():
 
-            data_array = _random_walk(len(time_array), 0.05) * r.get_unit()
+            data_array = _random_walk(len(time_array), 0.05) * rec.get_unit()
 
-            tr = TraceVariableDT(name=r.name,
-                                 comment=r.get_description(),
+            tr = TraceVariableDT(name=rec.name,
+                                 comment=rec.get_description(),
                                  time=time_array, data=data_array,
-                                 tags=r.get_tags())
+                                 tags=rec.get_tags())
             traces.append(tr)
 
         self.result = SimulationResult(traces, self)
         return self.result
 
     def _run_no_spawn(self):
-        from morphforge.traces import TraceVariableDT
 
         # Generate Random data:
-        from morphforge.core.mockcontrol import MockControl
         if MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 
@@ -194,7 +193,7 @@ class MNeuronSimulation(Simulation):
                 if h.t + self.interval < h.tstop:
                     h.cvode.event(h.t + self.interval, self.callback)
 
-        e = Event()
+        Event()
         print 'Running Simulation'
         h.run()
         # nrn(h.run)
@@ -208,9 +207,9 @@ class MNeuronSimulation(Simulation):
         t_trace_read_start = time.time()
         traces = []
         records = hoc_data[MHocFileData.Recordables]
-        for (r, hocDetails) in records.iteritems():
+        for (r, hoc_details) in records.iteritems():
 
-            data_array = np.array(neuron.h.__getattribute__(hocDetails["recVecName"])) * r.get_unit()
+            data_array = np.array(neuron.h.__getattribute__(hoc_details["recVecName"])) * r.get_unit()
 
             tr = TraceVariableDT(name=r.name,
                                  comment=r.get_description(),
@@ -221,7 +220,7 @@ class MNeuronSimulation(Simulation):
             time.time() - t_trace_read_start
 
         self.result = SimulationResult(traces, self)
-        self.result.hocfilename = self.hocfilename
+        #self.result.hocfilename = self.hocfilename
         return self.result
 
     # NEW API:

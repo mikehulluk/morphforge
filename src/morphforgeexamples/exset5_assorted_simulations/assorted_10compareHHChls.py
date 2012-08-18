@@ -59,7 +59,7 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via
 import random as R
 
 
-vars = ['h','m','minf','mtau','m_alpha_rate','m_beta_rate',]
+variables = ['h','m','minf','mtau','m_alpha_rate','m_beta_rate',]
 
 def apply_hh_chls_neurounits_direct(env, myCell, mySim):
 
@@ -233,7 +233,7 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mySim):
     apply_mechanism_everywhere_uniform(myCell, kChannels)
 
 
-    #for v in vars:
+    #for v in variables:
     #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, cell_location=myCell.get_location("soma"))
     #    mySim.add_recordable(s)
 

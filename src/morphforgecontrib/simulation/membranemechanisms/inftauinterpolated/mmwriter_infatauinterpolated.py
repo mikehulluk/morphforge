@@ -144,7 +144,7 @@ $(cell_name).internalsections [$section_index] {
                 assert False
 
 
-            vars = {'chlname':state_tau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_str_x,'y0':interp_str_y, 'funcname':funcname }
+            variables = {'chlname':state_tau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_str_x,'y0':interp_str_y, 'funcname':funcname }
             f = """
             FUNCTION %(funcname)s(V)
             {
@@ -161,7 +161,7 @@ $(cell_name).internalsections [$section_index] {
                 }
                 ENDVERBATIM
             }
-            \n\n""" % vars
+            \n\n""" % variables
             return f
 
 

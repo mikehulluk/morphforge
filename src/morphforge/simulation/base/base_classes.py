@@ -38,10 +38,8 @@ class NamedSimulationObject(object):
 
     This class ensures that no two objects in a simulation have the same
     name.
-    """
-
-    """ A dictionary -> set mapping, recording what object names are in
-    use at all simulations"""
+         * _obj_names: A dictionary -> set mapping, recording what object names are in
+            use at all simulations"""
     _obj_names = {}
 
 

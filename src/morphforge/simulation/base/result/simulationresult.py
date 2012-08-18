@@ -44,6 +44,10 @@ class SimulationResult(object):
         self.t_start = None
         self.t_stop = None
 
+    @property
+    def hocfilename(self):
+        return self.simulation.hocfilename
+
     def set_simulation_time(self, t_start, t_stop):
         self.t_start = t_start
         self.t_stop = t_stop

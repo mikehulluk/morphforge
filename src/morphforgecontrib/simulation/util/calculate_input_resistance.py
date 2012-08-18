@@ -136,11 +136,11 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def simulate_all(self):
-        for c1 in self.currents_base:
-            for c2 in self.currents_rebound:
-                (tr_v, tr_i) = self.simulate(c1, c2)
-                self.result_traces[(int(c1.rescale('pA').magnitude),
-                                   int(c2.rescale('pA').magnitude))] = \
+        for current1 in self.currents_base:
+            for current2 in self.currents_rebound:
+                (tr_v, tr_i) = self.simulate(current1, current2)
+                self.result_traces[(int(current1.rescale('pA').magnitude),
+                                   int(current2.rescale('pA').magnitude))] = \
                     (tr_v, tr_i)
 
 
@@ -162,12 +162,12 @@ class CellAnalysis_ReboundResponse(object):
     #    spiking_pts = []
     #    rebound_pts = []
     #
-    #    for c1 in c1Values:
-    #        for c2 in c2Values:
-    #            self.result_traces[(c1,c2)]
+    #    for current1 in c1Values:
+    #        for current2 in c2Values:
+    #            self.result_traces[(current1,current2)]
     #
     #            # Plot a dot to show that the simulation was run:
-    #            ax.plot(c1,c2, 'o', markersize=10, color='black')
+    #            ax.plot(current1,current2, 'o', markersize=10, color='black')
     #            #tr =
     #
                 #            trs = []
@@ -179,14 +179,14 @@ class CellAnalysis_ReboundResponse(object):
         c2_values = set([k[1] for k in self.result_traces])
 
         #print self.result_traces.keys()
-        for c1 in c1_values:
+        for current1 in c1_values:
             trs = []
-            for c2 in c2_values:
-                if c2 > c1:
+            for current2 in c2_values:
+                if current2 > current1:
                     continue
-                trs.extend(self.result_traces[(c1, c2)])
+                trs.extend(self.result_traces[(current1, current2)])
 
-            title = "%s- (Response to Current Injections [BaseCurrent %s pA])"%(self.cell_description, c1)
+            title = "%s- (Response to Current Injections [BaseCurrent %s pA])"%(self.cell_description, current1)
             TagViewer(trs, show=False, figtitle=title, **self.tagviewer_kwargs)
 
 

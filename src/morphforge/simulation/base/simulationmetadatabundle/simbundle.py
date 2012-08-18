@@ -61,6 +61,9 @@ class SimMetaDataBundleBase(object):
         bundle = cPickle.load(open(filename))
         return bundle
 
+    def get_simulation(self):
+        return self.sim
+
     def get_sim_md5sum(self):
         return self.simmd5sum
 
@@ -71,8 +74,6 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
         super(SimMetaDataBundle, self).__init__(sim=sim)
         self.metadata = {}
 
-    def get_simulation(self):
-        return self.sim
 
     def _write_to_file(self, bundlefilename=None):
         bundleloc = LocMgr.get_simulation_tmp_dir()

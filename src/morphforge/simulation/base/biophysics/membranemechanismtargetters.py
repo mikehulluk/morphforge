@@ -69,6 +69,7 @@ class PassiveTargeter_Everywhere(Targeter):
 class PassiveTargeter_Region(Targeter):
 
     def __init__(self, region):
+        super(PassiveTargeter_Region, self).__init__()
         self.region = region
 
     def get_priority(self):
@@ -96,6 +97,7 @@ class MembraneMechanismTargeter_Everywhere(Targeter):
 class MembraneMechanismTargeter_Region(Targeter):
 
     def __init__(self, region):
+        super(MembraneMechanismTargeter_Region, self).__init__()
         self.region = region
 
     def get_priority(self):
@@ -123,6 +125,7 @@ class MembraneMechanismTargeter_SectionPath(Targeter):
 class MembraneMechanismTargeter_Section(Targeter):
 
     def __init__(self, section):
+        super(MembraneMechanismTargeter_Section, self).__init__()
         self.section = section
 
     def get_priority(self):

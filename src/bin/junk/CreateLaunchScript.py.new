@@ -29,35 +29,60 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from neuronobject import NeuronObject
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
+
+from morphforge.core import LocMgr, Join
+
+hostlistfilename = Join(LocMgr.get_bin_path(), "DellMachines.txt")
+hostlistfile = open(hostlistfilename)
+
+hosts = [l.strip() for l in hostlistfile.readlines() if not l.startswith("#") and l.strip() != ""]
+hosts = []
 
 
-class NeuronSimSetupObj(NeuronObject):
+print len(hosts)
 
-    def __init__(self, simsettings, simulation):
-        super(NeuronSimSetupObj, self).__init__(
-                    name='mneuronbasesetup',
-                    simulation=simulation)
+print hosts
+#assert False
 
-        self.simsettings = simsettings
 
-    def build_hoc(self, hocfile_obj):
-        hocfile_obj.add_to_section(MHOCSections.InitHeader,
-                                   """load_file("noload.hoc")""")
+import os
+import re
+import time
+import sys
 
-        if self.simsettings['cvode']:
-            hocfile_obj.add_to_section(
-                    MHOCSections.InitHeader,
-                    """cvode_active(1)""")
+lifeline = re.compile(r"(\d) received")
+report = ("No response", "Partial Response", "Alive")
 
-        # For testing: should be done properly:
-        hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%(self.simsettings["tstop"].rescale("ms").magnitude))
-        hocfile_obj.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%(self.simsettings["dt"].rescale("ms").magnitude))
-        hocfile_obj.add_to_section(MHOCSections.InitRecords, "\n".join(["objref rect", "rect = new Vector()", "rect.record(&t)"]))
+print time.ctime()
+alivehosts = []
+for host in hosts:
+    pingaling = os.popen("ping -q -conn2 " + host, "r")
+    print "Testing ", host,
+    sys.stdout.flush()
+    alive = False
+    while 1:
+        line = pingaling.readline()
+        if not line: break
+        igot = re.findall(lifeline, line)
+        if igot:
+            print report[int(igot[0])]
+            res = int(igot[0])
+            if res == 2:
+                alivehosts.append(host)
 
-    def build_mod(self, modfile_set):
-        pass
 
-    def get_recordable(self, what, **kwargs):
-        raise NotImplementedError()
+
+
+print "Alive Hosts:", len(alivehosts)
+
+print time.ctime()
+
+
+opFile = open("ToLauch.sh", "w")
+opFile.write("#! /bin/bash\n ")
+#Launch up a job on each:
+for host in alivehosts:
+    opFile.write(" echo Starting Job on %s \n" % host.strip())
+    opFile.write(" ssh -f %s 'nohup JC.sh &' \n" % host.strip())
+    opFile.write(" sleep 5 \n")
+opFile.close()

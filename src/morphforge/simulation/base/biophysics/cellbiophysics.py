@@ -90,7 +90,7 @@ class CellBiophysics(object):
         return set([mta.mechanism.get_mechanism_id() for mta in
                    self.appliedmechanisms])
 
-    def get_mta_by_mechanism_id_for_section(self, id, section):
+    def get_mta_by_mechanism_id_for_section(self, mech_id, section):
         assert False,'Deprecated? 2012-01-20'
         return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id])
 

@@ -128,17 +128,17 @@ def testfile(xmlfile):
     f = QuantitiesFigure()
 
 
-    vars = ["CurrentClamp",'SomaVoltage','h','hinf','htau','g']
+    variables = ["CurrentClamp",'SomaVoltage','h','hinf','htau','g']
     ax = []
-    for i in range(len(vars)):
-        t = [f.add_subplot(len(vars),2,i*2+1),f.add_subplot(len(vars),2,i*2+2)]
+    for i in range(len(variables)):
+        t = [f.add_subplot(len(variables),2,i*2+1),f.add_subplot(len(variables),2,i*2+2)]
         ax.append(t)
 
 
 
 
     colors = 'rgbcmykrgbcmyk'
-    view_min,view_max = [None]*len(vars), [None]*len(vars)
+    view_min,view_max = [None]*len(variables), [None]*len(variables)
 
 
 
@@ -154,7 +154,7 @@ def testfile(xmlfile):
         #    continue
         res = testfile_voltage(xmlfile, unit("%d:mV"%v))
 
-        for j,v in enumerate(vars):
+        for j,v in enumerate(variables):
             print 'Var', v
             trXSL = res[SimMode.XSL].get_trace(v)
             trNUnits = res[SimMode.NeuroUnit].get_trace(v)
@@ -177,7 +177,7 @@ def testfile(xmlfile):
             ax[j][1].plotTrace(trNUnits, color=l[0].get_color(), linewidth=10 , alpha=0.2)
 
 
-    for j in range(len(vars)):
+    for j in range(len(variables)):
         rRange = view_max[j] - view_min[j]
         ax[j][0].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
         ax[j][1].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))

@@ -78,8 +78,8 @@ class ModBuilderParams(object):
     def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=""):
         incl_str = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
         def_str = " ".join(["""-D%s """ % d for d in cls.compileDefs])
-        vars = {"lo":lo_filename, "c":c_filename, "incs":incl_str, "defs":def_str, 'additional_flags':additional_compile_flags}
-        return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % vars
+        variables = {"lo":lo_filename, "c":c_filename, "incs":incl_str, "defs":def_str, 'additional_flags':additional_compile_flags}
+        return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % variables
 
 
     @classmethod
@@ -162,7 +162,7 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
     compile_flags = modfile.additional_compile_flags if modfile else ""
     link_flags = modfile.additional_link_flags if modfile else ""
-    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(c_filename, lo_filename,additional_compile_flags=compile_flags))
+    op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(c_filename, lo_filename, additional_compile_flags=compile_flags))
     op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(lo_filename, la_filename, additional_link_flags=link_flags))
 
     if SettingsMgr.simulator_is_verbose() or True:
@@ -226,7 +226,7 @@ class ModFileCompiler(object):
         Checking units of %s""" % modfilename
 
         if SettingsMgr.simulator_is_verbose():
-            print 'OP',op
+            print 'OP', op
 
         # Check line by line:
         for (l, le) in zip(op.split('\n'), op_expected.split('\n')):

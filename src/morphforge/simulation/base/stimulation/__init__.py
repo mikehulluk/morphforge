@@ -77,7 +77,7 @@ class VoltageClampStepChange(VoltageClamp):
         **kwargs
         ):
 
-        super(VoltageClamp, self).__init__(**kwargs)
+        super(VoltageClampStepChange, self).__init__(**kwargs)
 
         self.dur1 = unit(dur1)
         self.dur2 = unit(dur2)

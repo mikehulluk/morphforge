@@ -35,6 +35,7 @@ import morphforge
 from morphforge.core import FileIO, LocMgr, Join
 from morphforge.core.misc import StrUtils
 from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
+from morphforge.simulation.base.simulationmetadatabundle.postsimulation import PostSimulationActionPickleSimulation
 
 
 class MetaDataBundleBuilder(object):
@@ -50,13 +51,12 @@ class MetaDataBundleBuilder(object):
     @classmethod
     def build_std_pickler(cls, sim):
 
-        from morphforge.simulation.base.simulationmetadatabundle.postsimulation import PostSimulationActionPickleSimulation
 
         reslocation = LocMgr.get_simulation_results_tmp_dir()
 
         b = MetaDataBundleBuilder.prepare_sim_bundle(sim)
         # Save the random number seed
-        b.random_seed = morphforge.core.mfrandom.MFRandom._seed
+        b.random_seed = morphforge.core.mfrandom.MFRandom.get_seed()
         md5sum = b.get_sim_md5sum()
         resfilename = Join(reslocation, '%s/' % md5sum[:2], md5sum
                            + cls.ressuffix)

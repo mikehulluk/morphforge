@@ -148,14 +148,14 @@ time = None
 
 
 for cell,segs in rec_dict.iteritems():
-    for seg,vars in segs.iteritems():
+    for seg,variables in segs.iteritems():
 
         seg_names,seg_ids = naming_info[cell]
 
         seg_name = seg_names[seg]
         segGrp = h5file.createGroup(varref, seg_name)
 
-        for var,varname in vars.iteritems():
+        for var,varname in variables.iteritems():
             tr = res.get_trace(varname)
             h5file.createArray(segGrp,  var, tr._data.magnitude)
 

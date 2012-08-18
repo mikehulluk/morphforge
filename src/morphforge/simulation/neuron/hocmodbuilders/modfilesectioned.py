@@ -125,7 +125,7 @@ class ModFileSectioned(object):
 
     def finalise(self):
         # Nothing to do for Header
-        
+        sects = ModFileSectioned.Sections
         self.simple_finalise_section(sects.Units, tabsection=True)
         self.simple_finalise_section(sects.Neuron, tabsection=True)
         self.simple_finalise_section(sects.Parameter, tabsection=True)
@@ -142,13 +142,14 @@ class ModFileSectioned(object):
         header = ModFileSectioned.Sections.Header
         self.append_to_section(header, "TITLE %s" % title)
         self.append_to_section(header, "COMMENT")
-        if comment: self.append_to_section(header, comment)
+        if comment:
+            self.append_to_section(header, comment)
         self.append_to_section(header, "ENDCOMMENT")
 
     def add_unit_definition(self, unitname, unitsymbol):
-        symbol_str = "%s" % unitsymbol if unitsymbol.startswith("(") else "(%s)"%unitsymbol
-        name_str = "%s" % unitname if unitname.startswith("(") else "(%s)"%unitname
-        self.append_to_section(ModFileSectioned.Sections.Units, "%s = %s"%(symbol_str,name_str))
+        symbol_str = "%s" % unitsymbol if unitsymbol.startswith("(") else "(%s)" % unitsymbol
+        name_str = "%s" % unitname if unitname.startswith("(") else "(%s)" % unitname
+        self.append_to_section(ModFileSectioned.Sections.Units, "%s = %s" % (symbol_str, name_str))
 
 
     def create_neuron_interface(self, suffix, ranges, nonspecificcurrents, ioncurrents=None,):
@@ -177,7 +178,7 @@ class ModFileSectioned(object):
         # Derivative Block:
         der_block = """DERIVATIVE %s{
         %s
-        } """%(groupname, "\n".join(["\t"+l for l in derivative_code]))
+        } """ % (groupname, "\n".join(["\t"+l for l in derivative_code]))
         self.prepend_to_section(ModFileSectioned.Sections.Derivative, der_block)
 
         # BreakPoint:

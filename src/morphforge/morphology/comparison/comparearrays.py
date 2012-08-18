@@ -81,12 +81,12 @@ class MorphArrayComparison(object):
                 return False
 
         # Check the region types:
-        for (c1, (i1, j1)) in enumerate(m1._connectivity):
+        for (index, (i1, j1)) in enumerate(m1._connectivity):
             i2 = index_map[i1]
             j2 = index_map[j1]
             c2 = m2.index_of_connection(i2, j2)
 
-            if m1._section_types[c1] != m2._section_types[c2]:
+            if m1._section_types[index] != m2._section_types[c2]:
                 return False  # , {'max_dist':max_dist, 'reason':'the section types were different'}
 
         return True
