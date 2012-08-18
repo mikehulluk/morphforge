@@ -94,10 +94,10 @@ from tree import MorphPath
 from array import MorphologyArray
 
 __all__ = [
-    'MorphologyTree',
-    'Section',
-    'Region',
-    'MorphLocation',
-    'MorphologyArray',
-    'MorphPath',
-    ]
+     'MorphologyTree',
+     'Section',
+     'Region',
+     'MorphLocation',
+     'MorphologyArray',
+     'MorphPath',
+]

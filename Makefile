@@ -15,12 +15,16 @@ env_NEURON_GSL: force_look
 
 
 lint: force_look
-	pylint --output-format=html --include-ids=y --disable='C0301,C0111,W0142,R0904,R0903,C0103'  --max-args=7 src/morphforge/ > pylint_out.html
+	pylint --output-format=html --include-ids=y --disable='C0301,C0111,W0142,R0904,R0903,C0103,W0404,R0914,R0902,R0913'  --max-args=7 src/morphforge/ > pylint_out.html
 	# C0301 - long lines
 	# C0111 - 
 	# W0142 'Used * or ** magic'
 	# R0903/4 are too many or too few methods in class
 	# C0103
+	# W0404 - Reimports
+	# R0914 - Too many local variables:
+	# R0902 - Too many instance attributes
+	# R0913 - Too many arguments
 
 
 examples:

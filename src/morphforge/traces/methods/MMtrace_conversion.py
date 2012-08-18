@@ -148,19 +148,19 @@ def _simplify_points (pts, tolerance):
 
 class TraceApproximator(object):
 
-   @classmethod
-   def find_levels(cls, d, min_level_size=15, convolution_threshold=4):
+    @classmethod
+    def find_levels(cls, d, min_level_size=15, convolution_threshold=4):
 
-       x = np.arange(len(d))
+        #x = np.arange(len(d))
 
-       edge_filter = np.hstack((np.ones(min_level_size) * -1, np.ones(min_level_size))) / (2 * min_level_size)
-       edges = np.fabs(np.convolve(d, edge_filter, mode='same'))
+        edge_filter = np.hstack((np.ones(min_level_size) * -1, np.ones(min_level_size))) / (2 * min_level_size)
+        edges = np.fabs(np.convolve(d, edge_filter, mode='same'))
 
 
 
-       edge_indices = np.where(edges > convolution_threshold)[0]
+        edge_indices = np.where(edges > convolution_threshold)[0]
 
-       if len(edge_indices) != 0:
+        if len(edge_indices) != 0:
             # This returns a list of numbers.
             # So, we need to find consecutive digits
             continuous_numbers_forward = (edge_indices - np.roll(edge_indices, 1)) == 1
@@ -185,27 +185,26 @@ class TraceApproximator(object):
             for cp_i in range(len(change_points) - 1):
                 ranges.append((change_points[cp_i], change_points[cp_i + 1]))
             ranges.append((change_points[-1], len(d)-1))
-       else:
+        else:
             ranges = [(0, len(d)-1)]
 
-       return ranges
+        return ranges
 
 
 
 
-   @classmethod
-   def fit_piecewise_linear_trace(cls, tr):
-         d = tr.data_pts_np
+    @classmethod
+    def fit_piecewise_linear_trace(cls, tr):
+        d = tr.data_pts_np
 
-         ranges = TraceApproximator.find_levels(d)
+        ranges = TraceApproximator.find_levels(d)
 
-         pieces = []
-         for r0,r1 in ranges:
-             #print r0,r1
-             x = np.mean(tr.data_pts[r0:r1])
-             p = TracePieceFunctionFlat(time_window=(tr.time_pts[r0],tr.time_pts[r1]), x=x,)
-             pieces.append(p)
+        pieces = []
+        for r0, r1 in ranges:
+            x = np.mean(tr.data_pts[r0:r1])
+            p = TracePieceFunctionFlat(time_window=(tr.time_pts[r0], tr.time_pts[r1]), x=x)
+            pieces.append(p)
 
-         tr = TracePiecewise(pieces, name=tr.name, comment=tr.comment, tags=tr.tags)
-         return tr
+        tr = TracePiecewise(pieces, name=tr.name, comment=tr.comment, tags=tr.tags)
+        return tr
 

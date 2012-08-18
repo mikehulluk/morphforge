@@ -34,13 +34,14 @@ class CellBuilder(object):
 
     nCells = 0
 
-    def get_next_cell_number(self):
+    @classmethod
+    def get_next_cell_number(cls):
         x = CellBuilder.nCells
         CellBuilder.nCells = CellBuilder.nCells + 1
         return x
 
     def get_name(self):
-        return self.get_name_prefix() + '%d' % self.get_next_cell_number()
+        return self.get_name_prefix() + '%d' % CellBuilder.get_next_cell_number()
 
     def __call__(self, sim):
         raise NotImplementedError()

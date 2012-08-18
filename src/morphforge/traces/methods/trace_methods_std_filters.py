@@ -75,7 +75,7 @@ def _besselfilter(self, filterorder, cutoff_frequency):
                        comment='+(Bessel Filtered)')
 
 
-TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter,can_fallback_to_fixed_trace=True )
+TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter, can_fallback_to_fixed_trace=True)
 
 
 def _filterlowpassrc(tr, tau):

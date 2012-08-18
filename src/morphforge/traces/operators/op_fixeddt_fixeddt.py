@@ -57,18 +57,18 @@ class TraceOperator_TraceFixedDT_TraceFixedDT(object):
 
     @classmethod
     def do_sub(cls, lhs, rhs):
-        time_axis = cls.get_new_time_axis(lhs,rhs)
+        time_axis = cls.get_new_time_axis(lhs, rhs)
         return TraceFixedDT(time_axis, 
                             lhs.get_values(time_axis) - rhs.get_values(time_axis))
 
     @classmethod
     def do_mul(cls, lhs, rhs):
-        time_axis = cls.get_new_time_axis(lhs,rhs)
+        time_axis = cls.get_new_time_axis(lhs, rhs)
         return TraceFixedDT(time_axis, 
                             lhs.get_values(time_axis) * rhs.get_values(time_axis))
     @classmethod
     def do_div(cls, lhs, rhs):
-        time_axis = cls.get_new_time_axis(lhs,rhs)
+        time_axis = cls.get_new_time_axis(lhs, rhs)
         return TraceFixedDT(time_axis, lhs.get_values(time_axis) / rhs.get_values(time_axis))
 
 

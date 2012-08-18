@@ -31,6 +31,7 @@
 
 import operator
 import functools
+import numpy as np
 
 
 class Trace(object):
@@ -72,14 +73,16 @@ class Trace(object):
         raise NotImplementedError()
 
     def get_value_at_time(self, time):
-        print type(self)
         raise NotImplementedError()
 
-    def time_within_trace(self, times):
-        raise NotImplementedError()
 
     # Utility Functions:
     def get_duration(self):
         return self.get_max_time() - self.get_min_time()
 
+    def time_within_trace(self, times):
+        t = times.rescale('ms').magnitude
+        t0 = self.get_min_time().rescale('ms').magnitude
+        t1 = self.get_max_time().rescale('ms').magnitude
+        return np.logical_and(t >= t0, t <= t1)
 

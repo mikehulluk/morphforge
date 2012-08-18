@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-from morphforge.core.quantities.fromcore import unit
+#from morphforge.core.quantities.fromcore import unit
 import quantities as pq
 
 from morphforge.traces import TagSelector
@@ -51,7 +51,11 @@ class YAxisConfig(object):
         self.yunit = yunit
         self.ylabel = ylabel
         self.ynticks = (ynticks if ynticks is not None else 5)
-        pass
+
+        self.yticklabels = yticklabels
+        self.ymargin = ymargin
+        self.yticks = yticks
+
 
     def format_axes(self, ax):
         ax.set_ylabel(self.ylabel)
@@ -98,10 +102,12 @@ class PlotSpec_DefaultNew(object):
 
     # Plot in order by name; this is normally fine, since annonymous objects
     # will be plotted in the order they were created.
-    def _sort_traces(self, traces):
+    @classmethod
+    def _sort_traces(cls, traces):
         return sorted(traces, key=lambda t: t.name)
 
-    def _sort_eventsets(self, event_sets):
+    @classmethod
+    def _sort_eventsets(cls, event_sets):
         return sorted(event_sets, key=lambda t: t.name)
 
     def _plot_trace(self, trace,  ax, index, color=None):
@@ -136,18 +142,17 @@ class PlotSpec_DefaultNew(object):
         i_range = 0.2
         i_scale = i_range / len(list(eventset.times))
 
-        data = np.array([(t.rescale("ms").magnitude,index + i * i_scale) for (i,t) in enumerate(eventset.times)])
+        data = np.array([(t.rescale("ms").magnitude, index + i * i_scale) for (i, t) in enumerate(eventset.times)])
 
 
 
-        from morphforge.stdimports import pq
-        p= ax.plot(data[:,0] * pq.ms, data[:,1] * pq.dimensionless ,'o',ms=2, **plot_kwargs)
+        p= ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
         return p
 
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None,) :
+    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None) :
         if self.time_range is not None:
             time_range = self.time_range
 
@@ -168,9 +173,9 @@ class PlotSpec_DefaultNew(object):
             # ax.set_ylim(((-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless))
 
         if len(trcs) == 0:
-            padding =0.5
-            ax.set_yunit(1*pq.dimensionless)
-            ax.set_ylim(((-padding) * pq.dimensionless, (len(eventsets)-1+padding) * pq.dimensionless))
+            padding = 0.5
+            ax.set_yunit(1 * pq.dimensionless)
+            ax.set_ylim(((-padding) * pq.dimensionless, (len(eventsets) - 1 + padding) * pq.dimensionless))
 
         # Legend:
         if self.legend_labeller is not None:

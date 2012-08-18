@@ -32,7 +32,7 @@
 import morphforge.core.quantities.unit_string_parser
 
 import quantities as pq
-from morphforge.core.misc import is_float, is_int
+from morphforge.core.misc import is_float#, is_int
 
 # Required to initialise the unit definitions
 import common_neuroscience_defs

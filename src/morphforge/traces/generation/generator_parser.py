@@ -41,6 +41,9 @@ from gen_parser_lexer import TraceGeneratorParserLexer
 l = TraceGeneratorParserLexer()
 tokens = l.tokens
 
+
+
+# pylint: disable=W0611
 # Parsing
 from gen_parser_yacc import p_complete
 from gen_parser_yacc import p_unit_definiton
@@ -64,12 +67,12 @@ class TraceStringParser(object):
         return cls._trace_from_string(s)
 
     @classmethod
-    def _trace_from_string(cls, s):
+    def _trace_from_string(cls, srcstr):
         parser = ply.yacc.yacc(tabmodule='tracestring_parsetab',
                                 outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'),
                                 debug=SettingsMgr.get_ply_yacc_debug_flag())
 
-        (unit, trace_prototypes) = parser.parse(t, lexer=l)
+        (unit, trace_prototypes) = parser.parse(srcstr, lexer=l)
 
         # Copy accross the start values:
         v = 0

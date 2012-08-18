@@ -42,8 +42,8 @@ class NewSWCLoader(object):
     @classmethod
     def load_swc_single(cls, src, name=None):
 
-        dtype= {'names':   ('id', 'type', 'x','y','z','r','pid'),
-                'formats': ('int32', 'int32', 'f4','f4','f4','f4','int32') }
+        dtype= {'names':   ('id', 'type', 'x', 'y', 'z', 'r', 'pid'),
+                'formats': ('int32', 'int32', 'f4', 'f4', 'f4', 'f4', 'int32') }
 
         d = np.loadtxt(src, dtype=dtype)
 
@@ -53,7 +53,7 @@ class NewSWCLoader(object):
         # We might not nessesarily have continuous indices in the
         # SWC file, so lets convert them:
         index_to_id = d['id']
-        id_to_index_dict = dict([(id,index) for (index, id) in enumerate(index_to_id)])
+        id_to_index_dict = dict([(id, index) for (index, id) in enumerate(index_to_id)])
         if len(id_to_index_dict) != len(index_to_id):
             s =  "Internal Error Loading SWC: Index and ID map are different lengths."
             s += " [ID:%d, Index:%d]" % (len(index_to_id), len(id_to_index_dict))
@@ -64,10 +64,10 @@ class NewSWCLoader(object):
         vertices = np.vstack([d['x'], d['y'], d['z'], d['r']]).T
 
         # Connections need to translate id_to_index:
-        connection_indices = [(id_to_index_dict[ID], id_to_index_dict[pID]) for ID,pID in d[['id','pid']] if pID != -1]
+        connection_indices = [(id_to_index_dict[ID], id_to_index_dict[pID]) for ID, pID in d[['id', 'pid']] if pID != -1]
 
         # Types are specified per connection:
-        section_types = [swctype for ID,swctype,pID in d[['id','type','pid']] if pID != -1]
+        section_types = [swctype for ID, swctype, pID in d[['id', 'type', 'pid']] if pID != -1]
 
         return MorphologyArray(vertices=vertices, connectivity=connection_indices, section_types=section_types, dummy_vertex_index=0, name=name)
 

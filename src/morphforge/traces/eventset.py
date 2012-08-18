@@ -47,7 +47,7 @@ class Event(object):
 class EventSet(object):
 
     @classmethod
-    def combine_sets(self, eventsets, tags=None, comment=None, name=None):
+    def combine_sets(cls, eventsets, tags=None, comment=None, name=None):
         """ If 'tags' is none, then take 'communal' tags """
 
         if not tags:
@@ -57,7 +57,7 @@ class EventSet(object):
                 communal_tags = set(ev_set.tags) if communal_tags is None else communal_tags & set(ev_set.tags)
             tags = communal_tags
 
-        return EventSet(itertools.chain(*eventsets), tags=tags,comment=comment,name=name)
+        return EventSet(itertools.chain(*eventsets), tags=tags, comment=comment, name=name)
 
 
 
@@ -66,7 +66,7 @@ class EventSet(object):
         if events is None:
             events = []
 
-        self.events = [(Event(e) if not isinstance(e,Event) else e) for e in events ]
+        self.events = [(Event(e) if not isinstance(e, Event) else e) for e in events ]
 
         self.tags = list(tags) if tags is not None else [StandardTags.Event]
         self.name = name if name else '<Unnamed EventSet>'
@@ -95,7 +95,7 @@ class EventSet(object):
 
     def summarise_timings_in_comment(self):
         times_a = np.array([float(s.rescale('ms').magnitude) for s in self.times])
-        self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)'%(len(self), np.mean(times_a), np.std(times_a))
+        self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)' % (len(self), np.mean(times_a), np.std(times_a))
 
 
 

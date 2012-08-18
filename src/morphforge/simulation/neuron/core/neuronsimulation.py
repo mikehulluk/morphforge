@@ -80,7 +80,7 @@ class MNeuronSimulation(Simulation):
 
         LogMgr.info('_run_spawn() [Pickling Sim]')
         (b, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
-        (bundlefilename, sim_cmd) = b.write_to_file_and_get_exec_string()
+        (_bundlefilename, sim_cmd) = b.write_to_file_and_get_exec_string()
 
         # if Exists(resfilename):
         #    os.unlink(resfilename)

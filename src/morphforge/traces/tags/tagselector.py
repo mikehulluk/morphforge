@@ -59,6 +59,7 @@ class TagSelector(object):
 class TagSelectorAny(TagSelector):
 
     def __init__(self, tags):
+        super(TagSelectorAny, self).__init__()
         self.tags = set(tags)
 
     def __call__(self, tr):
@@ -68,6 +69,7 @@ class TagSelectorAny(TagSelector):
 class TagSelectorAll(TagSelector):
 
     def __init__(self, tags):
+        super(TagSelectorAll, self).__init__()
         self.tags = set(tags)
 
     def __call__(self, tr):
@@ -77,8 +79,11 @@ class TagSelectorAll(TagSelector):
 class TagSelectorBinary(TagSelector):
 
     def __init__(self, lhs, rhs):
+        super(TagSelectorBinary, self).__init__()
         self.lhs = lhs
         self.rhs = rhs
+    def __call__(self, tr):
+        raise NotImplementedError()
 
 
 class TagSelectorOr(TagSelectorBinary):
@@ -96,6 +101,7 @@ class TagSelectorAnd(TagSelectorBinary):
 class TagSelectorNot(TagSelector):
 
     def __init__(self, rhs):
+        super(TagSelectorNot, self).__init__()
         self.rhs = rhs
 
     def __call__(self, tr):

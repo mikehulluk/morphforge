@@ -39,9 +39,9 @@ import __builtin__ as bi
 def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict, allocatedTraceColors):
 
     collisions = 0
-    for (ps, ps_traces) in ps_to_traces_dict.iteritems():
+    for (_ps, ps_traces) in ps_to_traces_dict.iteritems():
 
-        ps_allocated_indices = [allocatedTraceColors.get(tr,None) for tr in ps_traces ]
+        ps_allocated_indices = [allocatedTraceColors.get(tr, None) for tr in ps_traces ]
         ps_allocated_indices = [a for a in ps_allocated_indices if a is not None]
         clashes = ps_allocated_indices.count(colorIndex)
 
@@ -76,7 +76,7 @@ class LinkageRuleTagRegex(object):
                 grps[matchtag].append(tr)
 
         return grps.values()
-        
+
 
 
 
@@ -84,9 +84,11 @@ class StandardLinkages(object):
     def __init__(self, linkages_explicit=None, linkage_rules=None):
         self.linkages_explicit = linkages_explicit or []
 
-        self.color_cycle = ['blue','green','red','cyan','yellow','black']
+        self.color_cycle = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
 
         self.linkage_rules = (linkage_rules if linkage_rules else [])
+        self.color_allocations = None
+
 
     def get_linkages_from_rules(self, allTraces):
         links = chain(*[link_rule(allTraces) for link_rule in self.linkage_rules])
@@ -114,7 +116,7 @@ class StandardLinkages(object):
 
         groups = nx.connected_components(G)
 
-        for grp in sorted(groups, key=lambda g:(len(g),id(g[0])) , reverse=True) :
+        for grp in sorted(groups, key=lambda g: (len(g), id(g[0])), reverse=True) :
             #print 'Allocating', ''.join(g.name for g in grp)
             #Calculate how many collisions we would have for each allocation:
             def index_score(i):

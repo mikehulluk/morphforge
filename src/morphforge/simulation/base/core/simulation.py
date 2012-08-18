@@ -154,7 +154,7 @@ class Simulation(object):
     def get_synapses(self):
         return self.ss_synapses[:]
 
-    def run(self):
+    def run(self, **kwargs):
         raise NotImplementedError()
 
     def add_recordable(self, recordable):

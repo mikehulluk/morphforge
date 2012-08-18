@@ -89,8 +89,8 @@ class NeuroCSVHeaderData(object):
     def parse_at(self, line):
         print 'Parsing Event:', line
         print line
+        raise NotImplementedError()
 
-        pass
 
     def parse_exclaim(self, line):
 

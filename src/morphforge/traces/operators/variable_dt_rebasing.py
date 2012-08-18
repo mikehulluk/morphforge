@@ -29,6 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import numpy as np
+import quantities as pq
 
 class VariableDTRebaseTimeValues(object):
 
@@ -43,11 +45,11 @@ class VariableDTRebaseTimeValues(object):
         return t * pq.ms
 
     @classmethod
-    def maintain_maximum_dy(cls, tr1, tr2):
+    def maintain_maximum_dy(cls, _tr1, _tr2):
         assert False
 
     @classmethod
-    def maintain_minimum_frequency(cls, tr1, tr2):
+    def maintain_minimum_frequency(cls, _tr1, _tr2):
         assert False
 
 

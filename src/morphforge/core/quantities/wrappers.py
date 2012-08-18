@@ -30,13 +30,13 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
+from morphforge.core.quantities import unit
 
 
 class NpPqWrappers(object):
 
     @classmethod
     def linspace(cls, start, stop, num, endpoint=True):
-        from morphforge.core.quantities import unit
         start = unit(start)
         stop = unit(stop)
 
@@ -50,7 +50,6 @@ class NpPqWrappers(object):
 
     @classmethod
     def arange(cls, start, stop, step):
-        from morphforge.core.quantities import unit
         start = unit(start)
         stop = unit(stop)
         step = unit(step)

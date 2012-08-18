@@ -43,23 +43,23 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 class PiecewiseScalarOperation(PieceWiseComponentVisitor):
 
     @classmethod
-    def visit_linear(cls, o, operator, scalar):
+    def visit_linear(cls, o, operator_type, scalar):
         return TracePieceFunctionLinear(
                 time_window=o.time_window,
-                x0=operator(o.x0, scalar),
-                x1=operator(o.x1, scalar))
+                x0=operator_type(o.x0, scalar),
+                x1=operator_type(o.x1, scalar))
 
     @classmethod
-    def visit_flat(cls, o, operator, scalar):
+    def visit_flat(cls, o, operator_type, scalar):
         return TracePieceFunctionFlat(
                 time_window=o.time_window,
-                x=operator(o.x, scalar))
+                x=operator_type(o.x, scalar))
 
 
 class TraceOperator_TracePiecewise_Quantity(object):
 
     @classmethod
-    def do_op(self, lhs, rhs, operator):
+    def do_op(cls, lhs, rhs, operator_type):
         assert (type(lhs) == TracePiecewise and type(rhs) in (pq.Quantity,)) or \
                (type(rhs) == TracePiecewise and type(lhs) in (pq.Quantity,))
 
@@ -68,24 +68,24 @@ class TraceOperator_TracePiecewise_Quantity(object):
         else:
             (sc, tr) = (lhs, rhs)
 
-        pieces = [PiecewiseScalarOperation.visit(p, operator=operator, scalar=sc) for p in tr._pieces]
+        pieces = [PiecewiseScalarOperation.visit(p, operator_type=operator_type, scalar=sc) for p in tr.pieces]
         return TracePiecewise(pieces=pieces)
 
     @classmethod
     def do_add(cls, lhs, rhs):
-        return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__add__)
+        return cls.do_op(lhs=lhs, rhs=rhs, operator_type=operator.__add__)
 
     @classmethod
     def do_sub(cls, lhs, rhs):
-        return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__sub__)
+        return cls.do_op(lhs=lhs, rhs=rhs, operator_type=operator.__sub__)
 
     @classmethod
     def do_mul(cls, lhs, rhs):
-        return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__mul__)
+        return cls.do_op(lhs=lhs, rhs=rhs, operator_type=operator.__mul__)
 
     @classmethod
     def do_div(cls, lhs, rhs):
-        return cls.do_op(lhs=lhs, rhs=rhs, operator=operator.__div__)
+        return cls.do_op(lhs=lhs, rhs=rhs, operator_type=operator.__div__)
 
 
 # Times quantity:

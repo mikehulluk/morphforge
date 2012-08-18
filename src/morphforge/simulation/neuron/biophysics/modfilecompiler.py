@@ -238,7 +238,7 @@ class ModFileCompiler(object):
 
 
     @classmethod
-    def _build_modfile(cls, modfile):
+    def build_modfile(cls, modfile):
         output_filename = modfile.get_built_filename_full(ensure_built=False)
 
         if not os.path.exists(output_filename):

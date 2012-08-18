@@ -241,6 +241,8 @@ class MM_ModFileWriterBase(object):
         self.conductanceequation = conductanceequation
         self.chlsopenequation = chlsopenequation
 
+        self.rangevars = None
+
     def generate_modfile(self):
         assert self.currentequation
 

@@ -97,7 +97,8 @@ class ModFileSectioned(object):
     def append_to_section(self, section, line):
         self.sectiondata[section].append(line)
 
-    def clear_section(self, section, line):
+    def clear_section(self, section):
+        assert False, 'Deprecated (August 2012)'
         del self.sectiondata[section]
 
     def get_section_text(self, section):

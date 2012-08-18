@@ -67,7 +67,7 @@ class ModFile(object):
     def ensure_built(self):
         LogMgr.info('Ensuring Modfile is built')
         from modfilecompiler import ModFileCompiler
-        ModFileCompiler()._build_modfile(self)
+        ModFileCompiler().build_modfile(self)
 
     def get_md5_hash(self):
         return StrUtils.get_hash_md5(self.modtxt)

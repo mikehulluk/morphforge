@@ -31,6 +31,9 @@
 
 import numpy as np
 
+# This class looks internally at objects, 
+# so we relax the access restrictions:
+# pylint: disable=W0212
 
 class MorphArrayComparison(object):
 
@@ -71,7 +74,7 @@ class MorphArrayComparison(object):
         for (i1, j1) in m1._connectivity:
             i2 = index_map[i1]
             j2 = index_map[j1]
-            if not (i2,j2) in m2_connectivity:
+            if not (i2, j2) in m2_connectivity:
                 return False 
 
 

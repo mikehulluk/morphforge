@@ -107,7 +107,8 @@ class DictionaryLoader(object):
                 del sectionNode['sections']
             section_id = len(sectionDictInt)
             sectionDictInt[section_id] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
-            for c in children:  recursively_add_section_to_list(c, section_id, sectionDictInt)
+            for c in children:
+                recursively_add_section_to_list(c, section_id, sectionDictInt)
 
         #root_node = morph_dict["root"]
 
@@ -174,7 +175,8 @@ class DictionaryLoader(object):
             assert len(rgs) <= 1
 
             #Diameter & length:
-            if not yamlSect.has_key("diam") or not (yamlSect["diam"] > 0): raise ValueError("indvalid radius")
+            if not yamlSect.has_key("diam") or not (yamlSect["diam"] > 0):
+                raise ValueError("indvalid radius")
             rad = yamlSect["diam"] / 2.0
 
 
@@ -183,9 +185,11 @@ class DictionaryLoader(object):
 
             # End Point:
             def get_yaml_length(yamlSect):
-                if not yamlSect.has_key("length"): raise ValueError("No Length given")
+                if not yamlSect.has_key("length"):
+                    raise ValueError("No Length given")
                 length = yamlSect["length"]
-                if not length > 0: raise ValueError("Invalid Length")
+                if not length > 0:
+                    raise ValueError("Invalid Length")
                 return length
 
             #We only specify end points by using angles or by xyz cooridinates:
@@ -218,7 +222,8 @@ class DictionaryLoader(object):
                 check_cstyle_varname(section_id_tag)
             if section_id_tag in section_id_tags:
                 raise ValueError('Duplicate Section ID: %s' % section_id_tag)
-            if section_id_tag:  section_id_tags.append(section_id_tag)
+            if section_id_tag:
+                section_id_tags.append(section_id_tag)
 
 
             # Create the new section:
@@ -242,9 +247,11 @@ class DictionaryLoader(object):
         # section_dict[None].regions = []
         assert section_dict[0].region == None
 
-        if section_dict[0].children == []: raise ValueError("No segments found")
+        if section_dict[0].children == []:
+            raise ValueError("No segments found")
         c = MorphologyTree(name=name, dummysection=section_dict[0], metadata=metadata)
-        if len(c) < 1: raise ValueError
+        if len(c) < 1:
+            raise ValueError
         return c
 
 

@@ -39,7 +39,7 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 class TraceOperator_TraceVariableDT_Quantity(object):
 
     @classmethod
-    def do_add(self, lhs, rhs):
+    def do_add(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == pq.Quantity) or \
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
@@ -49,7 +49,7 @@ class TraceOperator_TraceVariableDT_Quantity(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts + lhs)
 
     @classmethod
-    def do_sub(self, lhs, rhs):
+    def do_sub(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == pq.Quantity) or \
              (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
@@ -59,7 +59,7 @@ class TraceOperator_TraceVariableDT_Quantity(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts - lhs)
 
     @classmethod
-    def do_mul(self, lhs, rhs):
+    def do_mul(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == pq.Quantity) or \
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
@@ -69,7 +69,7 @@ class TraceOperator_TraceVariableDT_Quantity(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts * lhs)
 
     @classmethod
-    def do_div(self, lhs, rhs):
+    def do_div(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == pq.Quantity) or \
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
@@ -82,7 +82,7 @@ class TraceOperator_TraceVariableDT_Quantity(object):
 class TraceOperator_TraceVariableDT_Scalar(object):
 
     @classmethod
-    def do_add(self, lhs, rhs):
+    def do_add(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == float) or \
                (type(rhs) == TraceVariableDT and type(lhs) == float)
 
@@ -94,7 +94,7 @@ class TraceOperator_TraceVariableDT_Scalar(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts + lhs)
 
     @classmethod
-    def do_sub(self, lhs, rhs):
+    def do_sub(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == float) or \
              (type(rhs) == TraceVariableDT and type(lhs) == float)
 
@@ -106,7 +106,7 @@ class TraceOperator_TraceVariableDT_Scalar(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts - lhs)
 
     @classmethod
-    def do_mul(self, lhs, rhs):
+    def do_mul(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == float) or \
                (type(rhs) == TraceVariableDT and type(lhs) == float)
 
@@ -116,7 +116,7 @@ class TraceOperator_TraceVariableDT_Scalar(object):
             return TraceVariableDT(rhs.time_pts, rhs.data_pts * lhs)
 
     @classmethod
-    def do_div(self, lhs, rhs):
+    def do_div(cls, lhs, rhs):
         assert (type(lhs) == TraceVariableDT and type(rhs) == float) or \
                (type(rhs) == TraceVariableDT and type(lhs) == float)
 

@@ -102,7 +102,7 @@ class LevelSelectorGroup(object):
 
 
     def matchall(self, level_set):
-        pieces = level_set._pieces
+        pieces = level_set.pieces
 
         # From [A,B,C,D,..]
         # return [[A,B,C,D],[B,C,D],[C,D],[D]...]

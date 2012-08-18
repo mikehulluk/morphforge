@@ -38,13 +38,13 @@ from morphforge.traces.tracetypes import TraceFixedDT
 
 
 def _get_piecewise_linear_points(tr):
-    x_unit = tr._pieces[0].get_min_time().units
-    y_unit = tr._pieces[0].get_start_value().units
+    x_unit = tr.pieces[0].get_min_time().units
+    y_unit = tr.pieces[0].get_start_value().units
 
     x_points = []
     y_points = []
 
-    for p in tr._pieces:
+    for p in tr.pieces:
         x_points.append(float(p.get_min_time().rescale(x_unit).magnitude))
         x_points.append(float(p.get_max_time().rescale(x_unit).magnitude))
 

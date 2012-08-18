@@ -63,6 +63,7 @@ class TraceFixedDT(TracePointBased):
         return 'TraceFixedDT: ' + self.name + ' Shape:'  + str(self._time.shape)
 
     def __getitem__(self, time):
+        from scipy.interpolate import interp1d
 
         if isinstance(time, tuple):
             assert len(time) == 2

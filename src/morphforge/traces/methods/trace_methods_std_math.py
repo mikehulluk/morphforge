@@ -83,7 +83,7 @@ def _get_max(tr):
 
 def _get_min(tr):
     ind_min = np.argmin(tr.data_pts)
-    return (tr._time[ind_min], tr.data_pts[ind_min])
+    return (tr.time_pts[ind_min], tr.data_pts[ind_min])
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'max', _get_max)

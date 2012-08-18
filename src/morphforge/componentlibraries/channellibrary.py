@@ -35,7 +35,7 @@ class ChannelLibrary(object):
     channels = dict()
 
     @classmethod
-    def register_channel(cls,channeltype, chl_functor,  modelsrc=None, celltype=None):
+    def register_channel(cls, channeltype, chl_functor, modelsrc=None, celltype=None):
         assert modelsrc or celltype
         key = (modelsrc, celltype, channeltype)
         assert not key in cls.channels
@@ -52,8 +52,8 @@ class ChannelLibrary(object):
 
     @classmethod
     def list_channels(cls):
-        for (chlType, chl) in cls.channels.iteritems():
-            print chlType
+        for (chl_type, _chl) in cls.channels.iteritems():
+            print chl_type
 
     @classmethod
     def iteritems(cls):

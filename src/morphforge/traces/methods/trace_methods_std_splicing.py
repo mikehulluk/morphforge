@@ -45,7 +45,7 @@ from morphforge.traces.traceobjpluginctrl import clone_trace
 
 def _shift_pt_trace(trace, offset):
     return clone_trace(trace, 
-                       time=trace._time + offset,
+                       time=trace.time_pts + offset,
                        data=trace.data_pts,
                        comment='+ Shifted %2.2f' % offset)
 
@@ -70,32 +70,31 @@ def _window_fixed_trace(trace, time_window):
     assert len(time_window) == 2
 
     if time_window[0] is None:
-        time_window = (trace._time[0], time_window[1])
+        time_window = (trace.get_min_time(), time_window[1])
     if time_window[1] is None:
-        time_window = (time_window[0], trace._time[-1])
+        time_window = (time_window[0], trace.get_min_time())
 
-    time_window[0].rescale('ms').magnitude
-    time_window[1].rescale('ms').magnitude
+    _t0 = time_window[0].rescale('ms').magnitude
+    _t1 = time_window[1].rescale('ms').magnitude
     if not isinstance(trace, TracePointBased):
         raise ValueError()
 
-    t_diff1 = time_window[0] - trace._time[0]
+    t_diff1 = time_window[0] - trace.get_min_time()
     if t_diff1 < 0:
         print 'time_window[0]', time_window[0].rescale('s')
-        print 'trace.time[0]', trace._time[0].rescale('s')
+        print 'trace.time[0]', trace.get_min_time().rescale('s')
         print
-        raise ValueError("Windowing outside of trace (min) WindowMin/TraceMin: %f %f  " % (time_window[0], trace._time[0]))
+        raise ValueError("Windowing outside of trace (min) WindowMin/TraceMin: %f %f  " % (time_window[0], trace.get_min_time()))
 
-    # if time_window[1] > trace._time[-1]:
-    if time_window[1] - trace._time[-1] > 0:
+    if time_window[1] - trace.get_max_time() > 0:
         print 'time_window[1]', time_window[1].rescale('s')
-        print 'trace.time[-1]', trace._time[-1].rescale('s')
+        print 'trace.time[-1]', trace.get_max_time().rescale('s')
         print
 
         raise ValueError('Windowing outside of trace (max)')
 
-    time_indices1 = numpy.nonzero(trace._time > time_window[0])
-    time_trace_new = trace._time[time_indices1]
+    time_indices1 = numpy.nonzero(trace.time_pts > time_window[0])
+    time_trace_new = trace.time_pts[time_indices1]
     trace_new = trace.data_pts[time_indices1]
 
     time_indices2 = numpy.nonzero(time_trace_new < time_window[1])
@@ -105,8 +104,8 @@ def _window_fixed_trace(trace, time_window):
     # Ensure we have at least 2 points:
     if len(time_trace_new) < 2:
 
-        tw0 = time_window[0]
-        tw1 = time_window[1]
+        #tw0 = time_window[0]
+        #tw1 = time_window[1]
 
         # get_values(time_window)
 
@@ -139,8 +138,8 @@ TraceMethodCtrl.register(TraceVariableDT, 'window', _window_fixed_trace)
 
 # WindowAndShift:
 #################
-TraceMethodCtrl.register(TraceFixedDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]))
-TraceMethodCtrl.register(TraceVariableDT, 'windowshift', lambda tr,window: tr.window(window).shift(-1.0*window[0]))
+TraceMethodCtrl.register(TraceFixedDT, 'windowshift', lambda tr, window: tr.window(window).shift(-1.0*window[0]))
+TraceMethodCtrl.register(TraceVariableDT, 'windowshift', lambda tr, window: tr.window(window).shift(-1.0*window[0]))
 
 
 

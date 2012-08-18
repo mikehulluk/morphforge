@@ -197,15 +197,15 @@ def p_error(p):
 
 class _ParseCache(object):
 
-    _lex = None
-    _yacc = None
+    lex = None
+    yacc = None
 
 
 def parse_tagselector_string(s):
-    if not _ParseCache._lex:
-        _ParseCache._lex = ply.lex.lex()
-    if not _ParseCache._yacc:
-        _ParseCache._yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1)
-    return _ParseCache._yacc.parse(s, lexer=_ParseCache._lex.clone())
+    if not _ParseCache.lex:
+        _ParseCache.lex = ply.lex.lex()
+    if not _ParseCache.yacc:
+        _ParseCache.yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1)
+    return _ParseCache.yacc.parse(s, lexer=_ParseCache.lex.clone())
 
 

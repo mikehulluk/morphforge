@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core import is_iterable
-from morphforge.core import unit
+#from morphforge.core import unit
 from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -41,6 +41,8 @@ from morphforge.traces import TracePiecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
 
+# pylint: disable=W0108
+# (Suppress warning about 'unnessesary lambda functions')
 
 def _resolve_time_range(time_range):
     # Sort out the time_range:
@@ -60,13 +62,13 @@ def _resolve_time_range(time_range):
 
 
 class DefaultPlotSpec(object):
-    Voltage =            PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-80*mV,50*mV), yunit=pq.millivolt )
-    CurrentDensity =     PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp/pq.cm2 )
-    Current =            PlotSpec_DefaultNew(s="Current", ylabel='Current',yunit=pq.picoamp)
+    Voltage =            PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
+    CurrentDensity =     PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
+    Current =            PlotSpec_DefaultNew(s="Current", ylabel='Current', yunit=pq.picoamp)
     Conductance =        PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance")
     ConductanceDensity = PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
     StateVariable =      PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable")
-    StateVariableTau =   PlotSpec_DefaultNew(s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant" )
+    StateVariableTau =   PlotSpec_DefaultNew(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
     StateVariableInf =   PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State")
     Event =              PlotSpec_DefaultNew(s="Event", ylabel="Events")
 
@@ -90,10 +92,12 @@ class TagViewer(object):
         DefaultPlotSpec.Event,
        )
 
+    _default_fig_kwargs ={'figsize': (12, 8) }
+
     def __init__(
         self,
-        input,
-        fig_kwargs={'figsize': (12, 8)},
+        srcs,
+        fig_kwargs=None,
         timeranges=(None, ),
         plotspecs=None,
         figtitle=None,
@@ -106,15 +110,18 @@ class TagViewer(object):
         mpl_tight_bounds=True,
         ):
 
+        if fig_kwargs is None:
+            fig_kwargs = self._default_fig_kwargs
+
         self.linkage = linkage
 
         if timerange is not None:
             timeranges = [timerange]
 
-        if not is_iterable(input):
-            input = [input]
+        if not is_iterable(srcs):
+            srcs = [srcs]
 
-        # For each type of input; this should return a list of traces:
+        # For each type of input (in 'srcs'); this should return a list of traces:
         self.all_trace_objs = []
         self.all_event_set_objs = []
         trace_extractors = {
@@ -125,7 +132,7 @@ class TagViewer(object):
             EventSet:               lambda i: self.all_event_set_objs.append(i)
                             }
 
-        for i in input:
+        for i in srcs:
             tr_extractor = trace_extractors[type(i)]
             tr_extractor(i)
 
@@ -172,7 +179,7 @@ class TagViewer(object):
             self.fig.suptitle(self.figtitle)
 
         # Work out what traces are on what graphs:
-        ps_to_traces = dict([(ps,[tr for tr in self.all_trace_objs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
+        ps_to_traces = dict([(ps, [tr for tr in self.all_trace_objs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
         if self.linkage:
             self.linkage.process(ps_to_traces)
 

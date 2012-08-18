@@ -75,11 +75,11 @@ class MeshBuilderRings(object):
 
             # Get the offset of the proximal point circle:
             if s.is_a_root_section():
-                proximal_points = get_point_circle_about(s.get_proximal_npa3(), s.get_proximal_to_distal_vector_npa3(), s.p_r,n=n)
+                proximal_points = get_point_circle_about(s.get_proximal_npa3(), s.get_proximal_to_distal_vector_npa3(), s.p_r, n=n)
                 vertices = np.vstack((vertices, proximal_points))
 
                 color = region_color_map[s.region] if region_color_map else default_color
-                vertex_colors = np.vstack((vertex_colors,np.repeat(color, n, axis=0) ))
+                vertex_colors = np.vstack((vertex_colors, np.repeat(color, n, axis=0) ))
                 proximal_offset = 0
             else:
                 proximal_offset = section_distal_offsets[s.parent]
@@ -95,12 +95,12 @@ class MeshBuilderRings(object):
 
 
             # Build the ring of distal points:
-            distal_points = get_point_circle_about(s.get_distal_npa3(), distal_points_circle_norm_vector, s.d_r,n=n)
+            distal_points = get_point_circle_about(s.get_distal_npa3(), distal_points_circle_norm_vector, s.d_r, n=n)
             distal_offset = vertices.shape[0]
             section_distal_offsets[s] = distal_offset
             vertices = np.vstack((vertices, distal_points))
             color = region_color_map[s.region] if region_color_map else default_color
-            vertex_colors = np.vstack((vertex_colors,np.repeat(color, n, axis=0) ))
+            vertex_colors = np.vstack((vertex_colors, np.repeat(color, n, axis=0) ))
 
             # Create the triangles to make a mesh
             tris = _build_triangle_mesh_between_rings(

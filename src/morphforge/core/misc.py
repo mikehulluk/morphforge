@@ -54,7 +54,7 @@ def find_files_recursively(directory, pattern):
     This function walks over a directory looking for filenames matching a
     certain pattern"""
 
-    for (root, dirs, files) in os.walk(directory):
+    for (root, _dirs, files) in os.walk(directory):
         for basename in files:
             if fnmatch.fnmatch(basename, pattern):
                 filename = os.path.join(root, basename)

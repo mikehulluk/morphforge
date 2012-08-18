@@ -64,7 +64,7 @@ class TracePieceFunction(object):
     def get_duration(self):
         return self.get_max_time() - self.get_min_time()
 
-    def ge_start_value(self):
+    def get_start_value(self):
         raise NotImplementedError()
 
     def get_end_value(self):
@@ -72,7 +72,7 @@ class TracePieceFunction(object):
 
     # To allow for manipulation:
     def accept_visitor(self):
-        assert False
+        raise NotImplementedError()
 
 
 class TracePieceFunctionLinear(TracePieceFunction):
@@ -118,7 +118,7 @@ class TracePieceFunctionFlat(TracePieceFunction):
 
 
 class TracePiecewise(Trace):
-    def __init__(self, pieces,name=None, comment=None, tags=None):
+    def __init__(self, pieces, name=None, comment=None, tags=None):
         Trace.__init__(self, name=name, comment=comment, tags=tags)
         self._pieces = pieces
 
@@ -128,6 +128,10 @@ class TracePiecewise(Trace):
             i_next_start = self._pieces[i + 1].get_min_time()
             dist = i_stop - i_next_start
             assert np.fabs(dist.rescale('ms').magnitude) < 0.001
+
+    @property
+    def pieces(self):
+        return self._pieces
 
     def get_min_time(self):
         return self._pieces[0].get_min_time()
@@ -150,7 +154,7 @@ class TracePiecewise(Trace):
         done_times = np.ones(len(times)) > 0.0
         for p in self._pieces:
             ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude))
-            ind = np.logical_and(ind1,done_times)
+            ind = np.logical_and(ind1, done_times)
             ind_locs = np.where(ind)
 
             _time = times[ind_locs]
