@@ -296,12 +296,12 @@ def compareNeuroMLChl(xmlFile):
             tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
 
             # Compare current traces:
-            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 0) <0.05] *=0
-            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 200) <0.05] *=0
-            tN._data[np.fabs(tN._time.rescale("ms").magnitude - 700) <0.05] *=0
-            tX._data[np.fabs(tX._time.rescale("ms").magnitude - 700) <0.05] *=0
+            tN._data[np.fabs(tN.time_pts_ms - 0) <0.05] *=0
+            tX._data[np.fabs(tX.time_pts_ms - 0) <0.05] *=0
+            tN._data[np.fabs(tN.time_pts_ms - 200) <0.05] *=0
+            tX._data[np.fabs(tX.time_pts_ms - 200) <0.05] *=0
+            tN._data[np.fabs(tN.time_pts_ms - 700) <0.05] *=0
+            tX._data[np.fabs(tX.time_pts_ms - 700) <0.05] *=0
             print "TR1"
             f = QuantitiesFigure()
             ax1 = f.add_subplot(4,1,1)

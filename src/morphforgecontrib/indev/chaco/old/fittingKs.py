@@ -398,7 +398,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        # Update the array of data:
 #        for trace_name, trace_unit in trace_names:
 #            tr = res.get_trace(trace_name)
-#            self.data.set_data(trace_name+'_t', tr._time.rescale('ms').magnitude)
+#            self.data.set_data(trace_name+'_t', tr.time_pts_ms)
 #            self.data.set_data(trace_name+'_d', tr._data.rescale(trace_unit).magnitude)
 #
 #

@@ -48,7 +48,7 @@ TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._
 def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
-    integral = scipy.integrate.simps(y=tr._data.magnitude, x=tr._time.rescale('s').magnitude)
+    integral = scipy.integrate.simps(y=tr._data.magnitude, x=tr.time_pts_s)
     mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
     return mean
 

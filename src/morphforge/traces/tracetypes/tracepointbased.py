@@ -56,6 +56,23 @@ class TracePointBased(Trace):
         assert self.get_n() >= 2, 'Points Based Trace has less than 2 points: %d' % self.get_n()
 
 
+    @property
+    def time_pts(self):
+        return self._time
+
+    @property
+    def data_pts(self):
+        return self._data
+
+    @property
+    def time_pts_s(self):
+        return self.time_pts_s
+
+    @property
+    def time_pts_ms(self):
+        return self.time_pts_ms
+
+
 
     def get_min_time(self):
         return self._time[0]

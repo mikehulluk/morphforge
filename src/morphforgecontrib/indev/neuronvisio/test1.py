@@ -160,7 +160,7 @@ for cell,segs in rec_dict.iteritems():
             h5file.createArray(segGrp,  var, tr._data.magnitude)
 
             if time is None:
-                time = tr._time.rescale("ms").magnitude
+                time = tr.time_pts_ms
 
 h5file.createArray(varref,  "x", time)
 

@@ -36,8 +36,8 @@ class VariableDTRebaseTimeValues(object):
     # times. this will we bad for things like: A+B+C+D+E+...
     @classmethod
     def All(cls, tr1, tr2):
-        t1 = tr1._time.rescale('ms').magnitude
-        t2 = tr2._time.rescale('ms').magnitude
+        t1 = tr1.time_pts_ms
+        t2 = tr2.time_pts_ms
         t = np.hstack((t1, t2))
         t = np.sort(t)
         return t * pq.ms
