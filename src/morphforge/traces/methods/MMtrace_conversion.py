@@ -58,11 +58,11 @@ class TraceConverter(object):
         assert isinstance(original_trace, TracePointBased)
         epsilon = unit(epsilon)
 
-        time_units = original_trace._time.units
-        time_data = original_trace._time.magnitude
+        time_units = original_trace.time_units
+        time_data = original_trace.time_pts_np
 
-        data_units = original_trace._data.units
-        data_data = original_trace._data.magnitude
+        data_units = original_trace.data_units
+        data_data = original_trace.data_pts_np
 
         ep = epsilon
 
@@ -195,15 +195,15 @@ class TraceApproximator(object):
 
    @classmethod
    def fit_piecewise_linear_trace(cls, tr):
-         d = tr._data.magnitude
+         d = tr.data_pts_np
 
          ranges = TraceApproximator.find_levels(d)
 
          pieces = []
          for r0,r1 in ranges:
              #print r0,r1
-             x = np.mean(tr._data[r0:r1])
-             p = TracePieceFunctionFlat(time_window=(tr._time[r0],tr._time[r1]), x=x,)
+             x = np.mean(tr.data_pts[r0:r1])
+             p = TracePieceFunctionFlat(time_window=(tr.time_pts[r0],tr.time_pts[r1]), x=x,)
              pieces.append(p)
 
          tr = TracePiecewise(pieces, name=tr.name, comment=tr.comment, tags=tr.tags)

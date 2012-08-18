@@ -45,9 +45,9 @@ class TraceOperator_TraceFixedDT_Quantity(object):
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs.time_pts lhs._data + rhs)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts + rhs)
         else:
-            return TraceFixedDT(rhs.time_pts rhs._data + lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -55,18 +55,18 @@ class TraceOperator_TraceFixedDT_Quantity(object):
              (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs.time_pts lhs._data - rhs)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts - rhs)
         else:
-            return TraceFixedDT(rhs.time_pts rhs._data - lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts - lhs)
     @classmethod
     def do_mul(self, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs.time_pts lhs._data * rhs)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts * rhs)
         else:
-            return TraceFixedDT(rhs.time_pts rhs._data * lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -74,9 +74,9 @@ class TraceOperator_TraceFixedDT_Quantity(object):
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs.time_pts lhs._data / rhs)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts / rhs)
         else:
-            return TraceFixedDT(rhs.time_pts rhs._data / lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts / lhs)
 
 
 class TraceOperator_TraceFixedDT_Scalar(object):
@@ -87,11 +87,11 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs.time_pts lhs._data + rhs)
+            assert isinstance(lhs.data_pts, pq.Dimensionless)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts + rhs)
         else:
-            assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts rhs._data + lhs)
+            assert isinstance(rhs.data_pts, pq.Dimensionless)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -99,11 +99,11 @@ class TraceOperator_TraceFixedDT_Scalar(object):
              (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs.time_pts lhs._data - rhs)
+            assert isinstance(lhs.data_pts, pq.Dimensionless)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts - rhs)
         else:
-            assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts rhs._data - lhs)
+            assert isinstance(rhs.data_pts, pq.Dimensionless)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts - lhs)
 
     @classmethod
     def do_mul(self, lhs, rhs):
@@ -111,9 +111,9 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs.time_pts lhs._data * rhs)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts * rhs)
         else:
-            return TraceFixedDT(rhs.time_pts rhs._data * lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -121,11 +121,11 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            # assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs.time_pts lhs._data / rhs)
+            # assert isinstance(lhs.data_pts pq.Dimensionless)
+            return TraceFixedDT(lhs.time_pts, lhs.data_pts / rhs)
         else:
-            # assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts rhs._data / lhs)
+            # assert isinstance(rhs.data_pts pq.Dimensionless)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts / lhs)
 
 
 TraceOperatorCtrl.add_trace_operator(

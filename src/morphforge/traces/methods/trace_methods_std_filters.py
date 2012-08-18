@@ -45,10 +45,10 @@ def _butterworthfilter(self, filterorder, cutoff_frequency):
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
     (b, a) = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
+    filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
 
     return clone_trace(self, 
-                       data=filteredsignal * self._data.units,
+                       data=filteredsignal * self.data_units,
                        comment='+(Butterworth Filtered)')
 
 
@@ -66,12 +66,12 @@ def _besselfilter(self, filterorder, cutoff_frequency):
     cuttoff_norm = cutoff_frequency / n_frq_hz
     print 'CutoffNorm:', cuttoff_norm
     (b, a) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, self._data.magnitude)
+    filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
 
     time_shift = self.get_dt_new() * max(len(a), len(b))
 
-    return clone_trace(self, data=filteredsignal * self._data.units,
-                       time=self._time - time_shift,
+    return clone_trace(self, data=filteredsignal * self.data_units,
+                       time=self.time_pts - time_shift,
                        comment='+(Bessel Filtered)')
 
 
@@ -88,8 +88,8 @@ def _filterlowpassrc(tr, tau):
     a = np.array([1, k - 1])
     b = np.array([0, k])
 
-    xp = scipy.signal.lfilter(b, a, tr._data.magnitude)
-    return clone_trace(tr=tr, data=xp * tr._data.units, comment="+ (LP RC Filtered)")
+    xp = scipy.signal.lfilter(b, a, tr.data_pts_np)
+    return clone_trace(tr=tr, data=xp * tr.data_units, comment="+ (LP RC Filtered)")
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)

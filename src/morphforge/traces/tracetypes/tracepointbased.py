@@ -60,6 +60,11 @@ class TracePointBased(Trace):
     def time_pts(self):
         return self._time
 
+
+    @property
+    def time_pts_np(self):
+        return self._time.magnitude
+
     @property
     def time_pts_s(self):
         return self._time.rescale('s').magnitude
@@ -72,11 +77,26 @@ class TracePointBased(Trace):
     def time_pts_in(self, rebase_unit):
         return self._time.rescale(rebase_unit).magnitude
 
+
     @property
     def data_pts(self):
         return self._data
 
+    @property
+    def data_pts_in(self, rebase_unit):
+        return self._data.rescale(rebase_unit).magnitude
 
+    @property
+    def data_pts_np(self):
+        return self._data.magnitude
+
+    @property
+    def data_unit(self):
+        return self._data.unit
+
+    @property
+    def time_unit(self):
+        return self._time.unit
 
 
     def get_min_time(self):

@@ -39,6 +39,7 @@ clean:
 	find . -name "*.swo" -exec rm {} \;
 	find . -name "*~" -exec rm {} \;
 	find . -name "*.bak" -exec rm {} \;
+	find . -name "*.new" -exec rm {} \;
 	find . -name "parser.out" -exec rm {} \;
 	rm -rf dist/
 

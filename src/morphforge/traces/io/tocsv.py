@@ -82,7 +82,7 @@ class NeuroCSVWriter(object):
             valid_time_data_vals = tr.get_values(time_indices[valid_time_indices])
 
             for tIndex,data_val in zip(valid_time_indices, valid_time_data_vals):
-                data[tIndex] = dataFormat(float(data_val.magnitude))
+                data[tIndex] = data_format(float(data_val.magnitude))
             col_data.append(data)
 
         # Write the header
@@ -91,8 +91,8 @@ class NeuroCSVWriter(object):
 
         # Write the data:
         for (i, t) in enumerate(time_indices):
-            tstr = dataFormat(t)
-            cstrings = [cData[i] for cData in col_data]
+            tstr = data_format(t)
+            cstrings = [cdata[i] for cdata in col_data]
             l = '\t'.join([tstr] + cstrings)
             fileObj.write(l + '\n')
 
@@ -101,7 +101,7 @@ class NeuroCSVWriter(object):
     @classmethod
     def generate_column_header(self, tr, index):
         d = {'label': tr.name, 
-             'unit': str(tr._data.units),
+             'unit': str(tr.data_units),
              'tags': ','.join(tr.tags)}
         s1 = '#! COLUMN%d: ' % index
         s2 = json.dumps(d)

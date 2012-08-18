@@ -102,7 +102,7 @@ objref fih_${synnamepre}
 fih_${synnamepre} = new FInitializeHandler("loadqueue_${synnamepre}()")
 proc loadqueue_${synnamepre}() {
 #for $event in $timelist:
-${synnamepre}.event($event.gettime_pts_ms)
+${synnamepre}.event($event.get_time.rescale('ms').magnitude )
 #end for
 }
 

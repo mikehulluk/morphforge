@@ -74,20 +74,20 @@ class TraceFixedDT(TracePointBased):
             if stop > self._time[-1]:
                 assert False, 'Time out of bounds'
 
-            mask = np.logical_and(start < self.time_pts self._time < stop)
+            mask = np.logical_and(start < self.time_pts, self._time < stop)
 
             if len(np.nonzero(mask)[0]) < 2:
                 assert False
             return TraceFixedDT(time=self._time[np.nonzero(mask)[0]],
-                                data=self._data[np.nonzero(mask)[0]])
+                                data=self.data_pts[np.nonzero(mask)[0]])
 
 
         assert isinstance(time, pq.quantity.Quantity), "Times Shoudl be quanitity. Found: %s %s"%(time, type(time))
         # Rebase the Time:
         time.rescale(self._time.units)
-        interpolator = interp1d(self._time.magnitude,
-                                self._data.magnitude)
+        interpolator = interp1d(self.time_pts_np,
+                                self.data_pts_np)
         d_mag = interpolator(time.magnitude)
-        return d_mag * self._data.units
+        return d_mag * self.data_units
 
 

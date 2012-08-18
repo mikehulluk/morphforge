@@ -47,9 +47,9 @@ class QuantitiesAxis(QuantitiesAxisNew):
 
 
     def plotTracePointBased(self, trace, *args, **kwargs):
-        return self.plot(trace.time_pts trace._data, *args, **kwargs)
+        return self.plot(trace.time_pts, trace.data_pts, *args, **kwargs)
     def plotTracePiecewise(self, trace, *args, **kwargs):
-        return self.plot(trace.time_pts trace._data, *args, **kwargs)
+        return self.plot(trace.time_pts, trace.data_pts, *args, **kwargs)
 
     def plotTrace(self, trace, *args, **kwargs):
         label = trace.comment

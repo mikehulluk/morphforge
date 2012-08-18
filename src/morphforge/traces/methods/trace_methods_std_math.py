@@ -38,18 +38,18 @@ import numpy as np
 ##############################
 
 # For FixedDT traces, these are simple:
-TraceMethodCtrl.register(TraceFixedDT, 'mean',   lambda tr: np.mean(tr._data))
-TraceMethodCtrl.register(TraceFixedDT, 'stddev', lambda tr: np.std(tr._data))
-TraceMethodCtrl.register(TraceFixedDT, 'var',    lambda tr: np.var(tr._data))
-TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr._data**2)))
+TraceMethodCtrl.register(TraceFixedDT, 'mean',   lambda tr: np.mean(tr.data_pts))
+TraceMethodCtrl.register(TraceFixedDT, 'stddev', lambda tr: np.std(tr.data_pts))
+TraceMethodCtrl.register(TraceFixedDT, 'var',    lambda tr: np.var(tr.data_pts))
+TraceMethodCtrl.register(TraceFixedDT, 'rms',    lambda tr: np.sqrt(np.mean(tr.data_pts**2)))
 
 # For VariableDT traces
 
 def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
-    integral = scipy.integrate.simps(y=tr._data.magnitude, x=tr.time_pts_s)
-    mean = integral / tr.get_duration().rescale('s').magnitude * tr._data.units
+    integral = scipy.integrate.simps(y=tr.data_pts_np, x=tr.time_pts_s)
+    mean = integral / tr.get_duration().rescale('s').magnitude * tr.data_units
     return mean
 
 
@@ -65,8 +65,8 @@ TraceMethodCtrl.register(TraceVariableDT, 'mean', _variabledt_mean)
 
 # PTP Functions:
 ################
-TraceMethodCtrl.register(TraceFixedDT,    'ptp',  lambda tr: np.ptp(tr._data))
-TraceMethodCtrl.register(TraceVariableDT, 'ptp',  lambda tr: np.ptp(tr._data))
+TraceMethodCtrl.register(TraceFixedDT,    'ptp',  lambda tr: np.ptp(tr.data_pts))
+TraceMethodCtrl.register(TraceVariableDT, 'ptp',  lambda tr: np.ptp(tr.data_pts))
 TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[1])
 
 
@@ -77,13 +77,13 @@ TraceMethodCtrl.register(TracePiecewise,  'ptp',  lambda tr: tr.max[1] - tr.min[
 # These also return the times of min/max:
 
 def _get_max(tr):
-    ind_max = np.argmax(tr._data)
-    return (tr._time[ind_max], tr._data[ind_max])
+    ind_max = np.argmax(tr.data_pts)
+    return (tr.time_pts[ind_max], tr.data_pts[ind_max])
 
 
 def _get_min(tr):
-    ind_min = np.argmin(tr._data)
-    return (tr._time[ind_min], tr._data[ind_min])
+    ind_min = np.argmin(tr.data_pts)
+    return (tr._time[ind_min], tr.data_pts[ind_min])
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'max', _get_max)
@@ -100,7 +100,7 @@ TraceMethodCtrl.register(TraceVariableDT, 'min', _get_min)
 
 def _fixeddt_gradient(self, *args):
     # assert False, 'ToCheck'
-    return clone_trace(tr=self, data=np.gradient(self._data.magnitude, *args) * self._data.units / self.get_dt_new(), comment='+ (Filtered)')
+    return clone_trace(tr=self, data=np.gradient(self.data_pts_np, *args) * self.data_units / self.get_dt_new(), comment='+ (Filtered)')
 
 TraceMethodCtrl.register(TraceFixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient

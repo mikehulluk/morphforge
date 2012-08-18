@@ -46,7 +46,7 @@ from morphforge.traces.traceobjpluginctrl import clone_trace
 def _shift_pt_trace(trace, offset):
     return clone_trace(trace, 
                        time=trace._time + offset,
-                       data=trace._data, 
+                       data=trace.data_pts,
                        comment='+ Shifted %2.2f' % offset)
 
 
@@ -96,7 +96,7 @@ def _window_fixed_trace(trace, time_window):
 
     time_indices1 = numpy.nonzero(trace._time > time_window[0])
     time_trace_new = trace._time[time_indices1]
-    trace_new = trace._data[time_indices1]
+    trace_new = trace.data_pts[time_indices1]
 
     time_indices2 = numpy.nonzero(time_trace_new < time_window[1])
     time_trace_new = time_trace_new[time_indices2]

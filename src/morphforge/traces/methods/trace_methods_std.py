@@ -55,7 +55,7 @@ def _get_piecewise_linear_points(tr):
 
 
 # Plotting:
-TraceMethodCtrl.register(TraceFixedDT,    'plotpoints', lambda tr: (tr.time_pts tr._data))
-TraceMethodCtrl.register(TraceVariableDT, 'plotpoints', lambda tr: (tr.time_pts tr._data))
+TraceMethodCtrl.register(TraceFixedDT,    'plotpoints', lambda tr: (tr.time_pts, tr.data_pts))
+TraceMethodCtrl.register(TraceVariableDT, 'plotpoints', lambda tr: (tr.time_pts, tr.data_pts))
 TraceMethodCtrl.register(TracePiecewise,  'plotpoints', _get_piecewise_linear_points)
 

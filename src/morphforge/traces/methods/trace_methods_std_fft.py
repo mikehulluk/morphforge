@@ -36,22 +36,22 @@ import numpy as np
 
 
 def _fft(tr, normalise=True):
-    ft = np.fft.fft(tr._data)
+    ft = np.fft.fft(tr.data_pts)
     if normalise:
         ft /= ft.max()
     dt_in_s = tr.get_dt_new().rescale('s').magnitude
-    ftfreq = np.fft.fftfreq(tr._data.size, dt_in_s)
+    ftfreq = np.fft.fftfreq(tr.data_pts.size, dt_in_s)
     return (ftfreq, ft)
 
 
 def _psd(tr, normalise=True):
-    ft = np.fft.fft(tr._data)
+    ft = np.fft.fft(tr.data_pts)
     ft = ft.real() ** 2 + ft.imag() ** 2
     if normalise:
         ft /= ft.max()
 
     dt_in_s = tr.get_dt_new().rescale('s').magnitude
-    ftfreq = np.fft.fftfreq(tr._data.size, dt_in_s)
+    ftfreq = np.fft.fftfreq(tr.data_pts.size, dt_in_s)
     return (ftfreq, ft)
 
 

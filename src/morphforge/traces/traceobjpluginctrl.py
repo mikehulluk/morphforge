@@ -188,8 +188,8 @@ def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tag
 
 def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
 
-    new_data = (data if data is not None else tr._data)
-    new_time = (time if time is not None else tr._time)
+    new_data = (data if data is not None else tr.data_pts)
+    new_time = (time if time is not None else tr.time_pts)
 
     # Create a new trace
     tr_new = type(tr)(time=new_time, data=new_data)
