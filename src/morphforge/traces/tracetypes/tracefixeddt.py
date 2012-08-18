@@ -74,7 +74,7 @@ class TraceFixedDT(TracePointBased):
             if stop > self._time[-1]:
                 assert False, 'Time out of bounds'
 
-            mask = np.logical_and(start < self._time, self._time < stop)
+            mask = np.logical_and(start < self.time_pts self._time < stop)
 
             if len(np.nonzero(mask)[0]) < 2:
                 assert False

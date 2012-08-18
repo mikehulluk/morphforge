@@ -44,9 +44,9 @@ class TraceOperator_TraceVariableDT_Quantity(object):
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time, lhs._data + rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data + rhs)
         else:
-            return TraceVariableDT(rhs._time, rhs._data + lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -54,9 +54,9 @@ class TraceOperator_TraceVariableDT_Quantity(object):
              (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time, lhs._data - rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data - rhs)
         else:
-            return TraceVariableDT(rhs._time, rhs._data - lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data - lhs)
 
     @classmethod
     def do_mul(self, lhs, rhs):
@@ -64,9 +64,9 @@ class TraceOperator_TraceVariableDT_Quantity(object):
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time, lhs._data * rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data * rhs)
         else:
-            return TraceVariableDT(rhs._time, rhs._data * lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -74,9 +74,9 @@ class TraceOperator_TraceVariableDT_Quantity(object):
                (type(rhs) == TraceVariableDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time, lhs._data / rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data / rhs)
         else:
-            return TraceVariableDT(rhs._time, rhs._data / lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data / lhs)
 
 
 class TraceOperator_TraceVariableDT_Scalar(object):
@@ -88,10 +88,10 @@ class TraceOperator_TraceVariableDT_Scalar(object):
 
         if type(lhs) == TraceVariableDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceVariableDT(lhs._time, lhs._data + rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data + rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceVariableDT(rhs._time, rhs._data + lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -100,10 +100,10 @@ class TraceOperator_TraceVariableDT_Scalar(object):
 
         if type(lhs) == TraceVariableDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceVariableDT(lhs._time, lhs._data - rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data - rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceVariableDT(rhs._time, rhs._data - lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data - lhs)
 
     @classmethod
     def do_mul(self, lhs, rhs):
@@ -111,9 +111,9 @@ class TraceOperator_TraceVariableDT_Scalar(object):
                (type(rhs) == TraceVariableDT and type(lhs) == float)
 
         if type(lhs) == TraceVariableDT:
-            return TraceVariableDT(lhs._time, lhs._data * rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data * rhs)
         else:
-            return TraceVariableDT(rhs._time, rhs._data * lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -122,10 +122,10 @@ class TraceOperator_TraceVariableDT_Scalar(object):
 
         if type(lhs) == TraceVariableDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceVariableDT(lhs._time, lhs._data / rhs)
+            return TraceVariableDT(lhs.time_pts lhs._data / rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceVariableDT(rhs._time, rhs._data / lhs)
+            return TraceVariableDT(rhs.time_pts rhs._data / lhs)
 
 
 TraceOperatorCtrl.add_trace_operator(operator_type=operator.__add__,

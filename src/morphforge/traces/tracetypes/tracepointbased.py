@@ -61,16 +61,21 @@ class TracePointBased(Trace):
         return self._time
 
     @property
-    def data_pts(self):
-        return self._data
-
-    @property
     def time_pts_s(self):
-        return self.time_pts_s
+        return self._time.rescale('s').magnitude
 
     @property
     def time_pts_ms(self):
-        return self.time_pts_ms
+        return self._time.rescale('ms').magnitude
+
+    @property
+    def time_pts_in(self, rebase_unit):
+        return self._time.rescale(rebase_unit).magnitude
+
+    @property
+    def data_pts(self):
+        return self._data
+
 
 
 

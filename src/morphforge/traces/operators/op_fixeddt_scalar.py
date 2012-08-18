@@ -45,9 +45,9 @@ class TraceOperator_TraceFixedDT_Quantity(object):
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs._time, lhs._data + rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data + rhs)
         else:
-            return TraceFixedDT(rhs._time, rhs._data + lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -55,18 +55,18 @@ class TraceOperator_TraceFixedDT_Quantity(object):
              (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs._time, lhs._data - rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data - rhs)
         else:
-            return TraceFixedDT(rhs._time, rhs._data - lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data - lhs)
     @classmethod
     def do_mul(self, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) or \
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs._time, lhs._data * rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data * rhs)
         else:
-            return TraceFixedDT(rhs._time, rhs._data * lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -74,9 +74,9 @@ class TraceOperator_TraceFixedDT_Quantity(object):
                (type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs._time, lhs._data / rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data / rhs)
         else:
-            return TraceFixedDT(rhs._time, rhs._data / lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data / lhs)
 
 
 class TraceOperator_TraceFixedDT_Scalar(object):
@@ -88,10 +88,10 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
         if type(lhs) == TraceFixedDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs._time, lhs._data + rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data + rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs._time, rhs._data + lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data + lhs)
 
     @classmethod
     def do_sub(self, lhs, rhs):
@@ -100,10 +100,10 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
         if type(lhs) == TraceFixedDT:
             assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs._time, lhs._data - rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data - rhs)
         else:
             assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs._time, rhs._data - lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data - lhs)
 
     @classmethod
     def do_mul(self, lhs, rhs):
@@ -111,9 +111,9 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            return TraceFixedDT(lhs._time, lhs._data * rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data * rhs)
         else:
-            return TraceFixedDT(rhs._time, rhs._data * lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data * lhs)
 
     @classmethod
     def do_div(self, lhs, rhs):
@@ -122,10 +122,10 @@ class TraceOperator_TraceFixedDT_Scalar(object):
 
         if type(lhs) == TraceFixedDT:
             # assert isinstance(lhs._data, pq.Dimensionless)
-            return TraceFixedDT(lhs._time, lhs._data / rhs)
+            return TraceFixedDT(lhs.time_pts lhs._data / rhs)
         else:
             # assert isinstance(rhs._data, pq.Dimensionless)
-            return TraceFixedDT(rhs._time, rhs._data / lhs)
+            return TraceFixedDT(rhs.time_pts rhs._data / lhs)
 
 
 TraceOperatorCtrl.add_trace_operator(
