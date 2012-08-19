@@ -42,8 +42,8 @@ class NewSWCLoader(object):
     @classmethod
     def load_swc_single(cls, src, name=None):
 
-        dtype= {'names':   ('id', 'type', 'x', 'y', 'z', 'r', 'pid'),
-                'formats': ('int32', 'int32', 'f4', 'f4', 'f4', 'f4', 'int32') }
+        dtype = {'names':   ('id', 'type', 'x', 'y', 'z', 'r', 'pid'),
+                 'formats': ('int32', 'int32', 'f4', 'f4', 'f4', 'f4', 'int32') }
 
         d = np.loadtxt(src, dtype=dtype)
 
@@ -53,7 +53,7 @@ class NewSWCLoader(object):
         # We might not nessesarily have continuous indices in the
         # SWC file, so lets convert them:
         index_to_id = d['id']
-        id_to_index_dict = dict([(id, index) for (index, id) in enumerate(index_to_id)])
+        id_to_index_dict = dict([(_id, index) for (index, _id) in enumerate(index_to_id)])
         if len(id_to_index_dict) != len(index_to_id):
             s =  "Internal Error Loading SWC: Index and ID map are different lengths."
             s += " [ID:%d, Index:%d]" % (len(index_to_id), len(id_to_index_dict))

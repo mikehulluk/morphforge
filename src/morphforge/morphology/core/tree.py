@@ -150,22 +150,66 @@ from morphologyconsistency import MorphologyConsistencyMgr
 
 class Section(object):
 
-    # Properties:
+    @property
+    def d_x(self):
+        "Distal x coordinate"
+        return self._d_pos[0]
 
-    d_x = property(lambda self: self._d_pos[0], None, doc="Distal x coordinate")
-    d_y = property(lambda self: self._d_pos[1], None, doc="Distal y coordinate")
-    d_z = property(lambda self: self._d_pos[2], None, doc="Distal z coordinate")
-    d_r = property(lambda self: self._d_r, None, doc="Distal radius")
 
-    p_x = property(lambda self: self.parent._d_pos[0], None, doc="Proximal x coordinate")
-    p_y = property(lambda self: self.parent._d_pos[1], None, doc="Proximal y coordinate")
-    p_z = property(lambda self: self.parent._d_pos[2], None, doc="Proximal z coordinate")
-    p_r = property(lambda self: self.parent._d_r, None, doc="Proximal radius")
+    @property
+    def d_y(self):
+        "Distal y coordinate"
+        return self._d_pos[1]
 
-    region = property(lambda self: self._region, None)
-    idtag = property(lambda self: self._id_tag, None)
-    parent = property(lambda self: self._parent, None)
-    children = property(lambda self: self._children, None)
+    @property
+    def d_z(self):
+        "Distal z coordinate"
+        return self._d_pos[2]
+
+    @property
+    def d_r(self):
+        "Distal r coordinate"
+        return self._d_r
+
+
+    @property
+    def p_x(self):
+        "Proximal x coordinate"
+        return self.parent.d_x
+
+    @property
+    def p_y(self):
+        "Proximal y coordinate"
+        return self.parent.d_y
+
+    @property
+    def p_z(self):
+        "Proximal z coordinate"
+        return self.parent.d_z
+
+    @property
+    def p_r(self):
+        "Proximal radius"
+        return self.parent.d_r
+
+
+    @property
+    def region(self):
+        return self._region
+
+    @property
+    def idtag(self):
+        return self._id_tag
+
+    @property
+    def parent(self):
+        return self._parent
+
+    @property
+    def children(self):
+        return self._children
+
+
 
     def __init__(self, x, y, z, r, region, parent=None, idtag=None):
         """ Creation of the section.  """
@@ -229,7 +273,7 @@ class Section(object):
         """ Returns the 3 coordinates of the proximal end of the section.  """
 
         assert not self.is_dummy_section()
-        return self.parent._d_pos
+        return self.parent.get_distal_npa3
 
     def get_proximal_npa4(self):
         """Returns the 3 coordinates and the radius of the proximal end of the section.  """
@@ -241,7 +285,8 @@ class Section(object):
         if self.is_dummy_section():
             return 'DummySection'
 
-        def end_summary(e): return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
+        def end_summary(e): 
+            return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
         end_string = "SectionObject: " + end_summary(self.parent) + " -> " + end_summary(self) + ", "
         rg_string = "Region:" + self.region.name +", " if self.region else ""
         id_string = "idtag:" + self.idtag + ", " if self.idtag else ""
@@ -258,10 +303,12 @@ class Section(object):
 
         return self.get_distal_npa4() - self.get_proximal_npa4()
 
+    @property
     def get_length(self):
         assert not self.is_dummy_section(), "Getting Length of dummy section!"
         return numpy.linalg.norm(self.get_proximal_to_distal_vector_npa3())
 
+    @property
     def get_area(self, include_end_if_terminal=False):
         """ Returns the area of the section.  """
 
@@ -280,14 +327,13 @@ class Section(object):
             A = lateral_area
             if self.is_leaf():
                 A += math.pi * R * R
-            if self.is_a_root_section() and len(self._parent._children) \
-                == 1:
+            if self.is_a_root_section() and len(self._parent.children) == 1:
                 A += math.pi * r * r
             return A
         else:
-
             return lateral_area
 
+    @property
     def get_volume(self):
         """Returns the volume of the section."""
         assert not self.is_dummy_section(), 'Getting volume of dummy section!'
@@ -297,9 +343,9 @@ class Section(object):
         l = self.get_length()
         return 1.0 / 3.0 * math.pi * l * (R * R + R * r + r * r)
 
-    area = property(get_area)
-    surface_area = property(get_area)
-    volume = property(get_volume)
+    #area = property(get_area)
+    #surface_area = property(get_area)
+    #volume = property(get_volume)
 
     # Deprecated:
     def get_vectorfrom_parent_np4(self):
@@ -571,12 +617,12 @@ class MorphPath(object):
         # TO SET:
         self.morphloc1_dir = None
         self.morphloc2_dir = None
-        self._connecting_sections = []
+        self._connecting_sections = set()
 
         if morphloc1.section == morphloc2.section:
 
             # Points in the same section:
-            self._connecting_sections = []
+            #self._connecting_sections = []
             if morphloc1.sectionpos < morphloc2.sectionpos:
                 self.morphloc1_dir, self.morphloc2_dir = self.DirDistal, self.DirProximal
             else:
@@ -589,10 +635,10 @@ class MorphPath(object):
 
             # Is one a direct parent of the other?
             if morphloc1.section in s2_sects:
-                self._connecting_sections = set.symmetric_difference(s1_sects,s2_sects)
+                self._connecting_sections = set.symmetric_difference(s1_sects, s2_sects)
                 self.morphloc1_dir, self.morphloc2_dir =  self.DirDistal, self.DirProximal
             elif morphloc2.section in s1_sects:
-                self._connecting_sections = set.symmetric_difference(s1_sects,s2_sects)
+                self._connecting_sections = set.symmetric_difference(s1_sects, s2_sects)
                 self.morphloc1_dir, self.morphloc2_dir =  self.DirProximal, self.DirDistal
 
             else:
@@ -613,10 +659,10 @@ class MorphPath(object):
             return self.morphloc1.section.get_length() * np.fabs(self.morphloc1.sectionpos - self.morphloc2.sectionpos)
 
 
-        def s_len(loc, dir):
-            if dir == MorphPath.DirDistal:
+        def s_len(loc, _dir):
+            if _dir == MorphPath.DirDistal:
                 return (1.0 - loc.sectionpos) * loc.section.get_length()
-            elif dir == MorphPath.DirProximal:
+            elif _dir == MorphPath.DirProximal:
                 return loc.sectionpos * loc.section.get_length()
             else:
                 assert False

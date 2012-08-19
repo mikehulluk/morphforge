@@ -83,3 +83,5 @@ import os
 
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID
+
+import quantities as pq

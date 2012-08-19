@@ -29,9 +29,43 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from quantities import *
-from morphforge.core.quantities.fromcore import *
-from morphforge.core.quantities.common_neuroscience_defs import *
-#from morphforge.core.quantities.wrappers import NpPqWrappers
+#from quantities import *
+from morphforge.core.quantities.fromcore import factorise_units_from_list
+from morphforge.core.quantities.fromcore import unit
+import common_neuroscience_defs
+from morphforge.core.quantities.wrappers import NpPqWrappers
+from morphforge.core.quantities.common_neuroscience_defs import mS, uS, nS, pS
+from morphforge.core.quantities.common_neuroscience_defs import mF, uF, nF, pF
+from morphforge.core.quantities.common_neuroscience_defs import um2, cm2
+from morphforge.core.quantities.common_neuroscience_defs import mm2, m2
+from morphforge.core.quantities.common_neuroscience_defs import Molar, nMolar
+from morphforge.core.quantities.common_neuroscience_defs import uMolar
+from morphforge.core.quantities.common_neuroscience_defs import ohmcm
+from morphforge.core.quantities.common_neuroscience_defs import MOhm
+from morphforge.core.quantities.common_neuroscience_defs import mV
+from morphforge.core.quantities.common_neuroscience_defs import pA_um2
+from quantities import ms, Quantity, millivolt, milliamp, picoamp
+from quantities import milli, siemens, millisecond, volt, J, second
 
 U = unit
+__all__ = [
+   'factorise_units_from_list',
+   'unit',
+   'NpPqWrappers',
+   'common_neuroscience_defs',
+   'mS', 'uS', 'nS', 'pS',
+   'mF', 'uF', 'nF', 'pF',
+   'um2', 'cm2', 'mm2', 'm2',
+   'Molar', 'uMolar', 'nMolar',
+   'ohmcm', 'MOhm',
+
+   'mV','pA_um2',
+   'ms',
+   'Quantity',
+   'millivolt','milliamp','picoamp',
+   'milli', 'siemens',
+   'millisecond',
+   'volt','J','second'
+]
+
+

@@ -143,7 +143,7 @@ class MayaViRenderer(object):
 
         @mlab.show
         def _showSimpleCylinders():
-            mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
+            mlab.triangular_mesh(mesh.vertices[:, 0], mesh.vertices[:, 1], mesh.vertices[:, 2], mesh.triangles, colormap=self.colormap)
         _showSimpleCylinders()
 
     def make_video(self):
@@ -168,7 +168,7 @@ class MayaViRenderer(object):
         def _showSimpleCylinders():
 
             f = mlab.figure(bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
-            mlab.triangular_mesh(mesh.vertices[:,0], mesh.vertices[:,1], mesh.vertices[:,2], mesh.triangles, colormap=self.colormap)
+            mlab.triangular_mesh(mesh.vertices[:, 0], mesh.vertices[:, 1], mesh.vertices[:, 2], mesh.triangles, colormap=self.colormap)
 
             for i in itertools.count():
                 print i

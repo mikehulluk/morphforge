@@ -101,7 +101,7 @@ class SWCTreeWriter(object):
             if regionname_to_int_map is None:
                 regionname_to_int_map = AutoRegionToIntMapTable()
 
-            region_type_map = dict((s, 0) if not s.region else (s,regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph)
+            region_type_map = dict((s, 0) if not s.region else (s, regionname_to_int_map.region_name_to_int(s.region.name)) for s in morph)
 
             context = [{'morph': morph, 'ids': id_map,
                        'region_type_map': region_type_map}]
@@ -111,5 +111,5 @@ class SWCTreeWriter(object):
         return output
 
 
-MorphologyExporter.register("toSWCFile", lambda filename,morphology: SWCTreeWriter.to_file(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree)
+MorphologyExporter.register("toSWCFile", lambda filename, morphology: SWCTreeWriter.to_file(filename=filename, morph=morphology), allow_override=False, from_type=MorphologyTree)
 MorphologyExporter.register("toSWCStr",  lambda morphology: SWCTreeWriter.to_str(morph=morphology), allow_override=False, from_type=MorphologyTree)

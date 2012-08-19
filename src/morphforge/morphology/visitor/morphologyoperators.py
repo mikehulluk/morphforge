@@ -55,7 +55,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         from morphforge.morphology.core import MorphologyTree
 
         self.orig2new_mapping = {}
-        self.rgn_mappings = dict([(rgn,Region(rgn.name)) for rgn in self.morph.get_regions()])
+        self.rgn_mappings = dict([(rgn, Region(rgn.name)) for rgn in self.morph.get_regions()])
         self.new_morph = None
 
         (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)

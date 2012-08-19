@@ -106,11 +106,11 @@ class MorphologyArray(MorphologyBase):
     def connections_to_index(self, pid):
         return [i for (i, j) in self._connectivity if j == pid] + [j for (i, j) in self._connectivity if i == pid]
 
-    def index_of_connection(self, id, pid):
+    def index_of_connection(self, _id, pid):
         for (index, (i, j)) in enumerate(self._connectivity):
-            if i == id and j == pid:
+            if i == _id and j == pid:
                 return index
-            if i == pid and j == id:
+            if i == pid and j == _id:
                 return index
         assert False, ' Connection not found'
 

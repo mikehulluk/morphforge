@@ -37,6 +37,8 @@ from morphforge.morphology.conversion import AutoRegionToIntMapTable
 from morphforge.morphology.core import Region
 import copy
 
+# We use the internals of the classes to make the conversions:
+# pylint : disable=W0212
 
 class MorphologyConverter(object):
 
@@ -117,7 +119,7 @@ class MorphologyConverter(object):
                 # No? Lets make a connection:
                 else:
                     (x, y, z, r) = array._vertices[conn]
-                    index_of_connection = array.index_of_connection(index,conn)
+                    index_of_connection = array.index_of_connection(index, conn)
 
                     # Create the region, if it doesn't already exist:
                     rgn_int =  array._section_types[index_of_connection]
@@ -132,7 +134,7 @@ class MorphologyConverter(object):
                             name_to_region_map[rgn_name] = Region(rgn_name)
                         rgn = name_to_region_map[rgn_name]
 
-                    newsection =  section.create_distal_section(region=rgn, x=x,y=y,z=z,r=r)
+                    newsection =  section.create_distal_section(region=rgn, x=x, y=y, z=z, r=r)
                     index_to_section_map[conn] = newsection
                     indices_to_visit.append(conn)
 

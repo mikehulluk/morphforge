@@ -34,6 +34,9 @@ from cStringIO import StringIO
 from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 from morphforge.morphology.core.array import MorphologyArray
 
+# We use internal data from the MorphologyArray class, so we need 
+# to tell pylint this is OK
+# pylint : disable=W0212
 
 class ExportArray_SWC(object):
 
@@ -41,7 +44,7 @@ class ExportArray_SWC(object):
     def _export_single_swc(cls, morphology, swc_vertex_offset=1, op=None, fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'):
 
         def vertex_to_data(v_index, v_index_parent, rgn):
-            (x, y, z, r) = morphology._vertices[v_index,:]
+            (x, y, z, r) = morphology._vertices[v_index, :]
             return [v_index + swc_vertex_offset, rgn,  x, y, z, r, v_index_parent + swc_vertex_offset if v_index_parent is not None else -1]
 
         # Root Vertex:
