@@ -54,7 +54,8 @@ class SimulationResult(object):
 
     def get_trace(self, name):
         return SeqUtils.filter_expect_single(
-                self.traces, lambda s: s.name == name)
+                self.traces, 
+                lambda s: s.name == name)
 
 
     def get_traces(self):

@@ -205,7 +205,7 @@ def parse_tagselector_string(s):
     if not _ParseCache.lex:
         _ParseCache.lex = ply.lex.lex()
     if not _ParseCache.yacc:
-        _ParseCache.yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1,optimize=1)
+        _ParseCache.yacc = ply.yacc.yacc(tabmodule='tagselectorparser_parsetab', outputdir=LocMgr.ensure_dir_exists('/tmp/parsetabs/'), debug=0, write_tables=1, optimize=1)
     return _ParseCache.yacc.parse(s, lexer=_ParseCache.lex.clone())
 
 

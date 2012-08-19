@@ -54,13 +54,13 @@ class FunctionPrototype(object):
     def toTracePiece(self):
 
         builddict = {
-        'FLAT':   lambda window,arg, start_value:
+        'FLAT':   lambda window, arg, start_value:
                     TracePieceFunctionFlat(time_window=window, x=arg),
         'RAMPTO': lambda window, arg, start_value:
                     TracePieceFunctionLinear(time_window=window, x0=start_value, x1=arg),
         }
 
-        p = builddict[self.funcname](window=(self.start_time,self.end_time), arg=self.funcarg, start_value=self.start_value)
+        p = builddict[self.funcname](window=(self.start_time, self.end_time), arg=self.funcarg, start_value=self.start_value)
         return p
 
 

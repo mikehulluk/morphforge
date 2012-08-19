@@ -273,7 +273,7 @@ class Section(object):
         """ Returns the 3 coordinates of the proximal end of the section.  """
 
         assert not self.is_dummy_section()
-        return self.parent.get_distal_npa3
+        return self.parent.get_distal_npa3()
 
     def get_proximal_npa4(self):
         """Returns the 3 coordinates and the radius of the proximal end of the section.  """
@@ -303,12 +303,10 @@ class Section(object):
 
         return self.get_distal_npa4() - self.get_proximal_npa4()
 
-    @property
     def get_length(self):
         assert not self.is_dummy_section(), "Getting Length of dummy section!"
         return numpy.linalg.norm(self.get_proximal_to_distal_vector_npa3())
 
-    @property
     def get_area(self, include_end_if_terminal=False):
         """ Returns the area of the section.  """
 
@@ -333,7 +331,6 @@ class Section(object):
         else:
             return lateral_area
 
-    @property
     def get_volume(self):
         """Returns the volume of the section."""
         assert not self.is_dummy_section(), 'Getting volume of dummy section!'
@@ -343,9 +340,9 @@ class Section(object):
         l = self.get_length()
         return 1.0 / 3.0 * math.pi * l * (R * R + R * r + r * r)
 
-    #area = property(get_area)
-    #surface_area = property(get_area)
-    #volume = property(get_volume)
+    area = property(get_area)
+    surface_area = property(get_area)
+    volume = property(get_volume)
 
     # Deprecated:
     def get_vectorfrom_parent_np4(self):

@@ -67,8 +67,10 @@ class CurrentClampStepChange(CurrentClamp):
 
 class VoltageClampStepChange(VoltageClamp):
 
-    def __init__(self,
-        dur1, amp1,
+    def __init__(
+        self,
+        dur1,
+        amp1,
         dur2='0:ms',
         dur3='0:ms',
         amp2='0:mV',

@@ -29,6 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+# pylint: disable=W0401
+# (don't complain about wildcard imports)
 from morphforge.core.quantities import *
 import morphforge.core.quantities as u
 
@@ -60,7 +62,7 @@ from morphforge.simulation.neuron import *
 from morphforge.simulation.base.util.celllocator import CellLocator
 
 # Simulation Analysis
-from morphforge.simulationanalysis.summaries import *
+#from morphforge.simulationanalysis.summaries import *
 
 from morphforge.componentlibraries import *
 

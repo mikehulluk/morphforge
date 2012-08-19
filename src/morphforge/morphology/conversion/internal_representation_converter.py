@@ -38,7 +38,7 @@ from morphforge.morphology.core import Region
 import copy
 
 # We use the internals of the classes to make the conversions:
-# pylint : disable=W0212
+# pylint: disable=W0212
 
 class MorphologyConverter(object):
 

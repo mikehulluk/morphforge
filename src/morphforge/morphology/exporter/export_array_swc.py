@@ -36,7 +36,7 @@ from morphforge.morphology.core.array import MorphologyArray
 
 # We use internal data from the MorphologyArray class, so we need 
 # to tell pylint this is OK
-# pylint : disable=W0212
+# pylint: disable=W0212
 
 class ExportArray_SWC(object):
 

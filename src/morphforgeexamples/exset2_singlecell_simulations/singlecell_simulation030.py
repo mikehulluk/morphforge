@@ -41,7 +41,11 @@ on any simulation.)
 
     SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
+
+TODO: THIS IS NOT WORKING  - DISABLED TO ALLOW runnnign during pdf gen refactor
 """
+
+
 
 
 from morphforge.stdimports import *
@@ -121,7 +125,7 @@ mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_locatio
 # run the simulation
 results = mySim.run()
 
-SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
+#SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
 # Display the results:
 TagViewer([results], timeranges=[(50, 250)*pq.ms], show=True)

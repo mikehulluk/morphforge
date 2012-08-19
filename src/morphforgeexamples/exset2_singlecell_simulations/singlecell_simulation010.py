@@ -85,7 +85,7 @@ mySim.recordall(leakChannels, cell_location=somaLoc)
 results = mySim.run()
 
 # Create an output .pdf
-SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
+#SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
 
 # Display the results:
 TagViewer([results], figtitle="The response of a neuron to step current injection", timeranges=[(95, 200)*pq.ms], show=True)

@@ -33,7 +33,14 @@ from collections import defaultdict
 
 
 class NeuronParameter(object):
-    def __init__(self, parametername, parameterunit, initialvalue=None, parameterrange=None):
+
+    def __init__(
+        self,
+        parametername,
+        parameterunit,
+        initialvalue=None,
+        parameterrange=None,
+        ):
         self.parametername = parametername
         self.parameterunit = parameterunit
         self.parameterrange = parameterrange
@@ -141,19 +148,24 @@ class ModFileSectioned(object):
     # User Functions:
     def create_header(self, title, comment):
         header = ModFileSectioned.Sections.Header
-        self.append_to_section(header, "TITLE %s" % title)
-        self.append_to_section(header, "COMMENT")
+        self.append_to_section(header, 'TITLE %s' % title)
+        self.append_to_section(header, 'COMMENT')
         if comment:
             self.append_to_section(header, comment)
-        self.append_to_section(header, "ENDCOMMENT")
+        self.append_to_section(header, 'ENDCOMMENT')
 
     def add_unit_definition(self, unitname, unitsymbol):
         symbol_str = "%s" % unitsymbol if unitsymbol.startswith("(") else "(%s)" % unitsymbol
         name_str = "%s" % unitname if unitname.startswith("(") else "(%s)" % unitname
         self.append_to_section(ModFileSectioned.Sections.Units, "%s = %s" % (symbol_str, name_str))
 
-
-    def create_neuron_interface(self, suffix, ranges, nonspecificcurrents, ioncurrents=None,):
+    def create_neuron_interface(
+        self,
+        suffix,
+        ranges,
+        nonspecificcurrents,
+        ioncurrents=None,
+        ):
         assert ioncurrents == None
         self.append_to_section(ModFileSectioned.Sections.Neuron,
                                'SUFFIX %s' % suffix)
@@ -170,7 +182,13 @@ class ModFileSectioned(object):
                                parameter.initialisation_string())
 
     # States
-    def add_state_group(self, groupname, states, derivative_code, initial_code):
+    def add_state_group(
+        self,
+        groupname,
+        states,
+        derivative_code,
+        initial_code,
+        ):
 
         # Initial Block:
         self.append_to_section(ModFileSectioned.Sections.Initial,

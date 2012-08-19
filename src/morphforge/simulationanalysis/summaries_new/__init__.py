@@ -112,20 +112,20 @@ class SimulationMRedoc(object):
                )
 
 
-    def build_simulation_overview(self,):
+    def build_simulation_overview(self):
         #return
         return mrd.Section("Overview",
                 self.build_population_overview(),
                )
 
-    def build_simulation_details(self,):
+    def build_simulation_details(self):
         return mrd.Section("Details",
                 self.build_population_details()
                )
 
 
     # The details of the simulation:
-    def build_population_overview(self,):
+    def build_population_overview(self):
 
         t = mrd.VerticalColTable(
                 "Population | Size | Type """,
@@ -137,14 +137,14 @@ class SimulationMRedoc(object):
                )
 
         return mrd.Section("Population Overview",
-                           t,t2,
+                           t, t2,
                            self.build_population_overview_dot(),
                            #self.build_population_complete_dot()
                           )
 
 
 
-    def build_population_overview_dot(self,):
+    def build_population_overview_dot(self):
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph')
 
@@ -162,7 +162,7 @@ class SimulationMRedoc(object):
             post_pop = synpop.postsynaptic_population
 
             if not pre_pop:
-                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon',style='filled', **kwargs)
+                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon', style='filled', **kwargs)
                 graph.add_node(pre_n)
             else:
                 pre_n = pops[pre_pop]
@@ -170,7 +170,7 @@ class SimulationMRedoc(object):
             post_n = pops[post_pop]
 
             syn_name = "%s\\n(%s)" % (synpop.synapse_pop_name, len(synpop))
-            e = pydot.Edge(pre_n, post_n,label=syn_name, color='red', **kwargs)
+            e = pydot.Edge(pre_n, post_n, label=syn_name, color='red', **kwargs)
             graph.add_edge(e)
 
         fname = self.save_dot(graph)
@@ -220,8 +220,8 @@ class SimulationMRedoc(object):
                   cell.cell_type_str,
                   "%.0f"%(cell.morphology.surface_area),
                   "%d"%cell.segmenter.get_num_segment_total(),
-                  " ".join(["%s(%d:%d)"%(rgn.name,rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
-                  "%d %d"%(len(cell.presynaptic_connections),len(cell.postsynaptic_connections)),
+                  " ".join(["%s(%d:%d)"%(rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
+                  "%d %d"%(len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d"%len(cell.electrical_connections),
                   " ".join(cell.biophysics.get_mechanism_ids()),
                  ) for cell in population])
@@ -251,7 +251,7 @@ class SimulationMRedoc(object):
 
         return mrd.SectionNewPage('Neuron:%s'%neuron.name,
                 "Blah blha",
-                t,t1,t2,t3,t4,
+                t, t1, t2, t3, t4,
                )
 
 

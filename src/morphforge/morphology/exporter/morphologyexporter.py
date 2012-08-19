@@ -46,7 +46,7 @@ class MorphologyExporter(object):
             raise MorphologyFrameworkRegistrationError("method_name must begin with '%s' "% cls.method_name_prefix)
 
         if hasattr(from_type, method_name) and not allow_override:
-            err = "Existing export functor defined for: %s.%s"%(from_type.__name__, method_name)
+            err = "Existing export functor defined for: %s.%s" % (from_type.__name__, method_name)
             err += "(Perhaps use the 'allow_override' parameter on this function-call?)"
             raise MorphologyFrameworkRegistrationError(err)
 

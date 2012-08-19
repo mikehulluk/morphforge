@@ -32,7 +32,7 @@
 import numpy as np
 from morphforge.core.quantities import unit
 
-# pylint : disable=E1103
+# pylint: disable=E1103
 
 
 class NpPqWrappers(object):

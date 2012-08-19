@@ -50,6 +50,7 @@ from morphforge.core.mgrs.logmgr import LogMgr
 from morphforge.traces import TraceVariableDT
 from morphforge.core.mockcontrol import MockControl
 
+
 def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps) - 0.5) * std_dev
     walk = np.cumsum(nums)
@@ -80,20 +81,19 @@ class MNeuronSimulation(Simulation):
 
         LogMgr.info('_run_spawn() [Pickling Sim]')
         (b, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
-        (_bundlefilename, sim_cmd) = b.write_to_file_and_get_exec_string()
+        (_bundlefname, sim_cmd) = b.write_to_file_and_get_exec_string()
 
         # if Exists(resfilename):
         #    os.unlink(resfilename)
-
 
         if not os.path.exists(resfilename):
 
             # Setup the LD_LIBRARY PATH:
             # It may be nessesary to add the following to .mfrc
             # ld_library_path_suffix = /home/michael/hw/morphforge/src/morphforgecontrib/neuron_gsl/cpp
-            ld_path_additions = RCMgr.get("Neuron","ld_library_path_suffix").split(":")
+            ld_path_additions = RCMgr.get('Neuron','ld_library_path_suffix').split(':')
             old_ld_path = os.environ.get('LD_LIBRARY_PATH','')
-            os.environ['LD_LIBRARY_PATH'] = ":".join([old_ld_path] + ld_path_additions)
+            os.environ['LD_LIBRARY_PATH'] = ':'.join([old_ld_path] + ld_path_additions)
 
             LogMgr.info('_run_spawn() [Spawning subprocess]')
             ret_code = subprocess.call(sim_cmd, shell=True)
@@ -162,7 +162,6 @@ class MNeuronSimulation(Simulation):
         time_taken = time.time() - t_mod_build_start
         print 'Time for Building Mod-Files: ', time_taken
 
-
         # Open Neuron:
         import neuron
         h = neuron.h
@@ -220,7 +219,6 @@ class MNeuronSimulation(Simulation):
             time.time() - t_trace_read_start
 
         self.result = SimulationResult(traces, self)
-        #self.result.hocfilename = self.hocfilename
         return self.result
 
     # NEW API:

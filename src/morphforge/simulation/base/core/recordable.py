@@ -58,7 +58,8 @@ class Recordable(NamedSimulationObject):
         default_desc = 'No Description'
         return ('-'.join(self.user_tags) if self.user_tags else default_desc)
 
-
     # The interface:
     def get_unit(self):
         raise NotImplementedError()
+
+

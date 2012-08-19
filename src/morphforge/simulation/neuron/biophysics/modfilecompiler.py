@@ -46,7 +46,7 @@ class ModBuilderParams(object):
     libtoolpath = RCReader.get('Neuron', 'libtoolpath')
 
     compileIncludes = ['.', '..'] + \
-                      RCReader.get('Neuron','compileincludes').split(':')
+                      RCReader.get('Neuron', 'compileincludes').split(':')
 
     compileDefs = ['HAVE_CONFIG_H']
 
@@ -75,24 +75,24 @@ class ModBuilderParams(object):
     modlunitpath = RCReader.get('Neuron', 'modlunitpath')
 
     @classmethod
-    def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=""):
-        incl_str = " ".join(["""-I"%s" """ % s for s in cls.compileIncludes])
-        def_str = " ".join(["""-D%s """ % d for d in cls.compileDefs])
-        variables = {"lo":lo_filename, "c":c_filename, "incs":incl_str, "defs":def_str, 'additional_flags':additional_compile_flags}
+    def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=''):
+        incl_str = ' '.join(["""-I"%s" """ % s for s in cls.compileIncludes])
+        def_str = ' '.join(["""-D%s """ % d for d in cls.compileDefs])
+        variables = {'lo': lo_filename, 'c': c_filename, 'incs': incl_str, 'defs': def_str, 'additional_flags': additional_compile_flags}
         return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % variables
 
 
     @classmethod
-    def get_link_str(cls, lo_filename, la_filename, additional_link_flags=""):
-        std_lib_str = " ".join(["-l%s" % s for s in cls.stdLinkLibs])
-        std_lib_dir_str = " ".join(["-L%s" % s for s in cls.nrnLinkDirs])
-        link_dict = {"la":la_filename,
-                    "lo":lo_filename,
-                    "std_lib_str":std_lib_str,
-                    "std_lib_dir_str":std_lib_dir_str,
-                    "rpath":cls.rpath,
-                    "randSt": cls.rndAloneLinkStatement,
-                    'additional_flags':additional_link_flags
+    def get_link_str(cls, lo_filename, la_filename, additional_link_flags=''):
+        std_lib_str = ' '.join(['-l%s' % s for s in cls.stdLinkLibs])
+        std_lib_dir_str = ' '.join(['-L%s' % s for s in cls.nrnLinkDirs])
+        link_dict = {'la': la_filename,
+                    'lo': lo_filename,
+                    'std_lib_str': std_lib_str,
+                    'std_lib_dir_str': std_lib_dir_str,
+                    'rpath': cls.rpath,
+                    'randSt': cls.rndAloneLinkStatement,
+                    'additional_flags': additional_link_flags
                     }
         return """--mode=link gcc -module  -g -O2  -shared  -o %(la)s  -rpath %(rpath)s  %(lo)s  %(std_lib_dir_str)s  %(randSt)s  %(std_lib_str)s  %(additional_flags)s """ % link_dict
 
@@ -156,12 +156,12 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     link_str = ModBuilderParams.get_link_str(lo_filename, la_filename)
 
     if SettingsMgr.simulator_is_verbose():
-        print 'IN:',ModBuilderParams.libtoolpath,
+        print 'IN:', ModBuilderParams.libtoolpath,
         print compile_str
         print link_str
 
-    compile_flags = modfile.additional_compile_flags if modfile else ""
-    link_flags = modfile.additional_link_flags if modfile else ""
+    compile_flags = modfile.additional_compile_flags if modfile else ''
+    link_flags = modfile.additional_link_flags if modfile else ''
     op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(c_filename, lo_filename, additional_compile_flags=compile_flags))
     op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(lo_filename, la_filename, additional_link_flags=link_flags))
 
@@ -170,7 +170,9 @@ def _build_modfile_local(mod_filename_short, modfile=None):
         print 'OP2:', op2
 
     # Copy the correct .so from the libDir to the build_dir:
-    shutil.move(os.path.join(libs_dir, mod_file_basename + '.so.0.0.0'), so_filename)
+    shutil.move(
+        os.path.join(libs_dir, mod_file_basename + '.so.0.0.0'),
+        so_filename)
 
 
     # Clean up:
@@ -199,13 +201,16 @@ def _build_mod_file(modfilename, output_dir=None, build_dir=None, modfile=None):
     modfilenamebase = os.path.basename(modfilename)
     sofilenamebase = modfilenamebase.replace('.mod', '.so')
 
-    shutil.copyfile(modfilename, os.path.join(build_dir, modfilenamebase))
+    shutil.copyfile(
+        modfilename, 
+        os.path.join(build_dir, modfilenamebase))
+
     so_filename_output = os.path.join(output_dir, sofilenamebase)
 
     # Move to new directory to build:
     initial_cwd = os.getcwd()
     os.chdir(build_dir)
-    so_filename_build_short = _build_modfile_local(mod_filename_short=modfilenamebase,modfile=modfile)
+    so_filename_build_short = _build_modfile_local(mod_filename_short=modfilenamebase, modfile=modfile)
     os.chdir(initial_cwd)
 
     # CopyFile to output cell_location:
@@ -234,7 +239,7 @@ class ModFileCompiler(object):
                 print 'ERROR ERROR ERROR WITH UNITS!!'
                 print 'Seen', l
                 print 'Expt', le
-                #assert False
+                # assert False
 
 
     @classmethod
@@ -245,7 +250,7 @@ class ModFileCompiler(object):
             LogMgr.info('Does not exist: building: %s'
                         % output_filename)
 
-            mod_txt_filename = FileIO.write_to_file(modfile.modtxt, suffix=".mod")
+            mod_txt_filename = FileIO.write_to_file(modfile.modtxt, suffix='.mod')
             ModFileCompiler.check_modfile_units(mod_txt_filename)
             mod_dyn_filename = _build_mod_file(mod_txt_filename, modfile=modfile)
             shutil.move(mod_dyn_filename, output_filename)

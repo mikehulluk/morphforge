@@ -88,24 +88,17 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
             }
         print tmpl_dict
 
-        hocfile_obj.add_to_section(
-            MHOCSections.InitRecords,
-            Template(MembraneVoltageRecord.tmplObjRef, tmpl_dict).respond())
+        sect_txt = Template(MembraneVoltageRecord.tmplObjRef, tmpl_dict).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitRecords, sect_txt)
 
         hocfile_obj[MHocFileData.Recordables][self] = tmpl_dict
-
 
     def build_mod(self, modfile_set):
         pass
 
 
-
-
-
-
-
-
 class MNeuronCell(Cell, NeuronObject):
+
     def build_hoc(self, hocfile_obj):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
 
@@ -119,3 +112,5 @@ class MNeuronCell(Cell, NeuronObject):
         recordables = \
             {MNeuronCell.Recordables.MembraneVoltage: MembraneVoltageRecord}
         return recordables[what](cell=self, **kwargs)
+
+

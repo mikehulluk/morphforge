@@ -146,7 +146,7 @@ class PlotSpec_DefaultNew(object):
 
 
 
-        p= ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
+        p = ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
         return p
 
 

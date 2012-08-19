@@ -51,7 +51,6 @@ class MetaDataBundleBuilder(object):
     @classmethod
     def build_std_pickler(cls, sim):
 
-
         reslocation = LocMgr.get_simulation_results_tmp_dir()
 
         b = MetaDataBundleBuilder.prepare_sim_bundle(sim)
@@ -72,8 +71,9 @@ class MetaDataBundleBuilder(object):
         simstring = cPickle.dumps(sim)
         simmd5sum = StrUtils.get_hash_md5(simstring)
 
-        simlocation = LocMgr.ensure_dir_exists(LocMgr.get_simulation_tmp_dir() + simmd5sum[0:2])
-        simfilename = Join(simlocation, simmd5sum + cls.simsuffix)
+        simloc = LocMgr.get_simulation_tmp_dir() + simmd5sum[0:2]
+        simloc = LocMgr.ensure_dir_exists(simloc)
+        simfilename = Join(simloc, simmd5sum + cls.simsuffix)
 
         FileIO.write_to_file(txt=simstring, filename=simfilename)
 

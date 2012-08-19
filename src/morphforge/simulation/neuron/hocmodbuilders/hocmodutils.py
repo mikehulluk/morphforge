@@ -86,8 +86,9 @@ class HocModUtils(object):
                 'objvar': objvar}
 
         # Create the Cell Topology Template:
+        sect_text = Template(HocModUtils.recordHocTmpl, data).respond()
         hocfile_obj.add_to_section(MHOCSections.InitRecords,
-                                   Template(HocModUtils.recordHocTmpl, data).respond())
+                                   sect_text)
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Recordables][recordobj] = data

@@ -74,7 +74,6 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
         super(SimMetaDataBundle, self).__init__(sim=sim)
         self.metadata = {}
 
-
     def _write_to_file(self, bundlefilename=None):
         bundleloc = LocMgr.get_simulation_tmp_dir()
         bundlesuffix = '.bundle'

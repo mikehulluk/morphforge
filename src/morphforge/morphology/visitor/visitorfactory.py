@@ -39,7 +39,7 @@ class SectionVistorFactory(object):
     @classmethod
     def get_bounding_box(cls, morph=None):
         pts = SectionVistorFactory.array3_all_points(morph)()
-        return (np.min(pts[:,0]), np.max(pts[:,0])) , (np.min(pts[:,1]), np.max(pts[:,1])), (np.min(pts[:,2]), np.max(pts[:,2]))
+        return (np.min(pts[:, 0]), np.max(pts[:, 0])), (np.min(pts[:, 1]), np.max(pts[:, 1])), (np.min(pts[:, 2]), np.max(pts[:, 2]))
 
 
     @classmethod

@@ -92,7 +92,7 @@ class TagViewer(object):
         DefaultPlotSpec.Event,
        )
 
-    _default_fig_kwargs ={'figsize': (12, 8) }
+    _default_fig_kwargs = {'figsize': (12, 8) }
 
     def __init__(
         self,

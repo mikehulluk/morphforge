@@ -50,7 +50,8 @@ class MembraneMechanismApplicator_Uniform(object):
 
     def get_description(self):
         variables = ['%s:%s' % (k, v.round(3)) for (k, v) in
-                self.variable_dict.iteritems()]
+                     self.variable_dict.iteritems()]
         v = ', '.join(variables)
         return 'Uniform [%s]' % v
+
 

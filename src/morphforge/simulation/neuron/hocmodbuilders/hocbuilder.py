@@ -66,7 +66,7 @@ ${stimname}.rs = $rs
 
 """
 
-k="""
+k = """
 ${stim.name}.dur1 = $stim.dur1.rescale('ms').magnitude
 ${stim.name}.dur2 = $stim.dur2.rescale('ms').magnitude
 ${stim.name}.dur3 = $stim.dur3.rescale('ms').magnitude

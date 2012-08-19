@@ -60,16 +60,16 @@ class AutoRegionToIntMapTable(RegionToIntMapBiMap):
         for (name, number) in conventions.SWCRegionCodes.name2number.iteritems():
             self.add_mapping(name, number)
 
-    def int_to_region_name(self, int):
+    def int_to_region_name(self, _int):
 
-        if not int in self.int2regionname:
-            self.add_mapping(regionname='AutoRegion%d' % int, int=int)
-        return RegionToIntMapBiMap.int_to_region_name(self, int)
+        if not _int in self.int2regionname:
+            self.add_mapping(regionname='AutoRegion%d' % _int, _int=_int)
+        return RegionToIntMapBiMap.int_to_region_name(self, _int)
 
     def region_name_to_int(self, regionname):
         if not regionname in self.regionname2int:
             self.add_mapping(regionname=regionname,
-                             int=len(self.int2regionname))
+                             _int=len(self.int2regionname))
         return RegionToIntMapBiMap.region_name_to_int(self, regionname)
 
 

@@ -120,8 +120,8 @@ class MorphConsistencyChecker(object):
         else:
             assert not section.is_dummy_section()
 
-        self.check_section_infra_structure(section=section, morph=morph,dummysection=dummysection)
-        self.check_section_contents(section=section, morph=morph,dummysection=dummysection)
+        self.check_section_infra_structure(section=section, morph=morph, dummysection=dummysection)
+        self.check_section_contents(section=section, morph=morph, dummysection=dummysection)
 
         if recurse:
             for c in section.children:

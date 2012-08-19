@@ -116,7 +116,7 @@ class MatPlotLibViewer(object):
                 joining_vec = xy_proj - xy_proj_parent
                 joining_vec_norm = joining_vec / numpy.linalg.norm(joining_vec)
 
-                perp_vec = np.array((joining_vec_norm[1],joining_vec_norm[0] * -1))
+                perp_vec = np.array((joining_vec_norm[1], joining_vec_norm[0] * -1))
 
                 assert np.fabs(np.dot(joining_vec_norm, perp_vec)) < 0.01
 
@@ -127,8 +127,8 @@ class MatPlotLibViewer(object):
                 p3 = xy_proj_parent - (perp_vec * seg.p_r)
                 p4 = xy_proj_parent + (perp_vec * seg.p_r)
 
-                verts = [p1, p2, p3, p4, (0,0)]
-                codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY,]
+                verts = [p1, p2, p3, p4, (0, 0)]
+                codes = [Path.MOVETO, Path.LINETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY]
                 path = Path(verts, codes)
                 patch = patches.PathPatch(path, facecolor=color, lw=1)
                 ax.add_patch(patch)
