@@ -59,7 +59,7 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via
 import random as R
 
 
-variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate', ]
+variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate']
 
 def apply_hh_chls_neurounits_direct(env, myCell, mySim):
 

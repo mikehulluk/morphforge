@@ -73,7 +73,7 @@ trace_names = [('SomaVoltage', vUnit),
                ]
 
 
-trace_names = [('SomaVoltage', vUnit), ]
+trace_names = [('SomaVoltage', vUnit)]
 
 
 
