@@ -42,7 +42,7 @@ def _get_md5_of_region(r):
 
 def _get_md5_of_section(s):
     # assert False # Is this Cruft?? Added Jan 2011
-    section_string = ' %2.2f %2.2f %2.2f %2.2f '
+    section_string = '%2.2f %2.2f %2.2f %2.2f '
     regions_string = (_get_md5_of_region(s.region) if s.region else '')
     children_string = ','.join([_get_md5_of_section(s) for s in s.children])
     id_string = ('' if not s.idtag else StrUtils.get_hash_md5(s.idtag))

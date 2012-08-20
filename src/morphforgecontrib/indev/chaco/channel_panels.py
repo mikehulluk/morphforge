@@ -195,8 +195,8 @@ class HHChannelPaneLk(HasTraits):
         lk = env.MembraneMechanism( MM_LeakChannel,
                                      name='Leak',
                                      mechanism_id='LKID',
-                                     conductance = '%2.2f:mS/cm2' %self.general.gbar,
-                                     reversalpotential = '%2.2f:mV' %self.general.vrev)
+                                     conductance = '%2.2f:mS/cm2' % self.general.gbar,
+                                     reversalpotential = '%2.2f:mV' % self.general.vrev)
         return lk
 
 
@@ -249,8 +249,8 @@ class HHChannelPaneInfTau1(HasTraits):
                                       ion='ks',
                                       equation=self.eqn,
                                       mechanism_id=self.mechanism_id,
-                                      conductance = '%2.2f:mS/cm2' %gbar,
-                                      reversalpotential = '%2.2f:mV' %vrev,
+                                      conductance = '%2.2f:mS/cm2' % gbar,
+                                      reversalpotential = '%2.2f:mV' % vrev,
                                       statevars_new = intp
                                       )
         return ks
@@ -316,8 +316,8 @@ class HHChannelPaneInfTau2(HasTraits):
                                       ion='ks',
                                       equation=self.eqn,
                                       mechanism_id=self.mechanism_id,
-                                      conductance = '%2.2f:mS/cm2'%gbar,
-                                      reversalpotential = '%2.2f:mV'%vrev,
+                                      conductance = '%2.2f:mS/cm2' % gbar,
+                                      reversalpotential = '%2.2f:mV' % vrev,
                                       statevars_new = intp
                                       )
         return ks

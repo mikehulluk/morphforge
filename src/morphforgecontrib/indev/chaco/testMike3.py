@@ -198,9 +198,9 @@ class SimulationConfig(HasTraits):
 
         #Record the Currents & Conductances:
         for chlname, mech in mech_dict.iteritems():
-                sim.record(mech,  what = StandardTags.CurrentDensity, cell_location=cell.get_location('soma'), name="%s_i" %chlname, description="")
+                sim.record(mech,  what = StandardTags.CurrentDensity, cell_location=cell.get_location('soma'), name="%s_i" % chlname, description="")
                 if chlname != 'Ca':
-                    sim.record(mech,  what = StandardTags.ConductanceDensity, cell_location=cell.get_location('soma'), name="%s_g" %chlname, description="")
+                    sim.record(mech,  what = StandardTags.ConductanceDensity, cell_location=cell.get_location('soma'), name="%s_g" % chlname, description="")
 
 
 
@@ -277,7 +277,7 @@ class MorphologyConfig(HasTraits):
         m1 = morph_functor(axonDiam = 0.4)
 
         myCell = sim.create_cell(name="Cell1", morphology=m1)
-        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2' %self.capacitance))
+        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2' % self.capacitance))
         return myCell
 
 
@@ -315,8 +315,8 @@ class InputConfig(HasTraits):
 
     def getInputStimulus(self, sim, cell):
         somaLoc = cell.get_location("soma")
-        s1 = sim.create_currentclamp(name="Stim1", amp=unit("%2.2f:pA" %self.amp1), dur=unit("%f:ms" %self.dur1), delay=unit("%f:ms" %self.delay1), cell_location=somaLoc)
-        s2 = sim.create_currentclamp(name="Stim2", amp=unit("%2.2f:pA" %self.amp2), dur=unit("%f:ms" %self.dur2), delay=unit("%f:ms" %self.delay2), cell_location=somaLoc)
+        s1 = sim.create_currentclamp(name="Stim1", amp=unit("%2.2f:pA" % self.amp1), dur=unit("%f:ms" % self.dur1), delay=unit("%f:ms" % self.delay1), cell_location=somaLoc)
+        s2 = sim.create_currentclamp(name="Stim2", amp=unit("%2.2f:pA" % self.amp2), dur=unit("%f:ms" % self.dur2), delay=unit("%f:ms" % self.delay2), cell_location=somaLoc)
         return None
 
 

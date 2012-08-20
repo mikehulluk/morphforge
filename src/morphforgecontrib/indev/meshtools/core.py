@@ -131,7 +131,7 @@ class PlyScope(object):
             return self.global_scope.region_color_defaults[rgn]
         if None in self.global_scope.region_color_defaults:
             return self.global_scope.region_color_defaults[None]
-        assert False, ' What do I do with region: %d ' % rgn
+        assert False, 'What do I do with region: %d ' % rgn
 
         # return ColorDef(200,50, np.min((rgn*20,255)))
 
@@ -153,7 +153,7 @@ class PlyScope(object):
                 rgn_name = rgn.name
                 rgn_int = bi_dict.region_name_to_int(rgn_name)
                 rgn_color = self.get_region_color(rgn_int)
-                print ' %s -> %s ' % (rgn_name, rgn_int), rgn_color
+                print '%s -> %s' % (rgn_name, rgn_int), rgn_color
                 rgn_colors[rgn_name] = rgn_color
 
             # Check for ignored Region:

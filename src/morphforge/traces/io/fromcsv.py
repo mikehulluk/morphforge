@@ -108,7 +108,7 @@ class NeuroCSVHeaderData(object):
             if m.group(1) == 'COLUMN':
                 col_num = int(m.group(2))
                 if col_num in self.column_data:
-                    raise InvalidNeuroCSVFile('Repeated Column Description Found: %d' %col_num)
+                    raise InvalidNeuroCSVFile('Repeated Column Description Found: %d' % col_num)
                 self.column_data[col_num] = parse_json_helpful(m.group(3))
 
             # Load 'LOADHINT' info

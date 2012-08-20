@@ -111,12 +111,12 @@ $(cell_name).internalsections [$section_index] {
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_chl.statevars_new:
-            base_writer.rates[state_inf(s)] = (('', state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
-            base_writer.rates[state_tau(s)] = (('', state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
+            base_writer.rates[state_inf(s)] = (('', state_inf(s) + "= %sInf(v)" % state_inf(s)), None)
+            base_writer.rates[state_tau(s)] = (('', state_tau(s) + "= %sTau(v)" % state_tau(s)), "ms")
             base_writer.ratecalcorder.extend([state_inf(s), state_tau(s)])
 
         base_writer.currentequation = '(v-%s) * %s * %s * %s' % (e_rev_name, gbar_name, alphabeta_chl.eqn, g_scale_name)
-        base_writer.conductanceequation = ' %s * %s * %s' % (gbar_name, alphabeta_chl.eqn, g_scale_name)
+        base_writer.conductanceequation = '%s * %s * %s' % (gbar_name, alphabeta_chl.eqn, g_scale_name)
 
         base_writer.functions = """
         VERBATIM
@@ -155,8 +155,8 @@ $(cell_name).internalsections [$section_index] {
             return f
 
         for s in alphabeta_chl.statevars_new:
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf' %s)
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau' %s)
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf' % s)
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau' % s)
 
 
 
