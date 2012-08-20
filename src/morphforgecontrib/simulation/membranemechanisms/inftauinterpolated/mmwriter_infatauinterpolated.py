@@ -155,8 +155,8 @@ $(cell_name).internalsections [$section_index] {
             return f
 
         for s in alphabeta_chl.statevars_new:
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s)
-            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s)
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf' %s)
+            base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau' %s)
 
 
 

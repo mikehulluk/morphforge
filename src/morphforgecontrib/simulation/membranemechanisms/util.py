@@ -133,8 +133,8 @@ class ChannelConverter(object):
 #                                      ion='None',
 #                                      equation=self.eqn,
 #                                      mechanism_id=self.mechanism_id,
-#                                      conductance = '%2.2f:mS/cm2'%gbar,
-#                                      reversalpotential = '%2.2f:mV'%vrev,
+#                                      conductance = '%2.2f:mS/cm2' % gbar,
+#                                      reversalpotential = '%2.2f:mV' % vrev,
 #                                      statevars_new = ks_vars)
 #
 #

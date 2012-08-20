@@ -292,7 +292,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    def get_nextSimSumOutputLocation(self):
 #        self.simulation_no += 1
-#        l = LocMgr.ensure_dir_exists('out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
+#        l = LocMgr.ensure_dir_exists('out/%s/'%self.date_string) + 'Sim%d.pdf' %self.simulation_no
 #        return l
 #
 #    def __init__(self):
@@ -437,7 +437,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        m1 = MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * um2)
 #        #m1 = getDINMorphology(axonDiam=0.4)
 #        myCell = sim.create_cell(name="Cell1", morphology=m1)
-#        shortcuts.apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance))
+#        shortcuts.apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2' %self.capacitance))
 #        return myCell
 #
 

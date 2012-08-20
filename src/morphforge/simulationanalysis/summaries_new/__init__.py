@@ -235,7 +235,7 @@ class SimulationMRedoc(object):
        )
 
     def _build_population_details(self, pop):
-        return mrd.Section('Population: %s'%pop.pop_name,
+        return mrd.Section('Population: %s' %pop.pop_name,
                 self._build_population_cell_table(pop),
                 *[self.build_neuron_details(nrn) for nrn in pop]
        )
@@ -245,13 +245,13 @@ class SimulationMRedoc(object):
 
     @classmethod
     def build_neuron_details(cls, neuron):
-        t = mrd.VerticalColTable('Section|SA|Region|nseg|Channels', [], caption='%s:Morphology'%neuron.name)
-        t1 = mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels'%neuron.name)
-        t2 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections'%neuron.name)
-        t3 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Postsynaptic Connections'%neuron.name)
-        t4 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Gap Junctions'%neuron.name)
+        t = mrd.VerticalColTable('Section|SA|Region|nseg|Channels', [], caption='%s:Morphology' %neuron.name)
+        t1 = mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels' %neuron.name)
+        t2 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections' %neuron.name)
+        t3 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Postsynaptic Connections' %neuron.name)
+        t4 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Gap Junctions' %neuron.name)
 
-        return mrd.SectionNewPage('Neuron:%s'%neuron.name,
+        return mrd.SectionNewPage('Neuron:%s' %neuron.name,
                 "Blah blha",
                 t, t1, t2, t3, t4,
                )

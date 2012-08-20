@@ -103,7 +103,7 @@ class TestSWCRoundTrip(object):
             maxR = np.max(np.fabs(swcDataSrc['r'] - swcDataOut['r']))
             maxEPS = np.max((maxX, maxY, maxZ, maxR))
             assert maxEPS < eps
-            print ' -- Max EPS: %f'%maxEPS
+            print ' -- Max EPS: %f' %maxEPS
 
 
 

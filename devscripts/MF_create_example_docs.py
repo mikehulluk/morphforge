@@ -56,7 +56,7 @@ def parse_src_file(filename, docstring):
 
     # Remove the docstring:
     if docstring is not None:
-        raw_docstring = r'''"""\s*%s\s*"""'''%  re.escape(docstring).strip()
+        raw_docstring = r'''"""\s*%s\s*"""''' % re.escape(docstring).strip()
         d = re.sub(raw_docstring, '', d, re.MULTILINE)
 
     return d
@@ -155,7 +155,7 @@ import matplotlib
 import pylab
 for fig_num, fig_mgr in matplotlib._pylab_helpers.Gcf.figs.iteritems():
     matplotlib._pylab_helpers.Gcf.set_active(fig_mgr)
-    pylab.savefig("{{OUTDIR}}out%d.png"%fig_num, facecolor='lightgrey')
+    pylab.savefig("{{OUTDIR}}out%d.png" % fig_num, facecolor='lightgrey')
 """
 
 def run_example(index, filename):

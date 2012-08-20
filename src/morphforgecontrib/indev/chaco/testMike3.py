@@ -277,7 +277,7 @@ class MorphologyConfig(HasTraits):
         m1 = morph_functor(axonDiam = 0.4)
 
         myCell = sim.create_cell(name="Cell1", morphology=m1)
-        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2'%self.capacitance))
+        apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2' %self.capacitance))
         return myCell
 
 
