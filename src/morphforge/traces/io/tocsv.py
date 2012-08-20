@@ -70,7 +70,7 @@ class NeuroCSVWriter(object):
         def missing_format(): 
             return "-".center(col_width)
         def data_format(d):    
-            return ("%f"%d).ljust(col_width)
+            return ("%f" %d).ljust(col_width)
 
         col_data = []
         for tr in traces:

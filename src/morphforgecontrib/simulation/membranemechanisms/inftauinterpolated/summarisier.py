@@ -208,16 +208,16 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             # Plot out the States:
             for state, params in alphabeta_chl.statevars_new.iteritems():
-                local_elements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
+                local_elements.append(Paragraph("State: %s" %state, reportlabconfig.styles['Heading3']))
 
                 # Interpolated_values:
                 inf_table  = [
                                  ["Voltage", 'Inf'],
-                           ] + [("%2.2f"%p0, "%2.2f"%p1) for (p0, p1) in zip(params.V, params.inf)]
+                           ] + [("%2.2f" %p0, "%2.2f" %p1) for (p0, p1) in zip(params.V, params.inf)]
 
                 tau_table  = [
                                  ["Voltage", 'Tau'],
-                           ] + [("%2.2f"%p0, "%2.2f"%p1) for (p0, p1) in zip(params.V, params.tau)]
+                           ] + [("%2.2f" %p0, "%2.2f" %p1) for (p0, p1) in zip(params.V, params.tau)]
 
                 #mergeTable = zip(inf_table, tau_table)
 

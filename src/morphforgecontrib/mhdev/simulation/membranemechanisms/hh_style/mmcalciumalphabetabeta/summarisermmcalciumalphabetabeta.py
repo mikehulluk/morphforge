@@ -176,7 +176,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
 
             # Plot out the States:
             for state, params in calciumAlphaBetaBetaChannel.statevars.iteritems():
-                localElements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
+                localElements.append(Paragraph("State: %s" %state, reportlabconfig.styles['Heading3']))
 
                 if make_graphs:
                     fig = cls.plot_state_curve_summary(chl, state, figsize=(5, 5))
@@ -185,7 +185,7 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
 
                 #Equations:
                 eqns = [
-                        "beta2Threshold = %s"%calciumAlphaBetaBetaChannel.beta2threshold,
+                        "beta2Threshold = %s" %calciumAlphaBetaBetaChannel.beta2threshold,
                         "beta = beta1 if V less than beta2Threshold otherwise beta2",
                         "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
                         "beta(V) = (A+BV)/(C+exp((V+D)/E))",

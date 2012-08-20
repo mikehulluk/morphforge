@@ -220,10 +220,10 @@ class SimulationMRedoc(object):
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f"%(cell.morphology.surface_area),
-                  "%d"%cell.segmenter.get_num_segment_total(),
+                  "%d" %cell.segmenter.get_num_segment_total(),
                   " ".join(["%s(%d:%d)"%(rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d"%(len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
-                  "%d"%len(cell.electrical_connections),
+                  "%d" %len(cell.electrical_connections),
                   " ".join(cell.biophysics.get_mechanism_ids()),
                  ) for cell in population])
 
