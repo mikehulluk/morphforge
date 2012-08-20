@@ -184,7 +184,7 @@ def p_tag_group2(p):
     p[0] = p[1] + [p[3]]
 
 
-def p_empty(p):
+def p_empty(_p):
     '''empty :'''
     pass
 

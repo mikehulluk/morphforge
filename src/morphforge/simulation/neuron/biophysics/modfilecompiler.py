@@ -38,7 +38,6 @@ from morphforge.core import RCMgr as RCReader
 from morphforge.core.mgrs.settingsmgr import SettingsMgr
 
 
-# TODO! NOTE THE LINKING LIBRARY ORDER HAS CHANGED!
 
 class ModBuilderParams(object):
 
@@ -68,7 +67,6 @@ class ModBuilderParams(object):
         ]
     nrnLinkDirs = RCReader.get('Neuron', 'nrnLinkDirs').split(':')
 
-    # TODO: Find src of this:
     rpath = RCReader.get('Neuron', 'rpath')
     rndAloneLinkStatement = RCReader.get('Neuron', 'rndAloneLinkStatement')
 
@@ -127,15 +125,11 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     libs_dir = '.libs/'
 
     # Check for some existing files:
-    gen_files = (libs_dir,
-                 c_filename,
-                 la_filename,
-                 lo_filename,
-                 so_filename)
 
-    for gen_file in gen_files:
-        if os.path.exists(gen_file):
-            LocMgr.BackupDirectory(gen_file)
+    #for gen_file in gen_files:
+    #    if os.path.exists(gen_file):
+    #        assert False, 'We never get here'
+    #        LocMgr.BackupDirectory(gen_file)
 
     c_filename = mod_file_basename + '.c'
     op = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)

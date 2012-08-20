@@ -125,7 +125,7 @@ class MorphologyConverter(object):
                     rgn_int =  array._section_types[index_of_connection]
 
 
-                    rgn_name = region_number_to_name_bidict.int_to_region_name(int=rgn_int)
+                    rgn_name = region_number_to_name_bidict.int_to_region_name(_int=rgn_int)
 
                     if rgn_name is None:
                         rgn = None

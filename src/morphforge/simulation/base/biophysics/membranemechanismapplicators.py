@@ -39,9 +39,10 @@ class MembraneMechanismApplicator(object):
         raise NotImplementedError()
 
 
-class MembraneMechanismApplicator_Uniform(object):
+class MembraneMechanismApplicator_Uniform(MembraneMechanismApplicator):
 
     def __init__(self, variable_dict=None):
+        super(MembraneMechanismApplicator_Uniform, self).__init__()
         self.variable_dict = variable_dict
 
     def get_variable_value_for_section(self, variable_name, section):

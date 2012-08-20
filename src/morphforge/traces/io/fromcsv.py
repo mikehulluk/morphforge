@@ -86,7 +86,8 @@ class NeuroCSVHeaderData(object):
             else:
                 self.ignored_lines.append(hl)
 
-    def parse_at(self, line):
+    @classmethod
+    def parse_at(cls, line):
         print 'Parsing Event:', line
         print line
         raise NotImplementedError()

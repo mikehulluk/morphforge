@@ -83,7 +83,7 @@ class StrUtils(object):
     def get_hash_md5(cls, s):
         """ Returns the md5 digest hash of a string"""
 
-        m = hashlib.md5()
+        m = hashlib.new('md5')
         m.update(s)
         return m.hexdigest()
 
@@ -279,7 +279,7 @@ def is_float(f):
     try:
         float(f)
         return True
-    except:
+    except ValueError:
         return False
 
 
@@ -290,7 +290,7 @@ def is_int(f):
     try:
         int(f)
         return True
-    except:
+    except ValueError:
         return False
 
 

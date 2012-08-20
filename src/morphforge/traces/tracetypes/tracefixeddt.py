@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities import unit
+#from morphforge.core.quantities import unit
 
 import numpy as np
 
-import quantities as pq
+#import quantities as pq
 
 from tracepointbased import TracePointBased
 
@@ -62,33 +62,5 @@ class TraceFixedDT(TracePointBased):
     def __str__(self):
         return 'TraceFixedDT: ' + self.name + ' Shape:'  + str(self._time.shape)
 
-    def __getitem__(self, time):
-        from scipy.interpolate import interp1d
-
-        if isinstance(time, tuple):
-            assert len(time) == 2
-            start = unit(time[0])
-            stop = unit(time[1])
-
-            if start < self._time[0]:
-                assert False, 'Time out of bounds'
-            if stop > self._time[-1]:
-                assert False, 'Time out of bounds'
-
-            mask = np.logical_and(start < self.time_pts, self._time < stop)
-
-            if len(np.nonzero(mask)[0]) < 2:
-                assert False
-            return TraceFixedDT(time=self._time[np.nonzero(mask)[0]],
-                                data=self.data_pts[np.nonzero(mask)[0]])
-
-
-        assert isinstance(time, pq.quantity.Quantity), "Times Shoudl be quanitity. Found: %s %s"%(time, type(time))
-        # Rebase the Time:
-        time.rescale(self._time.units)
-        interpolator = interp1d(self.time_pts_np,
-                                self.data_pts_np)
-        d_mag = interpolator(time.magnitude)
-        return d_mag * self.data_units
 
 

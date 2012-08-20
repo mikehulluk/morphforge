@@ -37,6 +37,10 @@ import morphforge
 from morphforge.core.quantities.fromcore import unit
 
 
+# pylint: disable=E1103
+# pylint tries to work out the return value of _convert_to_unit,
+# but does it wrong and makes complaints.
+
 def _convert_to_unit(o, default_unit):
 
     assert not isinstance(default_unit, pq.quantity.Quantity)

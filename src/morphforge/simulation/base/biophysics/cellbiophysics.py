@@ -29,15 +29,22 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import collections
-
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_EverywhereDefault
 
-# A type for holding a mechanism/passive, where it is applied, and how much where.
 
-MechanismTargetApplicator = collections.namedtuple('MechanismTargetApplicator', ['mechanism', 'targetter', 'applicator'])
-PassiveTargetApplicator = collections.namedtuple('PassiveTargetApplicator', ['passiveproperty', 'targetter', 'value'])
+# A type for holding a mechanism/passive, where it is applied, and how much where.
+class _MechanismTargetApplicator(object):
+    def __init__(self, mechanism, targetter, applicator):
+        self.mechanism = mechanism
+        self.targetter = targetter
+        self.applicator = applicator
+
+class _PassiveTargetApplicator(object):
+    def __init__(self, passiveproperty, targetter, value):
+        self.passiveproperty = passiveproperty
+        self.targetter = targetter 
+        self.value = value
 
 from morphforge.core.misc import SeqUtils
 
@@ -61,7 +68,7 @@ class CellBiophysics(object):
     # Active Mechanisms:
     # ####################
     def add_mechanism(self, mechanism, targetter, applicator):
-        mta = MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
+        mta = _MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
         self.appliedmechanisms.append(mta)
 
     def get_resolved_mtas_for_section(self, section):
@@ -92,7 +99,7 @@ class CellBiophysics(object):
 
     def get_mta_by_mechanism_id_for_section(self, mech_id, section):
         assert False,'Deprecated? 2012-01-20'
-        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==id])
+        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==mech_id])
 
 
 
@@ -101,7 +108,7 @@ class CellBiophysics(object):
 
     # Passives:
     def add_passive(self, passiveproperty, targetter, value):
-        pta = PassiveTargetApplicator(passiveproperty=passiveproperty, targetter=targetter, value=value)
+        pta = _PassiveTargetApplicator(passiveproperty=passiveproperty, targetter=targetter, value=value)
         self.appliedpassives.append(pta)
 
     def get_passives_for_section(self, section):

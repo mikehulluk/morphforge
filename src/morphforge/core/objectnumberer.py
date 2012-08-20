@@ -43,7 +43,7 @@ class ObjectLabeller(object):
     objectcount = {}
 
     @classmethod
-    def _get_and_increment_count_for_object(cls, obj):
+    def get_next_count_for_type(cls, obj):
         newcnt = cls.objectcount.get(obj, 0) + 1
         cls.objectcount[obj] = newcnt
         return newcnt
@@ -63,6 +63,6 @@ class ObjectLabeller(object):
         if prefix is None:
             prefix = 'Unamed' + str(obj_type.__name__)
         return prefix + num_fmt_string \
-            % ObjectLabeller._get_and_increment_count_for_object(obj_type)
+            % ObjectLabeller.get_next_count_for_type(obj_type)
 
 

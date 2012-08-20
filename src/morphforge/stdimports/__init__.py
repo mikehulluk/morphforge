@@ -76,7 +76,8 @@ from morphforge.morphology.conventions import SWCRegionCodes
 try:
     import pylab
     import numpy as np
-except:
+except ImportError:
+    print 'Problem importing Numpy or Matplotlib'
     pass
 
 import neurounits

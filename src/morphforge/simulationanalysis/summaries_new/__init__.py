@@ -83,7 +83,7 @@ class MembraneMechanismSummariserLibrary(object):
 class SimulationMRedoc(object):
 
     @classmethod
-    def build(self, obj):
+    def build(cls, obj):
         return SimulationMRedoc(obj).mredoc
 
     def __init__(self, obj):
@@ -91,9 +91,9 @@ class SimulationMRedoc(object):
         self.sim = obj
         self.mredoc = self.build_simulation()
 
-        pass
 
-    def save_dot(self, graph, **kwargs):
+    @classmethod
+    def save_dot(cls, graph, **kwargs):
         from morphforge.core import ObjectLabeller
         name = ObjectLabeller.get_next_unamed_object_name(type(graph))
         fname = '/tmp/dotout_%s.pdf' % name
@@ -213,7 +213,8 @@ class SimulationMRedoc(object):
         fname = self.save_dot(graph, prog='circo')
         return mrd.Figure(mrd.Image(fname))
 
-    def _build_population_cell_table(self, population):
+    @classmethod
+    def _build_population_cell_table(cls, population):
 
         t = mrd.VerticalColTable('Cell|Cell Type|SA(um2)|nseg|Regions(SA(um2):nseg)|Pre/Post-SynChem|GJ|Chls',
                 [(cell.name,
@@ -242,7 +243,8 @@ class SimulationMRedoc(object):
 
 
 
-    def build_neuron_details(self, neuron):
+    @classmethod
+    def build_neuron_details(cls, neuron):
         t = mrd.VerticalColTable('Section|SA|Region|nseg|Channels', [], caption='%s:Morphology'%neuron.name)
         t1 = mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels'%neuron.name)
         t2 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections'%neuron.name)

@@ -31,20 +31,22 @@
 
 import cPickle as pickle
 from morphforge.core.misc import StrUtils
+from morphforge.core import ObjectLabeller
 
 
 class MM_Neuron_Base(object):
 
-    MM_count = 0
+    #MM_count = 0
 
-    @classmethod
-    def get_next_neuron_number(cls):
-        x = MM_Neuron_Base.MM_count
-        MM_Neuron_Base.MM_count += 1
-        return x
+    #@classmethod
+    #def get_next_neuron_number(cls):
+    #    x = MM_Neuron_Base.MM_count
+    #    MM_Neuron_Base.MM_count += 1
+    #    return x
 
     def __init__(self):
-        self.mm_neuronNumber = MM_Neuron_Base.get_next_neuron_number()
+        #self.mm_neuronNumber = MM_Neuron_Base.get_next_neuron_number()
+        self.mm_neuronNumber = ObjectLabeller.get_next_count_for_type( MM_Neuron_Base)
         self.cachedNeuronSuffix = None
 
     def get_neuron_suffix(self):
@@ -58,10 +60,12 @@ class MM_Neuron_Base(object):
             # print 'At get_neuron_suffix'
             mod_file_changeables = self.get_mod_file_changeables()
             mod_file_changeables[None] = str(type(mod_file_changeables).__str__)
-            
+
             md5 = StrUtils.get_hash_md5(pickle.dumps(mod_file_changeables))
             self.cachedNeuronSuffix = 'MIKETMP%sChl' % md5
-            
+
         return self.cachedNeuronSuffix
 
 
+    def get_mod_file_changeables(self):
+        raise NotImplementedError()

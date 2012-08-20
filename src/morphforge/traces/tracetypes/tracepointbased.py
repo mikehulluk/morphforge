@@ -31,7 +31,8 @@
 
 from morphforge.traces.tracetypes.trace import Trace
 import quantities as pq
-#import numpy as np
+import numpy as np
+from morphforge.core import unit
 
 
 class TracePointBased(Trace):
@@ -43,7 +44,8 @@ class TracePointBased(Trace):
 
         if not isinstance(time, pq.quantity.Quantity):
             raise ValueError("Time is not a 'unit'ed quantity")
-        time.rescale('ms').magnitude
+
+        _dummy = time.rescale('ms').magnitude
 
         if not isinstance(data, (pq.quantity.Quantity, pq.Dimensionless)):
             raise ValueError("Data is not a 'unit'ed quantity")
@@ -59,7 +61,6 @@ class TracePointBased(Trace):
     @property
     def time_pts(self):
         return self._time
-
 
     @property
     def time_pts_np(self):
@@ -98,6 +99,11 @@ class TracePointBased(Trace):
     def time_unit(self):
         return self._time.unit
 
+    def get_n(self):
+        return len(self._time)
+
+    # Conform to interface:
+    # ############################
 
     def get_min_time(self):
         return self._time[0]
@@ -113,9 +119,36 @@ class TracePointBased(Trace):
                                 self._data.magnitude)
         return interpolator(time_array.rescale(time_units).magnitude) \
             * data_units
-
-    def get_n(self):
-        return len(self._time)
+    # ##############################
 
 
+    def __getitem__(self, time):
+        from scipy.interpolate import interp1d
+        from morphforge.traces.tracetypes.tracefixeddt import TraceFixedDT
+
+        if isinstance(time, tuple):
+            assert len(time) == 2
+            start = unit(time[0])
+            stop = unit(time[1])
+
+            if start < self._time[0]:
+                assert False, 'Time out of bounds'
+            if stop > self._time[-1]:
+                assert False, 'Time out of bounds'
+
+            mask = np.logical_and(start < self.time_pts, self._time < stop)
+
+            if len(np.nonzero(mask)[0]) < 2:
+                assert False
+            return TraceFixedDT(time=self._time[np.nonzero(mask)[0]],
+                                data=self.data_pts[np.nonzero(mask)[0]])
+
+
+        assert isinstance(time, pq.quantity.Quantity), "Times should be quantity. Found: %s %s"%(time, type(time))
+        # Rebase the Time:
+        time.rescale(self._time.units)
+        interpolator = interp1d(self.time_pts_np,
+                                self.data_pts_np)
+        d_mag = interpolator(time.magnitude)
+        return d_mag * self.data_units
 
