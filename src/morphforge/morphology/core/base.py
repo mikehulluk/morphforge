@@ -51,6 +51,9 @@ class MorphologyBase(object):
         self.metadata = (metadata if metadata else {})
 
     # Properties:
-    name = property(lambda self: self._name, None)
+    @property
+    def name(self):
+        return self._name
+    #name = property(lambda self: self._name, None)
 
 

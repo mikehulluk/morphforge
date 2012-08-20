@@ -35,7 +35,7 @@ import quantities as pq
 from morphforge.core.misc import is_float#, is_int
 
 # Required to initialise the unit definitions
-import common_neuroscience_defs
+#import common_neuroscience_defs
 from quantities.quantity import Quantity
 
 import morphforge

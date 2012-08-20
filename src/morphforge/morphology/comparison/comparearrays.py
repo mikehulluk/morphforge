@@ -59,7 +59,7 @@ class MorphArrayComparison(object):
         if d2 < max_node_distance:
             return False  # , {'reason':'m2 has nodes that are too close together'}
 
-        print 'd1,d2', d1, d2
+        #print 'd1,d2', d1, d2
 
         # Create a map between indices in each morphology,
         # based on positions:

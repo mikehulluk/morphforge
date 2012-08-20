@@ -210,7 +210,7 @@ class TagViewer(object):
             import pylab
             try:
                 pylab.tight_layout()
-            except:
+            except AttributeError:
                 pass  # This is version specfic
 
 

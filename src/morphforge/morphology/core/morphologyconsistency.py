@@ -33,6 +33,7 @@ from morphforge.core import SeqUtils, check_cstyle_varname
 
 from morphforge.core.misc import StrUtils
 
+# pylint: disable=W0212
 
 def _get_md5_of_region(r):
     # assert False # Is this Cruft?? Added Jan 2011
@@ -145,7 +146,8 @@ class MorphConsistencyChecker(object):
             assert section.region in morph.get_regions()
             assert section in section.region.sections
 
-    def check_dummy_section(self, dummysection):
+    @classmethod
+    def check_dummy_section(cls, dummysection):
         assert dummysection.is_dummy_section()
         assert dummysection.parent == None
         assert dummysection.region == None
@@ -158,6 +160,10 @@ class MorphConsistencyChecker(object):
                 assert False, 'Very thin distal segment diameter: %f' % section.d_r
 
         # TODO: Check the radius of the near end of the dummysection segment.
+
+        #Suppress pylint warnings:
+        (_morph, _dummysection) = (morph, dummysection)
+
 
     def check_region(self, region, morph):
 

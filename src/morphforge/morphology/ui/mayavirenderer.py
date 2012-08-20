@@ -29,17 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-'''
-Created on Oct 12, 2009
-
-@author: michael
-'''
 
 import numpy
+import itertools
+
 from morphforge.core import SeqUtils
 from morphforge.morphology.visitor import ListBuilderSectionVisitor
+from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
-import itertools
 
 
 class MayaViRenderer(object):
@@ -71,7 +68,7 @@ class MayaViRenderer(object):
 
         @mlab.show
         def _showSimple():
-            morph_pts = [SVVisitorFactory.array4_all_points(morph)() for morph in self.morphs]
+            morph_pts = [SectionVistorFactory.array4_all_points(morph)() for morph in self.morphs]
             pts = numpy.concatenate(morph_pts)
             return mlab.points3d(
                 pts[:, 0],
@@ -181,7 +178,8 @@ class MayaViRenderer(object):
 
         _showSimpleCylinders()
 
-    def dummy_test(self):
+    @classmethod
+    def dummy_test(cls):
         """
         Does not plot neuron - code copied from enthought
         website and only used to make sure that MayaVi is

@@ -20,11 +20,15 @@ from numpy.linalg import norm
 
 from morphforge.core import LogMgr
 
-from morphforge.morphology.visitor.visitorfactory import SVVisitorFactory
+from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
 
 def _pca(X):
-    x_mean = array(map(sum, X.T)) / len(X)
+
+    # Refactored out 'map' in August 2012
+    # x_mean = array(map(sum, X.T)) / len(X)
+    x_mean = array([sum(col) for col in X.T])/len(X)
+
     x_ = X - x_mean
     x_t = numpy.dot(x_.T, x_) / len(X)
     (lam, vec) = linalg.eig(x_t)
@@ -32,6 +36,7 @@ def _pca(X):
     try:
         ans.sort(reverse=True)
     except:
+        assert False, 'What is the exception raised?!'
         LogMgr.warning('Unable to sort eigenvectors')
     return ans
 
@@ -40,7 +45,7 @@ class PCAAxes(object):
 
     def __init__(self, morph):
 
-        axes = _pca(SVVisitorFactory.array3_all_points(morph)())
+        axes = _pca(SectionVistorFactory.array3_all_points(morph)())
 
         e1 = axes[0][1] / norm(axes[0][1])
         e2 = axes[1][1] / norm(axes[1][1])
@@ -83,9 +88,13 @@ class Pointtranslater(object):
 class MorphologyMeanCenterer(Pointtranslater):
 
     def __init__(self, morph, PtSrc=None):
-        PtSrc = SVVisitorFactory.array3_all_points() if PtSrc == None else PtSrc
+        PtSrc = SectionVistorFactory.array3_all_points() if PtSrc == None else PtSrc
         X = PtSrc(morph)
-        offset = array(map(numpy.sum, X.T)) / len(X)
+        
+        # Refactored out 'map' in August 2012
+        # offset = array(map(numpy.sum, X.T)) / len(X)
+        offset = array([sum(col) for col in X.T]) / len(X)
+
         # _get_mean(PtSrc(morph)) * -1.0
         super(MorphologyMeanCenterer, self).__init__(offset)
 

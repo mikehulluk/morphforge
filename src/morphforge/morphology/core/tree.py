@@ -416,7 +416,7 @@ class MorphLocation(object):
     def sectionpos(self):
         return self._sectionpos
 
-    def __init__(self, section, sectionpos, position_info=None):
+    def __init__(self, section, sectionpos): 
         self._section = section
         self._sectionpos = sectionpos
         assert 0.0 <= sectionpos <= 1.0

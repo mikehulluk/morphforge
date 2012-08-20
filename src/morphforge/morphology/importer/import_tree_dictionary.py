@@ -116,12 +116,12 @@ class DictionaryLoader(object):
 
 
         #We now have a dictionary similar to:
-        """ 0 {'length': 20, 'diam': 20, 'region': 'soma', 'parent': None}
-            1 {'absangle': 120, 'length': 40, 'diam': 5, 'region': 'dendrite', 'parent': 0}
-            2 {'absangle': 240, 'length': 40, 'diam': 5, 'region': 'dendrite', 'parent': 0}
-            3 {'length': 40, 'region': 'dendrite', 'diam': 5, 'relangle': 240, 'parent': 2}
-            4 {'absangle': 5, 'length': 500, 'diam': 0.29999999999999999, 'region': 'axon', 'parent': 0}
-        """
+        # """ 0 {'length': 20, 'diam': 20, 'region': 'soma', 'parent': None}
+        #     1 {'absangle': 120, 'length': 40, 'diam': 5, 'region': 'dendrite', 'parent': 0}
+        #     2 {'absangle': 240, 'length': 40, 'diam': 5, 'region': 'dendrite', 'parent': 0}
+        #     3 {'length': 40, 'region': 'dendrite', 'diam': 5, 'relangle': 240, 'parent': 2}
+        #     4 {'absangle': 5, 'length': 500, 'diam': 0.29999999999999999, 'region': 'axon', 'parent': 0}
+        # """
 
         #Map a lack of region to region:"NoRegionGiven"
         for yml in yaml_section_dict.values():

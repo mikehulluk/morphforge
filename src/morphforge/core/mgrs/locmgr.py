@@ -111,6 +111,7 @@ class LocMgr(object):
         try:
             loc = cls.get_path_from_rcfile("tmpdir", Join(cls.get_root_path(), "tmp"))
         except:
+            assert False, 'What exception is called here??'
             loc = Join(cls.get_root_path(), 'tmp')
         return cls.ensure_dir_exists(loc)
 

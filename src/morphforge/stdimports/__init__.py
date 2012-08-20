@@ -78,7 +78,6 @@ try:
     import numpy as np
 except ImportError:
     print 'Problem importing Numpy or Matplotlib'
-    pass
 
 import neurounits
 
