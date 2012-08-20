@@ -97,7 +97,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 #        @classmethod
 #        def build_alpha_beta_table(cls, elements, reportlabconfig, title, params):
 #            elements.append(Paragraph(title, reportlabconfig.styles['Heading4']))
-#            alphaParams = "%2.2f %2.2f %2.2f %2.2f %2.2f" %tuple(params)
+#            alphaParams = "%2.2f %2.2f %2.2f %2.2f %2.2f" % tuple(params)
 #            alphaTableData = [["A", "B", "C", "D", "E"], alphaParams.split() ]
 #            elements.append(Table(alphaTableData, style=reportlabconfig.defaultTableStyle))
 
@@ -119,7 +119,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
             # Plot out the States:
             for state, params in alphabeta_beta_chl.statevars.iteritems():
-                local_elements.append(Paragraph("State: %s" %state, reportlabconfig.styles['Heading3']))
+                local_elements.append(Paragraph("State: %s" % state, reportlabconfig.styles['Heading3']))
 
 
                 if make_graphs:
@@ -131,7 +131,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
                 #Equations:
                 eqns = [
-                        "beta2Threshold = %s" %alphabeta_beta_chl.beta2threshold,
+                        "beta2Threshold = %s" % alphabeta_beta_chl.beta2threshold,
                         "beta = beta1 if V less than beta2Threshold otherwise beta2",
                         "alpha(V) = (A+BV)/(C+exp((V+D)/E))",
                         "beta(V) = (A+BV)/(C+exp((V+D)/E))",

@@ -198,7 +198,7 @@ class Summarise_MM_AlphaBetaChannel(object):
 
         # Plot out the States:
         for state, params in alphabeta_chl.statevars.iteritems():
-            local_elements.append(Paragraph("State: %s" %state, reportlabconfig.styles['Heading3']))
+            local_elements.append(Paragraph("State: %s" % state, reportlabconfig.styles['Heading3']))
 
 
             #Equations:

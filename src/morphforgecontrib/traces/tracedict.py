@@ -68,7 +68,7 @@ class TraceDict(object):
 
 
     def _plot_trace_old(self, k, v, ax, legend_func, xunits, yunits): #, xUnits, yUnits):
-        #data_line_curve = ax.plot(expCurrentTrace.time, v.data, label="Cmd: %2.2f mV" %cmdVoltage)
+        #data_line_curve = ax.plot(expCurrentTrace.time, v.data, label="Cmd: %2.2f mV" % cmdVoltage)
         if legend_func:
             data_line_curve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legend_func(k, v))[0]
             return data_line_curve

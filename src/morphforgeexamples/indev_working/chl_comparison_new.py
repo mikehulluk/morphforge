@@ -324,7 +324,7 @@ def compareNeuroMLChl(xmlFile):
             if num.max()[1] > unit("0.1:pA"):
                 c.same_chl = False
 
-            out_im = Join(op_dir, "out_im%03d" %i)
+            out_im = Join(op_dir, "out_im%03d" % i)
             pylab.savefig(out_im+".png")
             pylab.savefig(out_im+".pdf")
             c.output_image_files.append(out_im)

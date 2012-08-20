@@ -82,7 +82,7 @@ for region in  morph.get_regions():
     dists = [section_dist_to_dummy(s) for s in sections]
     radii = [s.d_r for s in sections]
 
-    ax1.plot(dists, radii, 'o', label="Region: %s" %region.name)
+    ax1.plot(dists, radii, 'o', label="Region: %s" % region.name)
 
 ax1.legend()
 pylab.show()

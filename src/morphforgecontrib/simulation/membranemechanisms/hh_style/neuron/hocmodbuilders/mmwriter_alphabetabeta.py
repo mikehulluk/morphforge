@@ -122,7 +122,7 @@ $(cell_name).internalsections [$section_index] {
             base_writer.ratecalcorder.extend([state_alpha(s), state_beta(s), state_inf(s), state_tau(s)])
 
         base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn, g_scale_name)
-        base_writer.conductanceequation = " %s * %s * %s" % (gbar_name, alphabeta_beta_chl.eqn, g_scale_name)
+        base_writer.conductanceequation = "%s * %s * %s" % (gbar_name, alphabeta_beta_chl.eqn, g_scale_name)
 
         #base_writer.currentequation = "(v-%s) * %s * %s" % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn)
         base_writer.functions = """

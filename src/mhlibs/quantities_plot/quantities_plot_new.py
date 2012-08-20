@@ -45,9 +45,9 @@ class ScalarFormatterWithUnit(object):
         x = x * float(self.scaling)
 
         d = Decimal(str(x))
-        num_str = "%s" %d.to_eng_string()
+        num_str = "%s" % d.to_eng_string()
 
-        unit_str = "%s" %self.symbol if self.symbol else ""
+        unit_str = "%s" % self.symbol if self.symbol else ""
         return num_str + unit_str
 
 

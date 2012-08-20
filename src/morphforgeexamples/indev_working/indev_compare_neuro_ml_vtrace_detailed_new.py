@@ -65,7 +65,7 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.create_cell(name="Cell1%s" %simtype, morphology=m1, segmenter=CellSegmenter_SingleSegment())
+    myCell = mySim.create_cell(name="Cell1%s" % simtype, morphology=m1, segmenter=CellSegmenter_SingleSegment())
 
     # Setup the HH-channels on the cell:
     chl = chl_applicator_functor(env, myCell, mySim)
