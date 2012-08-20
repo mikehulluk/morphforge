@@ -251,8 +251,8 @@ class MorphologyConfig(HasTraits):
     surfacearea = Range(1.0, 1000., 590)
     capacitance = Range(0.1, 10.0, 1.0)
     view = View(Group(
-                  Item('surfacearea', ),
-                  Item('capacitance', ),
+                  Item('surfacearea'),
+                  Item('capacitance'),
                ),
                 resizable=True, title='Morphology')
 
@@ -361,7 +361,7 @@ class Double(HasTraits):
              ),
              ),
 
-            resizable=True, width=1200, height=1200, )
+            resizable=True, width=1200, height=1200)
 
 
 

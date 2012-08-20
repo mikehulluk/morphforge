@@ -75,7 +75,7 @@ class SimulationManager(HasTraits):
         return View(self._instance_traits().keys())
 
 
-    def _createVoltageTraceComponent(self, ):
+    def _createVoltageTraceComponent(self):
 
         x = arange(-5, 15, 100)
         tracedata = ArrayPlotData(x=x, y1=np.sin(x), y2=np.cos(x))
@@ -125,7 +125,7 @@ class SimulationManager(HasTraits):
         return container
 
 
-    def _createConfigurationPane(self, ):
+    def _createConfigurationPane(self):
         container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         addTitleOverlay(container, 'Configuration Pane')

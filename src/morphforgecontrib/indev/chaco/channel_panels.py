@@ -107,13 +107,13 @@ class HHGeneralStatePanel(HasTraits):
         traits_view = View(
             VGroup(
                 HGroup(
-                    Item('plottau', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
-                    Item('plotinf', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
+                    Item('plottau', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plotinf', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
                     padding=0,
                    ),
                 HGroup(
-                    Item('plotalpha', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
-                    Item('plotbeta', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
+                    Item('plotalpha', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plotbeta', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
                   padding=0,
                    ),
                  ),
@@ -125,15 +125,15 @@ class HHGeneralStatePanel(HasTraits):
         traits_view = View(
                 VGroup(
                 HGroup(
-                    Item('plottau', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
-                    Item('plotinf', editor=ComponentEditor(size = (50, 50), ), show_label=False, resizable=True),
+                    Item('plottau', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plotinf', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
                     padding=0,
                ),
 
-                   ), resizable=True, )
+                   ), resizable=True)
 
 
-    def on_change_inftau(self, ):
+    def on_change_inftau(self):
         self.parentchlpane.notify_chl_changed()
 
 
@@ -145,9 +145,9 @@ class HHGeneralStatePanel(HasTraits):
         self.initial_tau = initial_tau
         self.initial_inf = initial_inf
 
-    def _plottau_default(self, ):
+    def _plottau_default(self):
         return _create_plot_component(title='tau', on_change_functor=self.on_change_inftau, initial_values = self.initial_tau)
-    def _plotinf_default(self, ):
+    def _plotinf_default(self):
         return _create_plot_component(title='inf', on_change_functor=self.on_change_inftau, initial_values = self.initial_inf)
 
 
@@ -175,7 +175,7 @@ class HHChannelPaneLk(HasTraits):
               padding=0
              ))
 
-    def __init__(self,  sim_config, general_pane=None, chlname=None, ):
+    def __init__(self,  sim_config, general_pane=None, chlname=None):
         HasTraits.__init__(self)
 
         self.sim_config = sim_config
@@ -196,7 +196,7 @@ class HHChannelPaneLk(HasTraits):
                                      name='Leak',
                                      mechanism_id='LKID',
                                      conductance = '%2.2f:mS/cm2'%self.general.gbar,
-                                     reversalpotential = '%2.2f:mV'%self.general.vrev, )
+                                     reversalpotential = '%2.2f:mV'%self.general.vrev)
         return lk
 
 
@@ -214,7 +214,7 @@ class HHChannelPaneInfTau1(HasTraits):
               padding=0
              ))
 
-    def __init__(self,  sim_config, general_pane=None, state_pane=None, eqn=None, mechanism_id=None, chlname=None, state_var_name=None, ):
+    def __init__(self,  sim_config, general_pane=None, state_pane=None, eqn=None, mechanism_id=None, chlname=None, state_var_name=None):
         HasTraits.__init__(self)
 
         self.sim_config = sim_config

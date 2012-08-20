@@ -49,7 +49,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms"), ) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms")) :
 
         from scipy.integrate import odeint
 
@@ -76,7 +76,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
 
         # run the ODE for each variable:
         t = t.rescale('ms').magnitude
-        y0 = np.zeros((n_states, ))
+        y0 = np.zeros((n_states))
         res = odeint(func=odeFunc, y0=y0, t=t)
 
         state_functor = sympy.lambdify(state_names, sympy.sympify(chl.eqn) )

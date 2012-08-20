@@ -182,7 +182,7 @@ def run_example(index, filename):
 
     args = shlex.split("""python %s"""%newFilename)
     #print 'Launching child process', args
-    result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env, )
+    result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
 
     # Split the output to get at the docstring:
     output = result

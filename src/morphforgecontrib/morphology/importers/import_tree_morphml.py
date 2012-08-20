@@ -262,7 +262,7 @@ class NeuroMLCableGroup(object):
 
 
 class NeuroMLSegment(object):
-  def __init__(self, segment_id, distInfo, proxInfo=None, parent=None, cable=None, ):
+  def __init__(self, segment_id, distInfo, proxInfo=None, parent=None, cable=None):
 
       assert not (proxInfo and parent)
 

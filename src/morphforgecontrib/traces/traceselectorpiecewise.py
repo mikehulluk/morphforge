@@ -99,7 +99,7 @@ class MatchObject(object):
         if name in self.d:
             return self.d[name]
 
-    def __str__(self, ):
+    def __str__(self):
         return "<MatchObject: "+ ", ".join(["%s=%s"%(k, v) for (k, v) in sorted(self.d.iteritems())]) + ">"
 
 

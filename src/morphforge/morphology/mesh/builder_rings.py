@@ -65,7 +65,7 @@ class MeshBuilderRings(object):
         vertex_colors = np.empty((0, 3))
         triangles = []
 
-        default_color = np.array(((128, 128, 128), ))
+        default_color = np.array(((128, 128, 128)))
 
         if region_color_map:
             for r in morph.get_regions():

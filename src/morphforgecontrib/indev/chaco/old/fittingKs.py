@@ -290,7 +290,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    data = Instance(ArrayPlotData)
 #
-#    def get_nextSimSumOutputLocation(self, ):
+#    def get_nextSimSumOutputLocation(self):
 #        self.simulation_no += 1
 #        l = LocMgr.ensure_dir_exists('out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
 #        return l
@@ -415,8 +415,8 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    surfacearea = Range(1.0, 1000., 980)
 #    capacitance = Range(0.1, 10.0, 1.0)
 #    view = View(Group(
-#                  Item('surfacearea', ),
-#                  Item('capacitance', ),
+#                  Item('surfacearea'),
+#                  Item('capacitance'),
 #               ),
 #                resizable=True, title='Morphology')
 #
@@ -492,7 +492,7 @@ class Double(HasTraits):
             HGroup(
                 Item('hhKs', style='custom', show_label=False),
            ),
-            resizable=True, width=1200, height=1200, )
+            resizable=True, width=1200, height=1200)
 
 
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType

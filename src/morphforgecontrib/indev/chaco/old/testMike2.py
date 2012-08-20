@@ -130,8 +130,8 @@ def _create_plot_component():
 
 
 class Camera(HasTraits):
-    gain = Enum(1, 2, 3, )
-    exposure = CInt(10, label="Exposure", )
+    gain = Enum(1, 2, 3)
+    exposure = CInt(10, label="Exposure")
 
 class TextDisplay(HasTraits):
     string = String()

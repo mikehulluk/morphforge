@@ -582,9 +582,9 @@ def dinr_onto_cin(sim, presynaptic, postsynaptic):
     return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.0, nmda_scale=1.0)
 
 def cin_onto_cin(sim, presynaptic, postsynaptic):
-    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0, )
+    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
 def cin_onto_dinr(sim, presynaptic, postsynaptic):
-    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0, )
+    return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
 
 
 
@@ -609,8 +609,8 @@ driver_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=nNeur
 
 
 # Connect the drivers:
-mfc.Connectors.times_to_all(sim, syncronous_times=(100, )*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
-mfc.Connectors.times_to_all(sim, syncronous_times=(105, )*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(100)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(105)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
 
 # LHS
 #######

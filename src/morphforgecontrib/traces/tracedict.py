@@ -73,7 +73,7 @@ class TraceDict(object):
             data_line_curve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legend_func(k, v))[0]
             return data_line_curve
 
-    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None, ):
+    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None):
         assert yunits
 
         if fig == None and ax == None:

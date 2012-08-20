@@ -116,7 +116,7 @@ if os.path.exists(fName):
 h5file = tables.openFile(fName, mode='w', title='Test file')
 
 geom = h5file.createGroup('/', 'geometry')
-# geom. = h5file.createGroup(geom, 'geom', )
+# geom. = h5file.createGroup(geom, 'geom')
 
 h5file.createArray(geom, 'geom', str(t))
 

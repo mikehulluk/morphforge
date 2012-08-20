@@ -98,7 +98,7 @@ class TagViewer(object):
         self,
         srcs,
         fig_kwargs=None,
-        timeranges=(None, ),
+        timeranges=(None),
         plotspecs=None,
         figtitle=None,
         show=True,
