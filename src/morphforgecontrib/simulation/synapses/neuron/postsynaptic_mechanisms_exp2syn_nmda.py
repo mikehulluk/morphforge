@@ -30,12 +30,12 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
 from Cheetah.Template import Template
 from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-
 
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
@@ -60,12 +60,14 @@ class Neuron_PSM_Exp2SynNMDA_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord)
 class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
+
         super(Neuron_PSM_Std_NMDAVoltageDependanceRecord,
               self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
         return unit('')
+
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]
 
@@ -90,24 +92,22 @@ ${synnamepost}.popening = $pOpening
 
 """
 
+
 class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
-
     def __init__(self, simulation, **kwargs):
-        PostSynapticMech_Exp2SynNMDA.__init__(self,  **kwargs)
-
-
-
+        PostSynapticMech_Exp2SynNMDA.__init__(self, **kwargs)
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
-        syn_name_post = self.synapse.get_name() + "Post"
+        syn_name_post = self.synapse.get_name() + 'Post'
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                "synnamepost":syn_name_post,
                "cell":cell,
-               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
+               "cellname": cell_hoc['cell_name'],
+               "sectionindex": cell_hoc['section_indexer'][section],
                "sectionpos":self.cell_location.morphlocation.sectionpos,
 
                "tau_open": self.tau_open,
@@ -120,15 +120,13 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][self.synapse]["POST"] = data
+        hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
 
     def build_mod(self, modfile_set):
 
 
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile.get_exp2_syn_nmda_modfile(vdep=self.vdep), name='UnusedParameterXXXExpSyn2')
         modfile_set.append(modfile)
-
-
 
     def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
@@ -144,6 +142,7 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
 
 
 
-#NeuronSimulationEnvironment.registerPostSynapticMechanism(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2SynNMDA, Neuron_PSM_Exp2SynNMDA)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(
+    PostSynapticMech_Exp2SynNMDA, 
+    Neuron_PSM_Exp2SynNMDA)
 

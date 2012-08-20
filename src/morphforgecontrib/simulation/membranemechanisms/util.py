@@ -29,21 +29,18 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforgecontrib.simulation.membranemechanisms import inftauinterpolated
 from morphforgecontrib.simulation.default.core.mmalphabeta import MM_AlphaBetaChannel
 from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
 from numpy.core.function_base import linspace
-from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel,\
+from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, \
     InfTauInterpolation
 from morphforgecontrib.simulation.default.summarisers.util import InfTauCalculator
 from morphforge.core.quantities.fromcore import unit
 import quantities as pq
 
 
-
 class ChannelConverter(object):
-
 
     @classmethod
     def AlphaBetaToInterpolateInfTauFunctorConvertor(cls, chl_functor, new_id=None, new_name=None, clone_id_suffix="_AsInfTau",clone_name_suffix="_AsInfTau", voltage_interpolation_values=None,  ):
@@ -70,7 +67,6 @@ class ChannelConverter(object):
             else:
                 chl_name = old_chl.mechanism_id + clone_name_suffix
 
-
             # Interpolation voltages:
             # voltage_interpolation_values=voltage_interpolation_values
             if _voltage_interpolation_values is None:
@@ -81,7 +77,7 @@ class ChannelConverter(object):
             for state_var in old_chl.get_state_variables():
                 alpha,beta = old_chl.get_alpha_beta_at_voltage(statevar=state_var, V=_voltage_interpolation_values)
                 inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
-                V =   _voltage_interpolation_values.rescale('mV').magnitude
+                V = _voltage_interpolation_values.rescale('mV').magnitude
                 inf = inf.rescale(pq.dimensionless).magnitude
                 tau = tau.rescale('ms').magnitude
                 new_state_vars[state_var] = InfTauInterpolation(V=V, inf=inf, tau=tau)
@@ -186,5 +182,4 @@ class ChannelConverter(object):
 #                                         chlname = chlname
 #                                       )
 #
-
 

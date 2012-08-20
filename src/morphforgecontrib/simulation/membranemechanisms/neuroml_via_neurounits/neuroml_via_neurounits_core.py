@@ -31,6 +31,7 @@
 
 
 class NeuroML_Via_NeuroUnits_Channel(object):
+
     def __init__(self, xml_filename, chlname=None, mechanism_id=None):
         self.xml_filename = xml_filename
 
@@ -42,3 +43,5 @@ class NeuroML_Via_NeuroUnits_Channel(object):
 
     def get_mod_file_changeables(self):
         return {}
+
+

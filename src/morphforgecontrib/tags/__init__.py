@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.networks import PreSynapticMechanism
 from morphforge.simulation.base.networks import PreSynapticTypes
 
@@ -46,8 +45,8 @@ class StdTagFunctors(object):
 
 
 class UserTagFunctorCellLocation(object):
-    pass
 
+    pass
 
 
 class NeuronInPopulationRecordTags(object):
@@ -62,7 +61,6 @@ class NeuronInPopulationRecordTags(object):
         tags.append(neuron.name)
         tags.append(neuron_population.pop_name)
         return tags
-
 
 
 class SynapseInPopulationRecordTags(object):
@@ -89,12 +87,7 @@ class SynapseInPopulationRecordTags(object):
             tags.append('POSTPOP:%s'
                         % synapse.get_postsynaptic_cell().population.pop_name)
 
-
-
-
-
-
-        tags.append(synapse.name )
-        tags.append(synapse_population.synapse_pop_name )
+        tags.append(synapse.name)
+        tags.append(synapse_population.synapse_pop_name)
 
         return tags

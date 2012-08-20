@@ -29,15 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import re
-
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default #MM_Neuron_GeneralisedRecord,
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default 
 from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 
@@ -48,8 +45,8 @@ from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builti
 class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel):
 
     def __init__(self, **kwargs):
-        # TODO: Make this sub:        
-        #super(BuiltinChannelNEURON, self).__init__(self, **kwargs)
+        # TODO: Make this sub:
+        # super(BuiltinChannelNEURON, self).__init__(self, **kwargs)
         MM_Neuron_Base.__init__(self)
         BuiltinChannel.__init__(self, **kwargs)
 
@@ -60,10 +57,9 @@ class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel):
     def create_modfile(self, modfile_set):
         pass
 
-
-
     # No Internal recording or adjusting of parameters for now:
     class Recordables:
+
         all = []
 
     def get_variables(self):

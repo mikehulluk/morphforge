@@ -29,6 +29,5 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from core import SimulatorSpecificChannel
 from neuron import MM_Neuron_SimulatorSpecificChannel

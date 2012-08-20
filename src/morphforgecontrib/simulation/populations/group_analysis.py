@@ -29,34 +29,31 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforgecontrib.traces.tracetools import SpikeFinder
 from morphforge.traces.eventset import EventSet
 import itertools
 
 
-
 class PopAnalSpiking(object):
-
 
     @classmethod
     def evset_nth_spike(cls, res, tag_selector, n, comment=None):
-        comment = comment or ""
+        comment = comment or ''
 
         traces = [trace for trace in res.get_traces()
                   if tag_selector(trace)]
 
-        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
+        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,
+                      firingthres=None) for tr in traces]
         spike_list = [spl[n] for spl in spike_list if len(spl) > n]
-        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (%d Spike)"%(comment,n))
+        spikes = EventSet(spike_list, tags=['Spike', 'Event'],
+                          comment='%s (%d Spike)' % (comment, n))
         return spikes
-
 
     @classmethod
     def evset_first_spike(cls, res, tag_selector, comment=None):
-        return cls.evset_nth_spike(res=res, tag_selector=tag_selector, n=0, comment=comment,)
-
-
+        return cls.evset_nth_spike(res=res, tag_selector=tag_selector,
+                                   n=0, comment=comment)
 
     @classmethod
     def evset_all_spikes(cls, res, tag_selector, comment=None):
@@ -65,7 +62,11 @@ class PopAnalSpiking(object):
         traces = [trace for trace in res.get_traces()
                   if tag_selector(trace)]
 
-        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,  firingthres=None) for tr in traces]
+        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,
+                      firingthres=None) for tr in traces]
         spike_list = itertools.chain(*spike_list)
-        spikes = EventSet(spike_list, tags=['Spike','Event'], comment="%s (All Spike)"%(comment))
+        spikes = EventSet(spike_list, tags=['Spike', 'Event'],
+                          comment='%s (All Spike)' % comment)
         return spikes
+
+

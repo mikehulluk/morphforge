@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from postsynaptic_mechanisms_baseclasses import *
 from postsynaptic_mechanisms_expsyn import *
 from postsynaptic_mechanisms_exp2syn import *

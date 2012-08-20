@@ -29,31 +29,17 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from Cheetah.Template import Template
 from morphforge.simulation.neuron import ModFile
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 
 from morphforge.simulation.neuron.hocmodbuilders import ModFileSectioned, NeuronParameter
 
-
-
-
-
-
-
-
-
-
-
-
-
 from morphforge.core import quantities
 
+
 class MM_WriterCalciumAlphaBetaBeta(object):
-
-
 
     chlHoc = """
 
@@ -66,10 +52,7 @@ $(cell_name).internalsections [$section_index] {
 }
 """
 
-    Units = {
-        "gScale":"",
-            }
-
+    Units = {'gScale': ''}
 
     @classmethod
     def build_hoc_section(cls, cell, section, hocfile_obj, mta):
@@ -78,7 +61,6 @@ $(cell_name).internalsections [$section_index] {
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
         neuronSuffix = mta.mechanism.get_neuron_suffix()
-
 
         # Calculate the values of the variables for the section:
         variables = []
@@ -96,7 +78,8 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterCalciumAlphaBetaBeta.chlHoc,tmplDict).respond())
+        hoc_text = Template(MM_WriterCalciumAlphaBetaBeta.chlHoc,tmplDict).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, hoc_text)
 
 
 
@@ -107,18 +90,17 @@ $(cell_name).internalsections [$section_index] {
 
         # User Functions:
 
+        m.add_unit_definition(unitname='milliamp', unitsymbol='mA')
+        m.add_unit_definition(unitname='millivolt', unitsymbol='mV')
+        m.add_unit_definition(unitname='siemens', unitsymbol='S')
 
-        m.add_unit_definition(unitname="milliamp", unitsymbol="mA")
-        m.add_unit_definition(unitname="millivolt", unitsymbol="mV")
-        m.add_unit_definition(unitname="siemens", unitsymbol="S")
+        m.add_unit_definition(unitname='1/liter', unitsymbol='molar')
+        m.add_unit_definition(unitname='micromolar', unitsymbol='uM')
+        m.add_unit_definition(unitname='molar', unitsymbol='M')
+        m.add_unit_definition(unitname='nanomolar', unitsymbol='nM')
 
-        m.add_unit_definition(unitname="1/liter", unitsymbol="molar")
-        m.add_unit_definition(unitname="micromolar", unitsymbol="uM")
-        m.add_unit_definition(unitname="molar", unitsymbol="M")
-        m.add_unit_definition(unitname="nanomolar", unitsymbol="nM")
-
-        m.add_unit_definition(unitname="(joule/K-mole)", unitsymbol="rUnits")
-        m.add_unit_definition(unitname="(C/mole)", unitsymbol="fUnits")
+        m.add_unit_definition(unitname='(joule/K-mole)', unitsymbol='rUnits')
+        m.add_unit_definition(unitname='(C/mole)', unitsymbol='fUnits')
 
 
         m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca","SCa_i","Sca_o","T"])
@@ -202,13 +184,11 @@ PROCEDURE rates(v(mV)) {
 """
 
         ratesFunction = Template(ratesFunctionTmpl, {
-                                                     "alpha":statevars[0],
-                                                     "beta1":statevars[1],
-                                                     "beta2":statevars[2],
-                                                     "betathreshold" : caAlphaBetaBetaChl.beta2threshold.rescale("mV").magnitude,
-                                                     }
-                                                    ).respond()
-
+            'alpha': statevars[0],
+            'beta1': statevars[1],
+            'beta2': statevars[2],
+            'betathreshold': caAlphaBetaBetaChl.beta2threshold.rescale('mV').magnitude,
+            }).respond()
 
         m.add_function(ratesFunction)
 
@@ -238,19 +218,11 @@ FUNCTION vtrap(x,y)
         m.add_function(stdFormAlphaBeta)
 
 
-        m.add_assigned(NeuronParameter(parametername="cV", parameterunit="(fUnits/rUnits-K)", parameterrange=None))
-        m.add_assigned(NeuronParameter(parametername="c", parameterunit="", parameterrange=None))
-
-
-
-        m.add_breakpoint("c = (CaZ * F) / (R * T)")
-        m.add_breakpoint("cV = c * v * 1e-3 * 1e-3")
-        m.add_breakpoint("i = pca * cV * CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale")
-
-
-
+        m.add_breakpoint('c = (CaZ * F) / (R * T)')
+        m.add_breakpoint('cV = c * v * 1e-3 * 1e-3')
+        m.add_breakpoint('i = pca * cV * CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale')
 
         modtxt = m.get_text()
-        modFile =  ModFile(name=caAlphaBetaBetaChl.name, modtxt=modtxt)
+        modFile = ModFile(name=caAlphaBetaBetaChl.name, modtxt=modtxt)
         modfile_set.append(modFile)
 

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import *
@@ -40,12 +39,8 @@ from reportlab.lib import colors
 import os
 from reportlab.lib.pagesizes import A4
 
-
 from mhlibs.quantities_plot import QuantitiesFigure
 from mhlibs.quantities_plot import QuantitiesAxis
-
-
-
 
 from morphforge.core.quantities import unit
 
@@ -55,53 +50,10 @@ from morphforge.traces import TraceFixedDT
 
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 
-from core  import MM_InfTauInterpolatedChannel
+from core import MM_InfTauInterpolatedChannel
 from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
 
 from morphforge.stdimports import pq
-
-#
-#class Summarise_MM_InfTauInterpolatedChannelVClamp(object):
-#
-#    @classmethod
-#    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"),) :
-#
-#        vInMv = V.rescale("mV").magnitude
-#
-#        stateNames = chl.statevars.keys()
-#        nStates = len(stateNames)
-#        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateNames[0]], V)
-#        m_tauMS = m_tau.rescale("ms").magnitude
-#
-#        infTaus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in stateNames]
-#        infTausMS = [(inf, tau.rescale("ms").magnitude)  for (inf,tau) in infTaus]
-#
-#        stateToIndex = dict([(state,index) for state,index in enumerate(stateNames)])
-#
-#        def odeFunc(y,t0):
-#            res = [None] * nStates
-#            for i in range(0,nStates):
-#                stateInf,stateTau = infTausMS[i]
-#                stateVal = y[i]
-#                dState = (stateInf - stateVal) / stateTau
-#                res[i] = dState
-#            return res
-#
-#        # run the ODE for each variable:
-#        t = t.rescale("ms").magnitude
-#        y0 = np.zeros((nStates,))
-#        res = odeint(func=odeFunc, y0=y0, t= t )
-#
-#        stateFunctor = sympy.lambdify(stateNames, sympy.sympify(chl.eqn) )
-#        stateData = [res[:,i] for i in range(0,nStates)]
-#
-#        stateEquationEvaluation = stateFunctor(*stateData)
-#
-#        cellDensity = (chl.conductance * cell_area)
-#        iChl =  (chl.conductance * cell_area)  * stateEquationEvaluation * (V- chl.reversalpotential)
-#
-#        return TraceFixedDT(time=t * unit("1:ms"), data=iChl.rescale("pA") )
-
 
 
 
@@ -110,15 +62,6 @@ from morphforge.stdimports import pq
 
 
 class Summarise_MM_InfTauInterpolatedChannel(object):
-
-
-
-
-
-        #@classmethod
-        #def getResolvedInfTauInterpolatedCurves(cls, V, chl, state):
-        #    return InfTauInterpolatedCalculator.getInfTauInterpolated(V, chl.statevars[state][0], chl.statevars[state][1]  )
-
 
         @classmethod
         def plot_alpha_beta_curves(cls, ax1,ax2, alphabeta_chl, state, color="blue"):

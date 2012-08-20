@@ -29,20 +29,17 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from __future__ import division
 
 from enthought.traits.api import on_trait_change, Range, Bool
-from enthought.traits.api import HasTraits,Instance,Int, Tuple
-from enthought.traits.ui.api import View,Item,Group
+from enthought.traits.api import HasTraits, Instance, Int, Tuple
+from enthought.traits.ui.api import View, Item, Group
 from enthought.traits.ui.api import Tabbed
 from enthought.chaco.tools.api import PanTool, ZoomTool, DragTool
 from enthought.chaco.api import add_default_axes, add_default_grids, \
-        OverlayPlotContainer, PlotLabel, ScatterPlot, create_line_plot
+    OverlayPlotContainer, PlotLabel, ScatterPlot, create_line_plot
 
 import numpy as np
-
-
 
 # Major library imports
 from numpy import linspace
@@ -50,12 +47,11 @@ from scipy.special import jn
 from enthought.chaco.example_support import COLOR_PALETTE
 from enthought.enable.api import Component, ComponentEditor
 
-
-
 from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
 from misc import VGroup, HGroup
+
 
 class PointDraggingTool(DragTool):
 
@@ -82,6 +78,7 @@ class PointDraggingTool(DragTool):
             return True
         else:
             return False
+
     def normal_mouse_move(self, event):
         plot = self.component
 
@@ -93,16 +90,19 @@ class PointDraggingTool(DragTool):
             plot.index.metadata['selections'] = [ndx]
         plot.invalidate_draw()
         plot.request_redraw()
+
     def drag_start(self, event):
         plot = self.component
         ndx = plot.map_index((event.x, event.y), self.threshold)
         if ndx is None:
             return
         self._drag_index = ndx
-        self._orig_value = (plot.index.get_data()[ndx], plot.value.get_data()[ndx])
+        self._orig_value = (plot.index.get_data()[ndx],
+                            plot.value.get_data()[ndx])
+
     def dragging(self, event):
         plot = self.component
-        data_x, data_y = plot.map_data((event.x, event.y))
+        (data_x, data_y) = plot.map_data((event.x, event.y))
 
         data_x = self._orig_value[0]
 
@@ -111,6 +111,7 @@ class PointDraggingTool(DragTool):
         plot.index.data_changed = True
         plot.value.data_changed = True
         plot.request_redraw()
+
     def drag_cancel(self, event):
         plot = self.component
         plot.index._data[self._drag_index] = self._orig_value[0]
@@ -118,6 +119,7 @@ class PointDraggingTool(DragTool):
         plot.index.data_changed = True
         plot.value.data_changed = True
         plot.request_redraw()
+
     def drag_end(self, event):
         plot = self.component
         if plot.index.metadata.has_key('selections'):
@@ -143,9 +145,11 @@ class PointDraggingTool(DragTool):
         (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
         If no data points are within *self.threshold* of *(x,y)*, returns None.
         """
+
         if hasattr(self.component, 'get_closest_point'):
             # This is on BaseXYPlots
-            return self.component.get_closest_point((x,y), threshold=self.threshold)
+            return self.component.get_closest_point((x, y),
+                    threshold=self.threshold)
         return None
 #===============================================================================
 # # Create the Chaco plot.
@@ -167,43 +171,46 @@ def _create_draggable_plot_component(title, initial_values=None,on_change_functo
         x = linspace(low, high, numpoints)
         y = jn(0, x)
 
-    lineplot = create_line_plot((x,y), color=tuple(COLOR_PALETTE[0]), width=2.0)
-    lineplot.selected_color = "none"
+    lineplot = create_line_plot((x, y), color=tuple(COLOR_PALETTE[0]),
+                                width=2.0)
+    lineplot.selected_color = 'none'
 
-    scatter = ScatterPlot(index = lineplot.index,
-                       value = lineplot.value,
-                       index_mapper = lineplot.index_mapper,
-                       value_mapper = lineplot.value_mapper,
-                       color = tuple(COLOR_PALETTE[0]),
-                       marker_size = 2)
-    scatter.index.sort_order = "ascending"
-    scatter.bgcolor = "white"
+    scatter = ScatterPlot(
+        index=lineplot.index,
+        value=lineplot.value,
+        index_mapper=lineplot.index_mapper,
+        value_mapper=lineplot.value_mapper,
+        color=tuple(COLOR_PALETTE[0]),
+        marker_size=2,
+        )
+    scatter.index.sort_order = 'ascending'
+    scatter.bgcolor = 'white'
     scatter.border_visible = True
 
     add_default_grids(scatter)
     add_default_axes(scatter)
-    scatter.tools.append(PanTool(scatter, drag_button="right"))
+    scatter.tools.append(PanTool(scatter, drag_button='right'))
 
     # The ZoomTool tool is stateful and allows drawing a zoom
     # box to select a zoom region.
-    zoom = ZoomTool(scatter, tool_mode="box", always_on=False, drag_button=None)
+    zoom = ZoomTool(scatter, tool_mode='box', always_on=False,
+                    drag_button=None)
     scatter.overlays.append(zoom)
 
     point_dragging_tool = PointDraggingTool(scatter)
     point_dragging_tool.on_change_functor = on_change_functor
     scatter.tools.append(point_dragging_tool)
 
-
     container.add(lineplot)
     container.add(scatter)
     # Add the title at the top
-    container.overlays.append(PlotLabel(title,
-                              component=container,
-                              font = "swiss 16",
-                              overlay_position="top"))
+    container.overlays.append(PlotLabel(title, component=container,
+                              font='swiss 16', overlay_position='top'))
 
     container.mx = lineplot.index.get_data()
     container.my = lineplot.value.get_data()
 
     container.lineplot = lineplot
     return container
+
+

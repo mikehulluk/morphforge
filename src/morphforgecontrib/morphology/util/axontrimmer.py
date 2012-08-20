@@ -29,17 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 from morphforge.morphology.core import Section
 from morphforge.morphology.core import Region
 from morphforge.morphology.core import MorphologyTree
 
 
-
-
 class AxonTrimmer(object):
-
 
     @classmethod
     def trim_axon_from_morphology(cls, morphology, max_dist_to_parent):
@@ -56,7 +52,6 @@ class AxonTrimmer(object):
         for rOld in morphology.get_regions():
             r_new = Region(name=rOld.name)
             region_mapping_table[rOld] = r_new
-
 
         # Create New Sections:
         dummy_root_old = morphology.get_dummy_section()
@@ -84,18 +79,12 @@ class AxonTrimmer(object):
                 z=sectionOld.d_z,
                 r=sectionOld.d_r,
                 idtag=sectionOld.idtag,
-               )
+                )
             section_mapping_table[sectionOld] = section_new
 
         m = MorphologyTree('TrimmedNeuron',
                            dummysection=dummy_root_new, metadata={})
 
         return m
-
-
-
-
-
-
 
 

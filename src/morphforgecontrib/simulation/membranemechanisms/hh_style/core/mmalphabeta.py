@@ -29,16 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 from morphforge.constants import StandardTags
 
+
 class MM_AlphaBetaChannel(MembraneMechanism):
 
     class Recordables(object):
+
         ConductanceDensity = StandardTags.ConductanceDensity
         CurrentDensity = StandardTags.CurrentDensity
         StateVar = StandardTags.StateVariable
@@ -64,8 +64,6 @@ class MM_AlphaBetaChannel(MembraneMechanism):
         return {'gBar': self.conductance,
                 'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
 
-
-
     def get_state_variables(self):
         return self.statevars.keys()
 
@@ -78,4 +76,5 @@ class MM_AlphaBetaChannel(MembraneMechanism):
         alpha = AlphaBetaCalculator.calc_alpha_beta(V, alpha)
         beta = AlphaBetaCalculator.calc_alpha_beta(V, beta)
         return (alpha, beta)
+
 

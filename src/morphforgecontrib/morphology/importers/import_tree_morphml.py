@@ -29,12 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 assert False, 'Do not use this module ~ currently in development'
 
 from morphforge.core.misc import SeqUtils
 import string
+
 
 def _clean_name(name):
     newName = ''
@@ -42,7 +41,6 @@ def _clean_name(name):
         if c in string.ascii_letters + string.digits:
             newName += c
     return newName
-
 
 
 from morphforge.morphology.core import MorphologyTree, Section, Region
@@ -53,14 +51,17 @@ from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
 
 isElement = lambda s: s.nodeType == s.ELEMENT_NODE
 
+
 def isElementWithTag(tag):
     return lambda s: isElement(s) and s.tagName.split(':')[-1] == tag
+
 
 def Filter(seq, functor):
     return filter(functor, seq)
 
+
 def get_text(node):
-    return "".join([n.data for n in node.childNodes if n.nodeType == n.TEXT_NODE])
+    return ''.join([n.data for n in node.childNodes if n.nodeType == n.TEXT_NODE])
 
 
 
@@ -114,21 +115,14 @@ class SearchableSet(object):
   def __str__(self):
       return 'Searchable Set:< %s >'%self.data
 
-  #def __delitem__(self, k):
-  #  del self.data[key]
-
-
-
-
-
 
 class Level1NeuroMLRepresentation(object):
+
     def __init__(self, cellNode):
 
         self.cables = SearchableSet()
         self.cablegroups = SearchableSet()
         self.segments = SearchableSet()
-
 
         # Read the XML:
 
@@ -168,7 +162,6 @@ class Level1NeuroMLRepresentation(object):
                 cable = self.cables.getitem(cable_id=cableNodeID)
                 grp.add_cable(cable)
 
-
         # Load the Segments Objects:
         segmentsNode = SeqUtils.filter_expect_single(cellNode.childNodes, isElementWithTag("segments"))
         for segmentNode in Filter(segmentsNode.childNodes, isElementWithTag("segment")):
@@ -189,7 +182,6 @@ class Level1NeuroMLRepresentation(object):
 
 
             proximalNode = FilterChildrenByTag(segmentNode, 'proximal')
-
 
             # Root node:
             if not parent_id:
@@ -216,11 +208,10 @@ class Level1NeuroMLRepresentation(object):
                         parentNode = self.segments.getitem(segment_id=parent_id)
                         parentDistalInfo =  parentNode.distInfo
                         eps = 0.01
-                        #assert fabs(parentDistalInfo[0] - pInfo[0]) < eps
-                        #assert fabs(parentDistalInfo[1] - pInfo[1]) < eps
-                        #assert fabs(parentDistalInfo[2] - pInfo[2]) < eps
-                        #assert fabs(parentDistalInfo[3] - pInfo[3]) < eps
-
+                        # assert fabs(parentDistalInfo[0] - pInfo[0]) < eps
+                        # assert fabs(parentDistalInfo[1] - pInfo[1]) < eps
+                        # assert fabs(parentDistalInfo[2] - pInfo[2]) < eps
+                        # assert fabs(parentDistalInfo[3] - pInfo[3]) < eps
 
                 # Add the child node:
                 segment = NeuroMLSegment(segment_id=segment_id,
@@ -293,10 +284,8 @@ class MorphMLLoader(object):
         case when there are multiple group tags in a MorphML document, since morphforge does not allow multiple regions'
         """
 
-
         doc = XML.parse(neuroMLFileObj).documentElement
-        assert doc.tagName in ("morphml", 'neuroml')
-
+        assert doc.tagName in ('morphml', 'neuroml')
 
         # Do the action:
         cellsNode = SeqUtils.filter_expect_single(doc.childNodes, filter_func=isElementWithTag("cells"))
@@ -308,7 +297,6 @@ class MorphMLLoader(object):
             morphs.append(morph)
         assert len(morphs) == 1
         return morphs[0]
-
 
     @classmethod
     def load_cell(cls, cellNode, regions=None):
@@ -348,20 +336,13 @@ class MorphMLLoader(object):
                 idToSectionMap[c[0]] = newSect
                 recentlyAdded.append(c)
 
-        return MorphologyTree(name="FromNeuroML", dummysection=rDummy, metadata={})
-
-
+        return MorphologyTree(name='FromNeuroML', dummysection=rDummy,
+                              metadata={})
 
     @classmethod
     def load_cell_dictionaries(self, cellNode, regions=None):
 
-
         l1 = Level1NeuroMLRepresentation(cellNode)
-
-
-
-
-
 
         print 'CellName:', cellNode.getAttribute('name')
 
@@ -389,10 +370,7 @@ class MorphMLLoader(object):
                 cableIDToRegionName[id] = None
                 pass
 
-
-
-            print "Loaded Cable: ", id, name
-
+            print 'Loaded Cable: ', id, name
 
         # Load the segments:
         segmentListInfo = {} # id -> (id, name, cable,parent,(px,py,pz,pDiam),(dx,dy,dz,dDiam))
@@ -440,6 +418,7 @@ class MorphMLLoader(object):
                     p_diam = p_diamR
 
                 else:
+
                     assert False
 
 
@@ -448,16 +427,11 @@ class MorphMLLoader(object):
             assert not id in segmentListInfo
             segmentListInfo[id] = infTuple
 
-
         # Now we have read the file and created the dictionaries:
-        return cableIDToRegionName, segmentListInfo
+        return (cableIDToRegionName, segmentListInfo)
 
 
-
-
-
-
-MorphologyImporter.register(method_name="fromMorphML", import_functor = MorphMLLoader.load, as_type=MorphologyTree)
-
-
+MorphologyImporter.register(method_name='fromMorphML',
+                            import_functor=MorphMLLoader.load,
+                            as_type=MorphologyTree)
 

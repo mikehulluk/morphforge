@@ -29,9 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
@@ -44,18 +41,18 @@ from neurounits.neurounitparser import NeuroUnitParser
 from morphforge.core import ObjectLabeller
 
 
-
 class RecordableData(object):
+
     def __init__(self, standard_tags=None):
         self.standard_tags = standard_tags or []
 
 
-
 class MM_Neuron_RecGen(NeuronRecordableOnLocation):
+
     def __init__(self, src_chl, modvar,unit_in_nrn, std_tags, **kwargs):
         super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
-        self.modvar=modvar
+        self.modvar = modvar
         self.unit_in_nrn = unit_in_nrn
         self.std_tags = std_tags or []
 
@@ -70,7 +67,7 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.src_chl.NRNSUFFIX,
             recordobj=self,
-           )
+            )
 
     def get_description(self):
         return '%s %s %s' % (self.modvar, self.src_chl.name,
@@ -78,16 +75,13 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
 
     def get_unit(self):
         return self.unit_in_nrn
+
     def get_std_tags(self):
         return self.std_tags
 
 
-
-
-
-
 class NeuroUnitEqnsetMechanism(MembraneMechanism):
-    def __init__(self, eqnset ,mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
+    def __init__(self, eqnset, mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
         MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
 
         if isinstance(eqnset, basestring):
@@ -148,15 +142,11 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
         fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
-        return dict ([(a, getattr(self, a)) for a in change_attrs])
-
-
-
+        return dict([(a, getattr(self, a)) for a in change_attrs])
 
     def get_recordables(self):
         return self._get_recordable_symbols()
         assert False
-
 
     def _get_recordable_symbols(self):
         return [s.symbol for s in list(self.eqnset.states)

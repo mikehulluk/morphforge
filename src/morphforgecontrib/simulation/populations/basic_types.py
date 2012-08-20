@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import itertools
 import string
 from morphforge.simulation.base.core.cell import Cell
@@ -37,20 +36,30 @@ from morphforgecontrib.tags import StdTagFunctors
 from morphforge.core.objectnumberer import ObjectLabeller
 from morphforge.core.misc import is_iterable
 
+
 class NeuronPopulation(object):
 
-
-    def __init__(self, sim, neuron_functor, n, pop_name=None, name_tmpl_str=None, user_tags = None):
+    def __init__(
+        self,
+        sim,
+        neuron_functor,
+        n,
+        pop_name=None,
+        name_tmpl_str=None,
+        user_tags=None,
+        ):
 
         user_tags = user_tags or []
         if pop_name:
             user_tags.extend(pop_name.split('_'))
+        
+        if pop_name is None:
+            pop_name = ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix='NrnPop', num_fmt_string='%d')
+        
+        self.pop_name = pop_name
 
-
-        self.pop_name = pop_name if pop_name is not None else ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix="NrnPop",num_fmt_string="%d")
-
-        if  name_tmpl_str is None:
-            name_tmpl_str = "%s_$i"%self.pop_name
+        if name_tmpl_str is None:
+            name_tmpl_str = '%s_$i' % self.pop_name
 
         name_tmpl = string.Template(name_tmpl_str)
         self.sim = sim
@@ -69,7 +78,6 @@ class NeuronPopulation(object):
             n.population = self
             self.nrns.append(n)
 
-
     def __len__(self):
         return len(self.nrns)
 
@@ -79,34 +87,42 @@ class NeuronPopulation(object):
     def __iter__(self):
         return iter(self.nrns)
 
-
     @property
     def cell_types(self):
         return set(['<Unknown>'])
 
-
-
-    def record(self, cell, location_func=None, what=None, user_tags=None, user_tag_functors=None, **kwargs ):
+    def record(
+        self,
+        cell,
+        location_func=None,
+        what=None,
+        user_tags=None,
+        user_tag_functors=None,
+        **kwargs
+        ):
 
         # Indexable by index of cell reference
         if isinstance(cell, int):
             cell = self[cell]
         assert cell in self.nrns
 
-
         what = what or Cell.Recordables.MembraneVoltage
         user_tags = user_tags or []
-        user_tag_functors = user_tag_functors or  StdTagFunctors.get_record_functors_neuron()
-        location_func = location_func or (lambda cell: cell.get_location("soma"))
-        cell_location=location_func(cell)
+        user_tag_functors = user_tag_functors \
+            or StdTagFunctors.get_record_functors_neuron()
+        location_func = location_func or (lambda cell: \
+                cell.get_location('soma'))
+        cell_location = location_func(cell)
 
         kw_utf = {'cell_location': cell_location,
                   'neuron_population': self, 'neuron': cell}
 
-        functor_tags = list(itertools.chain(*[utf(**kw_utf) for utf in user_tag_functors]))
-        r = self.sim.record(cell, cell_location=location_func(cell), what=what, user_tags=user_tags + functor_tags, **kwargs)
+        functor_tags = list(itertools.chain(*[utf(**kw_utf) for utf in
+                            user_tag_functors]))
+        r = self.sim.record(cell, cell_location=location_func(cell),
+                            what=what, user_tags=user_tags
+                            + functor_tags, **kwargs)
         return r
-
 
     def record_all(self, **kwargs):
         assert False, "Method renamed to 'record_from_all"
@@ -119,14 +135,18 @@ class NeuronPopulation(object):
         return [func(cell=nrn) for nrn in self.nrns]
 
 
-
-
-
 class SynapsePopulation(object):
+
     """A synapse population is a container for a set of synapses. It does not do anything special,
     except add methods that make it easier to handle the synapse population"""
 
-    def __init__(self, sim,  synapses,synapse_pop_name=None, user_tags=None):
+    def __init__(
+        self,
+        sim,
+        synapses,
+        synapse_pop_name=None,
+        user_tags=None,
+        ):
 
         # Some functions return lists of synapses; so we
         # reduce the input down to a flat list:
@@ -140,7 +160,6 @@ class SynapsePopulation(object):
                 print 'Not Iterable:', s
                 self.synapses.append(s)
 
-
         for s in self.synapses:
             print s, type(s)
             assert s.population is None
@@ -151,7 +170,6 @@ class SynapsePopulation(object):
 
         user_tags = user_tags or []
 
-
     @property
     def synapse_types(self):
         return set(['UnknownType'])
@@ -160,7 +178,6 @@ class SynapsePopulation(object):
         if isinstance(synapse, int):
             synapse = self[synapse]
         assert synapse in self.synapses
-
 
         user_tags = user_tags or []
         user_tag_functors = user_tag_functors \
@@ -171,8 +188,6 @@ class SynapsePopulation(object):
                             user_tag_functors]))
         return self.sim.record(synapse, what=what, user_tags=user_tags
                                + functor_tags, **kwargs)
-
-
 
     def record_all(self, **kwargs):
         assert False, "method renamed to 'record_from_all'"
@@ -190,7 +205,6 @@ class SynapsePopulation(object):
     def __iter__(self):
         return iter(self.synapses)
 
-
     def where_presynaptic(self, cell=None):
         return [syn for syn in self.synapses
                 if syn.get_presynaptic_cell() == cell]
@@ -198,8 +212,6 @@ class SynapsePopulation(object):
     def where_postsynaptic(self, cell=None):
         return [syn for syn in self.synapses
                 if syn.get_postsynaptic_cell() == cell]
-
-
 
     def get_where_presynaptic(self, cell=None):
         assert False
@@ -216,7 +228,6 @@ class SynapsePopulation(object):
                                  if syn.get_postsynaptic_cell()
                                  == cell])
 
-
     @property
     def presynaptic_population(self):
         pre_pops = set([])
@@ -229,9 +240,6 @@ class SynapsePopulation(object):
         else:
             assert len(pre_pops) == 1
             return list(pre_pops)[0]
-
-
-
 
     @property
     def postsynaptic_population(self):
@@ -247,19 +255,38 @@ class SynapsePopulation(object):
             return list(post_pops)[0]
 
 
-
-
 class Connectors(object):
-    @classmethod
-    def all_to_all(cls, sim, presynaptic_population, postsynaptic_population, connect_functor, synapse_pop_name=None):
-        pre_post_it = itertools.product(presynaptic_population, postsynaptic_population)
-        synapses = [connect_functor(sim=sim,  presynaptic=pre, postsynaptic=post) for (pre,post) in pre_post_it if (pre != post)]
-        return SynapsePopulation(sim=sim, synapses=synapses,  synapse_pop_name=synapse_pop_name)
-
 
     @classmethod
-    def times_to_all(cls, sim, syncronous_times, postsynaptic_population, connect_functor, synapse_pop_name=None):
-        synapses = [connect_functor(sim=sim, postsynaptic=post, times=syncronous_times) for post in postsynaptic_population]
-        return SynapsePopulation(sim=sim, synapses=synapses, synapse_pop_name=synapse_pop_name)
+    def all_to_all(
+        cls,
+        sim,
+        presynaptic_population,
+        postsynaptic_population,
+        connect_functor,
+        synapse_pop_name=None,
+        ):
+        pre_post_it = itertools.product(presynaptic_population,
+                postsynaptic_population)
+        synapses = [connect_functor(sim=sim, presynaptic=pre,
+                    postsynaptic=post) for (pre, post) in pre_post_it
+                    if pre != post]
+        return SynapsePopulation(sim=sim, synapses=synapses,
+                                 synapse_pop_name=synapse_pop_name)
+
+    @classmethod
+    def times_to_all(
+        cls,
+        sim,
+        syncronous_times,
+        postsynaptic_population,
+        connect_functor,
+        synapse_pop_name=None,
+        ):
+        synapses = [connect_functor(sim=sim, postsynaptic=post,
+                    times=syncronous_times) for post in
+                    postsynaptic_population]
+        return SynapsePopulation(sim=sim, synapses=synapses,
+                                 synapse_pop_name=synapse_pop_name)
 
 

@@ -32,7 +32,8 @@
 
 
 
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
@@ -49,16 +50,16 @@ from Cheetah.Template import Template
 
 
 class RecordableData(object):
+
     def __init__(self, standard_tags=None):
         self.standard_tags = standard_tags or []
-
 
 
 class MM_Neuron_RecGen(NeuronRecordable):
     def __init__(self, src_chl, objvar,unit_in_nrn, std_tags, **kwargs):
         super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
-        self.objvar=objvar
+        self.objvar = objvar
         self.unit_in_nrn = unit_in_nrn
         self.std_tags = std_tags or []
 
@@ -77,11 +78,9 @@ class MM_Neuron_RecGen(NeuronRecordable):
 
     def get_unit(self):
         return self.unit_in_nrn
+
     def get_std_tags(self):
         return self.std_tags
-
-
-
 
 
 class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
@@ -136,21 +135,20 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
 
         self.NRNSUFFIX = self.buildparameters.suffix
 
-
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
         syn_name_post = self.synapse.get_name() + 'Post'
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-               "synnamepost":syn_name_post,
-               "cell":cell,
-               "cellname": cell_hoc['cell_name'],
-               "sectionindex": cell_hoc['section_indexer'][section],
-               "sectionpos": self.cell_location.morphlocation.sectionpos,
-               "synapsetypename": self.NRNSUFFIX,
+            'synnamepost': syn_name_post,
+            'cell': cell,
+            'cellname': cell_hoc['cell_name'],
+            'sectionindex': cell_hoc['section_indexer'][section],
+            'sectionpos': self.cell_location.morphlocation.sectionpos,
+            'synapsetypename': self.NRNSUFFIX,
 
-               "parameters": [(k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems()]
+             'parameters': [(k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems()]
 
 
                }
@@ -159,8 +157,6 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
-
-
 
     def build_mod(self, modfile_set):
         modfile = ModFile(modtxt=self.nmodl_txt,
@@ -174,8 +170,8 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix)
 
     def create_modfile(self, modfile_set):
-        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt))
-
+        modfile_set.append(ModFile(name=self.name,
+                                   modtxt=self.nmodl_txt))
 
     def get_mod_file_changeables(self):
         change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
@@ -190,7 +186,6 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
     def get_recordables(self):
         return self._get_recordable_symbols()
         assert False
-
 
     def _get_recordable_symbols(self):
         return [s.symbol for s in list(self.eqnset.states)

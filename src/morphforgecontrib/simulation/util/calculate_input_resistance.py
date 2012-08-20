@@ -29,26 +29,30 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.stdimports import *
-
-
 
 import scipy.stats as stats
 
 import numpy as np
 from mhlibs.quantities_plot import QuantitiesFigure
 
-
 import itertools
 from morphforge.traces.methods.MMtrace_conversion import TraceConverter
 from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 
 
-
-
 class CellAnalysis_StepInputResponse(object):
-    def __init__(self, cell_functor, currents, env, cell_description, plot_all=False, sim_kwargs=None,tagviewer_kwargs=None):
+
+    def __init__(
+        self,
+        cell_functor,
+        currents,
+        env,
+        cell_description,
+        plot_all=False,
+        sim_kwargs=None,
+        tagviewer_kwargs=None,
+        ):
         self.cell_functor = cell_functor
         self.currents = currents
         self.env = env
@@ -64,7 +68,6 @@ class CellAnalysis_StepInputResponse(object):
         if plot_all:
             self.plot()
 
-
     def simulate_all(self):
         for c in self.currents:
             (tr_v, tr_i) = self.simulate(c)
@@ -78,11 +81,7 @@ class CellAnalysis_StepInputResponse(object):
         TagViewer(trs, show=False, figtitle=title,
                   **self.tagviewer_kwargs)
 
-
-
-
     def simulate(self, current):
-
 
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
@@ -101,23 +100,22 @@ class CellAnalysis_StepInputResponse(object):
 
         res = sim.run()
 
-
         return (res.get_trace('SomaVoltage'), res.get_trace('Current'))
 
 
-
-
-
-
-
-
-
-
-
-
-
 class CellAnalysis_ReboundResponse(object):
-    def __init__(self, cell_functor, currents_base,currents_rebound, env, cell_description, plot_all=False, sim_kwargs=None,tagviewer_kwargs=None):
+
+    def __init__(
+        self,
+        cell_functor,
+        currents_base,
+        currents_rebound,
+        env,
+        cell_description,
+        plot_all=False,
+        sim_kwargs=None,
+        tagviewer_kwargs=None,
+        ):
         self.cell_functor = cell_functor
         self.currents_base = currents_base
         self.currents_rebound = currents_rebound
@@ -134,22 +132,16 @@ class CellAnalysis_ReboundResponse(object):
         if plot_all:
             self.plot()
 
-
     def simulate_all(self):
         for current1 in self.currents_base:
             for current2 in self.currents_rebound:
                 (tr_v, tr_i) = self.simulate(current1, current2)
-                self.result_traces[(int(current1.rescale('pA').magnitude),
-                                   int(current2.rescale('pA').magnitude))] = \
-                    (tr_v, tr_i)
-
-
+                key = (int(current1.rescale('pA').magnitude), int(current2.rescale('pA').magnitude))
+                self.result_traces[key] = (tr_v, tr_i)
 
 
     def plot(self):
         self.plot_traces()
-
-
 
     # def plot_rebound_graphs(self):
     #    c1Values = set([k[0] for k in self.result_traces])
@@ -172,13 +164,11 @@ class CellAnalysis_ReboundResponse(object):
     #
                 #            trs = []
 
-
-
-    def plot_traces(self,):
+    def plot_traces(self):
         c1_values = set([k[0] for k in self.result_traces])
         c2_values = set([k[1] for k in self.result_traces])
 
-        #print self.result_traces.keys()
+        # print self.result_traces.keys()
         for current1 in c1_values:
             trs = []
             for current2 in c2_values:
@@ -194,7 +184,6 @@ class CellAnalysis_ReboundResponse(object):
 
 
     def simulate(self, current_base, current_rebound):
-
 
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
@@ -266,47 +255,44 @@ class CellAnalysis_IVCurve(object):
         self.plot_traces()
         self.plot_iv_curve()
 
-
-
     def _get_cc_simulation_trace(self, current):
 
         if self.cell_functor:
             env = NeuronSimulationEnvironment()
             sim = env.Simulation(**self.sim_kwargs)
             cell = self.cell_functor(sim=sim)
-
         else:
+
             assert False
             sim = self.sim
             cell = self.cell
 
         soma_loc = cell.get_location('soma')
 
-        cc = sim.create_currentclamp(name="cclamp", amp=current, dur=self.tCurrentInjStop-self.tCurrentInjStart, delay=self.tCurrentInjStart, cell_location=soma_loc)
-        sim.record(cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to i_inj=%s "%current)
+        cc = sim.create_currentclamp(name='cclamp', amp=current,
+                dur=self.tCurrentInjStop - self.tCurrentInjStart,
+                delay=self.tCurrentInjStart, cell_location=soma_loc)
+        sim.record(cell, name='SomaVoltage', cell_location=soma_loc,
+                   what=Cell.Recordables.MembraneVoltage,
+                   description='Response to i_inj=%s ' % current)
 
         res = sim.run()
 
         return res.get_trace('SomaVoltage')
-
-
 
     def get_trace(self, i_inj):
         if not i_inj in self.traces:
             self.traces[i_inj] = self._get_cc_simulation_trace(i_inj)
         return self.traces[i_inj]
 
-
     def get_iv_point_steaddy_state(self, i_inj):
-        return  self.get_trace(i_inj).window(time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop)).Mean()
+        return self.get_trace(i_inj).window(time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop)).Mean()
 
 
 
     def plot_all(self):
         self.plot_traces()
         self.plot_iv_curve()
-
-
 
     def plot_traces(self, ax=None):
         title = '%s: (Voltage Responses to Current Injections)' \
@@ -328,8 +314,7 @@ class CellAnalysis_IVCurve(object):
         ax.legend()
 
         from mreorg.scriptplots import PM
-        PM.save_figure(figname= title)
-
+        PM.save_figure(figname=title)
 
     def plot_iv_curve(self, ax=None):
         title = '%s: IV Curve' % self.cell_description
@@ -340,18 +325,15 @@ class CellAnalysis_IVCurve(object):
             ax.set_xlabel('Injected Current')
             ax.set_ylabel('SteadyStateVoltage')
 
-
         V = [self.get_iv_point_steaddy_state(c) for c in self.currents]
         i = factorise_units_from_list(self.currents)
         v = factorise_units_from_list(V)
-
 
         low_v = v < self.v_regressor_limit
 
         ax.plot(i[low_v], v[low_v], 'ro')
         ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
         ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
-
 
         # Plot the regressor:
         i_units = unit('1:pA').units

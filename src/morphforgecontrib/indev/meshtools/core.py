@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import os
 from morphforge.morphology.importer.import_array_swc import NewSWCLoader
 from morphforgecontrib.indev.highqualitymesh.create_mesh import MeshFromGTS
@@ -42,9 +41,12 @@ from morphforgecontrib.morphology.util.minimum_diameter import MorphologyMinimum
 
 
 class MeshGenerationOptions:
+
     minimum_diameter = 'MinimumDiameter'
 
+
 class Context(object):
+
     def __init__(self, src_zip_file, dst_zip_file):
         self.color_aliases = {}
         self.region_color_defaults = {}
@@ -60,9 +62,9 @@ class Context(object):
         self.op_dir = '/tmp/mf/meshbuilder/'
         LocMgr.ensure_dir_exists(self.op_dir)
 
-
     def has_option_set(self, key):
         return key in self.global_options
+
     def get_option(self, key):
         return self.global_options[key]
 
@@ -108,8 +110,8 @@ class Context(object):
         return open(filename, 'w')
 
 
-
 class PlyScope(object):
+
     def __init__(self, global_scope):
         self.global_scope = global_scope
         self.region_colors = {}
@@ -166,18 +168,18 @@ class PlyScope(object):
 
             # Apply the options:
             if 'trim' in options:
-                m = AxonTrimmer.trim_axon_from_morphology(m, max_dist_to_parent=options['trim'])
+                m = AxonTrimmer.trim_axon_from_morphology(m,
+                        max_dist_to_parent=options['trim'])
             if 'offset' in options:
-                m = MorphologyTranslator.translate(morphology=m, offset=options['offset'])
+                m = MorphologyTranslator.translate(morphology=m,
+                        offset=options['offset'])
             if self.global_scope.has_option_set(MeshGenerationOptions.minimum_diameter):
-                m = MorphologyMinimumDiameter.ensure(m, min_diameter =self.global_scope.get_option(MeshGenerationOptions.minimum_diameter))
+                m = MorphologyMinimumDiameter.ensure(m,
+                        min_diameter=self.global_scope.get_option(MeshGenerationOptions.minimum_diameter))
 
-
-
-
-            mesh = MeshFromGTS.build(m, plot=False, region_color_map = rgn_colors)
+            mesh = MeshFromGTS.build(m, plot=False,
+                    region_color_map=rgn_colors)
             self.meshes.append(mesh)
-
 
     def set_region_color(self, region, color):
         self.region_colors[region] = color
@@ -192,15 +194,18 @@ class PlyScope(object):
 
 
 class ColorDef(object):
+
     def __init__(self, r, g, b):
         self.r = r
         self.g = g
         self.b = b
+
     def __str__(self):
         return '<ColorDef: (%d,%d,%d)>' % (self.r, self.g, self.b)
 
 
 class RegionColorDef(object):
+
     def __init__(self, rgn, color_def):
         assert isinstance(rgn, int)
         assert isinstance(color_def, ColorDef)

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from neurounits.units_wrapper import NeuroUnitParser
 from morphforgecontrib.simulation.indev.neuro_units_bridge.neuro_units_bridge import NeuroUnitEqnsetMechanism,\
     RecordableData
@@ -81,14 +80,6 @@ textHH = r"""EQNSET chlstd_hh_k {
     <=> INPUT     v: mV                 METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
 }"""
 
-
-
-
-
-
-
-
-
 from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
@@ -106,14 +97,13 @@ env = NeuronSimulationEnvironment()
 mySim = env.Simulation(name='TestSim1')
 
 # Create a cell:
-myCell = mySim.create_cell(name="Cell1", morphology=m1)
-
+myCell = mySim.create_cell(name='Cell1', morphology=m1)
 
 # Apply the mechanisms to the cells
-leakChannels = env.MembraneMechanism(EqnSetChl,
-                                      mechanism_id='ID1',
-                                      eqnset=EquationSetLoader.load('std_leak_chl.txt', dir= LocMgr.getTestEqnSetsPath()) ,
-                                      parameters= {'gl':unit("5:pS/um2"), 'e_rev': unit("-70:mV")})
+leakChannels = env.MembraneMechanism(EqnSetChl, mechanism_id='ID1',
+        eqnset=EquationSetLoader.load('std_leak_chl.txt',
+        dir=LocMgr.getTestEqnSetsPath()),
+        parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
 apply_mechanism_everywhere_uniform(myCell, leakChannels)
 apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 

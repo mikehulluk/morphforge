@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from mmcalciumalphabetabeta import MM_CalciumAlphaBetaBetaChannel
 from morphforge.core.quantities import unit
 from mmwriter_caalphabetabeta import MM_WriterCalciumAlphaBetaBeta
@@ -42,14 +41,12 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
 
-
 class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
     def __init__(self, caAlphaBetaBetaChl, **kwargs):
 
         super(MM_Neuron_CalciumAlphaBetaBeta_Record,
               self).__init__(**kwargs)
         self.caAlphaBetaBetaChl = caAlphaBetaBetaChl
-
 
     def build_mod(self, modfile_set):
         pass
@@ -62,7 +59,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
             modvariable=modvar,
             mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(),
             recordobj=self,
-           )
+            )
 
     def get_tags(self):
         return []
@@ -70,7 +67,6 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NeuronRecordableOnLocation):
     def get_description(self):
         return '%s %s' % ('CaValue',
                           self.cell_location.get_location_description_str())
-
 
 
 class MM_Neuron_CalciumAlphaBetaBeta_CurrentDensityRecord(MM_Neuron_CalciumAlphaBetaBeta_Record):
@@ -89,6 +85,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_CurrentDensityRecord(MM_Neuron_CalciumAlpha
 class MM_Neuron_CalciumAlphaBetaBeta_RecordState(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordState,
               self).__init__(**kwargs)
         self.state = state
@@ -103,9 +100,11 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordState(MM_Neuron_CalciumAlphaBetaBeta_
         self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s'
                             % self.name, modvar=self.state)
 
+
 class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState,
               self).__init__(**kwargs)
         self.state = state
@@ -117,13 +116,14 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_Calcium
         return [StandardTags.StateSteddyState]
 
     def build_hoc(self, hocfile_obj):
-        self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname = "RecVec%s"%self.name, modvar=self.state )
-
+        self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s'
+                            % self.name, modvar=self.state)
 
 
 class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(MM_Neuron_CalciumAlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant,
               self).__init__(**kwargs)
         self.state = state
@@ -139,19 +139,12 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(MM_Neuron_Calciu
                             % self.name, modvar=self.state)
 
 
-
-
-
-
-
-
 class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
     MM_Neuron_Base):
 
     def __init__(self, *args, **kwargs):
         MM_CalciumAlphaBetaBetaChannel.__init__(self, *args, **kwargs)
         MM_Neuron_Base.__init__(self)
-
 
     def get_recordable(self, what, **kwargs):
 
@@ -163,9 +156,9 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
             }
 
         recorder = recorders[what]
-        #print recorder
-        #print kwargs
-        recordable = recorder(caAlphaBetaBetaChl=self,  **kwargs)
+        # print recorder
+        # print kwargs
+        recordable = recorder(caAlphaBetaBetaChl=self, **kwargs)
         return recordable
 
 
@@ -183,10 +176,9 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
         #print set(self.__dict__)
         assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
-        return dict ([(a, getattr(self, a)) for a in change_attrs])
+        return dict([(a, getattr(self, a)) for a in change_attrs])
 
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)

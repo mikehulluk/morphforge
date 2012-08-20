@@ -29,14 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core import mfrandom
 import random
 
 
-
 class NMDAOoptions:
+
     EnableVDep = True
 
 
@@ -200,3 +198,5 @@ NET_RECEIVE(weight (uS)) {
     comment_val = ('//' if mfrandom.MFRandom._seed is not None else '')
     return x.replace('$randomseed', '%d' % seed_val).replace('$COMMENT'
             , comment_val)
+
+

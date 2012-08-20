@@ -29,23 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
-
-
 import numpy as np
 from morphforge.traces.eventset import EventSet
 
 
 class DBScan(object):
 
-
     @classmethod
     def query_region(cls, p, eps, pts):
         nr_indices = np.nonzero(np.fabs(pts - p) < eps)[0]
         return set(nr_indices)
-
 
     @classmethod
     def cluster_points(cls, pts, eps, min_pts):
@@ -70,7 +63,6 @@ class DBScan(object):
                 clusters.append(new_cluster)
 
         return (clusters, noise)
-
 
     @classmethod
     def expand_cluster(cls, pt_index, npoints, cluster, pts, eps, visited_indices,  min_pts, clusters):
@@ -98,9 +90,8 @@ class DBScan(object):
     def cluster_spike_times(cls, event_set, eps, min_pts=5):
         eps = float(eps.rescale('ms').magnitude)
 
-
-        data = [float(ev.get_time().rescale("ms")) for ev in event_set]
-        clusters, noise = DBScan.cluster_points(pts = np.array(data), eps=eps, min_pts=min_pts)
+        data = [float(ev.get_time().rescale('ms')) for ev in event_set]
+        (clusters, noise) = DBScan.cluster_points(pts=np.array(data), eps=eps, min_pts=min_pts)
 
         # Create new eventsets for each cluster
         new_eventsets = []
@@ -111,7 +102,7 @@ class DBScan(object):
             new_eventsets.append(e)
 
         # Create a new EventSet for the noise points:
-        noise_event_set = EventSet(events= [event_set[i] for i in noise])
+        noise_event_set = EventSet(events=[event_set[i] for i in noise])
 
         return new_eventsets, noise_event_set
 
@@ -120,7 +111,7 @@ class DBScan(object):
     def calculate_mean_frequency(cls, cluster_sets):
 
 
-        mean_times = [np.mean([t.rescale("ms") for t in c.times]) for c in cluster_sets if len(c) != 0]
+        mean_times = [np.mean([t.rescale('ms') for t in c.times]) for c in cluster_sets if len(c) != 0]
         mean_times = np.array([mt for mt in mean_times if mt > 200])
 
         np.sort(mean_times)

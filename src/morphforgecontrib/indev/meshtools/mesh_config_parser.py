@@ -29,24 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import ply.lex as lex
 from core import Context, ColorDef
 from core import MeshGenerationOptions
 
-
-
 import ply.yacc as yacc
-
-
-
-
-
-
-
-
-
 
 reserved = {
     'Default': 'DEFAULT_ID',
@@ -62,7 +49,6 @@ reserved = {
     'MIN_DIAMETER': 'MIN_DIAMETER_ID',
     }
 
-
 tokens = [
     'FILENAME',
     'COMMA',
@@ -76,31 +62,36 @@ tokens = [
     'SEMICOLON',
     'STAR',
     'ID',
-   ] + list(reserved.values())
+    ] + list(reserved.values())
 
 
 def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'ID')    # Check for reserved words
+    r'''[a-zA-Z_][a-zA-Z_0-9]*'''
+
+    t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
 
 
 
 def t_FLOAT(t):
     r"""[-+]?[0-9]*\.[0-9]+([eE][-+]?[0-9]+)?"""
+
     t.value = float(t.value)
     return t
+
 
 def t_INT(t):
     r'''\d+'''
     t.value = int(t.value)
     return t
 
+
 def t_FILENAME(t):
     r'''".*"'''
-
     t.value = str(t.value[1:-1])
     return t
+
+
 def t_COMMENT(t):
     r'''\#.*'''
     pass
@@ -127,7 +118,10 @@ def t_newline(t):
 t_ignore = ' \t'
 
 from errors import MultiMeshParseError
+
+
 # Error handling rule
+
 def t_error(t):
     print "Illegal character '%s'" % t.value[0]
     raise MultiMeshParseError("Lexer couldn't parse: '%s'" % t.value[0])
@@ -139,6 +133,7 @@ lexer = lex.lex()
 
 
 # Overall File:
+
 def p_config_completeB(p):
     r"""config :  config config_block
                |  config_block"""
@@ -220,13 +215,16 @@ def p_color_defaults_block_stmt(p):
 
 # MAKEPLY Block
 # ==============
+
 def p_ply_block(p):
     r"""makeply_block :  MAKEPLY_ID FILENAME ply_block_open LBRACE makeply_block_stmts  RBRACE """
     p.parser.context.close_ply_block(plyfilename=p[2])
 
+
 def p_ply_block_open(p):
     r"""ply_block_open : empty"""
     p.parser.context.new_ply_block()
+
 
 def p_ply_block_stmts(p):
     r"""makeply_block_stmts : empty
@@ -265,16 +263,18 @@ def p_include_option_set(p):
 
 def p_include_option_trim(p):
     """include_option : TRIM_ID COLON INT"""
-    p[0] = {'trim':p[3] }
+    p[0] = {'trim': p[3]}
+
 
 def p_include_option_offset(p):
     """include_option : OFFSET_ID COLON LPAREN INT COMMA INT COMMA INT RPAREN """
-    p[0] = {'offset': (p[4],p[6],p[8])  }
+    p[0] = {'offset': (p[4], p[6], p[8])}
 
 
 def p_include_optionsA(p):
     """include_options : empty"""
     p[0] = {}
+
 
 def p_include_optionsB(p):
     """include_options : include_option
@@ -287,10 +287,9 @@ def p_include_optionsB(p):
         p[0].update(p[3])
 
 
-
 def p_region_color_def_stmt(p):
     r"""region_color_def : REGIONCOLOR_ID int_list COLON color SEMICOLON """
-    p[0] = p[2], p[4]
+    p[0] = (p[2], p[4])
 
 
 def p_color(p):
@@ -304,12 +303,11 @@ def p_color3(p):
 
 def p_color1(p):
     r"""color_rgb : LPAREN INT COMMA INT COMMA INT RPAREN"""
-    p[0] = ColorDef(r=p[2], g=p[4],b=p[6],)
+    p[0] = ColorDef(r=p[2], g=p[4], b=p[6])
 
 def p_color2(p):
     r"""color_alias : ID"""
     p[0] = p.parser.context.get_color(p[1])
-
 
 
 def p_int_list(p):
@@ -326,7 +324,8 @@ def p_int_list_star(p):
 
 
 def p_empty(p):
-    'empty : '
+    '''empty : '''
+
     pass
 
 
@@ -335,6 +334,7 @@ def p_empty(p):
 
 
 # Error rule for syntax errors
+
 def p_error(p):
     raise MultiMeshParseError("Yacc Error on line: %d Token: '%s'"%(p.lineno, p.type))
 
@@ -359,20 +359,19 @@ def parse_zip_file(zip_in, zip_out):
     # Build the parser
     parser = yacc.yacc()
 
-    fIn = ZipFile(zip_in,'r')
-    fOut = ZipFile(zip_out,'w')
+    fIn = ZipFile(zip_in, 'r')
+    fOut = ZipFile(zip_out, 'w')
     parser.context = Context(src_zip_file=fIn, dst_zip_file=fOut)
 
     try:
-        conf = fIn.open("config.txt").read()
+        conf = fIn.open('config.txt').read()
     except:
-        conf = fIn.open("src/config.txt").read()
+        conf = fIn.open('src/config.txt').read()
 
     parser.parse(conf, lexer=lex)
 
     fIn.close()
     fOut.close()
-
 
     print 'Parsed OK'
     return parser.context

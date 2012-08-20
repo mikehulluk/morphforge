@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.constants.standardtags import StandardTags
-
 
 
 class AutoTaggerFromUnit(object):
@@ -53,3 +51,5 @@ class AutoTaggerFromUnit(object):
                 tr.tags.extend(tags)
             except:
                 pass
+
+

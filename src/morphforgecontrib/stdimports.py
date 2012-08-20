@@ -29,18 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphology.util import AxonTrimmer
 from morphology.util import cell_location_distance_from_soma
 from morphology.util import MorphologyTranslator
-
 
 # Simulation Channels:
 from simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
 from simulation.membranemechanisms.hh_style.core import MM_AlphaBetaChannel, MM_LeakChannel, MM_AlphaBetaBetaChannel
 from simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
-
-
 
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve
@@ -52,8 +48,7 @@ from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import P
 
 from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import PostSynapticMech_Exp2SynNMDAMGTimeDepBlock
 
-
-#Traces:
+# Traces:
 from traces import AutoTaggerFromUnit
 
 
@@ -76,19 +71,14 @@ from morphforgecontrib.simulation_analysis.spikinggrouping import DBScan
 
 # Mike Hull development:
 from socket import gethostname
-if gethostname() in ["michael-DQ57TM"]:
+if gethostname() in ['michael-DQ57TM']:
 
     from morphforgecontrib.mhdev import *
 
-
-
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
-
-
 
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
 from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
-
 
 from morphforgecontrib.data_library.stdmodels import StandardModels

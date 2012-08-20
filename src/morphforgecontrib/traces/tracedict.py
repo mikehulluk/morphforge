@@ -52,8 +52,6 @@ def fig_plot_local(x=None, y=None, title=None, xlims=None, ylims=None, xlabel=No
     return ax
 
 
-
-
 class TraceDict(object):
 
     def __init__(self, data=None):
@@ -96,6 +94,7 @@ class TraceDict(object):
             ax.legend()
         return (ax, lines)
 
-
     def iteritems(self):
         return self.data.iteritems()
+
+

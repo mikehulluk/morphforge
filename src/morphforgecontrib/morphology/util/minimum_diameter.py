@@ -29,16 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.morphology.core import Section
 from morphforge.morphology.core import Region
 from morphforge.morphology.core import MorphologyTree
 
 
-
-
 class MorphologyMinimumDiameter(object):
-
 
     @classmethod
     def ensure(cls, morphology, min_diameter):
@@ -52,7 +48,6 @@ class MorphologyMinimumDiameter(object):
         for rOld in morphology.get_regions():
             r_new = Region(name=rOld.name)
             region_mapping_table[rOld] = r_new
-
 
         # Create New Sections:
         dummy_root_old = morphology.get_dummy_section()
@@ -76,7 +71,7 @@ class MorphologyMinimumDiameter(object):
                 z=sectionOld.d_z,
                 r=max(sectionOld.d_r, min_radius),
                 idtag=sectionOld.idtag,
-               )
+                )
             section_mapping_table[sectionOld] = section_new
 
         m = MorphologyTree(name=None, dummysection=dummy_root_new,

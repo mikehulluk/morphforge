@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from core import MM_InfTauInterpolatedChannel
 from neuron import MM_Neuron_InfTauInterpolated
-#from summarisier import Summarise_MM_InfTauInterpolatedChannel
+# from summarisier import Summarise_MM_InfTauInterpolatedChannel

@@ -29,9 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 assert False, 'Do not use this module ~ currently in development'
-
 
 from morphforge.morphology.core.morphologytree import MorphologyTree
 from morphforge.morphology.core.section import Section
@@ -72,8 +70,8 @@ class xyzXYZLoader(object):
 
 
         # Check the header:
-        line1 = lines[0].translate(None, "\t ")
-        assert line1 == "n,T,x,y,z,X,Y,Z,P"
+        line1 = lines[0].translate(None, '\t ')
+        assert line1 == 'n,T,x,y,z,X,Y,Z,P'
 
         line1 = lines[0].translate(None, '\t ')
         assert line1 == 'n,T,x,y,z,X,Y,Z,P'
@@ -99,14 +97,10 @@ class xyzXYZLoader(object):
 
             sections.append(newSect)
 
-
-        #Create the Cell
-        c = MorphologyTree(name=morphname, root=sections[0], metadata={})
+        # Create the Cell
+        c = MorphologyTree(name=morphname, root=sections[0],
+                           metadata={})
         return c
-
-
-
-
 
 
 class xyzXYZMultiLoader(object):
@@ -144,8 +138,8 @@ class xyzXYZMultiLoader(object):
 
 
         # Check the header:
-        line1 = lines[0].translate(None, "\t ")
-        assert line1 == "n,T,x,y,z,X,Y,Z,P"
+        line1 = lines[0].translate(None, '\t ')
+        assert line1 == 'n,T,x,y,z,X,Y,Z,P'
 
         #Create the regions:
         regionTypes = dict([(index, Region(name)) for index, name, in regionNames.iteritems() ])
@@ -182,12 +176,7 @@ class xyzXYZMultiLoader(object):
             morphs.append(nM)
         return morphs
 
-
         c = MorphologyTree(name='M', root=sections[0], metadata={})
         return c
-
-
-
-
 
 

@@ -29,16 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 from morphforge.constants import StandardTags
 
 import numpy as np
 
-class InfTauInterpolation(object):
-    def __init__(self, V, inf, tau):
 
+class InfTauInterpolation(object):
+
+    def __init__(self, V, inf, tau):
 
         assert len(V) == len(inf) == len(tau)
         assert (np.diff(np.array(V)) > 0).all()
@@ -55,11 +55,10 @@ class InfTauInterpolation(object):
         return zip(self.V, self.tau)
 
 
-
-
 class MM_InfTauInterpolatedChannel(MembraneMechanism):
 
     class Recordables:
+
         ConductanceDensity = StandardTags.ConductanceDensity
         CurrentDensity = StandardTags.CurrentDensity
         StateVar = StandardTags.StateVariable
@@ -78,15 +77,11 @@ class MM_InfTauInterpolatedChannel(MembraneMechanism):
         self.reversalpotential = unit(reversalpotential)
         self.statevars_new = statevars_new
 
-
-
     def get_variables(self):
         return ['gBar', 'e_rev', 'gScale']
 
     def get_defaults(self):
         return {'gBar': self.conductance,
                 'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
-
-
 
 

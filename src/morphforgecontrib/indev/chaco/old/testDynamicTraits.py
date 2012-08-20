@@ -29,23 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from enthought.traits.api import *
 import wx
 
-
-
-
-
-
-
-
-
-from enthought.traits.ui.api import View,Item,Group
+from enthought.traits.ui.api import View, Item, Group
 from enthought.traits import *
 
-
 import random
+
 
 class MusicPlayer(HasStrictTraits):
 
@@ -69,30 +60,32 @@ class MusicPlayer(HasStrictTraits):
         # Rebuild UI if needed.
         v = self.trait_view()
         v.updated = True
-        print "Range should update to", 0, rand_track_time
+        print 'Range should update to', 0, rand_track_time
 
 
 player = MusicPlayer()
-songs = ['wish you were here', 'time','smoke on the water', 'acknowledgement']
+songs = ['wish you were here', 'time', 'smoke on the water',
+         'acknowledgement']
 player.set_songs(songs)
 
 player.track = 'time'
 player.configure_traits()
 
 
-
 class Counter(HasTraits):
-    value =  Int()
+
+    value = Int()
 
     def __init__(self):
 
-        self.add_trait('R', Range(0,10,1))
+        self.add_trait('R', Range(0, 10, 1))
 
         v = self.trait_view()
         v.updated = True
         HasTraits.__init__(self)
 
-#Counter().edit_traits()
+
+# Counter().edit_traits()
 Counter().configure_traits()
 
-#wx.PySimpleApp().MainLoop()
+# wx.PySimpleApp().MainLoop()

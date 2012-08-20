@@ -29,14 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.componentlibraries.channellibrary import ChannelLibrary
 from morphforge.core.quantities.fromcore import unit
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
 from morphforgecontrib.data_library.stdmodels import StandardModels
-
 
 
 def get_sample_lk(env):
@@ -48,12 +45,12 @@ def get_sample_lk(env):
 
 
 def get_sample_na(env):
-    naStateVars = { "m": {
-                          "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
-                          "beta": [4.00, 0.00, 0.00,65.00, 18.00]},
-                        "h": {
-                            "alpha":[0.07,0.00,0.00,65.00,20.00] ,
-                            "beta": [1.00,0.00,1.00,35.00,-10.00]}
+    naStateVars = { 'm': {
+                          'alpha': [-4.00,-0.10,-1.00,40.00,-10.00],
+                          'beta':  [4.00, 0.00, 0.00,65.00, 18.00]},
+                    'h': {
+                            'alpha': [0.07,0.00,0.00,65.00,20.00],
+                            'beta':  [1.00,0.00,1.00,35.00,-10.00]}
                       }
 
     naChannels = env.MembraneMechanism(
@@ -65,7 +62,7 @@ def get_sample_na(env):
         reversalpotential=unit('50:mV'),
         statevars=naStateVars,
         mechanism_id='HH_NA_CURRENT',
-       )
+        )
     return naChannels
 
 
@@ -81,14 +78,17 @@ def get_sample_k(env):
         reversalpotential=unit('-77:mV'),
         statevars=kStateVars,
         mechanism_id='HH_K_CURRENT',
-       )
+        )
     return kChannels
 
 
-
-
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Na", chl_functor=get_sample_na)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="K",  chl_functor=get_sample_k)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,  channeltype="Lk", chl_functor=get_sample_lk)
-
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
+                                channeltype='Na',
+                                chl_functor=get_sample_na)
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
+                                channeltype='K',
+                                chl_functor=get_sample_k)
+ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
+                                channeltype='Lk',
+                                chl_functor=get_sample_lk)
 

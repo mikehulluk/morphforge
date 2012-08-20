@@ -29,16 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 from morphforge.constants import StandardTags
 
+
 class MM_LeakChannel(MembraneMechanism):
 
     class Recordables(object):
+
         ConductanceDensity = StandardTags.ConductanceDensity
         CurrentDensity = StandardTags.CurrentDensity
         all = [ConductanceDensity, CurrentDensity]
@@ -57,6 +57,5 @@ class MM_LeakChannel(MembraneMechanism):
     def get_defaults(self):
         return {'gLk': self.conductance, 'eLk': self.reversalpotential,
                 'gScale': unit('1.0')}
-
 
 

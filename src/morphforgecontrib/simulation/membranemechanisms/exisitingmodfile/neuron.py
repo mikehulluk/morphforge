@@ -29,12 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import  build_hoc_default #MM_Neuron_GeneralisedRecord,
+from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default 
 from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 
 import re
@@ -67,30 +66,21 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
         assert m
         nrnsuffix = m.groupdict()['suffix']
 
-
-
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
-
-
-
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
         #Units = dict([(p.symbol, pq.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):
-        mod_file =  ModFile(name='EqnSetModfile', modtxt=self.mod_text)
+        mod_file = ModFile(name='EqnSetModfile', modtxt=self.mod_text)
         modfile_set.append(mod_file)
-
-
-
-
 
     # No Internal recording or adjusting of parameters for now:
     class Recordables:
-        all = []
 
+        all = []
 
     def get_variables(self):
         return []
@@ -98,9 +88,11 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
     def get_defaults(self):
         return {}
 
-    def get_recordable(self, what,  **kwargs):
-        raise ValueError("Can't find Recordable: %s"%what)
+    def get_recordable(self, what, **kwargs):
+        raise ValueError("Can't find Recordable: %s" % what)
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(SimulatorSpecificChannel, MM_Neuron_SimulatorSpecificChannel)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(
+        SimulatorSpecificChannel,
+        MM_Neuron_SimulatorSpecificChannel)
 

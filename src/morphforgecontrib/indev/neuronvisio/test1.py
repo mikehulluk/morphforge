@@ -29,16 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.stdimports import *
 from modelling.rbmodelling2 import *
 from signalanalysis.stdimports import *
 from neuroml_writer import MorphMLWriter
 
-
 env = NeuronSimulationEnvironment()
 sim = env.Simulation()
-
 
 morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0,
         axon_radius=0.3, soma_radius=9.0, axon_sections=20)
@@ -46,26 +43,19 @@ segmenter = DefaultCellSegementer(cell=None, max_segment_length=50)
 cell = sim.create_cell(name='CellMorph1', morphology=morph,
                        segmenter=segmenter)
 
-
 (t, naming_info) = MorphMLWriter.writemany([cell])
 
-
-
 print t
-
-
-
-
 
 cell.chls = {}
 channeltypes = [ChlType.Kf, ChlType.Ks, ChlType.Lk, ChlType.Na]
 for chltype in channeltypes:
     #mech_builder =  ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype)
-    mech =  ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env)
+    mech = ChannelLibrary.get_channel(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=chltype, env=env)
 
     apply_mechanism_everywhere_uniform(
                             cell=cell,
-                            mechanism= mech,
+                            mechanism=mech,
                             parameter_multipliers={},
                             parameter_overrides={})
 
@@ -78,8 +68,8 @@ apply_passive_everywhere_uniform(cell, PassiveProperty.AxialResistance, unit('40
 
 
 
-somaLoc = cell.get_location("soma")
-sim.record(cell, name="SomaVoltage", cell_location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage")
+somaLoc = cell.get_location('soma')
+sim.record(cell, name='SomaVoltage', cell_location=somaLoc, what=Cell.Recordables.MembraneVoltage, description="Soma Voltage")
 
 distances = range(50, 3000, 100)
 morph_locs = MorphLocator.get_locationsAtDistancesAwayFromSoma(morphology=morph, distances= distances)
@@ -96,11 +86,8 @@ for loc in locations:
                what=Cell.Recordables.MembraneVoltage,
                description='Distance Recording')
 
-
 cc = sim.create_currentclamp(name='cclamp', amp='250:pA', dur='4:ms',
                              delay='100:ms', cell_location=somaLoc)
-
-
 
 # RecordAll
 rec_dict = {}
@@ -109,66 +96,55 @@ for cell in sim.get_cells():
     for seg in cell.get_segmenter():
         rec_dict[cell][seg] = {}
 
-
         rec = sim.record(cell, cell_location=seg.get_cell_location(),
                          what=Cell.Recordables.MembraneVoltage)
         rec_dict[cell][seg]['V'] = rec.name
 
         print rec
 
-
 res = sim.run()
 
-
-
-
-
-#Build the HDF5 file:
-
+# Build the HDF5 file:
 
 import tables
 import os
-fName ="/home/michael/Desktop/test1.hdf5"
+fName = '/home/michael/Desktop/test1.hdf5'
 
 if os.path.exists(fName):
     os.unlink(fName)
 
-h5file = tables.openFile(fName, mode = "w", title = "Test file")
+h5file = tables.openFile(fName, mode='w', title='Test file')
 
-geom = h5file.createGroup("/", 'geometry',)
-#geom. = h5file.createGroup(geom, 'geom',)
+geom = h5file.createGroup('/', 'geometry')
+# geom. = h5file.createGroup(geom, 'geom',)
 
 h5file.createArray(geom, 'geom', str(t))
 
-results = h5file.createGroup("/", 'results',)
-varref = h5file.createGroup(results , 'VarRef',)
-
+results = h5file.createGroup('/', 'results')
+varref = h5file.createGroup(results, 'VarRef')
 
 time = None
 
 
-for cell,segs in rec_dict.iteritems():
-    for seg,variables in segs.iteritems():
+for (cell,segs) in rec_dict.iteritems():
+    for (seg,variables) in segs.iteritems():
 
         seg_names,seg_ids = naming_info[cell]
 
         seg_name = seg_names[seg]
         segGrp = h5file.createGroup(varref, seg_name)
 
-        for var,varname in variables.iteritems():
+        for (var, varname) in variables.iteritems():
             tr = res.get_trace(varname)
-            h5file.createArray(segGrp,  var, tr._data.magnitude)
+            h5file.createArray(segGrp, var, tr._data.magnitude)
 
             if time is None:
                 time = tr.time_pts_ms
 
-h5file.createArray(varref,  "x", time)
-
+h5file.createArray(varref, 'x', time)
 
 h5file.close()
 
-
 TagViewer(res, show=False)
-
 
 #    pylab.show()

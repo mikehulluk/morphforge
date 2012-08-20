@@ -29,11 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
-    MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClamp_SinWave
 from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
@@ -103,18 +102,17 @@ ${stimname}.bias = $bias.rescale("nA").magnitude
 """
 
 
-
-
 class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
+
     def __init__(self, cclamp, **kwargs):
         super(NeuronSinwaveCurrentClampCurrentRecord, self).__init__(**kwargs)
         self.cclamp = cclamp
 
     def get_unit(self):
         return unit('nA')
+
     def get_std_tags(self):
         return [StandardTags.Current]
-
 
     def build_hoc(self, hocfile_obj):
         objNameHoc = hocfile_obj[MHocFileData.CurrentClamps][self.cclamp]["stimname"]
@@ -124,21 +122,10 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
         pass
 
 
-
-
-
-
-
 class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
-    def __init__(self, **kwargs):# simulation,  amp, freq, delay,bias, cell_location, name=None):
-        #assert False, "Resolve the multiple inheritance of the name!"
+    def __init__(self, **kwargs):
         super(Neuron_CurrentClamp_SinWave, self).__init__(**kwargs)
-        #name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_CurrentClamp_SinWave)
-
-        #NeuronObject.__init__(self, simulation=simulation, name=name)
-        #CurrentClamp_SinWave.__init__(self,  amp=amp, freq=freq, delay=delay, bias=bias, cell_location=cell_location, name=name)
-
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
@@ -146,20 +133,19 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-               "stimname": self.get_name(),
-               "cell":cell,
-               "cellname": cell_hoc['cell_name'],
-               "sectionindex":cell_hoc['section_indexer'][section],
-               "sectionpos":self.cell_location.morphlocation.sectionpos,
-               "freq": self.freq,
-               "amp": self.amp,
-               "delay": self.delay,
-               "bias":self.bias,
-               }
+            'stimname': self.get_name(),
+            'cell': cell,
+            'cellname': cell_hoc['cell_name'],
+            'sectionindex': cell_hoc['section_indexer'][section],
+            'sectionpos': self.cell_location.morphlocation.sectionpos,
+            'freq': self.freq,
+            'amp': self.amp,
+            'delay': self.delay,
+            'bias': self.bias,
+            }
 
-        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,
-                                   Template(ccSinWaveHOCTmpl, data).respond())
-
+        hoc_txt = Template(ccSinWaveHOCTmpl, data).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,hoc_txt)
         hocfile_obj[MHocFileData.CurrentClamps][self] = data
 
 
@@ -167,8 +153,6 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
         modfile = ModFile(modtxt=currentclampsinwaveTxt,
                           name='NeuronSinWaveCurrentClmap')
         modfile_set.append(modfile)
-
-
 
     def get_recordable(self, what, **kwargs):
         if what == StandardTags.Current:

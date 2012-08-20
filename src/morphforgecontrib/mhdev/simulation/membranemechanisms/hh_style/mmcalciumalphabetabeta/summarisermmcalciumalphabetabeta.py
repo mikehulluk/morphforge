@@ -29,10 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy as np
-
-
 
 #
 from ..stdlimits import StdLimits
@@ -41,16 +38,8 @@ from ..stdlimits import StdLimits
 
 from mhlibs.quantities_plot import QuantitiesFigure
 
-
-
-
-
-
 from util import AlphaBetaCalculator, AlphaBetaBetaCalculator
 from util import InfTauCalculator, ReportLabTools
-
-
-
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.styles import getSampleStyleSheet

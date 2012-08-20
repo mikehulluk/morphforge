@@ -29,12 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
-
-
-
-
 
 
 def cell_location_distance_from_soma(cell_location):

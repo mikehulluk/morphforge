@@ -41,8 +41,8 @@ from morphforge.simulation.neuron.core.neuronsimulationenvironment import Neuron
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
 
-
 class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
+
     def __init__(self, lkchannel, modvar, **kwargs):
         super(MM_Neuron_Leak_Record, self).__init__(**kwargs)
         self.leak_chl = lkchannel
@@ -59,49 +59,50 @@ class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.leak_chl.get_neuron_suffix(),
             recordobj=self,
-           )
-
-
-
+            )
 
 
 class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
+
     def __init__(self, **kwargs):
+
         super(MM_Neuron_Leak_ConductanceDensityRecord,
               self).__init__(modvar='g', **kwargs)
+
     def get_unit(self):
         return unit('S/cm2')
+
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
 
-
     def get_description(self):
-        t1 ="g %s "%(self.leak_chl.name)
-        r = "%s"%self.cell_location.cell.name
-        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
+        t1 = 'g %s ' % self.leak_chl.name
+        r = '%s' % self.cell_location.cell.name
+        t = (':%s' % self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else '')
         return t1 + r + t
 
 
 class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
+
     def __init__(self, **kwargs):
+
         super(MM_Neuron_Leak_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
         return unit('mA/cm2')
+
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
 
     def get_description(self):
-        t1 ="i %s "%(self.leak_chl.name)
-        r = "%s"%self.cell_location.cell.name
-        t = ":%s"% self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else ""
+        t1 = 'i %s ' % self.leak_chl.name
+        r = '%s' % self.cell_location.cell.name
+        t = (':%s' % self.cell_location.morphlocation.section.idtag if self.cell_location.morphlocation.section.idtag else '')
         return t1 + r + t
 
 
-
 class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
-
 
     def __init__(self, *args, **kwargs):
         MM_LeakChannel.__init__(self, *args, **kwargs)
@@ -132,6 +133,5 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism(MM_LeakChannel, MM_Neuron_Leak)
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_LeakChannel, MM_Neuron_Leak)
 

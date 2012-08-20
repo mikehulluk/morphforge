@@ -29,13 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.networks import PreSynapticMechanism
 from morphforge.simulation.base.networks import PreSynapticTypes
 from morphforge.traces.eventset import EventSet
-
-
-
 
 
 class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
@@ -45,7 +41,6 @@ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
         self.voltage_threshold = voltage_threshold
         self.delay = delay
         self.weight = weight
-
 
     def get_presynaptic_cell_location(self):
         return self.cell_location

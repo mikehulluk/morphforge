@@ -29,7 +29,5 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import sim_builtin_core
 import sim_builtin_neuron

@@ -29,9 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.importers.neuroml import ChannelMLReader
@@ -42,12 +39,11 @@ from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_brid
 class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, NeuroML_Via_NeuroUnits_Channel):
 
     def __init__(self, xml_filename, chlname=None, mechanism_id=None):
-        #self.mechanism_id = mechanism_id
+        # self.mechanism_id = mechanism_id
 
-        eqnset,chlinfo,default_params = ChannelMLReader.BuildEqnset(xml_filename)
-        #eqnset,chlinfo,default_params = EqnSetFromNeuroML.load(xml_filename)
+        (eqnset, chlinfo, default_params) = ChannelMLReader.BuildEqnset(xml_filename)
 
-        default_params = dict([(k,v.as_quantities_quantity()) for (k,v) in default_params.iteritems()])
+        default_params = dict([(k, v.as_quantities_quantity()) for (k, v) in default_params.iteritems()])
 
         Neuron_NeuroUnitEqnsetMechanism.__init__(self, name=chlname, eqnset=eqnset, mechanism_id=mechanism_id, default_parameters=default_params, recordables_map=None, recordables_data=None)
         NeuroML_Via_NeuroUnits_Channel.__init__(self, xml_filename=xml_filename, chlname=chlname, mechanism_id=mechanism_id)

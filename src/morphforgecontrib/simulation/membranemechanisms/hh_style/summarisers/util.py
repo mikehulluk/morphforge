@@ -29,11 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import numpy as np
 
 import morphforge.core.quantities as pq
+
 
 class AlphaBetaCalculator(object):
 
@@ -44,23 +43,6 @@ class AlphaBetaCalculator(object):
         alphabeta = alphabeta * (pq.J / pq.J)
         return alphabeta
 
-
-    #@classmethod
-    #def getAlphaBeta(cls, V, alpha, beta):
-    #    alpha = cls.calc_alpha_beta(V,alpha)
-    #    beta =  cls.calc_alpha_beta(V,beta)
-    #    return alpha,beta
-
-
-
-
-
-
-
-
-
-
-
 class InfTauCalculator(object):
     @classmethod
     def alpha_beta_to_inf_tau(cls, alpha, beta):
@@ -68,13 +50,11 @@ class InfTauCalculator(object):
         tau = 1.0 / (alpha + beta) * pq.milli * pq.second
         return (inf, tau)
 
-
     @classmethod
     def evaluate_inf_tau_for_v(cls, (alphaParams, betaParams), V):
-        alpha, beta = AlphaBetaCalculator.getAlphaBeta(V, alphaParams,betaParams)
-        inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)
-        return inf,tau
-
+        (alpha, beta) = AlphaBetaCalculator.getAlphaBeta(V, alphaParams, betaParams)
+        (inf, tau) = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)
+        return (inf, tau)
 
 
 class ReportLabTools(object):
@@ -86,7 +66,10 @@ class ReportLabTools(object):
         elements.append(Paragraph(title,reportlabconfig.styles['Heading4']))
         print params
         print
-        alpha_params = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
-        alpha_table_data = [["A","B","C","D","E"], alpha_params.split() ]
-        elements.append(Table(alpha_table_data, style=reportlabconfig.defaultTableStyle))
+        alpha_params = '%2.2f %2.2f %2.2f %2.2f %2.2f' % tuple(params)
+        alpha_table_data = [['A', 'B', 'C', 'D', 'E'],
+                            alpha_params.split()]
+        elements.append(Table(alpha_table_data,
+                        style=reportlabconfig.defaultTableStyle))
+
 

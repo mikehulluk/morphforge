@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.stdimports import *
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType
 from scipy.interpolate import interp1d
@@ -47,29 +46,31 @@ ksChl = ksFunctor(env)
 lkChl = lkFunctor(env)
 
 
-
 def interpolate_inf(chl, state, V):
     params = chl.statevars_new[state]
     return interp1d(x=params.V, y=params.inf)(V)
 
 
 def m_inf(V):
-    return interpolate_inf(naChl, 'm',V)
+    return interpolate_inf(naChl, 'm', V)
+
 
 def h_inf(V):
-    return interpolate_inf(naChl, 'h',V)
+    return interpolate_inf(naChl, 'h', V)
+
 
 def kf_inf(V):
-    return interpolate_inf(kfChl, 'kf',V)
+    return interpolate_inf(kfChl, 'kf', V)
+
 
 def ks_inf(V):
-    return interpolate_inf(ksChl, 'ks',V)
+    return interpolate_inf(ksChl, 'ks', V)
+
 
 import numpy as np
-v = np.linspace(-75,35,100)
+v = np.linspace(-75, 35, 100)
 
 minf = m_inf(v)
-
 
 SA = unit('1000:um2')
 
@@ -94,40 +95,29 @@ def dVdt(iExt, n):
     iNa + iKf + iLk
 
 
-
-
-#pylab.plot(v,n4, label='n4')
-pylab.plot(v,get_nCurve(0), label='n, Iext=0')
-pylab.plot(v,get_nCurve(100), label='n, Iext=100')
-pylab.plot(v,get_nCurve(150), label='n, Iext=150')
-pylab.plot(v,get_nCurve(200), label='n, Iext=200')
+# pylab.plot(v,n4, label='n4')
+pylab.plot(v, get_nCurve(0), label='n, Iext=0')
+pylab.plot(v, get_nCurve(100), label='n, Iext=100')
+pylab.plot(v, get_nCurve(150), label='n, Iext=150')
+pylab.plot(v, get_nCurve(200), label='n, Iext=200')
 pylab.plot(v, ks_inf(v), label='ks_inf')
 pylab.legend()
 
-#pylab.show()
+# pylab.show()
 
-
-
-
-#sys.exit(0)
+# sys.exit(0)
 
 pylab.figure()
-pylab.plot(v,sNa, label='Na-inf')
-pylab.plot(v,sKf, label='Kf-inf')
-pylab.plot(v,sKs, label='Ks-inf')
+pylab.plot(v, sNa, label='Na-inf')
+pylab.plot(v, sKf, label='Kf-inf')
+pylab.plot(v, sKs, label='Ks-inf')
 pylab.legend()
 
-
 pylab.figure()
-pylab.plot(v,iNa, label='Na-i')
-pylab.plot(v,iKf, label='Kf-i')
-pylab.plot(v,iKs, label='Ks-i')
-pylab.plot(v,iLk, label='Lk-i')
+pylab.plot(v, iNa, label='Na-i')
+pylab.plot(v, iKf, label='Kf-i')
+pylab.plot(v, iKs, label='Ks-i')
+pylab.plot(v, iLk, label='Lk-i')
 pylab.legend()
 pylab.show()
-
-
-
-
-
 

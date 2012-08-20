@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
@@ -54,7 +53,7 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.ion = ion
 
         self.permeability = unit(permeability)
-        self.intracellular_concentration  =unit(intracellular_concentration)
+        self.intracellular_concentration = unit(intracellular_concentration)
         self.extracellular_concentration = unit(extracellular_concentration)
 
         self.eqn = equation
@@ -66,11 +65,10 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.CaZ = unit('2:')
         self.T = unit(temperature)
 
-
-
     def get_variables(self):
         return ['gScale']
 
     def get_defaults(self):
         return {'gScale': unit('1.0')}
+
 

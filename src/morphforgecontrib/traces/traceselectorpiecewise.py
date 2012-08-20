@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import re
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
@@ -40,44 +39,55 @@ import itertools
 
 
 class LevelToken(object):
+
     def __init__(self, symbol):
         self.symbol = symbol
+
     def does_consume(self):
         return False
+
     def record_time_in_symbol(self):
         return self.symbol
+
     def does_match(self, level):
         return True
 
+
 class LevelSelector(object):
+
     def __init__(self, time_selector, data_selector):
         self.time_selector = time_selector
         self.data_selector = data_selector
+
     def does_match(self, level):
         return self.time_selector.does_match(level) \
             and self.data_selector.does_match(level)
+
     def does_consume(self):
         return True
+
     def record_time_in_symbol(self):
         return None
 
+
 class DataSelector(object):
+
     def __init__(self, minvalue=None, maxvalue=None):
         self.minvalue = minvalue
         self.maxvalue = maxvalue
+
     def does_match(self, level):
-        l_bound_ok = self.minvalue < level.get_value() if self.minvalue is not None else True
-        u_bound_ok = self.maxvalue > level.get_value() if self.maxvalue is not None else True
+        l_bound_ok = (self.minvalue < level.get_value() if self.minvalue is not None else True)
+        u_bound_ok = (self.maxvalue > level.get_value() if self.maxvalue is not None else True)
         return l_bound_ok and u_bound_ok
 class TimeSelector(object):
     def __init__(self, minduration=None, maxduration=None):
         self.minduration = minduration
         self.maxduration = maxduration
     def does_match(self, level):
-        l_bound_ok = self.minduration < level.get_duration() if self.minduration is not None else True
-        u_bound_ok = self.maxduration > level.get_duration() if self.maxduration is not None else True
+        l_bound_ok = (self.minduration < level.get_duration() if self.minduration is not None else True)
+        u_bound_ok = (self.maxduration > level.get_duration() if self.maxduration is not None else True)
         return l_bound_ok and u_bound_ok
-
 
 
 class MatchObject(object):
@@ -95,11 +105,11 @@ class MatchObject(object):
 
 
 class LevelSelectorGroup(object):
+
     def __init__(self, S, xunit, yunit):
         # Parse the expression:
         self.expr = LevelSelectorGroup.parse_expr(S, xunit, yunit)
         self.xunit = xunit
-
 
     def matchall(self, level_set):
         pieces = level_set.pieces
@@ -146,14 +156,11 @@ class LevelSelectorGroup(object):
 
         return m
 
-
-
     @classmethod
     def parse_expr(cls, s, xunit, yunit):
         s = s.replace(' ', '')
         return [LevelSelectorGroup.parse_term(t, xunit, yunit) for t in
                 s.split(',')]
-
 
     @classmethod
     def parse_term(cls, st, xunit, yunit):

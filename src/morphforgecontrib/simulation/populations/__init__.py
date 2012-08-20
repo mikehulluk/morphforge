@@ -29,6 +29,5 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from basic_types import Connectors, NeuronPopulation, SynapsePopulation
 from group_analysis import PopAnalSpiking

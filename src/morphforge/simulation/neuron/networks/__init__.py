@@ -72,7 +72,7 @@ class NeuronSynapse(NeuronObject, Synapse):
         assert False
 
 
-expTmpl = """
+_expr_tmpl = """
 // Gap Junction [$name]
 objref $name1
 objref $name2
@@ -150,7 +150,7 @@ class NeuronGapJunction(GapJunction, NeuronObject):
             }
 
         hocfile_obj.add_to_section(MHOCSections.InitGapJunction,
-                                   Template(expTmpl, data).respond())
+                                   Template(_expr_tmpl, data).respond())
 
         hocfile_obj[MHocFileData.GapJunctions][self] = data
 

@@ -29,44 +29,29 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
-
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 
-
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_core import NeuroML_Via_XSL_Channel
-
-
-
 
 from lxml import etree
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import MM_Neuron_RecGen
 from neurounits.importers.neuroml import ChannelMLReader
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData,\
-    MHOCSections
-
-
-
-
-
-
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 
 
 class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
 
-    def __init__(self, xml_filename,xsl_filename, chlname=None, mechanism_id=None,):
+    def __init__(self, xml_filename, xsl_filename, chlname=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
         MM_Neuron_Base.__init__(self)
         NeuroML_Via_XSL_Channel.__init__(self,
                 xml_filename=xml_filename, xsl_filename=xsl_filename,
                 chlname=chlname, mechanism_id=mechanism_id)
-
 
         xslt_root = etree.parse(open(self.xsl_filename))
         xsl_transform = etree.XSLT(xslt_root)
@@ -78,8 +63,6 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
         self.NRNSUFFIX = nrnsuffix
-
-
 
         # ISSUE 'A': Extract out the reversal potential; and set it manually since the XSL method does not work:
         self.chlData = ChannelMLReader.LoadChlRaw(xml_filename)
@@ -122,12 +105,10 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
                           % self.name, modtxt=self.modtxt)
         modfile_set.append(modFile)
 
-
-
     # No Internal recording or adjusting of parameters for now:
     class Recordables:
-        all = []
 
+        all = []
 
     def get_variables(self):
         return []

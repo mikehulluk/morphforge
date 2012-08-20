@@ -29,9 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core import mfrandom
 import random
+
 
 def getExp2SynModfile():
 
@@ -165,3 +165,5 @@ ENDVERBATIM
     commentVal = ('//' if mfrandom.MFRandom._seed is not None else '')
     return x.replace('$randomseed', '%d' % seedVal).replace('$COMMENT',
             commentVal)
+
+

@@ -29,21 +29,18 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 import numpy as np
 import os
 from scipy.spatial.distance import pdist, squareform
 from morphforge.morphology.mesh.mesh import TriangleMesh
 
 
-
 class GeomTools(object):
+
     @classmethod
     def produce_sphere(cls, centre, radius, n_steps):
 
         angles_step = 2 * np.pi / n_steps
-
 
         az_angles = [i * angles_step for i in range(n_steps)]
         theta_angles = [i * angles_step for i in range(n_steps)]
@@ -62,14 +59,10 @@ class GeomTools(object):
 
 class MeshFromGTS(object):
 
-
-
-
     @classmethod
     def build(cls, m, plot=True, region_color_map=None):
         import gts
         surface_sections = cls.buildsurface_sectiondict(m.to_tree())
-
 
         meshes = []
         for (sect, sect_surface) in surface_sections.iteritems():
@@ -85,21 +78,20 @@ class MeshFromGTS(object):
             sect_color = region_color_map[sect.region.name]
             print sect_color
 
-
             vertex_objs = sect_surface.vertices()
             N = len(vertex_objs)
-            dShape = (N,3)
-            v = np.array([(v.x,v.y,v.z) for v in vertex_objs]).reshape(dShape)
+            dShape = (N, 3)
+            v = np.array([(v.x, v.y, v.z) for v in vertex_objs]).reshape(dShape)
 
-            color = np.array((sect_color.r,sect_color.g,sect_color.b))
+            color = np.array((sect_color.r, sect_color.g, sect_color.b))
             colors = np.repeat(color, len(vertex_objs)).reshape(dShape, order='F')
 
             triangles = sect_surface.face_indices(vertex_objs)
 
-            tm = TriangleMesh(vertices=v, triangles=triangles, vertex_colors=colors)
+            tm = TriangleMesh(vertices=v, triangles=triangles,
+                              vertex_colors=colors)
             meshes.append(tm)
         m = TriangleMesh.merge(meshes=meshes)
-       
 
         if plot:
             from mayavi import mlab
@@ -111,8 +103,6 @@ class MeshFromGTS(object):
             mlab.show()
 
         return m
-
-
 
     @classmethod
     def only_pts_at_min_dist(cls, pts, min_dist):
@@ -129,12 +119,9 @@ class MeshFromGTS(object):
         Y_to_close = Y + np.tri(Y.shape[0]) < min_dist
 
         # Now look for inices with no False in the columns
-        any_indices =  (~Y_to_close.any(axis=0)).nonzero()[0]
+        any_indices = (~Y_to_close.any(axis=0)).nonzero()[0]
 
-        return  pts[any_indices,:]
-
-
-
+        return pts[any_indices, :]
 
     @classmethod
     def buildsurface_sectiondict(cls, m):
@@ -145,18 +132,12 @@ class MeshFromGTS(object):
 
         return surface_sections
 
-
-
-
-
     @classmethod
     def buildsectionsurface(cls, s):
         import gts
         from morphforge.core import LocMgr
         from os.path import join as Join
         print 'Building Mesh'
-
-
 
         working_dir = LocMgr.ensure_dir_exists('/tmp/mf/mesh/')
         fTemp1 = Join(working_dir, 'pts.txt')
@@ -167,29 +148,27 @@ class MeshFromGTS(object):
 
         nstep = 5
         print 'Building Spheres'
-        distal_offset = np.array((0.05,0.05,0.05))
-        ptsP = GeomTools.produce_sphere(centre=s.get_proximal_npa3(),radius=s.p_r,n_steps=nstep )
-        ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()+distal_offset,radius=s.d_r,n_steps=nstep )
+        distal_offset = np.array((0.05, 0.05, 0.05))
+        ptsP = GeomTools.produce_sphere(centre=s.get_proximal_npa3(),
+                radius=s.p_r, n_steps=nstep)
+        ptsD = GeomTools.produce_sphere(centre=s.get_distal_npa3()
+                + distal_offset, radius=s.d_r, n_steps=nstep)
 
         print 'Removing Close Points'
         pts = cls.only_pts_at_min_dist(ptsP + ptsD, min_dist=0.01)
-
 
         print 'Writing:', fTemp2
         with open(fTemp1, 'w') as f:
             f.write('3 %d\n' % len(pts))
             np.savetxt(f, np.array(pts))
 
-
         if os.path.exists(fTemp2):
             os.unlink(fTemp2)
         os.system('qhull T1 QJ o < %s > %s' % (fTemp1, fTemp2))
 
-
         # Don't do the subdivision, just copy the files:
-        os.system("cp %s %s"%(fTemp2,fTemp2b))
-        #fTemp2 = fTemp2b
-
+        os.system('cp %s %s' % (fTemp2, fTemp2b))
+        # fTemp2 = fTemp2b
 
         f = open(fTemp2b).read().split()
         (nVertex, nFace, nEdge) = [int(i) for i in f[1:4]]
@@ -197,30 +176,25 @@ class MeshFromGTS(object):
         vertices = np.array([float(t) for t in f[4:4 + nVertex
                             * 3]]).reshape(nVertex, 3)
 
-
         triangles = np.array([int(t) for t in f[4 + nVertex * 3:]])
         triangles = triangles.reshape((nFace, 4))
         triangles = triangles[:, (1, 2, 3)]
 
-
-
         print 'Writing STL'
-        with open(fTemp3,'w') as fSTL:
-            fSTL.write("solid name\n")
+        with open(fTemp3, 'w') as fSTL:
+            fSTL.write('solid name\n')
             for i in range(triangles.shape[0]):
-                a,b,c = triangles[i,:]
-                
+                (a, b, c) = triangles[i, :]
 
-                fSTL.write("facet normal 0 0 0\n")
-                fSTL.write("outer loop \n")
-                fSTL.write("vertex %f %f %f\n"%(vertices[a,0],vertices[a,1],vertices[a,2]))
-                fSTL.write("vertex %f %f %f\n"%(vertices[b,0],vertices[b,1],vertices[b,2]))
-                fSTL.write("vertex %f %f %f\n"%(vertices[c,0],vertices[c,1],vertices[c,2]))
-                fSTL.write("endloop \n")
-                fSTL.write("endfacet\n")
+                fSTL.write('facet normal 0 0 0\n')
+                fSTL.write('outer loop \n')
+                fSTL.write('vertex %f %f %f\n' % (vertices[a, 0], vertices[a, 1], vertices[a, 2]))
+                fSTL.write('vertex %f %f %f\n' % (vertices[b, 0], vertices[b, 1], vertices[b, 2]))
+                fSTL.write('vertex %f %f %f\n' % (vertices[c, 0], vertices[c, 1], vertices[c, 2]))
+                fSTL.write('endloop \n')
+                fSTL.write('endfacet\n')
 
-            fSTL.write("solid end")
-
+            fSTL.write('solid end')
 
         print 'Running stl2gts...'
         if os.path.exists(fTemp4):
@@ -241,4 +215,5 @@ class MeshFromGTS(object):
 
         # s.tessellate()
         return s
+
 

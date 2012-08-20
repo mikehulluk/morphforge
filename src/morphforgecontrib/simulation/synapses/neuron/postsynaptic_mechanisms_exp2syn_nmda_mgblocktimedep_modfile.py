@@ -29,10 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core import mfrandom
 import random
+
 
 def get_exp2_syn_nmda_mg_block_time_dependance_modfile():
 

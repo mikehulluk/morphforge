@@ -29,35 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from xml.dom.minidom import Document
 
 # Create the minidom document
 
-"""
-# Create the <wml> base element
-wml = doc.createElement("wml")
-doc.appendChild(wml)
-
-# Create the main <card> element
-maincard = doc.createElement("card")
-maincard.setAttribute("id", "main")
-wml.appendChild(maincard)
-
-# Create a <p> element
-paragraph1 = doc.createElement("p")
-maincard.appendChild(paragraph1)
-
-# Give the <p> elemenet some text
-ptext = doc.createTextNode("This is a test!")
-paragraph1.appendChild(ptext)
-
-# Print our newly created XML
-print doc.toprettyxml(indent="  ")
-"""
 import sys
+
 
 class MorphMLWriter(object):
 
@@ -70,20 +47,16 @@ class MorphMLWriter(object):
         morphml_node = doc.createElement('morphml')
         doc.appendChild(morphml_node)
 
-
         # Cells Node:
         cells_node = doc.createElement('cells')
         morphml_node.appendChild(cells_node)
 
-
         # MorphML Node:
         cell_naming_data = {}
         for cell in cells:
-            res = cls.writeone(cell=cell, cells_node=cells_node, doc=doc)
+            res = cls.writeone(cell=cell, cells_node=cells_node,
+                               doc=doc)
             cell_naming_data[cell] = res
-
-
-
 
         txt = doc.toprettyxml()
         txt = cls.hackAroundNamespace(txt)
@@ -104,32 +77,27 @@ class MorphMLWriter(object):
         cell_node.setAttribute('name', '%s' % cell.name)
         cells_node.appendChild(cell_node)
 
-
-
-
         segments_node = doc.createElement('segments')
         cell_node.appendChild(segments_node)
 
         # Give a name to each segment:
-        segnamedict = dict([(seg, "%s_seg_%d"%(cell.name, i)) for i,seg in enumerate(cell.get_segmenter())])
-        segiddict = dict([(seg,  "%d"%(i+id_base)) for i,seg in enumerate(cell.get_segmenter())])
+        segnamedict = dict([(seg, '%s_seg_%d' % (cell.name, i)) for (i, seg) in enumerate(cell.get_segmenter())])
+        segiddict = dict([(seg, '%d' % (i + id_base)) for (i, seg) in enumerate(cell.get_segmenter())])
 
         for seg in cell.get_segmenter():
-
 
             # Create the segments node:
             seg_node = doc.createElement('segment')
             segments_node.appendChild(seg_node)
 
             # Set the ID:
-            seg_node.setAttribute("id", segiddict[seg])
-            seg_node.setAttribute("name", segnamedict[seg])
+            seg_node.setAttribute('id', segiddict[seg])
+            seg_node.setAttribute('name', segnamedict[seg])
 
-            #Set the parent ID:
+            # Set the parent ID:
             pSeg = seg.get_parent_segment()
             if pSeg:
-                seg_node.setAttribute("parent", segiddict[pSeg])
-
+                seg_node.setAttribute('parent', segiddict[pSeg])
 
             # Add the proximal and distal objects:
             seg_node_proximal = doc.createElement("proximal")
@@ -139,15 +107,9 @@ class MorphMLWriter(object):
             seg_node_proximal.setAttribute("diameter", "%f"% (seg.get_proximal_np4a()[3] *2.0))
             seg_node.appendChild(seg_node_proximal)
 
-            seg_node_distal = doc.createElement("distal")
+            seg_node_distal = doc.createElement('distal')
             seg_node.appendChild(seg_node_distal)
 
         return (segnamedict, segiddict)
-
-
-
-
-
-
 
 

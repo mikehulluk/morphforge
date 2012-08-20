@@ -29,15 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
-
 from Cheetah.Template import Template
 from morphforge.simulation.neuron import ModFile
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
-
-
 
 
 class MM_WriterAlphaBetaBeta(object):
@@ -55,21 +51,16 @@ $(cell_name).internalsections [$section_index] {
 }
 """
 
-    Units = {
-        "gBar": "S/cm2",
-        "e_rev": "mV",
-        "gScale":"",
-            }
-
+    Units = {'gBar': 'S/cm2', 'e_rev': 'mV', 'gScale': ''}
 
     @classmethod
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
 
-        cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
-        section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
+        cell_name = cell_hoc['cell_name']
+        section_index = cell_hoc['section_indexer'][section]
 
         neuron_suffix = mta.mechanism.get_neuron_suffix()
-
 
         # Calculate the values of the variables for the section:
         variables = []
@@ -101,12 +92,10 @@ $(cell_name).internalsections [$section_index] {
         base_writer = MM_ModFileWriterBase(suffix=alphabeta_beta_chl.get_neuron_suffix())
 
         # Naming Conventions:
-        state_tau = lambda s: "%stau" % s
-        state_inf = lambda s: "%sinf" % s
-        state_alpha = lambda s: "%s_alpha" % s
-        state_beta = lambda s: "%s_beta" % s
-
-
+        state_tau = lambda s: '%stau' % s
+        state_inf = lambda s: '%sinf' % s
+        state_alpha = lambda s: '%s_alpha' % s
+        state_beta = lambda s: '%s_beta' % s
 
         # State Equations and initial values:
         for s in alphabeta_beta_chl.statevars:
@@ -150,9 +139,8 @@ $(cell_name).internalsections [$section_index] {
                         }
                     }
                     """
-        txt =  base_writer.generate_modfile()
+        txt = base_writer.generate_modfile()
         mod_file = ModFile(name=alphabeta_beta_chl.name, modtxt=txt)
         modfile_set.append(mod_file)
-
 
 

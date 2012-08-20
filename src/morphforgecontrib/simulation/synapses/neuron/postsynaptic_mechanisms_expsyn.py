@@ -29,9 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, \
-    MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import PostSynapticMech_ExpSyn
 
 # PostSynapticMech_ExpSyn
@@ -42,38 +41,30 @@ from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
 
 
-
-
 class Neuron_PSM_ExpSyn_CurrentRecord(Neuron_PSM_Std_CurrentRecord):
+
     pass
 
+
 class Neuron_PSM_ExpSyn_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
+
     pass
 
 class Neuron_PSM_Exp2Syn_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
+
     pass
 
 
 
 
 
-
-
-
-
-expTmpl = """
+_expr_tmpl = """
 // Post-Synapse [$synnamepost]
 objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSyn ($sectionpos)
 ${synnamepost}.tau = $tau.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 """
-
-
-
-
-
-
 
 
 class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
@@ -100,7 +91,7 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
 
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,
-                                   Template(expTmpl, data).respond())
+                                   Template(_expr_tmpl, data).respond())
 
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data

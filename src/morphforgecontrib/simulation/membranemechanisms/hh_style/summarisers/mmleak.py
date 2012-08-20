@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 
@@ -47,8 +46,8 @@ class Summarise_MM_LeakChannel(object):
 
         # Summary:
         overview_table_data = [
-                             ["Conductance", chl.conductance],
-                             ["Reversal Potential",  chl.reversalpotential],
+                  ['Conductance', chl.conductance],
+                  ['Reversal Potential', chl.reversalpotential],
                            ]
 
         local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))

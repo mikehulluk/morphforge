@@ -29,19 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from Cheetah.Template import Template
 from morphforge.simulation.neuron import ModFile
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 
 
-
-
-
 class MM_WriterLeak(object):
-
-
 
     lkChlHoc = """
 
@@ -54,12 +49,7 @@ $(cell_name).internalsections [$section_index] {
 }
 """
 
-    Units = {
-        "gLk": "S/cm2",
-        "eLk": "mV",
-        "gScale":"",
-            }
-
+    Units = {'gLk': 'S/cm2', 'eLk': 'mV', 'gScale': ''}
 
     @classmethod
     def build_hoc_section(cls, cell, section, hocfile_obj, mta):
@@ -68,7 +58,6 @@ $(cell_name).internalsections [$section_index] {
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
         neuron_suffix = mta.mechanism.get_neuron_suffix()
-
 
         # Calculate the values of the variables for the section:
         variables = []
@@ -79,11 +68,11 @@ $(cell_name).internalsections [$section_index] {
             variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
 
         tmpl_dict = {
-                    "cell_name":cell_name,
-                    "section_index":section_index,
-                    "neuron_suffix":neuron_suffix,
-                    "variables":variables
-                    }
+            'cell_name': cell_name,
+            'section_index': section_index,
+            'neuron_suffix': neuron_suffix,
+            'variables': variables,
+            }
 
         # Add the data to the HOC file
         hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc,tmpl_dict).respond())
@@ -105,13 +94,13 @@ $(cell_name).internalsections [$section_index] {
         # Parameters:
         # {name: (value, unit,range)}
         base_writer.parameters = {
-          gbar_name:   (leak_chl.conductance.rescale(gbar_units).magnitude, (gbar_units), None),
-          e_rev_name:   (leak_chl.reversalpotential.rescale(e_rev_units).magnitude, (e_rev_units), None),
+          gbar_name: (leak_chl.conductance.rescale(gbar_units).magnitude, (gbar_units), None),
+          e_rev_name: (leak_chl.reversalpotential.rescale(e_rev_units).magnitude, (e_rev_units), None),
           g_scale_name: (1.0, None, None)
                       }
 
-        base_writer.currentequation = "(v-%s) * %s * %s" % (e_rev_name, gbar_name, g_scale_name)
-        base_writer.conductanceequation =  "%s * %s" % (gbar_name, g_scale_name)
+        base_writer.currentequation = '(v-%s) * %s * %s' % (e_rev_name, gbar_name, g_scale_name)
+        base_writer.conductanceequation = '%s * %s' % (gbar_name, g_scale_name)
 
         modtxt = base_writer.generate_modfile()
         mod_file = ModFile(name=leak_chl.name, modtxt=modtxt)

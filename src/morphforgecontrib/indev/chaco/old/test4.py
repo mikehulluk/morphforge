@@ -29,14 +29,16 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from numpy import linspace, pi, sin, tan
 from enthought.traits.api import HasTraits, Instance
 from enthought.traits.ui.api import Item, Tabbed, View
 from enthought.chaco.api import Plot, AbstractPlotData, ArrayPlotData
 from enthought.chaco.tools.api import PanTool, ZoomTool
 from enthought.enable.component_editor import ComponentEditor
+
+
 class TabbedPlots(HasTraits):
+
     data = Instance(AbstractPlotData)
     plot1 = Instance(Plot)
     plot2 = Instance(Plot)
@@ -57,10 +59,11 @@ class TabbedPlots(HasTraits):
         p.overlays.append(ZoomTool(p))
         return p
     def create_plots(self):
-        self.plot1 = self.create_plot(("x", "y1"), "sin plot", "red")
-        self.plot2 = self.create_plot(("x", "y2"), "tan plot", "blue")
+        self.plot1 = self.create_plot(('x', 'y1'), 'sin plot', 'red')
+        self.plot2 = self.create_plot(('x', 'y2'), 'tan plot', 'blue')
 
         self.plot2.index_range = self.plot1.index_range
+
     def _data_changed(self):
         self.create_plots()
 #===============================================================================

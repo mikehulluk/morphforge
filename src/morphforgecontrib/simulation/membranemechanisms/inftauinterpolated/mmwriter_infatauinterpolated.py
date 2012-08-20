@@ -29,12 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from Cheetah.Template import Template
 from morphforge.simulation.neuron import ModFile
-from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections, MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
-
 
 
 class MM_WriterInfTauInterpolated(object):
@@ -52,12 +51,7 @@ $(cell_name).internalsections [$section_index] {
 }
 """
 
-    Units = {
-        "gBar": "S/cm2",
-        "e_rev": "mV",
-        "gScale":"",
-            }
-
+    Units = {'gBar': 'S/cm2', 'e_rev': 'mV', 'gScale': ''}
 
     @classmethod
     def build_hoc_section(cls, cell, section, hocfile_obj, mta):
@@ -66,7 +60,6 @@ $(cell_name).internalsections [$section_index] {
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
         neuron_suffix = mta.mechanism.get_neuron_suffix()
-
 
         # Calculate the values of the variables for the section:
         variables = []
@@ -84,7 +77,8 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict).respond())
+        hoc_text = Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, hoc_text)
 
 
 
@@ -99,13 +93,12 @@ $(cell_name).internalsections [$section_index] {
             MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
 
         # Naming Conventions:
-        state_tau = lambda s: "%stau" % s
-        state_inf = lambda s: "%sinf" % s
-
+        state_tau = lambda s: '%stau' % s
+        state_inf = lambda s: '%sinf' % s
 
         # State Equations and initial values:
         for s in alphabeta_chl.statevars_new:
-            base_writer.internalstates[s] = "%s" % state_inf(s) , "%s'=(%s-%s)/%s" % (s, state_inf(s), s, state_tau(s))
+            base_writer.internalstates[s] = '%s' % state_inf(s), "%s'=(%s-%s)/%s" % (s, state_inf(s), s, state_tau(s))
 
         # Parameters:
         # {name: (value, unit,range)}
@@ -118,28 +111,25 @@ $(cell_name).internalsections [$section_index] {
         # Rates:
         # name : (locals, code), unit
         for s in alphabeta_chl.statevars_new:
-            base_writer.rates[state_inf(s)] = (("", state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
-            base_writer.rates[state_tau(s)] = (("", state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
+            base_writer.rates[state_inf(s)] = (('', state_inf(s) + "= %sInf(v)"%state_inf(s)), None)
+            base_writer.rates[state_tau(s)] = (('', state_tau(s) + "= %sTau(v)"%state_tau(s)), "ms")
             base_writer.ratecalcorder.extend([state_inf(s), state_tau(s)])
 
-        base_writer.currentequation = "(v-%s) * %s * %s * %s" % (e_rev_name, gbar_name, alphabeta_chl.eqn, g_scale_name)
-        base_writer.conductanceequation = " %s * %s * %s" % (gbar_name, alphabeta_chl.eqn, g_scale_name)
-
-
+        base_writer.currentequation = '(v-%s) * %s * %s * %s' % (e_rev_name, gbar_name, alphabeta_chl.eqn, g_scale_name)
+        base_writer.conductanceequation = ' %s * %s * %s' % (gbar_name, alphabeta_chl.eqn, g_scale_name)
 
         base_writer.functions = """
         VERBATIM
         #include <gsl_wrapper.h>
         ENDVERBATIM"""
 
-
         def buildInterpolatorFunc(state, inftau, funcname):
-            if inftau=='inf':
-                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V])
-                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].inf])
-            elif inftau=='tau':
-                interp_str_x = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].V])
-                interp_str_y = ",".join(["%2.2f"%x for x in  alphabeta_chl.statevars_new[s].tau])
+            if inftau == 'inf':
+                interp_str_x = ','.join(['%2.2f' % x for x in alphabeta_chl.statevars_new[s].V])
+                interp_str_y = ','.join(['%2.2f' % x for x in alphabeta_chl.statevars_new[s].inf])
+            elif inftau == 'tau':
+                interp_str_x = ','.join(['%2.2f' % x for x in alphabeta_chl.statevars_new[s].V])
+                interp_str_y = ','.join(['%2.2f' % x for x in alphabeta_chl.statevars_new[s].tau])
             else:
                 assert False
 
@@ -164,7 +154,6 @@ $(cell_name).internalsections [$section_index] {
             \n\n""" % variables
             return f
 
-
         for s in alphabeta_chl.statevars_new:
             base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='inf', funcname='%sinfInf'%s)
             base_writer.functions +=  buildInterpolatorFunc(state=s, inftau='tau', funcname='%stauTau'%s)
@@ -178,4 +167,5 @@ $(cell_name).internalsections [$section_index] {
         additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
         mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags)
         modfile_set.append(mod_file)
+
 

@@ -32,7 +32,7 @@
 
 
 
-class NeuroML_Via_XSL_Channel():
+class NeuroML_Via_XSL_Channel(object):
     def __init__(self, xml_filename, xsl_filename, chlname=None, mechanism_id=None):
         self.xml_filename = xml_filename
         self.xsl_filename = xsl_filename

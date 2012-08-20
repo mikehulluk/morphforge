@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
@@ -38,7 +36,9 @@ import numpy as np
 
 
 class MM_AlphaBetaBetaChannel(MembraneMechanism):
+
     class Recordables(object):
+
         Current = 'Current'
         all = [Current]
 
@@ -56,7 +56,6 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'],sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.reversalpotential = unit(reversalpotential)
 
-
     def get_variables(self):
         return ['gBar', 'e_rev', 'gScale']
 
@@ -64,13 +63,7 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         return {'gBar': self.conductance,
                 'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
 
-
-
-
-
-
     def get_alpha_beta_at_voltage(self, V, statevar):
-
 
         from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import AlphaBetaCalculator
         alpha = self.statevars[statevar][0]
@@ -88,3 +81,5 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
         beta = np.hstack([beta1[beta_indices1], beta2[beta_indices2]])
 
         return (alpha, beta)
+
+

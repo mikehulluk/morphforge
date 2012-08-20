@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from __future__ import division
 
 from enthought.traits.api import HasTraits,Instance,Int,Array,Float,Property,on_trait_change,Range, DelegatesTo
@@ -45,7 +44,6 @@ from numpy.random import randn
 from scipy.interpolate import UnivariateSpline
 
 from morphforge.stdimports import *
-
 
 # Major library imports
 from numpy import linspace
@@ -191,12 +189,6 @@ from channel_panels import *
 #
 #    return container
 
-
-
-
-
-
-
 def getDINMorphology(axonDiam):
 
     mDict  = {'root': { 'length': 17.5, 'diam': 17.5, 'id':'soma', 'region':'soma', 'sections':
@@ -216,34 +208,29 @@ def getDINMorphology(axonDiam):
                 }
         }
 
-    return  MorphologyLoader.fromDictionary(mDict, morphname="SimpleMorphology3")
-
-
-
-
-
-
-
-
-
-
+    return MorphologyLoader.fromDictionary(mDict,
+            morphname='SimpleMorphology3')
 
 
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [('SomaVoltage',vUnit),
-                ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit),  ('Ca_i',iUnit),
-                ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
-                ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
-               ]
-
-
-
-
-
-
-
+trace_names = [
+    ('SomaVoltage', vUnit),
+    ('Kf_i', iUnit),
+    ('Ks_i', iUnit),
+    ('Lk_i', iUnit),
+    ('Na_i', iUnit),
+    ('Ca_i', iUnit),
+    ('Kf_g', gUnit),
+    ('Ks_g', gUnit),
+    ('Lk_g', gUnit),
+    ('Na_g', gUnit),
+    ('Ks_ks', ''),
+    ('Kf_kf', ''),
+    ('Na_m', ''),
+    ('Na_h', ''),
+    ]
 
 from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 

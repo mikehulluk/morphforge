@@ -29,20 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-
 from Cheetah.Template import Template
 
 
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import  MHocFileData, MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-
-
-
-
-
-
 
 
 class MM_Neuron_GeneralisedRecord(NeuronRecordableOnLocation):
@@ -98,7 +91,6 @@ def build_hoc_default(cell, section, hocfile_obj, mta,  units, nrnsuffix):
     cell_name = cell_hoc['cell_name']
     section_index = cell_hoc['section_indexer'][section]
 
-
     # Calculate the values of the variables for the section:
     variables = []
     for variable_name in mta.mechanism.get_variables():
@@ -115,6 +107,8 @@ def build_hoc_default(cell, section, hocfile_obj, mta,  units, nrnsuffix):
         }
 
     # Add the data to the HOC file
-    hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(chlHoc,tmpl_dict).respond())
+    hoc_text = Template(chlHoc,tmpl_dict).respond()
+    hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,
+                               hoc_text)
 
 

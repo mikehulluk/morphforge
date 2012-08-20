@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import numpy
 from morphforge.traces.eventset import EventSet
 from morphforge.traces.eventset import Event
 
 
 class NewSpike(Event):
+
     def __init__(self, time):
         NewSpike.__init__(self, time)
 
@@ -51,16 +51,7 @@ class SpikeFinder(object):
         return EventSet([spike.get_peak_time() for spike in s.spikes])
 
 
-
-
-
-
-
-
-
-
 class SpikeFinderThreshCross(object):
-
 
     def __init__(self, trace, crossingthresh=0, firingthres=None):
         self.trace = trace
@@ -77,7 +68,6 @@ class SpikeFinderThreshCross(object):
     def num_spikes(self):
         return len(self.spikes)
 
-
     def find_threshold_crossings(self):
         # t = self.trace.time
 
@@ -91,7 +81,6 @@ class SpikeFinderThreshCross(object):
         rising_edge_ind = numpy.where(crossings == 1)[0]
         falling_edge_ind = numpy.where(crossings == -1)[0]
 
-
         # Do we strat above the threshold?
         if d[0] > self.crossingthresh:
             # Then ignore the first fall:
@@ -100,8 +89,6 @@ class SpikeFinderThreshCross(object):
         if d[-1] > self.crossingthresh:
             # Then ignore the first fall:
             rising_edge_ind = rising_edge_ind[:-1]
-
-
 
         # print 'above-zero', above_zero
         # print 'crossings', crossings
@@ -114,9 +101,7 @@ class SpikeFinderThreshCross(object):
 
         # print 'fallingEdgeInd', falling_edge_ind
 
-
         assert len(rising_edge_ind) == len(falling_edge_ind)
-
 
         # t = range(d.shape[0])
 
@@ -131,14 +116,11 @@ class SpikeFinderThreshCross(object):
         import itertools
         on_off = list(itertools.chain(*thresh_indices))
         assert on_off == sorted(on_off)
-        #print on_off
-
+        # print on_off
 
         # print 'ThresIndices', thresh_indices
 
         return thresh_indices
-
-
 
 
 class Spike(object):
@@ -163,8 +145,6 @@ class Spike(object):
         d[self.thresIndices[1]:-1] = 0
         self.peakIndex = numpy.argmax(d)
 
-
-
     def init_get_duration(self):
 
         self.fiftyPCLine = (self.trace._data.rescale('mV'
@@ -187,7 +167,7 @@ class Spike(object):
 
         self.durInd = rising_edge_ind, falling_edge_ind
         self.duration = self.trace._time[falling_edge_ind] - self.trace._time[rising_edge_ind]
-        self.duration = self.duration.rescale("ms").magnitude
+        self.duration = self.duration.rescale('ms').magnitude
 
     def add_to_axes(self, ax):
         t = self.trace._time

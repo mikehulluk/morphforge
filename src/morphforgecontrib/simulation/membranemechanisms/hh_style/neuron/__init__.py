@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 import mm_neuron_alphabeta
 import mm_neuron_alphabetabeta
 import mm_neuron_leak

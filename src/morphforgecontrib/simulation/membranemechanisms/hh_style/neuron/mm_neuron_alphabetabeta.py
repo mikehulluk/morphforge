@@ -48,6 +48,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 
 class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
+
     def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
         self.alphabeta_beta_chl = alphabeta_beta_chl
@@ -64,101 +65,92 @@ class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
             modvariable=self.modvar,
             mod_neuronsuffix=self.alphabeta_beta_chl.get_neuron_suffix(),
             recordobj=self,
-           )
+            )
 
     def get_description(self):
         return '%s %s %s' % (self.modvar, self.alphabeta_beta_chl.name,
                              self.cell_location.get_location_description_str())
 
 
-
-
 class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
+
     def __init__(self, **kwargs):
+
         super(MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
+
     def get_unit(self):
         return unit('mA/cm2')
+
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
 
+
 class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
+
     def __init__(self, **kwargs):
+
         super(MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord,
               self).__init__(modvar='g', **kwargs)
+
     def get_unit(self):
         return unit('S/cm2')
+
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
 
 
 class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record):
+
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_AlphaBetaBeta_StateVariableRecord,
               self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
         return unit('')
+
     def get_std_tags(self):
         return [StandardTags.StateVariable]
 
+
 class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Record):
+
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord,
               self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
         return unit('ms')
+
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant]
 
 
 class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Record):
+
     def __init__(self, state, **kwargs):
+
         super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord,
               self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
         return unit('')
+
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
-
     def __init__(self, *args, **kwargs):
+        # TODO: Fix constructor:
         MM_AlphaBetaBetaChannel.__init__(self, *args, **kwargs)
         MM_Neuron_Base.__init__(self)
 
-
-
-
-
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
         return MM_WriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
-
-
 
     def create_modfile(self, modfile_set):
         MM_WriterAlphaBetaBeta.build_mod(alphabeta_beta_chl=self, modfile_set=modfile_set)
@@ -176,14 +168,34 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
     def get_mod_file_changeables(self):
 
          # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance','beta2threshold', 'name','ion','eqn','conductance','statevars','reversalpotential', 'mechanism_id'])
-        assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
+        change_attrs = set([
+            'conductance',
+            'beta2threshold',
+            'name',
+            'ion',
+            'eqn',
+            'conductance',
+            'statevars',
+            'reversalpotential',
+            'mechanism_id',
+            ])
+        assert set(self.__dict__) == set(['mm_neuronNumber',
+                'cachedNeuronSuffix']) | change_attrs
 
-        attrs = ['name','ion','eqn','conductance','statevars','reversalpotential','mechanism_id','beta2threshold']
-        return dict ([(a, getattr(self, a)) for a in attrs])
-
+        attrs = [
+            'name',
+            'ion',
+            'eqn',
+            'conductance',
+            'statevars',
+            'reversalpotential',
+            'mechanism_id',
+            'beta2threshold',
+            ]
+        return dict([(a, getattr(self, a)) for a in attrs])
 
 
 # Register the channel
-#NeuronSimulationEnvironment.registerMembraneMechanism(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_AlphaBetaBetaChannel, MM_Neuron_AlphaBetaBeta)
+NeuronSimulationEnvironment.membranemechanisms.register_plugin(
+    MM_AlphaBetaBetaChannel,
+    MM_Neuron_AlphaBetaBeta)

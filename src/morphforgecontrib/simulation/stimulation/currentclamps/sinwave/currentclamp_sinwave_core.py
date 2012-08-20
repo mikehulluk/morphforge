@@ -29,10 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.stimulation import CurrentClamp
-
-
 
 
 class CurrentClamp_SinWave(CurrentClamp):
@@ -42,4 +39,5 @@ class CurrentClamp_SinWave(CurrentClamp):
         self.freq = freq
         self.delay = delay
         self.bias = bias
+
 

@@ -29,33 +29,32 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.core.quantities.fromcore import unit
 import copy
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold, \
     PreSynapticMech_TimeList
 
+
 class SynapseParameter(object):
+
     def __init__(self, synapse_type, **kwargs):
         self.synapse_type = synapse_type
         self.kwargs = kwargs
 
     def __getitem__(self, k):
         return self.kwargs[k]
+
     def __setitem__(self, k, v):
         self.kwargs[k] = v
 
 
-
-
-
-
-
-
-
-
-
-def create_synapse_cell_to_cell(sim, presynaptic, postsynaptic, synapse_parameters, **kwargs):
+def create_synapse_cell_to_cell(
+    sim,
+    presynaptic,
+    postsynaptic,
+    synapse_parameters,
+    **kwargs
+    ):
 
     synapse_parameters = copy.copy(synapse_parameters)
 
@@ -63,7 +62,7 @@ def create_synapse_cell_to_cell(sim, presynaptic, postsynaptic, synapse_paramete
 
         print 'Over-Riding Parameter:', k, v
         assert k in synapse_parameters.kwargs
-        #assert k in synapse_parameters.kwargs
+        # assert k in synapse_parameters.kwargs
         synapse_parameters[k] = v
 
 
@@ -113,35 +112,35 @@ def create_synapse_times_to_cell(sim, times, postsynaptic, synapse_parameters, *
         assert k in synapse_parameters.kwargs
         synapse_parameters[k] = v
 
-
     # Presynaptic properties:
-    conductance = synapse_parameters["conductance"]
-    multiplier = synapse_parameters["multiplier"]
+    conductance = synapse_parameters['conductance']
+    multiplier = synapse_parameters['multiplier']
 
-    #Post synaptic properties:
-    t_opening = synapse_parameters["t_opening"]
-    t_closing = synapse_parameters["t_closing"]
-    erev = synapse_parameters["erev"]
+    # Post synaptic properties:
+    t_opening = synapse_parameters['t_opening']
+    t_closing = synapse_parameters['t_closing']
+    erev = synapse_parameters['erev']
     popening = synapse_parameters['popening']
     vdep = synapse_parameters['vdep']
 
     env = sim.environment
     syn = sim.create_synapse(
-                presynaptic_mech = env.PreSynapticMechanism(
+                presynaptic_mech=env.PreSynapticMechanism(
                                                 PreSynapticMech_TimeList,
                                                 time_list=times,
                                                 weight=conductance * multiplier),
 
-                postsynaptic_mech = env.PostSynapticMechanism(
+                postsynaptic_mech=env.PostSynapticMechanism(
                                                 synapse_parameters.synapse_type,
                                                 simulation=sim,
-                                                cell_location = postsynaptic.get_location('soma'),
-                                                tau_open = t_opening,
+                                                cell_location=postsynaptic.get_location('soma'),
+                                                tau_open=t_opening,
                                                 tau_close=t_closing,
                                                 e_rev=erev,
                                                 vdep=vdep,
-                                                popening=popening ),
+                                                popening=popening),
                            )
 
     return syn
+
 

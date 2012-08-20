@@ -29,13 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData, MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
 from Cheetah.Template import Template
 from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
-
 
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
@@ -48,24 +47,27 @@ from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.synapses.neuron import postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile
 
 
-
 class Neuron_PSM_Exp2SynNMDA_CurrentRecord(Neuron_PSM_Std_CurrentRecord):
+
     pass
 
 
 class Neuron_PSM_Exp2SynNMDA_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
+
     pass
 
 
 class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
+
         super(Neuron_PSM_Std_NMDAVoltageDependanceRecord,
               self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
         return unit('')
+
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]
 
@@ -80,12 +82,14 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
 class Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord(NeuronRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
+
         super(Neuron_PSM_Std_NMDAVoltageDependanceSteddyStateRecord,
               self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
         return unit('')
+
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancySS]
 
@@ -111,9 +115,11 @@ ${synnamepost}.popening = $pOpening
 
 """
 
+
 class PostSynapticMech_Exp2SynNMDAMGTimeDepBlock(PostSynapticMech_Exp2SynNMDA):
 
     pass
+
 
 class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock):
 
@@ -128,11 +134,12 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
         syn_name_post = self.synapse.get_name() + 'Post'
+        cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-               "synnamepost":syn_name_post,
-               "cell":cell,
-               "cellname":hocfile_obj[MHocFileData.Cells][cell]['cell_name'],
-               "sectionindex":hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section],
+               "synnamepost": syn_name_post,
+               "cell": cell,
+               "cellname": cell_hoc['cell_name'],
+               "sectionindex": cell_hoc['section_indexer'][section],
                "sectionpos":self.cell_location.morphlocation.sectionpos,
 
                "tau_open": self.tau_open,
@@ -152,8 +159,6 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedep_modfile.get_exp2_syn_nmda_mg_block_time_dependance_modfile(), name='UnusedParameterXXXExpSyn2')
         modfile_set.append(modfile)
 
-
-
     def get_recordable(self, what, **kwargs):
         if what == Synapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Exp2SynNMDA_CurrentRecord(neuron_syn_post=self,
@@ -171,7 +176,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         assert False
 
 
-
-
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_Exp2SynNMDAMGTimeDepBlock, Neuron_PSM_Exp2SynNMDAMgBlockTimeDep)
+NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(
+        PostSynapticMech_Exp2SynNMDAMGTimeDepBlock,
+        Neuron_PSM_Exp2SynNMDAMgBlockTimeDep)
 

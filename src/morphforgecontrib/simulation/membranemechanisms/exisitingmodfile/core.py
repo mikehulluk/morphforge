@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
 
 
@@ -45,3 +44,5 @@ class SimulatorSpecificChannel(MembraneMechanism):
     def get_defaults(self):
         # MUST BE OVERRIDDEN
         assert False
+
+

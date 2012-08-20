@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 from morphforge.core.quantities import unit
 from morphforge.constants.standardtags import StandardTags
@@ -37,9 +36,6 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocF
 
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.base.networks import Synapse
-
-
-
 
 
 class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
@@ -50,6 +46,7 @@ class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
 
     def get_unit(self):
         return unit('nA')
+
     def get_std_tags(self):
         return [StandardTags.Current,
                 Synapse.Recordables.SynapticCurrent]
@@ -70,6 +67,7 @@ class Neuron_PSM_Std_ConductanceRecord(NeuronRecordable):
 
     def get_unit(self):
         return unit('uS')
+
     def get_std_tags(self):
         return [StandardTags.Conductance,
                 Synapse.Recordables.SynapticConductance]
@@ -80,7 +78,5 @@ class Neuron_PSM_Std_ConductanceRecord(NeuronRecordable):
 
     def build_mod(self, modfile_set):
         pass
-
-
 
 
