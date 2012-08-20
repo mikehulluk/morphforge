@@ -69,14 +69,14 @@ class PointDraggingTool(DragTool):
     _orig_value = Tuple
 
 
-    def __init__(self, *args,**kwargs):
-        DragTool.__init__(self,*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        DragTool.__init__(self, *args, **kwargs)
         self.on_change_functor = None
 
 
 
     def is_draggable(self, x, y):
-        # Check to see if (x,y) are over one of the points in self.component
+        # Check to see if (x, y) are over one of the points in self.component
         if self._lookup_point(x, y) is not None:
             return True
         else:
@@ -141,17 +141,17 @@ class PointDraggingTool(DragTool):
             screen y-coordinate
         Returns
         =======
-        (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
-        If no data points are within *self.threshold* of *(x,y)*, returns None.
+        (screen_x, screen_y, distance) of datapoint nearest to the input *(x, y)*.
+        If no data points are within *self.threshold* of *(x, y)*, returns None.
         """
         if hasattr(self.component, 'get_closest_point'):
             # This is on BaseXYPlots
-            return self.component.get_closest_point((x,y), threshold=self.threshold)
+            return self.component.get_closest_point((x, y), threshold=self.threshold)
         return None
 #===============================================================================
 # # Create the Chaco plot.
 #===============================================================================
-def _create_plot_component(title, initial_values=None,on_change_functor=None):
+def _create_plot_component(title, initial_values=None, on_change_functor=None):
 
     #return OverlayPlotContainer()
 
@@ -171,7 +171,7 @@ def _create_plot_component(title, initial_values=None,on_change_functor=None):
         x = linspace(low, high, numpoints)
         y = jn(0, x)
 
-    lineplot = create_line_plot((x,y), color=tuple(COLOR_PALETTE[0]), width=2.0)
+    lineplot = create_line_plot((x, y), color=tuple(COLOR_PALETTE[0]), width=2.0)
     lineplot.selected_color = "none"
 
     scatter = ScatterPlot(index = lineplot.index,

@@ -54,7 +54,7 @@ class TestMorphMLLoading(unittest.TestCase):
             ]
 
 
-        for f,regions in filenames:
+        for f, regions in filenames:
             full = os.path.join(TestMorphMLLoading.dir, f)
             m6 = MorphologyLoader.fromMorphML(open(full), regions=regions)
 
@@ -64,7 +64,7 @@ class TestMorphMLLoading(unittest.TestCase):
 
     def assertListAlmostEqual(self, l1, l2):
         assert len(l1) == len(l2)
-        for i1,i2 in zip(l1,l2):
+        for i1, i2 in zip(l1, l2):
             self.assertAlmostEqual(i1, i2)
 
     def testCablesIncluded(self):
@@ -74,8 +74,8 @@ class TestMorphMLLoading(unittest.TestCase):
 
         # The morphology has 6 segments and 2 regions:
         self.assertEqual(len(m), 6)
-        self.assertEqual(len(m.get_regions()),2)
-        self.assertEqual(set([r.name for r in m.get_regions()]),set(['somagroup', 'dendritegroup']))
+        self.assertEqual(len(m.get_regions()), 2)
+        self.assertEqual(set([r.name for r in m.get_regions()]), set(['somagroup', 'dendritegroup']))
 
 
         s = list(m)

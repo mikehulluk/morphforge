@@ -47,7 +47,7 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 
 def getKSInfTau(env):
     i = InfTauInterpolation(
-        V   = [-100, -80,  -40,   0,   40,],
+        V   = [-100, -80,  -40,   0,   40],
         inf = [0.0, 0.0,  0.2,   0.5, 1.0],
         tau = [0.0, 50,   12,    15,  10]
    )
@@ -76,7 +76,7 @@ tr2 = get_voltageclamp_soma_current_trace(env=env, V='20:mV',
         mech_builder=getKSInfTau, morphology=m1)
 
 
-TagViewer([tr0,tr1,tr2])
+TagViewer([tr0, tr1, tr2])
 
 
 

@@ -28,10 +28,10 @@ examples_dst_dir =  os.path.join(root, "doc/srcs_generated_examples")
 examples_dst_dir_images =  os.path.join(root, "doc/srcs_generated_examples/images/")
 
 examples_build_dir = os.path.join( LocMgr.get_tmp_path(), "mf_doc_build")
-examples_build_dir_image_out = os.path.join( examples_build_dir,"images/")
+examples_build_dir_image_out = os.path.join( examples_build_dir,  "images/")
 
 
-dirs = ['morphology','singlecell_simulation','multicell_simulation', 'advanced_examples']#, 'assorted' ]
+dirs = ['morphology', 'singlecell_simulation', 'multicell_simulation', 'advanced_examples']#, 'assorted' ]
 example_subdirs = [ d for d in os.listdir(examples_src_dir) if d.startswith("""exset""") ]
 dirs = sorted(example_subdirs)
 
@@ -49,7 +49,7 @@ def clear_directory(d):
 
 
 def parse_src_file(filename, docstring):
-    d = open(filename,'r').read()
+    d = open(filename, 'r').read()
 
     # Remove copyright notice:
     d = re.split("""[#]\s?[-]+""", d)[-1]
@@ -57,7 +57,7 @@ def parse_src_file(filename, docstring):
     # Remove the docstring:
     if docstring is not None:
         raw_docstring = r'''"""\s*%s\s*"""'''%  re.escape(docstring).strip()
-        d = re.sub(raw_docstring,'', d, re.MULTILINE)
+        d = re.sub(raw_docstring, '', d, re.MULTILINE)
 
     return d
 
@@ -122,7 +122,7 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
         im_newName = os.path.join(examples_dst_dir_images, "%s_%s"%(name_short, os.path.split(im)[-1]))
         shutil.copyfile(im, im_newName)
 
-        im_newName_short = im_newName.replace(doc_src_dir,"") #/home/michael/hw/morphforge/doc","")
+        im_newName_short = im_newName.replace(doc_src_dir, "") #/home/michael/hw/morphforge/doc", "")
         im_names.append(im_newName_short)
 
     title =  [ l.strip() for l in docstring.split(".")[0].split("\n") if l.strip() ] [0] if docstring else None
@@ -143,7 +143,7 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
     s = Template(rstTmpl, context).respond()
 
     op_rst_filename = os.path.join( examples_dst_dir, name_short+".rst")
-    with open(op_rst_filename,'w') as fOut:
+    with open(op_rst_filename, 'w') as fOut:
         fOut.write(s)
 
 
@@ -153,12 +153,12 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
 saveCodeTmpl = """
 import matplotlib
 import pylab
-for fig_num,fig_mgr in matplotlib._pylab_helpers.Gcf.figs.iteritems():
+for fig_num, fig_mgr in matplotlib._pylab_helpers.Gcf.figs.iteritems():
     matplotlib._pylab_helpers.Gcf.set_active(fig_mgr)
     pylab.savefig("{{OUTDIR}}out%d.png"%fig_num, facecolor='lightgrey')
 """
 
-def run_example(index,filename):
+def run_example(index, filename):
     print 'Running Example:', filename
     newFilename = os.path.join( examples_build_dir, os.path.split(filename)[1] )
 
@@ -167,9 +167,9 @@ def run_example(index,filename):
     clear_directory(examples_build_dir_image_out)
 
     #Create the python file to run:
-    with open(newFilename,'w') as fOut:
+    with open(newFilename, 'w') as fOut:
             fOut.write( open(filename).read() )
-            saveCode = saveCodeTmpl.replace("{{OUTDIR}}",examples_build_dir_image_out)
+            saveCode = saveCodeTmpl.replace("{{OUTDIR}}", examples_build_dir_image_out)
             fOut.write(saveCode)
 
 
@@ -192,10 +192,10 @@ def run_example(index,filename):
     images = glob.glob(examples_build_dir_image_out + "/*")
 
     # Clean up the source code:
-    src_code = parse_src_file(filename,docstring)
+    src_code = parse_src_file(filename, docstring)
 
     # Create the Output RST File:
-    make_rst_output( index=index,examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=output)
+    make_rst_output( index=index, examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=output)
 
 
 
@@ -204,7 +204,7 @@ def run_example(index,filename):
 clear_directory(examples_dst_dir)
 clear_directory(examples_dst_dir_images)
 
-for index,fName in enumerate(example_srcs):
-    fName_full = os.path.join(examples_src_dir,fName)
-    run_example(index,fName_full)
+for index, fName in enumerate(example_srcs):
+    fName_full = os.path.join(examples_src_dir, fName)
+    run_example(index, fName_full)
 

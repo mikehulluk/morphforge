@@ -97,7 +97,7 @@ class SpikeFinderThreshCross(object):
         #    print i, self.trace._time[i]
         # print 'fallingEdgeInd', fallingEdgeInd
         # for i in fallingEdgeInd:
-        #    print i,self.trace._time[i]
+        #    print i, self.trace._time[i]
 
         # print 'fallingEdgeInd', falling_edge_ind
 

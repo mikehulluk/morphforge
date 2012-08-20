@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from neurounits.units_wrapper import NeuroUnitParser
-from morphforgecontrib.simulation.indev.neuro_units_bridge.neuro_units_bridge import NeuroUnitEqnsetMechanism,\
+from morphforgecontrib.simulation.indev.neuro_units_bridge.neuro_units_bridge import NeuroUnitEqnsetMechanism, \
     RecordableData
 
 
@@ -41,9 +41,9 @@ textHH = r"""EQNSET chlstd_hh_k {
     ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
     n' = (ninf-n) / ntau
-    StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
-    n_alpha_rate = StdFormAB(V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
-    n_beta_rate =  StdFormAB(V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
+    StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+    n_alpha_rate = StdFormAB(V=v, a1=n_a1, a2=n_a2, a3=n_a3, a4=n_a4, a5=n_a5)
+    n_beta_rate =  StdFormAB(V=v, a1=n_b1, a2=n_b2, a3=n_b3, a4=n_b4, a5=n_b5)
     <=> PARAMETER g
     <=> PARAMETER erev
     <=> PARAMETER n_a1, n_a2, n_a3, n_a4, n_a5
@@ -65,11 +65,11 @@ textHH = r"""EQNSET chlstd_hh_k {
     hinf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
     htau = 1.0 / (h_alpha_rate + h_beta_rate)
     h' = (hinf-h) / htau
-    StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
-    m_alpha_rate = StdFormAB(V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
-    m_beta_rate =  StdFormAB(V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
-    h_alpha_rate = StdFormAB(V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
-    h_beta_rate =  StdFormAB(V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
+    StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+    m_alpha_rate = StdFormAB(V=v, a1=m_a1, a2=m_a2, a3=m_a3, a4=m_a4, a5=m_a5)
+    m_beta_rate =  StdFormAB(V=v, a1=m_b1, a2=m_b2, a3=m_b3, a4=m_b4, a5=m_b5)
+    h_alpha_rate = StdFormAB(V=v, a1=h_a1, a2=h_a2, a3=h_a3, a4=h_a4, a5=h_a5)
+    h_beta_rate =  StdFormAB(V=v, a1=h_b1, a2=h_b2, a3=h_b3, a4=h_b4, a5=h_b5)
     <=> PARAMETER gmax
     <=> PARAMETER erev
     <=> PARAMETER m_a1, m_a2, m_a3, m_a4, m_a5
@@ -135,7 +135,7 @@ hhChannel_params = {
         'h_b4': unit('-8.09e-3:V'),
         'h_b5': unit('-10.21e-3:V'),
         'gmax':    unit("120:pS/um2"),
-        'erev': unit("50:mV"),}
+        'erev': unit("50:mV"), }
 
 
 
@@ -186,13 +186,13 @@ results = mySim.run()
 
 
 ps = (
-                PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-60*mV,40*mV) ),
+                PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-60*mV, 40*mV) ),
                 PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2") ),
-                PlotSpec_DefaultNew(s="Current", ylabel='Current',yunit=pq.picoamp),
+                PlotSpec_DefaultNew(s="Current", ylabel='Current', yunit=pq.picoamp),
                 PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance"),
                 PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2") ),
                 PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable"),
-                PlotSpec_DefaultNew(s="StateTimeConstant",yunit=pq.millisecond, ylabel="Time Constant" ),
+                PlotSpec_DefaultNew(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant" ),
                 PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State"),
                 PlotSpec_DefaultNew(s="Event", ylabel="Events"),
 

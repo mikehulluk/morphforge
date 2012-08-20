@@ -46,7 +46,7 @@ class MM_WriterCalciumAlphaBetaBeta(object):
 $(cell_name).internalsections [$section_index] {
     // AlphaBeta Channels
     insert $neuron_suffix
-    #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
+    #for variable_name, variable_value_nounit, variable_value_with_unit, variable_unit in $variables:
     $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)
     #end for
 }
@@ -68,7 +68,7 @@ $(cell_name).internalsections [$section_index] {
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterCalciumAlphaBetaBeta.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
-            variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
+            variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
         tmplDict = {
             'cell_name': cell_name,
@@ -78,7 +78,7 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hoc_text = Template(MM_WriterCalciumAlphaBetaBeta.chlHoc,tmplDict).respond()
+        hoc_text = Template(MM_WriterCalciumAlphaBetaBeta.chlHoc, tmplDict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, hoc_text)
 
 
@@ -103,7 +103,7 @@ $(cell_name).internalsections [$section_index] {
         m.add_unit_definition(unitname='(C/mole)', unitsymbol='fUnits')
 
 
-        m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca","SCa_i","Sca_o","T"])
+        m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca", "SCa_i", "Sca_o", "T"])
 
         neuronUnitsToQuantities = {
                                    "cm/sec" : "cm/sec",
@@ -124,7 +124,7 @@ $(cell_name).internalsections [$section_index] {
                   ("SCa_i", "M",      caAlphaBetaBetaChl.intracellular_concentration),
                   ("SCa_o", "M",      caAlphaBetaBetaChl.extracellular_concentration),
                  ]
-        for name,unit,initialvalueUnit in params:
+        for name, unit, initialvalueUnit in params:
             initval = initialvalueUnit.rescale(neuronUnitsToQuantities[unit]).magnitude
             m.add_parameter(NeuronParameter(parametername=name, parameterunit=unit, initialvalue = initval, parameterrange=None))
 
@@ -135,10 +135,10 @@ $(cell_name).internalsections [$section_index] {
 
         # Assignments:
         assignments = [
-                    ("i","mA/cm2"),
-                    ("v","mV"),
+                    ("i", "mA/cm2"),
+                    ("v", "mV"),
        ]
-        for name,unit in assignments:
+        for name, unit in assignments:
             m.add_assigned(NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))
 
 

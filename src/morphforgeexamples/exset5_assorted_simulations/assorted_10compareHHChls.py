@@ -59,7 +59,7 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via
 import random as R
 
 
-variables = ['h','m','minf','mtau','m_alpha_rate','m_beta_rate',]
+variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate', ]
 
 def apply_hh_chls_neurounits_direct(env, myCell, mySim):
 
@@ -73,11 +73,11 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
         hinf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
         htau = 1.0 / (h_alpha_rate + h_beta_rate)
         h' = (hinf-h) / htau
-        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
-        m_alpha_rate = StdFormAB(V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
-        m_beta_rate =  StdFormAB(V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
-        h_alpha_rate = StdFormAB(V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
-        h_beta_rate =  StdFormAB(V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
+        StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+        m_alpha_rate = StdFormAB(V=v, a1=m_a1, a2=m_a2, a3=m_a3, a4=m_a4, a5=m_a5)
+        m_beta_rate =  StdFormAB(V=v, a1=m_b1, a2=m_b2, a3=m_b3, a4=m_b4, a5=m_b5)
+        h_alpha_rate = StdFormAB(V=v, a1=h_a1, a2=h_a2, a3=h_a3, a4=h_a4, a5=h_a5)
+        h_beta_rate =  StdFormAB(V=v, a1=h_b1, a2=h_b2, a3=h_b3, a4=h_b4, a5=h_b5)
         m_a1 = {-4.00 ms-1}
         m_a2 = {-0.10 mV-1 ms-1}
         m_a3 = -1.00
@@ -113,9 +113,9 @@ def apply_hh_chls_neurounits_direct(env, myCell, mySim):
         ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
         ntau = 1.0 / (n_alpha_rate + n_beta_rate)
         n' = (ninf-n) / ntau
-        StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
-        n_alpha_rate = StdFormAB(V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
-        n_beta_rate =  StdFormAB(V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
+        StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+exp((V+a4)/a5))
+        n_alpha_rate = StdFormAB(V=v, a1=n_a1, a2=n_a2, a3=n_a3, a4=n_a4, a5=n_a5)
+        n_beta_rate =  StdFormAB(V=v, a1=n_b1, a2=n_b2, a3=n_b3, a4=n_b4, a5=n_b5)
 
         n_a1 = {-0.55 ms-1}
         n_a2 = {-0.01 mV-1 ms-1}
@@ -250,11 +250,11 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                            )
 
     sodiumStateVars = { "m": {
-                          "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
-                          "beta": [4.00, 0.00, 0.00,65.00, 18.00]},
+                          "alpha":[-4.00, -0.10, -1.00, 40.00, -10.00],
+                          "beta": [4.00, 0.00, 0.00, 65.00, 18.00]},
                     "h": {
-                            "alpha":[0.07,0.00,0.00,65.00,20.00] ,
-                            "beta": [1.00,0.00,1.00,35.00,-10.00]}
+                            "alpha":[0.07, 0.00, 0.00, 65.00, 20.00] ,
+                            "beta": [1.00, 0.00, 1.00, 35.00, -10.00]}
                       }
 
     sodiumChannels = env.MembraneMechanism(
@@ -267,8 +267,8 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
                             mechanism_id="HH_NA_CURRENT"
                            )
     kStateVars = { "n": {
-                          "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
-                          "beta": [0.125,0,0,65,80]},
+                          "alpha":[-0.55, -0.01, -1.0, 55.0, -10.0],
+                          "beta": [0.125, 0, 0, 65, 80]},
                        }
 
     kChannels = env.MembraneMechanism(
@@ -288,7 +288,7 @@ def apply_hh_chls_morphforge_format(env, myCell, mySim):
 
 
 
-def apply_hh_chls_NEURON_builtin(env, myCell,mySim):
+def apply_hh_chls_NEURON_builtin(env, myCell, mySim):
 
     hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
     apply_mechanism_everywhere_uniform(myCell, hhChls)
@@ -323,7 +323,7 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    cc = mySim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
 
 
     # Define what to record:
@@ -351,7 +351,7 @@ resultsC = simulate_chls_on_neuron(apply_hh_chls_neuroml_neurounits)
 resultsD = simulate_chls_on_neuron(apply_hh_chls_neuroml_xsl)
 resultsE = simulate_chls_on_neuron(apply_hh_chls_neurounits_direct)
 #
-trs = [resultsA,resultsB,resultsC,resultsD,resultsE]
+trs = [resultsA, resultsB, resultsC, resultsD, resultsE]
 trs = [tr for tr in trs if tr is not None]
 TagViewer(trs, timeranges=[(95, 200)*pq.ms], show=True)
 

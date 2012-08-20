@@ -121,7 +121,7 @@ class HocBuilder_Cell(object):
                         Template(_cell_templ_tmpl, data).respond())
         hocfile_obj.add_to_section(
                         MHOCSections.InitCells,
-                        Template(_cell_obj_decl_tmpl,data).respond())
+                        Template(_cell_obj_decl_tmpl, data).respond())
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Cells][cell] = data

@@ -53,23 +53,23 @@ class PlotExample(HasTraits):
         x = arange(-5.0, 15.0, 20.0/100)
 
         y = jn(0, x)
-        left_plot = create_line_plot((x,y), bgcolor="white",
+        left_plot = create_line_plot((x, y), bgcolor="white",
                                      add_grid=True, add_axis=True)
         left_plot.tools.append(PanTool(left_plot))
         self.left_plot = left_plot
 
         y = jn(1, x)
-        right_plot = create_line_plot((x,y), bgcolor="white",
+        right_plot = create_line_plot((x, y), bgcolor="white",
                                       add_grid=True, add_axis=True)
         right_plot.tools.append(PanTool(right_plot))
         right_plot.y_axis.orientation = "right"
         self.right_plot = right_plot
 
         # Tone down the colors on the grids
-        right_plot.hgrid.line_color = (0.3,0.3,0.3,0.5)
-        right_plot.vgrid.line_color = (0.3,0.3,0.3,0.5)
-        left_plot.hgrid.line_color = (0.3,0.3,0.3,0.5)
-        left_plot.vgrid.line_color = (0.3,0.3,0.3,0.5)
+        right_plot.hgrid.line_color = (0.3, 0.3, 0.3, 0.5)
+        right_plot.vgrid.line_color = (0.3, 0.3, 0.3, 0.5)
+        left_plot.hgrid.line_color = (0.3, 0.3, 0.3, 0.5)
+        left_plot.vgrid.line_color = (0.3, 0.3, 0.3, 0.5)
 
         container = HPlotContainer(spacing=20, padding=50, bgcolor="lightgray")
         container.add(left_plot)
@@ -85,7 +85,7 @@ class PlotExample2(PlotExample):
         rplot, lplot = self.right_plot, self.left_plot
         rplot.index_mapper.range = lplot.index_mapper.range
         lplot.value_mapper.range.low = min(rplot.value_mapper.range.low,
-                                           lplot.value_mapper.range.low,)
+                                           lplot.value_mapper.range.low,  )
         rplot.value_mapper.range = lplot.value_mapper.range
 
         return container

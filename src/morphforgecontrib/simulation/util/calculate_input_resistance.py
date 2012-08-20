@@ -148,7 +148,7 @@ class CellAnalysis_ReboundResponse(object):
     #    c2Values = set([k[1] for k in self.result_traces])
     #
     #    f = pylab.figure()
-    #    ax = f.add_subplot(1,1,1)
+    #    ax = f.add_subplot(1, 1, 1)
     #
     #    tested_pts = []
     #    spiking_pts = []
@@ -156,10 +156,10 @@ class CellAnalysis_ReboundResponse(object):
     #
     #    for current1 in c1Values:
     #        for current2 in c2Values:
-    #            self.result_traces[(current1,current2)]
+    #            self.result_traces[(current1, current2)]
     #
     #            # Plot a dot to show that the simulation was run:
-    #            ax.plot(current1,current2, 'o', markersize=10, color='black')
+    #            ax.plot(current1, current2, 'o', markersize=10, color='black')
     #            #tr =
     #
                 #            trs = []
@@ -198,7 +198,7 @@ class CellAnalysis_ReboundResponse(object):
         sim.record(cc2, name="Current2",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
         sim.record(cc3, name="Current3",      what=CurrentClamp.Recordables.Current,  description="CurrentClampCurrent")
 
-        sim.record(cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base,current_rebound))
+        sim.record(cell, name="SomaVoltage", cell_location=soma_loc,  what=Cell.Recordables.MembraneVoltage,  description="Response to iInj1=%s iInj2=%s"%(current_base, current_rebound))
 
         res = sim.run()
 
@@ -350,7 +350,7 @@ class CellAnalysis_IVCurve(object):
         self.input_resistance = input_resistance
         self.reversal_potential = reversal_potential
 
-        ax.plot(i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s,b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)  )
+        ax.plot(i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s, b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)  )
         ax.legend()
 
         PM.save_figure(figname=title)

@@ -44,7 +44,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalph
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"),) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms"), ) :
         from scipy.integrate import odeint
         import sympy
 
@@ -56,14 +56,14 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         m_tau_ms = m_tau.rescale('ms').magnitude
 
         inf_taus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names]
-        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus]
+        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf, tau) in inf_taus]
 
-        state_to_index = dict([(state,index) for state,index in enumerate(state_names)])
+        state_to_index = dict([(state, index) for state, index in enumerate(state_names)])
 
         def odeFunc(y, t0):
             res = [None] * n_states
-            for i in range(0,n_states):
-                state_inf,state_tau = inf_taus_ms[i]
+            for i in range(0, n_states):
+                state_inf, state_tau = inf_taus_ms[i]
                 state_val = y[i]
                 d_state = (state_inf - state_val) / state_tau
                 res[i] = d_state
@@ -90,22 +90,22 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
         @classmethod
         def to_screen(cls, alphabeta_chl, state):
-            cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
+            cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5, 5))
 
 
 
 #        @classmethod
 #        def build_alpha_beta_table(cls, elements, reportlabconfig, title, params):
-#            elements.append(Paragraph(title,reportlabconfig.styles['Heading4']))
+#            elements.append(Paragraph(title, reportlabconfig.styles['Heading4']))
 #            alphaParams = "%2.2f %2.2f %2.2f %2.2f %2.2f"%tuple(params)
-#            alphaTableData = [["A","B","C","D","E"], alphaParams.split() ]
+#            alphaTableData = [["A", "B", "C", "D", "E"], alphaParams.split() ]
 #            elements.append(Table(alphaTableData, style=reportlabconfig.defaultTableStyle))
 
         @classmethod
         def to_report_lab(cls, alphabeta_beta_chl, reportlabconfig, make_graphs):
             from reportlab.platypus import Paragraph, Table
             local_elements = []
-            local_elements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
+            local_elements.append(Paragraph("Overview", reportlabconfig.styles['Heading3']))
 
             # Summary:
             overview_table_data = [
@@ -118,16 +118,16 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
 
 
             # Plot out the States:
-            for state,params in alphabeta_beta_chl.statevars.iteritems():
-                local_elements.append(Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']))
+            for state, params in alphabeta_beta_chl.statevars.iteritems():
+                local_elements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
 
 
                 if make_graphs:
-                    fig = Summarise_MM_AlphaBetaChannel.plot_state_curve_summary(alphabeta_beta_chl, state, figsize=(5,5))
+                    fig = Summarise_MM_AlphaBetaChannel.plot_state_curve_summary(alphabeta_beta_chl, state, figsize=(5, 5))
                     local_elements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
 
 
-                local_elements.append(Paragraph("Equations",reportlabconfig.styles['Heading4']))
+                local_elements.append(Paragraph("Equations", reportlabconfig.styles['Heading4']))
 
                 #Equations:
                 eqns = [
@@ -137,7 +137,7 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
                         "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                        ]
                 for eqn in eqns:
-                    local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
+                    local_elements.append(Paragraph(eqn, reportlabconfig.styles['Normal']))
 
                 # Alpha Beta
                 ReportLabTools.build_alpha_beta_table(elements=local_elements,

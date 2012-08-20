@@ -116,7 +116,7 @@ if os.path.exists(fName):
 h5file = tables.openFile(fName, mode='w', title='Test file')
 
 geom = h5file.createGroup('/', 'geometry')
-# geom. = h5file.createGroup(geom, 'geom',)
+# geom. = h5file.createGroup(geom, 'geom', )
 
 h5file.createArray(geom, 'geom', str(t))
 
@@ -126,10 +126,10 @@ varref = h5file.createGroup(results, 'VarRef')
 time = None
 
 
-for (cell,segs) in rec_dict.iteritems():
-    for (seg,variables) in segs.iteritems():
+for (cell, segs) in rec_dict.iteritems():
+    for (seg, variables) in segs.iteritems():
 
-        seg_names,seg_ids = naming_info[cell]
+        seg_names, seg_ids = naming_info[cell]
 
         seg_name = seg_names[seg]
         segGrp = h5file.createGroup(varref, seg_name)

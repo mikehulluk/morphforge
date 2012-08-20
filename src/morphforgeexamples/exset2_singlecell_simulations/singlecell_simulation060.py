@@ -65,11 +65,11 @@ leakChannels = env.MembraneMechanism(
                        )
 
 sodiumStateVars = { "m": {
-                      "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
-                      "beta": [4.00, 0.00, 0.00,65.00, 18.00]},
+                      "alpha":[-4.00, -0.10, -1.00, 40.00, -10.00],
+                      "beta": [4.00, 0.00, 0.00, 65.00, 18.00]},
                     "h": {
-                        "alpha":[0.07,0.00,0.00,65.00,20.00] ,
-                        "beta": [1.00,0.00,1.00,35.00,-10.00]}
+                        "alpha":[0.07, 0.00, 0.00, 65.00, 20.00] ,
+                        "beta": [1.00, 0.00, 1.00, 35.00, -10.00]}
                   }
 
 sodiumChannels = env.MembraneMechanism(
@@ -82,8 +82,8 @@ sodiumChannels = env.MembraneMechanism(
                         mechanism_id="HH_NA_CURRENT"
                        )
 kStateVars = { "n": {
-                      "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
-                      "beta": [0.125,0,0,65,80]},
+                      "alpha":[-0.55, -0.01, -1.0, 55.0, -10.0],
+                      "beta": [0.125, 0, 0, 65, 80]},
                    }
 
 kChannels = env.MembraneMechanism(
@@ -113,12 +113,12 @@ mySim.record(cc, what=StandardTags.Current)
 
 
 # To record along the axon, we create a set of 'CellLocations', at the distances
-# specified (start,stop,
+# specified (start, stop,
 for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100)):
 
-    print " -- ",cell_location.section
-    print " -- ",cell_location.sectionpos
-    print " -- ",cell_location.get_3d_position()
+    print " -- ", cell_location.section
+    print " -- ", cell_location.sectionpos
+    print " -- ", cell_location.get_3d_position()
 
     # Create a path along the morphology from the centre of the
     # Soma

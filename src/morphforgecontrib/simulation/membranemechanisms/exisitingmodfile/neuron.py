@@ -43,7 +43,7 @@ import re
 
 class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChannel):
 
-    def __init__(self, modfilename=None, modtxt=None,mechanism_id=None):
+    def __init__(self, modfilename=None, modtxt=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
         MM_Neuron_Base.__init__(self)
         SimulatorSpecificChannel.__init__(self)

@@ -174,7 +174,7 @@ class SynapsePopulation(object):
     def synapse_types(self):
         return set(['UnknownType'])
 
-    def record(self, synapse,  what, user_tags=None,user_tag_functors=None, **kwargs):
+    def record(self, synapse,  what, user_tags=None, user_tag_functors=None, **kwargs):
         if isinstance(synapse, int):
             synapse = self[synapse]
         assert synapse in self.synapses

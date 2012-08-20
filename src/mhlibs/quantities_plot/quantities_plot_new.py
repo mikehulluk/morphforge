@@ -85,8 +85,8 @@ class QuantitiesAxisNew(object):
 
 
     def __init__(self, ax, units_in_label=True):
-        self.xyUnitBase = [None,None]
-        self.xyUnitDisplay = [None,None]
+        self.xyUnitBase = [None, None]
+        self.xyUnitDisplay = [None, None]
 
         self.ax = ax
         assert self.ax
@@ -142,7 +142,7 @@ class QuantitiesAxisNew(object):
         self._update_labels()
 
 
-    def plot(self, x,y, *args, **kwargs):
+    def plot(self, x, y, *args, **kwargs):
 
         if self.xyUnitDisplay[0] is None:
             self._setxyUnitDisplay(unitX=x.units)
@@ -156,7 +156,7 @@ class QuantitiesAxisNew(object):
         y_mag = y.rescale(self.xyUnitBase[1]).magnitude
 
         # Do the plotting:
-        return self.ax.plot(x_mag,y_mag,*args,**kwargs)
+        return self.ax.plot(x_mag, y_mag, *args, **kwargs)
 
 
     # Setting limits should now be done with units:
@@ -164,12 +164,12 @@ class QuantitiesAxisNew(object):
         x0 = x1 = None
         if args is not None:
             if len(args) == 1:
-                x0,x1 =args[0]
+                x0, x1 =args[0]
             else:
-                x0,x1 = args
+                x0, x1 = args
         else:
-            x0 = kwargs.get('left',None)
-            x1 = kwargs.get('right',None)
+            x0 = kwargs.get('left', None)
+            x1 = kwargs.get('right', None)
 
         # So we can forward arguments:
         if 'left' in kwargs:
@@ -199,12 +199,12 @@ class QuantitiesAxisNew(object):
         x0 = x1 = None
         if args is not None:
             if len(args) == 1:
-                x0,x1 = args[0]
+                x0, x1 = args[0]
             else:
-                x0,x1 = args
+                x0, x1 = args
         else:
-            x0 = kwargs.get('bottom',None)
-            x1 = kwargs.get('top',None)
+            x0 = kwargs.get('bottom', None)
+            x1 = kwargs.get('top', None)
 
         # So we can forward arguments:
         if 'bottom' in kwargs:
@@ -266,7 +266,7 @@ class QuantitiesAxisNew(object):
         assert self.xyUnitBase[0] is not None and self.xyUnitBase[1] is not None
         xmin_mag = xmin.rescale(self.xyUnitBase[0]).magnitude
         xmax_mag = xmax.rescale(self.xyUnitBase[0]).magnitude
-        return self.ax.axvspan(xmin_mag,xmax_mag, ymin, ymax, **kwargs)
+        return self.ax.axvspan(xmin_mag, xmax_mag, ymin, ymax, **kwargs)
 
     # Spanning:
     def axvline(self, x=0, ymin=0, ymax=1, **kwargs):
@@ -292,9 +292,9 @@ class QuantitiesAxisNew(object):
 
 
     def __getattr__(self, name):
-        protected_objects = ['xaxis','yaxis',
-                             'transData','transAxes',
-                             'bar','hist']
+        protected_objects = ['xaxis', 'yaxis',
+                             'transData', 'transAxes',
+                             'bar', 'hist']
 
         # Make sure certain functions are not touched:
         if name in protected_objects and self.safetychecking:
@@ -310,7 +310,7 @@ class QuantitiesFigureNew(object):
     def __init__(self, subplot_class, *args, **kwargs):
         """Subplot_class is a class so, that we can change the subclass type that is generated. """
         import pylab
-        self.fig = pylab.figure(*args,**kwargs)
+        self.fig = pylab.figure(*args, **kwargs)
         self.subplot_class = subplot_class
 
     def add_subplot(self, *args, **kwargs):

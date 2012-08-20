@@ -99,7 +99,7 @@ class SearchableSet(object):
 
 
     elif isinstance(k, basestring):
-      return SeqUtils.expect_single([o for o in self.data if getattr(o,k) == v])
+      return SeqUtils.expect_single([o for o in self.data if getattr(o, k) == v])
     else:
       print 'Unexpected Type of %s - %s'%(k, type(k))
       assert False
@@ -108,7 +108,7 @@ class SearchableSet(object):
     if isinstance(k, collections.Callable):
       return [k(o) for o in self.data]
     elif isinstance(k, basestring):
-      return [getattr(o,k) for o in self.data]
+      return [getattr(o, k) for o in self.data]
     else:
       assert False
 
@@ -178,7 +178,7 @@ class Level1NeuroMLRepresentation(object):
             # Distal Information:
             distalNode = FilterExpectSingleChildrenByTag(segmentNode, 'distal')
             d_X, d_Y, d_Z, d_d = float(distalNode.getAttribute('x')), float(distalNode.getAttribute('y')), float(distalNode.getAttribute('z')), float( distalNode.getAttribute('diameter'))
-            dInfo = (d_X,d_Y,d_Z,d_d)
+            dInfo = (d_X, d_Y, d_Z, d_d)
 
 
             proximalNode = FilterChildrenByTag(segmentNode, 'proximal')
@@ -188,7 +188,7 @@ class Level1NeuroMLRepresentation(object):
                 assert proximalNode
                 proximalNode = SeqUtils.expect_single(proximalNode)
                 p_X, p_Y, p_Z, p_d = float(proximalNode.getAttribute('x')), float(proximalNode.getAttribute('y')), float(proximalNode.getAttribute('z')), float(proximalNode.getAttribute('diameter'))
-                pInfo = (p_X,p_Y,p_Z,p_d)
+                pInfo = (p_X, p_Y, p_Z, p_d)
                 segment = NeuroMLSegment(segment_id=segment_id,
                                              distInfo=dInfo,
                                              proxInfo=pInfo,
@@ -201,7 +201,7 @@ class Level1NeuroMLRepresentation(object):
                 # Not the root node, but a proximal node is provided:
                 if proximalNode:
 
-                    pInfo = (p_X,p_Y,p_Z,p_d)
+                    pInfo = (p_X, p_Y, p_Z, p_d)
 
                     # Proximal node and NOT the root:
                     if parent_id:
@@ -232,7 +232,7 @@ class Level1NeuroMLRepresentation(object):
 
 
 class NeuroMLCable(object):
-  def __init__(self, cable_id, name,group=None):
+  def __init__(self, cable_id, name, group=None):
     self.cable_id = cable_id
     self.name =name
     self.internal_divisions = None
@@ -241,12 +241,12 @@ class NeuroMLCable(object):
     if group:
       self.add_to_group(group)
 
-  def add_to_group(self,group):
+  def add_to_group(self, group):
       self.groups.add(group)
       group.cables.add(self)
 
   def __repr__(self):
-      return 'NeuroML Cable <id: %s, name: %s, Groups:[%s]> '%(self.cable_id,self.name, ','.join(str(g) for g in self.groups))
+      return 'NeuroML Cable <id: %s, name: %s, Groups:[%s]> '%(self.cable_id, self.name, ','.join(str(g) for g in self.groups))
 
 
 
@@ -262,7 +262,7 @@ class NeuroMLCableGroup(object):
 
 
 class NeuroMLSegment(object):
-  def __init__(self, segment_id, distInfo, proxInfo=None, parent=None, cable=None,):
+  def __init__(self, segment_id, distInfo, proxInfo=None, parent=None, cable=None, ):
 
       assert not (proxInfo and parent)
 
@@ -309,7 +309,7 @@ class MorphMLLoader(object):
 
         rgns = [Region(name=region_name) for region_name in regionNamesClean]
         region_nameToRegionDict = dict([(rgn.name, rgn) for rgn in rgns])
-        cableIDToRegionDict = dict([(cableId, region_nameToRegionDict[_clean_name(region_name)]) if region_name is not None else (cableId,None) for cableId, region_name in cableIDToRegionName.iteritems() ])
+        cableIDToRegionDict = dict([(cableId, region_nameToRegionDict[_clean_name(region_name)]) if region_name is not None else (cableId, None) for cableId, region_name in cableIDToRegionName.iteritems() ])
 
 
         # Find the node without a parent:
@@ -317,7 +317,7 @@ class MorphMLLoader(object):
 
 
         #Recursively Construct by finding what should be attached to current structure:
-        #(id, name, cable,parent,(px,py,pz,pDiam),(dx,dy,dz,dDiam))
+        #(id, name, cable, parent, (px, py, pz, pDiam), (dx, dy, dz, dDiam))
         #rDummy = Section(region=cableIDToRegionDict[rN[2]], x=rN[4][0], y=rN[4][1], z=rN[4][2], r=rN[4][3] / 2.0)
         rDummy = Section(region=None, x=rN[4][0], y=rN[4][1], z=rN[4][2], r=rN[4][3] / 2.0)
         rActual = rDummy.create_distal_section(region=cableIDToRegionDict[rN[2]], x=rN[5][0], y=rN[5][1], z=rN[5][2], r=rN[5][3] / 2.0, idtag=rN[1])
@@ -373,7 +373,7 @@ class MorphMLLoader(object):
             print 'Loaded Cable: ', id, name
 
         # Load the segments:
-        segmentListInfo = {} # id -> (id, name, cable,parent,(px,py,pz,pDiam),(dx,dy,dz,dDiam))
+        segmentListInfo = {} # id -> (id, name, cable, parent, (px, py, pz, pDiam), (dx, dy, dz, dDiam))
         segmentsNode = SeqUtils.filter_expect_single(cellNode.childNodes, isElementWithTag("segments"))
         for segNode in Filter(segmentsNode.childNodes, isElementWithTag("segment")):
             print "Segment"
@@ -410,9 +410,9 @@ class MorphMLLoader(object):
                     p_diamR = pNode[0].getAttribute("diameter")
 
                     # I do not understand MorphML to understand why these checks do not fail....
-                    #print (p_xR,p_yR,p_zR)
-                    #print (parent_Dist_Loc[0],parent_Dist_Loc[1],parent_Dist_Loc[2])
-                    #assert (p_xR,p_yR,p_zR) == (parent_Dist_Loc[0],parent_Dist_Loc[1],parent_Dist_Loc[2])
+                    #print (p_xR, p_yR, p_zR)
+                    #print (parent_Dist_Loc[0], parent_Dist_Loc[1], parent_Dist_Loc[2])
+                    #assert (p_xR, p_yR, p_zR) == (parent_Dist_Loc[0], parent_Dist_Loc[1], parent_Dist_Loc[2])
                     # In this case, use the diameter just read:
                     p_x, p_y, p_z = p_xR, p_yR, p_zR
                     p_diam = p_diamR

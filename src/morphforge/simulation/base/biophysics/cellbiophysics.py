@@ -51,7 +51,7 @@ from morphforge.core.misc import SeqUtils
 class CellBiophysics(object):
 
     def __init__(self):
-        # tuples of (mechanism, targeter,applicator,mechanism)
+        # tuples of (mechanism, targeter, applicator, mechanism)
         self.appliedmechanisms = []
         self.appliedpassives = []
 
@@ -98,7 +98,7 @@ class CellBiophysics(object):
                    self.appliedmechanisms])
 
     def get_mta_by_mechanism_id_for_section(self, mech_id, section):
-        assert False,'Deprecated? 2012-01-20'
+        assert False, 'Deprecated? 2012-01-20'
         return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==mech_id])
 
 

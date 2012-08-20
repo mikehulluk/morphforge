@@ -65,9 +65,9 @@ def addTitleOverlay(component, title):
                               overlay_position="top"))
 
 class SimulationManager(HasTraits):
-    surface_area_um2 = Range(low=1.0,high=5000.0,value=1000.0)
+    surface_area_um2 = Range(low=1.0, high=5000.0, value=1000.0)
 
-    leak_density_pS = Range(low=1.0, high=100.0,value=50.0)
+    leak_density_pS = Range(low=1.0, high=100.0, value=50.0)
 
 
 
@@ -75,9 +75,9 @@ class SimulationManager(HasTraits):
         return View(self._instance_traits().keys())
 
 
-    def _createVoltageTraceComponent(self,):
+    def _createVoltageTraceComponent(self, ):
 
-        x = arange(-5,15,100)
+        x = arange(-5, 15, 100)
         tracedata = ArrayPlotData(x=x, y1=np.sin(x), y2=np.cos(x))
 
         plot = Plot(tracedata)
@@ -102,7 +102,7 @@ class SimulationManager(HasTraits):
 
     def _create_cellConfigComponent(self):
 
-        x = arange(-5,15,100)
+        x = arange(-5, 15, 100)
         tracedata = ArrayPlotData(x=x, y1=np.sin(x), y2=np.cos(x))
 
         plot = Plot(tracedata)
@@ -125,13 +125,13 @@ class SimulationManager(HasTraits):
         return container
 
 
-    def _createConfigurationPane(self,):
+    def _createConfigurationPane(self, ):
         container = VPlotContainer(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         #container = Container(resizable = "hv", bgcolor="lightgray", fill_padding=True, padding = 10)
         addTitleOverlay(container, 'Configuration Pane')
 
         container.add(self._create_cellConfigComponent())
-        container.add_trait ('self.surface_area_um2',self.surface_area_um2)
+        container.add_trait ('self.surface_area_um2', self.surface_area_um2)
         #traits_view = View(Item('self.surface_area_um2', editor=ComponentEditor(), show_label=False), width=500, height=500, resizable=True, title="Chaco Plot")
 
         #container.add(traits_view)
@@ -165,7 +165,7 @@ def _create_plot_component():
     low = -5
     high = 15.0
     x = arange(low, high, (high-low)/numpoints)
-    plotdata = ArrayPlotData(x=x, y1=jn(0,x), y2=jn(1,x))
+    plotdata = ArrayPlotData(x=x, y1=jn(0, x), y2=jn(1, x))
     # Create the left plot
     left_plot = Plot(plotdata)
     left_plot.x_axis.title = "X"
@@ -186,7 +186,7 @@ def _create_plot_component():
     right_plot.orientation = "v"
     right_plot.x_axis.title = "j1(x)"
     right_plot.y_axis.title = "X"
-    renderer2 = right_plot.plot(("x","y2"), type="line", color="red", width=2.0)[0]
+    renderer2 = right_plot.plot(("x", "y2"), type="line", color="red", width=2.0)[0]
     renderer2.index = renderer.index
     renderer2.overlays.append(LineInspector(renderer2, write_metadata=True, is_listener=True))
     renderer2.overlays.append(LineInspector(renderer2, axis="value", is_listener=True))
@@ -202,7 +202,7 @@ def _create_plot_component():
     right_plot.orientation = "v"
     right_plot.x_axis.title = "j1(x)"
     right_plot.y_axis.title = "X"
-    renderer2 = right_plot.plot(("x","y2"), type="line", color="red", width=2.0)[0]
+    renderer2 = right_plot.plot(("x", "y2"), type="line", color="red", width=2.0)[0]
     renderer2.index = renderer.index
     renderer2.overlays.append(LineInspector(renderer2, write_metadata=True, is_listener=True))
     renderer2.overlays.append(LineInspector(renderer2, axis="value", is_listener=True))
@@ -213,7 +213,7 @@ def _create_plot_component():
     return container
 #===============================================================================
 # Attributes to use for the plot view.
-size=(750,500)
+size=(750, 500)
 title="Two Plots"
 
 

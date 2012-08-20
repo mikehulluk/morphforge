@@ -53,7 +53,7 @@ class MM_AlphaBetaBetaChannel(MembraneMechanism):
 
         self.beta2threshold = unit(beta2threshold)
 
-        self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'],sDict['beta2'])) for s, sDict in statevars.iteritems()])
+        self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.reversalpotential = unit(reversalpotential)
 
     def get_variables(self):

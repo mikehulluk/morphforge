@@ -55,7 +55,7 @@ from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplem
 
 
 
-def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype,):
+def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
     # Create the environment:
     env = NeuronSimulationEnvironment()
 
@@ -85,12 +85,12 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype,):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
 
     cc = mySim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
-                                   dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
-                                   dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
+                                   dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
+                                   dur3=unit("500:ms")* R.uniform(0.95, 1.0), amp3=unit("-50:mV"),
                                    cell_location=somaLoc,
                                   )
 
@@ -128,17 +128,17 @@ def testfile(xmlfile):
     f = QuantitiesFigure()
 
 
-    variables = ["CurrentClamp",'SomaVoltage','h','hinf','htau','g']
+    variables = ["CurrentClamp", 'SomaVoltage', 'h', 'hinf', 'htau', 'g']
     ax = []
     for i in range(len(variables)):
-        t = [f.add_subplot(len(variables),2,i*2+1),f.add_subplot(len(variables),2,i*2+2)]
+        t = [f.add_subplot(len(variables), 2, i*2+1), f.add_subplot(len(variables), 2, i*2+2)]
         ax.append(t)
 
 
 
 
     colors = 'rgbcmykrgbcmyk'
-    view_min,view_max = [None]*len(variables), [None]*len(variables)
+    view_min, view_max = [None]*len(variables), [None]*len(variables)
 
 
 
@@ -146,15 +146,15 @@ def testfile(xmlfile):
 
 
 
-    #v_levels = [-80, -40,-20,20]
-    v_levels = [-80,-40, -20, 20]
-    min_max_window = (600,650)*pq.ms
-    for i,v in enumerate(v_levels):
+    #v_levels = [-80, -40, -20, 20]
+    v_levels = [-80, -40, -20, 20]
+    min_max_window = (600, 650)*pq.ms
+    for i, v in enumerate(v_levels):
         #if i> 2:
         #    continue
         res = testfile_voltage(xmlfile, unit("%d:mV"%v))
 
-        for j,v in enumerate(variables):
+        for j, v in enumerate(variables):
             print 'Var', v
             trXSL = res[SimMode.XSL].get_trace(v)
             trNUnits = res[SimMode.NeuroUnit].get_trace(v)
@@ -182,8 +182,8 @@ def testfile(xmlfile):
         ax[j][0].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
         ax[j][1].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
 
-        #ax[j][0].set_xlim((190,250) * pq.ms)
-        #ax[j][1].set_xlim((100,700) * pq.ms )
+        #ax[j][0].set_xlim((190, 250) * pq.ms)
+        #ax[j][1].set_xlim((100, 700) * pq.ms )
 
 
     root_dir = "/home/michael/Desktop/fOut/"
@@ -232,7 +232,7 @@ def testfile_voltage(xmlfile, voltage):
     os.system("cp %s /home/michael/mftmp/"%xmlfile)
 
     resA = simulate_chls_on_neuron(applicator_xsl, voltage_level=voltage, simtype="_XSL")
-    resB = simulate_chls_on_neuron(applicator_neuro,voltage_level=voltage, simtype="_NeuroUnit")
+    resB = simulate_chls_on_neuron(applicator_neuro, voltage_level=voltage, simtype="_NeuroUnit")
 
 
     return {
@@ -331,10 +331,10 @@ for chl in fail2:
 
 print
 print 'Failed generally:'
-for chl,prob in fail3:
+for chl, prob in fail3:
 
     print chl
-    print "-",prob
+    print "-", prob
 
 
 

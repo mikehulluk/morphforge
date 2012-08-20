@@ -88,7 +88,7 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
                 xml_filename=xml_filename, chlname=chlname,
                 mechanism_id=mechanism_id)
 
-        eqnset,chlinfo,default_params = EqnSetFromNeuroML.load(xml_filename)
+        eqnset, chlinfo, default_params = EqnSetFromNeuroML.load(xml_filename)
 
 
         nmodl, buildparameters = WriteToNMODL(eqnset)

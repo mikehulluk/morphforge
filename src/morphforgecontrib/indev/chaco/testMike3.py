@@ -45,12 +45,12 @@ from enable.component_editor import ComponentEditor
 from traits.has_traits import HasTraits, on_trait_change
 from traits.trait_types import Instance, Range
 from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel
-from channel_panels import HHChannelPaneInfTau1,\
-    HHChannelExistingChannel, HHChannelPaneLk, buildPaneFromExistingChannel,\
+from channel_panels import HHChannelPaneInfTau1, \
+    HHChannelExistingChannel, HHChannelPaneLk, buildPaneFromExistingChannel, \
     buildPaneFromExistingChannelLk
 from chaco_util import HGroup, VGroup
 from channel_panels import buildPaneFromExistingChannelInfTau1State
-from channel_panels import HHChannelPaneInfTau2,buildPaneFromExistingChannelInfTau2State
+from channel_panels import HHChannelPaneInfTau2, buildPaneFromExistingChannelInfTau2State
 
 
 
@@ -66,14 +66,14 @@ from channel_panels import HHChannelPaneInfTau2,buildPaneFromExistingChannelInfT
 vUnit = 'mV'
 iUnit = 'pA/um2'
 gUnit = 'pS/um2'
-trace_names = [('SomaVoltage',vUnit),
-                ('Kf_i',iUnit), ('Ks_i',iUnit),('Lk_i',iUnit),('Na_i',iUnit), ('Ca_i', iUnit),
-                ('Kf_g',gUnit), ('Ks_g',gUnit),('Lk_g',gUnit),('Na_g',gUnit),
-                ('Ks_ks',''), ('Kf_kf',''), ('Na_m',''),('Na_h',''),
+trace_names = [('SomaVoltage', vUnit),
+                ('Kf_i', iUnit), ('Ks_i', iUnit), ('Lk_i', iUnit), ('Na_i', iUnit), ('Ca_i', iUnit),
+                ('Kf_g', gUnit), ('Ks_g', gUnit), ('Lk_g', gUnit), ('Na_g', gUnit),
+                ('Ks_ks', ''), ('Kf_kf', ''), ('Na_m', ''), ('Na_h', ''),
                ]
 
 
-trace_names = [('SomaVoltage',vUnit),]
+trace_names = [('SomaVoltage', vUnit), ]
 
 
 
@@ -87,7 +87,7 @@ class TracePlot(HasTraits):
     plot = Instance(Plot)
     view = View(
             Group(
-                  Item('plot',editor=ComponentEditor(size=(50,50)),show_label=False),
+                  Item('plot', editor=ComponentEditor(size=(50, 50)), show_label=False),
                ),
                 resizable=True)
 
@@ -96,7 +96,7 @@ class TracePlot(HasTraits):
 
         sim_conf.add_simulation_display_functor(self.update_display)
 
-        self.plot = Plot(sim_conf.data,resizable='v')
+        self.plot = Plot(sim_conf.data, resizable='v')
         self.plot.padding =25
         self.plot.fill_padding=True
 
@@ -108,13 +108,13 @@ class TracePlot(HasTraits):
         if yRange:
             self.plot.y_mapper.range.set_bounds(*yRange)
 
-        for what,color in zip(plot_what,colors):
-            render = self.plot.plot((what+"_t",what + "_d"),type='line' ,color=color)
+        for what, color in zip(plot_what, colors):
+            render = self.plot.plot((what+"_t", what + "_d"), type='line', color=color)
 
 
         broadcaster = BroadcasterTool()
         broadcaster.tools.append(PanTool(self.plot))
-        zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False,pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
+        zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False, pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
         broadcaster.tools.append(zoom)
         self.plot.tools.append(broadcaster)
 
@@ -137,7 +137,7 @@ class SimulationConfig(HasTraits):
         super(SimulationConfig, self).__init__()
 
 
-        self.x = np.linspace(0,100,1000)
+        self.x = np.linspace(0, 100, 1000)
         y1 = np.sin(self.x)
 
         rec_dict = {}
@@ -145,7 +145,7 @@ class SimulationConfig(HasTraits):
             rec_dict[tn+'_t'] = self.x
             rec_dict[tn+'_d'] = y1
 
-        #self.data = ArrayPlotData(SomaVoltage_t=self.x,SomaVoltage_d=y1,y2=y2)
+        #self.data = ArrayPlotData(SomaVoltage_t=self.x, SomaVoltage_d=y1, y2=y2)
         self.data = ArrayPlotData(**rec_dict)
 
         self.cell_builder_func = None
@@ -251,12 +251,12 @@ class MorphologyConfig(HasTraits):
     surfacearea = Range(1.0, 1000., 590)
     capacitance = Range(0.1, 10.0, 1.0)
     view = View(Group(
-                  Item('surfacearea',),
-                  Item('capacitance',),
+                  Item('surfacearea', ),
+                  Item('capacitance', ),
                ),
-                resizable=True,title='Morphology')
+                resizable=True, title='Morphology')
 
-    def __init__(self,sim_conf):
+    def __init__(self, sim_conf):
         super(MorphologyConfig, self).__init__()
         self.sim_conf = sim_conf
         sim_conf.cell_builder_func = self.get_cell
@@ -302,9 +302,9 @@ class InputConfig(HasTraits):
                   Item('delay2'),
                   Item('dur2'),
                ),
-                resizable=True,title='Current Inj')
+                resizable=True, title='Current Inj')
 
-    def __init__(self,sim_conf):
+    def __init__(self, sim_conf):
         super(InputConfig, self).__init__()
         self.sim_conf = sim_conf
         self.sim_conf.input_stimulus_builder = self.getInputStimulus
@@ -342,11 +342,11 @@ class Double(HasTraits):
             HGroup(
              VGroup(
                  Tabbed(
-                     Item('hhLk', style='custom',show_label=False),
-                     Item('hhKf', style='custom',show_label=False),
-                     Item('hhKs', style='custom',show_label=False),
-                     Item('hhNa', style='custom',show_label=False),
-                     Item('hhCa', style='custom',show_label=False),
+                     Item('hhLk', style='custom', show_label=False),
+                     Item('hhKf', style='custom', show_label=False),
+                     Item('hhKs', style='custom', show_label=False),
+                     Item('hhNa', style='custom', show_label=False),
+                     Item('hhCa', style='custom', show_label=False),
                     )
             ),
               VGroup(
@@ -361,7 +361,7 @@ class Double(HasTraits):
              ),
              ),
 
-            resizable=True, width=1200, height=1200,)
+            resizable=True, width=1200, height=1200, )
 
 
 
@@ -485,17 +485,17 @@ def main():
     xRange=(95, 130)
 
     d = Double(
-            s3 = TracePlot(sim_conf=sim_conf, plot_what=['SomaVoltage'], colors=['green'], yRange=(-80,50),xRange=xRange),
-            #s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i','Ks_i','Lk_i','Na_i','Ca_i'], colors=['cyan','blue','red','green','orange'],xRange=xRange),
-            #s5 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_g','Ks_g','Lk_g','Na_g'], colors=['cyan','blue','red','green'],xRange=xRange),
-            #s6 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_kf','Ks_ks','Na_m','Na_h'], colors=['cyan','blue','red','green'],xRange=xRange),
+            s3 = TracePlot(sim_conf=sim_conf, plot_what=['SomaVoltage'], colors=['green'], yRange=(-80, 50), xRange=xRange),
+            #s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i', 'Ks_i', 'Lk_i', 'Na_i', 'Ca_i'], colors=['cyan', 'blue', 'red', 'green', 'orange'], xRange=xRange),
+            #s5 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_g', 'Ks_g', 'Lk_g', 'Na_g'], colors=['cyan', 'blue', 'red', 'green'], xRange=xRange),
+            #s6 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_kf', 'Ks_ks', 'Na_m', 'Na_h'], colors=['cyan', 'blue', 'red', 'green'], xRange=xRange),
             conf_morph= MorphologyConfig(sim_conf=sim_conf),
             conf_input= InputConfig(sim_conf=sim_conf),
 
             hhKs = buildPaneFromExistingChannelInfTau1State(ksFunctor, sim_config=sim_config, chlname='Ks') ,
             hhKf = buildPaneFromExistingChannelInfTau1State(kfFunctor, sim_config=sim_config, chlname='Kf') ,
             hhNa = buildPaneFromExistingChannelInfTau2State(naFunctor, sim_config=sim_config, chlname='Na') ,
-            hhCa = buildPaneFromExistingChannel(caFunctor, sim_config=sim_config,chlname='Ca') ,
+            hhCa = buildPaneFromExistingChannel(caFunctor, sim_config=sim_config, chlname='Ca') ,
             hhLk = buildPaneFromExistingChannelLk(lkFunctor, sim_config=sim_config, chlname='Lk') ,
            )
     d.configure_traits()

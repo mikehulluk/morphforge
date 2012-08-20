@@ -49,7 +49,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0,300,0.1) * unit("1:ms"),) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms"), ) :
 
         from scipy.integrate import odeint
 
@@ -61,11 +61,11 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         m_tau_ms = m_tau.rescale("ms").magnitude
 
         inf_taus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names]
-        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf,tau) in inf_taus]
+        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf, tau) in inf_taus]
 
-        state_to_index = dict([(state,index) for state,index in enumerate(state_names)])
+        state_to_index = dict([(state, index) for state, index in enumerate(state_names)])
 
-        def odeFunc(y,t0):
+        def odeFunc(y, t0):
             res = [None] * n_states
             for i in range(0, n_states):
                 (state_inf, state_tau) = inf_taus_ms[i]
@@ -140,18 +140,18 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
     @classmethod
-    def plot_alpha_beta_curves(cls, ax1,ax2, alphabeta_chl, state, *args,**kwargs):
+    def plot_alpha_beta_curves(cls, ax1, ax2, alphabeta_chl, state, *args, **kwargs):
         cls.plot_curve(ax=ax1, curve=Curve.Alpha, chl=alphabeta_chl, state=state, *args, **kwargs)
         cls.plot_curve(ax=ax2, curve=Curve.Beta, chl=alphabeta_chl, state=state, *args, **kwargs)
 
 
     @classmethod
-    def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state,  *args,**kwargs):
+    def plot_inf_tau_curves(cls, ax1, ax2, alphabeta_chl, state,  *args, **kwargs):
         cls.plot_curve(ax=ax1, curve=Curve.Inf, chl=alphabeta_chl, state=state, *args, **kwargs)
         cls.plot_curve(ax=ax2, curve=Curve.Tau, chl=alphabeta_chl, state=state, *args, **kwargs)
 
     @classmethod
-    def plot_steddy_state_curve(cls, ax1,alphabeta_chl, state, power,  *args,**kwargs):
+    def plot_steddy_state_curve(cls, ax1, alphabeta_chl, state, power,  *args, **kwargs):
         cls.plot_curve(ax=ax1, curve=Curve.InfPowered, chl=alphabeta_chl, state=state, infpower=power, *args, **kwargs)
 
 
@@ -161,11 +161,11 @@ class Summarise_MM_AlphaBetaChannel(object):
         fig.suptitle("AlphaBeta Channel - %s : %s"%(alphabeta_chl.name, state))
         ax1 = fig.add_subplot(221)
         ax2 = fig.add_subplot(222)
-        cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl,state)
+        cls.plot_alpha_beta_curves(ax1, ax2, alphabeta_chl, state)
 
         ax3 = fig.add_subplot(223)
         ax4 = fig.add_subplot(224)
-        cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl,state)
+        cls.plot_inf_tau_curves(ax3, ax4, alphabeta_chl, state)
         return fig
 
 
@@ -175,7 +175,7 @@ class Summarise_MM_AlphaBetaChannel(object):
 
     @classmethod
     def to_screen(cls, alphabeta_chl, state):
-        cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
+        cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5, 5))
 
 
 
@@ -184,7 +184,7 @@ class Summarise_MM_AlphaBetaChannel(object):
     def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
         from reportlab.platypus import Paragraph, Table
         local_elements = []
-        local_elements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
+        local_elements.append(Paragraph("Overview", reportlabconfig.styles['Heading3']))
 
         # Summary:
         overview_table_data = [
@@ -197,8 +197,8 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
         # Plot out the States:
-        for state,params in alphabeta_chl.statevars.iteritems():
-            local_elements.append(Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']))
+        for state, params in alphabeta_chl.statevars.iteritems():
+            local_elements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
 
 
             #Equations:
@@ -207,7 +207,7 @@ class Summarise_MM_AlphaBetaChannel(object):
                     "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                    ]
             for eqn in eqns:
-                local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
+                local_elements.append(Paragraph(eqn, reportlabconfig.styles['Normal']))
             # Alpha Beta
             ReportLabTools.build_alpha_beta_table(elements=local_elements,
                                      reportlabconfig=reportlabconfig,
@@ -219,7 +219,7 @@ class Summarise_MM_AlphaBetaChannel(object):
 
             if make_graphs:
                 # Figures:
-                fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
+                fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5, 5))
                 local_elements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
                 import pylab
                 pylab.close(fig.fig)

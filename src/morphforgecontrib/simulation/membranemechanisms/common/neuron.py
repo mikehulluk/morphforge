@@ -77,7 +77,7 @@ chlHoc = """
 $(cell_name).internalsections [$section_index] {
     // Eqnset Channels
     insert $neuron_suffix
-    #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
+    #for variable_name, variable_value_nounit, variable_value_with_unit, variable_unit in $variables:
     $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)
     #end for
 }
@@ -97,7 +97,7 @@ def build_hoc_default(cell, section, hocfile_obj, mta,  units, nrnsuffix):
         variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
         variable_unit = units[variable_name]
         variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
-        variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
+        variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
     tmpl_dict = {
         'cell_name': cell_name,
@@ -107,7 +107,7 @@ def build_hoc_default(cell, section, hocfile_obj, mta,  units, nrnsuffix):
         }
 
     # Add the data to the HOC file
-    hoc_text = Template(chlHoc,tmpl_dict).respond()
+    hoc_text = Template(chlHoc, tmpl_dict).respond()
     hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,
                                hoc_text)
 

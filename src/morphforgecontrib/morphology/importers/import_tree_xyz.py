@@ -91,9 +91,9 @@ class xyzXYZLoader(object):
 
             if sections:
                 LogMgr.info("Loading ID: %d" % int(toks[0]))
-                newSect = sections[-1].create_distal_section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
+                newSect = sections[-1].create_distal_section(regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad)
             else:
-                newSect = Section (regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad ,)
+                newSect = Section (regions=[regionTypes[T]], x=centre[0], y=centre[1], z=centre[2], r=rad)
 
             sections.append(newSect)
 

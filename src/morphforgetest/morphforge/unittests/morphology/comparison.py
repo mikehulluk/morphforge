@@ -127,7 +127,7 @@ class TestMorphologyArrayComparison(object):
 
 
     def testComparisonFailureAddingEpsilon1(self):
-        """Load simple .swc snippets, and change each [x,y,z,r] value in the vertices matrix
+        """Load simple .swc snippets, and change each [x, y, z, r] value in the vertices matrix
         individually, to check that it is not the same. """
 
         m = MorphologyArray.fromSWC(StringIO(swc_srcs['Ci']))
@@ -136,22 +136,22 @@ class TestMorphologyArrayComparison(object):
             for j in range(4):
 
                 m1 = MorphologyArray.fromSWC(StringIO(swc_srcs['Ci']))
-                m1._vertices[i,j] = m1._vertices[i,j] + 0.01
+                m1._vertices[i, j] = m1._vertices[i, j] + 0.01
                 assert MorphArrayComparison.are_same(m, m1, max_node_distance= 0.02)
                 assert not MorphArrayComparison.are_same(m, m1, max_node_distance= 0.005)
 
                 m1 = MorphologyArray.fromSWC(StringIO(swc_srcs['Ci']))
-                m1._vertices[i,j] = m1._vertices[i,j] - 0.001
+                m1._vertices[i, j] = m1._vertices[i, j] - 0.001
                 assert MorphArrayComparison.are_same(m, m1, max_node_distance= 0.002)
                 assert not MorphArrayComparison.are_same(m, m1, max_node_distance= 0.0005)
 
                 m1 = MorphologyArray.fromSWC(StringIO(swc_srcs['Cii']))
-                m1._vertices[i,j] = m1._vertices[i,j] + 0.01
+                m1._vertices[i, j] = m1._vertices[i, j] + 0.01
                 assert MorphArrayComparison.are_same(m, m1, max_node_distance= 0.02)
                 assert not MorphArrayComparison.are_same(m, m1, max_node_distance= 0.005)
 
                 m1 = MorphologyArray.fromSWC(StringIO(swc_srcs['Cii']))
-                m1._vertices[i,j] = m1._vertices[i,j] - 0.001
+                m1._vertices[i, j] = m1._vertices[i, j] - 0.001
                 assert MorphArrayComparison.are_same(m, m1, max_node_distance= 0.002)
                 assert not MorphArrayComparison.are_same(m, m1, max_node_distance= 0.0005)
 
@@ -161,7 +161,7 @@ class TestMorphologyArrayComparison(object):
 
     def testComparisonFailureAddingEpsilon2(self):
         """Load and complex .swc file, and
-        change each [x,y,z,r] value in the vertices matrix
+        change each [x, y, z, r] value in the vertices matrix
         individually, to check that it is not the same.
         """
         testSrcsPath = LocMgr().get_test_srcs_path()
@@ -178,7 +178,7 @@ class TestMorphologyArrayComparison(object):
                     continue
 
                 m1 = MorphologyArray.fromSWC(srcSWCFile)
-                m1._vertices[i,j] = m1._vertices[i,j] + 0.01
+                m1._vertices[i, j] = m1._vertices[i, j] + 0.01
                 assert MorphArrayComparison.are_same(m, m1, max_node_distance= 0.02)
                 assert not MorphArrayComparison.are_same(m, m1, max_node_distance= 0.005)
 

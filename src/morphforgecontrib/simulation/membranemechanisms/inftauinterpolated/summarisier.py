@@ -64,7 +64,7 @@ from morphforge.stdimports import pq
 class Summarise_MM_InfTauInterpolatedChannel(object):
 
         @classmethod
-        def plot_alpha_beta_curves(cls, ax1,ax2, alphabeta_chl, state, color="blue"):
+        def plot_alpha_beta_curves(cls, ax1, ax2, alphabeta_chl, state, color="blue"):
             chl = alphabeta_chl
 
 
@@ -87,7 +87,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             if isinstance(ax1, QuantitiesAxis):
 
                 ax1.setYUnit("")
-                ax1.plot(inf_v * pq.mV, alpha * pq.s/pq.s,color=color)
+                ax1.plot(inf_v * pq.mV, alpha * pq.s/pq.s, color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Alpha")
 
@@ -98,11 +98,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             else:
 
-                ax1.plot(inf_v,alpha,color=color)
+                ax1.plot(inf_v, alpha, color=color)
                 ax1.set_xlabel("Voltage (mV)")
                 ax1.set_ylabel("Alpha")
 
-                ax2.plot(inf_v, beta,color=color)
+                ax2.plot(inf_v, beta, color=color)
                 ax2.set_xlabel("Voltage (mV)")
                 ax2.set_ylabel("Beta")
 
@@ -114,20 +114,20 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             V = StdLimits.get_default_voltage_array().rescale("mV")
 
-            alpha,beta = cls.getResolvedInfTauInterpolatedCurves(V, chl, state)
+            alpha, beta = cls.getResolvedInfTauInterpolatedCurves(V, chl, state)
 
 
-            ax1.plot(V,alpha, color="blue")
+            ax1.plot(V, alpha, color="blue")
             ax1.set_xlabel("Voltage")
             ax1.set_ylabel("Alpha")
 
-            ax2.plot(V,beta, color="blue")
+            ax2.plot(V, beta, color="blue")
             ax2.set_xlabel("Voltage")
             ax2.set_ylabel("Beta")
 
 
         @classmethod
-        def plot_inf_tau_curves(cls, ax1,ax2,alphabeta_chl, state, color="blue"):
+        def plot_inf_tau_curves(cls, ax1, ax2, alphabeta_chl, state, color="blue"):
 
             if isinstance(ax1, QuantitiesAxis):
 
@@ -145,7 +145,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
                 ax1.setYUnit("")
-                ax1.plot(inf_v * pq.mV, inf * pq.s/pq.s,color=color)
+                ax1.plot(inf_v * pq.mV, inf * pq.s/pq.s, color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Inf")
 
@@ -156,11 +156,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             else:
 
-                ax1.plot(inf_v,inf,color=color)
+                ax1.plot(inf_v, inf, color=color)
                 ax1.set_xlabel("Voltage (mV)")
                 ax1.set_ylabel("Infs")
 
-                ax2.plot(inf_v,tau,color=color)
+                ax2.plot(inf_v, tau, color=color)
                 ax2.set_xlabel("Voltage (mV)")
                 ax2.set_ylabel("Tau (ms)")
 
@@ -172,17 +172,17 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             fig.suptitle("InfTauInterpolated Channel - %s : %s"%(alphabeta_chl.name, state))
             ax1 = fig.add_subplot(221)
             ax2 = fig.add_subplot(222)
-            cls.plot_inf_tau_curves(ax1, ax2, alphabeta_chl,state)
+            cls.plot_inf_tau_curves(ax1, ax2, alphabeta_chl, state)
 
             ax3 = fig.add_subplot(223)
             ax4 = fig.add_subplot(224)
-            cls.plot_alpha_beta_curves(ax3, ax4, alphabeta_chl,state)
+            cls.plot_alpha_beta_curves(ax3, ax4, alphabeta_chl, state)
             return fig
 
         @classmethod
         def to_screen(cls, alphabeta_chl, state):
 
-            cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5,5))
+            cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(5, 5))
 
 
 
@@ -192,7 +192,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
         @classmethod
         def to_report_lab(cls, alphabeta_chl, reportlabconfig, make_graphs):
             local_elements = []
-            local_elements.append(Paragraph("Overview",reportlabconfig.styles['Heading3']))
+            local_elements.append(Paragraph("Overview", reportlabconfig.styles['Heading3']))
 
             # Summary:
             overview_table_data = [
@@ -207,19 +207,19 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             #return local_elements
 
             # Plot out the States:
-            for state,params in alphabeta_chl.statevars_new.iteritems():
-                local_elements.append(Paragraph("State: %s"%state,reportlabconfig.styles['Heading3']))
+            for state, params in alphabeta_chl.statevars_new.iteritems():
+                local_elements.append(Paragraph("State: %s"%state, reportlabconfig.styles['Heading3']))
 
                 # Interpolated_values:
                 inf_table  = [
                                  ["Voltage", 'Inf'],
-                           ] + [("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.inf)]
+                           ] + [("%2.2f"%p0, "%2.2f"%p1) for (p0, p1) in zip(params.V, params.inf)]
 
                 tau_table  = [
                                  ["Voltage", 'Tau'],
-                           ] + [("%2.2f"%p0,"%2.2f"%p1) for (p0,p1) in zip(params.V,params.tau)]
+                           ] + [("%2.2f"%p0, "%2.2f"%p1) for (p0, p1) in zip(params.V, params.tau)]
 
-                #mergeTable = zip(inf_table,tau_table)
+                #mergeTable = zip(inf_table, tau_table)
 
 
                 local_elements.append(Table(inf_table, style=reportlabconfig.listTableStyle))
@@ -235,7 +235,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 #        "beta(V) = (A+BV)/(C+exp((V+D)/E))",
                 #       ]
                 #for eqn in eqns:
-                #    local_elements.append(Paragraph(eqn,reportlabconfig.styles['Normal']))
+                #    local_elements.append(Paragraph(eqn, reportlabconfig.styles['Normal']))
                 # Alpha Beta
                 #ReportLabTools.buildInfTauInterpolatedTable(elements=local_elements,
                 #                         reportlabconfig=reportlabconfig,
@@ -247,7 +247,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
                 # Figures:
                 if make_graphs:
-                    fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(7,7))
+                    fig = cls.plot_state_curve_summary(alphabeta_chl, state, figsize=(7, 7))
                     local_elements.append(reportlabconfig.save_mpl_to_rl_image(fig, "somestate"))
                     fig.close()
 

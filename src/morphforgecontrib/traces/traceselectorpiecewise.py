@@ -99,8 +99,8 @@ class MatchObject(object):
         if name in self.d:
             return self.d[name]
 
-    def __str__(self,):
-        return "<MatchObject: "+ ",".join(["%s=%s"%(k,v) for (k,v) in sorted(self.d.iteritems())]) + ">"
+    def __str__(self, ):
+        return "<MatchObject: "+ ", ".join(["%s=%s"%(k, v) for (k, v) in sorted(self.d.iteritems())]) + ">"
 
 
 
@@ -114,8 +114,8 @@ class LevelSelectorGroup(object):
     def matchall(self, level_set):
         pieces = level_set.pieces
 
-        # From [A,B,C,D,..]
-        # return [[A,B,C,D],[B,C,D],[C,D],[D]...]
+        # From [A, B, C, D, ..]
+        # return [[A, B, C, D], [B, C, D], [C, D], [D]...]
         subgroups = []
         for i in range(len(pieces)):
             subgroups.append(pieces[i:])
@@ -189,9 +189,9 @@ class LevelSelectorGroup(object):
 
 
 l1 = TracePiecewise(pieces = [
-                                TracePieceFunctionFlat(time_window=(0,50)*pq.ms, x=unit("0:pA")),
-                                TracePieceFunctionFlat(time_window=(50,150)*pq.ms, x=unit("110:pA")),
-                                TracePieceFunctionFlat(time_window=(150,350)*pq.ms, x=unit("0:pA")),
+                                TracePieceFunctionFlat(time_window=(0, 50)*pq.ms, x=unit("0:pA")),
+                                TracePieceFunctionFlat(time_window=(50, 150)*pq.ms, x=unit("110:pA")),
+                                TracePieceFunctionFlat(time_window=(150, 350)*pq.ms, x=unit("0:pA")),
                                    ])
 
 

@@ -45,7 +45,7 @@ import lxml.etree as etree
 
 import pylab
 
-from morphforge.stdimports import NeuronSimulationEnvironment,MorphologyTree, unit
+from morphforge.stdimports import NeuronSimulationEnvironment, MorphologyTree, unit
 from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform
 from morphforge.stdimports import  apply_mechanism_everywhere_uniform, pq
 from morphforge.stdimports import  StandardTags
@@ -89,13 +89,13 @@ def simulate_chl_vclamp(chl, voltage_level):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95,1.0), cell_location=somaLoc)
+    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
 
     cc = mySim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
-                                   #dur2=unit("500:ms")* R.uniform(0.95,1.0), amp2=voltage_level,
+                                   #dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
                                    dur2=unit("500:ms"), amp2=voltage_level,
-                                   #dur3=unit("500:ms")* R.uniform(0.95,1.0), amp3=unit("-50:mV"),
+                                   #dur3=unit("500:ms")* R.uniform(0.95, 1.0), amp3=unit("-50:mV"),
                                    dur3=unit("500:ms"), amp3=unit("-50:mV"),
                                    cell_location=somaLoc,
                                   )
@@ -245,7 +245,7 @@ def write_local_page(data):
                 'src_xml':xml_pretty,
               }
 
-    with open(data.op_file,"w") as f:
+    with open(data.op_file, "w") as f:
         f.write(Template(local_tmpl, context).respond())
 
 
@@ -287,7 +287,7 @@ def compareNeuroMLChl(xmlFile):
         c.chl_neurounit_hoc = []
 
 
-        for i,(rN,rX) in enumerate(zip(chl_neuro_res, chl_xsl_res)):
+        for i, (rN, rX) in enumerate(zip(chl_neuro_res, chl_xsl_res)):
 
             c.chl_neurounit_hoc.append(rN.hocfilename )
             c.chl_xsl_hoc.append(rX.hocfilename )
@@ -304,14 +304,14 @@ def compareNeuroMLChl(xmlFile):
             tX._data[np.fabs(tX.time_pts_ms - 700) <0.05] *=0
             print "TR1"
             f = QuantitiesFigure()
-            ax1 = f.add_subplot(4,1,1)
-            ax2 = f.add_subplot(4,1,2)
-            ax3 = f.add_subplot(4,1,3)
-            ax4 = f.add_subplot(4,1,4)
+            ax1 = f.add_subplot(4, 1, 1)
+            ax2 = f.add_subplot(4, 1, 2)
+            ax3 = f.add_subplot(4, 1, 3)
+            ax4 = f.add_subplot(4, 1, 4)
             ax1.plotTrace(tN, color='b')
             ax1.plotTrace(tX, color='g', linewidth=20, alpha=0.2)
-            ax2.plotTrace(tN.window((200,250)*pq.ms), color='b')
-            ax2.plotTrace(tX.window((200,250)*pq.ms), color='g', linewidth=20, alpha=0.2)
+            ax2.plotTrace(tN.window((200, 250)*pq.ms), color='b')
+            ax2.plotTrace(tX.window((200, 250)*pq.ms), color='g', linewidth=20, alpha=0.2)
 
             num = (tN-tX)
             denom = (tN+tX)
@@ -345,7 +345,7 @@ def compareNeuroMLChl(xmlFile):
         c.finished_ok=False
 
 
-    except Exception,e:
+    except Exception, e:
         print 'Exception caught:', e
 
         s = StringIO.StringIO()
@@ -435,7 +435,7 @@ def main():
         shutil.rmtree(html_output_dir)
     LocMgr.ensure_dir_exists(html_output_dir)
 
-    root_html = Join(html_output_dir,"index.html")
+    root_html = Join(html_output_dir, "index.html")
 
     data = []
     for xmlfile in NeuroMLDataLibrary.get_channelMLV1FilesWithSingleChannel():
@@ -459,7 +459,7 @@ def main():
         data.append(compareNeuroMLChl(xmlfile))
 
         # Re-update the html:
-        with open(root_html,"w") as f:
+        with open(root_html, "w") as f:
             f.write(Template(root_html_tmpl, {'data': data}).respond())
 
         #break

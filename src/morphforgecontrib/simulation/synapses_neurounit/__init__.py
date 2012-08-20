@@ -56,7 +56,7 @@ class RecordableData(object):
 
 
 class MM_Neuron_RecGen(NeuronRecordable):
-    def __init__(self, src_chl, objvar,unit_in_nrn, std_tags, **kwargs):
+    def __init__(self, src_chl, objvar, unit_in_nrn, std_tags, **kwargs):
         super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.objvar = objvar
@@ -100,7 +100,7 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
-            print "iiii",default_parameters[param.symbol], type(default_parameters[param.symbol])
+            print "iiii", default_parameters[param.symbol], type(default_parameters[param.symbol])
             assert param.symbol in default_parameters
             assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol]).rescale("")
 
@@ -124,7 +124,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
         NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
 
         #self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic,prefix=""))
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic, prefix=""))
 
         assert self.buildparameters.mechanismtype == MechanismType.Point
         self.units = {}
@@ -148,7 +148,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
             'sectionpos': self.cell_location.morphlocation.sectionpos,
             'synapsetypename': self.NRNSUFFIX,
 
-             'parameters': [(k,float(v/self.units[k])) for (k,v) in self._parameters.iteritems()]
+             'parameters': [(k, float(v/self.units[k])) for (k, v) in self._parameters.iteritems()]
 
 
                }
@@ -174,8 +174,8 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
                                    modtxt=self.nmodl_txt))
 
     def get_mod_file_changeables(self):
-        change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
+        change_attrs = set(['name', "nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
+        fixed_attrs = set(['mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters', ])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
         return dict ([(a, getattr(self, a)) for a in change_attrs])

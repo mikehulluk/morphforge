@@ -93,10 +93,10 @@ UNITS {
 }
 
 PARAMETER {
-    tau1=.1 (ms) <1e-9,1e9>
-    tau2 = 10 (ms) <1e-9,1e9>
+    tau1=.1 (ms) <1e-9, 1e9>
+    tau2 = 10 (ms) <1e-9, 1e9>
     e=0    (mV)
-    popening=1.0 () <0.0,1.0>
+    popening=1.0 () <0.0, 1.0>
 }
 
 ASSIGNED {
@@ -161,7 +161,7 @@ NET_RECEIVE(weight (uS)) {
     float x = ((float) rand()) /  RAND_MAX;
     if(x < popening)
     {
-        //printf("%f %f",A,B);
+        //printf("%f %f", A, B);
     ENDVERBATIM
 
         A = A + weight*factor
@@ -172,7 +172,7 @@ NET_RECEIVE(weight (uS)) {
         if(B>clip) {B=clip}
 
     VERBATIM
-        //printf("->%f %f (%f)\\n",A,B,_lclip);
+        //printf("->%f %f (%f)\\n", A, B, _lclip);
     }
     ENDVERBATIM
 
@@ -185,9 +185,9 @@ NET_RECEIVE(weight (uS)) {
     # assert False
 
     # if NMDAOoptions.EnableVDep == True:
-    #    x = x.replace("__C2__", ":").replace("__C1__","")
+    #    x = x.replace("__C2__", ":").replace("__C1__", "")
     # else:
-    #    x = x.replace("__C1__", ":").replace("__C2__","")
+    #    x = x.replace("__C1__", ":").replace("__C2__", "")
 
     if vdep == True:
         x = x.replace('__C2__', ':').replace('__C1__', '')

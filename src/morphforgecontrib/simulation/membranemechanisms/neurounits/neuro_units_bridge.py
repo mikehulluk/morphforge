@@ -49,7 +49,7 @@ class RecordableData(object):
 
 class MM_Neuron_RecGen(NeuronRecordableOnLocation):
 
-    def __init__(self, src_chl, modvar,unit_in_nrn, std_tags, **kwargs):
+    def __init__(self, src_chl, modvar, unit_in_nrn, std_tags, **kwargs):
         super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.modvar = modvar
@@ -98,7 +98,7 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
-            print "iiii",default_parameters[param.symbol], type(default_parameters[param.symbol])
+            print "iiii", default_parameters[param.symbol], type(default_parameters[param.symbol])
             assert param.symbol in default_parameters
             assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol]).rescale("")
             print 'OK\n'
@@ -116,7 +116,7 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
         MM_Neuron_Base.__init__(self)
         NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
 
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism,prefix=""))
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism, prefix=""))
 
 
 
@@ -138,8 +138,8 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
 
 
     def get_mod_file_changeables(self):
-        change_attrs = set(['name',"nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set(['mm_neuronNumber','cachedNeuronSuffix','eqnset','_parameters',])
+        change_attrs = set(['name', "nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
+        fixed_attrs = set(['mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters', ])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
         return dict([(a, getattr(self, a)) for a in change_attrs])
@@ -157,7 +157,7 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
     def get_recordable(self, what, cell_location, **kwargs):
 
         # Map it through the recordables_map, so that we can alias to StandardTags:
-        what = self.recordables_map.get(what,what)
+        what = self.recordables_map.get(what, what)
 
         valid_symbols = self._get_recordable_symbols()
         if not what in  valid_symbols:

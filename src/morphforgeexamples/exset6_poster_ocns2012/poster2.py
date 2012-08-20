@@ -52,9 +52,9 @@ from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
 # Create a cell:
-def build_cell(name,sim):
+def build_cell(name, sim):
 
-    my_morph = MorphologyBuilder.get_soma_axon_morph(axon_length=1500.0, axon_radius=0.3, soma_radius=10.0,)
+    my_morph = MorphologyBuilder.get_soma_axon_morph(axon_length=1500.0, axon_radius=0.3, soma_radius=10.0)
     my_cell = sim.create_cell(name=name, morphology=my_morph)
 
     na_chls = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=sim.environment)
@@ -76,9 +76,9 @@ env = NeuronSimulationEnvironment()
 sim = env.Simulation()
 
 # Two cells:
-cell1 = build_cell(name="cell1",sim=sim)
-cell2 = build_cell(name="cell2",sim=sim)
-cell3 = build_cell(name="cell3",sim=sim)
+cell1 = build_cell(name="cell1", sim=sim)
+cell2 = build_cell(name="cell2", sim=sim)
+cell3 = build_cell(name="cell3", sim=sim)
 
 
 # Connect with a synapse:
@@ -131,7 +131,7 @@ syn1 = sim.create_synapse(
        )
 
 # Record Voltages from axons:
-for loc in CellLocator.get_locations_at_distances_away_from_dummy(cell1, range(0,1000,50)):
+for loc in CellLocator.get_locations_at_distances_away_from_dummy(cell1, range(0, 1000, 50)):
     sim.record( what=StandardTags.Voltage, cell_location = loc, user_tags=['cell1'])
 sim.record(what=StandardTags.Voltage, cell_location = cell2.get_location("soma"), user_tags=['cell2'])
 sim.record(what=StandardTags.Voltage, cell_location = cell3.get_location("soma"), user_tags=['cell3'])
@@ -142,12 +142,12 @@ sim.record(cc, what=StandardTags.Current)
 
 results = sim.run()
 TagViewer(results, timeranges=[(98, 120)*pq.ms],
-          fig_kwargs = {'figsize':(12,10)},
+          fig_kwargs = {'figsize':(12, 10)},
           show=True,
           plotspecs = [
               PlotSpec_DefaultNew('Current', yunit=pq.picoamp),
-              PlotSpec_DefaultNew('Voltage,cell1', yrange=(-80*mV,50*mV), yunit=pq.mV),
-              PlotSpec_DefaultNew('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV,-55*mV), yunit=pq.millivolt),
+              PlotSpec_DefaultNew('Voltage,cell1', yrange=(-80*mV, 50*mV), yunit=pq.mV),
+              PlotSpec_DefaultNew('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV, -55*mV), yunit=pq.millivolt),
              ],
            )
 

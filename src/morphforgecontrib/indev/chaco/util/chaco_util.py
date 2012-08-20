@@ -66,14 +66,14 @@ class PointDraggingTool(DragTool):
     _orig_value = Tuple
 
 
-    def __init__(self, *args,**kwargs):
-        DragTool.__init__(self,*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        DragTool.__init__(self, *args, **kwargs)
         self.on_change_functor = None # o#n_change_functor
         #assert False
 
 
     def is_draggable(self, x, y):
-        # Check to see if (x,y) are over one of the points in self.component
+        # Check to see if (x, y) are over one of the points in self.component
         if self._lookup_point(x, y) is not None:
             return True
         else:
@@ -142,8 +142,8 @@ class PointDraggingTool(DragTool):
             screen y-coordinate
         Returns
         =======
-        (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
-        If no data points are within *self.threshold* of *(x,y)*, returns None.
+        (screen_x, screen_y, distance) of datapoint nearest to the input *(x, y)*.
+        If no data points are within *self.threshold* of *(x, y)*, returns None.
         """
 
         if hasattr(self.component, 'get_closest_point'):
@@ -154,7 +154,7 @@ class PointDraggingTool(DragTool):
 #===============================================================================
 # # Create the Chaco plot.
 #===============================================================================
-def _create_draggable_plot_component(title, initial_values=None,on_change_functor=None, ):
+def _create_draggable_plot_component(title, initial_values=None,  on_change_functor=None, ):
 
     container = OverlayPlotContainer(padding = 30, fill_padding = True,
                                      bgcolor = "lightgray", use_backbuffer=True)

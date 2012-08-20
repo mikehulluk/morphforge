@@ -31,9 +31,9 @@
 
 from __future__ import division
 
-from enthought.traits.api import HasTraits,Instance,Int,Array,Float,Property,on_trait_change,Range, DelegatesTo
-from enthought.traits.ui.api import View,Item,Group
-from enthought.chaco.api import Plot,ArrayPlotData
+from enthought.traits.api import HasTraits, Instance, Int, Array, Float, Property, on_trait_change, Range, DelegatesTo
+from enthought.traits.ui.api import View, Item, Group
+from enthought.chaco.api import Plot, ArrayPlotData
 from enthought.chaco.tools.api import PanTool, ZoomTool
 from enthought.enable.component_editor import ComponentEditor
 from enthought.enable.component_editor import ComponentEditor
@@ -80,7 +80,7 @@ from channel_panels import *
 #    # corresponding to _drag_index
 #    _orig_value = Tuple
 #    def is_draggable(self, x, y):
-#        # Check to see if (x,y) are over one of the points in self.component
+#        # Check to see if (x, y) are over one of the points in self.component
 #        if self._lookup_point(x, y) is not None:
 #            return True
 #        else:
@@ -138,12 +138,12 @@ from channel_panels import *
 #            screen y-coordinate
 #        Returns
 #        =======
-#        (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
-#        If no data points are within *self.threshold* of *(x,y)*, returns None.
+#        (screen_x, screen_y, distance) of datapoint nearest to the input *(x, y)*.
+#        If no data points are within *self.threshold* of *(x, y)*, returns None.
 #        """
 #        if hasattr(self.component, 'get_closest_point'):
 #            # This is on BaseXYPlots
-#            return self.component.get_closest_point((x,y), threshold=self.threshold)
+#            return self.component.get_closest_point((x, y), threshold=self.threshold)
 #        return None
 ##===============================================================================
 ## # Create the Chaco plot.
@@ -158,7 +158,7 @@ from channel_panels import *
 #    high = 15.0
 #    x = linspace(low, high, numpoints)
 #    y = jn(0, x)
-#    lineplot = create_line_plot((x,y), color=tuple(COLOR_PALETTE[0]), width=2.0)
+#    lineplot = create_line_plot((x, y), color=tuple(COLOR_PALETTE[0]), width=2.0)
 #    lineplot.selected_color = "none"
 #    scatter = ScatterPlot(index = lineplot.index,
 #                       value = lineplot.value,
@@ -193,11 +193,11 @@ def getDINMorphology(axonDiam):
 
     mDict  = {'root': { 'length': 17.5, 'diam': 17.5, 'id':'soma', 'region':'soma', 'sections':
                            [
-                            {'absangle': 0, 'length': 1, 'diam': 1.0, 'region':'soma','sections':
+                            {'absangle': 0, 'length': 1, 'diam': 1.0, 'region':'soma', 'sections':
                             [
                                 {'diam': axonDiam, 'absangle': 0, 'length': 10, 'region':'axonhillock', 'sections':
                                 [
-                                    {'diam': axonDiam, 'absangle': 900, 'length': 500,'region':'axon', 'sections':
+                                    {'diam': axonDiam, 'absangle': 900, 'length': 500, 'region':'axon', 'sections':
                                         [{'diam': axonDiam , 'absangle': 90, 'length': 100, 'region':'axon', 'id':'axontip' }]
                                      }
                                ]
@@ -241,16 +241,16 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    plot = Instance(Plot)
 #    view = View(
 #            Group(
-#                  Item('plot',editor=ComponentEditor(size=(50,50)),show_label=False),
+#                  Item('plot', editor=ComponentEditor(size=(50, 50)), show_label=False),
 #               ),
-#                resizable=True) #,title='TracePlot')
+#                resizable=True) #, title='TracePlot')
 #
 #    def __init__(self, sim_conf, plot_what, colors, xRange=None, yRange=None):
 #        super(TracePlot, self).__init__()
 #
 #        sim_conf.add_simulation_display_functor(self.update_display)
 #
-#        self.plot = Plot(sim_conf.data,resizable='v')
+#        self.plot = Plot(sim_conf.data, resizable='v')
 #        self.plot.padding =25
 #        self.plot.fill_padding=True
 #
@@ -268,13 +268,13 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        legend.tools.append(LegendTool(legend, drag_button="right"))
 #        self.plot.overlays.append(legend)
 #
-#        for what,color in zip(plot_what,colors):
-#            render = self.plot.plot((what+"_t",what + "_d"),type='line' ,color=color)
+#        for what, color in zip(plot_what, colors):
+#            render = self.plot.plot((what+"_t", what + "_d"), type='line' , color=color)
 #            legend.plots[what] = render
 #
 #        broadcaster = BroadcasterTool()
 #        broadcaster.tools.append(PanTool(self.plot))
-#        zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False,pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
+#        zoom = ZoomTool(component=self.plot, tool_mode="box", always_on=False, pointer = 'magnifier', border_color='black', border_size=3, alpha=0.5,  color='lightskyblue')
 #        broadcaster.tools.append(zoom)
 #        self.plot.tools.append(broadcaster)
 #
@@ -290,7 +290,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #
 #    data = Instance(ArrayPlotData)
 #
-#    def get_nextSimSumOutputLocation(self,):
+#    def get_nextSimSumOutputLocation(self, ):
 #        self.simulation_no += 1
 #        l = LocMgr.ensure_dir_exists('out/%s/'%self.date_string) + 'Sim%d.pdf'%self.simulation_no
 #        return l
@@ -304,7 +304,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #        super(SimulationConfig, self).__init__()
 #
 #
-#        self.x = np.linspace(0,100,1000)
+#        self.x = np.linspace(0, 100, 1000)
 #        y1 = np.sin(self.x)
 #
 #        rec_dict = {}
@@ -312,7 +312,7 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #            rec_dict[tn+'_t'] = self.x
 #            rec_dict[tn+'_d'] = y1
 #
-#        #self.data = ArrayPlotData(SomaVoltage_t=self.x,SomaVoltage_d=y1,y2=y2)
+#        #self.data = ArrayPlotData(SomaVoltage_t=self.x, SomaVoltage_d=y1, y2=y2)
 #        self.data = ArrayPlotData(**rec_dict)
 #
 #        self.cell_builder_func = None
@@ -415,12 +415,12 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #    surfacearea = Range(1.0, 1000., 980)
 #    capacitance = Range(0.1, 10.0, 1.0)
 #    view = View(Group(
-#                  Item('surfacearea',),
-#                  Item('capacitance',),
+#                  Item('surfacearea', ),
+#                  Item('capacitance', ),
 #               ),
-#                resizable=True,title='Morphology')
+#                resizable=True, title='Morphology')
 #
-#    def __init__(self,sim_conf):
+#    def __init__(self, sim_conf):
 #        super(MorphologyConfig, self).__init__()
 #        self.sim_conf = sim_conf
 #        sim_conf.cell_builder_func = self.get_cell
@@ -462,9 +462,9 @@ from enthought.chaco.tools.api import BroadcasterTool, PanTool, ZoomTool
 #                  Item('delay2'),
 #                  Item('dur2'),
 #               ),
-#                resizable=True,title='Current Inj')
+#                resizable=True, title='Current Inj')
 #
-#    def __init__(self,sim_conf):
+#    def __init__(self, sim_conf):
 #        super(InputConfig, self).__init__()
 #        self.sim_conf = sim_conf
 #        self.sim_conf.input_stimulus_builder = self.getInputStimulus
@@ -490,9 +490,9 @@ class Double(HasTraits):
 
     view = View(
             HGroup(
-                Item('hhKs', style='custom',show_label=False),
+                Item('hhKs', style='custom', show_label=False),
            ),
-            resizable=True, width=1200, height=1200,)
+            resizable=True, width=1200, height=1200, )
 
 
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType

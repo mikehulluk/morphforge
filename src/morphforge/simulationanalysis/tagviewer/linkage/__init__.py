@@ -138,10 +138,10 @@ class StandardLinkages(object):
             self.color_allocations[tr] = self.color_cycle[allocatedTraceColors[tr]]
         #assert False
 
-#l = StandardLinkages(linkages_explicit = [(trI1,trV1,trG1), (trI2,trV2,trG2)])
+#l = StandardLinkages(linkages_explicit = [(trI1, trV1, trG1), (trI2, trV2, trG2)])
 #
-##TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=None)
-#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=l)
-#TagViewer([trI1,trV1,trG1, trI2,trV2,trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")]) )
+##TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=None)
+#TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=l)
+#TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")]) )
 
 

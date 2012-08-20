@@ -66,9 +66,9 @@ NEURON {
 
 mod_tmpl_params = """
 PARAMETER {
-#for $pName,($pValue,$pUnit,$pRange) in $parameters.iteritems():
+#for $pName, ($pValue, $pUnit, $pRange) in $parameters.iteritems():
     #set $pUnitOut = "("+pUnit+")" if $pUnit else ""
-    #set $pRangeOut = "<%1.1e,%1.1e>"%pRange if $pRange else ""
+    #set $pRangeOut = "<%1.1e, %1.1e>"%pRange if $pRange else ""
     $pName = $pValue $pUnitOut $pRangeOut
 #end for
 
@@ -98,7 +98,7 @@ ASSIGNED {
     celsius (degC)
     $currentname (mA/cm2)
 
-#for $rName,($rEqn,$rUnit) in $rates.iteritems():
+#for $rName, ($rEqn, $rUnit) in $rates.iteritems():
     #set $rUnitOut = "("+rUnit+")" if $rUnit else ""
     $rName $rUnitOut
 #end for
@@ -168,7 +168,7 @@ PROCEDURE ${updatefunctionname}(v(mV)) {
 UNITSOFF
 
 #for $rName in $ratecalcorder:
-#set (($rEqnLocals,$rEqn),$rUnit) = $rates[$rName]
+#set (($rEqnLocals, $rEqn), $rUnit) = $rates[$rName]
     $rEqn
 #end for
 }
@@ -220,10 +220,10 @@ class MM_ModFileWriterBase(object):
         # {name: (initialvalue, equation) }
         self.internalstates = (internalstates if internalstates else {})
 
-        # {name: (value, unit,range)}
+        # {name: (value, unit, range)}
         self.parameters = (parameters if parameters else {})
 
-        # {name: ((locals, equnation),unit) }
+        # {name: ((locals, equnation), unit) }
         self.rates = (rates if rates else {})
         self.ratecalcorder = (ratecalcorder if ratecalcorder else [])
 

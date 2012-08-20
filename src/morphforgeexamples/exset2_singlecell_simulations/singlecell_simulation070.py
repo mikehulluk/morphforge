@@ -81,8 +81,8 @@ mySim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceD
 mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
 mySim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
 
-mySim.record(lkChannels, cell_location = somaLoc,what=StandardTags.CurrentDensity)
-mySim.record(naChannels, cell_location = somaLoc,what=StandardTags.CurrentDensity)
+mySim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
 mySim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
 
 

@@ -45,7 +45,7 @@ class MM_WriterInfTauInterpolated(object):
 $(cell_name).internalsections [$section_index] {
     // InfTauInterpolated Channels
     insert $neuron_suffix
-    #for variable_name,variable_value_nounit, variable_value_with_unit,variable_unit in $variables:
+    #for variable_name, variable_value_nounit, variable_value_with_unit, variable_unit in $variables:
     $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)
     #end for
 }
@@ -67,7 +67,7 @@ $(cell_name).internalsections [$section_index] {
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = MM_WriterInfTauInterpolated.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
-            variables.append([variable_name,variable_value_nounit, variable_value_with_unit,variable_unit])
+            variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
         tmpl_dict = {
             'cell_name': cell_name,
@@ -77,7 +77,7 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hoc_text = Template(MM_WriterInfTauInterpolated.chlHoc,tmpl_dict).respond()
+        hoc_text = Template(MM_WriterInfTauInterpolated.chlHoc, tmpl_dict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, hoc_text)
 
 
@@ -101,7 +101,7 @@ $(cell_name).internalsections [$section_index] {
             base_writer.internalstates[s] = '%s' % state_inf(s), "%s'=(%s-%s)/%s" % (s, state_inf(s), s, state_tau(s))
 
         # Parameters:
-        # {name: (value, unit,range)}
+        # {name: (value, unit, range)}
         base_writer.parameters = {
                       gbar_name: (alphabeta_chl.conductance.rescale("S/cm2").magnitude, ("S/cm2"), None),
                       e_rev_name: (alphabeta_chl.reversalpotential.rescale("mV").magnitude, ("mV"), None),
@@ -134,7 +134,7 @@ $(cell_name).internalsections [$section_index] {
                 assert False
 
 
-            variables = {'chlname':state_tau(s),'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_str_x,'y0':interp_str_y, 'funcname':funcname }
+            variables = {'chlname':state_tau(s), 'nPts':len(alphabeta_chl.statevars_new[s].V), 'x0':interp_str_x, 'y0':interp_str_y, 'funcname':funcname }
             f = """
             FUNCTION %(funcname)s(V)
             {
@@ -145,7 +145,7 @@ $(cell_name).internalsections [$section_index] {
                         double x[%(nPts)s] = { %(x0)s };
                         double y[%(nPts)s] = { %(y0)s };
                         int nPts = %(nPts)d;
-                        pInterpolator = makeIntWrapper(x,y, nPts);
+                        pInterpolator = makeIntWrapper(x, y, nPts);
                     }
                     _l%(funcname)s= interpolate2(_lV, pInterpolator);
                 }

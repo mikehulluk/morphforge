@@ -41,10 +41,10 @@ from simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecifi
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve
 
-from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList,\
+from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList,  \
     PreSynapticMech_VoltageThreshold
-from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import PostSynapticMech_Exp2Syn,\
-    PostSynapticMech_ExpSyn,PostSynapticMech_Exp2SynNMDA
+from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import PostSynapticMech_Exp2Syn, \
+    PostSynapticMech_ExpSyn,  PostSynapticMech_Exp2SynNMDA
 
 from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import PostSynapticMech_Exp2SynNMDAMGTimeDepBlock
 

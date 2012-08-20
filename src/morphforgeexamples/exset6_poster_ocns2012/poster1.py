@@ -57,11 +57,11 @@ EQNSET hh_na {
     hinf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
     htau = 1.0 / (h_alpha_rate + h_beta_rate)
     h' = (hinf-h) / htau
-    StdFormAB(V,a1,a2,a3,a4,a5) = (a1+a2*V)/(a3+std.math.exp((V+a4)/a5))
-    m_alpha_rate = StdFormAB(V=v,a1=m_a1,a2=m_a2,a3=m_a3,a4=m_a4,a5=m_a5)
-    m_beta_rate =  StdFormAB(V=v,a1=m_b1,a2=m_b2,a3=m_b3,a4=m_b4,a5=m_b5)
-    h_alpha_rate = StdFormAB(V=v,a1=h_a1,a2=h_a2,a3=h_a3,a4=h_a4,a5=h_a5)
-    h_beta_rate =  StdFormAB(V=v,a1=h_b1,a2=h_b2,a3=h_b3,a4=h_b4,a5=h_b5)
+    StdFormAB(V, a1, a2, a3, a4, a5) = (a1+a2*V)/(a3+std.math.exp((V+a4)/a5))
+    m_alpha_rate = StdFormAB(V=v, a1=m_a1, a2=m_a2, a3=m_a3, a4=m_a4, a5=m_a5)
+    m_beta_rate =  StdFormAB(V=v, a1=m_b1, a2=m_b2, a3=m_b3, a4=m_b4, a5=m_b5)
+    h_alpha_rate = StdFormAB(V=v, a1=h_a1, a2=h_a2, a3=h_a3, a4=h_a4, a5=h_a5)
+    h_beta_rate =  StdFormAB(V=v, a1=h_b1, a2=h_b2, a3=h_b3, a4=h_b4, a5=h_b5)
     m_a1={-4.00 ms-1};  m_a2={-0.10 mV-1 ms-1}; m_a3={-1.00}; m_a4={40.00 mV}; m_a5={-10.00 mV};
     m_b1={ 4.00 ms-1};  m_b2={ 0.00 mV-1 ms-1}; m_b3={ 0.00}; m_b4={65.00 mV}; m_b5={ 18.00 mV};
     h_a1={ 0.07 ms-1};  h_a2={ 0.00 mV-1 ms-1}; h_a3={ 0.00}; h_a4={65.00 mV}; h_a5={ 20.00 mV};
@@ -80,9 +80,9 @@ EQNSET hh_k {
     ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
     n' = (ninf-n) / ntau
-    StdFormAB(V,a1,a2,a3,a4,a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))
-    n_alpha_rate = StdFormAB(V=v,a1=n_a1,a2=n_a2,a3=n_a3,a4=n_a4,a5=n_a5)
-    n_beta_rate =  StdFormAB(V=v,a1=n_b1,a2=n_b2,a3=n_b3,a4=n_b4,a5=n_b5)
+    StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))
+    n_alpha_rate = StdFormAB(V=v, a1=n_a1, a2=n_a2, a3=n_a3, a4=n_a4, a5=n_a5)
+    n_beta_rate =  StdFormAB(V=v, a1=n_b1, a2=n_b2, a3=n_b3, a4=n_b4, a5=n_b5)
 
     n_a1={-0.55 ms-1}; n_a2={-0.01 mV-1 ms-1}; n_a3={-1.00}; n_a4={55.00 mV}; n_a5={-10.00 mV}
     n_b1={0.125 ms-1}; n_b2={ 0.00 mV-1 ms-1}; n_b3={ 0.00}; n_b4={65.00 mV}; n_b5={ 80.00 mV}
@@ -116,7 +116,7 @@ apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit
 na_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
         default_parameters={"g":U("120:mS/cm2")}, mechanism_id="NaChl")
 k_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, mechanism_id="kChl")
-lk_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="LKChl",eqnset=eqnset_txt_lk, mechanism_id="lkChl")
+lk_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, mechanism_id="lkChl")
 
 apply_mechanism_everywhere_uniform(cell, na_chl)
 apply_mechanism_everywhere_uniform(cell, lk_chl)

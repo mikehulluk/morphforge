@@ -63,12 +63,12 @@ m2 = MorphologyImporter.fromSWCFile(filename="/home/michael/Desktop/test1.swc", 
 
 
 
-are_same =  MorphArrayComparison.are_same(m,m2)
+are_same =  MorphArrayComparison.are_same(m, m2)
 print are_same
 
 #m = MorphologyLoader2.loadSWCFile(filename="/home/michael/workspace/morphforge/src/test_data/swc_srcs/05b_pyramidal9aACC.CNG_short.swc", astype=MorphologyTree)
 
-#MayaViRenderer(morph=m,).showSimpleCylinders().show()
+#MayaViRenderer(morph=m).showSimpleCylinders().show()
 #MorphologyLoader2.loadSWCFile(astype=MorphologyArray)
 MatPlotLibViewer(m)
 

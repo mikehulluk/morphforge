@@ -67,13 +67,13 @@ class TraceDict(object):
         return self.data[k]
 
 
-    def _plot_trace_old(self, k, v, ax, legend_func, xunits,yunits): #, xUnits, yUnits):
+    def _plot_trace_old(self, k, v, ax, legend_func, xunits, yunits): #, xUnits, yUnits):
         #data_line_curve = ax.plot(expCurrentTrace.time, v.data, label="Cmd: %2.2f mV"%cmdVoltage)
         if legend_func:
             data_line_curve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legend_func(k, v))[0]
             return data_line_curve
 
-    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None,):
+    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None, ):
         assert yunits
 
         if fig == None and ax == None:
@@ -85,10 +85,10 @@ class TraceDict(object):
 
         #print self.baseunit
         lines = {}
-        #for k,v in self.data.iteritems():
+        #for k, v in self.data.iteritems():
         for k in sorted(self.data.keys()):
             v = self.data[k]
-            lines[k] = self._plot_trace_old(k, v, ax, legend_func=legend_func,xunits=xunits,yunits=yunits)
+            lines[k] = self._plot_trace_old(k, v, ax, legend_func=legend_func, xunits=xunits, yunits=yunits)
 
         if legend_func:
             ax.legend()

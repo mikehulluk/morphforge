@@ -145,7 +145,7 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
             }
 
         hoc_txt = Template(ccSinWaveHOCTmpl, data).respond()
-        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps,hoc_txt)
+        hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps, hoc_txt)
         hocfile_obj[MHocFileData.CurrentClamps][self] = data
 
 

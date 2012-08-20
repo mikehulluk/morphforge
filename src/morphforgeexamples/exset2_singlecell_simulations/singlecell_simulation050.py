@@ -76,12 +76,12 @@ results3a = build_simulation(mod3aFilename)
 mod3bFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3b.mod")
 results3b = build_simulation(mod3bFilename)
 
-TagViewer([results3a,results3b], timeranges=[(95, 200)*pq.ms])
+TagViewer([results3a, results3b], timeranges=[(95, 200)*pq.ms])
 
 try:
     import os
     print 'Differences between the two mod files:'
-    os.system("diff %s %s"%(mod3aFilename,mod3bFilename))
+    os.system("diff %s %s"%(mod3aFilename, mod3bFilename))
 except:
     print "<Can't run 'diff', so can't show differences!>"
 

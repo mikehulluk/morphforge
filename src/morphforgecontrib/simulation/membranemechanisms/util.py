@@ -43,7 +43,7 @@ import quantities as pq
 class ChannelConverter(object):
 
     @classmethod
-    def AlphaBetaToInterpolateInfTauFunctorConvertor(cls, chl_functor, new_id=None, new_name=None, clone_id_suffix="_AsInfTau",clone_name_suffix="_AsInfTau", voltage_interpolation_values=None,  ):
+    def AlphaBetaToInterpolateInfTauFunctorConvertor(cls, chl_functor, new_id=None, new_name=None, clone_id_suffix="_AsInfTau", clone_name_suffix="_AsInfTau", voltage_interpolation_values=None,  ):
 
 
         # Create a new functor:
@@ -70,13 +70,13 @@ class ChannelConverter(object):
             # Interpolation voltages:
             # voltage_interpolation_values=voltage_interpolation_values
             if _voltage_interpolation_values is None:
-                _voltage_interpolation_values = linspace(-80,60,10) * unit('mV')
+                _voltage_interpolation_values = linspace(-80, 60, 10) * unit('mV')
 
                         # Copy the state variables
             new_state_vars = {}
             for state_var in old_chl.get_state_variables():
-                alpha,beta = old_chl.get_alpha_beta_at_voltage(statevar=state_var, V=_voltage_interpolation_values)
-                inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha,beta)
+                alpha, beta = old_chl.get_alpha_beta_at_voltage(statevar=state_var, V=_voltage_interpolation_values)
+                inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)
                 V = _voltage_interpolation_values.rescale('mV').magnitude
                 inf = inf.rescale(pq.dimensionless).magnitude
                 tau = tau.rescale('ms').magnitude
@@ -140,7 +140,7 @@ class ChannelConverter(object):
 #
 #
 #
-#                caStateVars = { "m": {"alpha": [4.05,0.0,1.0,-15.32,-13.57], "beta1": [0.093 * 10.63, 0.093,-1,10.63, 1], "beta2":[1.28,0,1,5.39,12.11] } }
+#                caStateVars = { "m": {"alpha": [4.05, 0.0, 1.0, -15.32, -13.57], "beta1": [0.093 * 10.63, 0.093, -1, 10.63, 1], "beta2":[1.28, 0, 1, 5.39, 12.11] } }
 #    caChannels = env.MembraneMechanism(
 #                            MM_CalciumAlphaBetaBetaChannel,
 #                            name="CaChl", ion="ca",
@@ -165,11 +165,11 @@ class ChannelConverter(object):
 #            state_name1 = state_names[0]
 #            state_name2 = state_names[1]
 #
-#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name1, 10)
-#            state1=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV])
+#            [intV, tauV], [intV, infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name1, 10)
+#            state1=HHGeneralStatePanel(initial_tau= [intV, tauV], initial_inf=[intV, infV])
 #
-#            [intV,tauV],[intV,infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name2, 10)
-#            state2=HHGeneralStatePanel(initial_tau= [intV,tauV], initial_inf=[intV,infV])
+#            [intV, tauV], [intV, infV] = convertAlphaBetaToInfTauInterpolated(chl, state_name2, 10)
+#            state2=HHGeneralStatePanel(initial_tau= [intV, tauV], initial_inf=[intV, infV])
 #
 #            return HHChannelPaneInfTau2(sim_config=sim_config,
 #                                         general_pane=general,

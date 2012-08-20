@@ -68,7 +68,7 @@ class PointDraggingTool(DragTool):
     _orig_value = Tuple
 
     def is_draggable(self, x, y):
-        # Check to see if (x,y) are over one of the points in self.component
+        # Check to see if (x, y) are over one of the points in self.component
         if self._lookup_point(x, y) is not None:
             return True
         else:
@@ -128,13 +128,13 @@ class PointDraggingTool(DragTool):
             screen y-coordinate
         Returns
         =======
-        (screen_x, screen_y, distance) of datapoint nearest to the input *(x,y)*.
-        If no data points are within *self.threshold* of *(x,y)*, returns None.
+        (screen_x, screen_y, distance) of datapoint nearest to the input *(x, y)*.
+        If no data points are within *self.threshold* of *(x, y)*, returns None.
         """
 
         if hasattr(self.component, 'get_closest_point'):
             # This is on BaseXYPlots
-            return self.component.get_closest_point((x,y), threshold=self.threshold)
+            return self.component.get_closest_point((x, y), threshold=self.threshold)
         return None
 
 

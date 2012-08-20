@@ -130,8 +130,8 @@ def _create_plot_component():
 
 
 class Camera(HasTraits):
-    gain = Enum(1, 2, 3,)
-    exposure = CInt(10, label="Exposure",)
+    gain = Enum(1, 2, 3, )
+    exposure = CInt(10, label="Exposure", )
 
 class TextDisplay(HasTraits):
     string = String()
@@ -187,6 +187,6 @@ class AppContainer(HasTraits):
         )
 
 #container = Container(camera=Camera(), display=TextDisplay())
-container = AppContainer(display=TextDisplay(),camera=Camera(), graphdisplay=GraphDisplay())
+container = AppContainer(display=TextDisplay(), camera=Camera(), graphdisplay=GraphDisplay())
 print container.__dict__
 container.configure_traits()

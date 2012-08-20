@@ -46,16 +46,16 @@ and radius information at that point.
 
 For example, Figure 1 shows a morphology composed of 4 sections. Each end of
 each frustra is specified as a point in 3D space and a radius:
-:math:`(X,Y,Z);R`.  However, since positions and radii are shared, at join
+:math:`(X, Y, Z);R`.  However, since positions and radii are shared, at join
 points, only stores a reference to its parent (orange arrow), and its distal
 coordinate (red dots).  Therefore
 
 
 .. math::
 
-    Section1^{distal}(x,y,z,r)=Section2^{proximal}(x,y,z,r) = (10,0,0,20)
+    Section1^{distal}(x, y, z, r)=Section2^{proximal}(x, y, z, r) = (10, 0, 0, 20)
 
-    Section2^{distal}(x,y,z,r)=Section3^{proximal}(x,y,z,r) = (20,0,0,10)
+    Section2^{distal}(x, y, z, r)=Section3^{proximal}(x, y, z, r) = (20, 0, 0, 10)
 
     ...
 
@@ -286,7 +286,7 @@ class Section(object):
             return 'DummySection'
 
         def end_summary(e): 
-            return "[%f,%f,%f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
+            return "[%f, %f, %f, r=%f]" % (e.d_x, e.d_y, e.d_z, e.d_r) if e else '<None>'
         end_string = "SectionObject: " + end_summary(self.parent) + " -> " + end_summary(self) + ", "
         rg_string = "Region:" + self.region.name +", " if self.region else ""
         id_string = "idtag:" + self.idtag + ", " if self.idtag else ""

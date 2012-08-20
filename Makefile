@@ -15,7 +15,7 @@ env_NEURON_GSL: force_look
 
 
 lint: force_look
-	pylint --output-format=html --include-ids=y --disable='C0301,C0111,W0142,R0904,R0903,C0103,W0404,R0914,R0902,R0913'  --max-args=7 src/morphforge/ > pylint_out.html
+	pylint --output-format=html --include-ids=y --disable='C0301,C0111,W0142,R0904,R0903,C0103,W0404,R0914,R0902,R0913'  --max-args=7 src/morphforgecontrib/ > pylint_out.html
 	# C0301 - long lines
 	# C0111 - 
 	# W0142 'Used * or ** magic'

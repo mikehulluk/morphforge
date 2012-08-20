@@ -87,7 +87,7 @@ sKs =  ks_inf(v)*ks_inf(v)
 
 def get_nCurve(iExt):
     n4 = ((iNa + iLk + iKf) + iExt) / (ksChl.conductance * SA * (v*mV-ksChl.reversalpotential)).rescale('pA').magnitude
-    n = np.power(n4,0.5)
+    n = np.power(n4, 0.5)
     return n
 
 
@@ -95,7 +95,7 @@ def dVdt(iExt, n):
     iNa + iKf + iLk
 
 
-# pylab.plot(v,n4, label='n4')
+# pylab.plot(v, n4, label='n4')
 pylab.plot(v, get_nCurve(0), label='n, Iext=0')
 pylab.plot(v, get_nCurve(100), label='n, Iext=100')
 pylab.plot(v, get_nCurve(150), label='n, Iext=150')

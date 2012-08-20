@@ -89,10 +89,10 @@ UNITS {
 }
 
 PARAMETER {
-    tau1=.1 (ms) <1e-9,1e9>
-    tau2 = 10 (ms) <1e-9,1e9>
+    tau1=.1 (ms) <1e-9, 1e9>
+    tau2 = 10 (ms) <1e-9, 1e9>
     e=0    (mV)
-    popening=1.0 () <0.0,1.0>
+    popening=1.0 () <0.0, 1.0>
 }
 
 ASSIGNED {
@@ -175,4 +175,4 @@ NET_RECEIVE(weight (uS)) {
 """
     seed_val = mfrandom.MFRandom._seed if mfrandom.MFRandom._seed is not None else 0
     comment_val = "//" if  mfrandom.MFRandom._seed is not None else ""
-    return x.replace('$randomseed', "%d"%seed_val).replace("$COMMENT",comment_val)
+    return x.replace('$randomseed', "%d"%seed_val).replace("$COMMENT", comment_val)
