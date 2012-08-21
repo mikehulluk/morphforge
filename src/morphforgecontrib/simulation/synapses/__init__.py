@@ -30,6 +30,6 @@
 # ----------------------------------------------------------------------
 
 from core import PostSynapticMech_ExpSyn, PostSynapticMech_Exp2Syn
-from core import *
+#from core import *
 from neuron import Neuron_PSM_Exp2Syn
 

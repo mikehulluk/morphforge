@@ -32,10 +32,9 @@
 import numpy as np
 
 #
-from ..stdlimits import StdLimits
 
 
-from reportlab.platypus import *
+from reportlab.platypus import Paragraph, Table
 
 
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -44,6 +43,7 @@ from util import AlphaBetaBetaCalculator
 from util import InfTauCalculator, ReportLabTools
 
 
+from ..stdlimits import StdLimits
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 from morphforgecontrib.default.core.mmcalciumalphabetabeta import MM_CalciumAlphaBetaBetaChannel
 

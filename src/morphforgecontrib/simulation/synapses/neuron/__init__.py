@@ -29,9 +29,20 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from postsynaptic_mechanisms_baseclasses import *
-from postsynaptic_mechanisms_expsyn import *
-from postsynaptic_mechanisms_exp2syn import *
-from postsynaptic_mechanisms_exp2syn_nmda import *
-from postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import *
-from presynaptic_mechanisms import *
+#from postsynaptic_mechanisms_baseclasses import *
+#from postsynaptic_mechanisms_expsyn import *
+#from postsynaptic_mechanisms_exp2syn import *
+#from postsynaptic_mechanisms_exp2syn_nmda import *
+#from postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import *
+#from presynaptic_mechanisms import *
+
+#from postsynaptic_mechanisms_expsyn import PostSynapticMech_ExpSyn
+from postsynaptic_mechanisms_exp2syn import Neuron_PSM_Exp2Syn
+
+
+import postsynaptic_mechanisms_baseclasses
+import postsynaptic_mechanisms_expsyn
+import postsynaptic_mechanisms_exp2syn
+import postsynaptic_mechanisms_exp2syn_nmda
+import postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant
+import presynaptic_mechanisms

@@ -29,24 +29,24 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from reportlab.pdfgen import canvas
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import *
-import itertools
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import *
-from reportlab.lib import colors
-import os
-from reportlab.lib.pagesizes import A4
+#from reportlab.pdfgen import canvas
+#from reportlab.lib.styles import getSampleStyleSheet
+#from reportlab.platypus import *
+#import itertools
+#from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import Table, Paragraph
+#from reportlab.lib import colors
+#import os
+#from reportlab.lib.pagesizes import A4
 
 from mhlibs.quantities_plot import QuantitiesFigure
 from mhlibs.quantities_plot import QuantitiesAxis
 
-from morphforge.core.quantities import unit
-
-from scipy.integrate import odeint
+#from morphforge.core.quantities import unit
+#
+#from scipy.integrate import odeint
 import numpy as np
-from morphforge.traces import TraceFixedDT
+#from morphforge.traces import TraceFixedDT
 
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 
@@ -149,7 +149,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Inf")
 
-                ax2.plot(tauV * pq.mV, tau* pq.ms, color=color)
+                ax2.plot(inf_v * pq.mV, tau* pq.ms, color=color)
                 ax2.set_xlabel("Voltage")
                 ax2.set_ylabel("Tau")
                 ax2.setYUnit("ms")

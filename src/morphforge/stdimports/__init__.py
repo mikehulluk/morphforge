@@ -30,8 +30,12 @@
 # ----------------------------------------------------------------------
 
 # pylint: disable=W0401
+# pylint: disable=W0611
 # (don't complain about wildcard imports)
+
 from morphforge.core.quantities import *
+
+
 import morphforge.core.quantities as u
 
 from mhlibs.quantities_plot import *

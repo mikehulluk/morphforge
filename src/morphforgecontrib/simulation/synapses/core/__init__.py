@@ -29,6 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from postsynaptic_mechanisms import *
-from presynaptic_mechanisms import *
+#from postsynaptic_mechanisms import *
+#from presynaptic_mechanisms import *
+from postsynaptic_mechanisms import PostSynapticMech_ExpSyn
+from postsynaptic_mechanisms import PostSynapticMech_Exp2Syn
+from postsynaptic_mechanisms import PostSynapticMech_Exp2SynNMDA
 #
