@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from pyNN.neuron import *
+ pyNN.neuron import *
 
 setup(timestep=0.01, min_delay=0.1, max_delay=4.0, quit_on_end=False)
 

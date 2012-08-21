@@ -35,25 +35,16 @@ import numpy as np
 from ..stdlimits import StdLimits
 
 
+from reportlab.platypus import *
+
 
 from mhlibs.quantities_plot import QuantitiesFigure
 
-from util import AlphaBetaCalculator, AlphaBetaBetaCalculator
+from util import AlphaBetaBetaCalculator
 from util import InfTauCalculator, ReportLabTools
 
-from reportlab.pdfgen import canvas
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import *
-import itertools
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import *
-from reportlab.lib import colors
-import os
-from reportlab.lib.pagesizes import A4
 
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
-from morphforgecontrib.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
-from morphforgecontrib.default.core.mmalphabeta import MM_AlphaBetaChannel
 from morphforgecontrib.default.core.mmcalciumalphabetabeta import MM_CalciumAlphaBetaBetaChannel
 
 

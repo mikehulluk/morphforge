@@ -29,7 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.stdimports import *
+from morphforge.stdimports import CurrentClamp, Cell, unit, StandardTags
+from morphforge.stdimports import NeuronSimulationEnvironment
+from morphforge.stdimports import factorise_units_from_list
 
 import scipy.stats as stats
 
