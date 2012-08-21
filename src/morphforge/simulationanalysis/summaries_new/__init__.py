@@ -125,6 +125,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
+                self.build_details_channels(),
                )
 
 
@@ -326,6 +327,18 @@ class SimulationMRedoc(object):
     # --------------------------------------------------------
 
 
+    def _build_details_channel(self, mech):
+        return mrd.Section('Channel: %s' % mech.name,
+                    mrd.Paragraph('boom')
+                    )
+
+    def build_details_channels(self):
+        mechs = sorted( self.sim.get_mechanisms_in_simulation(), key=lambda i: i.name)
+        return mrd.SectionNewPage('Channels',
+                *[ self._build_details_channel(mech) for mech in mechs]
+                )
+
+
 
 
 
@@ -373,9 +386,16 @@ class SimulationMRedoc(object):
         return mrd.HierachyScope(section_table, region_table, mrd.Image(fig), 'tada')
 
     def _create_neuron_details_2_mta(self, nrn):
-        bio = nrn.biophysics
-        return mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels' % nrn.name)
-    
+        mechs = nrn.biophysics.get_applied_mtas()
+        return mrd.VerticalColTable(
+                'Mechanism|Priority|Targetter|Applicator', 
+                [ ( '%s (%s)' % (mta.mechanism.name, mta.mechanism.get_mechanism_id()),
+                    mta.targetter.get_priority(),
+                    mta.targetter.get_description(),
+                    mta.applicator.get_description(),
+                    ) for mta in mechs], 
+                caption='%s:Channels' % nrn.name)
+
     def _create_neuron_details_3a_presynapses(self, nrn):
         return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections' % nrn.name)
     def _create_neuron_details_3b_postsynapses(self, nrn):

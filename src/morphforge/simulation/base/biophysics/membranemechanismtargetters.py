@@ -91,7 +91,7 @@ class MembraneMechanismTargeter_Everywhere(Targeter):
         return True
 
     def get_description(self):
-        return 'MM-Everywhere'
+        return 'Everywhere'
 
 
 class MembraneMechanismTargeter_Region(Targeter):
@@ -107,7 +107,7 @@ class MembraneMechanismTargeter_Region(Targeter):
         return section.region == self.region
 
     def get_description(self):
-        return 'MM-Region: %s' % self.region.name
+        return 'Region: %s' % self.region.name
 
 
 class MembraneMechanismTargeter_SectionPath(Targeter):
@@ -139,6 +139,6 @@ class MembraneMechanismTargeter_Section(Targeter):
             section_desc = self.section.idtag
         else:
             section_desc = '[No idtag]'
-        return 'MM-Section: %s' % section_desc
+        return 'Section: %s' % section_desc
 
 

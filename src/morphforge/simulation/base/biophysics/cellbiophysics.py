@@ -31,6 +31,7 @@
 
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_EverywhereDefault
+from morphforge.core.misc import SeqUtils
 
 
 # A type for holding a mechanism/passive, where it is applied, and how much where.
@@ -43,10 +44,9 @@ class _MechanismTargetApplicator(object):
 class _PassiveTargetApplicator(object):
     def __init__(self, passiveproperty, targetter, value):
         self.passiveproperty = passiveproperty
-        self.targetter = targetter 
+        self.targetter = targetter
         self.value = value
 
-from morphforge.core.misc import SeqUtils
 
 class CellBiophysics(object):
 
