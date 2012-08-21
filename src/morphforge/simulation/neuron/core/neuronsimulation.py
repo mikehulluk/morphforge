@@ -187,7 +187,7 @@ class MNeuronSimulation(Simulation):
                 self.fih = h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
-                print self, 't=', h.t, 'ms'
+                sys.stdout.write('Simulating: t=%f \r' % (h.t) )
                 sys.stdout.flush()
                 if h.t + self.interval < h.tstop:
                     h.cvode.event(h.t + self.interval, self.callback)
