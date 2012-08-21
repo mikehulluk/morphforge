@@ -29,13 +29,19 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforgecontrib.simulation.membranemechanisms import inftauinterpolated
-from morphforgecontrib.simulation.default.core.mmalphabeta import MM_AlphaBetaChannel
-from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
+#from morphforgecontrib.simulation.membranemechanisms import inftauinterpolated
+
+
+from morphforgecontrib.simulation.membranemechanisms.hh_style import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style import MM_AlphaBetaBetaChannel
+#from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
+
+#from morphforgecontrib.simulation.default.core.mmalphabeta import MM_AlphaBetaChannel
+#from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
 from numpy.core.function_base import linspace
-from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, \
+from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers import MM_InfTauInterpolatedChannel, \
     InfTauInterpolation
-from morphforgecontrib.simulation.default.summarisers.util import InfTauCalculator
+from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.util import InfTauCalculator
 from morphforge.core.quantities.fromcore import unit
 import quantities as pq
 

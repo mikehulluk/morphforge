@@ -41,6 +41,7 @@ from mhlibs.quantities_plot import QuantitiesFigure
 import itertools
 from morphforge.traces.methods.MMtrace_conversion import TraceConverter
 from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
+from mreorg import PM
 
 
 class CellAnalysis_StepInputResponse(object):
@@ -264,10 +265,7 @@ class CellAnalysis_IVCurve(object):
             sim = env.Simulation(**self.sim_kwargs)
             cell = self.cell_functor(sim=sim)
         else:
-
             assert False
-            sim = self.sim
-            cell = self.cell
 
         soma_loc = cell.get_location('soma')
 
@@ -290,11 +288,6 @@ class CellAnalysis_IVCurve(object):
     def get_iv_point_steaddy_state(self, i_inj):
         return self.get_trace(i_inj).window(time_window=(self.tSteaddyStateStart, self.tSteaddyStateStop)).Mean()
 
-
-
-    def plot_all(self):
-        self.plot_traces()
-        self.plot_iv_curve()
 
     def plot_traces(self, ax=None):
         title = '%s: (Voltage Responses to Current Injections)' \
@@ -319,6 +312,7 @@ class CellAnalysis_IVCurve(object):
         PM.save_figure(figname=title)
 
     def plot_iv_curve(self, ax=None):
+        # pylint: disable=E1103 
         title = '%s: IV Curve' % self.cell_description
         if not ax:
             f = QuantitiesFigure()

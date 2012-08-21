@@ -29,6 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
+# pylint: disable=W0401,W0611,W0614
+
 from morphology.util import AxonTrimmer
 from morphology.util import cell_location_distance_from_soma
 from morphology.util import MorphologyTranslator

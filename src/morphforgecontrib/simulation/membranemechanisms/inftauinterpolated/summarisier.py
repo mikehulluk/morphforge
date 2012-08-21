@@ -48,10 +48,10 @@ from mhlibs.quantities_plot import QuantitiesAxis
 import numpy as np
 #from morphforge.traces import TraceFixedDT
 
-from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 
 from core import MM_InfTauInterpolatedChannel
 from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
+from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 
 from morphforge.stdimports import pq
 

@@ -31,10 +31,11 @@
 
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
 from Cheetah.Template import Template
-from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
+#from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
+from morphforge.simulation.neuron.networks import Synapse
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
 
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord

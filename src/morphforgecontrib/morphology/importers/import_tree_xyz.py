@@ -31,11 +31,11 @@
 
 assert False, 'Do not use this module ~ currently in development'
 
-from morphforge.morphology.core.morphologytree import MorphologyTree
-from morphforge.morphology.core.section import Section
+from morphforge.morphology.core.tree import MorphologyTree
+from morphforge.morphology.core.tree import Section
 
 import numpy as np
-from morphforge.morphology.core.region import Region
+from morphforge.morphology.core.tree import Region
 from morphforge.core.mgrs.logmgr import LogMgr
 
 class xyzXYZLoader(object):
@@ -76,6 +76,8 @@ class xyzXYZLoader(object):
         line1 = lines[0].translate(None, '\t ')
         assert line1 == 'n,T,x,y,z,X,Y,Z,P'
 
+        regionTypes = dict([(index, Region(name)) for index, name, in regionNames.iteritems() ])
+        sections = []
 
         for l in lines[1:]:
             toks = l.split(',')

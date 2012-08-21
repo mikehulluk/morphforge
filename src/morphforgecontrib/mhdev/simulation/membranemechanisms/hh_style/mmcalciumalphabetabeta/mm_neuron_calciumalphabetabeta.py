@@ -113,7 +113,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarSteedyState(MM_Neuron_Calcium
         return unit('1')
 
     def get_std_tags(self):
-        return [StandardTags.StateSteddyState]
+        return [StandardTags.StateSteadyState]
 
     def build_hoc(self, hocfile_obj):
         self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s'

@@ -144,6 +144,11 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
 
 class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
+    class Recordables(object):
+
+        CurrentDensity = StandardTags.CurrentDensity
+
+
     def __init__(self, *args, **kwargs):
         # TODO: Fix constructor:
         MM_AlphaBetaBetaChannel.__init__(self, *args, **kwargs)

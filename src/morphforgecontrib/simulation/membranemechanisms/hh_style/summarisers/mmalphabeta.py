@@ -51,44 +51,46 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
     @classmethod
     def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms")) :
 
-        from scipy.integrate import odeint
+        raise NotImplementedError()
 
-        v_in_mv = V.rescale('mV').magnitude
+        #from scipy.integrate import odeint
 
-        state_names = chl.statevars.keys()
-        n_states = len(state_names)
-        m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[state_names[0]], V)
-        m_tau_ms = m_tau.rescale("ms").magnitude
+        #v_in_mv = V.rescale('mV').magnitude
 
-        inf_taus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names]
-        inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf, tau) in inf_taus]
+        #state_names = chl.statevars.keys()
+        #n_states = len(state_names)
+        #m_inf, m_tau =  InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[state_names[0]], V)
+        #m_tau_ms = m_tau.rescale("ms").magnitude
 
-        state_to_index = dict([(state, index) for state, index in enumerate(state_names)])
+        #inf_taus = [InfTauCalculator.evaluate_inf_tau_for_v(chl.statevars[stateName], V)  for stateName in state_names]
+        #inf_taus_ms = [(inf, tau.rescale("ms").magnitude)  for (inf, tau) in inf_taus]
 
-        def odeFunc(y, t0):
-            res = [None] * n_states
-            for i in range(0, n_states):
-                (state_inf, state_tau) = inf_taus_ms[i]
-                state_val = y[i]
-                d_state = (state_inf - state_val) / state_tau
-                res[i] = d_state
-            return res
+        #state_to_index = dict([(state, index) for state, index in enumerate(state_names)])
 
-        # run the ODE for each variable:
-        t = t.rescale('ms').magnitude
-        y0 = np.zeros((n_states))
-        res = odeint(func=odeFunc, y0=y0, t=t)
+        #def odeFunc(y, t0):
+        #    res = [None] * n_states
+        #    for i in range(0, n_states):
+        #        (state_inf, state_tau) = inf_taus_ms[i]
+        #        state_val = y[i]
+        #        d_state = (state_inf - state_val) / state_tau
+        #        res[i] = d_state
+        #    return res
 
-        state_functor = sympy.lambdify(state_names, sympy.sympify(chl.eqn) )
-        state_data = [res[:, i] for i in range(0, n_states)]
+        ## run the ODE for each variable:
+        #t = t.rescale('ms').magnitude
+        #y0 = np.zeros((n_states))
+        #res = odeint(func=odeFunc, y0=y0, t=t)
 
-        state_equation_evaluation = state_functor(*state_data)
+        #state_functor = sympy.lambdify(state_names, sympy.sympify(chl.eqn) )
+        #state_data = [res[:, i] for i in range(0, n_states)]
 
-        cell_density = chl.conductance * cell_area
-        i_chl = chl.conductance * cell_area * state_equation_evaluation * (V - chl.reversalpotential)
+        #state_equation_evaluation = state_functor(*state_data)
 
-        return TraceFixedDT(time=t * unit('1:ms'),
-                            data=i_chl.rescale('pA'))
+        #cell_density = chl.conductance * cell_area
+        #i_chl = chl.conductance * cell_area * state_equation_evaluation * (V - chl.reversalpotential)
+
+        #return TraceFixedDT(time=t * unit('1:ms'),
+        #                    data=i_chl.rescale('pA'))
 
 
 class Curve(object):
