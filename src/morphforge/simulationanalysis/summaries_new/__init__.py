@@ -29,6 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
+from morphforge.morphology.core  import MorphPath
+from morphforge.morphology.visitor import SectionIndexerDF
 """
 DocumentLayout:
 
@@ -107,25 +110,37 @@ class SimulationMRedoc(object):
     def build_simulation(self):
         return mrd.Section('Simulation Summary',
                 mrd.TableOfContents(),
-         #       self.build_simulation_overview(),
+                self.build_simulation_overview(),
                 self.build_simulation_details(),
                )
 
 
     def build_simulation_overview(self):
-        #return
-        return mrd.Section("Overview",
-                self.build_population_overview(),
+        return mrd.SectionNewPage("Overview",
+               self.build_population_overview(),
+               self.build_singlecell_overview(),
                )
 
     def build_simulation_details(self):
-        return mrd.Section("Details",
-                self.build_population_details()
+        return mrd.SectionNewPage("Details",
+               self.build_singlecell_details(),
+               self.build_population_details(),
                )
 
 
+
+
+
+
+
+    # Overview in terms of populations
+    # -------------------------------------
+
     # The details of the simulation:
     def build_population_overview(self):
+
+        if not self.sim.neuron_populations:
+            return None
 
         t = mrd.VerticalColTable(
                 "Population | Size | Type """,
@@ -139,12 +154,14 @@ class SimulationMRedoc(object):
         return mrd.Section("Population Overview",
                            t, t2,
                            self.build_population_overview_dot(),
-                           #self.build_population_complete_dot()
+                           self.build_population_complete_dot()
                           )
 
 
 
     def build_population_overview_dot(self):
+
+
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph')
 
@@ -213,19 +230,34 @@ class SimulationMRedoc(object):
         fname = self.save_dot(graph, prog='circo')
         return mrd.Figure(mrd.Image(fname))
 
+
+
+
+
+
+
+
+
+
+
+
     @classmethod
     def _build_population_cell_table(cls, population):
+        return cls._build_cell_table(cell_list=population)
 
-        t = mrd.VerticalColTable('Cell|Cell Type|SA(um2)|nseg|Regions(SA(um2):nseg)|Pre/Post-SynChem|GJ|Chls',
+    @classmethod
+    def _build_cell_table(cls, cell_list):
+
+        t = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections/segments|Regions(SA(um2):nseg)|\#Pre/Post-Synapse|\#GapJunctions|Chls',
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
-                  "%d" % cell.segmenter.get_num_segment_total(),
+                  "%d:%d" % (len(cell.morphology), cell.segmenter.get_num_segment_total()),
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d" % (len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d" % len(cell.electrical_connections),
                   " ".join(cell.biophysics.get_mechanism_ids()),
-                 ) for cell in population])
+                 ) for cell in cell_list])
 
         return t
 
@@ -240,20 +272,133 @@ class SimulationMRedoc(object):
                 *[self.build_neuron_details(nrn) for nrn in pop]
        )
 
+    # --------------------------------------------------------
 
 
 
-    @classmethod
-    def build_neuron_details(cls, neuron):
-        t = mrd.VerticalColTable('Section|SA|Region|nseg|Channels', [], caption='%s:Morphology' % neuron.name)
-        t1 = mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels' % neuron.name)
-        t2 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections' % neuron.name)
-        t3 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Postsynaptic Connections' % neuron.name)
-        t4 = mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Gap Junctions' % neuron.name)
+
+    # Single Cell Overview:
+    # --------------------------------------------------------
+    # The details of the simulation:
+    def build_singlecell_overview(self):
+        if self.sim.are_all_cells_in_pops:
+            return None
+
+        return mrd.HierachyScope(
+                self._build_singlecell_overview_cells(),
+                self._build_singlecell_overview_iclamps(),
+                self._build_singlecell_overview_vclamps(),
+                )
+
+    def _build_singlecell_overview_cells(self):
+        return mrd.Section(
+                'Individual Cells',
+                self._build_cell_table(cell_list=self.sim.ss_cells),
+                )
+
+
+    # Stim Tables:
+    def _build_singlecell_overview_stimtable(self, stims):
+        data = [(stim.name, 
+                 stim.location_summary_str,
+                 stim.get_summary_description(),
+                 ) for stim in stims]
+        tbl = mrd.VerticalColTable('Name|Location|Description', data)
+        return tbl
+
+    def _build_singlecell_overview_iclamps(self):
+        return mrd.Section('Current Clamps', 
+                self._build_singlecell_overview_stimtable(stims=self.sim.ss_current_clamps)
+                )
+
+    def _build_singlecell_overview_vclamps(self):
+        return mrd.Section('Voltage Clamps', 
+                self._build_singlecell_overview_stimtable(stims=self.sim.ss_voltage_clamps)
+                )
+
+
+
+    def build_singlecell_details(self):
+        sub_sections = [self.build_neuron_details(nrn) for nrn in self.sim.cells]
+        return mrd.Section('Single Cell Details', *sub_sections)
+
+
+    # --------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # Individual Neuron details:
+    # -------------------------------
+
+    def _create_neuron_details_1_morphology(self, nrn):
+        morph = nrn.morphology
+        section_indexer = SectionIndexerDF(morph)
+        section_table = mrd.VerticalColTable(
+                'ID|Tags|Lateral Surface Area (um2)|Region|nseg|L|diam (prox/dist)',
+                [(  section_indexer[sec],
+                    sec.idtag,
+                    '%.0f' % sec.area,
+                    (sec.region.name if sec.region else ''),
+                    nrn.cell_segmenter.get_num_segments(sec),
+                    sec.length,
+                    '%.1f/%.1f' % (sec.p_r*2., sec.d_r*2.)
+                    ) for sec in morph],
+                caption='%s:Morphology (Sections)' % nrn.name)
+
+        region_table = mrd.VerticalColTable(
+                'Region|Surface Area|\#Segments',
+                [(rgn.name, rgn.surface_area, len(rgn)) for rgn in nrn.morphology.regions],
+                caption='%s:Morphology (Regions)' % nrn.name
+                )
+
+
+        from morphforge.morphology.ui import MatPlotLibViewer
+        fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7,7)} ).fig
+
+
+        return mrd.HierachyScope(section_table, region_table, mrd.Image(fig), 'tada')
+
+    def _create_neuron_details_2_mta(self, nrn):
+        bio = nrn.biophysics
+        return mrd.VerticalColTable('Mechanism|Targetter|Applicator', [], caption='%s:Channels' % nrn.name)
+    
+    def _create_neuron_details_3a_presynapses(self, nrn):
+        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections' % nrn.name)
+    def _create_neuron_details_3b_postsynapses(self, nrn):
+        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Postsynaptic Connections' % nrn.name)
+
+    def _create_neuron_details_3c_gapjunctions(self, nrn):
+        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Gap Junctions' % nrn.name)
+    def _create_neuron_details_4_stimulation(self, nrn):
+        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Stimulation' % nrn.name)
+
+
+
+
+    def build_neuron_details(self, neuron):
 
         return mrd.SectionNewPage('Neuron:%s' % neuron.name,
-                "Blah blha",
-                t, t1, t2, t3, t4,
+                self._create_neuron_details_1_morphology(neuron),
+                self._create_neuron_details_2_mta(neuron),
+                self._create_neuron_details_3a_presynapses(neuron),
+                self._create_neuron_details_3b_postsynapses(neuron),
+                self._create_neuron_details_3c_gapjunctions(neuron),
+                self._create_neuron_details_4_stimulation(neuron),
                )
 
 
+    # -------------------------------

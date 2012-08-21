@@ -111,8 +111,20 @@ class Simulation(object):
                    if syn.population])
 
     @property
+    def are_all_cells_in_pops(self):
+        for cell in self.ss_cells:
+            if not cell.population:
+                return False
+        return True
+
+
+    @property
     def synapses(self):
         return self.ss_synapses
+
+    @property
+    def cells(self):
+        return self.ss_cells
 
     @property
     def gapjunctions(self):

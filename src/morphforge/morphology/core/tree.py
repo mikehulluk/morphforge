@@ -343,6 +343,7 @@ class Section(object):
     area = property(get_area)
     surface_area = property(get_area)
     volume = property(get_volume)
+    length = property(get_length)
 
     # Deprecated:
     def get_vectorfrom_parent_np4(self):

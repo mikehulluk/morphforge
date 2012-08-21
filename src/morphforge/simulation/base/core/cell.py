@@ -115,3 +115,8 @@ class Cell(NamedSimulationObject):
                 in s.connected_cells]
 
 
+    # Commonly used helper methods:
+    @property
+    def soma(self):
+        return self.get_location('soma')
+

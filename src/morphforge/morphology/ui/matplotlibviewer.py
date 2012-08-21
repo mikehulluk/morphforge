@@ -56,7 +56,7 @@ class MatPlotLibViewer(object):
     figureTitles = {0:'View From Above', 1:'View From Side', 2:'View From Front'}
 
 
-    def __init__(self, morph, use_pca=True):
+    def __init__(self, morph, use_pca=True, fig_kwargs=None):
 
         if morph == None:
             raise ValueError('No Cell')
@@ -64,6 +64,7 @@ class MatPlotLibViewer(object):
         self.morph = morph
 
         self.fig = None
+        self.fig_kwargs = fig_kwargs if fig_kwargs is not None else {}
         self.subplots = {}
 
         self.build_plot(use_pca)
@@ -103,8 +104,8 @@ class MatPlotLibViewer(object):
             # Test if we have just tried to draw a point, if so then draw a circle:
             if numpy.linalg.norm(xy_proj - xy_proj_parent) < 0.0001:
                 try:
-                    ax.add_patch(pylab.Circle(xy_proj, radius=linewidth, color=color))
-                    ax.plot(xy_proj[0], xy_proj[1], '+', markersize=linewidth, color='red')
+                    ax.add_patch(pylab.Circle(xy_proj, radius=linewidth/2.0, color=color))
+                    ax.plot(xy_proj[0], xy_proj[1], '+', markersize=linewidth/2.0, color='red')
                 except:
                     pass
             else:
@@ -138,6 +139,11 @@ class MatPlotLibViewer(object):
         ax.set_ylim(plotLims)
         ax.set_xlabel(labels[0])
         ax.set_ylabel(labels[1])
+        
+        from matplotlib.ticker import MaxNLocator
+        ax.xaxis.set_major_locator(MaxNLocator(4))
+        ax.yaxis.set_major_locator(MaxNLocator(4))
+
         ax.grid(True)
         return ax
 
@@ -172,14 +178,14 @@ class MatPlotLibViewer(object):
         for i in self.plotViews:
             maxes[i] = maxes[i] + 0.2 * max([maxX, maxY, maxZ])
 
-        self.fig = pylab.figure(figsize=(7, 7))
+        self.fig = pylab.figure(**self.fig_kwargs) #figsize=(7, 7))
         self.fig.subplots_adjust(
             left=0.05,
             top=0.95,
             right=0.95,
             bottom=0.05,
-            wspace=0.1,
-            hspace=0.1,
+            wspace=0.15,
+            hspace=0.15,
             )
 
         self.subplots = {}

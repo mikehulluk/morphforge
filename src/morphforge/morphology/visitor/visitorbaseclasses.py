@@ -164,6 +164,9 @@ class SectionIndexerDF(DictBuilderSectionVisitorHomo):
         super(SectionIndexerDF, self).__init__(morph=morph,
                 functor=functor)
 
+    def __getitem__(self, key):
+        return self.dict[key]
+
 
 SectionIndexerWithOffsetDF = SectionIndexerDF
 

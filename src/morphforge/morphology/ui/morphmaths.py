@@ -33,9 +33,11 @@ def _pca(X):
     x_t = numpy.dot(x_.T, x_) / len(X)
     (lam, vec) = linalg.eig(x_t)
     ans = zip(lam, vec.T)
+    print ans
     try:
-        ans.sort(reverse=True)
-    except:
+        ans.sort(reverse=True, key=lambda t: t[0])
+    except Exception, e:
+        print e
         assert False, 'What is the exception raised?!'
         LogMgr.warning('Unable to sort eigenvectors')
     return ans
