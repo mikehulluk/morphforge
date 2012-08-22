@@ -73,7 +73,7 @@ Root:
 from morphforge.simulation.base import Simulation
 
 
-from morphforge.management import PluginMgr
+#from morphforge.management import PluginMgr
 
 
 try:
@@ -82,7 +82,32 @@ except ImportError:
     print 'Unable to import mredoc, you will be unable to produce pdf/html summaries'
 
 
-class MembraneMechanismSummariserLibrary(object):
+class SummariserLibrary(object):
+    summarisers = {}
+
+    @classmethod
+    def register_summariser(cls, channel_baseclass, summariser_class):
+        # Check it has a to_report_lab Method:
+        # Todo: Replace this with 'hasattr'
+        #assert 'to_report_lab' in summariser_class.__dict__
+
+        # Add it to the dictionary of summarisers:
+        cls.summarisers[channel_baseclass] = summariser_class
+
+    @classmethod
+    def get_summarisier(cls, obj):
+        possible_summarisers = []
+        for (ChlType, summarisier) in cls.summarisers.iteritems():
+            if issubclass(type(obj), ChlType):
+                possible_summarisers.append(summarisier)
+
+        if len(possible_summarisers) == 0:
+            return None
+        if len(possible_summarisers) == 1:
+            return possible_summarisers[0]
+        else:
+            assert False, 'I have to many options for summarising: ' \
+                + str(obj)
 
     pass
 
@@ -116,7 +141,7 @@ class SimulationMRedoc(object):
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
                 self.build_simulation_details(),
-                PluginMgr.summarise_all(),
+                #PluginMgr.summarise_all(),
                )
 
 
