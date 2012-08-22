@@ -161,7 +161,7 @@ class PluginMgr(object):
 
 
 from morphforge.traces import TraceFixedDT, TraceVariableDT, TracePiecewise
-from morphforge.traces import  TraceOperatorCtrl
+from morphforge.traces import  TraceOperatorCtrl, TraceMethodCtrl
 import operator
 
 
@@ -183,13 +183,6 @@ class TraceLibSummariser(object):
                 cls.summarise_operators(), 
                 mrd.Paragraph('asda') ) 
 
-    @classmethod
-    def summarise_methods(cls):
-
-        types = cls._trace_types
-
-
-        return mrd.Section('TraceMethods', mrd.Paragraph('asda') ) 
 
 
     @classmethod
@@ -200,6 +193,12 @@ class TraceLibSummariser(object):
             types.add(rhs_type)
         return sorted(list(types), key=lambda obj:(obj not in cls._trace_types, obj.__name__) )
 
+    @classmethod
+    def _get_all_trace_methods(cls):
+        methods = set()
+        for (_trace_type, method_name) in TraceMethodCtrl.registered_methods:
+            methods.add(method_name)
+        return sorted(list(methods) ) #, key=lambda obj:(obj not in cls._trace_methods, obj.__name__) )
 
     @classmethod
     def summarise_operators(cls):
@@ -209,24 +208,48 @@ class TraceLibSummariser(object):
         d = empty_str_matrix(N=len(all_types)+1, M=len(all_types)+1)
 
 
+        k=0
         for (i, tp1) in enumerate(all_types):
             d[0][i+1] = tp1.__name__
             d[i+1][0] = tp1.__name__
             for (j, tp2) in enumerate(all_types):
+                #if j>i:
+                #    continue
+                print tp1, tp2
+                k+=1
+                print k
 
                 # Neither of the operand is a trace_type:
-                if not tp1 in trace_types and not tp2 in trace_types:
+                if tp1 not in trace_types and tp2 not in trace_types:
                     d[i+1][j+1] = '==='
                     continue
 
-                outstr = ''
+                #outstr = ''
                 for (op, sym) in operators:
-                    key = (op, tp1, tp2)
-                    if key in TraceOperatorCtrl.trace_operators_all:
-                        outstr += sym
-                d[i+1][j+1] += outstr
-                d[j+1][i+1] += outstr
+                    if (op, tp1, tp2) in TraceOperatorCtrl.trace_operators_all:
+                        d[i+1][j+1] += sym
 
-        tbl = mrd.VerticalColTable(d[0],d[1:], caption='Operators')
+        return mrd.Section('TraceOperators', 
+                           mrd.VerticalColTable(d[0],d[1:], caption='Operators')
+                           )
 
-        return mrd.Section('TraceOperators', tbl )
+
+
+    @classmethod
+    def summarise_methods(cls):
+        trace_types = cls._trace_types
+
+        methods = cls._get_all_trace_methods()
+
+        def _support_for_method(trace_type, method_name):
+            if (trace_type, method_name) in TraceMethodCtrl.registered_methods:
+                return 'X'
+            if method_name in TraceMethodCtrl.fallback_to_fixedtrace_methods:
+                return '<via fixed>'
+
+        col1 = [''] + methods
+        col2 = [ [trace_type.__name__] + [ _support_for_method(trace_type,method_name) for method_name in methods] for trace_type in trace_types]
+        cols = [col1]  + col2
+        rows = zip(*cols)
+        tbl = mrd.VerticalColTable(rows[0],rows[1:], caption='Operators')
+        return mrd.Section('TraceMethods', tbl) #mrd.Paragraph('asda') ) 

@@ -43,6 +43,21 @@ class TraceOperatorCtrl(object):
                        operator.__div__, operator.__mul__]
 
     @classmethod
+    def add_trace_operator_commutative(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
+        cls.add_trace_operator(operator_type=operator_type,
+                               lhs_type=lhs_type, 
+                               rhs_type=rhs_type, 
+                               operator_func=operator_func, 
+                               flag=flag, 
+                               set_as_default=set_as_default)
+        cls.add_trace_operator(operator_type=operator_type,
+                               lhs_type=rhs_type,
+                               rhs_type=lhs_type,
+                               operator_func=operator_func,
+                               flag=flag, 
+                               set_as_default=set_as_default)
+
+    @classmethod
     def add_trace_operator(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
         assert operator_type in cls.trace_operators
 
@@ -60,20 +75,14 @@ class TraceOperatorCtrl(object):
         if not key in cls.trace_operators_active or flag == 'default' or set_as_default:
             cls.trace_operators_active[key] = operator_func, flag
 
-    @classmethod
-    def add_trace_operator_symmetrical(cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
-        cls.add_trace_operator(operator_type=operator_type,
-                              lhs_type=lrhs_type,
-                              rhs_type=lrhs_type,
-                              operator_func=operator_func,
-                              flag=flag,
-                              set_as_default=set_as_default)
-
-
-
-
-
-
+    #@classmethod
+    #def add_trace_operator_symmetrical(cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
+    #    cls.add_trace_operator(operator_type=operator_type,
+    #                          lhs_type=lrhs_type,
+    #                          rhs_type=lrhs_type,
+    #                          operator_func=operator_func,
+    #                          flag=flag,
+    #                          set_as_default=set_as_default)
 
     @classmethod
     def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
