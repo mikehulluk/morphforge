@@ -208,16 +208,10 @@ class TraceLibSummariser(object):
         d = empty_str_matrix(N=len(all_types)+1, M=len(all_types)+1)
 
 
-        k=0
         for (i, tp1) in enumerate(all_types):
             d[0][i+1] = tp1.__name__
             d[i+1][0] = tp1.__name__
             for (j, tp2) in enumerate(all_types):
-                #if j>i:
-                #    continue
-                print tp1, tp2
-                k+=1
-                print k
 
                 # Neither of the operand is a trace_type:
                 if tp1 not in trace_types and tp2 not in trace_types:
@@ -238,7 +232,6 @@ class TraceLibSummariser(object):
     @classmethod
     def summarise_methods(cls):
         trace_types = cls._trace_types
-
         methods = cls._get_all_trace_methods()
 
         def _support_for_method(trace_type, method_name):
@@ -252,4 +245,4 @@ class TraceLibSummariser(object):
         cols = [col1]  + col2
         rows = zip(*cols)
         tbl = mrd.VerticalColTable(rows[0],rows[1:], caption='Operators')
-        return mrd.Section('TraceMethods', tbl) #mrd.Paragraph('asda') ) 
+        return mrd.Section('TraceMethods', tbl) 

@@ -91,7 +91,7 @@ class TraceOperator_TraceFixedDT_Scalar(object):
             return TraceFixedDT(lhs.time_pts, lhs.data_pts + rhs)
         else:
             assert isinstance(rhs.data_pts, pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts, rhs.data_pts + lhs)
+            return TraceFixedDT(rhs.time_pts, lhs + rhs.data_pts)
 
     @classmethod
     def do_sub(cls, lhs, rhs):
@@ -103,7 +103,7 @@ class TraceOperator_TraceFixedDT_Scalar(object):
             return TraceFixedDT(lhs.time_pts, lhs.data_pts - rhs)
         else:
             assert isinstance(rhs.data_pts, pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts, rhs.data_pts - lhs)
+            return TraceFixedDT(rhs.time_pts, lhs - rhs.data_pts)
 
     @classmethod
     def do_mul(cls, lhs, rhs):
@@ -113,7 +113,7 @@ class TraceOperator_TraceFixedDT_Scalar(object):
         if type(lhs) == TraceFixedDT:
             return TraceFixedDT(lhs.time_pts, lhs.data_pts * rhs)
         else:
-            return TraceFixedDT(rhs.time_pts, rhs.data_pts * lhs)
+            return TraceFixedDT(rhs.time_pts, rhs.data_pts)
 
     @classmethod
     def do_div(cls, lhs, rhs):
@@ -121,11 +121,9 @@ class TraceOperator_TraceFixedDT_Scalar(object):
                (type(rhs) == TraceFixedDT and type(lhs) == float)
 
         if type(lhs) == TraceFixedDT:
-            # assert isinstance(lhs.data_pts pq.Dimensionless)
             return TraceFixedDT(lhs.time_pts, lhs.data_pts / rhs)
         else:
-            # assert isinstance(rhs.data_pts pq.Dimensionless)
-            return TraceFixedDT(rhs.time_pts, rhs.data_pts / lhs)
+            return TraceFixedDT(rhs.time_pts, lhs / rhs.data_pts)
 
 
 TraceOperatorCtrl.add_trace_operator_commutative(
@@ -149,22 +147,22 @@ TraceOperatorCtrl.add_trace_operator_commutative(
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_div,
         flag='default')
 
-TraceOperatorCtrl.add_trace_operator(
+TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__add__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_add,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
+TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__sub__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_sub,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
+TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__mul__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_mul,
         flag='default')
-TraceOperatorCtrl.add_trace_operator(
+TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__div__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_div,

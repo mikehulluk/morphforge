@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.morphology.core  import MorphPath
+#from morphforge.morphology.core  import MorphPath
 from morphforge.morphology.visitor import SectionIndexerDF
 """
 DocumentLayout:
@@ -80,6 +80,12 @@ try:
     import mredoc as mrd
 except ImportError:
     print 'Unable to import mredoc, you will be unable to produce pdf/html summaries'
+
+
+class SummariserObject(object):
+    @classmethod
+    def build(cls, obj):
+        raise NotImplementedError()
 
 
 class SummariserLibrary(object):
@@ -358,8 +364,13 @@ class SimulationMRedoc(object):
 
 
     def _build_details_channel(self, mech):
+
+        sumcls = SummariserLibrary.get_summarisier(mech)
+        print sumcls
+
         return mrd.Section('Channel: %s' % mech.name,
-                    mrd.Paragraph('boom')
+                    mrd.Paragraph('boom'),
+                    sumcls.build(mech)
                     )
 
     def build_details_channels(self):

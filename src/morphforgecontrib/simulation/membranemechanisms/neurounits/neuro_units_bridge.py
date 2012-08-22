@@ -80,6 +80,9 @@ class MM_Neuron_RecGen(NeuronRecordableOnLocation):
         return self.std_tags
 
 
+
+
+
 class NeuroUnitEqnsetMechanism(MembraneMechanism):
     def __init__(self, eqnset, mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
         MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
@@ -108,6 +111,26 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
 
     def get_variables(self):
         return self._parameters.keys()
+
+
+
+from morphforge.simulationanalysis.summaries_new import SummariserObject
+from morphforge.simulationanalysis.summaries_new import SummariserLibrary
+
+import mredoc as mrd
+class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
+
+    @classmethod
+    def build(cls, obj):
+        return mrd.Paragraph('In SummariserObject')
+        pass
+
+SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetMechanismSummariser)
+
+
+
+
+
 
 
 
@@ -176,3 +199,8 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
 
 
 NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
+
+
+
+
+

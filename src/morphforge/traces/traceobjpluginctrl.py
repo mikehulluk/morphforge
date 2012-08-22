@@ -86,6 +86,15 @@ class TraceOperatorCtrl(object):
 
     @classmethod
     def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
+
+        # Lets map 'int' to 'float'
+        if type(lhs) is int:
+            lhs = float(lhs)
+        if type(rhs) is int:
+            rhs = float(rhs)
+
+
+
         key = (operator_type, type(lhs), type(rhs))
 
         # Use the active operation:
