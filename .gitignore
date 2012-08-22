@@ -1925,3 +1925,13 @@
 !src/morphforgeexamples/exset3_multicell_simulations/multicell_simulation030.py
 !src/morphforgeexamples/exset3_multicell_simulations/Makefile
 
+
+!src/indev_scripts/
+!src/morphforge/management/
+!src/morphforgeexamples/exset7_management/
+!src/morphforgeexamples/summary_testing/
+
+!src/indev_scripts/*
+!src/morphforge/management/*
+!src/morphforgeexamples/exset7_management/*
+!src/morphforgeexamples/summary_testing/*

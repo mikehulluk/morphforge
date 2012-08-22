@@ -77,7 +77,6 @@ class TraceOperatorCtrl(object):
 
     @classmethod
     def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
-        #toc = TraceOperatorCtrl
         key = (operator_type, type(lhs), type(rhs))
 
         # Use the active operation:
@@ -94,15 +93,6 @@ class TraceOperatorCtrl(object):
         return opfunctor(lhs=lhs, rhs=rhs, **kwargs)
 
 
-def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
-    #from morphforge.traces import TraceConverter
-    from morphforge.traces.methods.MMtrace_conversion import TraceConverter
-
-    def wrapped_func(self, *args, **kwargs):
-        tr_new = TraceConverter.rebase_to_fixed_dt(self, dt=fixed_trace_dt)
-        return func(tr_new, *args, **kwargs)
-
-    return wrapped_func
 
 
 class TraceMethodCtrl(object):
@@ -149,6 +139,17 @@ class TraceMethodCtrl(object):
 
         # Error!
         assert False
+
+
+
+def _prepend_conversion_to_fixed_trace_to_function(func, fixed_trace_dt):
+    from morphforge.traces.methods.MMtrace_conversion import TraceConverter
+
+    def wrapped_func(self, *args, **kwargs):
+        tr_new = TraceConverter.rebase_to_fixed_dt(self, dt=fixed_trace_dt)
+        return func(tr_new, *args, **kwargs)
+
+    return wrapped_func
 
 
 def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tags=None):
