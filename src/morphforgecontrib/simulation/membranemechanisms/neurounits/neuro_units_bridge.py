@@ -116,14 +116,13 @@ class NeuroUnitEqnsetMechanism(MembraneMechanism):
 
 from morphforge.simulationanalysis.summaries_new import SummariserObject
 from morphforge.simulationanalysis.summaries_new import SummariserLibrary
+from neurounits.writers import MRedocWriterVisitor
 
-import mredoc as mrd
+#import mredoc as mrd
 class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
-
     @classmethod
     def build(cls, obj):
-        return mrd.Paragraph('In SummariserObject')
-        pass
+        return MRedocWriterVisitor.build(obj.eqnset)
 
 SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetMechanismSummariser)
 
