@@ -87,9 +87,6 @@ class MNeuronSimulation(Simulation):
             mechobjs = mech_id_to_obj[mech_id]
             mechobj0 = mechobjs[0]
             for m in mechobjs:
-                print 'Hello'
-                print 'mechobj', m
-                print 'mechobj0', mechobj0
                 assert m is mechobj0
         return [ values[0] for values in mech_id_to_obj.values() ]
 

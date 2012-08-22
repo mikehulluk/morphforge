@@ -42,6 +42,8 @@ from morphforge.simulation.neuron.core import MNeuronSimulation
 
 class NeuronSimulationEnvironment(SimulationEnvironment):
 
+    _env_name = "NEURON"
+
     def Simulation(self, **kwargs):
         return MNeuronSimulation(environment=self, **kwargs)
 

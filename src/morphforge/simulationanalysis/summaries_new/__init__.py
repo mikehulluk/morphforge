@@ -72,6 +72,10 @@ Root:
 
 from morphforge.simulation.base import Simulation
 
+
+from morphforge.management import PluginMgr
+
+
 try:
     import mredoc as mrd
 except ImportError:
@@ -112,6 +116,7 @@ class SimulationMRedoc(object):
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
                 self.build_simulation_details(),
+                PluginMgr.summarise_all(),
                )
 
 
@@ -125,7 +130,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
-                self.build_details_channels(),
+               self.build_details_channels(),
                )
 
 

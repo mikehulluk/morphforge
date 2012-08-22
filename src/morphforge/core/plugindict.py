@@ -53,4 +53,8 @@ class PluginDict(object):
         assert plugin_name in self.dict
         return self.dict[plugin_name]
 
+    def __iter__(self):
+        return iter(self.dict)
+    def keys(self):
+        return self.dict.keys()
 
