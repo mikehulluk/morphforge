@@ -50,11 +50,11 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation()
+mysim = env.Simulation()
 
 
 # Create a cell:
-myCell = mySim.create_cell(name="Cell1", morphology=m1)
+myCell = mysim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
@@ -73,16 +73,16 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = mysim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
 # Define what to record:
-mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
-mySim.recordall(leakChannels, cell_location=somaLoc)
+mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+mysim.recordall(leakChannels, cell_location=somaLoc)
 
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 # Create an output .pdf
 #SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)

@@ -136,11 +136,11 @@ celltype="Cell1"
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation()
+mysim = env.Simulation()
 
 # Create a cell:
 morphology=MorphologyLibrary.get_morphology(modelsrc=modelsrc, celltype=celltype)
-myCell = mySim.create_cell(morphology=morphology)
+myCell = mysim.create_cell(morphology=morphology)
 
 # Apply the channels uniformly over the cell
 naChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
@@ -157,14 +157,14 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = mysim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
-mySim.record(cc, what=StandardTags.Current)
-mySim.record(myCell, what=StandardTags.Voltage, cell_location=somaLoc)
+mysim.record(cc, what=StandardTags.Current)
+mysim.record(myCell, what=StandardTags.Voltage, cell_location=somaLoc)
 
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 # Display the results:
 TagViewer([results], timeranges=[(97.5, 140)*pq.ms])

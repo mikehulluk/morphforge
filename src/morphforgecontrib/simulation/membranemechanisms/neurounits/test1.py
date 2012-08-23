@@ -94,10 +94,10 @@ env = NeuronSimulationEnvironment()
 
 # Create the simulation:
 
-mySim = env.Simulation(name='TestSim1')
+mysim = env.Simulation(name='TestSim1')
 
 # Create a cell:
-myCell = mySim.create_cell(name='Cell1', morphology=m1)
+myCell = mysim.create_cell(name='Cell1', morphology=m1)
 
 # Apply the mechanisms to the cells
 leakChannels = env.MembraneMechanism(EqnSetChl, mechanism_id='ID1',
@@ -165,21 +165,21 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels)
 somaLoc = myCell.get_location('soma')
 
 # Create the simulous:
-mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
 # Define what to record:
-mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
-#mySim.recordall(leakChannels, cell_location=somaLoc)
+mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
+#mysim.recordall(leakChannels, cell_location=somaLoc)
 
-mySim.record(hhChannels, what="i", cell_location=somaLoc)
-mySim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
-mySim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-mySim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-mySim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+mysim.record(hhChannels, what="i", cell_location=somaLoc)
+mysim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
+mysim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+mysim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+mysim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 
 

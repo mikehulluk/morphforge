@@ -47,13 +47,13 @@ from morphforgecontrib.stdimports import *
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation()
+mysim = env.Simulation()
 
 
 # Create a cell:
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
-myCell = mySim.create_cell(name="Cell1", morphology=m1)
+myCell = mysim.create_cell(name="Cell1", morphology=m1)
 
 
 lkChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
@@ -71,38 +71,38 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mySim.record(cc, what=StandardTags.Current)
+cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+mysim.record(cc, what=StandardTags.Current)
 # Define what to record:
-mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 
-mySim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-mySim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+mysim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
 
-mySim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-mySim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
+mysim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
 
 
-mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
-mySim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
-mySim.record(kChannels,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
+mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
+mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
+mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
 
 
 # Also:
-#mySim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
-#mySim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
-#mySim.record(kChannels,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
+#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
+#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
+#mysim.record(kChannels,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
 
-#mySim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
-#mySim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
-#mySim.record(kChannels,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
+#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
+#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
+#mysim.record(kChannels,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
 
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 
 # Display the results, there is a lot of info for one graph, so lets split it up:

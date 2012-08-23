@@ -49,11 +49,11 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation()
+mysim = env.Simulation()
 
 # Create a cell:
 morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0, axon_radius=0.15, soma_radius=9.0, axon_sections=20)
-myCell = mySim.create_cell(name="Cell1", morphology=morph)
+myCell = mysim.create_cell(name="Cell1", morphology=morph)
 
 
 leakChannels = env.MembraneMechanism(
@@ -107,8 +107,8 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mySim.record(cc, what=StandardTags.Current)
+cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+mysim.record(cc, what=StandardTags.Current)
 
 
 
@@ -125,14 +125,14 @@ for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell
     path = MorphPath(somaLoc, cell_location)
     print "Distance to Soma Centre:", path.get_length()
 
-    mySim.record(myCell, what=StandardTags.Voltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length())
+    mysim.record(myCell, what=StandardTags.Voltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length())
 
 
 # Define what to record:
-mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 # Display the results:
 TagViewer([results], timeranges=[(97.5, 140)*pq.ms])

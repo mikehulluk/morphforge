@@ -57,13 +57,13 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 env = NeuronSimulationEnvironment()
 
 # Create the simulation:
-mySim = env.Simulation()
+mysim = env.Simulation()
 
 
 # Create a cell:
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
-myCell = mySim.create_cell(name="Cell1", morphology=m1)
+myCell = mysim.create_cell(name="Cell1", morphology=m1)
 
 
 leakChannels = env.MembraneMechanism(
@@ -117,13 +117,13 @@ apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, un
 somaLoc = myCell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mySim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mySim.record(cc, what=StandardTags.Current)
+cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+mysim.record(cc, what=StandardTags.Current)
 # Define what to record:
-mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 # run the simulation
-results = mySim.run()
+results = mysim.run()
 
 #SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 

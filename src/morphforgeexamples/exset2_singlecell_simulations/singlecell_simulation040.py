@@ -112,13 +112,13 @@ def simulate(current_inj_level):
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation(name="AA")
+    mysim = env.Simulation(name="AA")
 
 
     # Create a cell:
     morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
     morph = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.create_cell(name="Cell1", morphology=morph)
+    myCell = mysim.create_cell(name="Cell1", morphology=morph)
 
     leakChannels = get_Lk_Channels(env)
     sodiumChannels = get_Na_Channels(env)
@@ -136,14 +136,14 @@ def simulate(current_inj_level):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mySim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-    mySim.record(cc, what=StandardTags.Current)
+    cc = mysim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    mysim.record(cc, what=StandardTags.Current)
 
     # Define what to record:
-    mySim.record(myCell, what=StandardTags.Voltage, cell_location = somaLoc)
+    mysim.record(myCell, what=StandardTags.Voltage, cell_location = somaLoc)
 
     # run the simulation
-    results = mySim.run()
+    results = mysim.run()
 
     return results
 

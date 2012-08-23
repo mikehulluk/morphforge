@@ -94,8 +94,8 @@ def build_simulation(gbar_multiplier):
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation(name="TestSim1")
-    myCell = mySim.create_cell(name="Cell1", morphology=m1)
+    mysim = env.Simulation(name="TestSim1")
+    myCell = mysim.create_cell(name="Cell1", morphology=m1)
 
 
     parameters = {
@@ -155,15 +155,15 @@ def build_simulation(gbar_multiplier):
     # Define a Point on the morphology - in this case the middle of the soma:
     somaLoc = myCell.get_location("soma")
 
-    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
+    mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
-    mySim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
+    mysim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
                               dur=unit('100:ms'), delay=unit('100:ms'),
                               cell_location=somaLoc)
 
 
-    result = mySim.run()
+    result = mysim.run()
     return result
 
 

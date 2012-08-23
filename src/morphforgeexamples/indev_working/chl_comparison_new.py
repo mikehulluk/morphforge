@@ -63,15 +63,15 @@ def simulate_chl_vclamp(chl, voltage_level):
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation(tstop=unit("1500:ms"))
+    mysim = env.Simulation(tstop=unit("1500:ms"))
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mySim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment())
+    myCell = mysim.create_cell(morphology=m1, segmenter=CellSegmenter_SingleSegment())
 
     # Setup the HH-channels on the cell:
-    #chl = chl_applicator_functor(env, myCell, mySim)
+    #chl = chl_applicator_functor(env, myCell, mysim)
     apply_mechanism_everywhere_uniform(myCell, chl)
 
 
@@ -89,9 +89,9 @@ def simulate_chl_vclamp(chl, voltage_level):
     somaLoc = myCell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    #cc = mySim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
+    #cc = mysim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
 
-    cc = mySim.create_voltageclamp(name="Stim1",
+    cc = mysim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    #dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
                                    dur2=unit("500:ms"), amp2=voltage_level,
@@ -102,14 +102,14 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Define what to record:
-    mySim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
-    mySim.record(cc, what=StandardTags.Current, name="CurrentClamp")
+    mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    mysim.record(cc, what=StandardTags.Current, name="CurrentClamp")
 
 
 
 
     # run the simulation
-    results = mySim.run()
+    results = mysim.run()
 
 
 

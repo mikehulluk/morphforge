@@ -51,17 +51,17 @@ def simulate_chls_on_neuron():
     env = NeuronSimulationEnvironment()
 
     # Create the simulation:
-    mySim = env.Simulation()
+    mysim = env.Simulation()
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell1 = mySim.create_cell(name="Cell1", morphology=m1)
+    myCell1 = mysim.create_cell(name="Cell1", morphology=m1)
     apply_mechanism_everywhere_uniform(myCell1, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
     apply_passive_everywhere_uniform(myCell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
-    myCell2 = mySim.create_cell(name="Cell2", morphology=m2)
+    myCell2 = mysim.create_cell(name="Cell2", morphology=m2)
     apply_mechanism_everywhere_uniform(myCell2, env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
     apply_passive_everywhere_uniform(myCell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
@@ -71,7 +71,7 @@ def simulate_chls_on_neuron():
 
 
     eqnsetfile = "/home/mhtest/hw/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
-    syn = mySim.create_synapse(
+    syn = mysim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
                                      time_list =   (100,105,110,112,115, 115,115) * pq.ms ,
@@ -84,7 +84,7 @@ def simulate_chls_on_neuron():
                                     )
            )
 
-    syn = mySim.create_synapse(
+    syn = mysim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
                                      cell_location=somaLoc1,
@@ -101,12 +101,12 @@ def simulate_chls_on_neuron():
 
 
     # Define what to record:
-    mySim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1)
-    mySim.record(what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2)
+    mysim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1)
+    mysim.record(what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2)
 
 
     # run the simulation
-    results = mySim.run()
+    results = mysim.run()
     return results
 
 
