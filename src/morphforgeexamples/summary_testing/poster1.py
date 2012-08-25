@@ -138,11 +138,10 @@ results = sim.run()
 #TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True)
 
 
-from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
+#from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
 summary = SimulationMRedoc.build(sim)
-summary.to_pdf('~/test_output.pdf')
+summary.to_pdf('~/Desktop/pdfs/%s.pdf'%__file__.split('/')[-1])
 
-print 'Populations:'
-print sim.neuron_populations
+
 

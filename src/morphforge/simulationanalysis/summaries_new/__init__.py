@@ -143,7 +143,7 @@ class SimulationMRedoc(object):
         pass
 
     def build_simulation(self):
-        return mrd.Section('Simulation Summary',
+        return mrd.Section('Simulation Summary: %s'%self.sim._sim_desc_str(),
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
                 self.build_simulation_details(),
@@ -154,6 +154,7 @@ class SimulationMRedoc(object):
     def build_simulation_overview(self):
         return mrd.SectionNewPage("Overview",
                self.build_population_overview(),
+               self.build_population_complete_dot(),
                self.build_singlecell_overview(),
                )
 
@@ -366,7 +367,12 @@ class SimulationMRedoc(object):
     def _build_details_channel(self, mech):
 
         sumcls = SummariserLibrary.get_summarisier(mech)
-        print sumcls
+        if not sumcls:
+            return mrd.Section('Channel: %s' % mech.name,
+                    mrd.Paragraph('<Summariser Missing for type: %s>'%type(mech))
+                )
+
+        #print sumcls
 
         return mrd.Section('Channel: %s' % mech.name,
                     mrd.Paragraph('boom'),

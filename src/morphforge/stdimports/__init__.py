@@ -94,4 +94,6 @@ import quantities as pq
 
 
 from morphforge.management import PluginMgr
+from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
+
 

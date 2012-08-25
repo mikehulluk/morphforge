@@ -50,6 +50,8 @@ from morphforge.core.mgrs.logmgr import LogMgr
 from morphforge.traces import TraceVariableDT
 from morphforge.core.mockcontrol import MockControl
 
+from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
+
 
 def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps) - 0.5) * std_dev
@@ -58,6 +60,12 @@ def _random_walk(t_steps, std_dev):
 
 
 class MNeuronSimulation(Simulation):
+
+    def _sim_desc_str(self):
+        import sys
+        sname = sys.argv[0]
+        return '%s: %s'%(sname, self.name.replace(' ',''))
+
 
     def __init__(self, name=None, environment=None, **kwargs):
         super(MNeuronSimulation, self).__init__(
@@ -134,6 +142,18 @@ class MNeuronSimulation(Simulation):
         # We have to do this so that the simulation object
         # within the result is correct!!
         self.result.simulation = self
+
+
+        # Save the simulation summary:
+        #import sys
+        #sname = sys.argv[0]
+
+        fname = '~/Desktop/pdfs/%s.pdf'%(self._sim_desc_str().replace(' ',''))
+        #print fname
+        #assert False
+        summary = SimulationMRedoc.build(self)
+        summary.to_pdf(fname)
+
 
         return self.result
 

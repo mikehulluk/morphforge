@@ -129,3 +129,7 @@ results = mysim.run()
 
 # Display the results:
 TagViewer([results], timeranges=[(50, 250)*pq.ms], show=True)
+
+
+#summary = SimulationMRedoc.build(mysim)
+#summary.to_pdf('~/Desktop/pdfs/%s.pdf'%__file__.split('/')[-1])
