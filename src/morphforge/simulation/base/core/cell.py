@@ -120,3 +120,9 @@ class Cell(NamedSimulationObject):
     def soma(self):
         return self.get_location('soma')
 
+    @property 
+    def is_single_compartment(self):
+        return len( self.morphology ) == 1 and \
+               self.segmenter.get_num_segments(self.soma.section) == 1
+
+

@@ -32,6 +32,7 @@
 
 #from morphforge.morphology.core  import MorphPath
 from morphforge.morphology.visitor import SectionIndexerDF
+from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 """
 DocumentLayout:
 
@@ -118,6 +119,18 @@ class SummariserLibrary(object):
     pass
 
 
+
+
+
+class _DotSummaryUtils(object):
+    @classmethod
+    def save_dot(cls, graph, **kwargs):
+        from morphforge.core import ObjectLabeller
+        name = ObjectLabeller.get_next_unamed_object_name(type(graph))
+        fname = '/tmp/dotout_%s.pdf' % name
+        graph.write_pdf(fname, **kwargs)
+        return fname
+
 class SimulationMRedoc(object):
 
     @classmethod
@@ -130,13 +143,6 @@ class SimulationMRedoc(object):
         self.mredoc = self.build_simulation()
 
 
-    @classmethod
-    def save_dot(cls, graph, **kwargs):
-        from morphforge.core import ObjectLabeller
-        name = ObjectLabeller.get_next_unamed_object_name(type(graph))
-        fname = '/tmp/dotout_%s.pdf' % name
-        graph.write_pdf(fname, **kwargs)
-        return fname
 
     # Todo:
     def build_simulationresult(self, sim):
@@ -162,7 +168,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
-               self.build_details_channels(),
+               #self.build_details_channels(),
                )
 
 
@@ -198,6 +204,7 @@ class SimulationMRedoc(object):
 
 
     def build_population_overview_dot(self):
+        assert False
 
 
         import pydot
@@ -207,7 +214,7 @@ class SimulationMRedoc(object):
 
         pops = {}
         for p in self.sim.neuron_populations:
-            n = pydot.Node(p.pop_name, shape='square', color='lightblue'
+            n = pydot.Node(p.pop_name, shape='circle', color='lightblue'
                            , style='filled', **kwargs)
             pops[p] = n
             graph.add_node(n)
@@ -228,24 +235,57 @@ class SimulationMRedoc(object):
             e = pydot.Edge(pre_n, post_n, label=syn_name, color='red', **kwargs)
             graph.add_edge(e)
 
-        fname = self.save_dot(graph)
+        fname = _DotSummaryUtils.save_dot(graph)
         return mrd.Figure(mrd.Image(fname))
 
 
 
     def build_population_complete_dot(self):
         import pydot
-        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7'
-                          , ratio='fill')
+        graph = pydot.Dot('graphname', graph_type='digraph', size='5,5'
+                          , ratio='compress')
 
-        kwargs = {'fontsize': '10'}
+        size = '0.65'
+        fontsize = '8'
+        kwargs = {'fontsize': fontsize, 'fixedsize':'True', 'width':size, 'height':size}
 
         pops = {}
+
         for p in self.sim.ss_cells:
-            n = pydot.Node(p.name, shape='square', color='lightblue',
-                           style='filled', **kwargs)
+            n = pydot.Node(p.name, shape='circle', fillcolor='#80b3ffff', color='#0066ffff', style='filled', penwidth='4', **kwargs)
             pops[p] = n
             graph.add_node(n)
+
+        stims = {}
+        # Simulations:
+        for cclamp in self.sim.ss_current_clamps:
+            label = '"IClamp: %s\\n %s"' % (cclamp.name, cclamp.location_summary_dot_str ) #"""I-Clamp: %s"""%cclamp.name
+            n = pydot.Node(cclamp.name, shape='circle',style='filled', width='0.05', fixedsize='True', label=label, fontsize=fontsize)
+            stims[cclamp] = n
+            graph.add_node(n)
+
+            # Make the edge:
+            cell_node = pops[cclamp.cell]
+            e = pydot.Edge(n, cell_node , label='', color='red',) # **kwargs)
+            graph.add_edge(e)
+
+
+        # Records:
+        for name, record in self.sim.recordable_names.iteritems():
+            #label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str ) 
+            label = '"Record: %s\\n"' % (name)#, record.location_summary_dot_str ) 
+            n = pydot.Node(name, shape='circle',style='filled', width='0.05', fixedsize='True', label=label, fontsize=fontsize)
+            stims[cclamp] = n
+            graph.add_node(n)
+
+            # Make the edge:
+            if isinstance(record, NeuronRecordableOnLocation):
+                post_node = pops[record.cell_location.cell]
+                e = pydot.Edge(n, post_node , label='', color='green',) 
+                graph.add_edge(e)
+
+            #cell_node = pops[record.cell_location.cell]
+
 
         for (i, s) in enumerate(self.sim.ss_synapses):
             pre_cell = s.get_presynaptic_cell()
@@ -265,8 +305,14 @@ class SimulationMRedoc(object):
                            **kwargs)
             graph.add_edge(e)
 
-        fname = self.save_dot(graph, prog='circo')
-        return mrd.Figure(mrd.Image(fname))
+
+        # Put the stimulations on:  
+
+        fname = _DotSummaryUtils.save_dot(graph, prog='circo')
+        return mrd.Section(
+                'Diagram Overview',
+                mrd.Figure(mrd.Image(fname))
+                )
 
 
 
@@ -368,14 +414,11 @@ class SimulationMRedoc(object):
 
         sumcls = SummariserLibrary.get_summarisier(mech)
         if not sumcls:
-            return mrd.Section('Channel: %s' % mech.name,
+            return mrd.Section('Summary of channel: %s' % mech.name,
                     mrd.Paragraph('<Summariser Missing for type: %s>'%type(mech))
                 )
 
-        #print sumcls
-
-        return mrd.Section('Channel: %s' % mech.name,
-                    mrd.Paragraph('boom'),
+        return mrd.Section('Summary of channel: %s' % mech.name,
                     sumcls.build(mech)
                     )
 

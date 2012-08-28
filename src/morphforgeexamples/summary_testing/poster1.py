@@ -133,6 +133,13 @@ cc = sim.create_currentclamp(name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay
 sim.record(cc, what=StandardTags.Current)
 
 
+summary = SimulationMRedoc.build(sim)
+summary.to_pdf('~/Desktop/pdfs/%s.pdf'%__file__.split('/')[-1])
+
+import sys
+sys.exit(0)
+
+
 # run the simulation
 results = sim.run()
 #TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True)
@@ -140,8 +147,6 @@ results = sim.run()
 
 #from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
-summary = SimulationMRedoc.build(sim)
-summary.to_pdf('~/Desktop/pdfs/%s.pdf'%__file__.split('/')[-1])
 
 
 

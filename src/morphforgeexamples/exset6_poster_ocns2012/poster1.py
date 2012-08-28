@@ -50,13 +50,13 @@ eqnset_txt_na = """
 EQNSET hh_na {
     i = g * (v-erev) * m**3*h
 
-    minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
-    mtau = 1.0 / (m_alpha_rate + m_beta_rate)
-    m' = (minf-m) / mtau
+    m_inf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
+    m_tau = 1.0 / (m_alpha_rate + m_beta_rate)
+    m' = (m_inf-m) / m_tau
 
-    hinf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
-    htau = 1.0 / (h_alpha_rate + h_beta_rate)
-    h' = (hinf-h) / htau
+    h_inf = h_alpha_rate / (h_alpha_rate + h_beta_rate)
+    h_tau = 1.0 / (h_alpha_rate + h_beta_rate)
+    h' = (h_inf-h) / h_tau
     StdFormAB(V, a1, a2, a3, a4, a5) = (a1+a2*V)/(a3+std.math.exp((V+a4)/a5))
     m_alpha_rate = StdFormAB(V=v, a1=m_a1, a2=m_a2, a3=m_a3, a4=m_a4, a5=m_a5)
     m_beta_rate =  StdFormAB(V=v, a1=m_b1, a2=m_b2, a3=m_b3, a4=m_b4, a5=m_b5)
@@ -77,9 +77,9 @@ EQNSET hh_na {
 eqnset_txt_k = """
 EQNSET hh_k {
     i = g * (v-erev) * n*n*n*n
-    ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
-    ntau = 1.0 / (n_alpha_rate + n_beta_rate)
-    n' = (ninf-n) / ntau
+    n_inf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
+    n_tau = 1.0 / (n_alpha_rate + n_beta_rate)
+    n' = (n_inf-n) / n_tau
     StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))
     n_alpha_rate = StdFormAB(V=v, a1=n_a1, a2=n_a2, a3=n_a3, a4=n_a4, a5=n_a5)
     n_beta_rate =  StdFormAB(V=v, a1=n_b1, a2=n_b2, a3=n_b3, a4=n_b4, a5=n_b5)

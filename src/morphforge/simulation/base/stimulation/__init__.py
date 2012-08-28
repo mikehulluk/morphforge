@@ -38,7 +38,6 @@ from morphforge.morphology.core  import MorphPath
 class Stimulation(NamedSimulationObject):
 
     def __init__(self, cell_location, **kwargs):
-        print kwargs.keys()
         super(Stimulation, self).__init__(**kwargs)
         self.cell_location = cell_location
 
@@ -58,6 +57,19 @@ class Stimulation(NamedSimulationObject):
     @property 
     def location_summary_str(self):
         return '%s (%0.0fum from soma)' % (self.cell.name, self.distance_to_soma),
+
+    @property 
+    def location_summary_dot_str(self):
+        # Minimal description for single compartments:
+        if self.cell.is_single_compartment:
+            return ''
+        # Are we in the soma:
+        if self.cell_location.section.idtag:
+            return '%s' % self.cell_location.section.idtag
+            
+            #== 'soma':
+            #loc = 'soma'
+        return '%s - %0.0fum from soma' % (self.cell.name, self.distance_to_soma),
 
 
 class CurrentClamp(Stimulation):

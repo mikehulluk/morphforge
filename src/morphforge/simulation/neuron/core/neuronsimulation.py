@@ -75,7 +75,7 @@ class MNeuronSimulation(Simulation):
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
-        self.recordable_names = set()
+        self.recordable_names = {}
         self.hocfilename = None
 
 
@@ -285,7 +285,7 @@ class MNeuronSimulation(Simulation):
     def add_recordable(self, recordable):
         if recordable.name in self.recordable_names:
             assert False, 'Duplicate recordable name added'
-        self.recordable_names.add(recordable.name)
+        self.recordable_names[recordable.name] = recordable
         self.simulation_objects.append(recordable)
 
 
