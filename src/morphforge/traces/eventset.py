@@ -71,7 +71,7 @@ class EventSet(object):
 
         self.events = [(Event(e) if not isinstance(e, Event) else e) for e in events ]
 
-        self._tags = set(tags) if tags is not None else [StandardTags.Event]
+        self._tags = set( ( tags if tags is not None else [StandardTags.Event] ) )
         self.name = name if name else '<Unnamed EventSet>'
         self.comment = comment if comment else "UnknownSrcEventSet"
         self._tags.add('Event')
