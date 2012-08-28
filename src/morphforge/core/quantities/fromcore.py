@@ -52,7 +52,9 @@ def factorise_units_from_list(seq):
     return new_list
 
 
-def unit(s):
+
+
+def _unit(s):
     if isinstance(s, pq.quantity.Quantity):
         return s
 
@@ -80,5 +82,12 @@ def unit(s):
             return v * unt
 
     return morphforge.core.quantities.unit_string_parser.parse(s)
+
+# Lets cache the units:
+_cached_units = {}
+def unit(s):
+    if not s in _cached_units:
+        _cached_units[s] = _unit(s)
+    return _cached_units[s]
 
 

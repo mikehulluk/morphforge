@@ -34,6 +34,8 @@ from morphforge.traces.eventset import EventSet
 from morphforge.traces.eventset import Event
 
 
+# TODO: THIS IS PAINFULLY SLOW!
+
 class NewSpike(Event):
 
     def __init__(self, time):
