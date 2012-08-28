@@ -71,10 +71,10 @@ class EventSet(object):
 
         self.events = [(Event(e) if not isinstance(e, Event) else e) for e in events ]
 
-        self.tags = list(tags) if tags is not None else [StandardTags.Event]
+        self._tags = set(tags) if tags is not None else [StandardTags.Event]
         self.name = name if name else '<Unnamed EventSet>'
         self.comment = comment if comment else "UnknownSrcEventSet"
-        self.tags.append('Event')
+        self._tags.add('Event')
 
     def __len__(self):
         return len(self.events)
@@ -95,6 +95,10 @@ class EventSet(object):
     def times(self):
         for e in self.events:
             yield e.get_time()
+
+    @property 
+    def tags(self):
+        return self._tags
 
     def summarise_timings_in_comment(self):
         times_a = np.array([float(s.rescale('ms').magnitude) for s in self.times])
