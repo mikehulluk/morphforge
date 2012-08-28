@@ -49,7 +49,7 @@ def _variabledt_mean(tr):
     import scipy.integrate
     # Calculate the mean with simpsons rule:
     integral = scipy.integrate.simps(y=tr.data_pts_np, x=tr.time_pts_s)
-    mean = integral / tr.get_duration().rescale('s').magnitude * tr.data_units
+    mean = integral / tr.get_duration().rescale('s').magnitude * tr.data_unit
     return mean
 
 

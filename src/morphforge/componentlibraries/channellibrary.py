@@ -30,6 +30,26 @@
 # ----------------------------------------------------------------------
 
 
+
+class cached_functor(object):
+        """ Since we only want functors to return a single object, this 
+        decorator is able to cache the output results """
+        def __init__(self, func):
+            self._functor = func
+            self.res = {}
+
+        def __call__(self, *args, **kwargs):
+            kwargstuple = tuple(sorted(kwargs.iteritems()))
+            key = (args, kwargstuple) 
+
+            # Cache if not run already:
+            if not key in self.res:
+                self.res[key] = self._functor(*args, **kwargs)
+
+            # Return the cached result:
+            return self.res[key]
+
+
 class ChannelLibrary(object):
 
     channels = dict()

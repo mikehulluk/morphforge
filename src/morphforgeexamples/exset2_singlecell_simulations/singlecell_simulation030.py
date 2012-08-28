@@ -128,7 +128,7 @@ results = mysim.run()
 #SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
 # Display the results:
-TagViewer([results], timeranges=[(50, 250)*pq.ms], show=True)
+TagViewer([results], timerange=(50, 250)*pq.ms, show=True)
 
 
 #summary = SimulationMRedoc.build(mysim)

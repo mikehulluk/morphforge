@@ -95,7 +95,7 @@ class MNeuronSimulation(Simulation):
             mechobjs = mech_id_to_obj[mech_id]
             mechobj0 = mechobjs[0]
             for m in mechobjs:
-                assert m is mechobj0
+                assert m is mechobj0, 'Different objects found for same id: %s' % (mech_id)
         return [ values[0] for values in mech_id_to_obj.values() ]
 
 
@@ -148,11 +148,12 @@ class MNeuronSimulation(Simulation):
         #import sys
         #sname = sys.argv[0]
 
-        fname = '~/Desktop/pdfs/%s.pdf'%(self._sim_desc_str().replace(' ',''))
-        #print fname
-        #assert False
-        summary = SimulationMRedoc.build(self)
-        summary.to_pdf(fname)
+
+        do_summary=False
+        if do_summary:
+            fname = '~/Desktop/pdfs/%s.pdf'%(self._sim_desc_str().replace(' ',''))
+            summary = SimulationMRedoc.build(self)
+            summary.to_pdf(fname)
 
 
         return self.result
@@ -224,6 +225,7 @@ class MNeuronSimulation(Simulation):
         nrn(h.load_file, hoc_filename)
         self.hocfilename = hoc_filename
 
+        tstop = self.simsettings['tstop']
         # run the simulation
         class Event(object):
 
@@ -232,7 +234,7 @@ class MNeuronSimulation(Simulation):
                 self.fih = h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
-                sys.stdout.write('Simulating: t=%f \r' % (h.t) )
+                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (h.t, float(tstop)))
                 sys.stdout.flush()
                 if h.t + self.interval < h.tstop:
                     h.cvode.event(h.t + self.interval, self.callback)
@@ -240,7 +242,6 @@ class MNeuronSimulation(Simulation):
         Event()
         print 'Running Simulation'
         h.run()
-        # nrn(h.run)
         assert h.t + 1 >= h.tstop
 
         print 'Time for Simulation: ', time.time() - t_sim_start

@@ -88,7 +88,7 @@ results = mysim.run()
 #SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
 
 # Display the results:
-TagViewer([results], figtitle="The response of a neuron to step current injection", timeranges=[(95, 200)*pq.ms], show=True)
+TagViewer([results], figtitle="The response of a neuron to step current injection", timerange=(95, 200)*pq.ms, show=True)
 
 
 

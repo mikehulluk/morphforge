@@ -36,7 +36,8 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 
 from morphforge.simulation.neuron.hocmodbuilders import ModFileSectioned, NeuronParameter
 
-from morphforge.core import quantities
+#from morphforge.core import quantities
+import quantities
 
 
 class MM_WriterCalciumAlphaBetaBeta(object):
@@ -137,6 +138,8 @@ $(cell_name).internalsections [$section_index] {
         assignments = [
                     ("i", "mA/cm2"),
                     ("v", "mV"),
+                    ('c', None),
+                    ('cV', None),
        ]
         for name, unit in assignments:
             m.add_assigned(NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))

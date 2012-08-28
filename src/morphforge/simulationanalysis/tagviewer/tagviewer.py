@@ -98,7 +98,6 @@ class TagViewer(object):
         self,
         srcs,
         fig_kwargs=None,
-        timeranges=(None),
         plotspecs=None,
         figtitle=None,
         show=True,
@@ -115,8 +114,6 @@ class TagViewer(object):
 
         self.linkage = linkage
 
-        if timerange is not None:
-            timeranges = [timerange]
 
         if not is_iterable(srcs):
             srcs = [srcs]
@@ -154,7 +151,7 @@ class TagViewer(object):
         self.figtitle = figtitle
         self.mpl_tight_bounds = mpl_tight_bounds
 
-        self.timeranges = timeranges
+        self.timerange = timerange
         self.share_x_labels = share_x_labels
 
         self.fig = None
@@ -183,14 +180,16 @@ class TagViewer(object):
         if self.linkage:
             self.linkage.process(ps_to_traces)
 
-        n_time_ranges = len(self.timeranges)
+        #n_time_ranges = len(self.timerange)
+        n_time_ranges = 1
         n_plots = len(self.plot_specs)
 
         for (i, plot_spec) in enumerate(self.plot_specs):
 
             print 'Plotting For PlotSpec:', plot_spec
 
-            for (i_t, time_range) in enumerate(self.timeranges):
+            # TODO: LOOP OVER SINGLE ELEMENT: to refactor
+            for (i_t, time_range) in enumerate([self.timerange]):
 
                 time_range = _resolve_time_range(time_range)
 

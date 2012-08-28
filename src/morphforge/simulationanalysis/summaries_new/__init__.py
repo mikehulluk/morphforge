@@ -31,6 +31,7 @@
 
 
 #from morphforge.morphology.core  import MorphPath
+from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 """
@@ -127,7 +128,8 @@ class _DotSummaryUtils(object):
     def save_dot(cls, graph, **kwargs):
         from morphforge.core import ObjectLabeller
         name = ObjectLabeller.get_next_unamed_object_name(type(graph))
-        fname = '/tmp/dotout_%s.pdf' % name
+        tmp_dir = LocMgr.get_tmp_path()
+        fname = '%s/dotout_%s.pdf' % (tmp_dir, name)
         graph.write_pdf(fname, **kwargs)
         return fname
 
@@ -197,7 +199,7 @@ class SimulationMRedoc(object):
 
         return mrd.Section("Population Overview",
                            t, t2,
-                           self.build_population_overview_dot(),
+                           #self.build_population_overview_dot(),
                            self.build_population_complete_dot()
                           )
 
@@ -241,6 +243,9 @@ class SimulationMRedoc(object):
 
 
     def build_population_complete_dot(self):
+        return mrd.Section(
+                'Diagram Overview',)
+        
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph', size='5,5'
                           , ratio='compress')

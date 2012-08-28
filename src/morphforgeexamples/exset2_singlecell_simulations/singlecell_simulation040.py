@@ -150,7 +150,7 @@ def simulate(current_inj_level):
 
 # Display the results:
 results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
-TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True)
+TagViewer(results, timerange=(95, 200)*pq.ms, show=True)
 
 
 

@@ -106,10 +106,10 @@ results = mysim.run()
 
 
 # Display the results, there is a lot of info for one graph, so lets split it up:
-TagViewer([results], timeranges=[(50, 250)*pq.ms], show=False)
+TagViewer([results], timerange=(50, 250)*pq.ms, show=False)
 
 
-TagViewer([results], timeranges=[(50, 250)*pq.ms], show=False,
+TagViewer([results], timerange=(50, 250)*pq.ms, show=False,
           plotspecs = [
                        DefaultPlotSpec.Voltage,
                        DefaultPlotSpec.Current,
@@ -117,7 +117,7 @@ TagViewer([results], timeranges=[(50, 250)*pq.ms], show=False,
                       ])
 
 
-TagViewer([results], timeranges=[(100, 120)*pq.ms], show=True,
+TagViewer([results], timerange=(100, 120)*pq.ms, show=True,
           plotspecs = [
                        DefaultPlotSpec.Voltage,
                        DefaultPlotSpec.ConductanceDensity,

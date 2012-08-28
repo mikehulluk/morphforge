@@ -135,4 +135,4 @@ mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_locatio
 results = mysim.run()
 
 # Display the results:
-TagViewer([results], timeranges=[(97.5, 140)*pq.ms])
+TagViewer([results], timerange=(97.5, 140)*pq.ms)
