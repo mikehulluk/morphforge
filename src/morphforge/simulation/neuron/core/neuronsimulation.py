@@ -186,7 +186,7 @@ class MNeuronSimulation(Simulation):
     def _run_no_spawn(self):
 
         # Generate Random data:
-        if MockControl.is_mock_simulation:
+        if True or MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 
         def nrn(func, *args, **kwargs):
