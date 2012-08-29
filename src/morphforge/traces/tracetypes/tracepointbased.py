@@ -93,7 +93,8 @@ class TracePointBased(Trace):
 
     @property
     def data_unit(self):
-        return self._data.unit
+        print 'in @prop:data_unit'
+        return self._data.units
 
     @property
     def time_unit(self):
@@ -150,5 +151,5 @@ class TracePointBased(Trace):
         interpolator = interp1d(self.time_pts_np,
                                 self.data_pts_np)
         d_mag = interpolator(time.magnitude)
-        return d_mag * self.data_units
+        return d_mag * self.data_unit
 

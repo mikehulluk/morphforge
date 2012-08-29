@@ -111,5 +111,5 @@ def simulate_chls_on_neuron():
 
 
 results = simulate_chls_on_neuron()
-TagViewer(results, timeranges=[(95, 200)*pq.ms], show=True)
+TagViewer(results, timerange=(95, 200)*pq.ms, show=True)
 #

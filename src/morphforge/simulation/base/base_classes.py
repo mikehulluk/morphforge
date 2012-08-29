@@ -55,7 +55,7 @@ class NamedSimulationObject(object):
                     obj_type=NamedSimulationObject,
                     prefix='AnonObj')
 
-        assert not name in NamedSimulationObject._obj_names[simulation]
+        assert not name in NamedSimulationObject._obj_names[simulation], 'Duplicate name:%s'%name
         NamedSimulationObject._obj_names[simulation].add(name)
 
         self._name = name

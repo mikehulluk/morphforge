@@ -124,6 +124,7 @@ class FileIO(object):
         if not filename:
             filename = LocMgr.get_temporary_filename(suffix=suffix,
                     filedirectory=filedirectory)
+	print filename
         with open(filename, 'w') as f:
             f.write(txt)
         return filename

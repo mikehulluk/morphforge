@@ -48,7 +48,7 @@ def _butterworthfilter(self, filterorder, cutoff_frequency):
     filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
 
     return clone_trace(self, 
-                       data=filteredsignal * self.data_units,
+                       data=filteredsignal * self.data_unit,
                        comment='+(Butterworth Filtered)')
 
 
@@ -70,7 +70,7 @@ def _besselfilter(self, filterorder, cutoff_frequency):
 
     time_shift = self.get_dt_new() * max(len(a), len(b))
 
-    return clone_trace(self, data=filteredsignal * self.data_units,
+    return clone_trace(self, data=filteredsignal * self.data_unit,
                        time=self.time_pts - time_shift,
                        comment='+(Bessel Filtered)')
 
@@ -89,7 +89,7 @@ def _filterlowpassrc(tr, tau):
     b = np.array([0, k])
 
     xp = scipy.signal.lfilter(b, a, tr.data_pts_np)
-    return clone_trace(tr=tr, data=xp * tr.data_units, comment="+ (LP RC Filtered)")
+    return clone_trace(tr=tr, data=xp * tr.data_unit, comment="+ (LP RC Filtered)")
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)

@@ -141,7 +141,7 @@ cc = sim.create_currentclamp(name="CC1", amp=U("200:pA"), dur=U("1:ms"), delay=U
 sim.record(cc, what=StandardTags.Current)
 
 results = sim.run()
-TagViewer(results, timeranges=[(98, 120)*pq.ms],
+TagViewer(results, timerange=(98, 120)*pq.ms,
           fig_kwargs = {'figsize':(12, 10)},
           show=True,
           plotspecs = [

@@ -199,7 +199,7 @@ ps = (
                )
 
 # Display the results:
-TagViewer([results], timeranges=[(95, 200)*pq.ms], plotspecs = ps)
+TagViewer([results], timerange=(95, 200)*pq.ms, plotspecs = ps)
 pylab.show()
 
 

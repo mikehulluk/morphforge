@@ -100,7 +100,7 @@ TraceMethodCtrl.register(TraceVariableDT, 'min', _get_min)
 
 def _fixeddt_gradient(self, *args):
     # assert False, 'ToCheck'
-    return clone_trace(tr=self, data=np.gradient(self.data_pts_np, *args) * self.data_units / self.get_dt_new(), comment='+ (Filtered)')
+    return clone_trace(tr=self, data=np.gradient(self.data_pts_np, *args) * self.data_unit / self.get_dt_new(), comment='+ (Filtered)')
 
 TraceMethodCtrl.register(TraceFixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient

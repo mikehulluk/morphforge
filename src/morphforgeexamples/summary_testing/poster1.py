@@ -142,7 +142,7 @@ sys.exit(0)
 
 # run the simulation
 results = sim.run()
-#TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True)
+#TagViewer(results, timerange=(50, 250)*pq.ms, show=True)
 
 
 #from morphforge.simulationanalysis.summaries_new import SimulationMRedoc

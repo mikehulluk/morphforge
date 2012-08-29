@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
+#from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
 
 
@@ -56,4 +56,4 @@ class Summarise_MM_LeakChannel(object):
 
 
 
-SummariserLibrary.register_summariser(channel_baseclass=MM_LeakChannel, summariser_class=Summarise_MM_LeakChannel)
+#SummariserLibrary.register_summariser(channel_baseclass=MM_LeakChannel, summariser_class=Summarise_MM_LeakChannel)

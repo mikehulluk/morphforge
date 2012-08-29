@@ -101,7 +101,7 @@ class NeuroCSVWriter(object):
     @classmethod
     def generate_column_header(cls, tr, index):
         d = {'label': tr.name, 
-             'unit': str(tr.data_units),
+             'unit': str(tr.data_unit),
              'tags': ','.join(tr.tags)}
         s1 = '#! COLUMN%d: ' % index
         s2 = json.dumps(d)

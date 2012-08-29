@@ -135,6 +135,6 @@ sim.record(cc, what=StandardTags.Current)
 
 # run the simulation
 results = sim.run()
-TagViewer(results, timeranges=[(50, 250)*pq.ms], show=True)
+TagViewer(results, timerange=(50, 250)*pq.ms, show=True)
 
 

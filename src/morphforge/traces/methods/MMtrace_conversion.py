@@ -58,10 +58,10 @@ class TraceConverter(object):
         assert isinstance(original_trace, TracePointBased)
         epsilon = unit(epsilon)
 
-        time_units = original_trace.time_units
+        time_units = original_trace.time_unit
         time_data = original_trace.time_pts_np
 
-        data_units = original_trace.data_units
+        data_units = original_trace.data_unit
         data_data = original_trace.data_pts_np
 
         ep = epsilon
