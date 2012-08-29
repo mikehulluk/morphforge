@@ -196,6 +196,8 @@ class TagViewer(object):
                 # Create the axis:
                 ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + i_t  + 1)
                 ax.set_xunit(pq.millisecond)
+                ax.set_xmargin(0.05)
+                ax.set_ymargin(0.05)
 
                 # Leave the plotting to the PlotSpecification
                 is_bottom_plot = i == n_plots - 1

@@ -93,6 +93,13 @@ class TracePieceFunctionLinear(TracePieceFunction):
     def get_end_value(self):
         return self.x1
 
+    def get_values(self, times):
+        t_scaled = ( (times - self.get_min_time()) / self.get_duration() )
+        x_scaled = self.get_start_value() + (self.x1 - self.x0) *t_scaled
+        return x_scaled
+
+        #return np.ones(len(times)) * self.x
+
 
 class TracePieceFunctionFlat(TracePieceFunction):
 

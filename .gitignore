@@ -1935,3 +1935,6 @@
 !src/morphforge/management/*
 !src/morphforgeexamples/exset7_management/*
 !src/morphforgeexamples/summary_testing/*
+
+!src/morphforgeexamples/exset8_traces
+!src/morphforgeexamples/exset8_traces/traces_*.py

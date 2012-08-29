@@ -83,7 +83,7 @@ class TraceStringParser(object):
 
         # Convert to pieces
         pieces = [tracePrototype.toTracePiece() for tracePrototype in trace_prototypes]
-        tr = TracePiecewise(pieces=pieces)
+        tr = TracePiecewise(pieces=pieces, comment='Src: %s' % srcstr)
         tr = tr * (1.0 * unit)
         return tr
 
