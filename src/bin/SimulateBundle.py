@@ -36,7 +36,7 @@ import sys
 from morphforge.core import LogMgr, mfrandom
 from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
 
-
+import traceback
 
 # Lets not buffer any output:
 class flushfile(file):
@@ -47,6 +47,16 @@ class flushfile(file):
         self.f.flush()
 #sys.stdout = flushfile(sys.stdout)
 #sys.stderr = flushfile(sys.stderr)
+
+
+class TracePrints(object):
+  def __init__(self):    
+    self.stdout = sys.stdout
+  def write(self, s):
+    self.stdout.write("Writing %r\n" % s)
+    traceback.print_stack(file=self.stdout)
+
+#sys.stdout = TracePrints()
 
 
 
@@ -64,10 +74,10 @@ def main():
     result = bundle.get_simulation().run(do_spawn=False)
     result.set_simulation_time(t_start, time.time())
 
-    LogMgr.info("Simulation Ran OK. Post Processing:")
+    #LogMgr.info("Simulation Ran OK. Post Processing:")
 
     bundle.do_postprocessing_actions()
-    LogMgr.info("Bundle Completed OK")
+    #LogMgr.info("Bundle Completed OK")
 
 
 

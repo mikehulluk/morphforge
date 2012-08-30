@@ -86,7 +86,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
             'sectionindex': section_index,
             'sectionpos': self.cell_location.morphlocation.sectionpos,
             }
-        print tmpl_dict
+        #print tmpl_dict
 
         sect_txt = Template(MembraneVoltageRecord.tmplObjRef, tmpl_dict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitRecords, sect_txt)
