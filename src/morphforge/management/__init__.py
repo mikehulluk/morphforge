@@ -33,7 +33,7 @@
 from morphforge.simulation.neuron import NeuronSimulationEnvironment
 from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
-
+import inspect
 
 try:
     import mredoc as mrd
@@ -178,7 +178,7 @@ class TraceLibSummariser(object):
 
     @classmethod
     def summarise_all(cls):
-        return mrd.Section('Tracs', 
+        return mrd.Section('Traces',
                 cls.summarise_methods(), 
                 cls.summarise_operators(), 
                 mrd.Paragraph('asda') ) 
@@ -198,7 +198,7 @@ class TraceLibSummariser(object):
         methods = set()
         for (_trace_type, method_name) in TraceMethodCtrl.registered_methods:
             methods.add(method_name)
-        return sorted(list(methods) ) #, key=lambda obj:(obj not in cls._trace_methods, obj.__name__) )
+        return sorted(list(methods)) #, key=lambda obj:(obj not in cls._trace_methods, obj.__name__) )
 
     @classmethod
     def summarise_operators(cls):
@@ -234,15 +234,40 @@ class TraceLibSummariser(object):
         trace_types = cls._trace_types
         methods = cls._get_all_trace_methods()
 
+
+        def get_argments(method, trace_type):
+            if not TraceMethodCtrl.has_method(trace_type,method):
+                return None
+            f = TraceMethodCtrl.get_method(trace_type, method)
+            (args, varargs, varkw, defaults) = inspect.getargspec(f)
+            return inspect.formatargspec(args=args[1:], varargs=varargs, varkw=varkw, defaults=defaults)
+
+        def get_argments_TraceFixedDT(method):
+            return str(get_argments(method, TraceFixedDT) )
+
+        def get_docstring(method):
+            trace_type = TraceFixedDT
+            if not TraceMethodCtrl.has_method(trace_type,method):
+                return '<None>'
+            f = TraceMethodCtrl.get_method(trace_type, method)
+            return inspect.getdoc(f)
+
+
+
         def _support_for_method(trace_type, method_name):
             if (trace_type, method_name) in TraceMethodCtrl.registered_methods:
                 return 'X'
             if method_name in TraceMethodCtrl.fallback_to_fixedtrace_methods:
                 return '<via fixed>'
 
+        arguments = [get_argments_TraceFixedDT(m) for m in methods]
+        docstrings = [get_docstring(m) for m in methods]
+
         col1 = [''] + methods
         col2 = [ [trace_type.__name__] + [ _support_for_method(trace_type,method_name) for method_name in methods] for trace_type in trace_types]
-        cols = [col1]  + col2
+        colX = ['args'] + arguments
+        colY = ['docstring'] + docstrings
+        cols = [col1]  + col2 + [colX] + [colY]
         rows = zip(*cols)
         tbl = mrd.VerticalColTable(rows[0],rows[1:], caption='Operators')
         return mrd.Section('TraceMethods', tbl) 

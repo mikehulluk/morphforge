@@ -98,3 +98,10 @@ from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
 from morphforge.componentlibraries.channellibrary import cached_functor
 
+
+
+
+class MembraneMechanismSummariser(object):
+    @classmethod
+    def create_pdf(cls, *args, **kwargs):
+        pass

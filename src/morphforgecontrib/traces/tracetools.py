@@ -120,7 +120,9 @@ class SpikeFinderThreshCross(object):
         assert on_off == sorted(on_off)
         # print on_off
 
-        # print 'ThresIndices', thresh_indices
+        
+        #print 'ThresIndices', thresh_indices
+        thresh_indices = [ (a,b) for (a,b) in thresh_indices if (b-a)>2]
 
         return thresh_indices
 
@@ -138,20 +140,51 @@ class Spike(object):
         self.thresIndices = time_indices
         self.firingthres = (firingthres if firingthres is not None else 0.0)
 
-        self.init_get_peak()
-        self.init_get_duration()
+        self._peakIndex = None
+        self._duration = None
+        self._durInd = None
+
+        #self.init_get_peak()
+        #self.init_get_duration()
+
+    @property
+    def peakIndex(self):
+        if self._peakIndex is None:
+            self.init_get_peak()
+        return self._peakIndex
+
+    @property
+    def duration(self):
+        if self._duration is None:
+            self.init_get_duration()
+        return self._duration
 
     def init_get_peak(self):
-        d = numpy.copy(self.trace._data)
-        d[0:self.thresIndices[0]] = 0
-        d[self.thresIndices[1]:-1] = 0
-        self.peakIndex = numpy.argmax(d)
+
+        ## Old Version (v. slow):
+        #d = numpy.copy(self.trace._data.rescale('mV').magnitude)
+        #d[0:self.thresIndices[0]] = 0
+        #d[self.thresIndices[1]:-1] = 0
+        #self._peakIndex_old = numpy.argmax(d)
+
+
+        # New Version:
+        #self._peakIndex = numpy.argmax(self.trace._data.rescale('mV').magnitude[self.thresIndices[0]:self.thresIndices[1]] ) + self.thresIndices[0]
+        self._peakIndex = numpy.argmax(self.trace._data[self.thresIndices[0]:self.thresIndices[1]] ) + self.thresIndices[0]
+
+        ## Check for same result:
+        #print 'thresh-indices',self.thresIndices 
+        #print 'old/new peak index', self._peakIndex, self._peakIndex_old
+        #assert self._peakIndex == self._peakIndex_old, 'Peak indices are not the same: (%s) vs (%s)' % (self._peakIndex,self._peakIndex_old)
+
 
     def init_get_duration(self):
+        ''' Calculates the duration of the spike at the 50% line (halfway between spike-max and 'firingthres' '''
+        assert False, 'depreacted Auguest 2012'
 
-        self.fiftyPCLine = (self.trace._data.rescale('mV'
-                           ).magnitude[self.peakIndex]
-                            + self.firingthres) / 2.0
+
+        # OLD: V. slow:
+        self.fiftyPCLine = (self.trace._data.rescale('mV').magnitude[self.peakIndex] + self.firingthres) / 2.0
 
         d = numpy.copy(self.trace._data.rescale('mV').magnitude)
 
@@ -167,11 +200,39 @@ class Spike(object):
 
         assert len(rising_edge_ind) == len(falling_edge_ind) == 1
 
-        self.durInd = rising_edge_ind, falling_edge_ind
-        self.duration = self.trace._time[falling_edge_ind] - self.trace._time[rising_edge_ind]
-        self.duration = self.duration.rescale('ms').magnitude
+        self._durInd = rising_edge_ind, falling_edge_ind
+        self._duration = (self.trace._time[falling_edge_ind] - self.trace._time[rising_edge_ind]).rescale('ms').magnitude
+        #self.duration = self.duration.rescale('ms').magnitude
+
+
+        ## New:
+        #self.fiftyPCLine = (self.trace._data.rescale('mV').magnitude[self.peakIndex] + self.firingthres.rescale('mV')) / 2.0
+        ##t_short = self.trace._time[ self.thresIndices[0]:self.thresIndices[1] ]
+        #d_short = self.trace._data.rescale('mV').magnitude[ self.thresIndices[0]:self.thresIndices[1] ]
+
+        #d_sub = d_short > self.fiftyPCLine
+        #crossings = d_sub - numpy.roll(d_sub, 1)
+
+        ##crossings = above50_pc - numpy.roll(above50_pc, 1)
+        #new_rising_edge_ind = numpy.where(crossings == 1) + self.thresIndices[0]
+        #new_falling_edge_ind = numpy.where(crossings == -1) + self.thresIndices[0]
+
+        #assert len(new_rising_edge_ind) == len(new_falling_edge_ind) == 1
+
+        ## Check they are the same:
+        #print 'old', rising_edge_ind, falling_edge_ind
+        #print 'new', new_rising_edge_ind, new_falling_edge_ind
+        #assert (rising_edge_ind == new_rising_edge_ind).all()
+        #assert (falling_edge_ind == new_falling_edge_ind).all()
+
+        ##self.durInd = rising_edge_ind, falling_edge_ind
+        ##self.duration = self.trace._time[falling_edge_ind] - self.trace._time[rising_edge_ind]
+        ##self.duration = self.duration.rescale('ms').magnitude
+
+
 
     def add_to_axes(self, ax):
+        assert False, 'depreacted Auguest 2012'
         t = self.trace._time
         d = self.trace._data.rescale('mV').magnitude
 

@@ -107,7 +107,8 @@ class Summarise_MM_AlphaBetaChannel(object):
     @classmethod
     def plot_curve(cls, ax, curve, chl, state, infpower=None, *args, **kwargs):
 
-        V = StdLimits.get_default_voltage_array().rescale('mV')
+        V = np.linspace(-80,50)*unit('mV')
+        #V = StdLimits.get_default_voltage_array().rescale('mV')
 
         (alpha, beta) = chl.get_alpha_beta_at_voltage(V, state)
         (inf, tau) = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)

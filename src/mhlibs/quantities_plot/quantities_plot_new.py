@@ -100,6 +100,7 @@ class QuantitiesAxisNew(object):
         # reapply them if units change:
         self.labelX = "<NotSet>"
         self.labelY = "<NotSet>"
+        self.ax.margins(0.05,0.05)
 
     def _setxyUnitBase(self, unitX=None, unitY=None):
 
