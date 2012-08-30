@@ -90,6 +90,20 @@ class TraceOperator_TracePiecewise_Quantity(object):
     #    return cls.do_op(lhs=lhs, rhs=rhs, operator_type=operator.__div__)
 
 
+
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
+from morphforge.traces.tracetypes.tracepiecewise import PieceWiseComponentVisitor
+from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
+
+
+
+
+
+
+
+
+
 # Times quantity:
 TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__add__,
@@ -115,3 +129,18 @@ TraceOperatorCtrl.add_trace_operator_commutative(
 #        operator_func=TraceOperator_TracePiecewise_Quantity.do_div,
 #        flag='default')
 
+def do_op_piecewise_pow_scalar(lhs, rhs):
+        pieces = [PiecewiseScalarOperation.visit(p, operator_type=operator.__pow__, scalar=rhs) for p in lhs.pieces]
+        return TracePiecewise(pieces)
+
+
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__pow__,
+        lhs_type=TracePiecewise, rhs_type=int,
+        operator_func=do_op_piecewise_pow_scalar,
+        flag='default')
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__pow__,
+        lhs_type=TracePiecewise, rhs_type=float,
+        operator_func=do_op_piecewise_pow_scalar,
+        flag='default')

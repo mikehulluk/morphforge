@@ -98,7 +98,7 @@ class TracePointBased(Trace):
 
     @property
     def time_unit(self):
-        return self._time.unit
+        return self._time.units
 
     def get_n(self):
         return len(self._time)

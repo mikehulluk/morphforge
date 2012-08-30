@@ -125,6 +125,12 @@ class TraceOperator_TraceFixedDT_Scalar(object):
         else:
             return TraceFixedDT(rhs.time_pts, lhs / rhs.data_pts)
 
+    @classmethod
+    def do_pow(cls, lhs, rhs):
+        assert (type(lhs) == TraceFixedDT and (type(rhs) == float or type(rhs) == int))
+
+        return TraceFixedDT(lhs.time_pts, lhs.data_pts ** rhs)
+
 
 TraceOperatorCtrl.add_trace_operator_commutative(
         operator_type=operator.__add__,
@@ -167,3 +173,17 @@ TraceOperatorCtrl.add_trace_operator_commutative(
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_div,
         flag='default')
+
+
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__pow__,
+        lhs_type=TraceFixedDT, rhs_type=float,
+        operator_func=TraceOperator_TraceFixedDT_Scalar.do_pow,
+        flag='default')
+
+TraceOperatorCtrl.add_trace_operator(
+        operator_type=operator.__pow__,
+        lhs_type=TraceFixedDT, rhs_type=int,
+        operator_func=TraceOperator_TraceFixedDT_Scalar.do_pow,
+        flag='default')
+

@@ -54,6 +54,10 @@ class Trace(object):
     def __mul__(self, rhs):
         from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
         return TraceOperatorCtrl.operate(operator.__mul__, lhs=self, rhs=rhs)
+    def __pow__(self, rhs):
+        from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
+        return TraceOperatorCtrl.operate(operator.__pow__, lhs=self, rhs=rhs)
+
 
     # Forward method lookup
     def __getattr__(self, name):

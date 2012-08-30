@@ -40,7 +40,8 @@ class TraceOperatorCtrl(object):
     trace_operators_all = {}
     trace_operators_active = {}
     trace_operators = [operator.__add__, operator.__sub__,
-                       operator.__div__, operator.__mul__]
+                       operator.__div__, operator.__mul__,
+                       operator.__pow__]
 
     @classmethod
     def add_trace_operator_commutative(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
@@ -87,11 +88,12 @@ class TraceOperatorCtrl(object):
     @classmethod
     def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
 
-        # Lets map 'int' to 'float'
-        if type(lhs) is int:
-            lhs = float(lhs)
-        if type(rhs) is int:
-            rhs = float(rhs)
+        # Lets map 'int' to 'float for standard ops (not power)'
+        if operator_type in [ operator.__add__, operator.__sub__, operator.__mul__, operator.__div__]:
+            if type(lhs) is int:
+                lhs = float(lhs)
+            if type(rhs) is int:
+                rhs = float(rhs)
 
 
 

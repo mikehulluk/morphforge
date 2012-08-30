@@ -35,5 +35,6 @@ import trace_methods_std_splicing
 import trace_methods_std_filters
 import trace_methods_std_conversions
 import trace_methods_std_fft
+import trace_methods_std_integrate
 
 from MMtrace_conversion import TraceApproximator, TraceConverter
