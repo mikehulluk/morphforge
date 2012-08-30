@@ -48,6 +48,16 @@ class flushfile(file):
 #sys.stdout = flushfile(sys.stdout)
 #sys.stderr = flushfile(sys.stderr)
 
+import time
+class benchmark(object):
+    def __init__(self,name):
+        self.name = name
+    def __enter__(self):
+        self.start = time.time()
+    def __exit__(self,ty,val,tb):
+        end = time.time()
+        print("%s : %0.3f seconds" % (self.name, end-self.start))
+        return False
 
 class TracePrints(object):
   def __init__(self):    
@@ -59,24 +69,26 @@ class TracePrints(object):
 #sys.stdout = TracePrints()
 
 
-
 def main():
 
     bundleFilename = sys.argv[1]
-    print "Loading Bundle from ", bundleFilename
-    bundle = SimMetaDataBundle.load_from_file(bundleFilename)
+    with benchmark('Loading Bundle from: %s (%dk)'%(bundleFilename, os.path.getsize(bundleFilename)/1000 ) ):
+        bundle = SimMetaDataBundle.load_from_file(bundleFilename)
 
     # Load the random number seed
     if bundle.random_seed is not None:
         mfrandom.MFRandom.seed(bundle.random_seed)
 
 
-    result = bundle.get_simulation().run(do_spawn=False)
-    result.set_simulation_time(t_start, time.time())
+    with benchmark('Running simulation'):
+        result = bundle.get_simulation().run(do_spawn=False)
+        result.set_simulation_time(t_start, time.time())
 
     #LogMgr.info("Simulation Ran OK. Post Processing:")
 
-    bundle.do_postprocessing_actions()
+    with benchmark('Post-processing'):
+        bundle.do_postprocessing_actions()
+
     #LogMgr.info("Bundle Completed OK")
 
 
@@ -84,10 +96,8 @@ def main():
 
 
 try:
-    t_start = time.time()
-    main()
-    tEnd = time.time()
-    print "Simulation Time Elapsed: ", tEnd - t_start
+    with benchmark('Entire load-run-save time'):
+        main()
 except:
     import traceback
     traceback.print_exc()

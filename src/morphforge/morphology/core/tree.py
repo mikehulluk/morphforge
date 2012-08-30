@@ -492,7 +492,7 @@ class MorphologyTree(MorphologyBase):
     def __iter__(self):
         """ Iteration over each of the sections."""
 
-        assert self.ensure_consistency(), 'Morphology is not consistent'
+        #assert self.ensure_consistency(), 'Morphology is not consistent'
 
         # TODO: replace this with a iterator method on one of the sections in the tree. I
         # need to think about this. it might be the dummysection. This will be cleaner.
@@ -501,13 +501,13 @@ class MorphologyTree(MorphologyBase):
     def __len__(self):
         """Returns the numbers of sections in the morphology """
 
-        assert self.ensure_consistency()
+        #assert self.ensure_consistency()
 
         # TODO: as per iter
         return len(SectionListerDF(self)())
 
     def get_dummy_section(self):
-        assert self.ensure_consistency(), "MorphologyTree not consistent"
+        #assert self.ensure_consistency(), "MorphologyTree not consistent"
         return self._dummysection
 
     def get_root_section(self):
@@ -522,7 +522,7 @@ class MorphologyTree(MorphologyBase):
         """ Returns a list of unique regions in the morphology
         """
 
-        assert self.ensure_consistency()
+        #assert self.ensure_consistency()
 
         if self._regions is None:
             all_regions = [section.region for section in self]
@@ -548,7 +548,7 @@ class MorphologyTree(MorphologyBase):
 
     def get_section(self, idtag):
         """ Returns a Section object with a given id"""
-        assert self.ensure_consistency()
+        #assert self.ensure_consistency()
         return SeqUtils.filter_expect_single(self, lambda s: s.idtag == idtag)
 
     def get_idtags(self):
@@ -565,7 +565,7 @@ class MorphologyTree(MorphologyBase):
         if requiretreeset:
             assert self.is_dummy_section_set()
 
-        MorphologyConsistencyMgr.check_morphology(self)
+        #MorphologyConsistencyMgr.check_morphology(self)
         return True
 
     @property

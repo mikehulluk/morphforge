@@ -1,7 +1,7 @@
 # Ignore everything:
 *
 
-
+src/morphforge/management/__init__.pyc
 *.pyc
 *~
 
@@ -1933,8 +1933,8 @@
 
 !src/indev_scripts/*
 !src/morphforge/management/*
-!src/morphforgeexamples/exset7_management/*
-!src/morphforgeexamples/summary_testing/*
+!src/morphforgeexamples/exset7_management/*.py
+!src/morphforgeexamples/summary_testing/*.py
 
 !src/morphforgeexamples/exset8_traces
 !src/morphforgeexamples/exset8_traces/traces_*.py

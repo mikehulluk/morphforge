@@ -73,6 +73,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
     def __init__(self, sim):
         super(SimMetaDataBundle, self).__init__(sim=sim)
         self.metadata = {}
+        self.random_seed = None
 
     def _write_to_file(self, bundlefilename=None):
         bundleloc = LocMgr.get_simulation_tmp_dir()
