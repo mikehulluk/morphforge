@@ -60,7 +60,7 @@ def create_synapse_cell_to_cell(
 
     for (k, v) in kwargs.iteritems():
 
-        print 'Over-Riding Parameter:', k, v
+        #print 'Over-Riding Parameter:', k, v
         assert k in synapse_parameters.kwargs
         # assert k in synapse_parameters.kwargs
         synapse_parameters[k] = v
@@ -108,7 +108,7 @@ def create_synapse_times_to_cell(sim, times, postsynaptic, synapse_parameters, *
     # Copy the updates parameters:
     synapse_parameters = copy.copy(synapse_parameters)
     for (k, v) in kwargs.iteritems():
-        print 'Over-Riding Parameter:', k, v
+        #print 'Over-Riding Parameter:', k, v
         assert k in synapse_parameters.kwargs
         synapse_parameters[k] = v
 
