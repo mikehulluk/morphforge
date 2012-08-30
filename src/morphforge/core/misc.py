@@ -295,3 +295,33 @@ def is_int(f):
         return False
 
 
+import time, traceback, sys
+
+# Lets not buffer any output:
+class flushfile(file):
+    def __init__(self, f):
+        self.f = f
+    def write(self, x):
+        self.f.write(x)
+        self.f.flush()
+#sys.stdout = flushfile(sys.stdout)
+#sys.stderr = flushfile(sys.stderr)
+
+class benchmark(object):
+    def __init__(self,name):
+        self.name = name
+    def __enter__(self):
+        self.start = time.time()
+    def __exit__(self,ty,val,tb):
+        end = time.time()
+        print("%s : %0.3f seconds" % (self.name, end-self.start))
+        return False
+
+class TracePrints(object):
+  def __init__(self):    
+    self.stdout = sys.stdout
+  def write(self, s):
+    self.stdout.write("Writing %r\n" % s)
+    traceback.print_stack(file=self.stdout)
+
+#sys.stdout = TracePrints()
