@@ -152,6 +152,7 @@ src/morphforge/management/__init__.pyc
 !src/morphforge/traces/std_methods/
 !src/morphforge/traces/std_methods/__init__.py
 !src/morphforge/traces/std_methods/trace_methods_std.py
+!src/morphforge/traces/std_methods/trace_methods_std_clone.py
 !src/morphforge/traces/std_methods/trace_methods_std_conversions.py
 !src/morphforge/traces/std_methods/trace_methods_std_fft.py
 !src/morphforge/traces/std_methods/trace_methods_std_filters.py
@@ -1938,3 +1939,4 @@ src/morphforge/management/__init__.pyc
 
 !src/morphforgeexamples/exset8_traces
 !src/morphforgeexamples/exset8_traces/traces_*.py
+/src/morphforge/management/__init__.pyc

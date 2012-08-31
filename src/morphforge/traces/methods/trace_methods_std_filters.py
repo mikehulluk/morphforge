@@ -94,6 +94,7 @@ def _filterlowpassrc(tr, tau):
                           data=xp * tr.data_unit,
                          )
     copy_trace_attrs(tr, tr_new, comment="+(LP RC Filtered)" )
+    return tr_new
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)

@@ -33,13 +33,24 @@ conversions = [
 
 
 returning_trace_methods = [
-        ('filter_bessel', lambda tr: tr.filter_bessel(filter_bessel=8, cutoff_frequency=50*pq.Hz) ),
+        ('filterbessel', lambda tr: tr.filterbessel(filterorder=8, cutoff_frequency=5*pq.Hz) ),
+        ('filterlowpassrc', lambda tr: tr.filterlowpassrc(tau=2*pq.ms) ),
         ('shift', lambda tr: tr.shift(offset=100*pq.ms)),
 
         ('convert_to_fixed', lambda tr: tr.convert_to_fixed(dt=0.1*pq.ms) ),
         #('convert_to_piecewise', lambda tr: tr.convert_to_piecewise() ),
         ]  
 
+
+
+
+
+
+tr = TraceStringParser.Parse(tests[0])
+print tr.get_min_time()
+print tr.clone().get_min_time()
+
+#sys.exit(0)
 
 
 for t in tests:

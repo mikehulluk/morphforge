@@ -52,6 +52,7 @@ class NpPqWrappers(object):
 
     @classmethod
     def arange(cls, start, stop, step):
+        #print start, stop, step
         start = unit(start)
         stop = unit(stop)
         step = unit(step)
