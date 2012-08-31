@@ -132,43 +132,43 @@ class TraceOperator_TraceFixedDT_Scalar(object):
         return TraceFixedDT(lhs.time_pts, lhs.data_pts ** rhs)
 
 
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__add__,
         lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_add,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__sub__,
         lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_sub,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__mul__,
         lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_mul,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__div__,
         lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_div,
         flag='default')
 
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__add__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_add,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__sub__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_sub,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__mul__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_mul,
         flag='default')
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__div__,
         lhs_type=TraceFixedDT, rhs_type=float,
         operator_func=TraceOperator_TraceFixedDT_Scalar.do_div,

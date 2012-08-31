@@ -105,7 +105,7 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
 
 # Times quantity:
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__add__,
         lhs_type=TracePiecewise, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_add,
@@ -117,7 +117,7 @@ TraceOperatorCtrl.add_trace_operator_commutative(
 #        operator_func=TraceOperator_TracePiecewise_Quantity.do_sub,
 #        flag='default')
 
-TraceOperatorCtrl.add_trace_operator_commutative(
+TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
         operator_type=operator.__mul__,
         lhs_type=TracePiecewise, rhs_type=pq.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_mul,

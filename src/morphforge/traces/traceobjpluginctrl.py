@@ -44,7 +44,7 @@ class TraceOperatorCtrl(object):
                        operator.__pow__]
 
     @classmethod
-    def add_trace_operator_commutative(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
+    def add_trace_operator_symmetrical_handler(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
         cls.add_trace_operator(operator_type=operator_type,
                                lhs_type=lhs_type, 
                                rhs_type=rhs_type, 
