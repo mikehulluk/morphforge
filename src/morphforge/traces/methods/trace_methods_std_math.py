@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl, clone_trace
+from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT, TraceVariableDT, TracePiecewise
 import numpy as np
 
@@ -100,7 +100,14 @@ TraceMethodCtrl.register(TraceVariableDT, 'min', _get_min)
 
 def _fixeddt_gradient(self, *args):
     # assert False, 'ToCheck'
-    return clone_trace(tr=self, data=np.gradient(self.data_pts_np, *args) * self.data_unit / self.get_dt_new(), comment='+ (Filtered)')
+    tr_new = TraceFixedDT( 
+            time = self.time_pts,
+            data = np.gradient(self.data_pts_np, *args) * self.data_unit / self.get_dt_new()
+            )
+    copy_trace_attrs(self, tr_new, comment="+gradient")
+    return tr_new
+                            
+    #clone_trace(tr=self, data=, comment='+ (Filtered)')
 
 TraceMethodCtrl.register(TraceFixedDT, 'gradient', _fixeddt_gradient)
 # MISSING: VariableDT - gradient

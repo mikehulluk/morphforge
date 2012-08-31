@@ -29,13 +29,25 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import trace_methods_std
-import trace_methods_std_clone
-import trace_methods_std_math
-import trace_methods_std_splicing
-import trace_methods_std_filters
-import trace_methods_std_conversions
-import trace_methods_std_fft
-#import trace_methods_std_integrate
+from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 
-from MMtrace_conversion import TraceApproximator, TraceConverter
+import numpy as np
+from morphforge.traces.tracetypes import TraceVariableDT
+from morphforge.traces.tracetypes import TracePiecewise
+from morphforge.traces.tracetypes import TraceFixedDT
+import copy
+
+def _clone_fixed(tr):
+    return copy.deepcopy(tr)
+
+def _clone_variable(tr):
+    return copy.deepcopy(tr)
+
+def _clone_piecewise(tr):
+    return copy.deepcopy(tr)
+
+# Plotting:
+TraceMethodCtrl.register(TraceFixedDT,    'clone', _clone_fixed)
+TraceMethodCtrl.register(TraceVariableDT, 'clone', _clone_variable)
+TraceMethodCtrl.register(TracePiecewise,  'clone', _clone_piecewise)
+

@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.traces.traceobjpluginctrl import clone_trace
+from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
 
@@ -37,19 +37,19 @@ import quantities as pq
 import numpy as np
 
 
-def _butterworthfilter(self, filterorder, cutoff_frequency):
+def _butterworthfilter(tr, filterorder, cutoff_frequency):
     cutoff_frequency.rescale('Hz')
     import scipy.signal
-    frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
+    frequency_hz = 1 / float(tr.get_dt_new().rescale('s'))
     n_frq_hz = frequency_hz / 2.0
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
     (b, a) = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
+    filteredsignal = scipy.signal.lfilter(b, a, tr.data_pts_np)
 
-    return clone_trace(self, 
-                       data=filteredsignal * self.data_unit,
-                       comment='+(Butterworth Filtered)')
+    tr_new = TraceFixedDT(time=tr.time_pts, data=filteredsignal * tr.data_unit,)
+    copy_trace_attrs(tr, tr_new, comment="+(Butterworth Filtered)" )
+    return tr_new
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, can_fallback_to_fixed_trace=True)
@@ -57,22 +57,23 @@ TraceMethodCtrl.register(TraceFixedDT, 'filterbutterworth', _butterworthfilter, 
 
 
 
-def _besselfilter(self, filterorder, cutoff_frequency):
+def _besselfilter(tr, filterorder, cutoff_frequency):
     cutoff_frequency.rescale('Hz')
     import scipy.signal
-    frequency_hz = 1 / float(self.get_dt_new().rescale('s'))
+    frequency_hz = 1 / float(tr.get_dt_new().rescale('s'))
     n_frq_hz = frequency_hz / 2.0
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
-    #print 'CutoffNorm:', cuttoff_norm
     (b, a) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
+    filteredsignal = scipy.signal.lfilter(b, a, tr.data_pts_np)
 
-    time_shift = self.get_dt_new() * max(len(a), len(b))
+    time_shift = tr.get_dt_new() * max(len(a), len(b))
 
-    return clone_trace(self, data=filteredsignal * self.data_unit,
-                       time=self.time_pts - time_shift,
-                       comment='+(Bessel Filtered)')
+    tr_new = TraceFixedDT(time=tr.time_pts - time_shift,
+                          data=filteredsignal * tr.data_unit,
+                         )
+    copy_trace_attrs(tr, tr_new, comment="+(Bessel Filtered)" )
+    return tr_new
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterbessel', _besselfilter, can_fallback_to_fixed_trace=True)
@@ -89,7 +90,10 @@ def _filterlowpassrc(tr, tau):
     b = np.array([0, k])
 
     xp = scipy.signal.lfilter(b, a, tr.data_pts_np)
-    return clone_trace(tr=tr, data=xp * tr.data_unit, comment="+ (LP RC Filtered)")
+    tr_new = TraceFixedDT(time=tr.time_pts,
+                          data=xp * tr.data_unit,
+                         )
+    copy_trace_attrs(tr, tr_new, comment="+(LP RC Filtered)" )
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'filterlowpassrc', _filterlowpassrc, can_fallback_to_fixed_trace=True)

@@ -76,14 +76,6 @@ class TraceOperatorCtrl(object):
         if not key in cls.trace_operators_active or flag == 'default' or set_as_default:
             cls.trace_operators_active[key] = operator_func, flag
 
-    #@classmethod
-    #def add_trace_operator_symmetrical(cls, operator_type, lrhs_type, operator_func, flag='default', set_as_default=False):
-    #    cls.add_trace_operator(operator_type=operator_type,
-    #                          lhs_type=lrhs_type,
-    #                          rhs_type=lrhs_type,
-    #                          operator_func=operator_func,
-    #                          flag=flag,
-    #                          set_as_default=set_as_default)
 
     @classmethod
     def operate(cls, operator_type, lhs, rhs, use_flag=None, **kwargs):
@@ -206,22 +198,5 @@ def copy_trace_attrs(tr_old, tr_new, name=None, comment=None, tags=None, add_tag
     tr_new.tags = new_tags
 
     return tr_new
-
-
-def clone_trace(tr, data=None, time=None, name=None, comment=None, tags=None, add_tags=None):
-
-    new_data = (data if data is not None else tr.data_pts)
-    new_time = (time if time is not None else tr.time_pts)
-
-    # Create a new trace
-    tr_new = type(tr)(time=new_time, data=new_data)
-    return copy_trace_attrs(
-        tr,
-        tr_new,
-        name=name,
-        comment=comment,
-        tags=tags,
-        add_tags=add_tags,
-        )
 
 
