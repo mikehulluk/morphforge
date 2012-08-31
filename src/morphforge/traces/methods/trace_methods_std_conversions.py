@@ -62,6 +62,8 @@ TraceMethodCtrl.register(
 
 # Conversion to Piecewise:
 ##########################
+
+
 TraceMethodCtrl.register(TraceFixedDT, 'convert_to_piecewise', TraceApproximator.fit_piecewise_linear_trace)
 # MISSING: VariableDT
 # MISSING: Piecewise

@@ -103,20 +103,32 @@ class QuantitiesAxisNew(object):
         self.ax.margins(0.05,0.05)
 
     def _setxyUnitBase(self, unitX=None, unitY=None):
+        from morphforge.stdimports import unit
+        if unitX is not None:
+            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
+        if unitY is not None:
+            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
 
         if unitX is not None:
             assert self.xyUnitBase[0] == None
+            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
             self.xyUnitBase[0] = unitX.units.simplified.units
         if unitY is not None:
             assert self.xyUnitBase[1] == None
+            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
             self.xyUnitBase[1] = unitY.units.simplified.units
 
     def _setxyUnitDisplay(self, unitX=None, unitY=None):
+        from morphforge.stdimports import unit
+        if unitX is not None:
+            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
+        if unitY is not None:
+            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
+
 
         # Set the base units, if they are not already set:
         if unitX is not None and self.xyUnitBase[0] is None:
             self._setxyUnitBase(unitX=unitX)
-
         if unitY is not None and self.xyUnitBase[1] is None:
             self._setxyUnitBase(unitY=unitY)
 
@@ -187,6 +199,9 @@ class QuantitiesAxisNew(object):
             from morphforge.stdimports import unit
             x1 = unit(x1)
 
+        # Are the baseunits set? If not, then lets set them:
+        if self.xyUnitBase[0] is None:
+            self._setxyUnitDisplay(unitX=x0)
 
 
         # Set the limits
@@ -220,6 +235,11 @@ class QuantitiesAxisNew(object):
         if x1 is not None and isinstance(x1, basestring):
             from morphforge.stdimports import unit
             x1 = unit(x1)
+
+
+        # Are the baseunits set? If not, then lets set them:
+        if self.xyUnitBase[1] is None:
+            self._setxyUnitDisplay(unitY=x0)
 
         # Set the limits
         if x0 is not None:

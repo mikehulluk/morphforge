@@ -29,16 +29,23 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+# Import the AGG backend, since it loads fast:
+import matplotlib
+matplotlib.use('Agg')
+
+
+
 import time
 t_start = time.time()
 
 import sys, os
-from morphforge.core import LogMgr, mfrandom
+from morphforge.core import mfrandom
+#from morphforge.core import LogMgr, mfrandom
 from morphforge.simulation.base.simulationmetadatabundle import SimMetaDataBundle
 
 import traceback
 import time
-from morphforge.core.misc import flushfile, benchmark, TracePrints
+from morphforge.core.misc import  benchmark#, TracePrints
 
 ## Lets not buffer any output:
 #class flushfile(file):
@@ -100,7 +107,7 @@ try:
     with benchmark('Entire load-run-save time'):
         main()
 except:
-    import traceback
+    #import traceback
     traceback.print_exc()
     print "Simulation Failled"
     sys.exit(0)

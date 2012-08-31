@@ -64,7 +64,7 @@ def _besselfilter(self, filterorder, cutoff_frequency):
     n_frq_hz = frequency_hz / 2.0
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
-    print 'CutoffNorm:', cuttoff_norm
+    #print 'CutoffNorm:', cuttoff_norm
     (b, a) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
     filteredsignal = scipy.signal.lfilter(b, a, self.data_pts_np)
 

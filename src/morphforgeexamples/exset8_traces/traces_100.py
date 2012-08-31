@@ -40,6 +40,8 @@ returning_trace_methods = [
         #('convert_to_piecewise', lambda tr: tr.convert_to_piecewise() ),
         ]  
 
+
+
 for t in tests:
 
     tr = TraceStringParser.Parse(t)
@@ -54,10 +56,10 @@ for t in tests:
         ax1.plotTrace(tr, label='Original')
 
         for (conv_type, conv_functor) in conversions:
-            try:
-                tr_new = conv_functor(tr)
-            except AttributeError:
-                continue
+            #try:
+            tr_new = conv_functor(tr)
+            #except AttributeError:
+            #    continue
 
             if not mf.TraceMethodCtrl.has_method(conv_type, method_name):
                 continue

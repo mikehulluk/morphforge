@@ -213,5 +213,7 @@ class TagViewer(object):
                 pylab.tight_layout()
             except AttributeError:
                 pass  # This is version specfic
+            except ValueError:
+                pass # Top can't be less than bottom
 
 
