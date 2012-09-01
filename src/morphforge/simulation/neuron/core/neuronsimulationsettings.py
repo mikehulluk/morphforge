@@ -32,7 +32,7 @@
 from morphforge.core.quantities import unit
 
 
-class NeuronSimulationSettings(object):
+class NEURONSimulationSettings(object):
 
     dt = 'dt'
     tstop = 'tstop'
@@ -41,18 +41,18 @@ class NeuronSimulationSettings(object):
 
     @classmethod
     def get_defaults(cls):
-        defs = {NeuronSimulationSettings.dt: unit('0.01:ms'),
-                NeuronSimulationSettings.tstop: unit('500:ms'),
-                NeuronSimulationSettings.cvode: True}
+        defs = {NEURONSimulationSettings.dt: unit('0.01:ms'),
+                NEURONSimulationSettings.tstop: unit('500:ms'),
+                NEURONSimulationSettings.cvode: True}
 
         # Check we have defaults for all parameters:
-        for parameter in NeuronSimulationSettings.allparams:
+        for parameter in NEURONSimulationSettings.allparams:
             assert parameter in defs
 
         return defs
 
     def __init__(self, **kwargs):
-        self.params = NeuronSimulationSettings.get_defaults()
+        self.params = NEURONSimulationSettings.get_defaults()
 
         for key in kwargs:
             assert key in self.params

@@ -30,10 +30,10 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.base.core.recordable import Recordable
-from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 
 
-class NeuronRecordable(Recordable, NeuronObject):
+class NEURONRecordable(Recordable, NEURONObject):
 
     def get_recordable(self, *args, **kwargs):
         raise Exception("Can't record a recordable!")
@@ -48,14 +48,14 @@ class NeuronRecordable(Recordable, NeuronObject):
         raise NotImplementedError()
 
 
-class NeuronRecordableOnLocation(NeuronRecordable):
+class NEURONRecordableOnLocation(NEURONRecordable):
 
     def __init__(self, cell_location, **kwargs):
-        super(NeuronRecordableOnLocation, self).__init__(**kwargs)
+        super(NEURONRecordableOnLocation, self).__init__(**kwargs)
         self.cell_location = cell_location
 
     def get_tags(self):
-        return NeuronRecordable.get_tags(self) \
+        return NEURONRecordable.get_tags(self) \
             + list(self.cell_location.cell.cell_tags)
 
     def get_unit(self):

@@ -34,7 +34,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
 from Cheetah.Template import Template
-#from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
+#from morphforge.simulation.neuron.networks import NEURONSynapse, Synapse
 from morphforge.simulation.neuron.networks import Synapse
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
@@ -43,7 +43,7 @@ from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.core.mfrandom import MFRandom
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 
@@ -58,7 +58,7 @@ class Neuron_PSM_Exp2SynNMDA_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord)
     pass
 
 
-class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NeuronRecordable):
+class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
 

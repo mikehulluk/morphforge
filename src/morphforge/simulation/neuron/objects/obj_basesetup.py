@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from neuronobject import NeuronObject
+from neuronobject import NEURONObject
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 
 
-class NeuronSimSetupObj(NeuronObject):
+class NeuronSimSetupObj(NEURONObject):
 
     def __init__(self, simsettings, simulation):
         super(NeuronSimSetupObj, self).__init__(

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.neuron.objects import MembraneVoltageRecord
-from morphforge.simulation.neuron.objects import MNeuronCell
+from morphforge.simulation.neuron.objects import NEURONCell
 from morphforge.simulation.neuron.objects import NeuronSimSetupObj
 
 from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
@@ -46,7 +46,7 @@ from morphforge.simulation.neuron.biophysics import MM_Neuron_Base
 
 __all__ = [
     'MembraneVoltageRecord',
-    'MNeuronCell',
+    'NEURONCell',
     'NeuronSimSetupObj',
     'NEURONSimulation',
     'NEURONEnvironment',

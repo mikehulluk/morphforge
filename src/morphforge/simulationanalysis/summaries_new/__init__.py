@@ -32,7 +32,7 @@
 #from morphforge.morphology.core  import MorphPath
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from morphforge.management import PluginMgr
 """
 DocumentLayout:
@@ -306,7 +306,7 @@ class SimulationMRedoc(object):
             graph.add_node(n)
 
             # Make the edge:
-            if isinstance(record, NeuronRecordableOnLocation):
+            if isinstance(record, NEURONRecordableOnLocation):
                 post_node = pops[record.cell_location.cell]
                 e = pydot.Edge(n, post_node, label='', color='green')
                 graph.add_edge(e)

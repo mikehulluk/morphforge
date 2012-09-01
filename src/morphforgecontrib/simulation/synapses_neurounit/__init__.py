@@ -39,7 +39,7 @@ from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURON
 
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 from neurounits.neurounitparser import NeuroUnitParser
@@ -55,7 +55,7 @@ class RecordableData(object):
         self.standard_tags = standard_tags or []
 
 
-class MM_Neuron_RecGen(NeuronRecordable):
+class MM_Neuron_RecGen(NEURONRecordable):
     def __init__(self, src_chl, objvar, unit_in_nrn, std_tags, **kwargs):
         super(MM_Neuron_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl

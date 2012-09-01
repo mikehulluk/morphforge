@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClamp_SinWave
-from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
+from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from Cheetah.Template import Template
@@ -102,7 +102,7 @@ ${stimname}.bias = $bias.rescale("nA").magnitude
 """
 
 
-class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
+class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
 
     def __init__(self, cclamp, **kwargs):
         super(NeuronSinwaveCurrentClampCurrentRecord, self).__init__(**kwargs)
@@ -122,10 +122,10 @@ class NeuronSinwaveCurrentClampCurrentRecord(NeuronRecordable):
         pass
 
 
-class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
+class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
 
     def __init__(self, **kwargs):
-        super(Neuron_CurrentClamp_SinWave, self).__init__(**kwargs)
+        super(NEURONCurrentClampSinwave, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
@@ -165,4 +165,4 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
 
 
-#NEURONEnvironment.registerMembraneMechanism(CurrentClamp_SinWave, Neuron_CurrentClamp_SinWave)
+#NEURONEnvironment.registerMembraneMechanism(CurrentClampSinwave, NEURONCurrentClampSinwave)

@@ -34,11 +34,11 @@ from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 
 
-class MM_Neuron_GeneralisedRecord(NeuronRecordableOnLocation):
+class MM_Neuron_GeneralisedRecord(NEURONRecordableOnLocation):
     def __init__(self, modvar, unit, tags, nrnsuffix, **kwargs):
         super(MM_Neuron_GeneralisedRecord, self).__init__(**kwargs)
         self.unit = unit

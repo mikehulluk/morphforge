@@ -34,9 +34,9 @@ from morphforge.simulation.base import SimulationEnvironment
 from morphforge.simulation.base import CurrentClampStepChange
 from morphforge.simulation.base import VoltageClampStepChange
 
-from morphforge.simulation.neuron.core import NeuronSimulationSettings
-from morphforge.simulation.neuron.networks import NeuronGapJunction
-from morphforge.simulation.neuron.core import MNeuronCell
+from morphforge.simulation.neuron.core import NEURONSimulationSettings
+from morphforge.simulation.neuron.networks import NEURONGapJunction
+from morphforge.simulation.neuron.core import NEURONCell
 from morphforge.simulation.neuron.core import NEURONSimulation
 
 
@@ -48,10 +48,10 @@ class NEURONEnvironment(SimulationEnvironment):
         return NEURONSimulation(environment=self, **kwargs)
 
     def Cell(self, **kwargs):
-        return MNeuronCell(**kwargs)
+        return NEURONCell(**kwargs)
 
     def SimulationSettings(self, **kwargs):
-        return NeuronSimulationSettings(**kwargs)
+        return NEURONSimulationSettings(**kwargs)
 
     membranemechanisms = PluginDict()
     presynapticmechanisms = PluginDict()
@@ -83,10 +83,10 @@ class NEURONEnvironment(SimulationEnvironment):
         return voltage_clamp(**kwargs)
 
     def GapJunction(self, **kwargs):
-        return NeuronGapJunction(**kwargs)
+        return NEURONGapJunction(**kwargs)
 
     def Synapse(self, **kwargs):
-        from morphforge.simulation.neuron.networks import NeuronSynapse
-        return NeuronSynapse(**kwargs)
+        from morphforge.simulation.neuron.networks import NEURONSynapse
+        return NEURONSynapse(**kwargs)
 
 
