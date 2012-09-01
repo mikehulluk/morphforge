@@ -57,7 +57,7 @@ from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplem
 
 def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation(tstop=unit("1500:ms"))

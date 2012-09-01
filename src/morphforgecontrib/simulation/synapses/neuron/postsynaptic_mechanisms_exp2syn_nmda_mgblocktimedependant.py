@@ -34,7 +34,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
 from Cheetah.Template import Template
 from morphforge.simulation.neuron.networks import NeuronSynapse, Synapse
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
@@ -176,7 +176,7 @@ class Neuron_PSM_Exp2SynNMDAMgBlockTimeDep(PostSynapticMech_Exp2SynNMDAMGTimeDep
         assert False
 
 
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(
+NEURONEnvironment.postsynapticmechanisms.register_plugin(
         PostSynapticMech_Exp2SynNMDAMGTimeDepBlock,
         Neuron_PSM_Exp2SynNMDAMgBlockTimeDep)
 

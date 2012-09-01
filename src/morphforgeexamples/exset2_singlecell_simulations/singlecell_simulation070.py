@@ -44,7 +44,7 @@ from morphforgecontrib.stdimports import *
 
 
 # Create the environment:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 
 # Create the simulation:
 mysim = env.Simulation()

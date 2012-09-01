@@ -48,7 +48,7 @@ from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builti
 
 def simulate_chls_on_neuron():
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation()

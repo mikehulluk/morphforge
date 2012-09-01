@@ -35,7 +35,7 @@ assert False
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.tools.nmodl import WriteToNMODL
@@ -142,6 +142,6 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnit
 
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
+NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
 
 

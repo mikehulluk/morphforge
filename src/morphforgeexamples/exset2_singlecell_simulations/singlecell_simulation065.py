@@ -133,7 +133,7 @@ modelsrc = "Sample"
 celltype="Cell1"
 
 # Create the environment:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 
 # Create the simulation:
 mysim = env.Simulation()

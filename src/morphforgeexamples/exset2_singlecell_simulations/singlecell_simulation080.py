@@ -50,7 +50,7 @@ from morphforgecontrib.data_library.stdmodels import StandardModels
 
 def sim(glk_multiplier, gna_multiplier, tag):
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation()

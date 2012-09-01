@@ -300,7 +300,7 @@ def apply_hh_chls_NEURON_builtin(env, myCell, mysim):
 
 def simulate_chls_on_neuron(chl_applicator_functor):
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation()

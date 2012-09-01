@@ -36,7 +36,7 @@ from hocmodbuilders.mmwriter_leak import MM_WriterLeak
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
@@ -133,5 +133,5 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
 
 
 # Register the channel
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_LeakChannel, MM_Neuron_Leak)
+NEURONEnvironment.membranemechanisms.register_plugin(MM_LeakChannel, MM_Neuron_Leak)
 

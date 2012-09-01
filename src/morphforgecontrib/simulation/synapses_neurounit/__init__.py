@@ -35,7 +35,7 @@
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
@@ -214,4 +214,4 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
 
 
 
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(NeuroUnitEqnsetPostSynaptic, Neuron_NeuroUnitEqnsetPostSynaptic)
+NEURONEnvironment.postsynapticmechanisms.register_plugin(NeuroUnitEqnsetPostSynaptic, Neuron_NeuroUnitEqnsetPostSynaptic)

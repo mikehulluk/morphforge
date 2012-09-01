@@ -33,7 +33,7 @@ from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold, PreSynapticMech_TimeList
 
 preTmpl = """
@@ -119,7 +119,7 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
         pass
 
 
-NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
-NeuronSimulationEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
+NEURONEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
+NEURONEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
 
 

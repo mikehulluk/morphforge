@@ -356,7 +356,7 @@ celltypes = [
 # ############################################
 
 def test_cell_current(cell_name, cell_chl_functor, current):
-    sim = mf.NeuronSimulationEnvironment().Simulation()
+    sim = mf.NEURONEnvironment().Simulation()
 
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     myCell = sim.create_cell(name=cell_name, morphology=m1)
@@ -590,7 +590,7 @@ def cin_onto_dinr(sim, presynaptic, postsynaptic):
 
 
 
-env = mf.NeuronSimulationEnvironment()
+env = mf.NEURONEnvironment()
 sim = env.Simulation()
 
 nNeurons = 1

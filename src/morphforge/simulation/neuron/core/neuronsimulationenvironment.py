@@ -37,15 +37,15 @@ from morphforge.simulation.base import VoltageClampStepChange
 from morphforge.simulation.neuron.core import NeuronSimulationSettings
 from morphforge.simulation.neuron.networks import NeuronGapJunction
 from morphforge.simulation.neuron.core import MNeuronCell
-from morphforge.simulation.neuron.core import MNeuronSimulation
+from morphforge.simulation.neuron.core import NEURONSimulation
 
 
-class NeuronSimulationEnvironment(SimulationEnvironment):
+class NEURONEnvironment(SimulationEnvironment):
 
     _env_name = "NEURON"
 
     def Simulation(self, **kwargs):
-        return MNeuronSimulation(environment=self, **kwargs)
+        return NEURONSimulation(environment=self, **kwargs)
 
     def Cell(self, **kwargs):
         return MNeuronCell(**kwargs)

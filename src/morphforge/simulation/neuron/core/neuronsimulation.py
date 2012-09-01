@@ -61,7 +61,7 @@ def _random_walk(t_steps, std_dev):
     return walk
 
 
-class MNeuronSimulation(Simulation):
+class NEURONSimulation(Simulation):
 
     def _sim_desc_str(self):
         sname = sys.argv[0]
@@ -69,7 +69,7 @@ class MNeuronSimulation(Simulation):
 
 
     def __init__(self, name=None, environment=None, **kwargs):
-        super(MNeuronSimulation, self).__init__(
+        super(NEURONSimulation, self).__init__(
                 name=name,
                 environment=environment,
                 **kwargs)

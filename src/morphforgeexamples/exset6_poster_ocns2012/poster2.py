@@ -72,7 +72,7 @@ def build_cell(name, sim):
 
 
 # Create a simulation:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 sim = env.Simulation()
 
 # Two cells:

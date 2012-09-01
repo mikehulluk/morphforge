@@ -30,7 +30,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron import NeuronSimulationEnvironment
+from morphforge.simulation.neuron import NEURONEnvironment
 from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 import inspect
@@ -52,7 +52,7 @@ def to_symbol(mech, env):
 
 class PluginMgr(object):
 
-    _environments = [NeuronSimulationEnvironment]
+    _environments = [NEURONEnvironment]
 
 
 

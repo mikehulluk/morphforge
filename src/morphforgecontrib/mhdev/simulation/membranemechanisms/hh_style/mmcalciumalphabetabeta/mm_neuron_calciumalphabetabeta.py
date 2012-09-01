@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable 
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
 
@@ -181,4 +181,4 @@ class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
 
 
 # Register the channel
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)
+NEURONEnvironment.membranemechanisms.register_plugin(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_CalciumAlphaBetaBeta)

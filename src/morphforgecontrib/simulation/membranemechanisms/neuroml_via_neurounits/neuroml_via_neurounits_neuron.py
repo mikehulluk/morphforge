@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.importers.neuroml import ChannelMLReader
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
@@ -49,6 +49,6 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, Neur
         NeuroML_Via_NeuroUnits_Channel.__init__(self, xml_filename=xml_filename, chlname=chlname, mechanism_id=mechanism_id)
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
+NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
 
 

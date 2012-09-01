@@ -32,7 +32,7 @@
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
 
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_core import NeuroML_Via_XSL_Channel
@@ -121,6 +121,6 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
 
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
+NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
 
 
