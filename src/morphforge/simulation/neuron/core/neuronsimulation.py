@@ -235,7 +235,7 @@ class NEURONSimulation(Simulation):
                 self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
-                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (h.t, float(tstop)))
+                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(tstop)))
                 sys.stdout.flush()
                 if neuron.h.t + self.interval < neuron.h.tstop:
                     neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)

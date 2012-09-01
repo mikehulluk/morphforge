@@ -46,6 +46,9 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
 
 class PiecewiseOperationLHS(PieceWiseComponentVisitor):
+    @classmethod
+    def visit(cls, lhs_piece, operator_type, rhs_scalar):
+        return PieceWiseComponentVisitor.visit(o=lhs_piece, operator_type=operator_type, rhs_scalar=rhs_scalar)
 
     @classmethod
     def visit_linear(cls, lhs_piece, operator_type, rhs_scalar):
@@ -108,6 +111,10 @@ TraceOperatorCtrl.add_trace_operator(
 
 
 class PiecewiseOperationRHS(PieceWiseComponentVisitor):
+
+    @classmethod
+    def visit(cls, rhs_piece, operator_type, lhs_scalar):
+        return PieceWiseComponentVisitor.visit(o=rhs_piece, operator_type=operator_type, lhs_scalar=lhs_scalar)
 
     @classmethod
     def visit_linear(cls, rhs_piece, operator_type, lhs_scalar):

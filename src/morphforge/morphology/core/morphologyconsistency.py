@@ -175,7 +175,7 @@ class MorphConsistencyChecker(object):
                 lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
         for section in region.sections:
-            assert region == s.region
+            assert region == section.region
 
     def check_tree(self):
         if not self.morph.is_dummy_section_set():
