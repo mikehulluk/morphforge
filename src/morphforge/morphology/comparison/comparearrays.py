@@ -51,15 +51,15 @@ class MorphArrayComparison(object):
 
         # Check that the shortest distance between 2 points in m1 and m2 are
         # greater that 'max_node_distance':
-        d1 = np.min(pdist(m1._vertices[:, 0:3], 'euclidean'))
-        if d1 < max_node_distance:
+        dist1 = np.min(pdist(m1._vertices[:, 0:3], 'euclidean'))
+        if dist1 < max_node_distance:
             return False  # , {'reason':'m1 has nodes that are too close together'}
 
-        d2 = np.min(pdist(m2._vertices[:, 0:3], 'euclidean'))
-        if d2 < max_node_distance:
+        dist2 = np.min(pdist(m2._vertices[:, 0:3], 'euclidean'))
+        if dist2 < max_node_distance:
             return False  # , {'reason':'m2 has nodes that are too close together'}
 
-        #print 'd1, d2', d1, d2
+        #print 'dist1, dist2', dist1, dist2
 
         # Create a map between indices in each morphology,
         # based on positions:

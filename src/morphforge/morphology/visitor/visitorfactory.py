@@ -84,10 +84,9 @@ class SectionVistorFactory(object):
             if s.is_a_root_section():
                 return 0.0
             else:
-                d1 = dict_section_proximal_dist_from_soma(s.parent)
-                d2 = s.parent.get_length()
-                d = d1 + d2
-                return d
+                dist1 = dict_section_proximal_dist_from_soma(s.parent)
+                dist2 = s.parent.get_length()
+                return dist1 + dist2
 
         return DictBuilderSectionVisitorHomo(functor=dict_section_proximal_dist_from_soma, morph=morph)
 

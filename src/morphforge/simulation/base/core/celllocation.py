@@ -67,10 +67,10 @@ class CellLocation(object):
         return self.morphlocation.get_3d_position()
 
     def get_location_description_str(self):
-        r = self.cell.name
+        desc = self.cell.name
         t = ''
         if self.morphlocation.section.idtag:
             t = self.morphlocation.section.idtag
-        return r + t
+        return desc + t
 
 

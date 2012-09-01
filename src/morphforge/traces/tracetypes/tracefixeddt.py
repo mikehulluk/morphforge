@@ -42,8 +42,8 @@ class TraceFixedDT(TracePointBased):
 
     @classmethod
     def is_array_fixed_dt(cls, time_array):
-        d = np.diff(time_array.rescale('ms').magnitude)
-        if np.ptp(d) > 0.01:
+        time_steps = np.diff(time_array.rescale('ms').magnitude)
+        if np.ptp(time_steps) > 0.01:
             return False
         return True
 

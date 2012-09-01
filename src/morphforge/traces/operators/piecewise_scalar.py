@@ -64,11 +64,11 @@ class TraceOperator_TracePiecewise_Quantity(object):
                (type(rhs) == TracePiecewise and type(lhs) in (pq.Quantity,))
 
         if type(lhs) == TracePiecewise:
-            (tr, sc) = (lhs, rhs)
+            (trace, sc) = (lhs, rhs)
         else:
-            (sc, tr) = (lhs, rhs)
+            (sc, trace) = (lhs, rhs)
 
-        pieces = [PiecewiseScalarOperation.visit(p, operator_type=operator_type, scalar=sc) for p in tr.pieces]
+        pieces = [PiecewiseScalarOperation.visit(piece, operator_type=operator_type, scalar=sc) for piece in trace.pieces]
         return TracePiecewise(pieces=pieces)
 
     @classmethod
@@ -130,7 +130,7 @@ TraceOperatorCtrl.add_trace_operator_symmetrical_handler(
 #        flag='default')
 
 def do_op_piecewise_pow_scalar(lhs, rhs):
-        pieces = [PiecewiseScalarOperation.visit(p, operator_type=operator.__pow__, scalar=rhs) for p in lhs.pieces]
+        pieces = [PiecewiseScalarOperation.visit(piece, operator_type=operator.__pow__, scalar=rhs) for piece in lhs.pieces]
         return TracePiecewise(pieces)
 
 

@@ -188,17 +188,17 @@ class SimulationMRedoc(object):
         if not self.sim.neuron_populations:
             return None
 
-        t = mrd.VerticalColTable(
+        table = mrd.VerticalColTable(
                 "Population | Size | Type """,
                 [(pop.pop_name, len(pop), ",".join(pop.cell_types))  for pop in self.sim.neuron_populations]
                )
-        t2 = mrd.VerticalColTable(
+        table2 = mrd.VerticalColTable(
                 "Population | Size | Type """,
                 [(pop.synapse_pop_name, len(pop), ",".join(pop.synapse_types))  for pop in self.sim.synapse_populations]
                )
 
         return mrd.Section("Population Overview",
-                           t, t2,
+                           table, table2,
                            #self.build_population_overview_dot(),
                            self.build_population_complete_dot()
                           )
@@ -215,10 +215,10 @@ class SimulationMRedoc(object):
         kwargs = {'fontsize': '6'}
 
         pops = {}
-        for p in self.sim.neuron_populations:
-            n = pydot.Node(p.pop_name, shape='circle', color='lightblue'
+        for neuron_population in self.sim.neuron_populations:
+            n = pydot.Node(neuron_population.pop_name, shape='circle', color='lightblue'
                            , style='filled', **kwargs)
-            pops[p] = n
+            pops[neuron_population] = n
             graph.add_node(n)
 
         for (i, synpop) in enumerate(self.sim.synapse_populations):
@@ -256,9 +256,9 @@ class SimulationMRedoc(object):
 
         pops = {}
 
-        for p in self.sim.ss_cells:
-            n = pydot.Node(p.name, shape='circle', fillcolor='#80b3ffff', color='#0066ffff', style='filled', penwidth='4', **kwargs)
-            pops[p] = n
+        for cell in self.sim.ss_cells:
+            n = pydot.Node(cell.name, shape='circle', fillcolor='#80b3ffff', color='#0066ffff', style='filled', penwidth='4', **kwargs)
+            pops[cell] = n
             graph.add_node(n)
 
         stims = {}
@@ -292,9 +292,9 @@ class SimulationMRedoc(object):
             #cell_node = pops[record.cell_location.cell]
 
 
-        for (i, s) in enumerate(self.sim.ss_synapses):
-            pre_cell = s.get_presynaptic_cell()
-            post_cell = s.get_postsynaptic_cell()
+        for (i, synapse) in enumerate(self.sim.ss_synapses):
+            pre_cell = synapse.get_presynaptic_cell()
+            post_cell = synapse.get_postsynaptic_cell()
 
             if not pre_cell:
                 pre_n = pydot.Node(name='SpikeTimes%d' % i,
@@ -305,7 +305,7 @@ class SimulationMRedoc(object):
                 pre_n = pops[pre_cell]
             post_n = pops[post_cell]
 
-            syn_name = '%s' % s.name
+            syn_name = '%s' % synapse.name
             e = pydot.Edge(pre_n, post_n, label=syn_name, color='red',
                            **kwargs)
             graph.add_edge(e)
@@ -337,7 +337,7 @@ class SimulationMRedoc(object):
     @classmethod
     def _build_cell_table(cls, cell_list):
 
-        t = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections/segments|Regions(SA(um2):nseg)|\#Pre/Post-Synapse|\#GapJunctions|Chls',
+        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections/segments|Regions(SA(um2):nseg)|\#Pre/Post-Synapse|\#GapJunctions|Chls',
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
@@ -348,7 +348,7 @@ class SimulationMRedoc(object):
                   " ".join(cell.biophysics.get_mechanism_ids()),
                  ) for cell in cell_list])
 
-        return t
+        return table
 
     def build_population_details(self):
         return mrd.Section('Population Details:',

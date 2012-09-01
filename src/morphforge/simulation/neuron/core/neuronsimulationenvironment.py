@@ -75,12 +75,12 @@ class NeuronSimulationEnvironment(SimulationEnvironment):
         return mech(**kwargs)
 
     def CurrentClamp(self, form=CurrentClampStepChange, **kwargs):
-        cc = self.currentclamps.get_plugin(form)
-        return cc(**kwargs)
+        current_clamp = self.currentclamps.get_plugin(form)
+        return current_clamp(**kwargs)
 
     def VoltageClamp(self, form=VoltageClampStepChange, **kwargs):
-        vc = self.voltageclamps.get_plugin(form)
-        return vc(**kwargs)
+        voltage_clamp = self.voltageclamps.get_plugin(form)
+        return voltage_clamp(**kwargs)
 
     def GapJunction(self, **kwargs):
         return NeuronGapJunction(**kwargs)

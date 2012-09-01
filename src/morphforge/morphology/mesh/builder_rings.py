@@ -71,35 +71,35 @@ class MeshBuilderRings(object):
             for r in morph.get_regions():
                 assert r in region_color_map
 
-        for s in morph:
+        for section in morph:
 
             # Get the offset of the proximal point circle:
-            if s.is_a_root_section():
-                proximal_points = get_point_circle_about(s.get_proximal_npa3(), s.get_proximal_to_distal_vector_npa3(), s.p_r, n=n)
+            if section.is_a_root_section():
+                proximal_points = get_point_circle_about(section.get_proximal_npa3(), section.get_proximal_to_distal_vector_npa3(), section.p_r, n=n)
                 vertices = np.vstack((vertices, proximal_points))
 
-                color = region_color_map[s.region] if region_color_map else default_color
+                color = region_color_map[section.region] if region_color_map else default_color
                 vertex_colors = np.vstack((vertex_colors, np.repeat(color, n, axis=0) ))
                 proximal_offset = 0
             else:
-                proximal_offset = section_distal_offsets[s.parent]
+                proximal_offset = section_distal_offsets[section.parent]
 
             # What direction do we want to point in?
-            if len(s.children) == 0:
-                distal_points_circle_norm_vector = s.get_proximal_to_distal_vector_npa3()
-            elif len(s.children) == 1:
-                distal_points_circle_norm_vector = (s.get_proximal_to_distal_vector_npa3() + s.children[0].get_proximal_to_distal_vector_npa3()) / 2.0
+            if len(section.children) == 0:
+                distal_points_circle_norm_vector = section.get_proximal_to_distal_vector_npa3()
+            elif len(section.children) == 1:
+                distal_points_circle_norm_vector = (section.get_proximal_to_distal_vector_npa3() + section.children[0].get_proximal_to_distal_vector_npa3()) / 2.0
             else:
-                distal_points_circle_norm_vector = s.get_proximal_to_distal_vector_npa3()
+                distal_points_circle_norm_vector = section.get_proximal_to_distal_vector_npa3()
 
 
 
             # Build the ring of distal points:
-            distal_points = get_point_circle_about(s.get_distal_npa3(), distal_points_circle_norm_vector, s.d_r, n=n)
+            distal_points = get_point_circle_about(section.get_distal_npa3(), distal_points_circle_norm_vector, section.d_r, n=n)
             distal_offset = vertices.shape[0]
-            section_distal_offsets[s] = distal_offset
+            section_distal_offsets[section] = distal_offset
             vertices = np.vstack((vertices, distal_points))
-            color = region_color_map[s.region] if region_color_map else default_color
+            color = region_color_map[section.region] if region_color_map else default_color
             vertex_colors = np.vstack((vertex_colors, np.repeat(color, n, axis=0) ))
 
             # Create the triangles to make a mesh

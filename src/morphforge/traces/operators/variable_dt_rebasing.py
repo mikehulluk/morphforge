@@ -40,9 +40,9 @@ class VariableDTRebaseTimeValues(object):
     def All(cls, tr1, tr2):
         t1 = tr1.time_pts_ms
         t2 = tr2.time_pts_ms
-        t = np.hstack((t1, t2))
-        t = np.sort(t)
-        return t * pq.ms
+        all_times = np.hstack((t1, t2))
+        all_times = np.sort(all_times)
+        return all_times * pq.ms
 
     @classmethod
     def maintain_maximum_dy(cls, _tr1, _tr2):

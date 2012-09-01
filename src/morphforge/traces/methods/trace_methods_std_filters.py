@@ -36,7 +36,7 @@ from morphforge.traces import TraceFixedDT
 import quantities as pq
 import numpy as np
 
-
+        
 def _butterworthfilter(tr, filterorder, cutoff_frequency):
     cutoff_frequency.rescale('Hz')
     import scipy.signal
@@ -44,8 +44,8 @@ def _butterworthfilter(tr, filterorder, cutoff_frequency):
     n_frq_hz = frequency_hz / 2.0
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
-    (b, a) = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, tr.data_pts_np)
+    (coeff_num, coeff_denom) = scipy.signal.filter_design.butter(filterorder, cuttoff_norm)
+    filteredsignal = scipy.signal.lfilter(coeff_num, coeff_denom, tr.data_pts_np)
 
     tr_new = TraceFixedDT(time=tr.time_pts, data=filteredsignal * tr.data_unit,)
     copy_trace_attrs(tr, tr_new, comment="+(Butterworth Filtered)" )
@@ -64,10 +64,10 @@ def _besselfilter(tr, filterorder, cutoff_frequency):
     n_frq_hz = frequency_hz / 2.0
 
     cuttoff_norm = cutoff_frequency / n_frq_hz
-    (b, a) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
-    filteredsignal = scipy.signal.lfilter(b, a, tr.data_pts_np)
+    (coeff_num, coeff_denom) = scipy.signal.filter_design.bessel(filterorder, cuttoff_norm)
+    filteredsignal = scipy.signal.lfilter(coeff_num, coeff_denom, tr.data_pts_np)
 
-    time_shift = tr.get_dt_new() * max(len(a), len(b))
+    time_shift = tr.get_dt_new() * max(len(coeff_denom), len(coeff_num))
 
     tr_new = TraceFixedDT(time=tr.time_pts - time_shift,
                           data=filteredsignal * tr.data_unit,
@@ -86,10 +86,10 @@ def _filterlowpassrc(tr, tau):
     k = 1. / tau * dt
     k = float(k.rescale(pq.dimensionless))
 
-    a = np.array([1, k - 1])
-    b = np.array([0, k])
+    coeff_denom = np.array([1, k - 1])
+    coeff_num = np.array([0, k])
 
-    xp = scipy.signal.lfilter(b, a, tr.data_pts_np)
+    xp = scipy.signal.lfilter(coeff_num, coeff_denom, tr.data_pts_np)
     tr_new = TraceFixedDT(time=tr.time_pts,
                           data=xp * tr.data_unit,
                          )

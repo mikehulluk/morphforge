@@ -101,17 +101,17 @@ class Cell(NamedSimulationObject):
 
     @property
     def presynaptic_connections(self):
-        return [s for s in self.simulation.synapses
+        return [synapse for synapse in self.simulation.synapses
                 if s.get_presynaptic_cell() == self]
 
     @property
     def postsynaptic_connections(self):
-        return [s for s in self.simulation.synapses
+        return [synapse for synapse in self.simulation.synapses
                 if s.get_postsynaptic_cell() == self]
 
     @property
     def electrical_connections(self):
-        return [s for s in self.simulation.gapjunctions if self
+        return [gap_junction for gap_junction in self.simulation.gapjunctions if self
                 in s.connected_cells]
 
 

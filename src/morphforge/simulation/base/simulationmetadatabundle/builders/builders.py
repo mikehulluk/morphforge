@@ -53,17 +53,17 @@ class MetaDataBundleBuilder(object):
 
         reslocation = LocMgr.get_simulation_results_tmp_dir()
 
-        b = MetaDataBundleBuilder.prepare_sim_bundle(sim)
+        bundle = MetaDataBundleBuilder.prepare_sim_bundle(sim)
         # Save the random number seed
-        b.random_seed = morphforge.core.mfrandom.MFRandom.get_seed()
-        md5sum = b.get_sim_md5sum()
+        bundle.random_seed = morphforge.core.mfrandom.MFRandom.get_seed()
+        md5sum = bundle.get_sim_md5sum()
         resfilename = Join(reslocation, '%s/' % md5sum[:2], md5sum
                            + cls.ressuffix)
 
         # Save the results to pickle file:
-        b.add_postprocessing_action(PostSimulationActionPickleSimulation(resfilename))
+        bundle.add_postprocessing_action(PostSimulationActionPickleSimulation(resfilename))
 
-        return (b, resfilename)
+        return (bundle, resfilename)
 
     @classmethod
     def prepare_sim_bundle(cls, sim):
@@ -77,7 +77,7 @@ class MetaDataBundleBuilder(object):
 
         FileIO.write_to_file(txt=simstring, filename=simfilename)
 
-        b = SimMetaDataBundle(sim)
-        return b
+        bundle = SimMetaDataBundle(sim)
+        return bundle
 
 

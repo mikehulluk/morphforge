@@ -183,8 +183,8 @@ UNITSON
 
 class MM_ModFileWriterBase(object):
 
-    defaultTitle = 'Untitled mod-file'
-    defaultComment = 'Automatically generated modfile - morphforge @ '
+    _default_title = 'Untitled mod-file'
+    _default_comment = 'Automatically generated modfile - morphforge @ '
     default_units = {
         'mA': 'milliamp',
         'mV': 'millivolt',
@@ -192,7 +192,7 @@ class MM_ModFileWriterBase(object):
         'pA': 'picoamp',
         'um': 'micrometer',
         }
-    defaultCurrentName = 'i'
+    _default_current_name = 'i'
     defaultupdatefunctionname = 'rates'
 
     def __init__(
@@ -210,10 +210,10 @@ class MM_ModFileWriterBase(object):
         units=None,
         ):
 
-        self.title = (title if title else self.defaultTitle)
+        self.title = (title if title else self._default_title)
 
         time_str = datetime.now().strftime('%A, %d. %B %Y %I:%M%p')
-        self.comment = self.defaultComment + time_str
+        self.comment = self._default_comment + time_str
 
         self.suffix = suffix
 
@@ -230,7 +230,7 @@ class MM_ModFileWriterBase(object):
         # {name: code}
         self.functions = (functions if functions else '')
 
-        self.currentname = self.defaultCurrentName
+        self.currentname = self._default_current_name
         self.units = (units if units else self.default_units)
 
         self.currentequation = currentequation

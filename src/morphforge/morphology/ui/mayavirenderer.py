@@ -164,14 +164,14 @@ class MayaViRenderer(object):
         @mlab.animate(delay=100) #, ui=False) #(delay=500, ui=False)
         def _showSimpleCylinders():
 
-            f = mlab.figure(bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
+            fig = mlab.figure(bgcolor=None, fgcolor=None, engine=None, size=(1024, 768))
             mlab.triangular_mesh(mesh.vertices[:, 0], mesh.vertices[:, 1], mesh.vertices[:, 2], mesh.triangles, colormap=self.colormap)
 
             for i in itertools.count():
                 print i
-                f.scene.camera.azimuth(0.1)
+                fig.scene.camera.azimuth(0.1)
                 mlab.savefig('/home/michael/Desktop/out/O%04d.png' % i)
-                f.scene.render()
+                fig.scene.render()
                 if i > 3600:
                     break
                 yield None

@@ -44,9 +44,9 @@ class ModFile(object):
         r = re.compile(
             r""".* ^[^:]* SUFFIX \s* (?P<suffix>[a-zA-Z0-9_]+) (\s+:.*)? $ .*""",
             re.VERBOSE | re.MULTILINE | re.DOTALL)
-        m = r.match(txt)
-        assert m, "Can't extract suffix from mod-file"
-        nrnsuffix = m.groupdict()['suffix']
+        match_obj = r.match(txt)
+        assert match_obj, "Can't extract suffix from mod-file"
+        nrnsuffix = match_obj.groupdict()['suffix']
         return nrnsuffix
 
     def __init__(

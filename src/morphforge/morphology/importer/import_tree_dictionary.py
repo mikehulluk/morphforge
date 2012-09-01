@@ -95,9 +95,9 @@ class DictionaryLoader(object):
         #the dictionary and adding a parent tag:
         yaml_section_dict = {} # id to paramDict
         def recursively_add_section_to_list(sectionNode, sectionNodeParentID, sectionDictInt):
-            for k in sectionNode.keys():
-                if not k in valid_keywords:
-                    raise ValueError('Invalid Keyword: ' + k)
+            for key in sectionNode.keys():
+                if not key in valid_keywords:
+                    raise ValueError('Invalid Keyword: ' + key)
             for req_kw in required_keywords:
                 if not req_kw in sectionNode.keys():
                     raise ValueError('Required Key: %s not found.' % req_kw)
@@ -107,8 +107,8 @@ class DictionaryLoader(object):
                 del sectionNode['sections']
             section_id = len(sectionDictInt)
             sectionDictInt[section_id] = merge_dictionaries([{"parent": sectionNodeParentID}, sectionNode])
-            for c in children:
-                recursively_add_section_to_list(c, section_id, sectionDictInt)
+            for child in children:
+                recursively_add_section_to_list(child, section_id, sectionDictInt)
 
         #root_node = morph_dict["root"]
 
@@ -157,67 +157,67 @@ class DictionaryLoader(object):
             )
 
         # Add the remaining nodes:
-        for (yaml_id, yamlSect) in yaml_section_dict.iteritems():
+        for (yaml_id, yaml_sect) in yaml_section_dict.iteritems():
 
-            if yamlSect['parent'] == None:
+            if yaml_sect['parent'] == None:
                 continue
 
-            # print yaml_id, yamlSect
+            # print yaml_id, yaml_sect
 
-            parent_section = section_dict[yamlSect['parent']]
+            parent_section = section_dict[yaml_sect['parent']]
 
             #Region:
-            rg_names1 = [yamlSect["region"]] if yamlSect.has_key("region") else []
-            rg_names2 = yamlSect["regions"] if yamlSect.has_key("regions") else []
+            rg_names1 = [yaml_sect["region"]] if yaml_sect.has_key("region") else []
+            rg_names2 = yaml_sect["regions"] if yaml_sect.has_key("regions") else []
             rgs = [region_dict[rgName] for rgName in rg_names1 + rg_names2  ]
             # Since December 2010 each section is only allowed to have one
             # region.
             assert len(rgs) <= 1
 
             #Diameter & length:
-            if not yamlSect.has_key("diam") or not (yamlSect["diam"] > 0):
+            if not yaml_sect.has_key("diam") or not (yaml_sect["diam"] > 0):
                 raise ValueError("indvalid radius")
-            rad = yamlSect["diam"] / 2.0
+            rad = yaml_sect["diam"] / 2.0
 
 
 
 
 
             # End Point:
-            def get_yaml_length(yamlSect):
-                if not yamlSect.has_key("length"):
+            def get_yaml_length(yaml_sect):
+                if not yaml_sect.has_key("length"):
                     raise ValueError("No Length given")
-                length = yamlSect["length"]
+                length = yaml_sect["length"]
                 if not length > 0:
                     raise ValueError("Invalid Length")
                 return length
 
             #We only specify end points by using angles or by xyz cooridinates:
-            if int(yamlSect.has_key("absangle")) + int(yamlSect.has_key("relangle")) + int(yamlSect.has_key("xyz")) >= 2:
+            if int(yaml_sect.has_key("absangle")) + int(yaml_sect.has_key("relangle")) + int(yaml_sect.has_key("xyz")) >= 2:
                 raise ValueError("Too many ways for specifying endpoint")
 
-            if yamlSect.has_key('xyz'):
+            if yaml_sect.has_key('xyz'):
                 if not parent_section: 
                     angle = 0
-                xyz = yamlSect['xyz']
+                xyz = yaml_sect['xyz']
 
-            elif yamlSect.has_key("absangle"):
-                length = get_yaml_length(yamlSect)
-                angle = yamlSect['absangle']
+            elif yaml_sect.has_key("absangle"):
+                length = get_yaml_length(yaml_sect)
+                angle = yaml_sect['absangle']
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
-            elif yamlSect.has_key('relangle'):
-                length = get_yaml_length(yamlSect)
-                angle = section_angles_dict[parent_section] + yamlSect["relangle"]
+            elif yaml_sect.has_key('relangle'):
+                length = get_yaml_length(yaml_sect)
+                angle = section_angles_dict[parent_section] + yaml_sect["relangle"]
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             else: # Default to 'abs'-angle to 0
-                length = get_yaml_length(yamlSect)
+                length = get_yaml_length(yaml_sect)
                 angle = 0
                 xyz = (parent_section.d_x + length * math.cos(math.radians(angle)), parent_section.d_y + length * math.sin(math.radians(angle)), 0.0)
 
             # Possible ID's:
-            section_id_tag = (yamlSect['id'] if yamlSect.has_key('id') else None)
+            section_id_tag = (yaml_sect['id'] if yaml_sect.has_key('id') else None)
             if section_id_tag:
                 check_cstyle_varname(section_id_tag)
             if section_id_tag in section_id_tags:
@@ -249,10 +249,10 @@ class DictionaryLoader(object):
 
         if section_dict[0].children == []:
             raise ValueError("No segments found")
-        c = MorphologyTree(name=name, dummysection=section_dict[0], metadata=metadata)
-        if len(c) < 1:
+        morphs = MorphologyTree(name=name, dummysection=section_dict[0], metadata=metadata)
+        if len(morphs) < 1:
             raise ValueError
-        return c
+        return morphs
 
 
 

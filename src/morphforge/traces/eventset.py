@@ -69,7 +69,7 @@ class EventSet(object):
         if events is None:
             events = []
 
-        self.events = [(Event(e) if not isinstance(e, Event) else e) for e in events ]
+        self.events = [(Event(event) if not isinstance(event, Event) else event) for event in events ]
 
         self._tags = set( ( tags if tags is not None else [StandardTags.Event] ) )
         self.name = name if name else '<Unnamed EventSet>'
@@ -93,15 +93,15 @@ class EventSet(object):
     # Iterators:
     @property
     def times(self):
-        for e in self.events:
-            yield e.get_time()
+        for event in self.events:
+            yield event.get_time()
 
     @property 
     def tags(self):
         return self._tags
 
     def summarise_timings_in_comment(self):
-        times_a = np.array([float(s.rescale('ms').magnitude) for s in self.times])
+        times_a = np.array([float(time.rescale('ms').magnitude) for time in self.times])
         self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)' % (len(self), np.mean(times_a), np.std(times_a))
 
 

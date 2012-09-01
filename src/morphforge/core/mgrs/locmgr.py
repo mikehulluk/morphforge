@@ -85,10 +85,10 @@ class LocMgr(object):
 
         rnd_string = "%f%d%s" % (time.time(), random.randint(0, 32000), socket.gethostname())
         from morphforge.core.misc import StrUtils
-        fn = 'tmp_%s%s' % (StrUtils.get_hash_md5(rnd_string), suffix)
+        filename = 'tmp_%s%s' % (StrUtils.get_hash_md5(rnd_string), suffix)
 
         filedirectory = filedirectory if filedirectory else cls.get_tmp_path()
-        return Join(filedirectory, fn)
+        return Join(filedirectory, filename)
 
     @classmethod
     def get_path_from_rcfile(cls, subsection, default):

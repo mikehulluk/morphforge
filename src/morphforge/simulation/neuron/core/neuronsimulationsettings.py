@@ -46,19 +46,19 @@ class NeuronSimulationSettings(object):
                 NeuronSimulationSettings.cvode: True}
 
         # Check we have defaults for all parameters:
-        for p in NeuronSimulationSettings.allparams:
-            assert p in defs
+        for parameter in NeuronSimulationSettings.allparams:
+            assert parameter in defs
 
         return defs
 
     def __init__(self, **kwargs):
         self.params = NeuronSimulationSettings.get_defaults()
 
-        for kw in kwargs:
-            assert kw in self.params
-            self.params[kw] = kwargs[kw]
-            print 'Over-riding parameter: %s to %s' % (str(kw),
-                    str(self.params[kw]))
+        for key in kwargs:
+            assert key in self.params
+            self.params[key] = kwargs[key]
+            print 'Over-riding parameter: %s to %s' % (str(key),
+                    str(self.params[key]))
 
     def __getitem__(self, key):
         return self.params[key]

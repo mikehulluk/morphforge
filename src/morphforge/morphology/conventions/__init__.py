@@ -50,7 +50,7 @@ class SWCRegionCodes(object):
     # Create the inverse
     @classmethod
     def number2name(cls):
-        return dict([(v, k) for (k, v) in
+        return dict([(value, key) for (key, value) in
                     SWCRegionCodes.name2number.iteritems()])
 
 

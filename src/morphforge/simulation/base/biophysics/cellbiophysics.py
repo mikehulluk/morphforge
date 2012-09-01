@@ -90,10 +90,11 @@ class CellBiophysics(object):
         return self.appliedmechanisms
 
     def get_all_mechanisms_applied_to_cell(self):
-        ms = [mta.mechanism for mta in self.appliedmechanisms]
-        return set(ms)
+        return set([mta.mechanism for mta in self.appliedmechanisms])
+
 
     def get_mechanism_ids(self):
+		# TODO: REMOVE HERE!
         return set([mta.mechanism.get_mechanism_id() for mta in
                    self.appliedmechanisms])
 

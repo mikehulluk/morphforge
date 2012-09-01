@@ -75,17 +75,17 @@ class TraceStringParser(object):
         (unit, trace_prototypes) = parser.parse(srcstr, lexer=l)
 
         # Copy accross the start values:
-        v = 0
+        start_value = 0
         for prototype in trace_prototypes:
-            prototype.start_value = v
+            prototype.start_value = start_value
             piece = prototype.toTracePiece()
-            v = piece.get_end_value()
+            start_value = piece.get_end_value()
 
         # Convert to pieces
-        pieces = [tracePrototype.toTracePiece() for tracePrototype in trace_prototypes]
-        tr = TracePiecewise(pieces=pieces, comment='Src: %s' % srcstr)
-        tr = tr * (1.0 * unit)
-        return tr
+        pieces = [trace_prototype.toTracePiece() for trace_prototype in trace_prototypes]
+        trace = TracePiecewise(pieces=pieces, comment='Src: %s' % srcstr)
+        trace = trace * (1.0 * unit)
+        return trace
 
 
 

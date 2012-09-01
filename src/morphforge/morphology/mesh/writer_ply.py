@@ -56,10 +56,10 @@ $mesh.vertices[i,0] $mesh.vertices[i,1] $mesh.vertices[i,2] $conv($mesh.vertex_c
     def build_string(cls, mesh):
 
         conv_color = lambda f: int(f * 255)
-        t = Template(cls.ply_tmpl, 
+        ply_str = Template(cls.ply_tmpl, 
                      {'mesh': mesh, 'conv': conv_color}).respond()
-        t = t[:-1]  # Trim the last, blank line.
+        ply_str = ply_str[:-1]  # Trim the last, blank line.
 
-        return t
+        return ply_str
 
 

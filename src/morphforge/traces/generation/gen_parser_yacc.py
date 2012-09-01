@@ -60,8 +60,8 @@ class FunctionPrototype(object):
                     TracePieceFunctionLinear(time_window=window, x0=start_value, x1=arg),
         }
 
-        p = builddict[self.funcname](window=(self.start_time, self.end_time), arg=self.funcarg, start_value=self.start_value)
-        return p
+        piece = builddict[self.funcname](window=(self.start_time, self.end_time), arg=self.funcarg, start_value=self.start_value)
+        return piece
 
 
 def p_complete(p):
@@ -108,45 +108,45 @@ def p_func_name(p):
 
 def p_pieceblock_chain1(p):
     """pieceblock_chain : abs_timespec func """
-    f = p[2]
-    f.start_time = p[1]
-    p[0] = ([], f)
+    func_piece = p[2]
+    func_piece.start_time = p[1]
+    p[0] = ([], func_piece)
 
 
 def p_pieceblock_chain2(p):
     """pieceblock_chain : func """
-    f = p[1]
-    f.start_time = 0 * pq.ms
-    p[0] = ([], f)
+    func_piece = p[1]
+    func_piece.start_time = 0 * pq.ms
+    p[0] = ([], func_piece)
 
 
 def p_pieceblock_chain3(p):
     """pieceblock_chain : pieceblock_chain THEN abs_timespec func"""
-    t = p[3]
+    change_time = p[3]
     (chain, last) = p[1]
-    last.end_time = t
-    f = p[4]
-    f.start_time = t
-    p[0] = (chain + [last], f)
+    last.end_time = change_time
+    func_piece = p[4]
+    func_piece.start_time = change_time
+    p[0] = (chain + [last], func_piece)
 
 
 def p_pieceblock_chain4(p):
     """pieceblock_chain : pieceblock_chain end_timespec THEN func"""
     (chain, last) = p[1]
     (ttype, tvalue) = p[2]
-    t = {'UNTIL': tvalue, 'FOR': last.start_time + tvalue}[ttype]
-    last.end_time = t
-    f = p[4]
-    f.start_time = t
-    p[0] = (chain + [last], f)
+    change_time = {'UNTIL': tvalue, 'FOR': last.start_time + tvalue}[ttype]
+    last.end_time = change_time
+    func_piece = p[4]
+    func_piece.start_time = change_time
+    p[0] = (chain + [last], func_piece)
 
 
 def p_pieceblock_chain_complete(p):
     """p_pieceblock_chain_complete : pieceblock_chain  end_timespec"""
     (chain, last) = p[1]
     (ttype, tvalue) = p[2]
-    t = {'UNTIL': tvalue, 'FOR': last.start_time + tvalue}[ttype]
-    last.end_time = t
+    change_time = {'UNTIL': tvalue, 'FOR': last.start_time + tvalue}[ttype]
+    last.end_time = change_time
     p[0] = chain + [last]
 
 

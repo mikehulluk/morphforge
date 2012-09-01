@@ -44,11 +44,11 @@ import morphforge
 def factorise_units_from_list(seq):
     assert len(seq) > 0
 
-    for o in seq:
-        assert isinstance(o, Quantity)
+    for obj in seq:
+        assert isinstance(obj, Quantity)
 
     s0unit = seq[0].units
-    new_list = [o.rescale(s0unit).magnitude for o in seq] * s0unit
+    new_list = [obj.rescale(s0unit).magnitude for obj in seq] * s0unit
     return new_list
 
 
@@ -64,22 +64,22 @@ def _unit(s):
     if isinstance(s, list):
         return [unit(x) for x in s]
     if isinstance(s, dict):
-        return dict([(k, unit(v)) for (k, v) in s.iteritems()])
+        return dict([(key, unit(value)) for (key, value) in s.iteritems()])
 
     if ':' in s:
         (value_str, unit_str) = s.split(':')
-        v = float(value_str)
+        value = float(value_str)
         unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
 
-        return v * unt
+        return value * unt
 
     if ' ' in s:
-        t = s.split(' ')
-        if len(t) == 2:
-            (value_str, unit_str) = t
-            v = float(value_str)
+        tokens = s.split(' ')
+        if len(tokens) == 2:
+            (value_str, unit_str) = tokens
+            value = float(value_str)
             unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
-            return v * unt
+            return value * unt
 
     return morphforge.core.quantities.unit_string_parser.parse(s)
 

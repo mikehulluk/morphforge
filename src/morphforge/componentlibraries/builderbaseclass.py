@@ -32,13 +32,13 @@
 
 class CellBuilder(object):
 
-    nCells = 0
+    _n_cells = 0
 
     @classmethod
     def get_next_cell_number(cls):
-        x = CellBuilder.nCells
-        CellBuilder.nCells = CellBuilder.nCells + 1
-        return x
+        cnt = CellBuilder._n_cells
+        CellBuilder._n_cells = CellBuilder._n_cells + 1
+        return cnt
 
     def get_name(self):
         return self.get_name_prefix() + '%d' % CellBuilder.get_next_cell_number()

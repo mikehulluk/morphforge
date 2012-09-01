@@ -52,6 +52,8 @@ from morphforge.core.mockcontrol import MockControl
 
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
+import sys
+
 
 def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps) - 0.5) * std_dev
@@ -62,7 +64,6 @@ def _random_walk(t_steps, std_dev):
 class MNeuronSimulation(Simulation):
 
     def _sim_desc_str(self):
-        import sys
         sname = sys.argv[0]
         return '%s: %s'%(sname, self.name.replace(' ',''))
 
@@ -113,8 +114,8 @@ class MNeuronSimulation(Simulation):
     def _run_spawn(self):
 
         LogMgr.info('_run_spawn() [Pickling Sim]')
-        (b, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
-        (_bundlefname, sim_cmd) = b.write_to_file_and_get_exec_string()
+        (bundle, resfilename) = MetaDataBundleBuilder.build_std_pickler(self)
+        (_bundlefname, sim_cmd) = bundle.write_to_file_and_get_exec_string()
 
         # if Exists(resfilename):
         #    os.unlink(resfilename)
@@ -162,9 +163,9 @@ class MNeuronSimulation(Simulation):
         # Create the HOC and ModFiles:
         hoc_data = MHocFile()
         mod_files = MModFileSet()
-        for o in self.simulation_objects:
-            o.build_hoc(hoc_data)
-            o.build_mod(mod_files)
+        for sim_obj in self.simulation_objects:
+            sim_obj.build_hoc(hoc_data)
+            sim_obj.build_mod(mod_files)
 
 
         time_array = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
@@ -190,18 +191,18 @@ class MNeuronSimulation(Simulation):
             return self.run_return_random_walks()
 
         def nrn(func, *args, **kwargs):
-            f = func(*args, **kwargs)
-            if f != 1.0:
+            return_value = func(*args, **kwargs)
+            if return_value != 1.0:
                 raise ValueError('nrn Command Failed')
 
         # Create the HOC and ModFiles:
         hoc_data = MHocFile()
         mod_files = MModFileSet()
-        for o in self.simulation_objects:
-            # print 'BUILDING HOC:', o
-            o.build_hoc(hoc_data)
-            # print 'BUILDING MOD:', o
-            o.build_mod(mod_files)
+        for sim_obj in self.simulation_objects:
+            # print 'BUILDING HOC:', sim_obj
+            sim_obj.build_hoc(hoc_data)
+            # print 'BUILDING MOD:', sim_obj
+            sim_obj.build_mod(mod_files)
 
         t_mod_build_start = time.time()
         mod_files.build_all()
@@ -210,11 +211,11 @@ class MNeuronSimulation(Simulation):
 
         # Open Neuron:
         import neuron
-        h = neuron.h
+        #h = neuron.h
 
         # Insert the mod-files:
-        for mf in mod_files:
-            nrn(h.nrn_load_dll, mf.get_built_filename_full())
+        for modfile in mod_files:
+            nrn(neuron.h.nrn_load_dll, modfile.get_built_filename_full())
 
         # Write the HOC file:
         t_sim_start = time.time()
@@ -222,7 +223,7 @@ class MNeuronSimulation(Simulation):
                         str(hoc_data), 
                         suffix='.hoc')
 
-        nrn(h.load_file, hoc_filename)
+        nrn(neuron.h.load_file, hoc_filename)
         self.hocfilename = hoc_filename
 
         tstop = self.simsettings['tstop']
@@ -231,18 +232,18 @@ class MNeuronSimulation(Simulation):
 
             def __init__(self):
                 self.interval = 5.0
-                self.fih = h.FInitializeHandler(0.01, self.callback)
+                self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
                 sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (h.t, float(tstop)))
                 sys.stdout.flush()
-                if h.t + self.interval < h.tstop:
-                    h.cvode.event(h.t + self.interval, self.callback)
+                if neuron.h.t + self.interval < neuron.h.tstop:
+                    neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)
 
         Event()
         print 'Running Simulation'
-        h.run()
-        assert h.t + 1 >= h.tstop
+        neuron.h.run()
+        assert neuron.h.t + 1 >= neuron.h.tstop
 
         print 'Time for Simulation: ', time.time() - t_sim_start
 
@@ -252,14 +253,14 @@ class MNeuronSimulation(Simulation):
         t_trace_read_start = time.time()
         traces = []
         records = hoc_data[MHocFileData.Recordables]
-        for (r, hoc_details) in records.iteritems():
+        for (record_obj, hoc_details) in records.iteritems():
 
-            data_array = np.array(neuron.h.__getattribute__(hoc_details["recVecName"])) * r.get_unit()
+            data_array = np.array(neuron.h.__getattribute__(hoc_details["recVecName"])) * record_obj.get_unit()
 
-            tr = TraceVariableDT(name=r.name,
-                                 comment=r.get_description(),
+            tr = TraceVariableDT(name=record_obj.name,
+                                 comment=record_obj.get_description(),
                                  time=time_array, data=data_array,
-                                 tags=r.get_tags())
+                                 tags=record_obj.get_tags())
             traces.append(tr)
         print 'Time for Extracting Data: (%d records)' % len(records), \
             time.time() - t_trace_read_start

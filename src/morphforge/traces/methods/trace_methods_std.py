@@ -44,12 +44,12 @@ def _get_piecewise_linear_points(tr):
     x_points = []
     y_points = []
 
-    for p in tr.pieces:
-        x_points.append(float(p.get_min_time().rescale(x_unit).magnitude))
-        x_points.append(float(p.get_max_time().rescale(x_unit).magnitude))
+    for piece in tr.pieces:
+        x_points.append(float(piece.get_min_time().rescale(x_unit).magnitude))
+        x_points.append(float(piece.get_max_time().rescale(x_unit).magnitude))
 
-        y_points.append(float(p.get_start_value().rescale(y_unit).magnitude))
-        y_points.append(float(p.get_end_value().rescale(y_unit).magnitude))
+        y_points.append(float(piece.get_start_value().rescale(y_unit).magnitude))
+        y_points.append(float(piece.get_end_value().rescale(y_unit).magnitude))
 
     return (np.array(x_points) * x_unit, np.array(y_points) * y_unit)
 

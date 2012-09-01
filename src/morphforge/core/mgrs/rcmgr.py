@@ -35,21 +35,21 @@ import os
 
 class RCMgr(object):
 
-    rcFilename = os.path.expanduser('~/.morphforgerc')
-    rcConfParser = None
+    _rc_filename = os.path.expanduser('~/.morphforgerc')
+    _rc_config_parser = None
 
     @classmethod
     def has_config(cls):
-        return os.path.exists(cls.rcFilename)
+        return os.path.exists(cls._rc_filename)
 
     @classmethod
     def get_config(cls):
-        if not cls.rcConfParser:
-            cls.rcConfParser = ConfigParser.SafeConfigParser()
-            if not os.path.exists(cls.rcFilename):
-                raise Exception("The resource file: %s does not exist!" % cls.rcFilename)
-            cls.rcConfParser.read([cls.rcFilename])
-        return cls.rcConfParser
+        if not cls._rc_config_parser:
+            cls._rc_config_parser = ConfigParser.SafeConfigParser()
+            if not os.path.exists(cls._rc_filename):
+                raise Exception("The resource file: %s does not exist!" % cls._rc_filename)
+            cls._rc_config_parser.read([cls._rc_filename])
+        return cls._rc_config_parser
 
     # Expose the same interface as the config parser does:
     @classmethod

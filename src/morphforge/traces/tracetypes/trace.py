@@ -85,8 +85,8 @@ class Trace(object):
         return self.get_max_time() - self.get_min_time()
 
     def time_within_trace(self, times):
-        t = times.rescale('ms').magnitude
-        t0 = self.get_min_time().rescale('ms').magnitude
-        t1 = self.get_max_time().rescale('ms').magnitude
-        return np.logical_and(t >= t0, t <= t1)
+        time_in_ms = times.rescale('ms').magnitude
+        tstart_ms = self.get_min_time().rescale('ms').magnitude
+        tstop_ms = self.get_max_time().rescale('ms').magnitude
+        return np.logical_and(time_in_ms >= tstart_ms, time_in_ms <= tstop_ms)
 

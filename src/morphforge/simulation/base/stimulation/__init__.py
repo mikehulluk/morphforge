@@ -52,8 +52,8 @@ class Stimulation(NamedSimulationObject):
 
     @property
     def distance_to_soma(self):
-        mp = MorphPath(self.cell.soma, self.cell_location.morphlocation)
-        return mp.get_length()
+        morphology_path = MorphPath(self.cell.soma, self.cell_location.morphlocation)
+        return morphology_path.get_length()
     @property 
     def location_summary_str(self):
         return '%s (%0.0fum from soma)' % (self.cell.name, self.distance_to_soma),

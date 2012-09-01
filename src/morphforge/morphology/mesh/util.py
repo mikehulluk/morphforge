@@ -53,10 +53,10 @@ def get_normal_vectors(vec):
 
 
 def get_point_circle_about(pt, normal, radius, n):
-    (p1, p2) = get_normal_vectors(normal)
+    (perp1, perp2) = get_normal_vectors(normal)
     angle_step = 2 * np.pi / n
     angles = [i * angle_step for i in range(0, n)]
-    pts = [pt + radius * (p1 * np.sin(angle) + p2 * np.cos(angle))
+    pts = [pt + radius * (perp1 * np.sin(angle) + perp2 * np.cos(angle))
            for angle in angles]
     return np.array(pts)
 

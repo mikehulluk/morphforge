@@ -43,17 +43,17 @@ class MatPlotLibViewer(object):
     Plot Projections of a morphology onto XY, XZ, and YZ axes.
     """
 
-    plotViews = [0, 1, 2]
+    plot_views = [0, 1, 2]
 
 
-    projMatXY = numpy.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
-    projMatXZ = numpy.array([[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]])
-    projMatYZ = numpy.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]])
+    _projMatXY = numpy.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])
+    _projMatXZ = numpy.array([[0.0, 0.0, 1.0], [0.0, 1.0, 0.0], [1.0, 0.0, 0.0]])
+    _projMatYZ = numpy.array([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]])
 
-    figureProjections = {0:projMatXY, 1:projMatXZ, 2:projMatYZ}
-    figureLabels = {0: ('X', 'Y'), 1: ('Z', 'Y'), 2: ('X', 'Z')}
-    figurePositions = {0:221, 1:222, 2:223}
-    figureTitles = {0:'View From Above', 1:'View From Side', 2:'View From Front'}
+    _figure_projections = {0: _projMatXY, 1: _projMatXZ, 2: _projMatYZ}
+    _figure_labels = {0: ('X', 'Y'), 1: ('Z', 'Y'), 2: ('X', 'Z')}
+    _figure_positions = {0:221, 1:222, 2:223}
+    _figure_titles = {0:'View From Above', 1:'View From Side', 2:'View From Front'}
 
 
     def __init__(self, morph, use_pca=True, fig_kwargs=None):
@@ -74,21 +74,21 @@ class MatPlotLibViewer(object):
         from matplotlib.path import Path
         from matplotlib import patches
 
-        subplotnum = self.figurePositions[i]
-        title = self.figureTitles[i]
-        proj_matrix = self.figureProjections[i]
-        labels = self.figureLabels[i]
+        subplotnum = self._figure_positions[i]
+        title = self._figure_titles[i]
+        proj_matrix = self._figure_projections[i]
+        labels = self._figure_labels[i]
 
         ax = fig.add_subplot(subplotnum, aspect='equal')
 
         # Find the depth extremes for coloring:
 
-        (zMin, zMax) = (None, None)
+        (z_min, z_max) = (None, None)
         for seg in self.morph:
             xyzProj = numpy.dot(proj_matrix, rotatedSectionDict[seg])
-            zMin = (xyzProj[2] if not zMin else min(zMin, xyzProj[2]))
-            zMax = (xyzProj[2] if not zMax else max(zMax, xyzProj[2]))
-        zrange = zMax - zMin
+            z_min = (xyzProj[2] if not z_min else min(z_min, xyzProj[2]))
+            z_max = (xyzProj[2] if not z_max else max(z_max, xyzProj[2]))
+        zrange = z_max - z_min
 
         for seg in self.morph:
             xyzProj = numpy.dot(proj_matrix, rotatedSectionDict[seg])
@@ -97,7 +97,7 @@ class MatPlotLibViewer(object):
             xyz_proj_parent = numpy.dot(proj_matrix, rotatedSectionDict[seg.parent])
             xy_proj_parent = numpy.array([xyz_proj_parent[0], xyz_proj_parent[1]])
 
-            color = str((xyzProj[2] - zMin) / zrange) if zrange > 0.001 else 'grey'
+            color = str((xyzProj[2] - z_min) / zrange) if zrange > 0.001 else 'grey'
 
             linewidth = (seg.d_r + seg.p_r) / 2.0 * 2.0
 
@@ -157,26 +157,26 @@ class MatPlotLibViewer(object):
         # the centre when the cell is centred and rotated:
         rotator = lambda s: self.normaliser(s.get_distal_npa3())
 
-        rotatedSectionDict = DictBuilderSectionVisitorHomo(morph=self.morph, functor=rotator) ()
+        rotated_section_dict = DictBuilderSectionVisitorHomo(morph=self.morph, functor=rotator) ()
 
         # Add in the parents manually:
-        p = self.morph._dummysection
-        rotatedSectionDict[p] = self.normaliser(p.get_distal_npa3())
+        dummy_scetion = self.morph._dummysection
+        rotated_section_dict[dummy_scetion] = self.normaliser(dummy_scetion.get_distal_npa3())
 
 
 
-        max_axis = max([numpy.linalg.norm(rs) for rs in rotatedSectionDict.values()])
-        plotLims = (max_axis * -1.1, max_axis * 1.1)
+        max_axis = max([numpy.linalg.norm(rotated_section_pt) for rotated_section_pt in rotated_section_dict.values()])
+        plot_lims = (max_axis * -1.1, max_axis * 1.1)
 
-        maxX = max([numpy.fabs(rs[0]) for rs in rotatedSectionDict.values()])
-        maxY = max([numpy.fabs(rs[1]) for rs in rotatedSectionDict.values()])
-        maxZ = max([numpy.fabs(rs[2]) for rs in rotatedSectionDict.values()])
+        max_x = max([numpy.fabs(rotated_section_pt[0]) for rotated_section_pt in rotated_section_dict.values()])
+        max_y = max([numpy.fabs(rotated_section_pt[1]) for rotated_section_pt in rotated_section_dict.values()])
+        max_z = max([numpy.fabs(rotated_section_pt[2]) for rotated_section_pt in rotated_section_dict.values()])
 
-        maxes = [maxX, maxY, maxZ]
+        maxes = [max_x, max_y, max_z]
 
         # allMax = max(maxes)
-        for i in self.plotViews:
-            maxes[i] = maxes[i] + 0.2 * max([maxX, maxY, maxZ])
+        for i in self.plot_views:
+            maxes[i] = maxes[i] + 0.2 * max([max_x, max_y, max_z])
 
         self.fig = pylab.figure(**self.fig_kwargs) #figsize=(7, 7))
         self.fig.subplots_adjust(
@@ -189,7 +189,7 @@ class MatPlotLibViewer(object):
             )
 
         self.subplots = {}
-        for i in self.plotViews:
-            self.subplots[i] = self.build_draw_sub_plot(rotatedSectionDict, self.fig, i, plotLims)
+        for i in self.plot_views:
+            self.subplots[i] = self.build_draw_sub_plot(rotated_section_dict, self.fig, i, plot_lims)
 
 

@@ -32,30 +32,30 @@
 
 class MorphologyLibrary(object):
 
-    morphFuncs = dict()
+    _morphology_functors = dict()
 
     @classmethod
     def register_morphology(cls, modelsrc, celltype, morph_functor):
         key = (modelsrc, celltype)
-        assert not key in cls.morphFuncs
-        cls.morphFuncs[key] = morph_functor
+        assert not key in cls._morphology_functors
+        cls._morphology_functors[key] = morph_functor
 
     @classmethod
     def get_morphology_functor(cls, celltype, modelsrc=None):
-        return cls.morphFuncs[(modelsrc, celltype)]
+        return cls._morphology_functors[(modelsrc, celltype)]
 
     @classmethod
     def get_morphology(cls, celltype, modelsrc=None, **kwargs):
-        functor = cls.morphFuncs[(modelsrc, celltype)]
+        functor = cls._morphology_functors[(modelsrc, celltype)]
         return functor(**kwargs)
 
     @classmethod
     def list_morphologys(cls):
-        for (morph_key, _morph_functor) in cls.morphFuncs.iteritems():
+        for (morph_key, _morph_functor) in cls._morphology_functors.iteritems():
             print morph_key
 
     @classmethod
     def iteritems(cls):
-        return cls.morphFuncs.iteritems()
+        return cls._morphology_functors.iteritems()
 
 

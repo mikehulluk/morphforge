@@ -318,8 +318,8 @@ class Section(object):
 
         R = self.d_r
         r = self.p_r
-        l = self.get_length()
-        lateral_area = math.pi * (R + r) * math.sqrt((R - r) ** 2 + l ** 2)
+        length = self.get_length()
+        lateral_area = math.pi * (R + r) * math.sqrt((R - r) ** 2 + length ** 2)
 
         if include_end_if_terminal and (self.is_leaf()  or self.is_a_root_section()):
             A = lateral_area
@@ -337,8 +337,8 @@ class Section(object):
 
         R = self.d_r
         r = self.p_r
-        l = self.get_length()
-        return 1.0 / 3.0 * math.pi * l * (R * R + R * r + r * r)
+        length = self.get_length()
+        return 1.0 / 3.0 * math.pi * length * (R * R + R * r + r * r)
 
     area = property(get_area)
     surface_area = property(get_area)
@@ -476,8 +476,8 @@ class MorphologyTree(MorphologyBase):
 
         assert MorphologyConsistencyMgr.get_checker(self).disable()
         self._dummysection = dummysection
-        for r in self.get_regions():
-            r.set_morphology(self)
+        for region in self.get_regions():
+            region.set_morphology(self)
         assert MorphologyConsistencyMgr.get_checker(self).enable()
 
         assert self.ensure_consistency(), 'Morphology is not consistent'
@@ -537,7 +537,7 @@ class MorphologyTree(MorphologyBase):
         return self.get_regions()
 
     def get_region_names(self):
-        return [r.name for r in self.get_regions()]
+        return [region.name for region in self.get_regions()]
 
     def get_region(self, name):
         """ Returns a Region object relevant to this tree, given a filename"""
@@ -591,13 +591,13 @@ class MorphPath(object):
     def __init__(self, morphloc1, morphloc2):
 
         # Check they are on the same morphology!
-        s1 = morphloc1.section
-        s2 = morphloc2.section
-        while not s1.is_dummy_section():
-            s1 = s1.parent
-        while not s2.is_dummy_section():
-            s2 = s2.parent
-        assert s1 is s2
+        _section1 = morphloc1.section
+        _section2 = morphloc2.section
+        while not _section1.is_dummy_section():
+            _section1 = _section1.parent
+        while not _section2.is_dummy_section():
+            _section2 = _section2.parent
+        assert _section1 is _section2
 
         # Remap dummy sections to being proximal on the
         # first child section, to reduce special case handling:
@@ -667,9 +667,9 @@ class MorphPath(object):
 
         s1_length = s_len(self.morphloc1, self.morphloc1_dir)
         s2_length = s_len(self.morphloc2, self.morphloc2_dir)
-        connecting_section_lengths = [s.get_length() for s in self._connecting_sections]
-        l = s1_length + s2_length + sum(connecting_section_lengths)
-        return l
+        connecting_section_lengths = [_section.get_length() for _section in self._connecting_sections]
+        length = s1_length + s2_length + sum(connecting_section_lengths)
+        return length
 
 
     # def isSectionInPath(self, section):

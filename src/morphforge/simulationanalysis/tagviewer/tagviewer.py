@@ -80,7 +80,7 @@ class TagViewer(object):
 
     MPL_AUTO_SHOW = True
 
-    defaultPlotSpecs = (
+    _default_plot_specs = (
         DefaultPlotSpec.Voltage,
         DefaultPlotSpec.CurrentDensity,
         DefaultPlotSpec.Current,
@@ -122,28 +122,28 @@ class TagViewer(object):
         self.all_trace_objs = []
         self.all_event_set_objs = []
         trace_extractors = {
-            SimulationResult:       lambda i: self.all_trace_objs.extend(i.traces),
-            TraceFixedDT:          lambda i: self.all_trace_objs.append(i),
-            TraceVariableDT:       lambda i: self.all_trace_objs.append(i),
-            TracePiecewise:        lambda i: self.all_trace_objs.append(i),
-            EventSet:               lambda i: self.all_event_set_objs.append(i)
+            SimulationResult:       lambda obj: self.all_trace_objs.extend(obj.traces),
+            TraceFixedDT:          lambda obj: self.all_trace_objs.append(obj),
+            TraceVariableDT:       lambda obj: self.all_trace_objs.append(obj),
+            TracePiecewise:        lambda obj: self.all_trace_objs.append(obj),
+            EventSet:               lambda obj: self.all_event_set_objs.append(obj)
                             }
 
-        for i in srcs:
-            tr_extractor = trace_extractors[type(i)]
-            tr_extractor(i)
+        for obj in srcs:
+            tr_extractor = trace_extractors[type(obj)]
+            tr_extractor(obj)
 
         # Use the new PlotSpec architecture:
         # Filter out which plotspecs are actually going to display something,
         # and filter out the rest:
-        plotspecs = plotspecs if plotspecs is not None else TagViewer.defaultPlotSpecs
+        plotspecs = plotspecs if plotspecs is not None else TagViewer._default_plot_specs
 
         if additional_plotspecs:
             plotspecs = tuple(list(plotspecs) + list(additional_plotspecs))
 
-        self.plot_specs = [sp for sp in plotspecs if
-                            [tr for tr in self.all_trace_objs if sp.addtrace_predicate(tr)] or  \
-                            [evset for evset in self.all_event_set_objs if sp.addeventset_predicate(evset)] \
+        self.plot_specs = [plotspec for plotspec in plotspecs if
+                            [tr for tr in self.all_trace_objs if plotspec.addtrace_predicate(tr)] or  \
+                            [evset for evset in self.all_event_set_objs if plotspec.addeventset_predicate(evset)] \
                           ]
 
 
@@ -176,9 +176,9 @@ class TagViewer(object):
             self.fig.suptitle(self.figtitle)
 
         # Work out what traces are on what graphs:
-        ps_to_traces = dict([(ps, [tr for tr in self.all_trace_objs if ps.addtrace_predicate(tr)]) for ps in self.plot_specs ])
+        plotspec_to_traces = dict([(plot_spec, [tr for tr in self.all_trace_objs if plot_spec.addtrace_predicate(tr)]) for plot_spec in self.plot_specs ])
         if self.linkage:
-            self.linkage.process(ps_to_traces)
+            self.linkage.process(plotspec_to_traces)
 
         #n_time_ranges = len(self.timerange)
         n_time_ranges = 1

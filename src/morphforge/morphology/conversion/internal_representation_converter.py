@@ -75,11 +75,11 @@ class MorphologyConverter(object):
                 else:
                     section_types.append(0)
 
-        m = MorphologyArray(vertices=vertices,
+        return MorphologyArray(vertices=vertices,
                             connectivity=connectivity,
                             dummy_vertex_index=0,
                             section_types=section_types)
-        return m
+
 
     @classmethod
     def array_to_tree(cls, array, region_number_to_name_bidict=None):
