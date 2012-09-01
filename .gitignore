@@ -160,6 +160,7 @@ src/morphforge/management/__init__.pyc
 !src/morphforge/traces/std_methods/MMtrace_conversion.py
 !src/morphforge/traces/std_methods/trace_methods_std_math.py
 !src/morphforge/traces/std_operators/
+!src/morphforge/traces/std_operators/*.py
 !src/morphforge/traces/std_operators/__init__.py
 !src/morphforge/traces/std_operators/op_fixeddt_fixeddt.py
 !src/morphforge/traces/std_operators/op_fixeddt_scalar.py
