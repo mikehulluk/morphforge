@@ -30,11 +30,12 @@
 # ----------------------------------------------------------------------
 
 import trace_methods_std
+import trace_methods_std_clone
 import trace_methods_std_math
 import trace_methods_std_splicing
 import trace_methods_std_filters
 import trace_methods_std_conversions
 import trace_methods_std_fft
-import trace_methods_std_integrate
+#import trace_methods_std_integrate
 
 from MMtrace_conversion import TraceApproximator, TraceConverter

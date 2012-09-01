@@ -4,6 +4,8 @@ from  morphforge.traces.generation  import TraceStringParser
 import quantities as pq
 
 
+import mredoc as mrd
+
 tests = [
 #"""{d:pA} AT 0ms FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 120ms THEN FLAT(50) FOR 20ms """,
 #"""{d:pA} AT 0ms FLAT(0) UNTIL 150ms THEN FLAT(120) FOR 20ms THEN FLAT(0) FOR 20ms""",
@@ -33,45 +35,111 @@ conversions = [
 
 
 returning_trace_methods = [
-        ('filter_bessel', lambda tr: tr.filter_bessel(filter_bessel=8, cutoff_frequency=50*pq.Hz) ),
+        ('filterbessel', lambda tr: tr.filterbessel(filterorder=8, cutoff_frequency=1000*pq.Hz) ),
+        ('filterbutterworth', lambda tr: tr.filterbutterworth(filterorder=8, cutoff_frequency=1000*pq.Hz) ),
+        ('filterlowpassrc', lambda tr: tr.filterlowpassrc(tau=2*pq.ms) ),
+
         ('shift', lambda tr: tr.shift(offset=100*pq.ms)),
+        ('window', lambda tr: tr.window((75*pq.ms, 160*pq.ms)) ),
+        ('windowshift', lambda tr: tr.windowshift((75*pq.ms, 160*pq.ms)) ),
 
         ('convert_to_fixed', lambda tr: tr.convert_to_fixed(dt=0.1*pq.ms) ),
-        #('convert_to_piecewise', lambda tr: tr.convert_to_piecewise() ),
+        ('convert_to_piecewise', lambda tr: tr.convert_to_piecewise() ),
         ]  
+
+
+
+
+
+
+tr = TraceStringParser.Parse(tests[0])
+print tr.get_min_time()
+print tr.clone().get_min_time()
+
+#sys.exit(0)
+
+
+
+def test_trace_method_traceout(src_trace, method_name, method_functor):
+    f = QuantitiesFigure(figsize=(6,4))
+    f.suptitle('Testing Method: %s'%method_name)
+    ax1 = f.add_subplot(211)
+    ax2 = f.add_subplot(212)
+
+    ax1.plotTrace(src_trace, label='Original')
+
+    for (conv_type, conv_functor) in conversions:
+        tr_new = conv_functor(src_trace)
+
+        if not mf.TraceMethodCtrl.has_method(conv_type, method_name):
+            continue
+        ax2.plotTrace(method_functor(tr_new), label='%s:%s' % (conv_type.__name__, method_name) )
+
+    ax1.legend()
+    ax2.legend()
+
+    return mrd.Section(
+            'Test: %s'%method_name,
+            mrd.Image(f.fig, auto_adjust=False)
+            )
+
+
+def test_trace_method_scalarout(src_trace, method_name, method_functor):
+
+    res =[]
+    for (conv_type, conv_functor) in conversions:
+        tr_new = conv_functor(src_trace)
+
+        if not mf.TraceMethodCtrl.has_method(conv_type, method_name):
+            res.append([conv_type.__name__, '--'])
+            continue
+        
+        else:
+            res_new = method_functor(tr_new)
+            res.append([conv_type.__name__, str(res_new)])
+        #ax2.plotTrace(method_functor(tr_new), label='%s:%s' % (conv_type.__name__, method_name) )
+
+    
+    print res
+    (header,data) = zip(*res)
+    print 'header', header
+    print 'data', data
+    return mrd.Section('Tesing Method: %s'%method_name,
+            mrd.VerticalColTable(header,[data])
+            )
+
 
 for t in tests:
 
     tr = TraceStringParser.Parse(t)
 
+
+    sects = []
     for (method_name, method_functor) in returning_trace_methods:
+        s = test_trace_method_traceout(tr, method_name, method_functor)
+        sects.append(s)
 
-        f = QuantitiesFigure()
-        f.suptitle('Testing Method: %s'%method_name)
-        ax1 = f.add_subplot(211)
-        ax2 = f.add_subplot(212)
-
-        ax1.plotTrace(tr, label='Original')
-
-        for (conv_type, conv_functor) in conversions:
-            try:
-                tr_new = conv_functor(tr)
-            except AttributeError:
-                continue
-
-            if not mf.TraceMethodCtrl.has_method(conv_type, method_name):
-                continue
-            ax2.plotTrace(method_functor(tr_new), label='%s:%s' % (conv_type.__name__, method_name) )
+    #returning_quantities = [
+    #('mean', lambda tr: tr.mean()),
 
 
-        ax1.legend()
-        ax2.legend()
+    
+
+    for (method_name, method_functor) in returning_quantities:
+        s = test_trace_method_scalarout(tr, method_name, method_functor)
+        sects.append(s) 
+
+
+    mrd.Section('Testing: %s'%t, sects).to_pdf('~/Desktop/trace_testing.pdf')
 
 
 
 
-import pylab
-pylab.show()
+
+
+
+#import pylab
+#pylab.show()
 
 
 

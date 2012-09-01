@@ -29,42 +29,36 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
+from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
+
 import numpy as np
-from morphforge.core.quantities import unit
+from morphforge.traces.tracetypes import TraceVariableDT
+from morphforge.traces.tracetypes import TracePiecewise
+from morphforge.traces.tracetypes import TraceFixedDT
+import copy
 
-# pylint: disable=E1103
+def _clone_fixed(tr):
+    tr_new = TraceFixedDT( 
+            time = np.copy( tr.time_pts_np) * tr.time_units,
+            data = np.copy( tr.data_pts_np) * tr.data_units )
+    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    return tr_new
+
+def _clone_variable(tr):
+    tr_new = TraceVariableDT(
+            time = np.copy( tr.time_pts_np) * tr.time_units,
+            data = np.copy( tr.data_pts_np) * tr.data_units )
+    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    return tr_new
+
+def _clone_piecewise(tr):
+    tr_new = TracePiecewise(pieces = [copy.copy(p) for p in tr.pieces])
+    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    return tr_new
 
 
-class NpPqWrappers(object):
-
-    @classmethod
-    def linspace(cls, start, stop, num, endpoint=True):
-        start = unit(start)
-        stop = unit(stop)
-
-        # Lets us the same base unit:
-        stop = 1.0 * stop
-        stop.units = start.units
-
-        vals = np.linspace(start.magnitude, stop.magnitude, num=num,
-                           endpoint=endpoint)
-        return vals * start.units
-
-    @classmethod
-    def arange(cls, start, stop, step):
-        #print start, stop, step
-        start = unit(start)
-        stop = unit(stop)
-        step = unit(step)
-
-        # Lets us the same base unit:
-        stop = 1.0 * stop
-        step = 1.0 * step
-        stop.units = start.units
-        step.units = start.units
-
-        vals = np.arange(start.magnitude, stop.magnitude,
-                         step=step.magnitude)
-        return vals * start.units
-
+TraceMethodCtrl.register(TraceFixedDT,    'clone', _clone_fixed)
+TraceMethodCtrl.register(TraceVariableDT, 'clone', _clone_variable)
+TraceMethodCtrl.register(TracePiecewise,  'clone', _clone_piecewise)
 

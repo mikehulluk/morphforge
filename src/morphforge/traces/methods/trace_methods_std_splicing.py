@@ -37,17 +37,19 @@ import numpy
 import numpy as np
 from quantities.quantity import Quantity
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
-from morphforge.traces.traceobjpluginctrl import clone_trace
+from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
 
 
 # Shifting:
 #############
 
 def _shift_pt_trace(trace, offset):
-    return clone_trace(trace, 
-                       time=trace.time_pts + offset,
-                       data=trace.data_pts,
-                       comment='+ Shifted %2.2f' % offset)
+    tr_type = type(trace)
+    tr_new = tr_type(
+                time=trace.time_pts + offset,
+                data=trace.data_pts,)
+    copy_trace_attrs(trace, tr_new, comment='+(Shifted %2.2f)' % offset)
+    return tr_new
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'shift', _shift_pt_trace)
