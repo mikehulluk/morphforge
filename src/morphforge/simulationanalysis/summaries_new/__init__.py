@@ -33,7 +33,6 @@
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
-from morphforge.management import PluginMgr
 """
 DocumentLayout:
 
@@ -146,6 +145,8 @@ class SimulationMRedoc(object):
         pass
 
     def build_simulation(self):
+
+        from morphforge.management import PluginMgr
         return mrd.Section('Simulation Summary: %s'%self.sim._sim_desc_str(),
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
