@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 #from morphforge.morphology.core  import MorphPath
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.management import PluginMgr
 """
 DocumentLayout:
 
@@ -74,9 +74,7 @@ Root:
 
 from morphforge.simulation.base import Simulation
 
-
-#from morphforge.management import PluginMgr
-
+# from morphforge.management import PluginMgr
 
 try:
     import mredoc as mrd
@@ -85,19 +83,21 @@ except ImportError:
 
 
 class SummariserObject(object):
+
     @classmethod
     def build(cls, obj):
         raise NotImplementedError()
 
 
 class SummariserLibrary(object):
+
     summarisers = {}
 
     @classmethod
     def register_summariser(cls, channel_baseclass, summariser_class):
         # Check it has a to_report_lab Method:
         # Todo: Replace this with 'hasattr'
-        #assert 'to_report_lab' in summariser_class.__dict__
+        # assert 'to_report_lab' in summariser_class.__dict__
 
         # Add it to the dictionary of summarisers:
         cls.summarisers[channel_baseclass] = summariser_class
@@ -117,13 +117,9 @@ class SummariserLibrary(object):
             assert False, 'I have to many options for summarising: ' \
                 + str(obj)
 
-    pass
-
-
-
-
 
 class _DotSummaryUtils(object):
+
     @classmethod
     def save_dot(cls, graph, **kwargs):
         from morphforge.core import ObjectLabeller
@@ -132,6 +128,7 @@ class _DotSummaryUtils(object):
         fname = '%s/dotout_%s.pdf' % (tmp_dir, name)
         graph.write_pdf(fname, **kwargs)
         return fname
+
 
 class SimulationMRedoc(object):
 
@@ -144,8 +141,6 @@ class SimulationMRedoc(object):
         self.sim = obj
         self.mredoc = self.build_simulation()
 
-
-
     # Todo:
     def build_simulationresult(self, sim):
         pass
@@ -155,22 +150,21 @@ class SimulationMRedoc(object):
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
                 self.build_simulation_details(),
-                #PluginMgr.summarise_all(),
+                PluginMgr.summarise_all(),
                )
 
 
     def build_simulation_overview(self):
-        return mrd.SectionNewPage("Overview",
-               self.build_population_overview(),
-               self.build_population_complete_dot(),
-               self.build_singlecell_overview(),
-               )
+        return mrd.SectionNewPage('Overview',
+                                  self.build_population_overview(),
+                                  self.build_population_complete_dot(),
+                                  self.build_singlecell_overview())
 
     def build_simulation_details(self):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
-               #self.build_details_channels(),
+               self.build_details_channels(),
                )
 
 
@@ -199,7 +193,7 @@ class SimulationMRedoc(object):
 
         return mrd.Section("Population Overview",
                            table, table2,
-                           #self.build_population_overview_dot(),
+                           self.build_population_overview_dot(),
                            self.build_population_complete_dot()
                           )
 
@@ -208,7 +202,6 @@ class SimulationMRedoc(object):
     def build_population_overview_dot(self):
         assert False
 
-
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph')
 
@@ -216,8 +209,8 @@ class SimulationMRedoc(object):
 
         pops = {}
         for neuron_population in self.sim.neuron_populations:
-            n = pydot.Node(neuron_population.pop_name, shape='circle', color='lightblue'
-                           , style='filled', **kwargs)
+            n = pydot.Node(neuron_population.pop_name, shape='circle',
+                           color='lightblue', style='filled', **kwargs)
             pops[neuron_population] = n
             graph.add_node(n)
 
@@ -226,7 +219,9 @@ class SimulationMRedoc(object):
             post_pop = synpop.postsynaptic_population
 
             if not pre_pop:
-                pre_n = pydot.Node(name='SpikeTimes%d' % i, shape='point', color='lightsalmon', style='filled', **kwargs)
+                pre_n = pydot.Node(name='SpikeTimes%d' % i,
+                                   shape='point', color='lightsalmon',
+                                   style='filled', **kwargs)
                 graph.add_node(pre_n)
             else:
                 pre_n = pops[pre_pop]
@@ -240,57 +235,83 @@ class SimulationMRedoc(object):
         fname = _DotSummaryUtils.save_dot(graph)
         return mrd.Figure(mrd.Image(fname))
 
-
-
     def build_population_complete_dot(self):
-        return mrd.Section(
-                'Diagram Overview',)
-        
+        return mrd.Section('Diagram Overview')
+
         import pydot
         graph = pydot.Dot('graphname', graph_type='digraph', size='5,5'
                           , ratio='compress')
 
         size = '0.65'
         fontsize = '8'
-        kwargs = {'fontsize': fontsize, 'fixedsize':'True', 'width':size, 'height':size}
+        kwargs = {
+            'fontsize': fontsize,
+            'fixedsize': 'True',
+            'width': size,
+            'height': size,
+            }
 
         pops = {}
 
         for cell in self.sim.ss_cells:
-            n = pydot.Node(cell.name, shape='circle', fillcolor='#80b3ffff', color='#0066ffff', style='filled', penwidth='4', **kwargs)
+            n = pydot.Node(
+                cell.name,
+                shape='circle',
+                fillcolor='#80b3ffff',
+                color='#0066ffff',
+                style='filled',
+                penwidth='4',
+                **kwargs
+                )
             pops[cell] = n
             graph.add_node(n)
 
         stims = {}
         # Simulations:
         for cclamp in self.sim.ss_current_clamps:
-            label = '"IClamp: %s\\n %s"' % (cclamp.name, cclamp.location_summary_dot_str ) #"""I-Clamp: %s"""%cclamp.name
-            n = pydot.Node(cclamp.name, shape='circle',style='filled', width='0.05', fixedsize='True', label=label, fontsize=fontsize)
+            label = '"IClamp: %s\\n %s"' % (cclamp.name,
+                    cclamp.location_summary_dot_str)  # """I-Clamp: %s"""%cclamp.name
+            n = pydot.Node(
+                cclamp.name,
+                shape='circle',
+                style='filled',
+                width='0.05',
+                fixedsize='True',
+                label=label,
+                fontsize=fontsize,
+                )
             stims[cclamp] = n
             graph.add_node(n)
 
             # Make the edge:
             cell_node = pops[cclamp.cell]
-            e = pydot.Edge(n, cell_node , label='', color='red',) # **kwargs)
+            e = pydot.Edge(n, cell_node, label='', color='red')  # **kwargs)
             graph.add_edge(e)
 
-
         # Records:
-        for name, record in self.sim.recordable_names.iteritems():
-            #label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str ) 
-            label = '"Record: %s\\n"' % (name)#, record.location_summary_dot_str ) 
-            n = pydot.Node(name, shape='circle',style='filled', width='0.05', fixedsize='True', label=label, fontsize=fontsize)
-            stims[cclamp] = n
+        records = {}
+        for (name, record) in self.sim.recordable_names.iteritems():
+            # label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str )
+            label = '"Record: %s\\n"' % name  # , record.location_summary_dot_str )
+            n = pydot.Node(
+                name,
+                shape='circle',
+                style='filled',
+                width='0.05',
+                fixedsize='True',
+                label=label,
+                fontsize=fontsize,
+                )
+            records[record] = n
             graph.add_node(n)
 
             # Make the edge:
             if isinstance(record, NeuronRecordableOnLocation):
                 post_node = pops[record.cell_location.cell]
-                e = pydot.Edge(n, post_node , label='', color='green',) 
+                e = pydot.Edge(n, post_node, label='', color='green')
                 graph.add_edge(e)
 
-            #cell_node = pops[record.cell_location.cell]
-
+            # cell_node = pops[record.cell_location.cell]
 
         for (i, synapse) in enumerate(self.sim.ss_synapses):
             pre_cell = synapse.get_presynaptic_cell()
@@ -310,8 +331,7 @@ class SimulationMRedoc(object):
                            **kwargs)
             graph.add_edge(e)
 
-
-        # Put the stimulations on:  
+        # Put the stimulations on:
 
         fname = _DotSummaryUtils.save_dot(graph, prog='circo')
         return mrd.Section(
@@ -363,9 +383,6 @@ class SimulationMRedoc(object):
 
     # --------------------------------------------------------
 
-
-
-
     # Single Cell Overview:
     # --------------------------------------------------------
     # The details of the simulation:
@@ -373,18 +390,13 @@ class SimulationMRedoc(object):
         if self.sim.are_all_cells_in_pops:
             return None
 
-        return mrd.HierachyScope(
-                self._build_singlecell_overview_cells(),
-                self._build_singlecell_overview_iclamps(),
-                self._build_singlecell_overview_vclamps(),
-                )
+        return mrd.HierachyScope(self._build_singlecell_overview_cells(),
+                                 self._build_singlecell_overview_iclamps(),
+                                 self._build_singlecell_overview_vclamps())
 
     def _build_singlecell_overview_cells(self):
-        return mrd.Section(
-                'Individual Cells',
-                self._build_cell_table(cell_list=self.sim.ss_cells),
-                )
-
+        return mrd.Section('Individual Cells',
+                           self._build_cell_table(cell_list=self.sim.ss_cells))
 
     # Stim Tables:
     def _build_singlecell_overview_stimtable(self, stims):
@@ -396,55 +408,36 @@ class SimulationMRedoc(object):
         return tbl
 
     def _build_singlecell_overview_iclamps(self):
-        return mrd.Section('Current Clamps', 
-                self._build_singlecell_overview_stimtable(stims=self.sim.ss_current_clamps)
-                )
+        return mrd.Section('Current Clamps',
+                           self._build_singlecell_overview_stimtable(stims=self.sim.ss_current_clamps))
 
     def _build_singlecell_overview_vclamps(self):
-        return mrd.Section('Voltage Clamps', 
-                self._build_singlecell_overview_stimtable(stims=self.sim.ss_voltage_clamps)
-                )
-
-
+        return mrd.Section('Voltage Clamps',
+                           self._build_singlecell_overview_stimtable(stims=self.sim.ss_voltage_clamps))
 
     def build_singlecell_details(self):
-        sub_sections = [self.build_neuron_details(nrn) for nrn in self.sim.cells]
+        sub_sections = [self.build_neuron_details(nrn) for nrn in
+                        self.sim.cells]
         return mrd.Section('Single Cell Details', *sub_sections)
 
-
     # --------------------------------------------------------
-
 
     def _build_details_channel(self, mech):
 
         sumcls = SummariserLibrary.get_summarisier(mech)
         if not sumcls:
             return mrd.Section('Summary of channel: %s' % mech.name,
-                    mrd.Paragraph('<Summariser Missing for type: %s>'%type(mech))
+                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(mech))
                 )
 
         return mrd.Section('Summary of channel: %s' % mech.name,
-                    sumcls.build(mech)
-                    )
+                           sumcls.build(mech))
 
     def build_details_channels(self):
         mechs = sorted( self.sim.get_mechanisms_in_simulation(), key=lambda i: i.name)
         return mrd.SectionNewPage('Channels',
                 *[ self._build_details_channel(mech) for mech in mechs]
                 )
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -463,7 +456,7 @@ class SimulationMRedoc(object):
                     (sec.region.name if sec.region else ''),
                     nrn.cell_segmenter.get_num_segments(sec),
                     sec.length,
-                    '%.1f/%.1f' % (sec.p_r*2., sec.d_r*2.)
+                    '%.1f/%.1f' % (sec.p_r * 2., sec.d_r * 2.)
                     ) for sec in morph],
                 caption='%s:Morphology (Sections)' % nrn.name)
 
@@ -475,7 +468,7 @@ class SimulationMRedoc(object):
 
 
         from morphforge.morphology.ui import MatPlotLibViewer
-        fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7,7)} ).fig
+        fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7, 7)}).fig
 
 
         return mrd.HierachyScope(section_table, region_table, mrd.Image(fig), 'tada')
@@ -492,28 +485,35 @@ class SimulationMRedoc(object):
                 caption='%s:Channels' % nrn.name)
 
     def _create_neuron_details_3a_presynapses(self, nrn):
-        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Presynaptic Connections' % nrn.name)
+        return mrd.VerticalColTable('Type|Distance From Soma', [],
+                                    caption='%s:Presynaptic Connections'
+                                     % nrn.name)
+
     def _create_neuron_details_3b_postsynapses(self, nrn):
-        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Postsynaptic Connections' % nrn.name)
+        return mrd.VerticalColTable('Type|Distance From Soma', [],
+                                    caption='%s:Postsynaptic Connections'
+                                     % nrn.name)
 
     def _create_neuron_details_3c_gapjunctions(self, nrn):
-        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Gap Junctions' % nrn.name)
+        return mrd.VerticalColTable('Type|Distance From Soma', [],
+                                    caption='%s:Gap Junctions'
+                                    % nrn.name)
+
     def _create_neuron_details_4_stimulation(self, nrn):
-        return mrd.VerticalColTable('Type|Distance From Soma', [], caption='%s:Stimulation' % nrn.name)
-
-
-
+        return mrd.VerticalColTable('Type|Distance From Soma', [],
+                                    caption='%s:Stimulation' % nrn.name)
 
     def build_neuron_details(self, neuron):
 
-        return mrd.SectionNewPage('Neuron:%s' % neuron.name,
-                self._create_neuron_details_1_morphology(neuron),
-                self._create_neuron_details_2_mta(neuron),
-                self._create_neuron_details_3a_presynapses(neuron),
-                self._create_neuron_details_3b_postsynapses(neuron),
-                self._create_neuron_details_3c_gapjunctions(neuron),
-                self._create_neuron_details_4_stimulation(neuron),
-               )
+        return mrd.SectionNewPage(
+            'Neuron:%s' % neuron.name,
+            self._create_neuron_details_1_morphology(neuron),
+            self._create_neuron_details_2_mta(neuron),
+            self._create_neuron_details_3a_presynapses(neuron),
+            self._create_neuron_details_3b_postsynapses(neuron),
+            self._create_neuron_details_3c_gapjunctions(neuron),
+            self._create_neuron_details_4_stimulation(neuron),
+            )
 
 
     # -------------------------------

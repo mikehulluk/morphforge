@@ -47,11 +47,11 @@ from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
 class PiecewiseOperationLHS(PieceWiseComponentVisitor):
     @classmethod
-    def visit(cls, lhs_piece, operator_type, rhs_scalar):
+    def visit(cls, lhs_piece, operator_type, rhs_scalar, **_kwargs):
         return PieceWiseComponentVisitor.visit(o=lhs_piece, operator_type=operator_type, rhs_scalar=rhs_scalar)
 
     @classmethod
-    def visit_linear(cls, lhs_piece, operator_type, rhs_scalar):
+    def visit_linear(cls, lhs_piece, operator_type, rhs_scalar, **_kwargs):
         return TracePieceFunctionLinear(
                 time_window=lhs_piece.time_window,
                 x0=operator_type(lhs_piece.x0, rhs_scalar),
@@ -59,7 +59,7 @@ class PiecewiseOperationLHS(PieceWiseComponentVisitor):
                 )
 
     @classmethod
-    def visit_flat(cls, lhs_piece, operator_type, rhs_scalar):
+    def visit_flat(cls, lhs_piece, operator_type, rhs_scalar, **_kwargs):
         return TracePieceFunctionFlat(
                 time_window=lhs_piece.time_window,
                 x=operator_type(lhs_piece.x, rhs_scalar)
@@ -179,8 +179,8 @@ TraceOperatorCtrl.add_trace_operator(
 
 
 def do_op_piecewise_pow_scalar(lhs, rhs):
-        pieces = [PiecewiseOperationLHS.visit(piece, operator_type=operator.__pow__, scalar=rhs) for piece in lhs.pieces]
-        return TracePiecewise(pieces)
+    pieces = [PiecewiseOperationLHS.visit(lhs_piece=piece, operator_type=operator.__pow__, rhs_scalar=rhs) for piece in lhs.pieces]
+    return TracePiecewise(pieces)
 
 
 TraceOperatorCtrl.add_trace_operator(

@@ -42,19 +42,19 @@ def _clone_fixed(tr):
     tr_new = TraceFixedDT( 
             time = np.copy( tr.time_pts_np) * tr.time_units,
             data = np.copy( tr.data_pts_np) * tr.data_units )
-    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    copy_trace_attrs(tr, tr_new, comment='+(cloned)')
     return tr_new
 
 def _clone_variable(tr):
     tr_new = TraceVariableDT(
             time = np.copy( tr.time_pts_np) * tr.time_units,
             data = np.copy( tr.data_pts_np) * tr.data_units )
-    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    copy_trace_attrs(tr, tr_new, comment='+(cloned)')
     return tr_new
 
 def _clone_piecewise(tr):
     tr_new = TracePiecewise(pieces = [copy.copy(piece) for piece in tr.pieces])
-    copy_trace_attrs(tr,tr_new, comment='+(cloned)')
+    copy_trace_attrs(tr, tr_new, comment='+(cloned)')
     return tr_new
 
 

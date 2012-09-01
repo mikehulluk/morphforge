@@ -31,14 +31,12 @@
 
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
-import numpy as np
-import quantities as pq
-import operator
-from morphforge.traces.tracetypes import TracePiecewise
-from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
-from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
-from morphforge.traces.tracetypes.tracepiecewise import PieceWiseComponentVisitor
-from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
+#import numpy as np
+#import quantities as pq
+#import operator
+from morphforge.traces.tracetypes import TracePiecewise, PieceWiseComponentVisitor
+#from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
+#from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
 
 
 def _integrate_pointbased(tr, ):
@@ -62,15 +60,15 @@ class PiecewiseIntegrator(PieceWiseComponentVisitor):
         return (o.time_window[1]-o.time_window[0]) * o.x
 
 
-def _integrate_piecewise(tr, ):
-        pieces =  [PiecewiseIntegrator.visit(p) for p in tr.pieces]
-        tot = None
-        for p in pieces:
-            if tot is None:
-                tot = p
-            else:
-                tot = tot+p
-        return tot
+def _integrate_piecewise(tr):
+    pieces =  [PiecewiseIntegrator.visit(piece) for piece in tr.pieces]
+    tot = None
+    for p in pieces:
+        if tot is None:
+            tot = p
+        else:
+            tot = tot+p
+    return tot
 
 TraceMethodCtrl.register(TracePiecewise, 'integrate', _integrate_piecewise )
 

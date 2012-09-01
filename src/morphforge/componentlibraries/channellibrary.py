@@ -30,24 +30,25 @@
 # ----------------------------------------------------------------------
 
 
-
 class cached_functor(object):
-        """ Since we only want functors to return a single object, this 
-        decorator is able to cache the output results """
-        def __init__(self, func):
-            self._functor = func
-            self.res = {}
 
-        def __call__(self, *args, **kwargs):
-            kwargstuple = tuple(sorted(kwargs.iteritems()))
-            key = (args, kwargstuple) 
+    """ Since we only want functors to return a single object, this 
+        decorator is able to cache the output results """
+
+    def __init__(self, func):
+        self._functor = func
+        self.res = {}
+
+    def __call__(self, *args, **kwargs):
+        kwargstuple = tuple(sorted(kwargs.iteritems()))
+        key = (args, kwargstuple)
 
             # Cache if not run already:
-            if not key in self.res:
-                self.res[key] = self._functor(*args, **kwargs)
+        if not key in self.res:
+            self.res[key] = self._functor(*args, **kwargs)
 
             # Return the cached result:
-            return self.res[key]
+        return self.res[key]
 
 
 class ChannelLibrary(object):
@@ -55,18 +56,31 @@ class ChannelLibrary(object):
     channels = dict()
 
     @classmethod
-    def register_channel(cls, channeltype, chl_functor, modelsrc=None, celltype=None):
+    def register_channel(
+        cls,
+        channeltype,
+        chl_functor,
+        modelsrc=None,
+        celltype=None,
+        ):
         assert modelsrc or celltype
         key = (modelsrc, celltype, channeltype)
         assert not key in cls.channels
         cls.channels[key] = chl_functor
 
     @classmethod
-    def get_channel_functor(cls, channeltype, modelsrc=None, celltype=None):
+    def get_channel_functor(cls, channeltype, modelsrc=None,
+                            celltype=None):
         return cls.channels[(modelsrc, celltype, channeltype)]
 
     @classmethod
-    def get_channel(cls, channeltype, env, modelsrc=None, celltype=None):
+    def get_channel(
+        cls,
+        channeltype,
+        env,
+        modelsrc=None,
+        celltype=None,
+        ):
         functor = cls.channels[(modelsrc, celltype, channeltype)]
         return functor(env=env)
 

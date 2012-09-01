@@ -35,13 +35,17 @@ from morphforge.core.misc import SeqUtils
 
 
 # A type for holding a mechanism/passive, where it is applied, and how much where.
+
 class _MechanismTargetApplicator(object):
+
     def __init__(self, mechanism, targetter, applicator):
         self.mechanism = mechanism
         self.targetter = targetter
         self.applicator = applicator
 
+
 class _PassiveTargetApplicator(object):
+
     def __init__(self, passiveproperty, targetter, value):
         self.passiveproperty = passiveproperty
         self.targetter = targetter
@@ -100,7 +104,7 @@ class CellBiophysics(object):
 
     def get_mta_by_mechanism_id_for_section(self, mech_id, section):
         assert False, 'Deprecated? 2012-01-20'
-        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id()==mech_id])
+        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id() == mech_id])
 
 
 
@@ -123,7 +127,7 @@ class CellBiophysics(object):
             passivemechs[passiveproperty] = highest_prority_mech
         return passivemechs
 
-    def get_passive_property_for_section(self, section, passive ):
+    def get_passive_property_for_section(self, section, passive):
         return self.get_passives_for_section(section)[passive].value
 
     # Used for summariser:

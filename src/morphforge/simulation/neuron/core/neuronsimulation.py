@@ -65,7 +65,7 @@ class NEURONSimulation(Simulation):
 
     def _sim_desc_str(self):
         sname = sys.argv[0]
-        return '%s: %s'%(sname, self.name.replace(' ',''))
+        return '%s: %s' % (sname, self.name.replace(' ', ''))
 
 
     def __init__(self, name=None, environment=None, **kwargs):
@@ -125,8 +125,8 @@ class NEURONSimulation(Simulation):
             # Setup the LD_LIBRARY PATH:
             # It may be nessesary to add the following to .mfrc
             # ld_library_path_suffix = /home/michael/hw/morphforge/src/morphforgecontrib/neuron_gsl/cpp
-            ld_path_additions = RCMgr.get('Neuron','ld_library_path_suffix').split(':')
-            old_ld_path = os.environ.get('LD_LIBRARY_PATH','')
+            ld_path_additions = RCMgr.get('Neuron', 'ld_library_path_suffix').split(':')
+            old_ld_path = os.environ.get('LD_LIBRARY_PATH', '')
             os.environ['LD_LIBRARY_PATH'] = ':'.join([old_ld_path] + ld_path_additions)
 
             LogMgr.info('_run_spawn() [Spawning subprocess]')
@@ -150,9 +150,9 @@ class NEURONSimulation(Simulation):
         #sname = sys.argv[0]
 
 
-        do_summary=False
+        do_summary = False
         if do_summary:
-            fname = '~/Desktop/pdfs/%s.pdf'%(self._sim_desc_str().replace(' ',''))
+            fname = '~/Desktop/pdfs/%s.pdf' % (self._sim_desc_str().replace(' ', ''))
             summary = SimulationMRedoc.build(self)
             summary.to_pdf(fname)
 
