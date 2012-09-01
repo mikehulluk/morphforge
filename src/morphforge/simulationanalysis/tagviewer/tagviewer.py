@@ -34,7 +34,7 @@ from morphforge.core import is_iterable
 from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
-from plotspecs import PlotSpec_DefaultNew
+from plotspecs import TagPlot
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePiecewise
@@ -61,16 +61,16 @@ def _resolve_time_range(time_range):
 
 
 
-class DefaultPlotSpec(object):
-    Voltage =            PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
-    CurrentDensity =     PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
-    Current =            PlotSpec_DefaultNew(s="Current", ylabel='Current', yunit=pq.picoamp)
-    Conductance =        PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance")
-    ConductanceDensity = PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
-    StateVariable =      PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable")
-    StateVariableTau =   PlotSpec_DefaultNew(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
-    StateVariableInf =   PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State")
-    Event =              PlotSpec_DefaultNew(s="Event", ylabel="Events")
+class DefaultTagPlots(object):
+    Voltage =            TagPlot(s="Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
+    CurrentDensity =     TagPlot(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
+    Current =            TagPlot(s="Current", ylabel='Current', yunit=pq.picoamp)
+    Conductance =        TagPlot(s="Conductance", ylabel="Conductance")
+    ConductanceDensity = TagPlot(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
+    StateVariable =      TagPlot(s="StateVariable", ylabel="StateVariable")
+    StateVariableTau =   TagPlot(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
+    StateVariableInf =   TagPlot(s="StateSteadyState", ylabel="Steady State")
+    Event =              TagPlot(s="Event", ylabel="Events")
 
 
 
@@ -81,15 +81,15 @@ class TagViewer(object):
     MPL_AUTO_SHOW = True
 
     _default_plot_specs = (
-        DefaultPlotSpec.Voltage,
-        DefaultPlotSpec.CurrentDensity,
-        DefaultPlotSpec.Current,
-        DefaultPlotSpec.Conductance,
-        DefaultPlotSpec.ConductanceDensity,
-        DefaultPlotSpec.StateVariable,
-        DefaultPlotSpec.StateVariableTau,
-        DefaultPlotSpec.StateVariableInf,
-        DefaultPlotSpec.Event,
+        DefaultTagPlots.Voltage,
+        DefaultTagPlots.CurrentDensity,
+        DefaultTagPlots.Current,
+        DefaultTagPlots.Conductance,
+        DefaultTagPlots.ConductanceDensity,
+        DefaultTagPlots.StateVariable,
+        DefaultTagPlots.StateVariableTau,
+        DefaultTagPlots.StateVariableInf,
+        DefaultTagPlots.Event,
        )
 
     _default_fig_kwargs = {'figsize': (12, 8) }
@@ -98,13 +98,13 @@ class TagViewer(object):
         self,
         srcs,
         fig_kwargs=None,
-        plotspecs=None,
+        plots=None,
         figtitle=None,
         show=True,
         save=None,
         linkage=None,
         timerange=None,
-        additional_plotspecs=None,
+        additional_plots=None,
         share_x_labels=True,
         mpl_tight_bounds=True,
         ):
@@ -134,14 +134,14 @@ class TagViewer(object):
             tr_extractor(obj)
 
         # Use the new PlotSpec architecture:
-        # Filter out which plotspecs are actually going to display something,
+        # Filter out which plots are actually going to display something,
         # and filter out the rest:
-        plotspecs = plotspecs if plotspecs is not None else TagViewer._default_plot_specs
+        plots = plots if plots is not None else TagViewer._default_plot_specs
 
-        if additional_plotspecs:
-            plotspecs = tuple(list(plotspecs) + list(additional_plotspecs))
+        if additional_plots:
+            plots = tuple(list(plots) + list(additional_plots))
 
-        self.plot_specs = [plotspec for plotspec in plotspecs if
+        self.plot_specs = [plotspec for plotspec in plots if
                             [tr for tr in self.all_trace_objs if plotspec.addtrace_predicate(tr)] or  \
                             [evset for evset in self.all_event_set_objs if plotspec.addeventset_predicate(evset)] \
                           ]

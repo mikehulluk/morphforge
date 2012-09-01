@@ -47,8 +47,8 @@ from morphforge.traces import *
 from morphforge.traces.eventset import EventSet, Event
 
 from morphforge.simulationanalysis.tagviewer import TagViewer
-from morphforge.simulationanalysis.tagviewer import PlotSpec_DefaultNew
-from morphforge.simulationanalysis.tagviewer import DefaultPlotSpec
+from morphforge.simulationanalysis.tagviewer import TagPlot
+from morphforge.simulationanalysis.tagviewer import DefaultTagPlots
 
 #
 from morphforge.constants import *

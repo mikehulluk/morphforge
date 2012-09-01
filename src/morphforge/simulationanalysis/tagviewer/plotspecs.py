@@ -67,7 +67,7 @@ class YAxisConfig(object):
         ax.set_yaxis_maxnlocator(self.ynticks)
 
 
-class PlotSpec_DefaultNew(object):
+class TagPlot(object):
 
     def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
 

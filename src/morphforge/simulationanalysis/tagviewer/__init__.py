@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tagviewer import TagViewer, DefaultPlotSpec
-from plotspecs import PlotSpec_DefaultNew
+from tagviewer import TagViewer, DefaultTagPlots
+from plotspecs import TagPlot
 
-__all__ = ['TagViewer', 'DefaultPlotSpec','PlotSpec_DefaultNew']
+__all__ = ['TagViewer', 'DefaultTagPlots','TagPlot']
 
