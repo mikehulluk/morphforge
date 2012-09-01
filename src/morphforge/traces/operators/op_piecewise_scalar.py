@@ -50,7 +50,7 @@ class PiecewiseOperationLHS(PieceWiseComponentVisitor):
     @classmethod
     def visit_linear(cls, lhs_piece, operator_type, rhs_scalar):
         return TracePieceFunctionLinear(
-                time_window=o.time_window,
+                time_window=lhs_piece.time_window,
                 x0=operator_type(lhs_piece.x0, rhs_scalar),
                 x1=operator_type(lhs_piece.x1, rhs_scalar)
                 )
@@ -58,7 +58,7 @@ class PiecewiseOperationLHS(PieceWiseComponentVisitor):
     @classmethod
     def visit_flat(cls, lhs_piece, operator_type, rhs_scalar):
         return TracePieceFunctionFlat(
-                time_window=o.time_window,
+                time_window=lhs_piece.time_window,
                 x=operator_type(lhs_piece.x, rhs_scalar)
                 )
 
@@ -66,16 +66,16 @@ class TraceOperator_TracePiecewise_Quantity(object):
 
     @classmethod
     def do_add(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarLHS.visit(lhs_piece=piece, operator_type=operator.__add__, rhs_scalar=rhs) for piece in lhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationLHS.visit(lhs_piece=piece, operator_type=operator.__add__, rhs_scalar=rhs) for piece in lhs.pieces] )
     @classmethod
     def do_sub(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarLHS.visit(lhs_piece=piece, operator_type=operator.__sub__, rhs_scalar=rhs) for piece in lhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationLHS.visit(lhs_piece=piece, operator_type=operator.__sub__, rhs_scalar=rhs) for piece in lhs.pieces] )
     @classmethod
     def do_mul(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarLHS.visit(lhs_piece=piece, operator_type=operator.__mul__, rhs_scalar=rhs) for piece in lhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationLHS.visit(lhs_piece=piece, operator_type=operator.__mul__, rhs_scalar=rhs) for piece in lhs.pieces] )
     @classmethod
     def do_div(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarLHS.visit(lhs_piece=piece, operator_type=operator.__div__, rhs_scalar=rhs) for piece in lhs.pieces] )        
+        return TracePiecewise( [PiecewiseOperationLHS.visit(lhs_piece=piece, operator_type=operator.__div__, rhs_scalar=rhs) for piece in lhs.pieces] )        
 
 
 TraceOperatorCtrl.add_trace_operator(
@@ -128,16 +128,16 @@ class TraceOperator_Quantity_TracePiecewise(object):
 
     @classmethod
     def do_add(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarRHS.visit(rhs_piece=piece, operator_type=operator.__add__, lhs_scalar=lhs) for piece in rhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationRHS.visit(rhs_piece=piece, operator_type=operator.__add__, lhs_scalar=lhs) for piece in rhs.pieces] )
     @classmethod
     def do_sub(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarRHS.visit(rhs_piece=piece, operator_type=operator.__sub__, lhs_scalar=lhs) for piece in rhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationRHS.visit(rhs_piece=piece, operator_type=operator.__sub__, lhs_scalar=lhs) for piece in rhs.pieces] )
     @classmethod
     def do_mul(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarRHS.visit(rhs_piece=piece, operator_type=operator.__mul__, lhs_scalar=lhs) for piece in rhs.pieces] )
+        return TracePiecewise( [PiecewiseOperationRHS.visit(rhs_piece=piece, operator_type=operator.__mul__, lhs_scalar=lhs) for piece in rhs.pieces] )
     @classmethod
     def do_div(cls, lhs, rhs):        
-        return TracePiecewise( [PiecewiseScalarRHS.visit(rhs_piece=piece, operator_type=operator.__div__, lhs_scalar=lhs) for piece in rhs.pieces] )        
+        return TracePiecewise( [PiecewiseOperationRHS.visit(rhs_piece=piece, operator_type=operator.__div__, lhs_scalar=lhs) for piece in rhs.pieces] )        
 
 
 TraceOperatorCtrl.add_trace_operator(
@@ -172,7 +172,7 @@ TraceOperatorCtrl.add_trace_operator(
 
 
 def do_op_piecewise_pow_scalar(lhs, rhs):
-        pieces = [PiecewiseScalarOperation.visit(piece, operator_type=operator.__pow__, scalar=rhs) for piece in lhs.pieces]
+        pieces = [PiecewiseOperationLHS.visit(piece, operator_type=operator.__pow__, scalar=rhs) for piece in lhs.pieces]
         return TracePiecewise(pieces)
 
 
