@@ -62,7 +62,7 @@ def _unit(s):
         return float(s) * pq.dimensionless
 
     if isinstance(s, list):
-        return [unit(x) for x in s]
+        return [unit(obj) for obj in s]
     if isinstance(s, dict):
         return dict([(key, unit(value)) for (key, value) in s.iteritems()])
 

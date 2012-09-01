@@ -64,11 +64,11 @@ class TraceOperator_TracePiecewise_Quantity(object):
                (type(rhs) == TracePiecewise and type(lhs) in (pq.Quantity,))
 
         if type(lhs) == TracePiecewise:
-            (trace, sc) = (lhs, rhs)
+            (trace, scalar) = (lhs, rhs)
         else:
-            (sc, trace) = (lhs, rhs)
+            (scalar, trace) = (lhs, rhs)
 
-        pieces = [PiecewiseScalarOperation.visit(piece, operator_type=operator_type, scalar=sc) for piece in trace.pieces]
+        pieces = [PiecewiseScalarOperation.visit(piece, operator_type=operator_type, scalar=scalar) for piece in trace.pieces]
         return TracePiecewise(pieces=pieces)
 
     @classmethod

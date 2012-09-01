@@ -74,7 +74,7 @@ class ModBuilderParams(object):
 
     @classmethod
     def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=''):
-        incl_str = ' '.join(["""-I"%s" """ % s for s in cls.compile_includes])
+        incl_str = ' '.join(["""-I"%s" """ % _incl for _incl in cls.compile_includes])
         def_str = ' '.join(["""-D%s """ % _def for _def in cls.compile_defs])
         variables = {'lo': lo_filename, 'c': c_filename, 'incs': incl_str, 'defs': def_str, 'additional_flags': additional_compile_flags}
         return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % variables
@@ -82,8 +82,8 @@ class ModBuilderParams(object):
 
     @classmethod
     def get_link_str(cls, lo_filename, la_filename, additional_link_flags=''):
-        std_lib_str = ' '.join(['-l%s' % s for s in cls.std_link_libs])
-        std_lib_dir_str = ' '.join(['-L%s' % s for s in cls.nrn_link_dirs])
+        std_lib_str = ' '.join(['-l%s' % lib for lib in cls.std_link_libs])
+        std_lib_dir_str = ' '.join(['-L%s' % _dir for _dir in cls.nrn_link_dirs])
         link_dict = {'la': la_filename,
                     'lo': lo_filename,
                     'std_lib_str': std_lib_str,

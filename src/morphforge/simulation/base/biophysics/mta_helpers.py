@@ -46,20 +46,20 @@ def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=N
     vals = mechanism.get_defaults()
 
     # Make it easy to scale values
-    for (key, v) in parameter_multipliers.iteritems():
+    for (key, value) in parameter_multipliers.iteritems():
         if not key in vals:
             print 'Invalid Parameter:', key
             print 'Available Params:', vals
             assert False
-        vals[key] = vals[key] * v
+        vals[key] = vals[key] * value
 
     # Make it easy to over-ride
-    for (key, v) in parameter_overrides.iteritems():
+    for (key, value) in parameter_overrides.iteritems():
         if not key in vals:
             print 'Invalid Parameter:', key
             print 'Available Params:', vals
             assert False
-        vals[key] = v
+        vals[key] = value
 
     cell.get_biophysics().add_mechanism(
             mechanism=mechanism,

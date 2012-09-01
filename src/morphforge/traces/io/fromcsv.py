@@ -77,14 +77,14 @@ class NeuroCSVHeaderData(object):
         actions = {'@': self.parse_at, 
                    '!': self.parse_exclaim}
         for line in headerlines:
-            hl = hl.strip()
-            if not hl:
+            line = line.strip()
+            if not line:
                 continue
-            action = actions.get(hl[0], None)
+            action = actions.get(line[0], None)
             if action:
-                action(hl[1:].strip())
+                action(line[1:].strip())
             else:
-                self.ignored_lines.append(hl)
+                self.ignored_lines.append(line)
 
     @classmethod
     def parse_at(cls, line):
@@ -99,8 +99,8 @@ class NeuroCSVHeaderData(object):
         if line[0] == '{':
             self.file_data = parse_json_helpful(line)
         else:
-            r = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
-            match_obj = r.match(line)
+            exclaim_line_regex = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
+            match_obj = exclaim_line_regex.match(line)
             if not match_obj:
                 raise InvalidNeuroCSVFile('Could not parse line: %s' % line)
 

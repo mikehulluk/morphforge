@@ -61,7 +61,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
         (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
-        new_section = Section(regions=[self.rgn_mappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
+        new_section = Section(regions=[self.rgn_mappings[region] for region in section.regions], x=X, y=Y, z=Z, r=R)
 
         self.new_morph = MorphologyTree('MorphCloned', dummysection=new_section, metadata={})
 
@@ -74,7 +74,7 @@ class SectionVisitorDFNeuronBuilder(SectionVisitorDF):
         (x, y, z, r) = (section.d_x, section.d_y, section.d_z, section.d_r)
         (X, Y, Z, R) = self.transfuctor(x, y, z, r)
 
-        new_section = new_parent.create_distal_section(regions=[self.rgn_mappings[r] for r in section.regions], x=X, y=Y, z=Z, r=R)
+        new_section = new_parent.create_distal_section(regions=[self.rgn_mappings[region] for region in section.regions], x=X, y=Y, z=Z, r=R)
         self.orig2new_mapping[section] = new_section
 
 

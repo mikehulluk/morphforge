@@ -63,10 +63,10 @@ class PointOperator(object):
         self.operations = (operations if operations else [])
 
     def __call__(self, pt):
-        t = pt
+        result = pt
         for operator in self.operations:
-            t = operator(t)
-        return t
+            result = operator(result)
+        return result
 
 
 class PointRotator(object):

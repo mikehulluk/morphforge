@@ -169,14 +169,14 @@ class TraceApproximator(object):
             subarrays = np.split(edge_indices, not_continuous_numbers_start)
 
             change_points = []
-            for s in subarrays:
-                if len(s) == 0:
+            for subarray in subarrays:
+                if len(subarray) == 0:
                     continue
 
                 # Find the highest 'edge' value corresponding to the
-                # to the indices in 's'
-                i = np.argmax(edges[s])
-                i_max = s[i] #- min_level_size
+                # to the indices in 'subarray'
+                i = np.argmax(edges[subarray])
+                i_max = subarray[i] #- min_level_size
 
                 change_points.append(i_max)
 

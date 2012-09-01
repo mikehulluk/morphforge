@@ -43,7 +43,6 @@ class NeuroCSVWriter(object):
 
     @classmethod
     def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None ):
-        print 'Writing Out Traces:'
         traces = traces or []
         event_sets = event_sets or []
 
@@ -90,8 +89,8 @@ class NeuroCSVWriter(object):
         fileObj.write('\n')
 
         # Write the data:
-        for (i, t) in enumerate(time_indices):
-            tstr = data_format(t)
+        for (i, time) in enumerate(time_indices):
+            tstr = data_format(time)
             cstrings = [cdata[i] for cdata in col_data]
             l = '\t'.join([tstr] + cstrings)
             fileObj.write(l + '\n')
@@ -100,10 +99,10 @@ class NeuroCSVWriter(object):
 
     @classmethod
     def generate_column_header(cls, tr, index):
-        d = {'label': tr.name, 
-             'unit': str(tr.data_unit),
-             'tags': ','.join(tr.tags)}
-        return ('#! COLUMN%d: ' % index) + json.dumps(d)
+        data_dct = {'label': tr.name, 
+                    'unit': str(tr.data_unit),
+                    'tags': ','.join(tr.tags)}
+        return ('#! COLUMN%d: ' % index) + json.dumps(data_dct)
 
     @classmethod
     def generate_eventset_header(cls, eventset):
