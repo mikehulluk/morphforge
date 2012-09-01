@@ -127,7 +127,7 @@ class ModFileSectioned(object):
     # Finalisation:
     def simple_finalise_section(self, section, tabsection=False):
         if tabsection:
-            self.sectiondata[section] = ['\t' + l for l in self.sectiondata[section]]
+            self.sectiondata[section] = ['\t' + line for line in self.sectiondata[section]]
         self.prepend_to_section(section, '%s {' % section)
         self.append_to_section(section, '}')
 
@@ -197,7 +197,7 @@ class ModFileSectioned(object):
         # Derivative Block:
         der_block = """DERIVATIVE %s{
         %s
-        } """ % (groupname, "\n".join(["\t"+l for l in derivative_code]))
+        } """ % (groupname, "\n".join(["\t"+line for line in derivative_code]))
         self.prepend_to_section(ModFileSectioned.Sections.Derivative, der_block)
 
         # BreakPoint:

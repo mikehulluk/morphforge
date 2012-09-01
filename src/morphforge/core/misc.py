@@ -134,8 +134,9 @@ class FileIO(object):
         """ Reads text from a file"""
 
         with open(filename) as f:
-            c = f.read()
-        return c
+			return f.read()
+#            txt = f.read()
+#        return txt
 
     @classmethod
     def get_hash_md5(cls, filename):
@@ -194,7 +195,7 @@ class SeqUtils(object):
         1 objects are found, it raises an error.
         """
 
-        filtered_seq = [s for s in seq if filter_func(s)]
+        filtered_seq = [obj for obj in seq if filter_func(obj)]
         if len(filtered_seq) == 0:
             print seq
             raise ValueError('Unable to find any occurances')
@@ -208,7 +209,7 @@ class SeqUtils(object):
         has a fixed probability of being in the new sequence.
         """
 
-        return [l for l in lst if random.random() < p]
+        return [obj for obj in lst if random.random() < p]
 
     @classmethod
     def max_with_unique_check(cls, collection, key):
@@ -221,9 +222,9 @@ class SeqUtils(object):
         assert len(collection)
         if len(collection) == 1:
             return collection[0]
-        sc = sorted(collection, key=key)
-        assert key(sc[-1]) != key(sc[-2])
-        return sc[-1]
+        sorted_seq = sorted(collection, key=key)
+        assert key(sorted_seq[-1]) != key(sorted_seq[-2])
+        return sorted_seq[-1]
 
 
 def is_iterable(f):
@@ -248,8 +249,8 @@ def merge_dictionaries(dictionaries):
     """
 
     res = {}
-    for d in dictionaries:
-        for (k, v) in d.iteritems():
+    for dct in dictionaries:
+        for (k, v) in dct.iteritems():
             if k in res:
                 assert res[k] == v
             res[k] = v
@@ -264,8 +265,8 @@ def check_cstyle_varname(name):
         print name, name.__class__
         raise ValueError('Invalid Name - Not String!')
     valid_regex = '^[a-zA-Z][_a-zA-Z0-9]*$'
-    m = re.match(valid_regex, name)
-    if not m:
+    match_obj = re.match(valid_regex, name)
+    if not match_obj:
         raise ValueError('Invalid Name: _%s_' % name)
     return name
 

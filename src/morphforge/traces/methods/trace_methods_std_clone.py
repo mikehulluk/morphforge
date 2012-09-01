@@ -53,7 +53,7 @@ def _clone_variable(tr):
     return tr_new
 
 def _clone_piecewise(tr):
-    tr_new = TracePiecewise(pieces = [copy.copy(p) for p in tr.pieces])
+    tr_new = TracePiecewise(pieces = [copy.copy(piece) for piece in tr.pieces])
     copy_trace_attrs(tr,tr_new, comment='+(cloned)')
     return tr_new
 

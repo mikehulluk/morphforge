@@ -36,23 +36,23 @@ import numpy as np
 
 
 def _fft(tr, normalise=True):
-    ft = np.fft.fft(tr.data_pts)
+    fft_values = np.fft.fft(tr.data_pts)
     if normalise:
-        ft /= ft.max()
+        fft_values /= fft_values.max()
     dt_in_s = tr.get_dt_new().rescale('s').magnitude
     ftfreq = np.fft.fftfreq(tr.data_pts.size, dt_in_s)
-    return (ftfreq, ft)
+    return (ftfreq, fft_values)
 
 
 def _psd(tr, normalise=True):
-    ft = np.fft.fft(tr.data_pts)
-    ft = ft.real() ** 2 + ft.imag() ** 2
+    fft_values = np.fft.fft(tr.data_pts)
+    fft_values = fft_values.real() ** 2 + fft_values.imag() ** 2
     if normalise:
-        ft /= ft.max()
+        fft_values /= fft_values.max()
 
     dt_in_s = tr.get_dt_new().rescale('s').magnitude
     ftfreq = np.fft.fftfreq(tr.data_pts.size, dt_in_s)
-    return (ftfreq, ft)
+    return (ftfreq, fft_values)
 
 
 TraceMethodCtrl.register(TraceFixedDT, 'fft', _fft, can_fallback_to_fixed_trace=True)

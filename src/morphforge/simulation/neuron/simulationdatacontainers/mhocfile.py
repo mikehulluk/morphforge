@@ -92,7 +92,7 @@ class MHocFile(object):
     def __init__(self):
         _info = [(inf, {}) for inf in MHocFileData.root_infos]
         self.info = dict(_info)
-        self.sections = dict([(s, []) for s in MHOCSections.ordered])
+        self.sections = dict([(section, []) for section in MHOCSections.ordered])
 
     def add_to_section(self, section_name, text):
         self.sections[section_name].append(text)
@@ -100,10 +100,10 @@ class MHocFile(object):
     def __str__(self):
 
         def str_sect(sect):
-            h = '// Section: %s ' % sect
-            hu = '/' * len(h)
-            d = '\n'.join(self.sections[sect])
-            return '\n'.join([h, hu, d, '\n', '\n'])
+            heading = '// Section: %s ' % sect
+            header_underline = '/' * len(heading)
+            section_text = '\n'.join(self.sections[sect])
+            return '\n'.join([heading, header_underline, section_text, '\n', '\n'])
 
         return '\n'.join(str_sect(s) for s in MHOCSections.ordered)
 

@@ -38,7 +38,7 @@ class HocModUtils(object):
 
     initial_buffer_size = 50000
 
-    recordModTmpl = """
+    _tmpl_str_record_modvariable = """
     objref $recVecName
     $recVecName = new Vector()
     ${recVecName}.buffer_size(%d)
@@ -64,7 +64,7 @@ class HocModUtils(object):
             }
 
         # Create the Cell Topology Template:
-        hocfile_obj.add_to_section(MHOCSections.InitRecords,   Template(HocModUtils.recordModTmpl, data).respond())
+        hocfile_obj.add_to_section(MHOCSections.InitRecords,   Template(HocModUtils._tmpl_str_record_modvariable, data).respond())
 
         # Save the data about this cell:
         hocfile_obj[MHocFileData.Recordables][recordobj] = data
@@ -72,7 +72,7 @@ class HocModUtils(object):
 
 
 
-    recordHocTmpl = """
+    _tmpl_str_record_hoc = """
         objref $recVecName
         $recVecName = new Vector()
         ${recVecName}.buffer_size(%d)
@@ -86,7 +86,7 @@ class HocModUtils(object):
                 'objvar': objvar}
 
         # Create the Cell Topology Template:
-        sect_text = Template(HocModUtils.recordHocTmpl, data).respond()
+        sect_text = Template(HocModUtils._tmpl_str_record_hoc, data).respond()
         hocfile_obj.add_to_section(MHOCSections.InitRecords,
                                    sect_text)
 

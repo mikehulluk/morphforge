@@ -43,11 +43,11 @@ class CellLocator(object):
     @classmethod
     def get_locations_at_distance_away_from_dummy(cls, cell, distance, section_predicate=None):
 
-        morph_locs = MorphLocator.get_locations_at_distance_away_from_dummy(
+        morphology_locations = MorphLocator.get_locations_at_distance_away_from_dummy(
                                         morphology=cell.morphology,
                                         distance=distance,
                                         section_predicate=section_predicate)
-        return [CellLocation(cell=cell, morphlocation=ml) for ml in morph_locs]
+        return [CellLocation(cell=cell, morphlocation=morphology_location) for morphology_location in morphology_locations]
 
 
     @classmethod

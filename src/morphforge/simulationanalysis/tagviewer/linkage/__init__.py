@@ -62,18 +62,18 @@ class LinkageRuleTagRegex(object):
 
     def get_match_tags(self, tr):
         matches = []
-        for t in tr.tags:
-            if self.regex.match(t):
-                matches.append(t)
+        for tag in tr.tags:
+            if self.regex.match(tag):
+                matches.append(tag)
         return matches
 
-    def __call__(self, allTraces):
+    def __call__(self, all_traces):
         grps = defaultdict(list)
 
-        for tr in allTraces:
-            match_tags = self.get_match_tags(tr)
+        for trace in all_traces:
+            match_tags = self.get_match_tags(trace)
             for matchtag in match_tags:
-                grps[matchtag].append(tr)
+                grps[matchtag].append(trace)
 
         return grps.values()
 
@@ -90,31 +90,31 @@ class StandardLinkages(object):
         self.color_allocations = None
 
 
-    def get_linkages_from_rules(self, allTraces):
-        links = chain(*[link_rule(allTraces) for link_rule in self.linkage_rules])
+    def get_linkages_from_rules(self, all_traces):
+        links = chain(*[link_rule(all_traces) for link_rule in self.linkage_rules])
         return list(links)
 
     def process(self, ps_to_traces_dict):
-        import networkx as nx
+        import networkx
 
-        allTraces = set(chain(*ps_to_traces_dict.values()))
+        all_traces = set(chain(*ps_to_traces_dict.values()))
 
-        allocatedTraceColors = {}
+        allocated_trace_colors = {}
         color_indices = range(len(self.color_cycle))
 
-        G = nx.Graph()
+        G = networkx.Graph()
         # Add a node per trace:
-        for tr in allTraces:
-            G.add_node(tr)
+        for trace in all_traces:
+            G.add_node(trace)
 
         # Add the edges:
-        all_links = self.linkages_explicit + self.get_linkages_from_rules(allTraces)
+        all_links = self.linkages_explicit + self.get_linkages_from_rules(all_traces)
         for link in all_links:
             (first, remaining) = (link[0], link[1:])
             for r in remaining:
                 G.add_edge(first, r)
 
-        groups = nx.connected_components(G)
+        groups = networkx.connected_components(G)
 
         for grp in sorted(groups, key=lambda g: (len(g), id(g[0])), reverse=True) :
             #print 'Allocating', ''.join(g.name for g in grp)
@@ -123,19 +123,19 @@ class StandardLinkages(object):
                 s = _get_collision_of_color_index_for_group(colorIndex=i,
                                                         group=grp,
                                                         ps_to_traces_dict=ps_to_traces_dict,
-                                                        allocatedTraceColors=allocatedTraceColors)
+                                                        allocated_trace_colors=allocated_trace_colors)
                 #print "Score", i, s
                 return s
 
             new_index = bi.min(color_indices, key=index_score)
             # Allocate to colorIndex:
             for g in grp:
-                allocatedTraceColors[g] = new_index
+                allocated_trace_colors[g] = new_index
 
         # Make the allocation from index to colors:
         self.color_allocations = {}
-        for tr in allTraces:
-            self.color_allocations[tr] = self.color_cycle[allocatedTraceColors[tr]]
+        for trace in all_traces:
+            self.color_allocations[trace] = self.color_cycle[allocated_trace_colors[trace]]
         #assert False
 
 #l = StandardLinkages(linkages_explicit = [(trI1, trV1, trG1), (trI2, trV2, trG2)])

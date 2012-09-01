@@ -48,7 +48,7 @@ def build_simulation(modfilename):
 
 
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation()

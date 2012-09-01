@@ -165,4 +165,4 @@ class Neuron_CurrentClamp_SinWave(CurrentClamp_SinWave, NeuronObject):
 
 
 
-#NeuronSimulationEnvironment.registerMembraneMechanism(CurrentClamp_SinWave, Neuron_CurrentClamp_SinWave)
+#NEURONEnvironment.registerMembraneMechanism(CurrentClamp_SinWave, Neuron_CurrentClamp_SinWave)

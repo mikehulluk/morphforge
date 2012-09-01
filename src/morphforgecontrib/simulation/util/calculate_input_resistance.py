@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.stdimports import CurrentClamp, Cell, unit, StandardTags
-from morphforge.stdimports import NeuronSimulationEnvironment
+from morphforge.stdimports import NEURONEnvironment
 from morphforge.stdimports import factorise_units_from_list
 
 import scipy.stats as stats
@@ -261,7 +261,7 @@ class CellAnalysis_IVCurve(object):
     def _get_cc_simulation_trace(self, current):
 
         if self.cell_functor:
-            env = NeuronSimulationEnvironment()
+            env = NEURONEnvironment()
             sim = env.Simulation(**self.sim_kwargs)
             cell = self.cell_functor(sim=sim)
         else:

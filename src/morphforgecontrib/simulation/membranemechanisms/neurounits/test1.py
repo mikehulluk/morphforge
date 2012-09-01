@@ -90,7 +90,7 @@ morphDict1 = {'root': {'length': 20, 'diam': 20, 'id': 'soma'}}
 m1 = MorphologyLoader.fromDictionary(morphDict1)
 
 # Create the environment:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 
 # Create the simulation:
 
@@ -186,20 +186,20 @@ results = mysim.run()
 
 
 ps = (
-                PlotSpec_DefaultNew(s="Voltage", ylabel='Voltage', yrange=(-60*mV, 40*mV) ),
-                PlotSpec_DefaultNew(s="CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2") ),
-                PlotSpec_DefaultNew(s="Current", ylabel='Current', yunit=pq.picoamp),
-                PlotSpec_DefaultNew(s="Conductance", ylabel="Conductance"),
-                PlotSpec_DefaultNew(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2") ),
-                PlotSpec_DefaultNew(s="StateVariable", ylabel="StateVariable"),
-                PlotSpec_DefaultNew(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant" ),
-                PlotSpec_DefaultNew(s="StateSteadyState", ylabel="Steady State"),
-                PlotSpec_DefaultNew(s="Event", ylabel="Events"),
+                TagPlot(s="Voltage", ylabel='Voltage', yrange=(-60*mV, 40*mV) ),
+                TagPlot(s="CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2") ),
+                TagPlot(s="Current", ylabel='Current', yunit=pq.picoamp),
+                TagPlot(s="Conductance", ylabel="Conductance"),
+                TagPlot(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2") ),
+                TagPlot(s="StateVariable", ylabel="StateVariable"),
+                TagPlot(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant" ),
+                TagPlot(s="StateSteadyState", ylabel="Steady State"),
+                TagPlot(s="Event", ylabel="Events"),
 
                )
 
 # Display the results:
-TagViewer([results], timerange=(95, 200)*pq.ms, plotspecs = ps)
+TagViewer([results], timerange=(95, 200)*pq.ms, plots = ps)
 pylab.show()
 
 

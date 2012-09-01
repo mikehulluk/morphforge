@@ -32,7 +32,7 @@
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default 
 from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 
@@ -92,7 +92,7 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
         raise ValueError("Can't find Recordable: %s" % what)
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(
+NEURONEnvironment.membranemechanisms.register_plugin(
         SimulatorSpecificChannel,
         MM_Neuron_SimulatorSpecificChannel)
 

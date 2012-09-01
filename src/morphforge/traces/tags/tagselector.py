@@ -41,7 +41,7 @@ class TagSelector(object):
         return parse_tagselector_string(s)
 
     def filter(self, traces):
-        return [tr for tr in traces if self.__call__(tr)]
+        return [trace for trace in traces if self.__call__(trace)]
 
     # Operator Overloading:
     def __and__(self, rhs):
@@ -53,7 +53,7 @@ class TagSelector(object):
         return TagSelectorOr(lhs=self, rhs=rhs)
 
     def select(self, trs):
-        return [tr for tr in trs if self(tr)]
+        return [trace for trace in trs if self(trace)]
 
 
 class TagSelectorAny(TagSelector):

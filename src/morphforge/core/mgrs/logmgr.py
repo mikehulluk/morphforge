@@ -43,24 +43,24 @@ class LogMgrState(object):
 
 class LogMgr(object):
 
-    initState = LogMgrState.Uninitialised
+    _initialised_state = LogMgrState.Uninitialised
     loggers = {}
 
     @classmethod
     def config(cls):
         from locmgr import LocMgr
 
-        if cls.initState == LogMgrState.Configuring:
+        if cls._initialised_state == LogMgrState.Configuring:
             return
-        if cls.initState == LogMgrState.Ready:
+        if cls._initialised_state == LogMgrState.Ready:
             return
 
-        cls.initState = LogMgrState.Configuring
+        cls._initialised_state = LogMgrState.Configuring
 
         logfilename = os.path.join(LocMgr.get_log_path(), 'log.html')
         logging.basicConfig(filename=logfilename, level=logging.INFO)
 
-        cls.initState = LogMgrState.Ready
+        cls._initialised_state = LogMgrState.Ready
 
         cls.info_from_logger('Logger Started OK')
 
@@ -79,7 +79,7 @@ class LogMgr(object):
     def get_caller(cls):
         current_frame = inspect.currentframe()
         outer_frames = inspect.getouterframes(current_frame)
-        out_frames_not_this_class = [f for f in outer_frames if not f[1].endswith("logmgr.py")]
+        out_frames_not_this_class = [frame for frame in outer_frames if not frame[1].endswith("logmgr.py")]
 
         prev_call_frame = out_frames_not_this_class[0]
         caller = cls._pyfile_to_modulename(prev_call_frame[1])
@@ -95,14 +95,14 @@ class LogMgr(object):
     @classmethod
     def _is_logging_active_and_ready(cls):
 
-        if cls.initState == LogMgrState.Ready:
+        if cls._initialised_state == LogMgrState.Ready:
             from settingsmgr import SettingsMgr
             if not SettingsMgr.is_logging():
                 return False
             return True
-        elif cls.initState == LogMgrState.Configuring:
+        elif cls._initialised_state == LogMgrState.Configuring:
             return False
-        elif cls.initState == LogMgrState.Uninitialised:
+        elif cls._initialised_state == LogMgrState.Uninitialised:
             cls.config()
             return True
         else:
@@ -129,14 +129,14 @@ class LogMgr(object):
     @classmethod
     def create_logger(cls, log_name):
         logger = logging.getLogger(log_name)
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
         # create formatter
         formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        # add formatter to ch
-        ch.setFormatter(formatter)
-        # add ch to logger
-        logger.addHandler(ch)
+        # add formatter to handler
+        handler.setFormatter(formatter)
+        # add handler to logger
+        logger.addHandler(handler)
         return logger
 
     @classmethod

@@ -55,13 +55,13 @@ def _get_md5_of_morphology(m):
     treemd5 = _get_md5_of_section(m._dummysection)
     name_md5 = StrUtils.get_hash_md5(m.name)
     assert not m.metadata
-    regions_md5 = ','.join([_get_md5_of_region(r) for r in m.get_regions()])
+    regions_md5 = ','.join([_get_md5_of_region(region) for region in m.get_regions()])
     return StrUtils.get_hash_md5(treemd5 + name_md5 + regions_md5)
 
 
 class MorphologyConsistencyMgr(object):
 
-    morphologyConsistencyCheckers = {}
+    _morphology_consistency_checkers = {}
 
     @classmethod
     def check_morphology(cls, morph):
@@ -70,9 +70,9 @@ class MorphologyConsistencyMgr(object):
 
     @classmethod
     def get_checker(cls, morph):
-        if not morph in cls.morphologyConsistencyCheckers:
-            cls.morphologyConsistencyCheckers[morph] = MorphConsistencyChecker(morph)
-        return cls.morphologyConsistencyCheckers[morph]
+        if not morph in cls._morphology_consistency_checkers:
+            cls._morphology_consistency_checkers[morph] = MorphConsistencyChecker(morph)
+        return cls._morphology_consistency_checkers[morph]
 
 
 class MorphConsistencyChecker(object):
@@ -125,8 +125,8 @@ class MorphConsistencyChecker(object):
         self.check_section_contents(section=section, morph=morph, dummysection=dummysection)
 
         if recurse:
-            for c in section.children:
-                self.check_section(c, morph=morph, dummysection=False, recurse=recurse)
+            for child in section.children:
+                self.check_section(child, morph=morph, dummysection=False, recurse=recurse)
 
 
     def check_section_infra_structure(self, section, morph, dummysection):
@@ -174,7 +174,7 @@ class MorphConsistencyChecker(object):
         assert SeqUtils.filter_expect_single(self.morph.get_regions(),
                 lambda rgn: rgn.name == region.name) == region
         assert region.morph == morph
-        for s in region.sections:
+        for section in region.sections:
             assert region == s.region
 
     def check_tree(self):
@@ -197,7 +197,7 @@ class MorphConsistencyChecker(object):
         self.check_section(self.morph._dummysection, self.morph, dummysection=True, recurse=True)
 
         # Check that there are not duplications of idTags in the tree:
-        idtags = SeqUtils.flatten([s.idtag for s in self.morph if s.idtag])
+        idtags = SeqUtils.flatten([section.idtag for section in self.morph if section.idtag])
         #print idtags
         assert len(idtags) == len(list(set(idtags)))
 

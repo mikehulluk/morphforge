@@ -150,7 +150,7 @@ class TracePiecewise(Trace):
         return len(self._pieces)
 
     def n_pieces_longer_than(self, t):
-        return len([p for p in self._pieces if p.get_duration() > t])
+        return len([piece for piece in self._pieces if piece.get_duration() > t])
 
     def get_values(self, times):
 
@@ -159,13 +159,13 @@ class TracePiecewise(Trace):
         assert (times <= self.get_max_time()).all()
         assert (times >= self.get_min_time()).all()
         done_times = np.ones(len(times)) > 0.0
-        for p in self._pieces:
-            ind1 = (times.rescale('ms') < float(p.get_max_time().rescale('ms').magnitude))
+        for piece in self._pieces:
+            ind1 = (times.rescale('ms') < float(piece.get_max_time().rescale('ms').magnitude))
             ind = np.logical_and(ind1, done_times)
             ind_locs = np.where(ind)
 
             _time = times[ind_locs]
-            _data = p.get_values(_time)
+            _data = piece.get_values(_time)
             _datas.append(_data)
             _times.append(_time)
 
@@ -173,6 +173,6 @@ class TracePiecewise(Trace):
             done_times = np.logical_and(done_times, np.logical_not(ind))
 
         unit = _data[0].units
-        return np.fromiter(itertools.chain(*[list(d.rescale(unit).magnitude) for d in _datas]), dtype=np.float) * unit
+        return np.fromiter(itertools.chain(*[list(datum.rescale(unit).magnitude) for datum in _datas]), dtype=np.float) * unit
 
 

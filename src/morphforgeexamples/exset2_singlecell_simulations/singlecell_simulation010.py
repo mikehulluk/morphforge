@@ -47,7 +47,7 @@ morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
 
 # Create the environment:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 
 # Create the simulation:
 mysim = env.Simulation()

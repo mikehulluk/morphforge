@@ -44,12 +44,12 @@ class ModBuilderParams(object):
     nocmodlpath = RCReader.get('Neuron', 'nocmodlpath')
     libtoolpath = RCReader.get('Neuron', 'libtoolpath')
 
-    compileIncludes = ['.', '..'] + \
+    compile_includes = ['.', '..'] + \
                       RCReader.get('Neuron', 'compileincludes').split(':')
 
-    compileDefs = ['HAVE_CONFIG_H']
+    compile_defs = ['HAVE_CONFIG_H']
 
-    stdLinkLibs = [
+    std_link_libs = [
         'nrnoc',
         'oc',
         'memacs',
@@ -65,31 +65,31 @@ class ModBuilderParams(object):
         'm',
         'dl',
         ]
-    nrnLinkDirs = RCReader.get('Neuron', 'nrnLinkDirs').split(':')
+    nrn_link_dirs = RCReader.get('Neuron', 'nrnlinkdirs').split(':')
 
     rpath = RCReader.get('Neuron', 'rpath')
-    rndAloneLinkStatement = RCReader.get('Neuron', 'rndAloneLinkStatement')
+    rnd_alone_link_statement = RCReader.get('Neuron', 'rndalonelinkstatement')
 
     modlunitpath = RCReader.get('Neuron', 'modlunitpath')
 
     @classmethod
     def get_compile_str(cls, c_filename, lo_filename, additional_compile_flags=''):
-        incl_str = ' '.join(["""-I"%s" """ % s for s in cls.compileIncludes])
-        def_str = ' '.join(["""-D%s """ % d for d in cls.compileDefs])
+        incl_str = ' '.join(["""-I"%s" """ % _incl for _incl in cls.compile_includes])
+        def_str = ' '.join(["""-D%s """ % _def for _def in cls.compile_defs])
         variables = {'lo': lo_filename, 'c': c_filename, 'incs': incl_str, 'defs': def_str, 'additional_flags': additional_compile_flags}
         return """--mode=compile gcc %(defs)s  %(incs)s %(additional_flags)s  -g -O2 -c -o %(lo)s %(c)s  """ % variables
 
 
     @classmethod
     def get_link_str(cls, lo_filename, la_filename, additional_link_flags=''):
-        std_lib_str = ' '.join(['-l%s' % s for s in cls.stdLinkLibs])
-        std_lib_dir_str = ' '.join(['-L%s' % s for s in cls.nrnLinkDirs])
+        std_lib_str = ' '.join(['-l%s' % lib for lib in cls.std_link_libs])
+        std_lib_dir_str = ' '.join(['-L%s' % _dir for _dir in cls.nrn_link_dirs])
         link_dict = {'la': la_filename,
                     'lo': lo_filename,
                     'std_lib_str': std_lib_str,
                     'std_lib_dir_str': std_lib_dir_str,
                     'rpath': cls.rpath,
-                    'randSt': cls.rndAloneLinkStatement,
+                    'randSt': cls.rnd_alone_link_statement,
                     'additional_flags': additional_link_flags
                     }
         return """--mode=link gcc -module  -g -O2  -shared  -o %(la)s  -rpath %(rpath)s  %(lo)s  %(std_lib_dir_str)s  %(randSt)s  %(std_lib_str)s  %(additional_flags)s """ % link_dict
@@ -132,11 +132,11 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     #        LocMgr.BackupDirectory(gen_file)
 
     c_filename = mod_file_basename + '.c'
-    op = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
+    output = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
 
     if not os.path.exists(c_filename):
         print 'Failed to compile modfile. Error:'
-        print op, '\n'
+        print output, '\n'
         assert False
 
     # Add the extra registration function into our mod file:
@@ -173,10 +173,10 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     if True:
         os.remove(c_filename)
         os.remove(mod_filename_short)
-        for f in ['.la', '.lo']:
-            os.remove(mod_file_basename + f)
-        for f in ['.la', '.lai', '.o', '.so', '.so.0']:
-            os.remove(os.path.join(libs_dir, mod_file_basename + f))
+        for ext in ['.la', '.lo']:
+            os.remove(mod_file_basename + ext)
+        for ext in ['.la', '.lai', '.o', '.so', '.so.0']:
+            os.remove(os.path.join(libs_dir, mod_file_basename + ext))
         os.rmdir(libs_dir)
 
     return so_filename
@@ -218,21 +218,21 @@ class ModFileCompiler(object):
 
     @classmethod
     def check_modfile_units(cls, modfilename):
-        op = _simple_exec(ModBuilderParams.modlunitpath, modfilename)
+        output = _simple_exec(ModBuilderParams.modlunitpath, modfilename)
 
         op_expected = """
         model   1.1.1.1   1994/10/12 17:22:51
         Checking units of %s""" % modfilename
 
         if SettingsMgr.simulator_is_verbose():
-            print 'OP', op
+            print 'OP', output
 
         # Check line by line:
-        for (l, le) in zip(op.split('\n'), op_expected.split('\n')):
-            if not le.strip() == l.strip():
+        for (line, line_expected) in zip(output.split('\n'), op_expected.split('\n')):
+            if not line_expected.strip() == line.strip():
                 print 'ERROR ERROR ERROR WITH UNITS!!'
-                print 'Seen', l
-                print 'Expt', le
+                print 'Seen', line
+                print 'Expt', line_expected
                 # assert False
 
 

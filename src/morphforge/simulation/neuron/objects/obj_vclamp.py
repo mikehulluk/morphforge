@@ -38,7 +38,7 @@ from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
 from morphforge.constants.standardtags import StandardTags
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 
 class VoltageClampCurrentRecord(NeuronRecordable):
@@ -82,4 +82,4 @@ class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
 
         return recorders[what](vclamp=self, name=name, **kwargs)
 
-NeuronSimulationEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, MNeuronVoltageClampStepChange)
+NEURONEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, MNeuronVoltageClampStepChange)

@@ -66,11 +66,10 @@ class TraceConverter(object):
         data_units = original_trace.data_unit
         data_data = original_trace.data_pts_np
 
-        ep = epsilon
 
         pts = zip(time_data.tolist(), data_data.tolist())
 
-        newpts = _simplify_points(pts, ep)
+        newpts = _simplify_points(pts, epsilon)
         (new_time, new_data) = zip(*newpts)
 
         new_trace = TraceVariableDT(np.array(new_time) * time_units,
@@ -170,14 +169,14 @@ class TraceApproximator(object):
             subarrays = np.split(edge_indices, not_continuous_numbers_start)
 
             change_points = []
-            for s in subarrays:
-                if len(s) == 0:
+            for subarray in subarrays:
+                if len(subarray) == 0:
                     continue
 
                 # Find the highest 'edge' value corresponding to the
-                # to the indices in 's'
-                i = np.argmax(edges[s])
-                i_max = s[i] #- min_level_size
+                # to the indices in 'subarray'
+                i = np.argmax(edges[subarray])
+                i_max = subarray[i] #- min_level_size
 
                 change_points.append(i_max)
 
@@ -197,9 +196,7 @@ class TraceApproximator(object):
 
     @classmethod
     def fit_piecewise_linear_trace(cls, tr):
-        d = tr.data_pts_np
-
-        ranges = TraceApproximator.find_levels(d)
+        ranges = TraceApproximator.find_levels(tr.data_pts_np)
 
         pieces = []
         for r0, r1 in ranges:

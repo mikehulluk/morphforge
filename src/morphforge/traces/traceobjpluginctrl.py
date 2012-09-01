@@ -45,6 +45,7 @@ class TraceOperatorCtrl(object):
 
     @classmethod
     def add_trace_operator_symmetrical_handler(cls, operator_type, lhs_type, rhs_type, operator_func, flag='default', set_as_default=False):
+        assert False
         cls.add_trace_operator(operator_type=operator_type,
                                lhs_type=lhs_type, 
                                rhs_type=rhs_type, 

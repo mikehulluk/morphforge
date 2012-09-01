@@ -67,7 +67,7 @@ class YAxisConfig(object):
         ax.set_yaxis_maxnlocator(self.ynticks)
 
 
-class PlotSpec_DefaultNew(object):
+class TagPlot(object):
 
     def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
 
@@ -104,11 +104,11 @@ class PlotSpec_DefaultNew(object):
     # will be plotted in the order they were created.
     @classmethod
     def _sort_traces(cls, traces):
-        return sorted(traces, key=lambda t: t.name)
+        return sorted(traces, key=lambda trace: trace.name)
 
     @classmethod
     def _sort_eventsets(cls, event_sets):
-        return sorted(event_sets, key=lambda t: t.name)
+        return sorted(event_sets, key=lambda trace: trace.name)
 
     def _plot_trace(self, trace,  ax, index, color=None):
         plot_kwargs = {}
@@ -142,12 +142,12 @@ class PlotSpec_DefaultNew(object):
         i_range = 0.2
         i_scale = i_range / len(list(eventset.times))
 
-        data = np.array([(t.rescale("ms").magnitude, index + i * i_scale) for (i, t) in enumerate(eventset.times)])
+        data = np.array([(time.rescale("ms").magnitude, index + i * i_scale) for (i, time) in enumerate(eventset.times)])
 
 
 
-        p = ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
-        return p
+        plot_points = ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
+        return plot_points
 
 
 
@@ -157,9 +157,9 @@ class PlotSpec_DefaultNew(object):
             time_range = self.time_range
 
         # Which traces are we plotting (rely on a mixon class):
-        trcs = [tr for tr in all_traces if self.addtrace_predicate(tr)]
-        eventsets = [tr for tr in all_eventsets
-                     if self.addeventset_predicate(tr)]
+        trcs = [trace for trace in all_traces if self.addtrace_predicate(trace)]
+        eventsets = [trace for trace in all_eventsets
+                     if self.addeventset_predicate(trace)]
 
         # Sort and plot:
         for index, trace in enumerate(self._sort_traces(trcs)):

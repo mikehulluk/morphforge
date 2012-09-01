@@ -45,29 +45,29 @@ class NewSWCLoader(object):
         dtype = {'names':   ('id', 'type', 'x', 'y', 'z', 'r', 'pid'),
                  'formats': ('int32', 'int32', 'f4', 'f4', 'f4', 'f4', 'int32') }
 
-        d = np.loadtxt(src, dtype=dtype)
+        swc_data_raw = np.loadtxt(src, dtype=dtype)
 
-        if len(np.nonzero(d['pid'] == -1)) != 1:
-            assert False, "Unexpected number of id's of -1 in file"
+        if len(np.nonzero(swc_data_raw['pid'] == -1)) != 1:
+            assert False, "Unexpected number of id'errstr of -1 in file"
 
         # We might not nessesarily have continuous indices in the
         # SWC file, so lets convert them:
-        index_to_id = d['id']
+        index_to_id = swc_data_raw['id']
         id_to_index_dict = dict([(_id, index) for (index, _id) in enumerate(index_to_id)])
         if len(id_to_index_dict) != len(index_to_id):
-            s =  "Internal Error Loading SWC: Index and ID map are different lengths."
-            s += " [ID:%d, Index:%d]" % (len(index_to_id), len(id_to_index_dict))
-            raise MorphologyImportError(s)
+            errstr =  "Internal Error Loading SWC: Index and ID map are different lengths."
+            errstr += " [ID:%swc_data_raw, Index:%swc_data_raw]" % (len(index_to_id), len(id_to_index_dict))
+            raise MorphologyImportError(errstr)
 
         # Vertices are easy:
-        vertices = d[['x', 'y', 'z', 'r']]
-        vertices = np.vstack([d['x'], d['y'], d['z'], d['r']]).T
+        vertices = swc_data_raw[['x', 'y', 'z', 'r']]
+        vertices = np.vstack([swc_data_raw['x'], swc_data_raw['y'], swc_data_raw['z'], swc_data_raw['r']]).T
 
         # Connections need to translate id_to_index:
-        connection_indices = [(id_to_index_dict[ID], id_to_index_dict[pID]) for ID, pID in d[['id', 'pid']] if pID != -1]
+        connection_indices = [(id_to_index_dict[ID], id_to_index_dict[parent_id]) for ID, parent_id in swc_data_raw[['id', 'pid']] if parent_id != -1]
 
         # Types are specified per connection:
-        section_types = [swctype for ID, swctype, pID in d[['id', 'type', 'pid']] if pID != -1]
+        section_types = [swctype for ID, swctype, parent_id in swc_data_raw[['id', 'type', 'pid']] if parent_id != -1]
 
         return MorphologyArray(vertices=vertices, connectivity=connection_indices, section_types=section_types, dummy_vertex_index=0, name=name)
 
@@ -76,23 +76,23 @@ class NewSWCLoader(object):
     def load_swc_set(cls, src):
         """Naive implementation, that doesn't take account of interleaving of nodes"""
 
-        lines = [l.strip() for l in src.readlines()]
-        lines = [l for l in lines if l and l[0] != '#']
+        lines = [line.strip() for line in src.readlines()]
+        lines = [line for line in lines if line and line[0] != '#']
 
         # Break into sections where we get a new parent:
         splits = [[]]
-        for l in lines:
+        for line in lines:
 
-            if int(l.split()[-1]) == -1:
+            if int(line.split()[-1]) == -1:
                 splits.append([])
-            splits[-1].append(l)
+            splits[-1].append(line)
 
         splits = splits[1:]
 
         data_blocks = ['\n'.join(blk) for blk in splits]
         file_objs = [StringIO(blk) for blk in data_blocks]
 
-        morphs = [cls.load_swc_single(src=fO) for fO in file_objs]
+        morphs = [cls.load_swc_single(src=fobj) for fobj in file_objs]
         return morphs
 
 

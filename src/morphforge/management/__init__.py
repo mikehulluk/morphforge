@@ -30,7 +30,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron import NeuronSimulationEnvironment
+from morphforge.simulation.neuron import NEURONEnvironment
 from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 import inspect
@@ -44,7 +44,7 @@ except ImportError:
 
 
 def empty_str_matrix(N, M):
-    return [ ['' for m in range(M)] for n in range(N) ]
+    return [ ['' for _m in range(M)] for _n in range(N) ]
 
 def to_symbol(mech, env):
     return 'X' if mech in env else '-'
@@ -52,7 +52,7 @@ def to_symbol(mech, env):
 
 class PluginMgr(object):
 
-    _environments = [NeuronSimulationEnvironment]
+    _environments = [NEURONEnvironment]
 
 
 
@@ -188,13 +188,13 @@ class TraceLibSummariser(object):
     @classmethod
     def _get_all_operator_types(cls):
         types = set()
-        for (op, lhs_type, rhs_type) in TraceOperatorCtrl.trace_operators_all:
+        for (_operator_type, lhs_type, rhs_type) in TraceOperatorCtrl.trace_operators_all:
             types.add(lhs_type)
             types.add(rhs_type)
         return sorted(list(types), key=lambda obj:(obj not in cls._trace_types, obj.__name__) )
 
     @classmethod
-    def _get_all_trace_methods(cls):
+    def _get_all_trace_method_names(cls):
         methods = set()
         for (_trace_type, method_name) in TraceMethodCtrl.registered_methods:
             methods.add(method_name)
@@ -205,26 +205,26 @@ class TraceLibSummariser(object):
 
         all_types = cls._get_all_operator_types()
         trace_types = cls._trace_types
-        d = empty_str_matrix(N=len(all_types)+1, M=len(all_types)+1)
+        summary_matrix = empty_str_matrix(N=len(all_types)+1, M=len(all_types)+1)
 
 
         for (i, tp1) in enumerate(all_types):
-            d[0][i+1] = tp1.__name__
-            d[i+1][0] = tp1.__name__
+            summary_matrix[0][i+1] = tp1.__name__
+            summary_matrix[i+1][0] = tp1.__name__
             for (j, tp2) in enumerate(all_types):
 
                 # Neither of the operand is a trace_type:
                 if tp1 not in trace_types and tp2 not in trace_types:
-                    d[i+1][j+1] = '==='
+                    summary_matrix[i+1][j+1] = '==='
                     continue
 
                 #outstr = ''
                 for (op, sym) in operators:
                     if (op, tp1, tp2) in TraceOperatorCtrl.trace_operators_all:
-                        d[i+1][j+1] += sym
+                        summary_matrix[i+1][j+1] += sym
 
         return mrd.Section('TraceOperators', 
-                           mrd.VerticalColTable(d[0],d[1:], caption='Operators')
+                           mrd.VerticalColTable(summary_matrix[0],summary_matrix[1:], caption='Operators')
                            )
 
 
@@ -232,14 +232,14 @@ class TraceLibSummariser(object):
     @classmethod
     def summarise_methods(cls):
         trace_types = cls._trace_types
-        methods = cls._get_all_trace_methods()
+        method_names = cls._get_all_trace_method_names()
 
 
         def get_argments(method, trace_type):
             if not TraceMethodCtrl.has_method(trace_type,method):
                 return None
-            f = TraceMethodCtrl.get_method(trace_type, method)
-            (args, varargs, varkw, defaults) = inspect.getargspec(f)
+            functor = TraceMethodCtrl.get_method(trace_type, method)
+            (args, varargs, varkw, defaults) = inspect.getargspec(functor)
             return inspect.formatargspec(args=args[1:], varargs=varargs, varkw=varkw, defaults=defaults)
 
         def get_argments_TraceFixedDT(method):
@@ -249,8 +249,8 @@ class TraceLibSummariser(object):
             trace_type = TraceFixedDT
             if not TraceMethodCtrl.has_method(trace_type,method):
                 return '<None>'
-            f = TraceMethodCtrl.get_method(trace_type, method)
-            return inspect.getdoc(f)
+            func = TraceMethodCtrl.get_method(trace_type, method)
+            return inspect.getdoc(func)
 
 
 
@@ -260,14 +260,14 @@ class TraceLibSummariser(object):
             if method_name in TraceMethodCtrl.fallback_to_fixedtrace_methods:
                 return '<via fixed>'
 
-        arguments = [get_argments_TraceFixedDT(m) for m in methods]
-        docstrings = [get_docstring(m) for m in methods]
+        arguments = [get_argments_TraceFixedDT(m) for m in method_names]
+        docstrings = [get_docstring(m) for m in method_names]
 
-        col1 = [''] + methods
-        col2 = [ [trace_type.__name__] + [ _support_for_method(trace_type,method_name) for method_name in methods] for trace_type in trace_types]
-        colX = ['args'] + arguments
-        colY = ['docstring'] + docstrings
-        cols = [col1]  + col2 + [colX] + [colY]
+        col1 = [''] + method_names
+        col2 = [ [trace_type.__name__] + [ _support_for_method(trace_type,method_name) for method_name in method_names] for trace_type in trace_types]
+        col_args = ['args'] + arguments
+        col_docstrings = ['docstring'] + docstrings
+        cols = [col1]  + col2 + [col_args] + [col_docstrings]
         rows = zip(*cols)
         tbl = mrd.VerticalColTable(rows[0],rows[1:], caption='Operators')
         return mrd.Section('TraceMethods', tbl) 

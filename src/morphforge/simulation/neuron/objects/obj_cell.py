@@ -47,7 +47,7 @@ class MembraneVoltageRecord(NeuronRecordable):
 
     initial_buffer_size = 50000
 
-    tmplObjRef = """
+    _tmpl_str_obj_ref = """
 objref $recVecName
 $recVecName = new Vector()
 ${recVecName}.buffer_size(%d)
@@ -68,10 +68,10 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
         return [StandardTags.Voltage]
 
     def get_description(self):
-        r = 'Vm %s' % self.cell_location.cell.name
+        desc = 'Vm %s' % self.cell_location.cell.name
         if self.cell_location.morphlocation.section.idtag:
-            r += ':%s' % self.cell_location.morphlocation.section.idtag
-        return r
+            desc += ':%s' % self.cell_location.morphlocation.section.idtag
+        return desc
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
@@ -88,7 +88,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
             }
         #print tmpl_dict
 
-        sect_txt = Template(MembraneVoltageRecord.tmplObjRef, tmpl_dict).respond()
+        sect_txt = Template(MembraneVoltageRecord._tmpl_str_obj_ref, tmpl_dict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitRecords, sect_txt)
 
         hocfile_obj[MHocFileData.Recordables][self] = tmpl_dict
@@ -105,8 +105,8 @@ class MNeuronCell(Cell, NeuronObject):
     def build_mod(self, modfile_set):
         mechanisms = set([mta.mechanism for mta in
                          self.get_biophysics().appliedmechanisms])
-        for m in mechanisms:
-            m.create_modfile(modfile_set)
+        for mech in mechanisms:
+            mech.create_modfile(modfile_set)
 
     def get_recordable(self, what, **kwargs):
         recordables = \

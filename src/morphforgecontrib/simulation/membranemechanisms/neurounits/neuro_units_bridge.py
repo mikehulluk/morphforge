@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
@@ -203,7 +203,7 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
 
 
 
-NeuronSimulationEnvironment.membranemechanisms.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
+NEURONEnvironment.membranemechanisms.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
 
 
 

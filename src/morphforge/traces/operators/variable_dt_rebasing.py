@@ -38,11 +38,11 @@ class VariableDTRebaseTimeValues(object):
     # times. this will we bad for things like: A+B+C+D+E+...
     @classmethod
     def All(cls, tr1, tr2):
-        t1 = tr1.time_pts_ms
-        t2 = tr2.time_pts_ms
-        t = np.hstack((t1, t2))
-        t = np.sort(t)
-        return t * pq.ms
+        times1 = tr1.time_pts_ms
+        times2 = tr2.time_pts_ms
+        all_times = np.hstack((times1, times2))
+        all_times = np.sort(all_times)
+        return all_times * pq.ms
 
     @classmethod
     def maintain_maximum_dy(cls, _tr1, _tr2):

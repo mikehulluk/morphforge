@@ -46,7 +46,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 
 
 # Create the environment:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 
 # Create the simulation:
 mysim = env.Simulation()

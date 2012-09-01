@@ -116,14 +116,14 @@ class NeuronGapJunction(GapJunction, NeuronObject):
     def __init__(self, **kwargs):
         super(NeuronGapJunction, self).__init__(**kwargs)
 
-    isFirstBuild = True
+    is_first_build = True
 
     def build_mod(self, modfile_set):
 
-        if NeuronGapJunction.isFirstBuild:
-            NeuronGapJunction.isFirstBuild = False
-            m = ModFile(modtxt=gap_mod, name='GapJunction')
-            modfile_set.append(m)
+        if NeuronGapJunction.is_first_build:
+            NeuronGapJunction.is_first_build = False
+            modfile = ModFile(modtxt=gap_mod, name='GapJunction')
+            modfile_set.append(modfile)
 
     def build_hoc(self, hocfile_obj):
         cell1 = self.celllocation1.cell

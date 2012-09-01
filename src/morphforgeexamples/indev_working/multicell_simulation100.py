@@ -356,7 +356,7 @@ celltypes = [
 # ############################################
 
 def test_cell_current(cell_name, cell_chl_functor, current):
-    sim = mf.NeuronSimulationEnvironment().Simulation()
+    sim = mf.NEURONEnvironment().Simulation()
 
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     myCell = sim.create_cell(name=cell_name, morphology=m1)
@@ -590,7 +590,7 @@ def cin_onto_dinr(sim, presynaptic, postsynaptic):
 
 
 
-env = mf.NeuronSimulationEnvironment()
+env = mf.NEURONEnvironment()
 sim = env.Simulation()
 
 nNeurons = 1
@@ -686,18 +686,18 @@ for tr in res.get_traces():
 
 
 mf.TagViewer(res,
-        plotspecs=[
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
-    mf.PlotSpec_DefaultNew(s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
+        plots=[
+    mf.TagPlot(s="ALL{Voltage}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot(s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
+    mf.TagPlot(s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
 
            ])
 

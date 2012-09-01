@@ -43,12 +43,11 @@ class NeuroCSVWriter(object):
 
     @classmethod
     def write_to_buffer(cls, fileObj, traces=None, event_sets=None, time_indices=None, csv_metadata=None ):
-        print 'Writing Out Traces:'
         traces = traces or []
         event_sets = event_sets or []
 
         # Column Headers:
-        col_headers = [cls.generate_column_header(tr, i) for (i, tr) in enumerate(traces)]
+        col_headers = [cls.generate_column_header(trace, i) for (i, trace) in enumerate(traces)]
 
         # Event Data:
         evt_headers = [cls.generate_eventset_header(evset) for evset in event_sets]
@@ -73,13 +72,13 @@ class NeuroCSVWriter(object):
             return ("%f" % d).ljust(col_width)
 
         col_data = []
-        for tr in traces:
+        for trace in traces:
 
             data = [missing_format()] * len(time_indices)
 
-            tr_valid_times_bool = tr.time_within_trace(time_indices)
+            tr_valid_times_bool = trace.time_within_trace(time_indices)
             valid_time_indices = np.where(tr_valid_times_bool)[0]
-            valid_time_data_vals = tr.get_values(time_indices[valid_time_indices])
+            valid_time_data_vals = trace.get_values(time_indices[valid_time_indices])
 
             for tIndex, data_val in zip(valid_time_indices, valid_time_data_vals):
                 data[tIndex] = data_format(float(data_val.magnitude))
@@ -90,8 +89,8 @@ class NeuroCSVWriter(object):
         fileObj.write('\n')
 
         # Write the data:
-        for (i, t) in enumerate(time_indices):
-            tstr = data_format(t)
+        for (i, time) in enumerate(time_indices):
+            tstr = data_format(time)
             cstrings = [cdata[i] for cdata in col_data]
             l = '\t'.join([tstr] + cstrings)
             fileObj.write(l + '\n')
@@ -100,19 +99,15 @@ class NeuroCSVWriter(object):
 
     @classmethod
     def generate_column_header(cls, tr, index):
-        d = {'label': tr.name, 
-             'unit': str(tr.data_unit),
-             'tags': ','.join(tr.tags)}
-        s1 = '#! COLUMN%d: ' % index
-        s2 = json.dumps(d)
-        return s1 + s2
+        data_dct = {'label': tr.name, 
+                    'unit': str(tr.data_unit),
+                    'tags': ','.join(tr.tags)}
+        return ('#! COLUMN%d: ' % index) + json.dumps(data_dct)
 
     @classmethod
     def generate_eventset_header(cls, eventset):
-        d = {'label': eventset.name, 
+        data_dct = {'label': eventset.name, 
              'tags': ','.join(eventset.tags)}
-        s1 = '#@ EVENT %s ' % json.dumps(d)
-        s2 = ' '.join(['%2.2f' % e.get_time() for e in eventset])
-        return s1 + s2
+        return ('#@ EVENT %s ' % json.dumps(data_dct)) + ' '.join(['%2.2f' % event.get_time() for event in eventset])
 
 

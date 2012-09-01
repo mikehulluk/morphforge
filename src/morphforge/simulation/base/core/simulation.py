@@ -38,19 +38,19 @@ class Simulation(object):
     # Syntactic Sugar:
     # ------------------
     def create_cell(self, **kwargs):
-        c = self.environment.Cell(simulation=self, **kwargs)
-        self.add_cell(c)
-        return c
+        cell = self.environment.Cell(simulation=self, **kwargs)
+        self.add_cell(cell)
+        return cell
 
     def create_currentclamp(self, **kwargs):
-        c = self.environment.CurrentClamp(simulation=self, **kwargs)
-        self.add_currentclamp(c)
-        return c
+        current_clamp = self.environment.CurrentClamp(simulation=self, **kwargs)
+        self.add_currentclamp(current_clamp)
+        return current_clamp
 
     def create_voltageclamp(self, **kwargs):
-        v = self.environment.VoltageClamp(simulation=self, **kwargs)
-        self.add_voltageclamp(v)
-        return v
+        voltage_clamp = self.environment.VoltageClamp(simulation=self, **kwargs)
+        self.add_voltageclamp(voltage_clamp)
+        return voltage_clamp
 
     def create_synapse(self, presynaptic_mech, postsynaptic_mech):
         syn = self.environment.Synapse(simulation=self,
@@ -60,9 +60,9 @@ class Simulation(object):
         return syn
 
     def create_gapjunction(self, **kwargs):
-        gj = self.environment.GapJunction(simulation=self, **kwargs)
-        self.add_gapjunction(gj)
-        return gj
+        gap_junction = self.environment.GapJunction(simulation=self, **kwargs)
+        self.add_gapjunction(gap_junction)
+        return gap_junction
 
     # New API
     def add_currentclamp(self, cc):

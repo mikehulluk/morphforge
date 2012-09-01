@@ -72,7 +72,7 @@ def build_cell(name, sim):
 
 
 # Create a simulation:
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 sim = env.Simulation()
 
 # Two cells:
@@ -144,10 +144,10 @@ results = sim.run()
 TagViewer(results, timerange=(98, 120)*pq.ms,
           fig_kwargs = {'figsize':(12, 10)},
           show=True,
-          plotspecs = [
-              PlotSpec_DefaultNew('Current', yunit=pq.picoamp),
-              PlotSpec_DefaultNew('Voltage,cell1', yrange=(-80*mV, 50*mV), yunit=pq.mV),
-              PlotSpec_DefaultNew('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV, -55*mV), yunit=pq.millivolt),
+          plots = [
+              TagPlot('Current', yunit=pq.picoamp),
+              TagPlot('Voltage,cell1', yrange=(-80*mV, 50*mV), yunit=pq.mV),
+              TagPlot('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV, -55*mV), yunit=pq.millivolt),
              ],
            )
 

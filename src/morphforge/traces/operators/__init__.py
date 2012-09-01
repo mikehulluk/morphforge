@@ -30,8 +30,9 @@
 # ----------------------------------------------------------------------
  
 # Import the modules to allow dynamic loading:
-import piecewise_scalar
+import op_piecewise_scalar
 import op_fixeddt_scalar
+import op_fixeddt_quantity
 import op_fixeddt_fixeddt
 import op_variabledt_scalar
 

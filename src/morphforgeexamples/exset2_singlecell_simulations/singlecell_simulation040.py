@@ -109,7 +109,7 @@ def get_Lk_Channels(env):
 
 def simulate(current_inj_level):
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation(name="AA")

@@ -68,23 +68,23 @@ class NeuroCSVHeaderData(object):
 
     def summarise(self):
         print self.file_data
-        for k in sorted(self.column_data):
-            print 'Column: ', k, self.column_data[k]
+        for col_key in sorted(self.column_data):
+            print 'Column: ', col_key, self.column_data[col_key]
         print 'LoadHints', self.load_hints
         print 'Ignored Lines:', self.ignored_lines
 
     def parse(self, headerlines):
         actions = {'@': self.parse_at, 
                    '!': self.parse_exclaim}
-        for hl in headerlines:
-            hl = hl.strip()
-            if not hl:
+        for line in headerlines:
+            line = line.strip()
+            if not line:
                 continue
-            action = actions.get(hl[0], None)
+            action = actions.get(line[0], None)
             if action:
-                action(hl[1:].strip())
+                action(line[1:].strip())
             else:
-                self.ignored_lines.append(hl)
+                self.ignored_lines.append(line)
 
     @classmethod
     def parse_at(cls, line):
@@ -99,23 +99,23 @@ class NeuroCSVHeaderData(object):
         if line[0] == '{':
             self.file_data = parse_json_helpful(line)
         else:
-            r = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
-            m = r.match(line)
-            if not m:
+            exclaim_line_regex = re.compile(r"""\s* (LOADHINT|COLUMN)(\d*) \s* : \s* (.*)""", re.VERBOSE)
+            match_obj = exclaim_line_regex.match(line)
+            if not match_obj:
                 raise InvalidNeuroCSVFile('Could not parse line: %s' % line)
 
             # Load 'COLUMN' info:
-            if m.group(1) == 'COLUMN':
-                col_num = int(m.group(2))
+            if match_obj.group(1) == 'COLUMN':
+                col_num = int(match_obj.group(2))
                 if col_num in self.column_data:
                     raise InvalidNeuroCSVFile('Repeated Column Description Found: %d' % col_num)
-                self.column_data[col_num] = parse_json_helpful(m.group(3))
+                self.column_data[col_num] = parse_json_helpful(match_obj.group(3))
 
             # Load 'LOADHINT' info
             else:
                 if self.load_hints is not None:
                     raise InvalidNeuroCSVFile('Repeated LOADHINT Description Found')
-                self.load_hints = parse_json_helpful(m.group(3))
+                self.load_hints = parse_json_helpful(match_obj.group(3))
 
 
 class NeuroCSVParser(object):
@@ -152,11 +152,11 @@ class NeuroCSVParser(object):
     def resolve_header_backslashes(cls, header_data):
         new_header_data = []
         current_line = ''
-        for l in header_data:
+        for line in header_data:
             # Drop the leading '#':
-            current_line += l.strip()
+            current_line += line.strip()
 
-            if l.endswith('\\'):
+            if line.endswith('\\'):
                 # Strip the '\' and replace it with a space
                 current_line = current_line[:-1] + ' '
             else:
@@ -170,23 +170,23 @@ class NeuroCSVParser(object):
     @classmethod
     def readbodydata(cls, filename):
         print filename
-        d = np.loadtxt(fname=filename, comments='#')
-        return d
+        data = np.loadtxt(fname=filename, comments='#')
+        return data
 
     @classmethod
     def build_traces(cls, header_info, data_array):
-        nCols = data_array.shape[1]
+        n_cols = data_array.shape[1]
 
         # Get the time column:
         time_data_raw = data_array[:, 0]
-        timeUnit = unit(str(header_info.column_data[0]['unit']))
-        time_data = time_data_raw * timeUnit
+        time_unit = unit(str(header_info.column_data[0]['unit']))
+        time_data = time_data_raw * time_unit
 
         # Do we build as fixed or variable array:
         trace_builder = (TraceFixedDT if TraceFixedDT.is_array_fixed_dt(time_data) else TraceVariableDT)
 
         trcs = []
-        for i in range(1, nCols):
+        for i in range(1, n_cols):
             d_i = data_array[:, i]
             column_metadict = header_info.column_data[i]
             dataUnit = unit(str(column_metadict.get('unit', '')))

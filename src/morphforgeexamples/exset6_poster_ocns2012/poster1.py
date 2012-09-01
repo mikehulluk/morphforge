@@ -100,7 +100,7 @@ EQNSET hh_lk {
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
 } """
 
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 sim = env.Simulation()
 
 # Create a cell:

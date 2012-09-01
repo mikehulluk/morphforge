@@ -49,11 +49,11 @@ class PCAAxes(object):
 
         axes = _pca(SectionVistorFactory.array3_all_points(morph)())
 
-        e1 = axes[0][1] / norm(axes[0][1])
-        e2 = axes[1][1] / norm(axes[1][1])
-        e3 = axes[2][1] / norm(axes[2][1])
+        eigenvec1 = axes[0][1] / norm(axes[0][1])
+        eigenvec2 = axes[1][1] / norm(axes[1][1])
+        eigenvec3 = axes[2][1] / norm(axes[2][1])
 
-        self.eigen_matrix = numpy.array((e1, e2, e3)).T
+        self.eigen_matrix = numpy.array((eigenvec1, eigenvec2, eigenvec3)).T
         self.inv_mat = linalg.inv(self.eigen_matrix)
 
 
@@ -63,10 +63,10 @@ class PointOperator(object):
         self.operations = (operations if operations else [])
 
     def __call__(self, pt):
-        t = pt
+        result = pt
         for operator in self.operations:
-            t = operator(t)
-        return t
+            result = operator(result)
+        return result
 
 
 class PointRotator(object):

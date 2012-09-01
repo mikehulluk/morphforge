@@ -36,7 +36,7 @@ from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import P
 # PostSynapticMech_ExpSyn
 from Cheetah.Template import Template
 from morphforge.simulation.neuron.networks import NeuronSynapse
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NeuronSimulationEnvironment
+from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
 
@@ -111,5 +111,5 @@ class Neuron_PSM_ExpSyn(PostSynapticMech_ExpSyn):
         assert False
 
 
-#NeuronSimulationEnvironment.registerPostSynapticMechanism(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
-NeuronSimulationEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
+#NEURONEnvironment.registerPostSynapticMechanism(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)
+NEURONEnvironment.postsynapticmechanisms.register_plugin(PostSynapticMech_ExpSyn, Neuron_PSM_ExpSyn)

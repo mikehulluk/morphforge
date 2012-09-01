@@ -40,7 +40,7 @@ from morphforgecontrib.stdimports import *
 
 
 
-env = NeuronSimulationEnvironment()
+env = NEURONEnvironment()
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id': 'soma'}}
 m1 = MorphologyTree.fromDictionary(morphDict1)
 
@@ -91,7 +91,7 @@ def build_simulation(gbar_multiplier):
 
 
     # Create the environment:
-    env = NeuronSimulationEnvironment()
+    env = NEURONEnvironment()
 
     # Create the simulation:
     mysim = env.Simulation(name="TestSim1")

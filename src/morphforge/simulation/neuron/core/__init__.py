@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.neuron.objects import MNeuronCell
-from morphforge.simulation.neuron.core.neuronsimulation import MNeuronSimulation
+from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
 from morphforge.simulation.neuron.core.neuronsimulationsettings import NeuronSimulationSettings
 
 

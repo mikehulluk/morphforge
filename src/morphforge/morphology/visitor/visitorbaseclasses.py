@@ -82,8 +82,8 @@ class SectionVisitorDF(object):
         else:
             self.functor(section)
 
-        for c in section.children:
-            self.visit_section_internal(c)
+        for child in section.children:
+            self.visit_section_internal(child)
 
 
 class SectionVisitorDFOverrider(SectionVisitorDF):
