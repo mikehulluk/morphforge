@@ -67,26 +67,32 @@ class Simulation(object):
 
     # New API
     def add_currentclamp(self, cc):
+        assert not cc.name in self.objectnames, 'Duplicate name found: %s'%cc.name
         self._current_clamps.append(cc)
         self.add_currentclamp_backend_specific(cc)
 
-    def add_voltageclamp(self, cc):
-        self._voltage_clamps.append(cc)
-        self.add_voltageclamp_backend_specific(cc)
+    def add_voltageclamp(self, vc):
+        assert not vc.name in self.objectnames, 'Duplicate name found: %s'%vc.name
+        self._voltage_clamps.append(vc)
+        self.add_voltageclamp_backend_specific(vc)
 
     def add_cell(self, cell):
+        assert not cell.name in self.objectnames, 'Duplicate name found: %s'%cell.name
         self._cells.append(cell)
         self.add_cell_backend_specific(cell)
 
     def add_synapse(self, syn):
+        assert not syn.name in self.objectnames, 'Duplicate name found: %s'%syn.name
         self._synapses.append(syn)
         self.add_synapse_backend_specific(syn)
 
     def add_gapjunction(self, gj):
+        assert not gj.name in self.objectnames, 'Duplicate name found: %s'%gj.name
         self._gapjunctions.append(gj)
         self.add_gapjunction_backend_specific(gj)
 
     def add_recordable(self, recordable):
+        assert not recordable.name in self.objectnames, 'Duplicate name found: %s'%recordable.name
         self._recordables.append(recordable)
         self.add_recordable_backend_specific(recordable)
 
@@ -159,6 +165,9 @@ class Simulation(object):
                 self.voltage_clamps,
                 self.current_clamps,
                 self.recordables)
+    @property
+    def objectnames(self):
+        return [obj.name for obj in self.objects]
 
 
     def __init__(self, name, environment, **kwargs):
