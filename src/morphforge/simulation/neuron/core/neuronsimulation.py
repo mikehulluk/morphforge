@@ -76,7 +76,7 @@ class NEURONSimulation(Simulation):
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
-        self.recordable_names = {}
+        #self.recordable_names = {}
         self.hocfilename = None
 
 
@@ -187,7 +187,7 @@ class NEURONSimulation(Simulation):
     def _run_no_spawn(self):
 
         # Generate Random data:
-        if True or MockControl.is_mock_simulation:
+        if False or MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 
         def nrn(func, *args, **kwargs):
@@ -284,10 +284,11 @@ class NEURONSimulation(Simulation):
     def add_gapjunction_backend_specific(self, gapjunction):
         self.simulation_objects.append(gapjunction)
 
-    def add_recordable(self, recordable):
-        if recordable.name in self.recordable_names:
-            assert False, 'Duplicate recordable name added'
-        self.recordable_names[recordable.name] = recordable
+    #def add_recordable(self, recordable):
+    def add_recordable_backend_specific(self, recordable):
+        #if recordable.name in self.recordable_names:
+        #    assert False, 'Duplicate recordable name added'
+        #self.recordable_names[recordable.name] = recordable
         self.simulation_objects.append(recordable)
 
 

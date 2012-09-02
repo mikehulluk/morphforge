@@ -32,6 +32,7 @@
 from morphforge.core import LocMgr, SettingsMgr
 from morphforge.core.misc import SeqUtils
 
+import itertools
 
 class Simulation(object):
 
@@ -84,6 +85,13 @@ class Simulation(object):
     def add_gapjunction(self, gj):
         self._gapjunctions.append(gj)
         self.add_gapjunction_backend_specific(gj)
+
+    def add_recordable(self, recordable):
+        self._recordables.append(recordable)
+        self.add_recordable_backend_specific(recordable)
+
+    def add_recordable_backend_specific(self, recordable):
+        raise NotImplementedError()
 
     def add_cell_backend_specific(self, cell):
         raise NotImplementedError()
@@ -138,7 +146,19 @@ class Simulation(object):
     @property
     def current_clamps(self):
         return self._current_clamps
+    @property
+    def recordables(self):
+        return self._recordables
 
+    @property
+    def objects(self):
+        return itertools.chain(
+                self.cells,
+                self.synapses,
+                self.gapjunctions,
+                self.voltage_clamps,
+                self.current_clamps,
+                self.recordables)
 
 
     def __init__(self, name, environment, **kwargs):
@@ -160,14 +180,15 @@ class Simulation(object):
 
         self._gapjunctions = []
         self._synapses = []
+        self._recordables = []
 
 
     # Over-ridden in child classes:
     def run(self, **kwargs):
         raise NotImplementedError()
 
-    def add_recordable(self, recordable):
-        raise NotImplementedError()
+    #def add_recordable(self, recordable):
+    #    raise NotImplementedError()
 
     # Syntactic Sugar for making more readable scripts:
     def record(self, recordable_src=None, **kwargs):

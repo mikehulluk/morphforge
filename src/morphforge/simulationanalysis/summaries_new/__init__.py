@@ -291,7 +291,8 @@ class SimulationMRedoc(object):
 
         # Records:
         records = {}
-        for (name, record) in self.sim.recordable_names.iteritems():
+        for record in self.sim.recordables:
+            name = record.name
             # label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str )
             label = '"Record: %s\\n"' % name  # , record.location_summary_dot_str )
             n = pydot.Node(
