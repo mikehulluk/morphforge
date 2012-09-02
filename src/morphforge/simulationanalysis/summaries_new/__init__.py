@@ -254,7 +254,7 @@ class SimulationMRedoc(object):
 
         pops = {}
 
-        for cell in self.sim.ss_cells:
+        for cell in self.sim.cells:
             n = pydot.Node(
                 cell.name,
                 shape='circle',
@@ -269,7 +269,7 @@ class SimulationMRedoc(object):
 
         stims = {}
         # Simulations:
-        for cclamp in self.sim.ss_current_clamps:
+        for cclamp in self.sim.current_clamps:
             label = '"IClamp: %s\\n %s"' % (cclamp.name,
                     cclamp.location_summary_dot_str)  # """I-Clamp: %s"""%cclamp.name
             n = pydot.Node(
@@ -314,7 +314,7 @@ class SimulationMRedoc(object):
 
             # cell_node = pops[record.cell_location.cell]
 
-        for (i, synapse) in enumerate(self.sim.ss_synapses):
+        for (i, synapse) in enumerate(self.sim.synapses):
             pre_cell = synapse.get_presynaptic_cell()
             post_cell = synapse.get_postsynaptic_cell()
 
@@ -397,7 +397,7 @@ class SimulationMRedoc(object):
 
     def _build_singlecell_overview_cells(self):
         return mrd.Section('Individual Cells',
-                           self._build_cell_table(cell_list=self.sim.ss_cells))
+                           self._build_cell_table(cell_list=self.sim.cells))
 
     # Stim Tables:
     def _build_singlecell_overview_stimtable(self, stims):
@@ -410,11 +410,11 @@ class SimulationMRedoc(object):
 
     def _build_singlecell_overview_iclamps(self):
         return mrd.Section('Current Clamps',
-                           self._build_singlecell_overview_stimtable(stims=self.sim.ss_current_clamps))
+                           self._build_singlecell_overview_stimtable(stims=self.sim.current_clamps))
 
     def _build_singlecell_overview_vclamps(self):
         return mrd.Section('Voltage Clamps',
-                           self._build_singlecell_overview_stimtable(stims=self.sim.ss_voltage_clamps))
+                           self._build_singlecell_overview_stimtable(stims=self.sim.voltage_clamps))
 
     def build_singlecell_details(self):
         sub_sections = [self.build_neuron_details(nrn) for nrn in
