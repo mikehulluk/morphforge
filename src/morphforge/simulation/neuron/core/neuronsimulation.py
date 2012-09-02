@@ -284,11 +284,7 @@ class NEURONSimulation(Simulation):
     def add_gapjunction_backend_specific(self, gapjunction):
         self.simulation_objects.append(gapjunction)
 
-    #def add_recordable(self, recordable):
     def add_recordable_backend_specific(self, recordable):
-        #if recordable.name in self.recordable_names:
-        #    assert False, 'Duplicate recordable name added'
-        #self.recordable_names[recordable.name] = recordable
         self.simulation_objects.append(recordable)
 
 
