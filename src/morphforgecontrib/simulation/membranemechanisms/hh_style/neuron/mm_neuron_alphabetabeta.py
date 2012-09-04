@@ -37,7 +37,7 @@ from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
 
@@ -47,7 +47,7 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordab
 
 
 
-class MM_Neuron_AlphaBetaBeta_Record(NeuronRecordableOnLocation):
+class MM_Neuron_AlphaBetaBeta_Record(NEURONRecordableOnLocation):
 
     def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
         super(MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)

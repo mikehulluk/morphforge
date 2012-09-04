@@ -32,7 +32,7 @@
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 
-class NeuronObject(NamedSimulationObject):
+class NEURONObject(NamedSimulationObject):
 
     """ Base class for objects in a NEURON simulation.
 

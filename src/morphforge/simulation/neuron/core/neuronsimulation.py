@@ -65,7 +65,7 @@ class NEURONSimulation(Simulation):
 
     def _sim_desc_str(self):
         sname = sys.argv[0]
-        return '%s: %s'%(sname, self.name.replace(' ',''))
+        return '%s: %s' % (sname, self.name.replace(' ', ''))
 
 
     def __init__(self, name=None, environment=None, **kwargs):
@@ -76,7 +76,7 @@ class NEURONSimulation(Simulation):
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
-        self.recordable_names = {}
+        #self.recordable_names = {}
         self.hocfilename = None
 
 
@@ -125,8 +125,8 @@ class NEURONSimulation(Simulation):
             # Setup the LD_LIBRARY PATH:
             # It may be nessesary to add the following to .mfrc
             # ld_library_path_suffix = /home/michael/hw/morphforge/src/morphforgecontrib/neuron_gsl/cpp
-            ld_path_additions = RCMgr.get('Neuron','ld_library_path_suffix').split(':')
-            old_ld_path = os.environ.get('LD_LIBRARY_PATH','')
+            ld_path_additions = RCMgr.get('Neuron', 'ld_library_path_suffix').split(':')
+            old_ld_path = os.environ.get('LD_LIBRARY_PATH', '')
             os.environ['LD_LIBRARY_PATH'] = ':'.join([old_ld_path] + ld_path_additions)
 
             LogMgr.info('_run_spawn() [Spawning subprocess]')
@@ -150,9 +150,9 @@ class NEURONSimulation(Simulation):
         #sname = sys.argv[0]
 
 
-        do_summary=False
+        do_summary = False
         if do_summary:
-            fname = '~/Desktop/pdfs/%s.pdf'%(self._sim_desc_str().replace(' ',''))
+            fname = '~/Desktop/pdfs/%s.pdf' % (self._sim_desc_str().replace(' ', ''))
             summary = SimulationMRedoc.build(self)
             summary.to_pdf(fname)
 
@@ -187,7 +187,7 @@ class NEURONSimulation(Simulation):
     def _run_no_spawn(self):
 
         # Generate Random data:
-        if MockControl.is_mock_simulation:
+        if False or MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 
         def nrn(func, *args, **kwargs):
@@ -235,7 +235,7 @@ class NEURONSimulation(Simulation):
                 self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
-                sys.stdout.write('Simulating: t=%.0f/%.0fms \\r' % (neuron.h.t, float(tstop)))
+                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (h.t, float(tstop)))
                 sys.stdout.flush()
                 if neuron.h.t + self.interval < neuron.h.tstop:
                     neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)
@@ -284,10 +284,13 @@ class NEURONSimulation(Simulation):
     def add_gapjunction_backend_specific(self, gapjunction):
         self.simulation_objects.append(gapjunction)
 
-    def add_recordable(self, recordable):
-        if recordable.name in self.recordable_names:
-            assert False, 'Duplicate recordable name added'
-        self.recordable_names[recordable.name] = recordable
+   def add_recordable_backend_specific(self, recordable):
         self.simulation_objects.append(recordable)
+
+    #def add_recordable(self, recordable):
+    #    if recordable.name in self.recordable_names:
+    #        assert False, 'Duplicate recordable name added'
+    #    self.recordable_names[recordable.name] = recordable
+    #    self.simulation_objects.append(recordable)
 
 

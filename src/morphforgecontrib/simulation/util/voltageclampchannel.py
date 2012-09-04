@@ -42,16 +42,13 @@ def get_voltageclamp_soma_current_trace(env, V, mech_builder, morphology):
 
 def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
     sim = env.Simulation(name='SimXX')
-    my_cell = sim.create_cell(name='Cell1', morphology=morphology)
+    cell = sim.create_cell(name='Cell1', morphology=morphology)
 
-    apply_mechanism_everywhere_uniform(cell=my_cell,
+    apply_mechanism_everywhere_uniform(cell=cell,
             mechanism=mech_builder(env=sim.environment))
 
-    soma_loc = my_cell.get_location('soma')
-    voltage_rec = my_cell.get_recordable(simulation=sim,
-            what=my_cell.Recordables.MembraneVoltage, name='SomaVoltage'
-            , cell_location=soma_loc)
-    sim.add_recordable(voltage_rec)
+    soma_loc = cell.get_location('soma')
+    sim.add_record( cell, what=cell.Recordables.MembraneVoltage, name='SomaVoltage' , cell_location=soma_loc)
 
     vc = sim.create_voltageclamp(
         name='Stim1',
@@ -63,8 +60,7 @@ def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
         dur3=unit('100:ms'),
         cell_location=soma_loc,
         )
-    sim.add_recordable(vc.get_recordable(simulation=sim,
-                       what=vc.Recordables.Current, name='VCCurrent'))
+    sim.record(vc, what=vc.Recordables.Current, name='VCCurrent')
     return sim
 
 

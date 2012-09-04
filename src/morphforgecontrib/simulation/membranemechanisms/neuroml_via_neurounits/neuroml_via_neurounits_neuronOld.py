@@ -40,7 +40,7 @@ from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
 from neurounits.tools.nmodl import WriteToNMODL
 from morphforge.core.quantities.fromcore import unit
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from neurounits.importers.neuroml import EqnSetFromNeuroML
 
@@ -51,7 +51,7 @@ from neurounits.importers.neuroml import EqnSetFromNeuroML
 
 
 
-class MM_Neuron_NeuroUnits_GenRecord(NeuronRecordableOnLocation):
+class MM_Neuron_NeuroUnits_GenRecord(NEURONRecordableOnLocation):
     def __init__(self, chl, modvar, **kwargs):
         super(MM_Neuron_NeuroUnits_GenRecord, self).__init__(**kwargs)
         self.chl = chl

@@ -36,12 +36,12 @@ import __builtin__ as bi
 
 
 
-def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict, allocatedTraceColors):
+def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict, allocated_trace_colors):
 
     collisions = 0
     for (_ps, ps_traces) in ps_to_traces_dict.iteritems():
 
-        ps_allocated_indices = [allocatedTraceColors.get(tr, None) for tr in ps_traces ]
+        ps_allocated_indices = [allocated_trace_colors.get(tr, None) for tr in ps_traces ]
         ps_allocated_indices = [a for a in ps_allocated_indices if a is not None]
         clashes = ps_allocated_indices.count(colorIndex)
 

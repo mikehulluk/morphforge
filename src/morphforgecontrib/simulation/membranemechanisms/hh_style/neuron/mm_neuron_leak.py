@@ -38,10 +38,10 @@ from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
-class MM_Neuron_Leak_Record(NeuronRecordableOnLocation):
+class MM_Neuron_Leak_Record(NEURONRecordableOnLocation):
 
     def __init__(self, lkchannel, modvar, **kwargs):
         super(MM_Neuron_Leak_Record, self).__init__(**kwargs)

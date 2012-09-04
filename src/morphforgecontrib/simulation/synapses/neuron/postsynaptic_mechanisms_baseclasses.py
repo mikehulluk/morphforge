@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.core.quantities import unit
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
@@ -38,7 +38,7 @@ from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.base.networks import Synapse
 
 
-class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
+class Neuron_PSM_Std_CurrentRecord(NEURONRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
         super(Neuron_PSM_Std_CurrentRecord, self).__init__(**kwargs)
@@ -59,7 +59,7 @@ class Neuron_PSM_Std_CurrentRecord(NeuronRecordable):
         pass
 
 
-class Neuron_PSM_Std_ConductanceRecord(NeuronRecordable):
+class Neuron_PSM_Std_ConductanceRecord(NEURONRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
         super(Neuron_PSM_Std_ConductanceRecord, self).__init__(**kwargs)

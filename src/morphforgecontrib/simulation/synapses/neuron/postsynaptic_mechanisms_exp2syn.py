@@ -34,7 +34,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2Syn
 from Cheetah.Template import Template
-from morphforge.simulation.neuron.networks import NeuronSynapse
+from morphforge.simulation.neuron.networks import NEURONSynapse
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
@@ -106,10 +106,10 @@ class Neuron_PSM_Exp2Syn(PostSynapticMech_Exp2Syn):
         modfile_set.append(modfile)
 
     def get_recordable(self, what, **kwargs):
-        if what == NeuronSynapse.Recordables.SynapticCurrent:
+        if what == NEURONSynapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Exp2Syn_CurrentRecord(neuron_syn_post=self,
                     **kwargs)
-        if what == NeuronSynapse.Recordables.SynapticConductance:
+        if what == NEURONSynapse.Recordables.SynapticConductance:
             return Neuron_PSM_Exp2Syn_ConductanceRecord(neuron_syn_post=self,
                     **kwargs)
         assert False

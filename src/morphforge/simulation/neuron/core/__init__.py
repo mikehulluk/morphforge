@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects import MNeuronCell
+from morphforge.simulation.neuron.objects import NEURONCell
 from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
-from morphforge.simulation.neuron.core.neuronsimulationsettings import NeuronSimulationSettings
+from morphforge.simulation.neuron.core.neuronsimulationsettings import NEURONSimulationSettings
 
 

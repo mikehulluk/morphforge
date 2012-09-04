@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
+from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl, copy_trace_attrs
 from morphforge.traces import TraceFixedDT, TraceVariableDT, TracePiecewise
 import numpy as np
 

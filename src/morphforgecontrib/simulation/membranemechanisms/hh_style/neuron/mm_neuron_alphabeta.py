@@ -39,12 +39,12 @@ from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import MM_Neuron_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordableOnLocation
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
 
 
-class MM_Neuron_AlphaBeta_Record(NeuronRecordableOnLocation):
+class MM_Neuron_AlphaBeta_Record(NEURONRecordableOnLocation):
     def __init__(self, alphabeta_chl, modvar, **kwargs):
         super(MM_Neuron_AlphaBeta_Record, self).__init__(**kwargs)
         self.alphabeta_chl = alphabeta_chl

@@ -35,7 +35,7 @@ from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
-from morphforge.simulation.neuron.misc import MNeuronSettings
+from morphforge.simulation.neuron.misc import NEURONSettings
 
 
 
@@ -99,7 +99,7 @@ class HocBuilder(object):
             'amp2': voltageclamp.amp2.rescale('mV').magnitude,
             'amp3': voltageclamp.amp3.rescale('mV').magnitude,
             'rs': voltageclamp.rs.rescale('MOhm').magnitude,
-            'VClampType': MNeuronSettings.get_voltageclamp_type(),
+            'VClampType': NEURONSettings.get_voltageclamp_type(),
             }
 
         # Save the data about this Current Clamp:

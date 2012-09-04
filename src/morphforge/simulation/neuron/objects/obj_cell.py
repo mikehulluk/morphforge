@@ -31,19 +31,19 @@
 
 from morphforge.core.quantities import unit
 
-from neuronobject import NeuronObject
+from neuronobject import NEURONObject
 from morphforge.simulation.base import Cell
 
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 
 from Cheetah.Template import Template
 from morphforge.constants.standardtags import StandardTags
 
 
-class MembraneVoltageRecord(NeuronRecordable):
+class MembraneVoltageRecord(NEURONRecordable):
 
     initial_buffer_size = 50000
 
@@ -97,7 +97,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
         pass
 
 
-class MNeuronCell(Cell, NeuronObject):
+class NEURONCell(Cell, NEURONObject):
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
@@ -110,7 +110,7 @@ class MNeuronCell(Cell, NeuronObject):
 
     def get_recordable(self, what, **kwargs):
         recordables = \
-            {MNeuronCell.Recordables.MembraneVoltage: MembraneVoltageRecord}
+            {NEURONCell.Recordables.MembraneVoltage: MembraneVoltageRecord}
         return recordables[what](cell=self, **kwargs)
 
 

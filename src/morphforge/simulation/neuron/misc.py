@@ -38,7 +38,7 @@ class NeuronSimulationConstants(object):
     TimeUnit = unit('1:ms')
 
 
-class MNeuronSettings(object):
+class NEURONSettings(object):
 
     @classmethod
     def get_voltageclamp_type(cls):

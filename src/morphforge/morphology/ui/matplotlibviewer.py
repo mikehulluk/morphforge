@@ -66,6 +66,7 @@ class MatPlotLibViewer(object):
         self.fig = None
         self.fig_kwargs = fig_kwargs if fig_kwargs is not None else {}
         self.subplots = {}
+        self.normaliser = None
 
         self.build_plot(use_pca)
 

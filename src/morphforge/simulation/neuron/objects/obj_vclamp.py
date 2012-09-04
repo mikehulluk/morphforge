@@ -29,19 +29,19 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from neuronobject import NeuronObject
+from neuronobject import NEURONObject
 from morphforge.simulation.base import VoltageClamp
 from morphforge.simulation.base import VoltageClampStepChange
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 
-class VoltageClampCurrentRecord(NeuronRecordable):
+class VoltageClampCurrentRecord(NEURONRecordable):
 
     def __init__(self, vclamp, **kwargs):
         super(VoltageClampCurrentRecord, self).__init__(**kwargs)
@@ -63,10 +63,10 @@ class VoltageClampCurrentRecord(NeuronRecordable):
         pass
 
 
-class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
+class NEURONVoltageClampStepChange(VoltageClampStepChange, NEURONObject):
 
     def __init__(self, **kwargs):
-        super(MNeuronVoltageClampStepChange, self).__init__(**kwargs)
+        super(NEURONVoltageClampStepChange, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.VoltageClamp(hocfile_obj=hocfile_obj,
@@ -82,4 +82,4 @@ class MNeuronVoltageClampStepChange(VoltageClampStepChange, NeuronObject):
 
         return recorders[what](vclamp=self, name=name, **kwargs)
 
-NEURONEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, MNeuronVoltageClampStepChange)
+NEURONEnvironment.voltageclamps.register_plugin(VoltageClampStepChange, NEURONVoltageClampStepChange)

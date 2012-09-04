@@ -30,18 +30,18 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.base import CurrentClamp
-from neuronobject import NeuronObject
+from neuronobject import NEURONObject
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
-from morphforge.simulation.neuron.objects.neuronrecordable import NeuronRecordable
+from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.simulation.base.stimulation import CurrentClampStepChange
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 
-class CurrentClampCurrentRecord(NeuronRecordable):
+class CurrentClampCurrentRecord(NEURONRecordable):
 
     def __init__(self, cclamp, **kwargs):
         super(CurrentClampCurrentRecord, self).__init__(**kwargs)
@@ -70,10 +70,10 @@ class CurrentClampCurrentRecord(NeuronRecordable):
 
 
 
-class MNeuronCurrentClampStepChange(CurrentClampStepChange, NeuronObject):
+class NEURONCurrentClampStepChange(CurrentClampStepChange, NEURONObject):
 
     def __init__(self, **kwargs):
-        super(MNeuronCurrentClampStepChange, self).__init__(**kwargs)
+        super(NEURONCurrentClampStepChange, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
         HocBuilder.CurrentClamp(hocfile_obj=hocfile_obj,
@@ -90,4 +90,4 @@ class MNeuronCurrentClampStepChange(CurrentClampStepChange, NeuronObject):
         return recorders[what](cclamp=self, name=name, **kwargs)
 
 
-NEURONEnvironment.currentclamps.register_plugin(CurrentClampStepChange, MNeuronCurrentClampStepChange)
+NEURONEnvironment.currentclamps.register_plugin(CurrentClampStepChange, NEURONCurrentClampStepChange)

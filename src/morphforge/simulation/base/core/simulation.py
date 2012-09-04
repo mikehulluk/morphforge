@@ -32,6 +32,7 @@
 from morphforge.core import LocMgr, SettingsMgr
 from morphforge.core.misc import SeqUtils
 
+import itertools
 
 class Simulation(object):
 
@@ -66,24 +67,37 @@ class Simulation(object):
 
     # New API
     def add_currentclamp(self, cc):
-        self.ss_current_clamps.append(cc)
+        assert not cc.name in self.objectnames, 'Duplicate name found: %s'%cc.name
+        self._current_clamps.append(cc)
         self.add_currentclamp_backend_specific(cc)
 
-    def add_voltageclamp(self, cc):
-        self.ss_voltage_clamps.append(cc)
-        self.add_voltageclamp_backend_specific(cc)
+    def add_voltageclamp(self, vc):
+        assert not vc.name in self.objectnames, 'Duplicate name found: %s'%vc.name
+        self._voltage_clamps.append(vc)
+        self.add_voltageclamp_backend_specific(vc)
 
     def add_cell(self, cell):
-        self.ss_cells.append(cell)
+        assert not cell.name in self.objectnames, 'Duplicate name found: %s'%cell.name
+        self._cells.append(cell)
         self.add_cell_backend_specific(cell)
 
     def add_synapse(self, syn):
-        self.ss_synapses.append(syn)
+        assert not syn.name in self.objectnames, 'Duplicate name found: %s'%syn.name
+        self._synapses.append(syn)
         self.add_synapse_backend_specific(syn)
 
     def add_gapjunction(self, gj):
-        self.ss_gapjunctions.append(gj)
+        assert not gj.name in self.objectnames, 'Duplicate name found: %s'%gj.name
+        self._gapjunctions.append(gj)
         self.add_gapjunction_backend_specific(gj)
+
+    def add_recordable(self, recordable):
+        assert not recordable.name in self.objectnames, 'Duplicate name found: %s'%recordable.name
+        self._recordables.append(recordable)
+        self.add_recordable_backend_specific(recordable)
+
+    def add_recordable_backend_specific(self, recordable):
+        raise NotImplementedError()
 
     def add_cell_backend_specific(self, cell):
         raise NotImplementedError()
@@ -102,33 +116,59 @@ class Simulation(object):
 
     @property
     def neuron_populations(self):
-        return set([cell.population for cell in self.ss_cells
+        return set([cell.population for cell in self._cells
                    if cell.population])
 
     @property
     def synapse_populations(self):
-        return set([syn.population for syn in self.ss_synapses
+        return set([syn.population for syn in self._synapses
                    if syn.population])
 
     @property
     def are_all_cells_in_pops(self):
-        for cell in self.ss_cells:
+        for cell in self._cells:
             if not cell.population:
                 return False
         return True
 
 
-    @property
-    def synapses(self):
-        return self.ss_synapses
+
 
     @property
     def cells(self):
-        return self.ss_cells
+        return self._cells
+
+    @property
+    def synapses(self):
+        return self._synapses
 
     @property
     def gapjunctions(self):
-        return self.ss_gapjunctions
+        return self._gapjunctions
+
+    @property
+    def voltage_clamps(self):
+        return self._voltage_clamps
+    @property
+    def current_clamps(self):
+        return self._current_clamps
+    @property
+    def recordables(self):
+        return self._recordables
+
+    @property
+    def objects(self):
+        return itertools.chain(
+                self.cells,
+                self.synapses,
+                self.gapjunctions,
+                self.voltage_clamps,
+                self.current_clamps,
+                self.recordables)
+    @property
+    def objectnames(self):
+        return [obj.name for obj in self.objects]
+
 
     def __init__(self, name, environment, **kwargs):
         name = (name if name else 'Unnamed Simulation')
@@ -143,34 +183,21 @@ class Simulation(object):
         # These should only be used by this
         # class, subclasses should take care of the
         # management of cells, VC's and CC's themselves.
-        self.ss_cells = []
-        self.ss_voltage_clamps = []
-        self.ss_current_clamps = []
+        self._cells = []
+        self._voltage_clamps = []
+        self._current_clamps = []
 
-        self.ss_gapjunctions = []
-        self.ss_synapses = []
+        self._gapjunctions = []
+        self._synapses = []
+        self._recordables = []
 
-    # For use by summarisers:
-    def get_cells(self):
-        return self.ss_cells[:]
 
-    def get_voltageclamps(self):
-        return self.ss_voltage_clamps[:]
-
-    def get_currentclamps(self):
-        return self.ss_current_clamps[:]
-
-    def get_gapjunctions(self):
-        return self.ss_gapjunctions[:]
-
-    def get_synapses(self):
-        return self.ss_synapses[:]
-
+    # Over-ridden in child classes:
     def run(self, **kwargs):
         raise NotImplementedError()
 
-    def add_recordable(self, recordable):
-        raise NotImplementedError()
+    #def add_recordable(self, recordable):
+    #    raise NotImplementedError()
 
     # Syntactic Sugar for making more readable scripts:
     def record(self, recordable_src=None, **kwargs):
@@ -196,9 +223,9 @@ class Simulation(object):
         """ Either return a cell by name if there is more than one cell, otherwise the single cell """
 
         if cellname:
-            return SeqUtils.filter_expect_single(self.ss_cells,
+            return SeqUtils.filter_expect_single(self.cells,
                     lambda s: s.name == cellname)
         else:
-            return SeqUtils.expect_single(self.ss_cells)
+            return SeqUtils.expect_single(self.cells)
 
 

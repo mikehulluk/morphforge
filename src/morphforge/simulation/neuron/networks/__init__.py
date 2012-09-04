@@ -31,7 +31,7 @@
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.objects.neuronobject import NeuronObject
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from Cheetah.Template import Template
 from morphforge.simulation.base.networks import Synapse
 from morphforge.simulation.base.networks import GapJunction
@@ -39,10 +39,10 @@ from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.constants.standardtags import StandardTags
 
 
-class NeuronSynapse(NeuronObject, Synapse):
+class NEURONSynapse(NEURONObject, Synapse):
 
     def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):
-        NeuronObject.__init__(self, name=name, simulation=simulation)
+        NEURONObject.__init__(self, name=name, simulation=simulation)
         Synapse.__init__(self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech)
 
 
@@ -111,17 +111,17 @@ BREAKPOINT{
 """
 
 
-class NeuronGapJunction(GapJunction, NeuronObject):
+class NEURONGapJunction(GapJunction, NEURONObject):
 
     def __init__(self, **kwargs):
-        super(NeuronGapJunction, self).__init__(**kwargs)
+        super(NEURONGapJunction, self).__init__(**kwargs)
 
     is_first_build = True
 
     def build_mod(self, modfile_set):
 
-        if NeuronGapJunction.is_first_build:
-            NeuronGapJunction.is_first_build = False
+        if NEURONGapJunction.is_first_build:
+            NEURONGapJunction.is_first_build = False
             modfile = ModFile(modtxt=gap_mod, name='GapJunction')
             modfile_set.append(modfile)
 
