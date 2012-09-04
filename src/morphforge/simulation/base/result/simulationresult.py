@@ -52,10 +52,14 @@ class SimulationResult(object):
         self.t_start = t_start
         self.t_stop = t_stop
 
-    def get_trace(self, name):
-        return SeqUtils.filter_expect_single(
-                self.traces, 
-                lambda s: s.name == name)
+    def get_trace(self, obj):
+        # Get the results by string:
+        if isinstance(obj, basestring):
+            return SeqUtils.filter_expect_single( self.traces, lambda s: s.name == obj)
+
+        # Get the results by Recordable object:
+        else:
+            return self.get_trace(obj.name)
 
 
     def get_traces(self):

@@ -57,7 +57,7 @@ class MetaDataBundleBuilder(object):
         # Save the random number seed
         bundle.random_seed = morphforge.core.mfrandom.MFRandom.get_seed()
         md5sum = bundle.get_sim_md5sum()
-        resfilename = Join(reslocation, '%s/' % md5sum[:2], md5sum
+        resfilename = Join(reslocation, '%s/' % md5sum[:2]+'/', md5sum
                            + cls.ressuffix)
 
         # Save the results to pickle file:

@@ -105,3 +105,192 @@ class MembraneMechanismSummariser(object):
     @classmethod
     def create_pdf(cls, *args, **kwargs):
         pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Some basic caching.
+# Note that this code looks at every lin of pytohn code that has been run in the 
+# funciton and makes sure that it hasn't changes.
+# WHAT IS MISSING IS CODE TO ENSURE THAT DURING LOADUP - THE SAME HAPPENS.
+# WE CAN PROBABLY DO THIS BY INSERTING ANOTHER CALL VERY EARLY ON DURING STARTUP
+# AND ALSO CACHING WHAT IS CALLED IN THAT!
+# WITH THE CURRENT CACHING, IF INITITAILISATION CODE CHANHGES A Variable that it later
+# read, we don't pick this ut!
+
+
+import trace,hashlib, sys, os
+import cPickle
+
+
+
+class HashManager(object):
+    _file_hashes = {}
+    @classmethod
+    def get_filename_hash(cls, filename):
+        if not filename in cls._file_hashes:
+            with open(filename) as fobj:
+                h = hashlib.new('sha1')
+                h.update(fobj.read())
+            cls._file_hashes[filename] = str(h.hexdigest())
+        return cls._file_hashes[filename]
+
+class _CachedFileAccessData(object):
+    def __init__(self, filename, linenumbers):
+        self.filename = filename
+        self.linenumbers = linenumbers
+        self._cachedhashfile = HashManager.get_filename_hash(filename)
+        self._cachedhashlines = self.current_line_hash()
+
+
+    def current_line_hash(self):
+
+        lines = self.get_file_lines() 
+        if lines is not None:
+            h = hashlib.new('sha1')
+            h.update('\n'.join(lines ))
+            return h.hexdigest()
+        else:
+            return None
+
+
+    def get_file_lines(self):
+        with open(self.filename) as fobj:
+            lines = fobj.readlines()
+
+        res = []
+        n_lines = len(lines)
+        for linenumber in self.linenumbers:
+            if not linenumber < n_lines:
+                return None
+            res.append(lines[linenumber])
+        return res
+
+
+
+    def is_clean(self):
+        if self._cachedhashfile == HashManager.get_filename_hash(self.filename):
+            return True
+        if self._cachedhashlines is not None and \
+           self._cachedhashlines == self.current_line_hash():
+            return True
+    
+        
+
+        return False
+
+    def __str__(self,):
+        #return '<CachedFileObject: (is_clean:%s) %s>' % (self.is_clean(), self.filename)
+        return '<CachedFileObject: (is_clean:%s) %s [%s->%s]>' % (self.is_clean(), self.filename, self._cachedhashfile, HashManager.get_filename_hash(self.filename))
+
+def load_cache(cachefilename):
+    if not os.path.exists(cachefilename):
+        return None, None
+    with open(cachefilename) as fobj:
+        (return_value, cache_data) = cPickle.load(fobj)
+        return (return_value, cache_data)
+
+def save_cache(cachefilename, return_value, cache_data):
+    LocMgr.ensure_dir_exists(os.path.dirname(cachefilename))
+    with open(cachefilename, 'w') as fobj:
+        res = (return_value, cache_data)
+        cPickle.dump( res, fobj)
+
+def _run_and_cache(func, args, kwargs):
+    tr = trace.Trace( count=1, trace=0, countfuncs=0,
+            ignoredirs=[sys.prefix, sys.exec_prefix])
+
+    output = tr.runfunc(func, *args, **kwargs)
+
+    _accessed_functions = {}
+    for (filename, linenumber) in sorted(tr.results().counts):
+        if filename .startswith('/usr'):
+            continue
+
+        if not filename in _accessed_functions:
+            _accessed_functions[filename] = []
+        _accessed_functions[filename].append(linenumber)
+
+    cache_data = []
+    for filename, linenumbers in _accessed_functions.iteritems():
+        if filename == '<string>':
+            assert False
+        else:
+            cd = _CachedFileAccessData(filename=filename, linenumbers=linenumbers)
+            cache_data.append(cd)
+    return (output, cache_data)
+
+
+def is_cache_clean(cache):
+    print 'Is the cache clean?'
+    if cache is None:
+        return False
+
+    for cd in cache:
+        print cd
+        if not cd.is_clean():
+            return False
+    return True
+
+
+def get_arg_string_hash(args, kwargs):
+    arg_strs = [str(a) for a in args]
+    kwargs_strs = ['%s=%s' % (str(key), str(value)) for (key,value) in sorted( kwargs.iteritems()) ]
+
+    res = ','.join( arg_strs + kwargs_strs)
+    h = hashlib.new('sha1')
+    h.update(res)
+    return h.hexdigest()
+
+def run_with_cache(func, args=None, kwargs=None, cachefilenamebase='./_cache/cache'):
+
+    # Hash up the arguments:
+    if not args: 
+        args=()
+    if not kwargs:
+        kwargs={}
+    arg_hash = get_arg_string_hash(args, kwargs)
+    
+    cachefilename = cachefilenamebase + arg_hash + '.pickle'
+
+    return_value, cache = load_cache(cachefilename=cachefilename)
+    if not is_cache_clean(cache):
+        return_value, cache = _run_and_cache(func, args=args, kwargs=kwargs)
+        save_cache(cachefilename, return_value, cache)
+    return return_value
+
+
+
+
+
+
+
+
+
+
+
+
+
+

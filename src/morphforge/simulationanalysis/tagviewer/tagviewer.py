@@ -44,19 +44,19 @@ from morphforge.core import quantities as pq
 # pylint: disable=W0108
 # (Suppress warning about 'unnessesary lambda functions')
 
-def _resolve_time_range(time_range):
-    # Sort out the time_range:
-    if time_range is not None:
-        if isinstance(time_range, (tuple, list, Quantity)):
-            if len(time_range) == 2:
-                if isinstance(time_range[0], Quantity):
-                    pass
-                else:
-                    assert False
-                    time_range = time_range * ms
-        else:
-            assert False
-    return time_range
+#def _resolve_time_range(time_range):
+#    # Sort out the time_range:
+#    if time_range is not None:
+#        if isinstance(time_range, (tuple, list, Quantity)):
+#            if len(time_range) == 2:
+#                if isinstance(time_range[0], Quantity):
+#                    pass
+#                else:
+#                    assert False
+#                    time_range = time_range * ms
+#        else:
+#            assert False
+#    return time_range
 
 
 
@@ -106,7 +106,7 @@ class TagViewer(object):
         timerange=None,
         additional_plots=None,
         share_x_labels=True,
-        mpl_tight_bounds=True,
+        mpl_tight_bounds=False,
         ):
 
         if fig_kwargs is None:
@@ -122,11 +122,11 @@ class TagViewer(object):
         self.all_trace_objs = []
         self.all_event_set_objs = []
         trace_extractors = {
-            SimulationResult:       lambda obj: self.all_trace_objs.extend(obj.traces),
-            TraceFixedDT:          lambda obj: self.all_trace_objs.append(obj),
-            TraceVariableDT:       lambda obj: self.all_trace_objs.append(obj),
-            TracePiecewise:        lambda obj: self.all_trace_objs.append(obj),
-            EventSet:               lambda obj: self.all_event_set_objs.append(obj)
+            SimulationResult:   lambda obj: self.all_trace_objs.extend(obj.traces),
+            TraceFixedDT:       lambda obj: self.all_trace_objs.append(obj),
+            TraceVariableDT:    lambda obj: self.all_trace_objs.append(obj),
+            TracePiecewise:     lambda obj: self.all_trace_objs.append(obj),
+            EventSet:           lambda obj: self.all_event_set_objs.append(obj)
                             }
 
         for obj in srcs:
@@ -180,32 +180,23 @@ class TagViewer(object):
         if self.linkage:
             self.linkage.process(plotspec_to_traces)
 
-        #n_time_ranges = len(self.timerange)
-        n_time_ranges = 1
         n_plots = len(self.plot_specs)
 
         for (i, plot_spec) in enumerate(self.plot_specs):
 
-            print 'Plotting For PlotSpec:', plot_spec
+            # Create the axis:
+            ax = self.fig.add_subplot(n_plots, 1, i + 1)
+            ax.set_xunit(pq.millisecond)
+            ax.set_xmargin(0.05)
+            ax.set_ymargin(0.05)
 
-            # TODO: LOOP OVER SINGLE ELEMENT: to refactor
-            for (i_t, time_range) in enumerate([self.timerange]):
+            # Leave the plotting to the PlotSpecification
+            is_bottom_plot = i == n_plots - 1
+            plot_xaxis_details = is_bottom_plot or not self.share_x_labels
+            plot_spec.plot(ax=ax, all_traces=self.all_trace_objs, all_eventsets=self.all_event_set_objs, time_range=self.timerange, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
 
-                time_range = _resolve_time_range(time_range)
-
-                # Create the axis:
-                ax = self.fig.add_subplot(n_plots, n_time_ranges, i * n_time_ranges + i_t  + 1)
-                ax.set_xunit(pq.millisecond)
-                ax.set_xmargin(0.05)
-                ax.set_ymargin(0.05)
-
-                # Leave the plotting to the PlotSpecification
-                is_bottom_plot = i == n_plots - 1
-                plot_xaxis_details = is_bottom_plot or not self.share_x_labels
-                plot_spec.plot(ax=ax, all_traces=self.all_trace_objs, all_eventsets=self.all_event_set_objs, time_range=time_range, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
-
-                # Save the Axis:
-                self.subaxes.append(ax)
+            # Save the Axis:
+            self.subaxes.append(ax)
 
         if self.mpl_tight_bounds:
             import pylab

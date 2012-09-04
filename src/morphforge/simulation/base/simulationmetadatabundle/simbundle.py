@@ -80,7 +80,7 @@ class SimMetaDataBundle(SimMetaDataBundleBase):
         bundlesuffix = '.bundle'
 
         if bundlefilename is None:
-            bundle_dir = bundleloc + '/' + self.get_sim_md5sum()[0:2]
+            bundle_dir = bundleloc + '/' + self.get_sim_md5sum()[0:2] + '/'
             bundle_dir = LocMgr.ensure_dir_exists(bundle_dir)
             bundle_fname = self.get_sim_md5sum() + bundlesuffix
             bundlefilename = os.path.join(bundle_dir, bundle_fname)
