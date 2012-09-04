@@ -142,7 +142,7 @@ class MembraneMechanismSummariser(object):
 
 
 import trace,hashlib, sys, os
-import cPickle
+import cPickle, inspect
 
 
 
@@ -256,24 +256,27 @@ def is_cache_clean(cache):
 
 
 def get_arg_string_hash(args, kwargs):
-    arg_strs = [str(a) for a in args]
-    kwargs_strs = ['%s=%s' % (str(key), str(value)) for (key,value) in sorted( kwargs.iteritems()) ]
+    arg_strs = [cPickle.dumps(a) for a in args]
+    kwargs_strs = ['%s=%s' % (str(key), cPickle.dumps(value)) for (key,value) in sorted( kwargs.iteritems()) ]
 
     res = ','.join( arg_strs + kwargs_strs)
     h = hashlib.new('sha1')
     h.update(res)
     return h.hexdigest()
 
-def run_with_cache(func, args=None, kwargs=None, cachefilenamebase='./_cache/cache'):
+def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):#'./_cache/cache'):
+    if cachefilenamebase is None:
+        cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
 
     # Hash up the arguments:
     if not args: 
-        args=()
+        args=tuple()
     if not kwargs:
         kwargs={}
     arg_hash = get_arg_string_hash(args, kwargs)
-    
-    cachefilename = cachefilenamebase + arg_hash + '.pickle'
+    script_filename = inspect.stack()[-1][1]
+    script_filename_clean = script_filename.replace('/','__').replace(' ','__').replace('.', '_')
+    cachefilename = cachefilenamebase + '_' + script_filename_clean + '_' + arg_hash + '.pickle'
 
     return_value, cache = load_cache(cachefilename=cachefilename)
     if not is_cache_clean(cache):
