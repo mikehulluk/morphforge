@@ -33,6 +33,9 @@
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
+from random import randint, choice
+import pylab
+
 """
 DocumentLayout:
 
@@ -120,11 +123,11 @@ class SummariserLibrary(object):
 class _DotSummaryUtils(object):
 
     @classmethod
-    def save_dot(cls, graph, **kwargs):
+    def save_dot(cls, graph, format, **kwargs):
         from morphforge.core import ObjectLabeller
         name = ObjectLabeller.get_next_unamed_object_name(type(graph))
         tmp_dir = LocMgr.get_tmp_path()
-        fname = '%s/dotout_%s.pdf' % (tmp_dir, name)
+        fname = '%s/dotout_%s.%s' % (tmp_dir, name, format)
         graph.write_pdf(fname, **kwargs)
         return fname
 
@@ -150,8 +153,8 @@ class SimulationMRedoc(object):
         return mrd.Section('Simulation Summary: %s'%self.sim._sim_desc_str(),
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
-                self.build_simulation_details(),
-                PluginMgr.summarise_all(),
+                #self.build_simulation_details(),
+                #PluginMgr.summarise_all(),
                )
 
 
@@ -165,7 +168,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
-               self.build_details_channels(),
+               #self.build_details_channels(),
                )
 
 
@@ -194,152 +197,16 @@ class SimulationMRedoc(object):
 
         return mrd.Section("Population Overview",
                            table, table2,
-                           self.build_population_overview_dot(),
+                           #self.build_population_overview_dot(),
                            self.build_population_complete_dot()
                           )
 
 
 
-    def build_population_overview_dot(self):
-        assert False
-
-        import pydot
-        graph = pydot.Dot('graphname', graph_type='digraph')
-
-        kwargs = {'fontsize': '6'}
-
-        pops = {}
-        for neuron_population in self.sim.neuron_populations:
-            n = pydot.Node(neuron_population.pop_name, shape='circle',
-                           color='lightblue', style='filled', **kwargs)
-            pops[neuron_population] = n
-            graph.add_node(n)
-
-        for (i, synpop) in enumerate(self.sim.synapse_populations):
-            pre_pop = synpop.presynaptic_population
-            post_pop = synpop.postsynaptic_population
-
-            if not pre_pop:
-                pre_n = pydot.Node(name='SpikeTimes%d' % i,
-                                   shape='point', color='lightsalmon',
-                                   style='filled', **kwargs)
-                graph.add_node(pre_n)
-            else:
-                pre_n = pops[pre_pop]
-
-            post_n = pops[post_pop]
-
-            syn_name = "%s\\n(%s)" % (synpop.synapse_pop_name, len(synpop))
-            e = pydot.Edge(pre_n, post_n, label=syn_name, color='red', **kwargs)
-            graph.add_edge(e)
-
-        fname = _DotSummaryUtils.save_dot(graph)
-        return mrd.Figure(mrd.Image(fname))
 
     def build_population_complete_dot(self):
-        return mrd.Section('Diagram Overview')
+        return DOTWriter(self.sim).build_population_complete_dot()
 
-        import pydot
-        graph = pydot.Dot('graphname', graph_type='digraph', size='5,5'
-                          , ratio='compress')
-
-        size = '0.65'
-        fontsize = '8'
-        kwargs = {
-            'fontsize': fontsize,
-            'fixedsize': 'True',
-            'width': size,
-            'height': size,
-            }
-
-        pops = {}
-
-        for cell in self.sim.cells:
-            n = pydot.Node(
-                cell.name,
-                shape='circle',
-                fillcolor='#80b3ffff',
-                color='#0066ffff',
-                style='filled',
-                penwidth='4',
-                **kwargs
-                )
-            pops[cell] = n
-            graph.add_node(n)
-
-        stims = {}
-        # Simulations:
-        for cclamp in self.sim.current_clamps:
-            label = '"IClamp: %s\\n %s"' % (cclamp.name,
-                    cclamp.location_summary_dot_str)  # """I-Clamp: %s"""%cclamp.name
-            n = pydot.Node(
-                cclamp.name,
-                shape='circle',
-                style='filled',
-                width='0.05',
-                fixedsize='True',
-                label=label,
-                fontsize=fontsize,
-                )
-            stims[cclamp] = n
-            graph.add_node(n)
-
-            # Make the edge:
-            cell_node = pops[cclamp.cell]
-            e = pydot.Edge(n, cell_node, label='', color='red')  # **kwargs)
-            graph.add_edge(e)
-
-        # Records:
-        records = {}
-        for record in self.sim.recordables:
-            name = record.name
-            # label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str )
-            label = '"Record: %s\\n"' % name  # , record.location_summary_dot_str )
-            n = pydot.Node(
-                name,
-                shape='circle',
-                style='filled',
-                width='0.05',
-                fixedsize='True',
-                label=label,
-                fontsize=fontsize,
-                )
-            records[record] = n
-            graph.add_node(n)
-
-            # Make the edge:
-            if isinstance(record, NEURONRecordableOnLocation):
-                post_node = pops[record.cell_location.cell]
-                e = pydot.Edge(n, post_node, label='', color='green')
-                graph.add_edge(e)
-
-            # cell_node = pops[record.cell_location.cell]
-
-        for (i, synapse) in enumerate(self.sim.synapses):
-            pre_cell = synapse.get_presynaptic_cell()
-            post_cell = synapse.get_postsynaptic_cell()
-
-            if not pre_cell:
-                pre_n = pydot.Node(name='SpikeTimes%d' % i,
-                                   shape='point', color='lightsalmon',
-                                   style='filled', **kwargs)
-                graph.add_node(pre_n)
-            else:
-                pre_n = pops[pre_cell]
-            post_n = pops[post_cell]
-
-            syn_name = '%s' % synapse.name
-            e = pydot.Edge(pre_n, post_n, label=syn_name, color='red',
-                           **kwargs)
-            graph.add_edge(e)
-
-        # Put the stimulations on:
-
-        fname = _DotSummaryUtils.save_dot(graph, prog='circo')
-        return mrd.Section(
-                'Diagram Overview',
-                mrd.Figure(mrd.Image(fname))
-                )
 
 
 
@@ -519,3 +386,267 @@ class SimulationMRedoc(object):
 
 
     # -------------------------------
+
+
+
+
+from matplotlib.ticker import MaxNLocator
+
+
+
+
+def build_connectivity_graph(synapse_pop, size=0.75):
+
+    prepop = synapse_pop.presynaptic_population
+    #if prepop:
+    #    prepop_lut = prepop.build_cell_to_index_lut()
+
+    postpop = synapse_pop.postsynaptic_population
+    #postpop_lut = postpop.build_cell_to_index_lut()
+
+    connectivity = list()
+    for syn in synapse_pop:
+
+        if prepop:
+            pre_index = syn.get_presynaptic_cell().index_in_pop
+        else:
+            pre_index = 0
+
+        post_index = syn.get_postsynaptic_cell().index_in_pop
+        connectivity.append((pre_index, post_index))
+
+    prepop_len = (len(prepop) if prepop else 1) 
+    postpop_len = len(postpop)
+    max_len = max( (prepop_len, postpop_len) )
+
+    import pylab
+    figsize_raw =(size * (float(prepop_len)/max_len),size*(float(postpop_len)/max_len))
+    figsize = figsize_raw #figsize_raw[0]+0.75, figsize_raw[1]+0.75
+    print figsize
+
+
+
+    f = pylab.figure(figsize=figsize, dpi=400 )
+    #ax = f.add_subplot(1,1,1, aspect='equal') 
+    ax = f.add_axes([0,0,1,1], aspect='equal') 
+    x,y = zip(*connectivity)
+    ax.scatter(x,y, marker='s', s=7, edgecolors='none')
+    #ax.axis('equal')
+    ax.set_xlim(-0.5, prepop_len-0.5 )
+    ax.set_ylim(-0.5, postpop_len-0.5 )
+    ax.xaxis.set_major_locator(MaxNLocator(min(prepop_len,3)))
+    ax.yaxis.set_major_locator(MaxNLocator(min(postpop_len,3)))
+    ax.axes.get_xaxis().set_ticklabels([])
+    ax.axes.get_yaxis().set_ticklabels([])
+    #pylab.suptitle('Connectivity: %d synapses'%len(synapse_pop))
+    #pylab.show()
+    return f
+
+
+
+
+
+
+
+
+
+
+
+class DOTWriter(object):
+    def __init__(self, sim):
+        self.sim = sim
+
+    def build_population_complete_dot(self):
+        fig_count = 0
+        fig_out = '/tmp/dotimages/'
+        import pydot
+        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7' , ratio='compress', compound='true', splines='true',sep='0.3' )
+
+        size = '0.55'
+        fontsize = '6'
+        kwargs_general = {
+            'fontsize': fontsize,
+            'fixedsize': 'True',
+            'width': size,
+            'height': size,
+            'fontname':'Helvetica'
+            }
+
+
+        cell_size='0.15'
+        kwargs_cell = { 'shape':'circle', 'fillcolor':'#80b3ffff', 'color':'#0066ffff', 'style':'filled', 'penwidth':'1', 'width':cell_size, 'height':cell_size }
+        kwargs_cc = {'shape':'circle', 'style':'filled', 'width':'0.05', }
+
+
+        kwargs_pop = {'style':'filled', 'color':'lightgrey','nodesep':'100' }
+        kwargs_synpop = {'shape':'none', 'fixedsize':'false'  }
+        kwargs_synpop_img = {'shape':'square', 'labelloc':'b',   'scale':'false','fixedsize': 'true',}
+        kwargs_synpop_edge = {'penwidth':'3', 'color':'green', 'minlen':'50' } 
+
+
+        # Map Simulation objects into dot objects:
+        obj2nodedict = {}
+        subgraphs = []
+
+        # Populations become subgraphs:
+        for population in self.sim.neuron_populations:
+            n = pydot.Cluster(population.pop_name, label=population.pop_name, **dict(kwargs_general.items() +  kwargs_pop.items() ))
+            subgraphs.append(n)
+            obj2nodedict[population] = n
+
+
+        # Cells into Nodes
+        for cell in self.sim.cells:
+            n = pydot.Node(
+                cell.name,
+                label=cell.name if cell.population is None else '<%d>' % cell.index_in_pop,
+                **dict(kwargs_general.items()+ kwargs_cell.items())
+                )
+            obj2nodedict[cell] = n
+
+            if cell.population:
+                obj2nodedict[cell.population].add_node(n)
+            else:
+                graph.add_node(n)
+
+
+
+        for sg in subgraphs:
+            graph.add_subgraph(sg)
+        del subgraphs
+
+
+
+        # Synapse Populations are turned into a node, with edges from pre and
+        # to the post synaptic population:
+        for synpopindex, synpop in enumerate(self.sim.synapse_populations):
+
+            synpopcluster = pydot.Cluster('SynpopCluster'+synpop.synapse_pop_name)
+
+            # Create the connectivity graph:
+            connectivity_graph_figure = build_connectivity_graph(synpop)
+            fname = fig_out + '/synpop%d.png' % synpopindex
+            pylab.savefig(fname, transparent=True, dpi=400,bb_inches='tight')
+
+
+            n = pydot.Node(synpop.synapse_pop_name+'im',label='', image=fname, **dict(kwargs_general.items() + kwargs_synpop_img.items()))
+            synpopcluster.add_node(n)
+
+
+            label=''
+            label+= synpop.synapse_pop_name
+            len_prepop = len(synpop.presynaptic_population) if synpop.presynaptic_population else 1
+            pc_conn = 100. * len(synpop) / (len_prepop * len(synpop.postsynaptic_population))
+            #print pc_conn
+            #pc_conn=50.
+            #label+= '\\nType: %s'% (synpop.type)
+            label+= '\\nSynapses: %d (%d%%)'% (len(synpop),pc_conn )
+            #label= synpop.synapse_pop_name
+            n = pydot.Node(synpop.synapse_pop_name+'cap',label='"%s"'%label,  **dict(kwargs_general.items() + kwargs_synpop.items()))
+            synpopcluster.add_node(n)
+
+
+            obj2nodedict[synpop] = synpopcluster
+            graph.add_subgraph(synpopcluster)
+
+            # Connect to pre- and post- synaptic pops:
+            post_pop = synpop.postsynaptic_population
+            e = pydot.Edge(synpopcluster.get_name(), obj2nodedict[post_pop].get_name(), **dict(kwargs_general.items() + kwargs_synpop_edge.items() ))
+            graph.add_edge(e)
+
+            pre_pop = synpop.presynaptic_population
+            if pre_pop is not None:
+                e = pydot.Edge( obj2nodedict[pre_pop].get_name(), synpopcluster.get_name(), **dict(kwargs_general.items() + kwargs_synpop_edge.items() ))
+                graph.add_edge(e)
+            else:
+                print 'NONE'
+
+
+
+
+
+        for (i, synapse) in enumerate(self.sim.synapses):
+            if synapse.population:
+                continue
+            pre_cell = synapse.get_presynaptic_cell()
+            post_cell = synapse.get_postsynaptic_cell()
+
+            if not pre_cell:
+                pre_n = pydot.Node(name='SpikeTimes%d' % i,
+                                   shape='point', color='lightsalmon',
+                                   style='filled', **kwargs_general)
+                graph.add_node(pre_n)
+            else:
+                pre_n = obj2nodedict[pre_cell]
+            post_n = obj2nodedict[post_cell]
+
+            syn_name = '%s' % synapse.name
+            e = pydot.Edge(pre_n, post_n, label=syn_name, color='red',
+                           **kwargs_general)
+            graph.add_edge(e)
+
+
+
+
+
+        stims = {}
+        # Simulations:
+        for cclamp in self.sim.current_clamps:
+            label = '"IClamp: %s\\n %s"' % (cclamp.name,
+                    cclamp.location_summary_dot_str)  
+            n = pydot.Node(
+                cclamp.name,
+                label=label,
+                **dict(kwargs_general.items()+ kwargs_cc.items())
+                )
+            stims[cclamp] = n
+            graph.add_node(n)
+
+            # Make the edge:
+            cell_node = obj2nodedict[cclamp.cell]
+            e = pydot.Edge(n, cell_node, label='', color='red')  # **kwargs)
+            graph.add_edge(e)
+
+        ## Records:
+        #records = {}
+        #for record in self.sim.recordables:
+        #    name = record.name
+        #    # label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str )
+        #    label = '"Record: %s\\n"' % name  # , record.location_summary_dot_str )
+        #    n = pydot.Node(
+        #        name,
+        #        shape='circle',
+        #        style='filled',
+        #        width='0.05',
+        #        fixedsize='True',
+        #        label=label,
+        #        fontsize=fontsize,
+        #        )
+        #    records[record] = n
+        #    graph.add_node(n)
+
+        #    # Make the edge:
+        #    if isinstance(record, NEURONRecordableOnLocation):
+        #        post_node = obj2nodedict[record.cell_location.cell]
+        #        e = pydot.Edge(n, post_node, label='', color='green')
+        #        graph.add_edge(e)
+
+        #    # cell_node = obj2nodedict[record.cell_location.cell]
+
+
+
+
+
+
+        graph.write_raw('example_cluster2.dot')
+
+        # Put the stimulations on:
+
+        #fname = _DotSummaryUtils.save_dot(graph, prog='dot')
+        fname = _DotSummaryUtils.save_dot(graph, format='pdf', prog='fdp')
+        #fname = _DotSummaryUtils.save_dot(graph, prog='osage')
+        #fname = _DotSummaryUtils.save_dot(graph, prog='neato')
+        return mrd.Section(
+                'Diagram Overview',
+                mrd.Figure(mrd.Image(fname))
+                )

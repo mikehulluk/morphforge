@@ -65,7 +65,7 @@ class NeuronPopulation(object):
         self.sim = sim
 
         # Create the neurons:
-        self.nrns = []
+        self._nrns = []
         for i in range(n):
             cell_name = name_tmpl.substitute({'i': i})
 
@@ -76,16 +76,19 @@ class NeuronPopulation(object):
             n = neuron_functor(sim=sim, name=cell_name,
                                cell_tags=cell_tags)
             n.population = self
-            self.nrns.append(n)
+            self._nrns.append(n)
+
+
+        self._cell_to_index_lut = self._build_cell_to_index_lut()
 
     def __len__(self):
-        return len(self.nrns)
+        return len(self._nrns)
 
     def __getitem__(self, i):
-        return self.nrns[i]
+        return self._nrns[i]
 
     def __iter__(self):
-        return iter(self.nrns)
+        return iter(self._nrns)
 
     @property
     def cell_types(self):
@@ -104,7 +107,7 @@ class NeuronPopulation(object):
         # Indexable by index of cell reference
         if isinstance(cell, int):
             cell = self[cell]
-        assert cell in self.nrns
+        assert cell in self._nrns
 
         what = what or Cell.Recordables.MembraneVoltage
         user_tags = user_tags or []
@@ -126,13 +129,19 @@ class NeuronPopulation(object):
 
     def record_all(self, **kwargs):
         assert False, "Method renamed to 'record_from_all"
-        return [self.record(cell, **kwargs) for cell in self.nrns]
+        return [self.record(cell, **kwargs) for cell in self._nrns]
 
     def record_from_all(self, **kwargs):
-        return [self.record(cell, **kwargs) for cell in self.nrns]
+        return [self.record(cell, **kwargs) for cell in self._nrns]
 
     def for_each(self, func):
-        return [func(cell=nrn) for nrn in self.nrns]
+        return [func(cell=nrn) for nrn in self._nrns]
+
+    def _build_cell_to_index_lut(self):
+        return dict([ (cell,index) for (index,cell) in enumerate(self._nrns)])
+
+    def index(self, cell):
+        return self._cell_to_index_lut[cell]
 
 
 class SynapsePopulation(object):
@@ -254,6 +263,10 @@ class SynapsePopulation(object):
             assert len(post_pops) == 1
             return list(post_pops)[0]
 
+    @property
+    def presynaptic_times(self):
+        assert False
+
 
 class Connectors(object):
 
@@ -266,6 +279,8 @@ class Connectors(object):
         connect_functor,
         synapse_pop_name=None,
         ):
+
+        
         pre_post_it = itertools.product(presynaptic_population,
                 postsynaptic_population)
         synapses = [connect_functor(sim=sim, presynaptic=pre,

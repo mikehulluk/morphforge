@@ -77,6 +77,12 @@ class Cell(NamedSimulationObject):
 
         self.population = None
 
+
+    @property
+    def index_in_pop(self):
+        assert self.population is not None
+        return self.population.index(self)
+
     def get_location(self, idtag, sectionpos=0.5):
         return CellLocation(cell=self,
                             section=self.morphology.get_section(idtag=idtag),
