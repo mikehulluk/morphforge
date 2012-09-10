@@ -182,13 +182,13 @@ class TagViewer(object):
         self.show_xticklabels_with_units = show_xticklabels_with_units
         self.show_xaxis_position = show_xaxis_position
         self.xticks=xticks
-        assert self.show_xlabel in self._options_show_xlabel
+        assert self.show_xlabel in self._options_show_xlabel, 'Invalid'
         assert self.show_xticklabels in self._options_show_xticklabels
         assert self.show_xticklabels_with_units in self._options_show_xticklabels_with_units
         assert self.show_xaxis_position in self._options_show_xaxis_position 
-        if is_iterable( self.xticks ) and all( [isinstance(x, (int, float)) for x in self.xticks]):
-            self.xticks = [ x*pq.ms for x in self.xticks]
-        assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(x) for x in self.xticks] )
+        if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
+            self.xticks = [ xtick*pq.ms for xtick in self.xticks]
+        assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(xtick) for xtick in self.xticks] )
 
 
         self.fig = None

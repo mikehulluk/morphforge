@@ -63,11 +63,11 @@ class PiecewiseIntegrator(PieceWiseComponentVisitor):
 def _integrate_piecewise(tr):
     pieces =  [PiecewiseIntegrator.visit(piece) for piece in tr.pieces]
     tot = None
-    for p in pieces:
+    for piece in pieces:
         if tot is None:
-            tot = p
+            tot = piece
         else:
-            tot = tot+p
+            tot = tot+piece
     return tot
 
 TraceMethodCtrl.register(TracePiecewise, 'integrate', _integrate_piecewise )

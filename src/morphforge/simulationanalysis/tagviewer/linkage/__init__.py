@@ -96,8 +96,7 @@ class LinkageRuleTag(object):
 
 
     def __call__(self, all_traces):
-        print all_traces
-        matches = [tr for tr in all_traces if self._tagselector(tr)]
+        matches = [trace for trace in all_traces if self._tagselector(trace)]
         if len(matches) in [0, len(all_traces)]:
             assert False, 'All or none selected, an error has probably been made!'
         #print 'matches', matches

@@ -48,11 +48,11 @@ def get_max_rounding(num):
 
 
 def float_list_to_string(seq):
-    for o in seq:
-        assert isinstance(o, (int, float))
-    roundings = [get_max_rounding(o) for o in seq]
+    for obj in seq:
+        assert isinstance(obj, (int, float))
+    roundings = [get_max_rounding(obj) for obj in seq]
     max_round = max(roundings)
-    return ['%.*f' % (max_round, o) for o in seq]
+    return ['%.*f' % (max_round, obj) for obj in seq]
 
 
 def default_legend_labeller(tr):
@@ -96,31 +96,40 @@ class YAxisConfig(object):
 
 
     def format_axes(self, ax):
+
+
         ax.set_ylabel(self.ylabel)
         if self.yrange is not None:
             ax.set_ylim(self.yrange)
         if self.yunit is not None:
-            print 'Setting yunit', self.yunit
+            #print 'Setting yunit', self.yunit
             ax.set_display_unit(y=self.yunit)
 
 
-        if self.yticks:
+        if self.yticks is not None:
             if isinstance( self.yticks, int):
                 ax.set_yaxis_maxnlocator(self.yticks)
             elif is_iterable(self.yticks):
+
+                #print 'yticks', self.yticks
                 ax.set_yticks(self.yticks)
             else:
                 assert False
 
 
         if self.show_yticklabels:
-            ylocs = [float(y.rescale(ax.xyUnitDisplay[1])) for y in ax.get_yticks()]
+            #print 'yticks', ax.get_yticks()
+            ylocs = [float(ytick.rescale(ax.xyUnitDisplay[1])) for ytick in ax.get_yticks()]
             # This call makes sure that we only display as many deciaml places as is sensible.
-            ts = float_list_to_string(ylocs)
-            ax.set_yticklabels(ts, include_unit=self.show_yticklabels_with_units)
-
+            yticklabels = float_list_to_string(ylocs)
+            ax.set_yticklabels(yticklabels, include_unit=self.show_yticklabels_with_units)
         else:
             ax.set_yticklabels('')
+
+            
+        #TODO: Something funky is going on and this is not making a difference
+        if self.ymargin is not None:
+            ax.set_ymargin(self.ymargin)
 
 
 class TagPlot(object):
@@ -138,6 +147,7 @@ class TagPlot(object):
         yunit=None,
         yaxisconfig=None,
         yticks=None,
+        ymargin=None,
 
         show_yticklabels=True,
         show_yticklabels_with_units=False,
@@ -148,6 +158,7 @@ class TagPlot(object):
                                          yunit=yunit,
                                          yrange=yrange,
                                          yticks=yticks,
+                                         ymargin=ymargin,
                                          show_yticklabels=show_yticklabels,
                                          show_yticklabels_with_units=show_yticklabels_with_units,
                                          )
@@ -261,7 +272,7 @@ class TagPlot(object):
             ncols = BI.max(int(math.floor(len(trcs) / 5.0)), 1)
             ax.legend(ncol=ncols)
 
-        if self.title:
+        if self.title is not None:
             ax.set_title(self.title)
 
         # Setup the x-axis:
@@ -295,6 +306,7 @@ class TagPlot(object):
             ax.set_xlabel('Time')
         else:
             ax.set_xlabel('')
+            #assert False
 
         # Similarly, plot the axis-ticklabel, if
         if show_xticklabels == 'all' or \
@@ -305,7 +317,7 @@ class TagPlot(object):
             ax.set_xticklabels(ts, include_unit=show_xticklabels_with_units)
 
         else:
-
+            
             ax.set_xticklabels('')
 
         # Setup the y-axis:

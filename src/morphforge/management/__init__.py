@@ -249,8 +249,8 @@ class TraceLibSummariser(object):
             if method_name in TraceMethodCtrl.fallback_to_fixedtrace_methods:
                 return '<via fixed>'
 
-        arguments = [get_argments_TraceFixedDT(m) for m in method_names]
-        docstrings = [get_docstring(m) for m in method_names]
+        arguments = [get_argments_TraceFixedDT(method_name) for method_name in method_names]
+        docstrings = [get_docstring(method_name) for method_name in method_names]
 
         col1 = [''] + method_names
         col2 = [[trace_type.__name__] + [_support_for_method(trace_type, method_name) for method_name in method_names] for trace_type in trace_types]

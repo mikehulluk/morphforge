@@ -426,11 +426,11 @@ def build_connectivity_graph(synapse_pop, size=0.75):
 
 
 
-    f = pylab.figure(figsize=figsize, dpi=400 )
-    #ax = f.add_subplot(1,1,1, aspect='equal') 
-    ax = f.add_axes([0,0,1,1], aspect='equal') 
-    x,y = zip(*connectivity)
-    ax.scatter(x,y, marker='s', s=7, edgecolors='none')
+    fig = pylab.figure(figsize=figsize, dpi=400 )
+    #ax = fig.add_subplot(1,1,1, aspect='equal') 
+    ax = fig.add_axes([0,0,1,1], aspect='equal') 
+    xpts,ypts = zip(*connectivity)
+    ax.scatter(xpts,ypts, marker='s', s=7, edgecolors='none')
     #ax.axis('equal')
     ax.set_xlim(-0.5, prepop_len-0.5 )
     ax.set_ylim(-0.5, postpop_len-0.5 )
@@ -440,7 +440,7 @@ def build_connectivity_graph(synapse_pop, size=0.75):
     ax.axes.get_yaxis().set_ticklabels([])
     #pylab.suptitle('Connectivity: %d synapses'%len(synapse_pop))
     #pylab.show()
-    return f
+    return fig
 
 
 

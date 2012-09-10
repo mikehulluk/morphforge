@@ -132,7 +132,7 @@ class DictionaryLoader(object):
         region_names2 = SeqUtils.flatten([yml["regions"] for yml in yaml_section_dict.values() if yml.has_key("regions")])
 
         region_names = list(set(region_names1 + region_names2))
-        region_dict = dict([(n, Region(n)) for n in region_names])
+        region_dict = dict([(region_name, Region(region_name)) for region_name in region_names])
         section_angles_dict = {}
         section_id_tags = []
 

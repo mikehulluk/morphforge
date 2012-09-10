@@ -52,6 +52,7 @@ from morphforge.simulationanalysis.tagviewer import DefaultTagPlots
 from morphforge.simulationanalysis.tagviewer.linkage import StandardLinkages
 from morphforge.simulationanalysis.tagviewer.linkage import LinkageRuleTagRegex
 from morphforge.simulationanalysis.tagviewer.linkage import LinkageRuleTag
+from morphforge.simulationanalysis.tagviewer.plotspecs import YAxisConfig
 
 #
 from morphforge.constants import *
@@ -155,9 +156,9 @@ class HashManager(object):
     def get_filename_hash(cls, filename):
         if not filename in cls._file_hashes:
             with open(filename) as fobj:
-                h = hashlib.new('sha1')
-                h.update(fobj.read())
-            cls._file_hashes[filename] = str(h.hexdigest())
+                hashobj = hashlib.new('sha1')
+                hashobj.update(fobj.read())
+            cls._file_hashes[filename] = str(hashobj.hexdigest())
         return cls._file_hashes[filename]
 
 class _CachedFileAccessData(object):
@@ -172,9 +173,9 @@ class _CachedFileAccessData(object):
 
         lines = self.get_file_lines() 
         if lines is not None:
-            h = hashlib.new('sha1')
-            h.update('\n'.join(lines ))
-            return h.hexdigest()
+            hashobj = hashlib.new('sha1')
+            hashobj.update('\n'.join(lines ))
+            return hashobj.hexdigest()
         else:
             return None
 
@@ -222,13 +223,13 @@ def save_cache(cachefilename, return_value, cache_data):
         cPickle.dump( res, fobj)
 
 def _run_and_cache(func, args, kwargs):
-    tr = trace.Trace( count=1, trace=0, countfuncs=0,
+    trace_obj = trace.Trace( count=1, trace=0, countfuncs=0,
             ignoredirs=[sys.prefix, sys.exec_prefix])
 
-    output = tr.runfunc(func, *args, **kwargs)
+    output = trace_obj.runfunc(func, *args, **kwargs)
 
     _accessed_functions = {}
-    for (filename, linenumber) in sorted(tr.results().counts):
+    for (filename, linenumber) in sorted(trace_obj.results().counts):
         if filename .startswith('/usr'):
             continue
 
@@ -251,21 +252,21 @@ def is_cache_clean(cache):
     if cache is None:
         return False
 
-    for cd in cache:
-        print cd
-        if not cd.is_clean():
+    for cachefile in cache:
+        print cachefile
+        if not cachefile.is_clean():
             return False
     return True
 
 
 def get_arg_string_hash(args, kwargs):
-    arg_strs = [cPickle.dumps(a) for a in args]
+    arg_strs = [cPickle.dumps(arg) for arg in args]
     kwargs_strs = ['%s=%s' % (str(key), cPickle.dumps(value)) for (key,value) in sorted( kwargs.iteritems()) ]
 
     res = ','.join( arg_strs + kwargs_strs)
-    h = hashlib.new('sha1')
-    h.update(res)
-    return h.hexdigest()
+    hashobj = hashlib.new('sha1')
+    hashobj.update(res)
+    return hashobj.hexdigest()
 
 def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):#'./_cache/cache'):
     if cachefilenamebase is None:
