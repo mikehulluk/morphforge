@@ -36,10 +36,10 @@ import __builtin__ as bi
 
 
 
-def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict, allocated_trace_colors):
+def _get_collision_of_color_index_for_group(colorIndex, group, plotspec_to_traces_dict, allocated_trace_colors):
 
     collisions = 0
-    for (_ps, ps_traces) in ps_to_traces_dict.iteritems():
+    for (_ps, ps_traces) in plotspec_to_traces_dict.iteritems():
 
         ps_allocated_indices = [allocated_trace_colors.get(tr, None) for tr in ps_traces ]
         ps_allocated_indices = [a for a in ps_allocated_indices if a is not None]
@@ -53,6 +53,14 @@ def _get_collision_of_color_index_for_group(colorIndex, group, ps_to_traces_dict
             collisions += clashes
 
     return collisions + 1
+
+
+
+
+class LinkageRule(object):
+    def __call__(self, all_traces):
+        """returns a sequence of tuples, containing the traces that are connected to each other"""
+        raise NotImplementedError()
 
 
 class LinkageRuleTagRegex(object):
@@ -74,33 +82,97 @@ class LinkageRuleTagRegex(object):
             match_tags = self.get_match_tags(trace)
             for matchtag in match_tags:
                 grps[matchtag].append(trace)
-
         return grps.values()
+
+from morphforge.traces.tags import TagSelector
+
+class LinkageRuleTag(object):
+    def __init__(self, tagselector):
+        if isinstance(tagselector, basestring):
+            self._tagselector = TagSelector.from_string(tagselector)
+
+        else:
+            self._tagselector = tagselector
+
+
+    def __call__(self, all_traces):
+        print all_traces
+        matches = [tr for tr in all_traces if self._tagselector(tr)]
+        if len(matches) in [0, len(all_traces)]:
+            assert False, 'All or none selected, an error has probably been made!'
+        #print 'matches', matches
+        #assert False
+        return [matches]
+
+
+
+class AbstrLinkage(object):
+    """ Linkage classes are used to choose colours for TagViewer plots.
+
+    They are called 'linkages' beacuse they make links between traces accross
+    different plots. For example, supposing we have graphs of membrane voltage,
+    and current flows, then we may wish to specify that all the traces of
+    Neuron1 are in blue and all those of Neuron2 are in green.
+    """
+
+    def process(self, plotspec_to_traces_dict):
+        """ Preprocessing of linkages before plotting.
+        TagViewer will assign traces to the plotspecs, then call this function
+        """
+        raise NotImplementedError()
+
+    def get_trace_color(self, trace):
+        """Returns the colour code for the *trace"""
+        raise NotImplementedError()
+
+
+
+#class ColorAssigner(object):
+#    def __init__(self, color_rules):
+#        self._color_rules = color_rules
+
 
 
 
 
 class StandardLinkages(object):
-    def __init__(self, linkages_explicit=None, linkage_rules=None):
-        self.linkages_explicit = linkages_explicit or []
+    def __init__(self, linkages_explicit=None, linkage_rules=None, color_rules=None):
+        self._linkages_explicit = linkages_explicit or []
 
-        self.color_cycle = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
+        self._color_cycle = ['blue', 'green', 'red', 'cyan', 'yellow', 'black']
 
         self.linkage_rules = (linkage_rules if linkage_rules else [])
-        self.color_allocations = None
+        self._color_allocations = None
+
+        self._color_assigner = (color_rules if color_rules else [])
 
 
-    def get_linkages_from_rules(self, all_traces):
+    def get_trace_color(self, tr):
+        return self._color_allocations[tr]
+
+    def _get_linkages_from_rules(self, all_traces):
         links = chain(*[link_rule(all_traces) for link_rule in self.linkage_rules])
         return list(links)
 
-    def process(self, ps_to_traces_dict):
+    def process(self, plotspec_to_traces_dict):
+        """ Assign colours to the traces. We aim to minise color clashes, but
+        still only use one color for a given trace, even if it appears on multiple plots.
+
+        1/ We build a graph, in which each node represents trace, and edges represent 'linkage'
+        2/ We look at the connected components, i.e. the traces that should all have the same color_indices
+        3/ If we have more groups than colours, then we allocate 'color indices to these groups based 
+        on mimising color collisions the plots.
+        
+        ## TODO: 4/ Actual colour is assigned by the color_assigner.
+
+        """
+
         import networkx
 
-        all_traces = set(chain(*ps_to_traces_dict.values()))
+        all_traces = set(chain(*plotspec_to_traces_dict.values()))
 
         allocated_trace_colors = {}
-        color_indices = range(len(self.color_cycle))
+        color_indices = range(len(self._color_cycle))
 
         G = networkx.Graph()
         # Add a node per trace:
@@ -108,7 +180,7 @@ class StandardLinkages(object):
             G.add_node(trace)
 
         # Add the edges:
-        all_links = self.linkages_explicit + self.get_linkages_from_rules(all_traces)
+        all_links = self._linkages_explicit + self._get_linkages_from_rules(all_traces)
         for link in all_links:
             (first, remaining) = (link[0], link[1:])
             for r in remaining:
@@ -117,14 +189,13 @@ class StandardLinkages(object):
         groups = networkx.connected_components(G)
 
         for grp in sorted(groups, key=lambda g: (len(g), id(g[0])), reverse=True) :
-            #print 'Allocating', ''.join(g.name for g in grp)
+
             #Calculate how many collisions we would have for each allocation:
             def index_score(i):
                 s = _get_collision_of_color_index_for_group(colorIndex=i,
                                                         group=grp,
-                                                        ps_to_traces_dict=ps_to_traces_dict,
+                                                        plotspec_to_traces_dict=plotspec_to_traces_dict,
                                                         allocated_trace_colors=allocated_trace_colors)
-                #print "Score", i, s
                 return s
 
             new_index = bi.min(color_indices, key=index_score)
@@ -132,11 +203,17 @@ class StandardLinkages(object):
             for g in grp:
                 allocated_trace_colors[g] = new_index
 
+
+        # We have now assigned a color_index to each group, all that now remains
+
         # Make the allocation from index to colors:
-        self.color_allocations = {}
+        self._color_allocations = {}
         for trace in all_traces:
-            self.color_allocations[trace] = self.color_cycle[allocated_trace_colors[trace]]
-        #assert False
+            self._color_allocations[trace] = self._color_cycle[allocated_trace_colors[trace]]
+
+
+
+
 
 #l = StandardLinkages(linkages_explicit = [(trI1, trV1, trG1), (trI2, trV2, trG2)])
 #

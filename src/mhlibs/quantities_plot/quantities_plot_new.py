@@ -211,6 +211,69 @@ class QuantitiesAxisNew(object):
             self.ax.set_xlim(right =  x1.rescale(self.xyUnitBase[0]).magnitude, **kwargs)
 
 
+    
+
+    def get_xticks(self,):
+        return self.ax.get_xticks() * self.xyUnitBase[0]
+
+    def set_xticks(self, locations):
+        # Are the baseunits set? If not, then lets set them:
+        assert self.xyUnitBase[0] is not None and self.xyUnitDisplay[0] is not None
+        locs_no_unit = [ float(x.rescale(self.xyUnitBase[0]).magnitude) for x in locations]
+        return self.ax.set_xticks(locs_no_unit)
+
+    def set_xticklabels(self, labels, include_unit=False):
+        if include_unit:
+            unit_str = ' ' + self.getSymbolFromUnit(self.xyUnitDisplay[0]) if self.xyUnitDisplay[0] is not None else "??"
+            unit_str = unit_str.replace('(','').replace(')','')
+        else:
+            unit_str = ''
+
+        if isinstance(labels, basestring):
+            if labels == '':
+                self.ax.set_xticklabels(labels)
+            else:
+                self.ax.set_xticklabels(labels + unit_str)
+
+        else:
+            labels = [label + unit_str for label in labels if label]
+            self.ax.set_xticklabels(labels)
+
+
+
+    def get_yticks(self,):
+        return self.ax.get_yticks() * self.xyUnitBase[1]
+
+    def set_yticks(self, locations):
+        # Are the baseunits set? If not, then lets set them:
+        assert self.xyUnitBase[1] is not None and self.xyUnitDisplay[1] is not None
+        locs_no_unit = [ float(y.rescale(self.xyUnitBase[1]).magnitude) for y in locations]
+        return self.ax.set_yticks(locs_no_unit)
+
+    def set_yticklabels(self, labels, include_unit=False):
+        if include_unit:
+            unit_str = ' ' + self.getSymbolFromUnit(self.xyUnitDisplay[1]) if self.xyUnitDisplay[1] is not None else "??"
+            unit_str = unit_str.replace('(','').replace(')','')
+        else:
+            unit_str = ''
+
+        if isinstance(labels, basestring):
+            if labels == '':
+                self.ax.set_yticklabels(labels)
+            else:
+                self.ax.set_yticklabels(labels + unit_str)
+
+        else:
+            labels = [label + unit_str for label in labels if label]
+            self.ax.set_yticklabels(labels)
+
+
+
+
+
+
+
+
     def set_ylim(self, *args, **kwargs):
         x0 = x1 = None
         if args is not None:
@@ -280,7 +343,15 @@ class QuantitiesAxisNew(object):
         import matplotlib as mpl
         self.ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
 
+    def set_xaxis_maxnlocator(self, n):
+        import matplotlib as mpl
+        self.ax.xaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
 
+
+    def set_xaxis_ticks_position(self, pos):
+            self.ax.xaxis.set_ticks_position(pos)
+    def set_xaxis_label_position(self, pos):
+            self.ax.xaxis.set_label_position(pos)
 
     # Spanning:
     def axvspan(self, xmin, xmax, ymin=0, ymax=1, **kwargs):
@@ -325,6 +396,10 @@ class QuantitiesAxisNew(object):
             # Otherwise, forward it on to the original Axes object
             return getattr(self.ax, name)
 
+
+
+    def __str__(self):
+        return "<QuantitiesAxisNew: DisplayUnit:'%s' >" % (self.xyUnitDisplay) 
 
 class QuantitiesFigureNew(object):
 

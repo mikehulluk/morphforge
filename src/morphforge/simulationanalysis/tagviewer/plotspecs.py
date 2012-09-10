@@ -30,10 +30,29 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-#from morphforge.core.quantities.fromcore import unit
+from morphforge.core import unit, is_iterable
 import quantities as pq
 
 from morphforge.traces import TagSelector
+
+
+def is_number_roundable_to(num, n):
+    return abs(num - round(num, n)) < 0.000000001
+
+
+def get_max_rounding(num):
+    for i in range(0, 10):
+        if is_number_roundable_to(num, i):
+            return i
+    assert False
+
+
+def float_list_to_string(seq):
+    for o in seq:
+        assert isinstance(o, (int, float))
+    roundings = [get_max_rounding(o) for o in seq]
+    max_round = max(roundings)
+    return ['%.*f' % (max_round, o) for o in seq]
 
 
 def default_legend_labeller(tr):
@@ -46,15 +65,34 @@ def default_legend_labeller(tr):
 
 
 class YAxisConfig(object):
-    def __init__(self, yunit=None, yrange=None, ylabel=None, yticks=None, yticklabels=None, ymargin=None, ynticks=None):
+
+
+    # NOTE: ynticks is deprecated! It shoudl be moved into yticks.
+
+    def __init__(
+        self,
+        yunit=None,
+        yrange=None,
+        ylabel=None,
+        yticks=None,
+        yticklabels=None,
+        ymargin=None,
+
+        show_yticklabels=True,
+        show_yticklabels_with_units=False,
+        ):
         self.yrange = yrange
         self.yunit = yunit
         self.ylabel = ylabel
-        self.ynticks = (ynticks if ynticks is not None else 5)
+        self.show_yticklabels=show_yticklabels
+        self.show_yticklabels_with_units=show_yticklabels_with_units
+
+
+        # NOTE: ynticks is deprecated! It shoudl be moved into yticks.
+        self.yticks = (yticks if yticks is not None else 5)
 
         self.yticklabels = yticklabels
         self.ymargin = ymargin
-        self.yticks = yticks
 
 
     def format_axes(self, ax):
@@ -62,20 +100,57 @@ class YAxisConfig(object):
         if self.yrange is not None:
             ax.set_ylim(self.yrange)
         if self.yunit is not None:
+            print 'Setting yunit', self.yunit
             ax.set_display_unit(y=self.yunit)
 
-        ax.set_yaxis_maxnlocator(self.ynticks)
+
+        if self.yticks:
+            if isinstance( self.yticks, int):
+                ax.set_yaxis_maxnlocator(self.yticks)
+            elif is_iterable(self.yticks):
+                ax.set_yticks(self.yticks)
+            else:
+                assert False
+
+
+        if self.show_yticklabels:
+            ylocs = [float(y.rescale(ax.xyUnitDisplay[1])) for y in ax.get_yticks()]
+            # This call makes sure that we only display as many deciaml places as is sensible.
+            ts = float_list_to_string(ylocs)
+            ax.set_yticklabels(ts, include_unit=self.show_yticklabels_with_units)
+
+        else:
+            ax.set_yticklabels('')
 
 
 class TagPlot(object):
 
-    def __init__(self, s, title=None, legend_labeller=default_legend_labeller, colors=None, event_marker_size=None, time_range=None, ylabel=None, yrange=None, yunit=None, ynticks=None, yaxisconfig=None):
+    def __init__(
+        self,
+        s,
+        title=None,
+        legend_labeller=default_legend_labeller,
+        colors=None,
+        event_marker_size=None,
+        time_range=None,
+        ylabel=None,
+        yrange=None,
+        yunit=None,
+        yaxisconfig=None,
+        yticks=None,
+
+        show_yticklabels=True,
+        show_yticklabels_with_units=False,
+        ):
 
         if yaxisconfig is None:
             self.yaxisconfig = YAxisConfig(ylabel=ylabel if ylabel is not None else s,
                                          yunit=yunit,
                                          yrange=yrange,
-                                         ynticks=ynticks)
+                                         yticks=yticks,
+                                         show_yticklabels=show_yticklabels,
+                                         show_yticklabels_with_units=show_yticklabels_with_units,
+                                         )
         else:
             self.yaxisconfig = yaxisconfig
 
@@ -152,7 +227,8 @@ class TagPlot(object):
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets, plot_xaxis_details, time_range=None, linkage=None) :
+    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None) :
+
         if self.time_range is not None:
             time_range = self.time_range
 
@@ -163,7 +239,8 @@ class TagPlot(object):
 
         # Sort and plot:
         for index, trace in enumerate(self._sort_traces(trcs)):
-            color = linkage.color_allocations.get(trace, None) if linkage else None
+            #color = linkage.color_allocations.get(trace, None) if linkage else None
+            color = linkage.get_trace_color(trace) if linkage else None
             self._plot_trace(trace, ax=ax, index=index, color=color)
 
 
@@ -187,23 +264,52 @@ class TagPlot(object):
         if self.title:
             ax.set_title(self.title)
 
-        # Label up the axis:
-        if plot_xaxis_details:
+        # Setup the x-axis:
+        if time_range is not None:
+            ax.set_xlim(time_range)
+
+        # Setup the x-ticks
+        if xticks is not None:
+            if isinstance(xticks, int):
+                ax.set_xaxis_maxnlocator(xticks)
+            else:
+                ax.set_xticks(xticks)
+
+        # Should we plot xaxis-info at all?:
+        if is_top_plot and show_xaxis_position == 'top':
+            xaxis_position = 'top'
+        elif is_bottom_plot and show_xaxis_position == 'bottom':
+            xaxis_position = 'bottom'
+        else:
+            xaxis_position = None
+
+        # Set the ticks & labels to be bottom or top
+        if xaxis_position is not None:
+            ax.set_xaxis_ticks_position(xaxis_position)
+            ax.set_xaxis_label_position(xaxis_position)
+
+        # Plot the axis-label, if
+        # show_ticklabels=='all' OR show_ticklabels=='only-once' AND xaxis_position is not None:
+        if show_xlabel == 'all' or show_xlabel == 'only-once' \
+            and xaxis_position is not None:
             ax.set_xlabel('Time')
         else:
             ax.set_xlabel('')
-            ax.set_xticklabels([])
 
-        # ax.set_xunit(unit('ms'))
-        # print ax.xyUnitBase[0]
-        # print ax.xyUnitDisplay[0]
-        # assert False
+        # Similarly, plot the axis-ticklabel, if
+        if show_xticklabels == 'all' or \
+			show_xticklabels == 'only-once' and xaxis_position is not None:
+            ms_times = [float(x.rescale('ms')) for x in ax.get_xticks()]
+            # This call makes sure that we only display as many deciaml places as is sensible.
+            ts = float_list_to_string(ms_times)
+            ax.set_xticklabels(ts, include_unit=show_xticklabels_with_units)
+
+        else:
+
+            ax.set_xticklabels('')
 
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)
-
-        if time_range is not None:
-            ax.set_xlim(time_range)
 
         # Turn the grid on:
         ax.grid('on')

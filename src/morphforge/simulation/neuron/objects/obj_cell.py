@@ -108,9 +108,10 @@ class NEURONCell(Cell, NEURONObject):
         for mech in mechanisms:
             mech.create_modfile(modfile_set)
 
-    def get_recordable(self, what, **kwargs):
+    def get_recordable(self, what=Cell.Recordables.MembraneVoltage, **kwargs):
+
         recordables = \
-            {NEURONCell.Recordables.MembraneVoltage: MembraneVoltageRecord}
+            {Cell.Recordables.MembraneVoltage: MembraneVoltageRecord}
         return recordables[what](cell=self, **kwargs)
 
 

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core import is_iterable
-#from morphforge.core import unit
+from morphforge.core import unit
 from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -44,33 +44,18 @@ from morphforge.core import quantities as pq
 # pylint: disable=W0108
 # (Suppress warning about 'unnessesary lambda functions')
 
-#def _resolve_time_range(time_range):
-#    # Sort out the time_range:
-#    if time_range is not None:
-#        if isinstance(time_range, (tuple, list, Quantity)):
-#            if len(time_range) == 2:
-#                if isinstance(time_range[0], Quantity):
-#                    pass
-#                else:
-#                    assert False
-#                    time_range = time_range * ms
-#        else:
-#            assert False
-#    return time_range
-
-
 
 
 class DefaultTagPlots(object):
-    Voltage =            TagPlot(s="Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
-    CurrentDensity =     TagPlot(s="CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
-    Current =            TagPlot(s="Current", ylabel='Current', yunit=pq.picoamp)
-    Conductance =        TagPlot(s="Conductance", ylabel="Conductance")
-    ConductanceDensity = TagPlot(s="ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
-    StateVariable =      TagPlot(s="StateVariable", ylabel="StateVariable")
-    StateVariableTau =   TagPlot(s="StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
-    StateVariableInf =   TagPlot(s="StateSteadyState", ylabel="Steady State")
-    Event =              TagPlot(s="Event", ylabel="Events")
+    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
+    CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
+    Current =            TagPlot("Current", ylabel='Current', yunit=pq.picoamp)
+    Conductance =        TagPlot("Conductance", ylabel="Conductance")
+    ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
+    StateVariable =      TagPlot("StateVariable", ylabel="StateVariable")
+    StateVariableTau =   TagPlot("StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
+    StateVariableInf =   TagPlot("StateSteadyState", ylabel="Steady State")
+    Event =              TagPlot("Event", ylabel="Events")
 
 
 
@@ -94,20 +79,55 @@ class TagViewer(object):
 
     _default_fig_kwargs = {'figsize': (12, 8) }
 
+    _options_show_xlabel = ('only-once','all',  False)
+    _options_show_xticklabels=('only-once','all', False)
+    _options_show_xticklabels_with_units=(True,False)
+    _options_show_xaxis_position = ('bottom','top')
+
     def __init__(
         self,
         srcs,
-        fig_kwargs=None,
         plots=None,
+        additional_plots=None,
         figtitle=None,
+        fig_kwargs=None,
         show=True,
-        save=None,
         linkage=None,
         timerange=None,
-        additional_plots=None,
-        share_x_labels=True,
         mpl_tight_bounds=False,
+
+        share_x_labels=True,
+
+        nxticks=4, 
+        show_xlabel='only-once',
+        show_xticklabels='only-once',
+        show_xticklabels_with_units=True,
+        show_xaxis_position='bottom',
+        xticks=None
+
         ):
+        """Plot a set of traces.
+
+        Keyword arguments:
+        plots -- 
+        srcs --
+        plots --
+        additional_plots -- 
+        figtitle --
+        fig_kwargs --
+        show --
+        linkage --
+        timerange -- 
+        mpl_tight_bounds --
+        share_x_labels --
+
+        nxticks=4, 
+        show_xlabel -- which plots should the x-axis be displayed on.
+        show_xticklabels --
+        show_xticklabels_with_units -- 
+        show_xaxis_position --
+        xticks -- 
+        """
 
         if fig_kwargs is None:
             fig_kwargs = self._default_fig_kwargs
@@ -153,16 +173,28 @@ class TagViewer(object):
 
         self.timerange = timerange
         self.share_x_labels = share_x_labels
+        self.nxticks = nxticks
+
+
+        # X-axis configuration:
+        self.show_xlabel = show_xlabel
+        self.show_xticklabels = show_xticklabels
+        self.show_xticklabels_with_units = show_xticklabels_with_units
+        self.show_xaxis_position = show_xaxis_position
+        self.xticks=xticks
+        assert self.show_xlabel in self._options_show_xlabel
+        assert self.show_xticklabels in self._options_show_xticklabels
+        assert self.show_xticklabels_with_units in self._options_show_xticklabels_with_units
+        assert self.show_xaxis_position in self._options_show_xaxis_position 
+        if is_iterable( self.xticks ) and all( [isinstance(x, (int, float)) for x in self.xticks]):
+            self.xticks = [ x*pq.ms for x in self.xticks]
+        assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(x) for x in self.xticks] )
+
 
         self.fig = None
         self.subaxes = []
         self.create_figure()
 
-        # 'svae' is deprecated'
-        assert save is None, ' "save" parameter is deprecated (15 July 2012)'
-        # Save the figure:
-        # if save:
-        #    PM.save_figure(figtitle)
 
         if TagViewer.MPL_AUTO_SHOW and show:
             import pylab
@@ -190,10 +222,26 @@ class TagViewer(object):
             ax.set_xmargin(0.05)
             ax.set_ymargin(0.05)
 
-            # Leave the plotting to the PlotSpecification
-            is_bottom_plot = i == n_plots - 1
-            plot_xaxis_details = is_bottom_plot or not self.share_x_labels
-            plot_spec.plot(ax=ax, all_traces=self.all_trace_objs, all_eventsets=self.all_event_set_objs, time_range=self.timerange, linkage=self.linkage, plot_xaxis_details=plot_xaxis_details)
+            ax.set_xaxis_maxnlocator(self.nxticks)
+
+            # Leave the plotting to the tag-plot object
+            plot_spec.plot( ax=ax, 
+                            all_traces=self.all_trace_objs, 
+                            all_eventsets=self.all_event_set_objs, 
+                            time_range=self.timerange, 
+                            linkage=self.linkage, 
+                            #plot_xaxis_details=plot_xaxis_details,
+
+                            show_xlabel = self.show_xlabel,
+                            show_xticklabels = self.show_xticklabels,
+                            show_xticklabels_with_units = self.show_xticklabels_with_units,
+                            show_xaxis_position = self.show_xaxis_position,
+                            is_top_plot = (i==0),
+                            is_bottom_plot = (i==n_plots-1),
+                            xticks = self.xticks
+
+                            )
+
 
             # Save the Axis:
             self.subaxes.append(ax)
