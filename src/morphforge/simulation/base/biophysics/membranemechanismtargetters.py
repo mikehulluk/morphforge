@@ -51,7 +51,7 @@ class PassiveTargeter_EverywhereDefault(Targeter):
         return True
 
     def get_description(self):
-        return 'PassiveDefault'
+        return 'Default'
 
 
 class PassiveTargeter_Everywhere(Targeter):
@@ -63,7 +63,7 @@ class PassiveTargeter_Everywhere(Targeter):
         return True
 
     def get_description(self):
-        return 'PassiveDefault'
+        return 'Everywhere'
 
 
 class PassiveTargeter_Region(Targeter):

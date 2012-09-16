@@ -68,7 +68,7 @@ class MorphologyBuilder(object):
             rad = numpy.power((area / (4.0 * numpy.pi)), 1.0 / 2.0)
 
         else:
-            assert isinstance(int, rad) or isinstance(float, rad)
+            assert isinstance(rad, int) or isinstance(rad, float)
             rad = _convert_to_unit(rad, default_unit="um").rescale("um").magnitude
 
         soma_region = Region("soma")

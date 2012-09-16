@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
+import morphforge.core.quantities as q
 
 
 class PassiveProperty(object):
@@ -39,7 +40,7 @@ class PassiveProperty(object):
 
     all = [SpecificCapacitance, AxialResistance]
 
-    defaults = {SpecificCapacitance: unit('1:uF/cm2'),
-                AxialResistance: unit('80:ohmcm')}
+    defaults = {SpecificCapacitance: 1 * q.uF / q.cm2, 
+                AxialResistance: 80 * q.ohmcm  }
 
 

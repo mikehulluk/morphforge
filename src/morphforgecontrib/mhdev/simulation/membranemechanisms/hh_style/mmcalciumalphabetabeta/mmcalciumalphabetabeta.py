@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
+import quantities as pq
 from morphforge.simulation.base import MembraneMechanism
 
 
@@ -60,8 +61,8 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
         self.beta2threshold = unit(beta2threshold)
 
-        self.F = unit('96480:C/mol')
-        self.R = unit('8.314472:J/(K mol)')
+        self.F = unit('96485.3365:C/mol')
+        self.R = unit('8.314421:J/(K mol)')
         self.CaZ = unit('2:')
         self.T = unit(temperature)
 
@@ -71,4 +72,6 @@ class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
     def get_defaults(self):
         return {'gScale': unit('1.0')}
 
+    def get_prefered_units(self):
+        return {'gScale': pq.dimensionless }
 

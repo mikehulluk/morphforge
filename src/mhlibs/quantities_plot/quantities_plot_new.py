@@ -213,6 +213,11 @@ class QuantitiesAxisNew(object):
 
     
 
+    def set_xaxis_visible(self, visible):
+        return self.ax.get_yaxis().set_visible(visible)
+    def set_yaxis_visible(self, visible):
+        return self.ax.get_yaxis().set_visible(visible)
+
     def get_xticks(self,):
         return self.ax.get_xticks() * self.xyUnitBase[0]
 

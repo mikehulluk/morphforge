@@ -33,6 +33,8 @@ from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 from morphforge.constants import StandardTags
+import morphforge.stdimports as mf
+import quantities as pq
 
 
 class MM_LeakChannel(MembraneMechanism):
@@ -58,4 +60,9 @@ class MM_LeakChannel(MembraneMechanism):
         return {'gLk': self.conductance, 'eLk': self.reversalpotential,
                 'gScale': unit('1.0')}
 
+    def get_prefered_units(self):
+        return {'gLk': mf.mS/mf.cm2,
+                'eLk': pq.mV, 
+                'gScale': pq.dimensionless
+                }
 

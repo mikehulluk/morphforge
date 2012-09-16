@@ -41,6 +41,7 @@ from mgrs import LocMgr, LogMgr, SettingsMgr, RCMgr
 from misc import merge_dictionaries, check_cstyle_varname
 from misc import is_iterable, FileIO
 from misc import SeqUtils, StrUtils
+from misc import ParameterSweepValues
 
 from objectnumberer import ObjectLabeller
 from os.path import join as Join
@@ -65,5 +66,6 @@ __all__ = [
     'MFRandom',
     'unit',
     'U',
+    'ParameterSweepValues',
     ]
 

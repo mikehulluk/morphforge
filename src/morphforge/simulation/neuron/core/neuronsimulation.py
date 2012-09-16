@@ -52,7 +52,6 @@ from morphforge.core.mockcontrol import MockControl
 
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
-import sys
 
 
 def _random_walk(t_steps, std_dev):
@@ -211,7 +210,6 @@ class NEURONSimulation(Simulation):
 
         # Open Neuron:
         import neuron
-        #h = neuron.h
 
         # Insert the mod-files:
         for modfile in mod_files:
@@ -226,7 +224,7 @@ class NEURONSimulation(Simulation):
         nrn(neuron.h.load_file, hoc_filename)
         self.hocfilename = hoc_filename
 
-        tstop = self.simsettings['tstop']
+        #tstop = self.simsettings['tstop']
         # run the simulation
         class Event(object):
 
@@ -235,7 +233,7 @@ class NEURONSimulation(Simulation):
                 self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
 
             def callback(self):
-                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(tstop)))
+                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
                 sys.stdout.flush()
                 if neuron.h.t + self.interval < neuron.h.tstop:
                     neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)

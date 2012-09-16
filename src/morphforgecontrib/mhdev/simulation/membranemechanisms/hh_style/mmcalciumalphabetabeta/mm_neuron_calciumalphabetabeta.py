@@ -61,8 +61,8 @@ class MM_Neuron_CalciumAlphaBetaBeta_Record(NEURONRecordableOnLocation):
             recordobj=self,
             )
 
-    def get_tags(self):
-        return []
+    #def get_tags(self):
+    #    return []
 
     def get_description(self):
         return '%s %s' % ('CaValue',
@@ -139,8 +139,7 @@ class MM_Neuron_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(MM_Neuron_Calciu
                             % self.name, modvar=self.state)
 
 
-class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel,
-    MM_Neuron_Base):
+class MM_Neuron_CalciumAlphaBetaBeta(MM_CalciumAlphaBetaBetaChannel, MM_Neuron_Base):
 
     def __init__(self, *args, **kwargs):
         MM_CalciumAlphaBetaBetaChannel.__init__(self, *args, **kwargs)

@@ -135,10 +135,22 @@ class _DotSummaryUtils(object):
 class SimulationMRedoc(object):
 
     @classmethod
-    def build(cls, obj):
-        return SimulationMRedoc(obj).mredoc
+    def build(cls, obj, result=None):
+        sim_redoc = SimulationMRedoc(obj).mredoc
+
+        if result is None:
+            return sim_redoc
+
+        else:
+            return mrd.Section('Simulation Results:', 
+                    mrd.Image(result.fig.fig, auto_adjust=False),
+                    sim_redoc,
+                    )
+
+
 
     def __init__(self, obj):
+
         assert isinstance(obj, Simulation)
         self.sim = obj
         self.mredoc = self.build_simulation()
@@ -153,7 +165,7 @@ class SimulationMRedoc(object):
         return mrd.Section('Simulation Summary: %s'%self.sim._sim_desc_str(),
                 mrd.TableOfContents(),
                 self.build_simulation_overview(),
-                #self.build_simulation_details(),
+                self.build_simulation_details(),
                 #PluginMgr.summarise_all(),
                )
 
@@ -168,7 +180,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage("Details",
                self.build_singlecell_details(),
                self.build_population_details(),
-               #self.build_details_channels(),
+               self.build_details_channels(),
                )
 
 
@@ -289,7 +301,6 @@ class SimulationMRedoc(object):
                         self.sim.cells]
         return mrd.Section('Single Cell Details', *sub_sections)
 
-    # --------------------------------------------------------
 
     def _build_details_channel(self, mech):
 
@@ -330,7 +341,7 @@ class SimulationMRedoc(object):
                 caption='%s:Morphology (Sections)' % nrn.name)
 
         region_table = mrd.VerticalColTable(
-                'Region|Surface Area|\#Segments',
+                'Region|Surface Area|\#Sections',
                 [(rgn.name, rgn.surface_area, len(rgn)) for rgn in nrn.morphology.regions],
                 caption='%s:Morphology (Regions)' % nrn.name
                 )
@@ -341,6 +352,21 @@ class SimulationMRedoc(object):
 
 
         return mrd.HierachyScope(section_table, region_table, mrd.Image(fig), 'tada')
+
+
+
+
+    def _create_neuron_details_2b_pta(self, nrn):
+        passives = nrn.biophysics.get_applied_passives()
+        return mrd.VerticalColTable(
+                'PassiveProp|Priority|Targetter|Value', 
+                [  (pta.passiveproperty,
+                    pta.targetter.get_priority(),
+                    pta.targetter.get_description(),
+                    str(pta.value),
+                    ) for pta in passives], 
+                caption='%s:Passive Properties' % nrn.name)
+
 
     def _create_neuron_details_2_mta(self, nrn):
         mechs = nrn.biophysics.get_applied_mtas()
@@ -377,6 +403,7 @@ class SimulationMRedoc(object):
         return mrd.SectionNewPage(
             'Neuron:%s' % neuron.name,
             self._create_neuron_details_1_morphology(neuron),
+            self._create_neuron_details_2b_pta(neuron),
             self._create_neuron_details_2_mta(neuron),
             self._create_neuron_details_3a_presynapses(neuron),
             self._create_neuron_details_3b_postsynapses(neuron),

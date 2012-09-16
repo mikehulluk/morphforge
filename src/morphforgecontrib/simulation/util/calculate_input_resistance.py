@@ -42,6 +42,7 @@ import itertools
 from morphforge.traces.methods.MMtrace_conversion import TraceConverter
 from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 from mreorg import PM
+import quantities as pq
 
 
 class CellAnalysis_StepInputResponse(object):
@@ -232,9 +233,10 @@ class CellAnalysis_ReboundResponse(object):
 class CellAnalysis_IVCurve(object):
 
 
-    def __init__(self, cell_functor, currents, cell_description=None, v_regressor_limit= unit("-30:mV"), sim_kwargs=None, plot_all=False):
+    def __init__(self, cell_functor, currents, cell_description=None, sim_functor=None, v_regressor_limit=None, sim_kwargs=None, plot_all=False):
         self.cell_functor = cell_functor
         self.v_regressor_limit = v_regressor_limit
+        #Previously = unit("-30:mV")
 
         self.sim_kwargs = sim_kwargs or {}
 
@@ -312,7 +314,7 @@ class CellAnalysis_IVCurve(object):
         PM.save_figure(figname=title)
 
     def plot_iv_curve(self, ax=None):
-        # pylint: disable=E1103 
+        # pylint: disable=E1103
         title = '%s: IV Curve' % self.cell_description
         if not ax:
             f = QuantitiesFigure()
@@ -321,15 +323,19 @@ class CellAnalysis_IVCurve(object):
             ax.set_xlabel('Injected Current')
             ax.set_ylabel('SteadyStateVoltage')
 
-        V = [self.get_iv_point_steaddy_state(c) for c in self.currents]
+        V_in_mV = [self.get_iv_point_steaddy_state(c).rescale('mV').magnitude for c in self.currents]
+        v = np.array(V_in_mV) * pq.mV
         i = factorise_units_from_list(self.currents)
-        v = factorise_units_from_list(V)
 
-        low_v = v < self.v_regressor_limit
+        low_v = V_in_mV < self.v_regressor_limit if self.v_regressor_limit else range( len(V_in_mV))
 
-        ax.plot(i[low_v], v[low_v], 'ro')
-        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
-        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], 'rx')
+
+
+        print 'i[low_v]', i[low_v]
+        print 'v[low_v]', v[low_v]
+        ax.plot(i[low_v], v[low_v], )
+        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], )
+        ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], )
 
         # Plot the regressor:
         i_units = unit('1:pA').units

@@ -43,7 +43,7 @@ def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=N
     if parameter_overrides is None:
         parameter_overrides = {}
 
-    vals = mechanism.get_defaults()
+    vals = mechanism.get_defaults().copy()
 
     # Make it easy to scale values
     for (key, value) in parameter_multipliers.iteritems():
@@ -60,6 +60,16 @@ def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=N
             print 'Available Params:', vals
             assert False
         vals[key] = value
+
+
+    # Tryt to rescale to preferred units:
+    for k,v in vals.copy().iteritems():
+        #try:
+            #print k
+            vals[k] = v.rescale(mechanism.get_prefered_units()[k])
+        #except AttributeError:
+            #print 'Missing'
+            #pass
 
     cell.get_biophysics().add_mechanism(
             mechanism=mechanism,

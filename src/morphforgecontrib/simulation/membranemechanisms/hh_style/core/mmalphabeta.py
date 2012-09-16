@@ -33,6 +33,8 @@ from morphforge.core.quantities import unit
 from morphforge.simulation.base import MembraneMechanism
 
 from morphforge.constants import StandardTags
+import morphforge.stdimports as mf
+import quantities as pq
 
 
 class MM_AlphaBetaChannel(MembraneMechanism):
@@ -65,7 +67,14 @@ class MM_AlphaBetaChannel(MembraneMechanism):
 
     def get_defaults(self):
         return {'gBar': self.conductance,
-                'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
+                'e_rev': self.reversalpotential, 
+                'gScale': unit('1.0')}
+
+    def get_prefered_units(self):
+        return {'gBar': mf.mS/mf.cm2,
+                'e_rev': pq.mV, 
+                'gScale': pq.dimensionless
+                }
 
     def get_state_variables(self):
         return self.statevars.keys()

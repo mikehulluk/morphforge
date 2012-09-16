@@ -69,18 +69,11 @@ class ChannelLibrary(object):
         cls.channels[key] = chl_functor
 
     @classmethod
-    def get_channel_functor(cls, channeltype, modelsrc=None,
-                            celltype=None):
+    def get_channel_functor(cls, channeltype, modelsrc=None, celltype=None):
         return cls.channels[(modelsrc, celltype, channeltype)]
 
     @classmethod
-    def get_channel(
-        cls,
-        channeltype,
-        env,
-        modelsrc=None,
-        celltype=None,
-        ):
+    def get_channel( cls, channeltype, env, modelsrc=None, celltype=None,):
         functor = cls.channels[(modelsrc, celltype, channeltype)]
         return functor(env=env)
 

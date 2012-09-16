@@ -340,3 +340,43 @@ class TracePrints(object):
 
 
 # sys.stdout = TracePrints()
+
+
+
+
+
+sweep_size = None
+
+class ParameterSweepValues(object):
+    def __init__(self, values):
+        self.values = values
+
+
+    def _short_iter(self):
+        if sweep_size == 1:
+            yield self.values[0]
+        elif sweep_size == 2:
+            yield self.values[0]
+            yield self.values[-1]
+        else:
+            assert False
+
+
+    def __iter__(self):
+        if sweep_size is None:
+            return iter(self.values)
+        else:
+            return iter(self._short_iter())
+
+    def __getitem__(self, index):
+        assert sweep_size==None
+        return self.values[index]
+
+    def __len__(self):
+        if sweep_size is None:
+            return len(self.values)
+        else:
+            return sweep_size
+
+
+
