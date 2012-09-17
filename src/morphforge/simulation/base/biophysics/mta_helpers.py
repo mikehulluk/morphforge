@@ -36,58 +36,23 @@ from morphforge.simulation.base.biophysics import MembraneMechanismTargeter_Regi
 from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
 
 
-def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=None, parameter_overrides=None):
-
-    if parameter_multipliers is None:
-        parameter_multipliers = {}
-    if parameter_overrides is None:
-        parameter_overrides = {}
-
-    vals = mechanism.get_defaults().copy()
-
-    # Make it easy to scale values
-    for (key, value) in parameter_multipliers.iteritems():
-        if not key in vals:
-            print 'Invalid Parameter:', key
-            print 'Available Params:', vals
-            assert False
-        vals[key] = vals[key] * value
-
-    # Make it easy to over-ride
-    for (key, value) in parameter_overrides.iteritems():
-        if not key in vals:
-            print 'Invalid Parameter:', key
-            print 'Available Params:', vals
-            assert False
-        vals[key] = value
-
-
-    # Tryt to rescale to preferred units:
-    for k,v in vals.copy().iteritems():
-        vals[k] = v.rescale(mechanism.get_prefered_units()[k])
-
-    cell.get_biophysics().add_mechanism(
-            mechanism=mechanism,
-            targetter=targetter,
-            applicator=MembraneMechanismApplicator_Uniform(vals))
 
 
 
 
 def apply_mechanism_everywhere_uniform(cell, mechanism, parameter_multipliers=None, parameter_overrides=None):
-    return _apply_mechanism_uniform(cell=cell,
-                                    mechanism=mechanism,
-                                    targetter=MembraneMechanismTargeter_Everywhere(),
-                                    parameter_multipliers=parameter_multipliers,
-                                    parameter_overrides=parameter_overrides)
+    return cell.get_biophysics().add_mechanism(
+            mechanism=mechanism,
+            targetter=MembraneMechanismTargeter_Everywhere(),
+            applicator=MembraneMechanismApplicator_Uniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+            )
 
 def apply_mechanism_region_uniform(cell, mechanism, region, parameter_multipliers=None, parameter_overrides=None):
-    return _apply_mechanism_uniform(cell=cell,
-                                   mechanism=mechanism,
-                                   targetter=MembraneMechanismTargeter_Region(region),
-                                   parameter_multipliers=parameter_multipliers,
-                                   parameter_overrides=parameter_overrides)
-
+    return cell.get_biophysics().add_mechanism(
+            mechanism=mechanism,
+            targetter=MembraneMechanismTargeter_Region(region),
+            applicator=MembraneMechanismApplicator_Uniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+            )
 
 
 def apply_passive_everywhere_uniform(cell, passiveproperty, value):

@@ -32,27 +32,61 @@
 
 class MembraneMechanismApplicator(object):
 
+    def __init__(self,):
+        super(MembraneMechanismApplicator, self).__init__()
+        self.target_mechanism = None
+
+    def set_target_mechanism(self, target_mechanism):
+        assert self.target_mechanism is None
+        self.target_mechanism = target_mechanism
+
+        # Check that everything that is over-ridden actually exists:
+        for varname in self.get_variables_overriden():
+            assert varname in self.target_mechanism.get_variables(), 'unexpected setting of %s' % varname
+
+
     def get_variable_value_for_section(self, variablename, section):
         raise NotImplementedError()
 
     def get_description(self):
         raise NotImplementedError()
 
+    def get_variables_overriden(self):
+        raise NotImplementedError()
+
 
 class MembraneMechanismApplicator_Uniform(MembraneMechanismApplicator):
 
-    def __init__(self, variable_dict=None):
+    def __init__(self,  parameter_multipliers=None, parameter_overrides=None):
         super(MembraneMechanismApplicator_Uniform, self).__init__()
-        self.variable_dict = variable_dict
+        self._parameter_multipliers =  parameter_multipliers or {}
+        self._parameter_overrides = parameter_overrides or {}
+
+        # Check  no parameters are specified twice:
+        duplicate_defs = set(self._parameter_multipliers.keys()) & set(self._parameter_overrides.keys())
+        assert len(duplicate_defs) == 0, 'Ambiguity: Parameter specified twice: %s' % duplicate_defs
+
+
+    def get_variables_overriden(self):
+        return set(self._parameter_multipliers.keys()) | set(self._parameter_overrides.keys())
+
 
     def get_variable_value_for_section(self, variable_name, section):
-        assert variable_name in self.variable_dict
-        return self.variable_dict[variable_name]
+
+        assert not ( variable_name in self._parameter_multipliers and  variable_name in self._parameter_overrides)
+
+        if variable_name in self._parameter_multipliers:
+            return self._parameter_multipliers[variable_name] * self.target_mechanism.get_default(variable_name)
+        if variable_name in self._parameter_overrides:
+            return self._parameter_overrides[variable_name]
+        return self.target_mechanism.get_default(variable_name)
+
 
     def get_description(self):
-        variables = ['%s:%s' % (key, v.round(5)) for (key, v) in
-                     self.variable_dict.iteritems()]
-        var_str = ', '.join(variables)
-        return 'Uniform [%s]' % var_str
+        s1 = 'Uniform Applicator:'
+        s2 = ('Overrides:{%s} ' % (','.join( [ "%s=%s" % (key,value) for (key,value) in self._parameter_overrides] )) ) if self._parameter_overrides else ''
+        s3 = ('Multipliers:{%s} ' % (','.join( [ "%s=%s" % (key,value) for (key,value) in self._parameter_multipliers] )) ) if self._parameter_multipliers else ''
+        return s1 + s2 + s3
+
 
 

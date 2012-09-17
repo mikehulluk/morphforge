@@ -55,15 +55,14 @@ class _PassiveTargetApplicator(object):
 class CellBiophysics(object):
 
     def __init__(self):
-        # tuples of (mechanism, targeter, applicator, mechanism)
         self.appliedmechanisms = []
         self.appliedpassives = []
 
+        # Add default passive configuration:
         self.add_passive(
                 passiveproperty=PassiveProperty.AxialResistance,
                 targetter=PassiveTargeter_EverywhereDefault(),
                 value=PassiveProperty.defaults[PassiveProperty.AxialResistance])
-
         self.add_passive(
                 passiveproperty=PassiveProperty.SpecificCapacitance,
                 targetter=PassiveTargeter_EverywhereDefault(),
@@ -72,6 +71,9 @@ class CellBiophysics(object):
     # Active Mechanisms:
     # ####################
     def add_mechanism(self, mechanism, targetter, applicator):
+        # Ensure the applicator is connected to the mechanism
+        applicator.set_target_mechanism(mechanism)
+
         mta = _MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
         self.appliedmechanisms.append(mta)
 
@@ -80,10 +82,10 @@ class CellBiophysics(object):
         # All the mechanisms targetting a certain region:
         mechanisms_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
 
-        mechanism_i_ds = set([mta.mechanism.get_mechanism_id() for mta in mechanisms_targetting_section])
+        mechanism_ids = set([mta.mechanism.get_mechanism_id() for mta in mechanisms_targetting_section])
 
         res = []
-        for mech_id in mechanism_i_ds:
+        for mech_id in mechanism_ids:
             mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mech_id]
             highest_prority_mech = SeqUtils.max_with_unique_check(mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority())
             res.append(highest_prority_mech)
