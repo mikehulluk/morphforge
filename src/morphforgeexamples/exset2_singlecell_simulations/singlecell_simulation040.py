@@ -112,38 +112,38 @@ def simulate(current_inj_level):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    mysim = env.Simulation(name="AA")
+    sim = env.Simulation(name="AA")
 
 
     # Create a cell:
     morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
     morph = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mysim.create_cell(name="Cell1", morphology=morph)
+    cell = sim.create_cell(name="Cell1", morphology=morph)
 
     leakChannels = get_Lk_Channels(env)
     sodiumChannels = get_Na_Channels(env)
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
 
-    apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(myCell, potFastChannels)
-    apply_mechanism_everywhere_uniform(myCell, potSlowChannels)
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
+    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, potFastChannels)
+    apply_mechanism_everywhere_uniform(cell, potSlowChannels)
+    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
 
 
     # Get a cell_location on the cell:
-    somaLoc = myCell.get_location("soma")
+    somaLoc = cell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mysim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-    mysim.record(cc, what=StandardTags.Current)
+    cc = sim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    sim.record(cc, what=StandardTags.Current)
 
     # Define what to record:
-    mysim.record(myCell, what=StandardTags.Voltage, cell_location = somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, cell_location = somaLoc)
 
     # run the simulation
-    results = mysim.run()
+    results = sim.run()
 
     return results
 

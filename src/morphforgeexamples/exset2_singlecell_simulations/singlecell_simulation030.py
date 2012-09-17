@@ -57,13 +57,13 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 env = NEURONEnvironment()
 
 # Create the simulation:
-mysim = env.Simulation()
+sim = env.Simulation()
 
 
 # Create a cell:
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
-myCell = mysim.create_cell(name="Cell1", morphology=m1)
+cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 leakChannels = env.MembraneMechanism(
@@ -108,22 +108,22 @@ kChannels = env.MembraneMechanism(
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(myCell, leakChannels)
-apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
-apply_mechanism_everywhere_uniform(myCell, kChannels)
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+apply_mechanism_everywhere_uniform(cell, leakChannels)
+apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+apply_mechanism_everywhere_uniform(cell, kChannels)
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
-somaLoc = myCell.get_location("soma")
+somaLoc = cell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mysim.record(cc, what=StandardTags.Current)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+sim.record(cc, what=StandardTags.Current)
 # Define what to record:
-mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 # run the simulation
-results = mysim.run()
+results = sim.run()
 
 #SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
 
@@ -131,5 +131,5 @@ results = mysim.run()
 TagViewer([results], timerange=(50, 250)*pq.ms, show=True)
 
 
-#summary = SimulationMRedoc.build(mysim)
+#summary = SimulationMRedoc.build(sim)
 #summary.to_pdf('~/Desktop/pdfs/%s.pdf'%__file__.split('/')[-1])

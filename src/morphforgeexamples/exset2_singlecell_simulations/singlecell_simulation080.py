@@ -53,11 +53,11 @@ def sim(glk_multiplier, gna_multiplier, tag):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    mysim = env.Simulation()
+    sim = env.Simulation()
 
     # Create a cell:
     morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0, axon_radius=0.3, soma_radius=9.0, axon_sections=20)
-    myCell = mysim.create_cell(name="Cell1", morphology=morph)
+    cell = sim.create_cell(name="Cell1", morphology=morph)
 
 
     lkChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
@@ -65,26 +65,26 @@ def sim(glk_multiplier, gna_multiplier, tag):
     kChannels  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
     # Apply the channels uniformly over the cell
-    apply_mechanism_everywhere_uniform(myCell, lkChannels)
-    apply_mechanism_everywhere_uniform(myCell, naChannels)
-    apply_mechanism_everywhere_uniform(myCell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, lkChannels)
+    apply_mechanism_everywhere_uniform(cell, naChannels)
+    apply_mechanism_everywhere_uniform(cell, kChannels)
 
     # Over-ride the parameters in the axon:
-    apply_mechanism_region_uniform(cell=myCell, mechanism=lkChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})
-    apply_mechanism_region_uniform(cell=myCell, mechanism=naChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':gna_multiplier})
+    apply_mechanism_region_uniform(cell=cell, mechanism=lkChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})
+    apply_mechanism_region_uniform(cell=cell, mechanism=naChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':gna_multiplier})
 
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
-    for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=myCell, distances=range(9, 3000, 100)):
-        mysim.record(myCell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
+    for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=cell, distances=range(9, 3000, 100)):
+        sim.record(cell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
 
     # Create the stimulus and record the injected current:
-    cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=myCell.get_location("soma"))
-    mysim.record(cc, what=StandardTags.Current)
+    cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.get_location("soma"))
+    sim.record(cc, what=StandardTags.Current)
 
     # run the simulation
-    return mysim.run()
+    return sim.run()
 
 
 # Display the results:

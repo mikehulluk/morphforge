@@ -64,12 +64,7 @@ def _apply_mechanism_uniform(cell, mechanism, targetter, parameter_multipliers=N
 
     # Tryt to rescale to preferred units:
     for k,v in vals.copy().iteritems():
-        #try:
-            #print k
-            vals[k] = v.rescale(mechanism.get_prefered_units()[k])
-        #except AttributeError:
-            #print 'Missing'
-            #pass
+        vals[k] = v.rescale(mechanism.get_prefered_units()[k])
 
     cell.get_biophysics().add_mechanism(
             mechanism=mechanism,

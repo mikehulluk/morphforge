@@ -94,18 +94,18 @@ env = NEURONEnvironment()
 
 # Create the simulation:
 
-mysim = env.Simulation(name='TestSim1')
+sim = env.Simulation(name='TestSim1')
 
 # Create a cell:
-myCell = mysim.create_cell(name='Cell1', morphology=m1)
+cell = sim.create_cell(name='Cell1', morphology=m1)
 
 # Apply the mechanisms to the cells
 leakChannels = env.MembraneMechanism(EqnSetChl, mechanism_id='ID1',
         eqnset=EquationSetLoader.load('std_leak_chl.txt',
         dir=LocMgr.getTestEqnSetsPath()),
         parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
-apply_mechanism_everywhere_uniform(myCell, leakChannels)
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+apply_mechanism_everywhere_uniform(cell, leakChannels)
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
@@ -152,7 +152,7 @@ hhChannels = env.MembraneMechanism(NeuroUnitEqnsetMechanism,
                                                           }
 
                                      )
-apply_mechanism_everywhere_uniform(myCell, hhChannels)
+apply_mechanism_everywhere_uniform(cell, hhChannels)
 
 
 
@@ -162,24 +162,24 @@ apply_mechanism_everywhere_uniform(myCell, hhChannels)
 
 
 # Get a cell_location on the cell:
-somaLoc = myCell.get_location('soma')
+somaLoc = cell.get_location('soma')
 
 # Create the simulous:
-mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
 
 # Define what to record:
-mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
-#mysim.recordall(leakChannels, cell_location=somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
+#sim.recordall(leakChannels, cell_location=somaLoc)
 
-mysim.record(hhChannels, what="i", cell_location=somaLoc)
-mysim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
-mysim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-mysim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-mysim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="i", cell_location=somaLoc)
+sim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
+sim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
 
 # run the simulation
-results = mysim.run()
+results = sim.run()
 
 
 

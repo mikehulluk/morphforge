@@ -47,13 +47,13 @@ from morphforgecontrib.stdimports import *
 env = NEURONEnvironment()
 
 # Create the simulation:
-mysim = env.Simulation()
+sim = env.Simulation()
 
 
 # Create a cell:
 morphDict1 = {'root': {'length': 20, 'diam': 20, 'id':'soma'} }
 m1 = MorphologyTree.fromDictionary(morphDict1)
-myCell = mysim.create_cell(name="Cell1", morphology=m1)
+cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 lkChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
@@ -62,47 +62,47 @@ kChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(myCell, lkChannels)
-apply_mechanism_everywhere_uniform(myCell, naChannels)
-apply_mechanism_everywhere_uniform(myCell, kChannels)
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+apply_mechanism_everywhere_uniform(cell, lkChannels)
+apply_mechanism_everywhere_uniform(cell, naChannels)
+apply_mechanism_everywhere_uniform(cell, kChannels)
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
-somaLoc = myCell.get_location("soma")
+somaLoc = cell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mysim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
-mysim.record(cc, what=StandardTags.Current)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+sim.record(cc, what=StandardTags.Current)
 # Define what to record:
-mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 
-mysim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
 
-mysim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
 
 
-mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
-mysim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
-mysim.record(kChannels,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
+sim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
+sim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
+sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
 
 
 # Also:
-#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
-#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
-#mysim.record(kChannels,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
+#sim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
+#sim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
+#sim.record(kChannels,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
 
-#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
-#mysim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
-#mysim.record(kChannels,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
+#sim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
+#sim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
+#sim.record(kChannels,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
 
 
 # run the simulation
-results = mysim.run()
+results = sim.run()
 
 
 # Display the results, there is a lot of info for one graph, so lets split it up:

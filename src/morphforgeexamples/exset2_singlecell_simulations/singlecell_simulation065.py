@@ -136,35 +136,35 @@ celltype="Cell1"
 env = NEURONEnvironment()
 
 # Create the simulation:
-mysim = env.Simulation()
+sim = env.Simulation()
 
 # Create a cell:
 morphology=MorphologyLibrary.get_morphology(modelsrc=modelsrc, celltype=celltype)
-myCell = mysim.create_cell(morphology=morphology)
+cell = sim.create_cell(morphology=morphology)
 
 # Apply the channels uniformly over the cell
 naChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
 kChls  = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
 lkChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env)
 
-apply_mechanism_everywhere_uniform(myCell, naChls)
-apply_mechanism_everywhere_uniform(myCell, kChls )
-apply_mechanism_everywhere_uniform(myCell, lkChls)
+apply_mechanism_everywhere_uniform(cell, naChls)
+apply_mechanism_everywhere_uniform(cell, kChls )
+apply_mechanism_everywhere_uniform(cell, lkChls)
 
-apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
-somaLoc = myCell.get_location("soma")
+somaLoc = cell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = mysim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
 
-mysim.record(cc, what=StandardTags.Current)
-mysim.record(myCell, what=StandardTags.Voltage, cell_location=somaLoc)
+sim.record(cc, what=StandardTags.Current)
+sim.record(cell, what=StandardTags.Voltage, cell_location=somaLoc)
 
 
 # run the simulation
-results = mysim.run()
+results = sim.run()
 
 # Display the results:
 TagViewer([results], timerange=(97.5, 140)*pq.ms)

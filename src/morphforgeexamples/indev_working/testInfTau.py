@@ -94,8 +94,8 @@ def build_simulation(gbar_multiplier):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    mysim = env.Simulation(name="TestSim1")
-    myCell = mysim.create_cell(name="Cell1", morphology=m1)
+    sim = env.Simulation(name="TestSim1")
+    cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
     parameters = {
@@ -145,25 +145,25 @@ def build_simulation(gbar_multiplier):
 
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, ks)
+    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, ks)
 
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
     # Define a Point on the morphology - in this case the middle of the soma:
-    somaLoc = myCell.get_location("soma")
+    somaLoc = cell.get_location("soma")
 
-    mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
-    mysim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
+    sim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
                               dur=unit('100:ms'), delay=unit('100:ms'),
                               cell_location=somaLoc)
 
 
-    result = mysim.run()
+    result = sim.run()
     return result
 
 

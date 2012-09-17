@@ -318,11 +318,11 @@ def get_cin_chls():
 import random
 def make_cell(sim, cell_name, cell_chl_functor):
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
-    myCell = sim.create_cell(name=cell_name, morphology=m1)
+    cell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(myCell, chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
-    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
-    return myCell
+        mf.apply_mechanism_everywhere_uniform(cell, chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
+    mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    return cell
 
 
 def make_cell_ain(sim, name=None, cell_tags=[]):
@@ -359,15 +359,15 @@ def test_cell_current(cell_name, cell_chl_functor, current):
     sim = mf.NEURONEnvironment().Simulation()
 
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
-    myCell = sim.create_cell(name=cell_name, morphology=m1)
-    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma"))
+    cell = sim.create_cell(name=cell_name, morphology=m1)
+    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.get_location("soma"))
 
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(myCell, chl)
+        mf.apply_mechanism_everywhere_uniform(cell, chl)
 
-    mf.apply_passive_everywhere_uniform(myCell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
 
-    sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage)
+    sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
     res =sim.run()
@@ -640,8 +640,8 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS,
 
 
 
-#myCell = dINr_LHS[0]
-#somaLoc1 = myCell.get_location("soma")
+#cell = dINr_LHS[0]
+#somaLoc1 = cell.get_location("soma")
 #
 #
 #syn = sim.create_synapse(
@@ -675,8 +675,8 @@ syn_cin_dinr_lr.record_from_all(what='g')
 
 
 
-#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=myCell.get_location("soma"))
-#sim.record(myCell, what=mf.Cell.Recordables.MembraneVoltage)
+#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.get_location("soma"))
+#sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
 #sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
 
 res =sim.run()

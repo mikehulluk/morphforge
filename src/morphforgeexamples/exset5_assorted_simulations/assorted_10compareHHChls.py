@@ -61,7 +61,7 @@ import random as R
 
 variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate']
 
-def apply_hh_chls_neurounits_direct(env, myCell, mysim):
+def apply_hh_chls_neurounits_direct(env, cell, sim):
 
     eqnset_txt_na = """
     EQNSET chlstd_hh_na {
@@ -151,24 +151,24 @@ def apply_hh_chls_neurounits_direct(env, myCell, mysim):
     kChls  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
 
 
-    apply_mechanism_everywhere_uniform(myCell, naChls)
-    apply_mechanism_everywhere_uniform(myCell, lkChls)
-    apply_mechanism_everywhere_uniform(myCell, kChls)
+    apply_mechanism_everywhere_uniform(cell, naChls)
+    apply_mechanism_everywhere_uniform(cell, lkChls)
+    apply_mechanism_everywhere_uniform(cell, kChls)
 
 
-    mysim.record(naChls, what='m', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    mysim.record(naChls, what='mtau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(naChls, what='m', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(naChls, what='mtau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    mysim.record(naChls, what='h', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    mysim.record(naChls, what='htau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(naChls, what='h', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(naChls, what='htau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    mysim.record(kChls, what='n', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    mysim.record(kChls, what='ntau', cell_location= myCell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
-
-
+    sim.record(kChls, what='n', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(kChls, what='ntau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
 
-def apply_hh_chls_neuroml_xsl(env, myCell, mysim):
+
+
+def apply_hh_chls_neuroml_xsl(env, cell, sim):
 
 
 
@@ -192,9 +192,9 @@ def apply_hh_chls_neuroml_xsl(env, myCell, mysim):
                                             mechanism_id="K"
                                            )
 
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, kChannels)
 
 
 
@@ -203,7 +203,7 @@ def apply_hh_chls_neuroml_xsl(env, myCell, mysim):
 
 
 
-def apply_hh_chls_neuroml_neurounits(env, myCell, mysim):
+def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
 
@@ -228,18 +228,18 @@ def apply_hh_chls_neuroml_neurounits(env, myCell, mysim):
                                             mechanism_id="K"
                                            )
 
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, kChannels)
 
 
     #for v in variables:
-    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, cell_location=myCell.get_location("soma"))
-    #    mysim.add_recordable(s)
+    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, cell_location=cell.get_location("soma"))
+    #    sim.add_recordable(s)
 
 
 
-def apply_hh_chls_morphforge_format(env, myCell, mysim):
+def apply_hh_chls_morphforge_format(env, cell, sim):
 
     leakChannels = env.MembraneMechanism(
                              MM_LeakChannel,
@@ -281,17 +281,17 @@ def apply_hh_chls_morphforge_format(env, myCell, mysim):
                             mechanism_id="HH_K_CURRENT"
                            )
 
-    apply_mechanism_everywhere_uniform(myCell, leakChannels)
-    apply_mechanism_everywhere_uniform(myCell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(myCell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, kChannels)
 
 
 
 
-def apply_hh_chls_NEURON_builtin(env, myCell, mysim):
+def apply_hh_chls_NEURON_builtin(env, cell, sim):
 
     hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
-    apply_mechanism_everywhere_uniform(myCell, hhChls)
+    apply_mechanism_everywhere_uniform(cell, hhChls)
 
 
 
@@ -303,35 +303,35 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    mysim = env.Simulation()
+    sim = env.Simulation()
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
-    myCell = mysim.create_cell(name="Cell1", morphology=m1)
+    cell = sim.create_cell(name="Cell1", morphology=m1)
 
     # Setup the HH-channels on the cell:
-    chl_applicator_functor(env, myCell, mysim)
+    chl_applicator_functor(env, cell, sim)
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
 
     # Get a cell_location on the cell:
-    somaLoc = myCell.get_location("soma")
+    somaLoc = cell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = mysim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
+    cc = sim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
 
 
     # Define what to record:
-    mysim.record(myCell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 
     # run the simulation
-    results = mysim.run()
+    results = sim.run()
     return results
 
 
