@@ -52,12 +52,42 @@ from morphforge.core.mockcontrol import MockControl
 
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
-
+import contextlib
+import cStringIO
 
 def _random_walk(t_steps, std_dev):
     nums = (np.random.rand(t_steps) - 0.5) * std_dev
     walk = np.cumsum(nums)
     return walk
+
+
+
+class redirect_stdout(object):
+
+    def __init__(self, stdout_stream, stderr_stream):
+        self.stdout_save_stream = stdout_stream
+        self.stderr_save_stream = stderr_stream
+        self.stdout_prev = None
+        self.stderr_prev = None
+
+    def __enter__(self):
+        self.stdout_prev = self.stdout_save_stream
+        self.stderr_prev = self.stderr_save_stream
+        sys.stdout = self.stdout_save_stream
+        sys.stderr = self.stderr_save_stream
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        sys.stdout = self.stdout_prev
+        sys.stderr = self.stderr_prev
+
+        # If we catch an exception, then lets print out what happened:
+        if exc_type is not None:
+            print self.stdout_save_stream.read()
+            if self.stdout_save_stream is not self.stderr_save_stream:
+                print self.stderr_save_stream.read()
+            return True
+
+
 
 
 class NEURONSimulation(Simulation):
@@ -75,7 +105,6 @@ class NEURONSimulation(Simulation):
 
         self.simulation_objects = [NeuronSimSetupObj(self.simsettings,
                                    simulation=self)]
-        #self.recordable_names = {}
         self.hocfilename = None
 
 
@@ -145,9 +174,6 @@ class NEURONSimulation(Simulation):
 
 
         # Save the simulation summary:
-        #import sys
-        #sname = sys.argv[0]
-
 
         do_summary = False
         if do_summary:
@@ -194,54 +220,62 @@ class NEURONSimulation(Simulation):
             if return_value != 1.0:
                 raise ValueError('nrn Command Failed')
 
-        # Create the HOC and ModFiles:
-        hoc_data = MHocFile()
-        mod_files = MModFileSet()
-        for sim_obj in self.simulation_objects:
-            # print 'BUILDING HOC:', sim_obj
-            sim_obj.build_hoc(hoc_data)
-            # print 'BUILDING MOD:', sim_obj
-            sim_obj.build_mod(mod_files)
 
-        t_mod_build_start = time.time()
-        mod_files.build_all()
-        time_taken = time.time() - t_mod_build_start
-        print 'Time for Building Mod-Files: ', time_taken
+        stdout = cStringIO.StringIO ()
+        with redirect_stdout(stdout_stream=stdout, stderr_stream=stdout) as display_output:
 
-        # Open Neuron:
-        import neuron
 
-        # Insert the mod-files:
-        for modfile in mod_files:
-            nrn(neuron.h.nrn_load_dll, modfile.get_built_filename_full())
+            # Create the HOC and ModFiles:
+            hoc_data = MHocFile()
+            mod_files = MModFileSet()
+            for sim_obj in self.simulation_objects:
+                # print 'BUILDING HOC:', sim_obj
+                sim_obj.build_hoc(hoc_data)
+                # print 'BUILDING MOD:', sim_obj
+                sim_obj.build_mod(mod_files)
 
-        # Write the HOC file:
-        t_sim_start = time.time()
-        hoc_filename = FileIO.write_to_file(
-                        str(hoc_data), 
-                        suffix='.hoc')
+            t_mod_build_start = time.time()
+            mod_files.build_all()
+            time_taken = time.time() - t_mod_build_start
+            #print 'Time for Building Mod-Files: ', time_taken
 
-        nrn(neuron.h.load_file, hoc_filename)
-        self.hocfilename = hoc_filename
+            # Open Neuron:
+            import neuron
 
-        #tstop = self.simsettings['tstop']
-        # run the simulation
-        class Event(object):
+            # Insert the mod-files:
+            for modfile in mod_files:
+                nrn(neuron.h.nrn_load_dll, modfile.get_built_filename_full())
 
-            def __init__(self):
-                self.interval = 5.0
-                self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
+            # Write the HOC file:
+            t_sim_start = time.time()
+            hoc_filename = FileIO.write_to_file(
+                            str(hoc_data), 
+                            suffix='.hoc')
 
-            def callback(self):
-                sys.stdout.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
-                sys.stdout.flush()
-                if neuron.h.t + self.interval < neuron.h.tstop:
-                    neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)
+            nrn(neuron.h.load_file, hoc_filename)
+            self.hocfilename = hoc_filename
 
-        Event()
-        print 'Running Simulation'
-        neuron.h.run()
-        assert neuron.h.t + 1 >= neuron.h.tstop
+            class Event(object):
+
+                def __init__(self):
+                    self.interval = 5.0
+                    self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
+
+                def callback(self):
+                    #print display_output
+                    #display_output.stdout_prev.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
+                    #display_output.stdout_prev.flush()
+                    sys.__stdout__.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
+                    sys.__stdout__.flush()
+                    if neuron.h.t + self.interval < neuron.h.tstop:
+                        neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)
+
+            Event()
+            print 'Running Simulation'
+            neuron.h.run()
+            assert neuron.h.t + 1 >= neuron.h.tstop
+
+
 
         print 'Time for Simulation: ', time.time() - t_sim_start
 

@@ -57,8 +57,8 @@ class NEURONSimulationSettings(object):
         for key in kwargs:
             assert key in self.params
             self.params[key] = kwargs[key]
-            print 'Over-riding parameter: %s to %s' % (str(key),
-                    str(self.params[key]))
+            #print 'Over-riding parameter: %s to %s' % (str(key),
+            #        str(self.params[key]))
 
     def __getitem__(self, key):
         return self.params[key]
