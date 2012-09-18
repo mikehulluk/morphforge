@@ -58,7 +58,7 @@ def get_Na_Channels(env):
                     {"alpha": [0.06,0,0,30.88,26], "beta": [3.06,0,1,-7.09,-10.21]}
                    }
 
-    return  env.MembraneMechanism(
+    return  env.Channel(
                             MM_AlphaBetaChannel,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
@@ -71,7 +71,7 @@ def get_Na_Channels(env):
 def get_Ks_Channels(env):
     kfStateVars = {"ks": {"alpha": [0.2,0,1,-6.96,-7.74 ], "beta": [0.05,0,2,-18.07,6.1 ] } }
 
-    return  env.MembraneMechanism(
+    return  env.Channel(
                             MM_AlphaBetaChannel,
                             name="KsChl", ion="ks",
                             equation="ks*ks*ks*ks",
@@ -84,7 +84,7 @@ def get_Ks_Channels(env):
 def get_Kf_Channels(env):
     kfStateVars = {"kf": {"alpha": [ 3.1,0,1,-31.5,-9.3], "beta": [0.44,0,1,4.98,16.19 ] } }
 
-    return  env.MembraneMechanism(
+    return  env.Channel(
                             MM_AlphaBetaChannel,
                             name="KfChl", ion="kf",
                             equation="kf*kf*kf*kf",
@@ -95,7 +95,7 @@ def get_Kf_Channels(env):
                            )
 
 def get_Lk_Channels(env):
-    lk_chl = env.MembraneMechanism(
+    lk_chl = env.Channel(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("3.6765:nS") / unit("400:um2"),

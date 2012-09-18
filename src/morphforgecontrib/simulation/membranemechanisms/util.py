@@ -89,7 +89,7 @@ class ChannelConverter(object):
                 new_state_vars[state_var] = InfTauInterpolation(V=V, inf=inf, tau=tau)
 
 
-            chl = env.MembraneMechanism(
+            chl = env.Channel(
                 MM_InfTauInterpolatedChannel,
                 name=chl_name,
                 mechanism_id=chl_id,
@@ -134,7 +134,7 @@ class ChannelConverter(object):
 #        #        self.state_var_name2: { 'inf': inf_data2, 'tau': tau_data2, },
 #        #
 #        #        }
-#        ks = env.MembraneMechanism(MM_InfTauInterpolatedChannel,
+#        ks = env.Channel(MM_InfTauInterpolatedChannel,
 #                                      name=self.chlname,
 #                                      ion='None',
 #                                      equation=self.eqn,
@@ -147,7 +147,7 @@ class ChannelConverter(object):
 #
 #
 #                caStateVars = { "m": {"alpha": [4.05, 0.0, 1.0, -15.32, -13.57], "beta1": [0.093 * 10.63, 0.093, -1, 10.63, 1], "beta2":[1.28, 0, 1, 5.39, 12.11] } }
-#    caChannels = env.MembraneMechanism(
+#    caChannels = env.Channel(
 #                            MM_CalciumAlphaBetaBetaChannel,
 #                            name="CaChl", ion="ca",
 #                            equation="m*m",

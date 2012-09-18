@@ -172,7 +172,7 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
 
 
 
-    lk_chl = env.MembraneMechanism(
+    lk_chl = env.Channel(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -180,13 +180,13 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
                          mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
-    na_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    na_chl = env.Channel(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
                                            )
 
-    k_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    k_chl = env.Channel(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
@@ -207,7 +207,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
 
-    lk_chl = env.MembraneMechanism(
+    lk_chl = env.Channel(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -215,14 +215,14 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                          mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
-    na_chl = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
+    na_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             #xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
                                            )
 
-    k_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
-    #k_chl = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
+    k_chl = env.Channel(NeuroML_Via_XSL_Channel,
+    #k_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
@@ -241,7 +241,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 def apply_hh_chls_morphforge_format(env, cell, sim):
 
-    lk_chl = env.MembraneMechanism(
+    lk_chl = env.Channel(
                              MM_LeakChannel,
                              name="LkChl",
                              conductance=unit("0.3:mS/cm2"),
@@ -257,7 +257,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             "beta": [1.00, 0.00, 1.00, 35.00, -10.00]}
                       }
 
-    na_chl = env.MembraneMechanism(
+    na_chl = env.Channel(
                             MM_AlphaBetaChannel,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
@@ -271,7 +271,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                           "beta": [0.125, 0, 0, 65, 80]},
                        }
 
-    k_chl = env.MembraneMechanism(
+    k_chl = env.Channel(
                             MM_AlphaBetaChannel,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
@@ -290,7 +290,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
 
 def apply_hh_chls_NEURON_builtin(env, cell, sim):
 
-    hhChls = env.MembraneMechanism(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
+    hhChls = env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
     apply_mechanism_everywhere_uniform(cell, hhChls)
 
 

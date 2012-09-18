@@ -37,7 +37,6 @@ from tracetypes import TracePieceFunctionLinear
 from tracetypes import TracePieceFunctionFlat
 from tracetypes import TracePieceFunctionLinear
 
-
 # Need so that they register the methods:
 import morphforge.traces.methods
 import morphforge.traces.operators

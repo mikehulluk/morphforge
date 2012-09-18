@@ -55,7 +55,7 @@ def build_simulation(modfilename):
     cell = sim.create_cell(morphology=m1)
     somaLoc = cell.get_location("soma")
 
-    modChls = env.MembraneMechanism(SimulatorSpecificChannel,
+    modChls = env.Channel(SimulatorSpecificChannel,
                                      modfilename =  modfilename,
                                      mechanism_id='ID1')
 

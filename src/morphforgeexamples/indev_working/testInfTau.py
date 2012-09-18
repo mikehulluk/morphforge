@@ -55,7 +55,7 @@ def getKSInfTau(env):
     ks_vars = {'ks': i}
 
 
-    ks = env.MembraneMechanism(
+    ks_chl = env.Channel(
         MM_InfTauInterpolatedChannel,
         name='InfTau1',
         ion='ks',
@@ -65,7 +65,7 @@ def getKSInfTau(env):
         statevars_new=ks_vars,
         mechanism_id='KFInfTauMechID',
         )
-    return ks
+    return ks_chl
 
 
 tr0 = get_voltageclamp_soma_current_trace(env=env, V='-50:mV',
@@ -135,7 +135,7 @@ def build_simulation(gbar_multiplier):
 
     eqnset = EquationSetLoader.load('std_leak_chl.txt',
                                     dir=LocMgr.getTestEqnSetsPath())
-    lk_chl = env.MembraneMechanism(EqnSetChl, eqnset=eqnset,
+    lk_chl = env.Channel(EqnSetChl, eqnset=eqnset,
             chlname='LeakChls', mechanism_id='std_lk_chl',
             parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV'
             )})

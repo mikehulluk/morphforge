@@ -37,7 +37,7 @@ from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
 def get_sample_lk(env):
-    lk_chl = env.MembraneMechanism(MM_LeakChannel, name='LkChl',
+    lk_chl = env.Channel(MM_LeakChannel, name='LkChl',
             conductance=unit('0.3:mS/cm2'),
             reversalpotential=unit('-54.3:mV'),
             mechanism_id='HULL12_DIN_LK_ID')
@@ -53,7 +53,7 @@ def get_sample_na(env):
                             'beta':  [1.00,0.00,1.00,35.00,-10.00]}
                       }
 
-    na_chl = env.MembraneMechanism(
+    na_chl = env.Channel(
         MM_AlphaBetaChannel,
         name='NaChl',
         ion='na',
@@ -69,7 +69,7 @@ def get_sample_na(env):
 def get_sample_k(env):
     kStateVars = {'n': {'alpha': [-0.55, -0.01, -1.00, 55.0, -10.00],
                   'beta': [0.125, 0, 0, 65, 80]}}
-    k_chl = env.MembraneMechanism(
+    k_chl = env.Channel(
         MM_AlphaBetaChannel,
         name='KChl',
         ion='k',

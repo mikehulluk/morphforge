@@ -58,7 +58,7 @@ cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
-lk_chl = env.MembraneMechanism(MM_LeakChannel,
+lk_chl = env.Channel(MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.25:mS/cm2"),
                          reversalpotential=unit("-51:mV"),

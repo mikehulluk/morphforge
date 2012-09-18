@@ -113,10 +113,10 @@ soma = cell.get_location("soma")
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Setup active channels:
-na_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
+na_chl = env.Channel(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
         default_parameters={"g":U("120:mS/cm2")}, mechanism_id="NaChl")
-k_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, mechanism_id="kChl")
-lk_chl = env.MembraneMechanism(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, mechanism_id="lkChl")
+k_chl = env.Channel(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, mechanism_id="kChl")
+lk_chl = env.Channel(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, mechanism_id="lkChl")
 
 apply_mechanism_everywhere_uniform(cell, na_chl)
 apply_mechanism_everywhere_uniform(cell, lk_chl)

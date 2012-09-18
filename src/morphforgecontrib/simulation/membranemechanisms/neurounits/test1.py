@@ -100,7 +100,7 @@ sim = env.Simulation(name='TestSim1')
 cell = sim.create_cell(name='Cell1', morphology=m1)
 
 # Apply the mechanisms to the cells
-lk_chl = env.MembraneMechanism(EqnSetChl, mechanism_id='ID1',
+lk_chl = env.Channel(EqnSetChl, mechanism_id='ID1',
         eqnset=EquationSetLoader.load('std_leak_chl.txt',
         dir=LocMgr.getTestEqnSetsPath()),
         parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
@@ -141,7 +141,7 @@ hhChannel_params = {
 
 
 
-hhChannels = env.MembraneMechanism(NeuroUnitEqnsetMechanism,
+hhChannels = env.Channel(NeuroUnitEqnsetMechanism,
                                       name = "bklk",
                                       mechanism_id='ID2',
                                       eqnset=NeuroUnitParser.File(text=textHH).get_eqnset('chlstd_hh_k'),

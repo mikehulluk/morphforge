@@ -56,7 +56,7 @@ morph = MorphologyBuilder.get_soma_axon_morph(axon_length=3000.0, axon_radius=0.
 cell = sim.create_cell(name="Cell1", morphology=morph)
 
 
-lk_chl = env.MembraneMechanism(
+lk_chl = env.Channel(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -72,7 +72,7 @@ na_state_vars = { "m": {
                         "beta": [1.00, 0.00, 1.00, 35.00, -10.00]}
                   }
 
-na_chl = env.MembraneMechanism(
+na_chl = env.Channel(
                         MM_AlphaBetaChannel,
                         name="NaChl", ion="na",
                         equation="m*m*m*h",
@@ -86,7 +86,7 @@ kStateVars = { "n": {
                       "beta": [0.125, 0, 0, 65, 80]},
                    }
 
-k_chl = env.MembraneMechanism(
+k_chl = env.Channel(
                         MM_AlphaBetaChannel,
                         name="KChl", ion="k",
                         equation="n*n*n*n",
