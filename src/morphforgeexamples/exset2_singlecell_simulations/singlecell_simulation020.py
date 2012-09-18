@@ -42,8 +42,8 @@ Note that the neurons reseting potentials have been shifted from 0mV to -65mV.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 
 
 # Create the environment:
@@ -60,7 +60,7 @@ cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 lk_chl = env.Channel(
-                         MM_LeakChannel,
+                         StdChlLeak,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
@@ -76,7 +76,7 @@ na_state_vars = { "m": {
                   }
 
 na_chl = env.Channel(
-                        MM_AlphaBetaChannel,
+                        StdChlAlphaBeta,
                         name="NaChl", ion="na",
                         equation="m*m*m*h",
                         conductance=unit("120:mS/cm2"),
@@ -84,18 +84,18 @@ na_chl = env.Channel(
                         statevars=na_state_vars,
                         mechanism_id="HH_NA_CURRENT"
                        )
-kStateVars = { "n": {
+k_state_vars = { "n": {
                       "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
                       "beta": [0.125,0,0,65,80]},
                    }
 
 k_chl = env.Channel(
-                        MM_AlphaBetaChannel,
+                        StdChlAlphaBeta,
                         name="KChl", ion="k",
                         equation="n*n*n*n",
                         conductance=unit("36:mS/cm2"),
                         reversalpotential=unit("-77:mV"),
-                        statevars=kStateVars,
+                        statevars=k_state_vars,
                         mechanism_id="HH_K_CURRENT"
                        )
 

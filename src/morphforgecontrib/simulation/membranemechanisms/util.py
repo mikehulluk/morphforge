@@ -32,12 +32,12 @@
 #from morphforgecontrib.simulation.membranemechanisms import inftauinterpolated
 
 
-from morphforgecontrib.simulation.membranemechanisms.hh_style import MM_AlphaBetaChannel
-from morphforgecontrib.simulation.membranemechanisms.hh_style import MM_AlphaBetaBetaChannel
-#from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style import StdChlAlphaBeta
+from morphforgecontrib.simulation.membranemechanisms.hh_style import StdChlAlphaBetaBeta
+#from morphforgecontrib.simulation.default.core.mmalphabetabeta import StdChlAlphaBetaBeta
 
-#from morphforgecontrib.simulation.default.core.mmalphabeta import MM_AlphaBetaChannel
-#from morphforgecontrib.simulation.default.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
+#from morphforgecontrib.simulation.default.core.mmalphabeta import StdChlAlphaBeta
+#from morphforgecontrib.simulation.default.core.mmalphabetabeta import StdChlAlphaBetaBeta
 from numpy.core.function_base import linspace
 from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers import MM_InfTauInterpolatedChannel, \
     InfTauInterpolation
@@ -58,8 +58,8 @@ class ChannelConverter(object):
 
 
             old_chl = chl_functor(env)
-            assert isinstance(old_chl, (MM_AlphaBetaChannel,
-                              MM_AlphaBetaBetaChannel))  # or issubclass(MM_AlphaBetaBetaChannel, old_chl)
+            assert isinstance(old_chl, (StdChlAlphaBeta,
+                              StdChlAlphaBetaBeta))  # or issubclass(StdChlAlphaBetaBeta, old_chl)
 
             # New ID:
             if new_id is not None:
@@ -146,9 +146,9 @@ class ChannelConverter(object):
 #
 #
 #
-#                caStateVars = { "m": {"alpha": [4.05, 0.0, 1.0, -15.32, -13.57], "beta1": [0.093 * 10.63, 0.093, -1, 10.63, 1], "beta2":[1.28, 0, 1, 5.39, 12.11] } }
+#                ca_state_vars = { "m": {"alpha": [4.05, 0.0, 1.0, -15.32, -13.57], "beta1": [0.093 * 10.63, 0.093, -1, 10.63, 1], "beta2":[1.28, 0, 1, 5.39, 12.11] } }
 #    caChannels = env.Channel(
-#                            MM_CalciumAlphaBetaBetaChannel,
+#                            StdChlCalciumAlphaBetaBeta,
 #                            name="CaChl", ion="ca",
 #                            equation="m*m",
 #                            permeability = unit("1.425:cm/s") * 0.1 * 0.15,
@@ -156,7 +156,7 @@ class ChannelConverter(object):
 #                            extracellular_concentration = unit("10:uMol"),
 #                            temperature = unit("300:K"),
 #                            beta2threshold = unit("-25:mV"),
-#                            statevars=caStateVars,
+#                            statevars=ca_state_vars,
 #                            mechanism_id = 'HULL12_RB_CA_ID'
 #                           )
 #    return caChannels

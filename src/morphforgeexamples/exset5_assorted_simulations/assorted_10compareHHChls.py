@@ -35,7 +35,7 @@
 
 This simulation compares the different ways of implementing the Hodgkin-Huxley channels;
 we check that the Hodgkin-Huxley channels built-in to NEURON produce the same results as
-when we create these channels with parameters as an MM_AlphaBetaChannel.
+when we create these channels with parameters as an StdChlAlphaBeta.
 
 In you are not familiar with python, then this is an example of the one of
 the advantages of the laanguage: functions are objects!
@@ -51,8 +51,8 @@ from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neur
 from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_core import NeuroML_Via_XSL_Channel
 
@@ -173,7 +173,7 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
 
 
     lk_chl = env.Channel(
-                         MM_LeakChannel,
+                         StdChlLeak,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
@@ -208,7 +208,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
     lk_chl = env.Channel(
-                         MM_LeakChannel,
+                         StdChlLeak,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
@@ -234,7 +234,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
     #for v in variables:
-    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.get_location("soma"))
+    #    s =NEURONChl_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.get_location("soma"))
     #    sim.add_recordable(s)
 
 
@@ -242,7 +242,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 def apply_hh_chls_morphforge_format(env, cell, sim):
 
     lk_chl = env.Channel(
-                             MM_LeakChannel,
+                             StdChlLeak,
                              name="LkChl",
                              conductance=unit("0.3:mS/cm2"),
                              reversalpotential=unit("-54.3:mV"),
@@ -258,7 +258,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                       }
 
     na_chl = env.Channel(
-                            MM_AlphaBetaChannel,
+                            StdChlAlphaBeta,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
                             conductance=unit("120:mS/cm2"),
@@ -266,18 +266,18 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             statevars=na_state_vars,
                             mechanism_id="HH_NA_CURRENT"
                            )
-    kStateVars = { "n": {
+    k_state_vars = { "n": {
                           "alpha":[-0.55, -0.01, -1.0, 55.0, -10.0],
                           "beta": [0.125, 0, 0, 65, 80]},
                        }
 
     k_chl = env.Channel(
-                            MM_AlphaBetaChannel,
+                            StdChlAlphaBeta,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
                             conductance=unit("36:mS/cm2"),
                             reversalpotential=unit("-77:mV"),
-                            statevars=kStateVars,
+                            statevars=k_state_vars,
                             mechanism_id="HH_K_CURRENT"
                            )
 

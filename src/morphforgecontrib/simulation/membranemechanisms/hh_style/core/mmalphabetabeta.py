@@ -35,7 +35,7 @@ from morphforge.simulation.base import MembraneMechanism
 import numpy as np
 
 
-class MM_AlphaBetaBetaChannel(MembraneMechanism):
+class StdChlAlphaBetaBeta(MembraneMechanism):
 
     class Recordables(object):
 

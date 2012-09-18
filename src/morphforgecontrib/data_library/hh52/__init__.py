@@ -31,13 +31,13 @@
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary
 from morphforge.core.quantities.fromcore import unit
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
 def get_sample_lk(env):
-    lk_chl = env.Channel(MM_LeakChannel, name='LkChl',
+    lk_chl = env.Channel(StdChlLeak, name='LkChl',
             conductance=unit('0.3:mS/cm2'),
             reversalpotential=unit('-54.3:mV'),
             mechanism_id='HULL12_DIN_LK_ID')
@@ -45,7 +45,7 @@ def get_sample_lk(env):
 
 
 def get_sample_na(env):
-    naStateVars = { 'm': {
+    na_state_vars = { 'm': {
                           'alpha': [-4.00,-0.10,-1.00,40.00,-10.00],
                           'beta':  [4.00, 0.00, 0.00,65.00, 18.00]},
                     'h': {
@@ -54,13 +54,13 @@ def get_sample_na(env):
                       }
 
     na_chl = env.Channel(
-        MM_AlphaBetaChannel,
+        StdChlAlphaBeta,
         name='NaChl',
         ion='na',
         equation='m*m*m*h',
         conductance=unit('120:mS/cm2'),
         reversalpotential=unit('50:mV'),
-        statevars=naStateVars,
+        statevars=na_state_vars,
         mechanism_id='HH_NA_CURRENT',
         )
     return na_chl
@@ -70,7 +70,7 @@ def get_sample_k(env):
     kStateVars = {'n': {'alpha': [-0.55, -0.01, -1.00, 55.0, -10.00],
                   'beta': [0.125, 0, 0, 65, 80]}}
     k_chl = env.Channel(
-        MM_AlphaBetaChannel,
+        StdChlAlphaBeta,
         name='KChl',
         ion='k',
         equation='n*n*n*n',

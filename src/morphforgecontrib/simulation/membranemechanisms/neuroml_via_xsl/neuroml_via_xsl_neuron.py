@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
@@ -38,17 +38,17 @@ from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_
 from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_core import NeuroML_Via_XSL_Channel
 
 from lxml import etree
-from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import MM_Neuron_RecGen
+from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NEURONChl_RecGen
 from neurounits.importers.neuroml import ChannelMLReader
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 
 
-class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
+class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
     def __init__(self, xml_filename, xsl_filename, chlname=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         NeuroML_Via_XSL_Channel.__init__(self,
                 xml_filename=xml_filename, xsl_filename=xsl_filename,
                 chlname=chlname, mechanism_id=mechanism_id)
@@ -117,7 +117,7 @@ class NeuroML_Via_XSL_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_XSL_Channel):
         return {}
 
     def get_recordable(self, what, cell_location, nrn_unit, **kwargs):
-        return MM_Neuron_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
+        return NEURONChl_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
 
 
 

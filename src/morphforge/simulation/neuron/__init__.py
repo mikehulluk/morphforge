@@ -42,7 +42,7 @@ from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 
 from morphforge.simulation.neuron.biophysics import ModFile
 from morphforge.simulation.neuron.biophysics import ModFileCompiler
-from morphforge.simulation.neuron.biophysics import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics import NEURONChl_Base
 
 __all__ = [
     'MembraneVoltageRecord',
@@ -54,6 +54,6 @@ __all__ = [
     'HocModUtils',
     'ModFile',
     'ModFileCompiler',
-    'MM_Neuron_Base',
+    'NEURONChl_Base',
     ]
 

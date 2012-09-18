@@ -45,7 +45,7 @@ from util import InfTauCalculator, ReportLabTools
 
 from ..stdlimits import StdLimits
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
-from morphforgecontrib.default.core.mmcalciumalphabetabeta import MM_CalciumAlphaBetaBetaChannel
+from morphforgecontrib.default.core.mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
 
 
 
@@ -198,4 +198,4 @@ class Summarise_MM_CalciumAlphaBetaBetaChannel(object):
             return localElements
 
 
-SummariserLibrary.register_summariser(channel_baseclass=MM_CalciumAlphaBetaBetaChannel, summariser_class=Summarise_MM_CalciumAlphaBetaBetaChannel)
+SummariserLibrary.register_summariser(channel_baseclass=StdChlCalciumAlphaBetaBeta, summariser_class=Summarise_MM_CalciumAlphaBetaBetaChannel)

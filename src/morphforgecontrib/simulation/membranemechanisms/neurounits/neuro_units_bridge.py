@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
@@ -47,10 +47,10 @@ class RecordableData(object):
         self.standard_tags = standard_tags or []
 
 
-class MM_Neuron_RecGen(NEURONRecordableOnLocation):
+class NEURONChl_RecGen(NEURONRecordableOnLocation):
 
     def __init__(self, src_chl, modvar, unit_in_nrn, std_tags, **kwargs):
-        super(MM_Neuron_RecGen, self).__init__(**kwargs)
+        super(NEURONChl_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.modvar = modvar
         self.unit_in_nrn = unit_in_nrn
@@ -139,9 +139,9 @@ SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetM
 
 
 
-class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
+class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def __init__(self, **kwargs):
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
 
         self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism, prefix=""))
@@ -199,7 +199,7 @@ class Neuron_NeuroUnitEqnsetMechanism(MM_Neuron_Base, NeuroUnitEqnsetMechanism):
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return NEURONChl_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 

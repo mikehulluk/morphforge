@@ -34,7 +34,7 @@
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
@@ -55,9 +55,9 @@ class RecordableData(object):
         self.standard_tags = standard_tags or []
 
 
-class MM_Neuron_RecGen(NEURONRecordable):
+class NEURONChl_RecGen(NEURONRecordable):
     def __init__(self, src_chl, objvar, unit_in_nrn, std_tags, **kwargs):
-        super(MM_Neuron_RecGen, self).__init__(**kwargs)
+        super(NEURONChl_RecGen, self).__init__(**kwargs)
         self.src_chl = src_chl
         self.objvar = objvar
         self.unit_in_nrn = unit_in_nrn
@@ -116,11 +116,11 @@ ${cellname}.internalsections[$sectionindex] $synnamepost = new $synapsetypename 
 
 """
 
-class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSynaptic):
+class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSynaptic):
 
 
     def __init__(self, **kwargs):
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
 
         #self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
@@ -210,7 +210,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(MM_Neuron_Base, NeuroUnitEqnsetPostSyna
         if what in self.recordables_data:
             std_tags = self.recordables_data[what].standard_tags
 
-        return MM_Neuron_RecGen(src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
+        return NEURONChl_RecGen(src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
 
 
 

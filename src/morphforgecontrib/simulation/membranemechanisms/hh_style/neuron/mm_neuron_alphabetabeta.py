@@ -30,11 +30,11 @@
 # ----------------------------------------------------------------------
 
 
-from ..core import MM_AlphaBetaBetaChannel
+from ..core import StdChlAlphaBetaBeta
 from morphforge.core.quantities import unit
 from hocmodbuilders.mmwriter_alphabetabeta import MM_WriterAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-from morphforge.simulation.neuron import MM_Neuron_Base
+from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
@@ -47,10 +47,10 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordab
 
 
 
-class MM_Neuron_AlphaBetaBeta_Record(NEURONRecordableOnLocation):
+class NEURONChl_AlphaBetaBeta_Record(NEURONRecordableOnLocation):
 
     def __init__(self, alphabeta_beta_chl, modvar, **kwargs):
-        super(MM_Neuron_AlphaBetaBeta_Record, self).__init__(**kwargs)
+        super(NEURONChl_AlphaBetaBeta_Record, self).__init__(**kwargs)
         self.alphabeta_beta_chl = alphabeta_beta_chl
         self.modvar = modvar
 
@@ -72,11 +72,11 @@ class MM_Neuron_AlphaBetaBeta_Record(NEURONRecordableOnLocation):
                              self.cell_location.get_location_description_str())
 
 
-class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
+class NEURONChl_AlphaBetaBeta_CurrentDensityRecord(NEURONChl_AlphaBetaBeta_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
+        super(NEURONChl_AlphaBetaBeta_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
@@ -86,11 +86,11 @@ class MM_Neuron_AlphaBetaBeta_CurrentDensityRecord(MM_Neuron_AlphaBetaBeta_Recor
         return [StandardTags.CurrentDensity]
 
 
-class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_Record):
+class NEURONChl_AlphaBetaBeta_ConductanceDensityRecord(NEURONChl_AlphaBetaBeta_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord,
+        super(NEURONChl_AlphaBetaBeta_ConductanceDensityRecord,
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
@@ -100,11 +100,11 @@ class MM_Neuron_AlphaBetaBeta_ConductanceDensityRecord(MM_Neuron_AlphaBetaBeta_R
         return [StandardTags.ConductanceDensity]
 
 
-class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record):
+class NEURONChl_AlphaBetaBeta_StateVariableRecord(NEURONChl_AlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_AlphaBetaBeta_StateVariableRecord,
+        super(NEURONChl_AlphaBetaBeta_StateVariableRecord,
               self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
@@ -114,11 +114,11 @@ class MM_Neuron_AlphaBetaBeta_StateVariableRecord(MM_Neuron_AlphaBetaBeta_Record
         return [StandardTags.StateVariable]
 
 
-class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Record):
+class NEURONChl_AlphaBetaBeta_StateVariableTauRecord(NEURONChl_AlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_AlphaBetaBeta_StateVariableTauRecord,
+        super(NEURONChl_AlphaBetaBeta_StateVariableTauRecord,
               self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
@@ -128,11 +128,11 @@ class MM_Neuron_AlphaBetaBeta_StateVariableTauRecord(MM_Neuron_AlphaBetaBeta_Rec
         return [StandardTags.StateTimeConstant]
 
 
-class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Record):
+class NEURONChl_AlphaBetaBeta_StateVariableInfRecord(NEURONChl_AlphaBetaBeta_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_AlphaBetaBeta_StateVariableInfRecord,
+        super(NEURONChl_AlphaBetaBeta_StateVariableInfRecord,
               self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
@@ -142,7 +142,7 @@ class MM_Neuron_AlphaBetaBeta_StateVariableInfRecord(MM_Neuron_AlphaBetaBeta_Rec
         return [StandardTags.StateSteadyState]
 
 
-class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
+class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
 
     class Recordables(object):
 
@@ -151,8 +151,8 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
     def __init__(self, *args, **kwargs):
         # TODO: Fix constructor:
-        MM_AlphaBetaBetaChannel.__init__(self, *args, **kwargs)
-        MM_Neuron_Base.__init__(self)
+        StdChlAlphaBetaBeta.__init__(self, *args, **kwargs)
+        NEURONChl_Base.__init__(self)
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
         return MM_WriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
@@ -164,7 +164,7 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
     def get_recordable(self, what, name, cell_location, **kwargs):
         
         recorders = {
-            MM_AlphaBetaBetaChannel.Recordables.CurrentDensity: MM_Neuron_AlphaBetaBeta_CurrentDensityRecord,
+            StdChlAlphaBetaBeta.Recordables.CurrentDensity: NEURONChl_AlphaBetaBeta_CurrentDensityRecord,
         }
 
         return recorders[what](alphabeta_beta_chl=self, cell_location= cell_location, name=name, **kwargs )
@@ -202,5 +202,5 @@ class MM_Neuron_AlphaBetaBeta(MM_AlphaBetaBetaChannel, MM_Neuron_Base):
 
 # Register the channel
 NEURONEnvironment.membranemechanisms.register_plugin(
-    MM_AlphaBetaBetaChannel,
-    MM_Neuron_AlphaBetaBeta)
+    StdChlAlphaBetaBeta,
+    NEURONChl_AlphaBetaBeta)

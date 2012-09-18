@@ -36,7 +36,7 @@ from morphforge.core.quantities import unit
 
 import numpy as np
 from morphforge.traces import TraceFixedDT
-#from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabetabeta import MM_AlphaBetaBetaChannel
+#from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabetabeta import StdChlAlphaBetaBeta
 #from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 #from morphforgecontrib.simulation.membranemechanisms.hh_style.summarisers.mmalphabeta import Summarise_MM_AlphaBetaChannel
 
@@ -155,4 +155,4 @@ class Summarise_MM_AlphaBetaBetaChannel(object):
             return local_elements
 
 
-#SummariserLibrary.register_summariser(channel_baseclass=MM_AlphaBetaBetaChannel, summariser_class=Summarise_MM_AlphaBetaBetaChannel)
+#SummariserLibrary.register_summariser(channel_baseclass=StdChlAlphaBetaBeta, summariser_class=Summarise_MM_AlphaBetaBetaChannel)

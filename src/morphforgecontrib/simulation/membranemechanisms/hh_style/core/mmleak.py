@@ -37,7 +37,7 @@ import morphforge.stdimports as mf
 import quantities as pq
 
 
-class MM_LeakChannel(MembraneMechanism):
+class StdChlLeak(MembraneMechanism):
 
     class Recordables(object):
 

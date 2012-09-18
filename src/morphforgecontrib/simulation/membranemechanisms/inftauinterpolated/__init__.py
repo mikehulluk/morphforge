@@ -30,5 +30,5 @@
 # ----------------------------------------------------------------------
 
 from core import MM_InfTauInterpolatedChannel
-from neuron import MM_Neuron_InfTauInterpolated
+from neuron import NEURONChl_InfTauInterpolated
 # from summarisier import Summarise_MM_InfTauInterpolatedChannel

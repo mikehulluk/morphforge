@@ -38,9 +38,9 @@ from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordab
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 
 
-class MM_Neuron_GeneralisedRecord(NEURONRecordableOnLocation):
+class NEURONChl_GeneralisedRecord(NEURONRecordableOnLocation):
     def __init__(self, modvar, unit, tags, nrnsuffix, **kwargs):
-        super(MM_Neuron_GeneralisedRecord, self).__init__(**kwargs)
+        super(NEURONChl_GeneralisedRecord, self).__init__(**kwargs)
         self.unit = unit
         self.tags = tags
         self.modvar = modvar

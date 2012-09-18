@@ -29,6 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from mmcalciumalphabetabeta import MM_CalciumAlphaBetaBetaChannel
+from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
 
 import mm_neuron_calciumalphabetabeta

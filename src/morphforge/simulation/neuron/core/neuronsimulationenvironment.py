@@ -63,6 +63,10 @@ class NEURONEnvironment(SimulationEnvironment):
     def MembraneMechanism(cls, mechanismtype, **kwargs):
         chl = cls.membranemechanisms.get_plugin(mechanismtype)
         return chl(**kwargs)
+    @classmethod
+    def Channel(cls, mechanismtype, **kwargs):
+        chl = cls.membranemechanisms.get_plugin(mechanismtype)
+        return chl(**kwargs)
 
     @classmethod
     def PreSynapticMechanism(cls, mechanismtype, **kwargs):

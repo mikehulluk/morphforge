@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
@@ -41,11 +41,11 @@ import re
 
 
 
-class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChannel):
+class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChannel):
 
     def __init__(self, modfilename=None, modtxt=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         SimulatorSpecificChannel.__init__(self)
 
         assert mechanism_id
@@ -94,5 +94,5 @@ class MM_Neuron_SimulatorSpecificChannel(MM_Neuron_Base, SimulatorSpecificChanne
 
 NEURONEnvironment.membranemechanisms.register_plugin(
         SimulatorSpecificChannel,
-        MM_Neuron_SimulatorSpecificChannel)
+        NEURONChl_SimulatorSpecificChannel)
 

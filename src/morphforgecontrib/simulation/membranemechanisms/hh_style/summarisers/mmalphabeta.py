@@ -43,7 +43,7 @@ from morphforge.traces import TraceFixedDT
 
 #from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 #from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 
 
 class Summarise_MM_AlphaBetaChannelVClamp(object):
@@ -232,4 +232,4 @@ class Summarise_MM_AlphaBetaChannel(object):
 
 
 
-#SummariserLibrary.register_summariser(channel_baseclass=MM_AlphaBetaChannel, summariser_class=Summarise_MM_AlphaBetaChannel)
+#SummariserLibrary.register_summariser(channel_baseclass=StdChlAlphaBeta, summariser_class=Summarise_MM_AlphaBetaChannel)

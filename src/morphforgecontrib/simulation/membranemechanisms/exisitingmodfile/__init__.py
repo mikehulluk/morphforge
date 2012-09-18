@@ -30,4 +30,4 @@
 # ----------------------------------------------------------------------
 
 from core import SimulatorSpecificChannel
-from neuron import MM_Neuron_SimulatorSpecificChannel
+from neuron import NEURONChl_SimulatorSpecificChannel

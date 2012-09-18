@@ -33,7 +33,7 @@
 assert False
 
 
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
@@ -51,9 +51,9 @@ from neurounits.importers.neuroml import EqnSetFromNeuroML
 
 
 
-class MM_Neuron_NeuroUnits_GenRecord(NEURONRecordableOnLocation):
+class NEURONChl_NeuroUnits_GenRecord(NEURONRecordableOnLocation):
     def __init__(self, chl, modvar, **kwargs):
-        super(MM_Neuron_NeuroUnits_GenRecord, self).__init__(**kwargs)
+        super(NEURONChl_NeuroUnits_GenRecord, self).__init__(**kwargs)
         self.chl = chl
         self.modvar = modvar
 
@@ -79,11 +79,11 @@ class MM_Neuron_NeuroUnits_GenRecord(NEURONRecordableOnLocation):
 
 
 
-class NeuroML_Via_NeuroUnits_ChannelNEURON(MM_Neuron_Base, NeuroML_Via_NeuroUnits_Channel):
+class NeuroML_Via_NeuroUnits_ChannelNEURON(NEURONChl_Base, NeuroML_Via_NeuroUnits_Channel):
 
     def __init__(self, xml_filename, chlname=None, mechanism_id=None):
         self.mechanism_id = mechanism_id
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         NeuroML_Via_NeuroUnits_Channel.__init__(self,
                 xml_filename=xml_filename, chlname=chlname,
                 mechanism_id=mechanism_id)

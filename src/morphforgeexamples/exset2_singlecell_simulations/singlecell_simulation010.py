@@ -39,7 +39,7 @@ We also create a summary pdf of the simulation.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
 
 
 # Create the morphology for the cell:
@@ -58,7 +58,7 @@ cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
-lk_chl = env.Channel(MM_LeakChannel,
+lk_chl = env.Channel(StdChlLeak,
                          name="LkChl",
                          conductance=unit("0.25:mS/cm2"),
                          reversalpotential=unit("-51:mV"),

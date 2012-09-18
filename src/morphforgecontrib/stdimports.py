@@ -38,7 +38,7 @@ from morphology.util import MorphologyTranslator
 
 # Simulation Channels:
 from simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
-from simulation.membranemechanisms.hh_style.core import MM_AlphaBetaChannel, MM_LeakChannel, MM_AlphaBetaBetaChannel
+from simulation.membranemechanisms.hh_style.core import StdChlAlphaBeta, StdChlLeak, StdChlAlphaBetaBeta
 from simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace

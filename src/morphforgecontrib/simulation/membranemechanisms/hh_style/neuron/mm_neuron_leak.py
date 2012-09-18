@@ -30,21 +30,21 @@
 # ----------------------------------------------------------------------
 
 
-from ..core import MM_LeakChannel
+from ..core import StdChlLeak
 from morphforge.core.quantities import unit
 from hocmodbuilders.mmwriter_leak import MM_WriterLeak
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-from morphforge.simulation.neuron import MM_Neuron_Base
+from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
-class MM_Neuron_Leak_Record(NEURONRecordableOnLocation):
+class NEURONChl_Leak_Record(NEURONRecordableOnLocation):
 
     def __init__(self, lkchannel, modvar, **kwargs):
-        super(MM_Neuron_Leak_Record, self).__init__(**kwargs)
+        super(NEURONChl_Leak_Record, self).__init__(**kwargs)
         self.leak_chl = lkchannel
         self.modvar = modvar
 
@@ -62,11 +62,11 @@ class MM_Neuron_Leak_Record(NEURONRecordableOnLocation):
             )
 
 
-class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
+class NEURONChl_Leak_ConductanceDensityRecord(NEURONChl_Leak_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_Leak_ConductanceDensityRecord,
+        super(NEURONChl_Leak_ConductanceDensityRecord,
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
@@ -82,11 +82,11 @@ class MM_Neuron_Leak_ConductanceDensityRecord(MM_Neuron_Leak_Record):
         return t1 + r + t
 
 
-class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
+class NEURONChl_Leak_CurrentDensityRecord(NEURONChl_Leak_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_Leak_CurrentDensityRecord,
+        super(NEURONChl_Leak_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
@@ -102,17 +102,17 @@ class MM_Neuron_Leak_CurrentDensityRecord(MM_Neuron_Leak_Record):
         return t1 + r + t
 
 
-class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
+class NEURONChl_Leak(StdChlLeak, NEURONChl_Base):
 
     def __init__(self, *args, **kwargs):
-        MM_LeakChannel.__init__(self, *args, **kwargs)
-        MM_Neuron_Base.__init__(self)
+        StdChlLeak.__init__(self, *args, **kwargs)
+        NEURONChl_Base.__init__(self)
 
     def get_recordable(self, what, **kwargs):
 
         recorders = \
-            {MM_LeakChannel.Recordables.CurrentDensity: MM_Neuron_Leak_CurrentDensityRecord,
-             MM_LeakChannel.Recordables.ConductanceDensity: MM_Neuron_Leak_ConductanceDensityRecord}
+            {StdChlLeak.Recordables.CurrentDensity: NEURONChl_Leak_CurrentDensityRecord,
+             StdChlLeak.Recordables.ConductanceDensity: NEURONChl_Leak_ConductanceDensityRecord}
 
         return recorders[what](lkchannel=self, **kwargs)
 
@@ -133,5 +133,5 @@ class MM_Neuron_Leak(MM_LeakChannel, MM_Neuron_Base):
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(MM_LeakChannel, MM_Neuron_Leak)
+NEURONEnvironment.membranemechanisms.register_plugin(StdChlLeak, NEURONChl_Leak)
 

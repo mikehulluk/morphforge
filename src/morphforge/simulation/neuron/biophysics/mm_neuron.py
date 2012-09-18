@@ -34,19 +34,19 @@ from morphforge.core.misc import StrUtils
 from morphforge.core import ObjectLabeller
 
 
-class MM_Neuron_Base(object):
+class NEURONChl_Base(object):
 
     #MM_count = 0
 
     #@classmethod
     #def get_next_neuron_number(cls):
-    #    x = MM_Neuron_Base.MM_count
-    #    MM_Neuron_Base.MM_count += 1
+    #    x = NEURONChl_Base.MM_count
+    #    NEURONChl_Base.MM_count += 1
     #    return x
 
     def __init__(self):
-        #self.mm_neuronNumber = MM_Neuron_Base.get_next_neuron_number()
-        self.mm_neuronNumber = ObjectLabeller.get_next_count_for_type( MM_Neuron_Base)
+        #self.mm_neuronNumber = NEURONChl_Base.get_next_neuron_number()
+        self.mm_neuronNumber = ObjectLabeller.get_next_count_for_type( NEURONChl_Base)
         self.cachedNeuronSuffix = None
 
     def get_neuron_suffix(self):

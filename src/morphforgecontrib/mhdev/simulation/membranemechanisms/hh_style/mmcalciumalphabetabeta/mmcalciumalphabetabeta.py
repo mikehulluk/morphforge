@@ -34,7 +34,7 @@ import quantities as pq
 from morphforge.simulation.base import MembraneMechanism
 
 
-class MM_CalciumAlphaBetaBetaChannel(MembraneMechanism):
+class StdChlCalciumAlphaBetaBeta(MembraneMechanism):
 
     class Recordables(object):
 

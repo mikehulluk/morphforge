@@ -29,6 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from mmalphabeta import MM_AlphaBetaChannel
-from mmalphabetabeta import MM_AlphaBetaBetaChannel
-from mmleak import MM_LeakChannel
+from mmalphabeta import StdChlAlphaBeta
+from mmalphabetabeta import StdChlAlphaBetaBeta
+from mmleak import StdChlLeak

@@ -34,18 +34,18 @@ from morphforge.core.quantities import unit
 from mmwriter_infatauinterpolated import MM_WriterInfTauInterpolated
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-from morphforge.simulation.neuron import MM_Neuron_Base
+from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable, \
     NEURONRecordableOnLocation
 
 
-class MM_Neuron_InfTauInterpolated_Record(NEURONRecordableOnLocation):
+class NEURONChl_InfTauInterpolated_Record(NEURONRecordableOnLocation):
 
     def __init__(self, alphabeta_chl, modvar, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_Record,
+        super(NEURONChl_InfTauInterpolated_Record,
               self).__init__(**kwargs)
         self.alphabeta_chl = alphabeta_chl
         self.modvar = modvar
@@ -64,11 +64,11 @@ class MM_Neuron_InfTauInterpolated_Record(NEURONRecordableOnLocation):
             )
 
 
-class MM_Neuron_InfTauInterpolated_CurrentDensityRecord(MM_Neuron_InfTauInterpolated_Record):
+class NEURONChl_InfTauInterpolated_CurrentDensityRecord(NEURONChl_InfTauInterpolated_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_CurrentDensityRecord,
+        super(NEURONChl_InfTauInterpolated_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
@@ -78,11 +78,11 @@ class MM_Neuron_InfTauInterpolated_CurrentDensityRecord(MM_Neuron_InfTauInterpol
         return [StandardTags.CurrentDensity]
 
 
-class MM_Neuron_InfTauInterpolated_ConductanceDensityRecord(MM_Neuron_InfTauInterpolated_Record):
+class NEURONChl_InfTauInterpolated_ConductanceDensityRecord(NEURONChl_InfTauInterpolated_Record):
 
     def __init__(self, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_ConductanceDensityRecord,
+        super(NEURONChl_InfTauInterpolated_ConductanceDensityRecord,
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
@@ -92,11 +92,11 @@ class MM_Neuron_InfTauInterpolated_ConductanceDensityRecord(MM_Neuron_InfTauInte
         return [StandardTags.ConductanceDensity]
 
 
-class MM_Neuron_InfTauInterpolated_StateVariableRecord(MM_Neuron_InfTauInterpolated_Record):
+class NEURONChl_InfTauInterpolated_StateVariableRecord(NEURONChl_InfTauInterpolated_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_StateVariableRecord,
+        super(NEURONChl_InfTauInterpolated_StateVariableRecord,
               self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
@@ -106,11 +106,11 @@ class MM_Neuron_InfTauInterpolated_StateVariableRecord(MM_Neuron_InfTauInterpola
         return [StandardTags.StateVariable]
 
 
-class MM_Neuron_InfTauInterpolated_StateVariableTauRecord(MM_Neuron_InfTauInterpolated_Record):
+class NEURONChl_InfTauInterpolated_StateVariableTauRecord(NEURONChl_InfTauInterpolated_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_StateVariableTauRecord,
+        super(NEURONChl_InfTauInterpolated_StateVariableTauRecord,
               self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
@@ -120,11 +120,11 @@ class MM_Neuron_InfTauInterpolated_StateVariableTauRecord(MM_Neuron_InfTauInterp
         return [StandardTags.StateTimeConstant]
 
 
-class MM_Neuron_InfTauInterpolated_StateVariableInfRecord(MM_Neuron_InfTauInterpolated_Record):
+class NEURONChl_InfTauInterpolated_StateVariableInfRecord(NEURONChl_InfTauInterpolated_Record):
 
     def __init__(self, state, **kwargs):
 
-        super(MM_Neuron_InfTauInterpolated_StateVariableInfRecord,
+        super(NEURONChl_InfTauInterpolated_StateVariableInfRecord,
               self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
@@ -134,11 +134,11 @@ class MM_Neuron_InfTauInterpolated_StateVariableInfRecord(MM_Neuron_InfTauInterp
         return [StandardTags.StateSteadyState]
 
 
-class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel, MM_Neuron_Base):
+class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base):
 
     def __init__(self, *args, **kwargs):
         MM_InfTauInterpolatedChannel.__init__(self, *args, **kwargs)
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
 
     def get_recordable(self, what, **kwargs):
 
@@ -146,11 +146,11 @@ class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel, MM_Neuron_Base)
         print kwargs
 
         recorders = {
-            MM_InfTauInterpolatedChannel.Recordables.CurrentDensity: MM_Neuron_InfTauInterpolated_CurrentDensityRecord,
-            MM_InfTauInterpolatedChannel.Recordables.ConductanceDensity: MM_Neuron_InfTauInterpolated_ConductanceDensityRecord,
-            MM_InfTauInterpolatedChannel.Recordables.StateVar: MM_Neuron_InfTauInterpolated_StateVariableRecord,
-            MM_InfTauInterpolatedChannel.Recordables.StateVarSteadyState: MM_Neuron_InfTauInterpolated_StateVariableInfRecord,
-            MM_InfTauInterpolatedChannel.Recordables.StateVarTimeConstant: MM_Neuron_InfTauInterpolated_StateVariableTauRecord,
+            MM_InfTauInterpolatedChannel.Recordables.CurrentDensity: NEURONChl_InfTauInterpolated_CurrentDensityRecord,
+            MM_InfTauInterpolatedChannel.Recordables.ConductanceDensity: NEURONChl_InfTauInterpolated_ConductanceDensityRecord,
+            MM_InfTauInterpolatedChannel.Recordables.StateVar: NEURONChl_InfTauInterpolated_StateVariableRecord,
+            MM_InfTauInterpolatedChannel.Recordables.StateVarSteadyState: NEURONChl_InfTauInterpolated_StateVariableInfRecord,
+            MM_InfTauInterpolatedChannel.Recordables.StateVarTimeConstant: NEURONChl_InfTauInterpolated_StateVariableTauRecord,
             }
         print 'Getting Reordable', what, recorders[what]
         print kwargs
@@ -177,4 +177,4 @@ class MM_Neuron_InfTauInterpolated(MM_InfTauInterpolatedChannel, MM_Neuron_Base)
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(MM_InfTauInterpolatedChannel, MM_Neuron_InfTauInterpolated)
+NEURONEnvironment.membranemechanisms.register_plugin(MM_InfTauInterpolatedChannel, NEURONChl_InfTauInterpolated)

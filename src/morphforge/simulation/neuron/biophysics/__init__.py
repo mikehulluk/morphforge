@@ -31,6 +31,6 @@
 
 from modfile import ModFile
 from modfilecompiler import ModFileCompiler
-from mm_neuron import MM_Neuron_Base
+from mm_neuron import NEURONChl_Base
 
-__all__ = ['ModFile', 'ModFileCompiler', 'MM_Neuron_Base']
+__all__ = ['ModFile', 'ModFileCompiler', 'NEURONChl_Base']

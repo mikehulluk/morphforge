@@ -46,57 +46,57 @@ The aim of this script is just to show that it is possible to run multiple simul
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import MM_LeakChannel
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import MM_AlphaBetaChannel
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 
 
 
 def get_Na_Channels(env):
-    naStateVars = {"m":
+    na_state_vars = {"m":
                     {"alpha": [13.01,0,4,-1.01,-12.56], "beta": [5.73,0,1,9.01,9.69] },
                    "h":
                     {"alpha": [0.06,0,0,30.88,26], "beta": [3.06,0,1,-7.09,-10.21]}
                    }
 
     return  env.Channel(
-                            MM_AlphaBetaChannel,
+                            StdChlAlphaBeta,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
                             conductance=unit("210:nS") / unit("400:um2"),
                             reversalpotential=unit("50.0:mV"),
-                            statevars=naStateVars,
+                            statevars=na_state_vars,
                             mechanism_id = 'Na_ID'
                            )
 
 def get_Ks_Channels(env):
-    kfStateVars = {"ks": {"alpha": [0.2,0,1,-6.96,-7.74 ], "beta": [0.05,0,2,-18.07,6.1 ] } }
+    kf_state_vars = {"ks": {"alpha": [0.2,0,1,-6.96,-7.74 ], "beta": [0.05,0,2,-18.07,6.1 ] } }
 
     return  env.Channel(
-                            MM_AlphaBetaChannel,
+                            StdChlAlphaBeta,
                             name="KsChl", ion="ks",
                             equation="ks*ks*ks*ks",
                             conductance=unit("3:nS") / unit("400:um2"),
                             reversalpotential=unit("-80.0:mV"),
-                            statevars=kfStateVars,
+                            statevars=kf_state_vars,
                             mechanism_id = 'IN_Ks_ID'
                            )
 
 def get_Kf_Channels(env):
-    kfStateVars = {"kf": {"alpha": [ 3.1,0,1,-31.5,-9.3], "beta": [0.44,0,1,4.98,16.19 ] } }
+    kf_state_vars = {"kf": {"alpha": [ 3.1,0,1,-31.5,-9.3], "beta": [0.44,0,1,4.98,16.19 ] } }
 
     return  env.Channel(
-                            MM_AlphaBetaChannel,
+                            StdChlAlphaBeta,
                             name="KfChl", ion="kf",
                             equation="kf*kf*kf*kf",
                             conductance=unit("0.5:nS") / unit("400:um2") ,
                             reversalpotential=unit("-80.0:mV"),
-                            statevars=kfStateVars,
+                            statevars=kf_state_vars,
                             mechanism_id = 'N_Kf_ID'
                            )
 
 def get_Lk_Channels(env):
     lk_chl = env.Channel(
-                         MM_LeakChannel,
+                         StdChlLeak,
                          name="LkChl",
                          conductance=unit("3.6765:nS") / unit("400:um2"),
                          reversalpotential=unit("-51:mV"),

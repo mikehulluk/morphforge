@@ -37,7 +37,7 @@ import morphforge.stdimports as mf
 import quantities as pq
 
 
-class MM_AlphaBetaChannel(MembraneMechanism):
+class StdChlAlphaBeta(MembraneMechanism):
 
     class Recordables(object):
 

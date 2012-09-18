@@ -31,7 +31,7 @@
 
 import re
 
-from morphforge.simulation.neuron.biophysics.mm_neuron import MM_Neuron_Base
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default 
@@ -42,12 +42,12 @@ from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builti
 
 
 
-class BuiltinChannelNEURON(MM_Neuron_Base, BuiltinChannel):
+class BuiltinChannelNEURON(NEURONChl_Base, BuiltinChannel):
 
     def __init__(self, **kwargs):
         # TODO: Make this sub:
         # super(BuiltinChannelNEURON, self).__init__(self, **kwargs)
-        MM_Neuron_Base.__init__(self)
+        NEURONChl_Base.__init__(self)
         BuiltinChannel.__init__(self, **kwargs)
 
 
