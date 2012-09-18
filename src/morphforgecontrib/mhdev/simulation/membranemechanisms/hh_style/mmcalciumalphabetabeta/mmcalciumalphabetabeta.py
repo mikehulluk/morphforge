@@ -31,10 +31,10 @@
 
 from morphforge.core.quantities import unit
 import quantities as pq
-from morphforge.simulation.base import MembraneMechanism
+from morphforge.simulation.base import Channel
 
 
-class StdChlCalciumAlphaBetaBeta(MembraneMechanism):
+class StdChlCalciumAlphaBetaBeta(Channel):
 
     class Recordables(object):
 
@@ -48,7 +48,7 @@ class StdChlCalciumAlphaBetaBeta(MembraneMechanism):
 
 
     def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id,):
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
 
         self.name = name
         self.ion = ion

@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
+from morphforge.simulation.base.biophysics.membranemechanism import Channel
 
 
-class BuiltinChannel(MembraneMechanism):
+class BuiltinChannel(Channel):
 
     def __init__(self, sim_chl_name, mechanism_id=None):
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
         self.sim_chl_name = sim_chl_name
 
 

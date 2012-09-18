@@ -31,7 +31,7 @@
 
 from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
+from morphforge.simulation.base.biophysics.membranemechanism import Channel
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
@@ -83,9 +83,9 @@ class NEURONChl_RecGen(NEURONRecordableOnLocation):
 
 
 
-class NeuroUnitEqnsetMechanism(MembraneMechanism):
+class NeuroUnitEqnsetMechanism(Channel):
     def __init__(self, eqnset, mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
 
         if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)

@@ -165,4 +165,3 @@ class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
 
 
 
-#NEURONEnvironment.registerMembraneMechanism(CurrentClampSinwave, NEURONCurrentClampSinwave)

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 
-class MembraneMechanism(object):
+class Channel(object):
 
     def __init__(self, mechanism_id):
         self.mechanism_id = mechanism_id

@@ -48,7 +48,7 @@ class SimulationEnvironment(object):
     def VoltageClamp(self, **kwargs):
         raise NotImplementedError()
 
-    def MembraneMechanism(self, mechanismtype, **kwargs):
+    def Channel(self, mechanismtype, **kwargs):
         raise NotImplementedError()
 
     def GapJunction(self, **kwargs):

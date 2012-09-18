@@ -29,10 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.biophysics.membranemechanism import MembraneMechanism
+from morphforge.simulation.base.biophysics.membranemechanism import Channel
 
 
-class SimulatorSpecificChannel(MembraneMechanism):
+class SimulatorSpecificChannel(Channel):
 
     def __init__(self):
         pass

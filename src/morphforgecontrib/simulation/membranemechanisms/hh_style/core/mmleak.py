@@ -30,14 +30,14 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
-from morphforge.simulation.base import MembraneMechanism
+from morphforge.simulation.base import Channel
 
 from morphforge.constants import StandardTags
 import morphforge.stdimports as mf
 import quantities as pq
 
 
-class StdChlLeak(MembraneMechanism):
+class StdChlLeak(Channel):
 
     class Recordables(object):
 
@@ -48,7 +48,7 @@ class StdChlLeak(MembraneMechanism):
     def __init__(self, name, conductance, reversalpotential, mechanism_id=None):
         if not mechanism_id:
             mechanism_id = 'StdLeakChl'
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
         self.name = name
         self.conductance = unit(conductance)
         self.reversalpotential = unit(reversalpotential)

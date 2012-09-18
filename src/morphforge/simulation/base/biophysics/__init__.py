@@ -33,7 +33,7 @@
 from cellbiophysics import CellBiophysics
 
 # Base Classes:
-from membranemechanism import MembraneMechanism
+from membranemechanism import Channel
 from passiveproperties import PassiveProperty
 
 # Applicators:
@@ -53,7 +53,7 @@ from membranemechanismtargetters import ChannelTargeterSectionPath
 
 __all__ = [
     'CellBiophysics',
-    'MembraneMechanism',
+    'Channel',
     'PassiveProperty',
     'ChannelApplicator',
     'ChannelApplicatorUniform',

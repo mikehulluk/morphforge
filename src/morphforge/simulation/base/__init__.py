@@ -38,7 +38,7 @@ from stimulation import CurrentClampStepChange, VoltageClampStepChange
 from result import SimulationResult
 from segmentation import AbstCellSegmenter
 from segmentation import CellSegmenter_MaxCompartmentLength
-from biophysics import CellBiophysics, MembraneMechanism, \
+from biophysics import CellBiophysics, Channel, \
     ChannelApplicator, ChannelApplicatorUniform, \
     Targeter
 from biophysics import ChannelTargeterEverywhere, \
@@ -65,7 +65,7 @@ __all__ = [
     'AbstCellSegmenter',
     'CellSegmenter_MaxCompartmentLength',
     'CellBiophysics',
-    'MembraneMechanism',
+    'Channel',
     'ChannelApplicator',
     'ChannelApplicatorUniform',
     'Targeter',

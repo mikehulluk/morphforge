@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
-from morphforge.simulation.base import MembraneMechanism
+from morphforge.simulation.base import Channel
 from morphforge.constants import StandardTags
 
 import numpy as np
@@ -55,7 +55,7 @@ class InfTauInterpolation(object):
         return zip(self.V, self.tau)
 
 
-class MM_InfTauInterpolatedChannel(MembraneMechanism):
+class MM_InfTauInterpolatedChannel(Channel):
 
     class Recordables:
 
@@ -69,7 +69,7 @@ class MM_InfTauInterpolatedChannel(MembraneMechanism):
 
 
     def __init__(self, name, ion, equation, conductance, reversalpotential, mechanism_id, statevars_new={}):
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
         self.name = name
         self.ion = ion
         self.eqn = equation

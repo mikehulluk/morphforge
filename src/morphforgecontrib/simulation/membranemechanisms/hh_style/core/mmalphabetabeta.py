@@ -30,12 +30,12 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
-from morphforge.simulation.base import MembraneMechanism
+from morphforge.simulation.base import Channel
 
 import numpy as np
 
 
-class StdChlAlphaBetaBeta(MembraneMechanism):
+class StdChlAlphaBetaBeta(Channel):
 
     class Recordables(object):
 
@@ -44,7 +44,7 @@ class StdChlAlphaBetaBeta(MembraneMechanism):
 
     def __init__(self, name, ion, equation, conductance, reversalpotential, statevars, beta2threshold, mechanism_id):
 
-        MembraneMechanism.__init__(self, mechanism_id=mechanism_id)
+        Channel.__init__(self, mechanism_id=mechanism_id)
 
         self.name = name
         self.ion = ion
