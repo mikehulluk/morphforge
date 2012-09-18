@@ -31,7 +31,7 @@
 
 from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
 from morphforge.core.quantities import unit
-from mmwriter_caalphabetabeta import MM_WriterCalciumAlphaBetaBeta
+from mmwriter_caalphabetabeta import NEURONChlWriterCalciumAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
@@ -162,11 +162,11 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
 
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        return MM_WriterCalciumAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+        return NEURONChlWriterCalciumAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
 
     def create_modfile(self, modfile_set):
-        MM_WriterCalciumAlphaBetaBeta.build_mod(caAlphaBetaBetaChl=self, modfile_set=modfile_set)
+        NEURONChlWriterCalciumAlphaBetaBeta.build_mod(caAlphaBetaBetaChl=self, modfile_set=modfile_set)
 
 
     def get_mod_file_changeables(self):

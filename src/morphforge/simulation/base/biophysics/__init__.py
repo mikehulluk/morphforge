@@ -37,8 +37,8 @@ from membranemechanism import MembraneMechanism
 from passiveproperties import PassiveProperty
 
 # Applicators:
-from membranemechanismapplicators import MembraneMechanismApplicator
-from membranemechanismapplicators import MembraneMechanismApplicator_Uniform
+from membranemechanismapplicators import ChannelApplicator
+from membranemechanismapplicators import ChannelApplicatorUniform
 
 # Targettors:
 from membranemechanismtargetters import Targeter
@@ -46,24 +46,24 @@ from membranemechanismtargetters import PassiveTargeter_EverywhereDefault
 from membranemechanismtargetters import PassiveTargeter_Everywhere
 from membranemechanismtargetters import PassiveTargeter_Region
 
-from membranemechanismtargetters import MembraneMechanismTargeter_Everywhere
-from membranemechanismtargetters import MembraneMechanismTargeter_Region
-from membranemechanismtargetters import MembraneMechanismTargeter_Section
-from membranemechanismtargetters import MembraneMechanismTargeter_SectionPath
+from membranemechanismtargetters import ChannelTargeterEverywhere
+from membranemechanismtargetters import ChannelTargeterRegion
+from membranemechanismtargetters import ChannelTargeterSection
+from membranemechanismtargetters import ChannelTargeterSectionPath
 
 __all__ = [
     'CellBiophysics',
     'MembraneMechanism',
     'PassiveProperty',
-    'MembraneMechanismApplicator',
-    'MembraneMechanismApplicator_Uniform',
+    'ChannelApplicator',
+    'ChannelApplicatorUniform',
     'Targeter',
     'PassiveTargeter_EverywhereDefault',
     'PassiveTargeter_Everywhere',
     'PassiveTargeter_Region',
-    'MembraneMechanismTargeter_Everywhere',
-    'MembraneMechanismTargeter_Region',
-    'MembraneMechanismTargeter_Section',
-    'MembraneMechanismTargeter_SectionPath',
+    'ChannelTargeterEverywhere',
+    'ChannelTargeterRegion',
+    'ChannelTargeterSection',
+    'ChannelTargeterSectionPath',
     ]
 

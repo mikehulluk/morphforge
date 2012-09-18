@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 
 
-class MM_WriterLeak(object):
+class NEURONChlWriterLeak(object):
 
     lkChlHoc = """
 
@@ -63,7 +63,7 @@ $(cell_name).internalsections [$section_index] {
         variables = []
         for variable_name in mta.mechanism.get_variables():
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
-            variable_unit = MM_WriterLeak.Units[variable_name]
+            variable_unit = NEURONChlWriterLeak.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
@@ -75,7 +75,7 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterLeak.lkChlHoc, tmpl_dict).respond())
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(NEURONChlWriterLeak.lkChlHoc, tmpl_dict).respond())
 
 
 
@@ -88,8 +88,8 @@ $(cell_name).internalsections [$section_index] {
         e_rev_name = 'eLk'
         g_scale_name = 'gScale'
 
-        gbar_units = MM_WriterLeak.Units[gbar_name]
-        e_rev_units = MM_WriterLeak.Units[e_rev_name]
+        gbar_units = NEURONChlWriterLeak.Units[gbar_name]
+        e_rev_units = NEURONChlWriterLeak.Units[e_rev_name]
 
         # Parameters:
         # {name: (value, unit, range)}

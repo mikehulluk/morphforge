@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 
 
-class MM_WriterAlphaBeta(object):
+class NEURONChlWriterAlphaBeta(object):
 
 
 
@@ -65,7 +65,7 @@ $(cell_name).internalsections [$section_index] {
         variables = []
         for variable_name in mta.mechanism.get_variables():
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
-            variable_unit = MM_WriterAlphaBeta.Units[variable_name]
+            variable_unit = NEURONChlWriterAlphaBeta.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
@@ -77,7 +77,7 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hoc_text = Template(MM_WriterAlphaBeta.chlHoc, tmpl_dict).respond()
+        hoc_text = Template(NEURONChlWriterAlphaBeta.chlHoc, tmpl_dict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitCellMembranes, hoc_text)
 
 
@@ -89,8 +89,8 @@ $(cell_name).internalsections [$section_index] {
         e_rev_name = 'e_rev'
         g_scale_name = 'gScale'
 
-        # gbarUnits = MM_WriterAlphaBeta.Units[gbar_name]
-        # eRevUnits = MM_WriterAlphaBeta.Units[e_rev_name]
+        # gbarUnits = NEURONChlWriterAlphaBeta.Units[gbar_name]
+        # eRevUnits = NEURONChlWriterAlphaBeta.Units[e_rev_name]
 
         base_writer = MM_ModFileWriterBase(suffix=alphabeta_chl.get_neuron_suffix())
 

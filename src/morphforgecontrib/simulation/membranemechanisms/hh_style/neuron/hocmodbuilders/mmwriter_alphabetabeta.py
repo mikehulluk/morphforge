@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 
 
-class MM_WriterAlphaBetaBeta(object):
+class NEURONChlWriterAlphaBetaBeta(object):
 
 
 
@@ -66,7 +66,7 @@ $(cell_name).internalsections [$section_index] {
         variables = []
         for variable_name in mta.mechanism.get_variables():
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
-            variable_unit = MM_WriterAlphaBetaBeta.Units[variable_name]
+            variable_unit = NEURONChlWriterAlphaBetaBeta.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude
             variables.append([variable_name, variable_value_nounit, variable_value_with_unit, variable_unit])
 
@@ -78,7 +78,7 @@ $(cell_name).internalsections [$section_index] {
             }
 
         # Add the data to the HOC file
-        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(MM_WriterAlphaBetaBeta.chlHoc, tmpl_dict).respond())
+        hocfile_obj.add_to_section(MHOCSections.InitCellMembranes,  Template(NEURONChlWriterAlphaBetaBeta.chlHoc, tmpl_dict).respond())
 
 
 

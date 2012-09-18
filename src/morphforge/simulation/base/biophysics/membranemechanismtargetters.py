@@ -83,7 +83,7 @@ class PassiveTargeter_Region(Targeter):
         return 'Passive-Region:%s' % self.region.name
 
 
-class MembraneMechanismTargeter_Everywhere(Targeter):
+class ChannelTargeterEverywhere(Targeter):
 
     def get_priority(self):
         return 10
@@ -95,10 +95,10 @@ class MembraneMechanismTargeter_Everywhere(Targeter):
         return 'Everywhere'
 
 
-class MembraneMechanismTargeter_Region(Targeter):
+class ChannelTargeterRegion(Targeter):
 
     def __init__(self, region):
-        super(MembraneMechanismTargeter_Region, self).__init__()
+        super(ChannelTargeterRegion, self).__init__()
         self.region = region
 
     def get_priority(self):
@@ -116,7 +116,7 @@ class MembraneMechanismTargeter_Region(Targeter):
         return 'Region: %s' % self.region.name
 
 
-class MembraneMechanismTargeter_SectionPath(Targeter):
+class ChannelTargeterSectionPath(Targeter):
 
     def get_priority(self):
         return 30
@@ -128,10 +128,10 @@ class MembraneMechanismTargeter_SectionPath(Targeter):
         return 'MM-SectionPath: ??'
 
 
-class MembraneMechanismTargeter_Section(Targeter):
+class ChannelTargeterSection(Targeter):
 
     def __init__(self, section):
-        super(MembraneMechanismTargeter_Section, self).__init__()
+        super(ChannelTargeterSection, self).__init__()
         self.section = section
 
     def get_priority(self):

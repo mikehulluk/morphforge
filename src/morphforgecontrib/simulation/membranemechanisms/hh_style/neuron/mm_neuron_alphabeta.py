@@ -34,7 +34,7 @@
 
 from ..core import StdChlAlphaBeta
 from morphforge.core.quantities import unit
-from hocmodbuilders.mmwriter_alphabeta import MM_WriterAlphaBeta
+from hocmodbuilders.mmwriter_alphabeta import NEURONChlWriterAlphaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
@@ -168,10 +168,10 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
 
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        return MM_WriterAlphaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+        return NEURONChlWriterAlphaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        MM_WriterAlphaBeta.build_mod(alphabeta_chl=self,
+        NEURONChlWriterAlphaBeta.build_mod(alphabeta_chl=self,
                 modfile_set=modfile_set)
 
     def get_mod_file_changeables(self):

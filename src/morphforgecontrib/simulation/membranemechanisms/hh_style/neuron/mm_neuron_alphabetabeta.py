@@ -32,7 +32,7 @@
 
 from ..core import StdChlAlphaBetaBeta
 from morphforge.core.quantities import unit
-from hocmodbuilders.mmwriter_alphabetabeta import MM_WriterAlphaBetaBeta
+from hocmodbuilders.mmwriter_alphabetabeta import NEURONChlWriterAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
@@ -155,10 +155,10 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
         NEURONChl_Base.__init__(self)
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        return MM_WriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
+        return NEURONChlWriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        MM_WriterAlphaBetaBeta.build_mod(alphabeta_beta_chl=self, modfile_set=modfile_set)
+        NEURONChlWriterAlphaBetaBeta.build_mod(alphabeta_beta_chl=self, modfile_set=modfile_set)
 
 
     def get_recordable(self, what, name, cell_location, **kwargs):

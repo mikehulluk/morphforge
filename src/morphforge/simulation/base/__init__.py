@@ -39,12 +39,12 @@ from result import SimulationResult
 from segmentation import AbstCellSegmenter
 from segmentation import CellSegmenter_MaxCompartmentLength
 from biophysics import CellBiophysics, MembraneMechanism, \
-    MembraneMechanismApplicator, MembraneMechanismApplicator_Uniform, \
+    ChannelApplicator, ChannelApplicatorUniform, \
     Targeter
-from biophysics import MembraneMechanismTargeter_Everywhere, \
-    MembraneMechanismTargeter_Region, \
-    MembraneMechanismTargeter_Section, \
-    MembraneMechanismTargeter_SectionPath
+from biophysics import ChannelTargeterEverywhere, \
+    ChannelTargeterRegion, \
+    ChannelTargeterSection, \
+    ChannelTargeterSectionPath
 from biophysics import PassiveTargeter_Everywhere, \
     PassiveTargeter_EverywhereDefault
 from biophysics import PassiveProperty
@@ -66,13 +66,13 @@ __all__ = [
     'CellSegmenter_MaxCompartmentLength',
     'CellBiophysics',
     'MembraneMechanism',
-    'MembraneMechanismApplicator',
-    'MembraneMechanismApplicator_Uniform',
+    'ChannelApplicator',
+    'ChannelApplicatorUniform',
     'Targeter',
-    'MembraneMechanismTargeter_Everywhere',
-    'MembraneMechanismTargeter_Region',
-    'MembraneMechanismTargeter_Section',
-    'MembraneMechanismTargeter_SectionPath',
+    'ChannelTargeterEverywhere',
+    'ChannelTargeterRegion',
+    'ChannelTargeterSection',
+    'ChannelTargeterSectionPath',
     'PassiveTargeter_Everywhere',
     'PassiveTargeter_EverywhereDefault',
     'PassiveProperty',

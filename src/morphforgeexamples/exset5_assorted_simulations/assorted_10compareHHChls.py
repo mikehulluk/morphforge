@@ -193,7 +193,7 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
                                            )
 
     apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
     apply_mechanism_everywhere_uniform(cell, k_chl)
 
 

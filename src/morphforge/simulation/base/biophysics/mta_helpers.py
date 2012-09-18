@@ -30,9 +30,9 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.base.biophysics import PassiveProperty
-from morphforge.simulation.base.biophysics import MembraneMechanismApplicator_Uniform
-from morphforge.simulation.base.biophysics import MembraneMechanismTargeter_Everywhere
-from morphforge.simulation.base.biophysics import MembraneMechanismTargeter_Region
+from morphforge.simulation.base.biophysics import ChannelApplicatorUniform
+from morphforge.simulation.base.biophysics import ChannelTargeterEverywhere
+from morphforge.simulation.base.biophysics import ChannelTargeterRegion
 from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
 
 
@@ -43,15 +43,15 @@ from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
 def apply_mechanism_everywhere_uniform(cell, mechanism, parameter_multipliers=None, parameter_overrides=None):
     return cell.get_biophysics().add_mechanism(
             mechanism=mechanism,
-            targetter=MembraneMechanismTargeter_Everywhere(),
-            applicator=MembraneMechanismApplicator_Uniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+            targetter=ChannelTargeterEverywhere(),
+            applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
             )
 
 def apply_mechanism_region_uniform(cell, mechanism, region, parameter_multipliers=None, parameter_overrides=None):
     return cell.get_biophysics().add_mechanism(
             mechanism=mechanism,
-            targetter=MembraneMechanismTargeter_Region(region),
-            applicator=MembraneMechanismApplicator_Uniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+            targetter=ChannelTargeterRegion(region),
+            applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
             )
 
 

@@ -30,10 +30,10 @@
 # ----------------------------------------------------------------------
 
 
-class MembraneMechanismApplicator(object):
+class ChannelApplicator(object):
 
     def __init__(self,):
-        super(MembraneMechanismApplicator, self).__init__()
+        super(ChannelApplicator, self).__init__()
         self.target_mechanism = None
 
     def set_target_mechanism(self, target_mechanism):
@@ -55,10 +55,10 @@ class MembraneMechanismApplicator(object):
         raise NotImplementedError()
 
 
-class MembraneMechanismApplicator_Uniform(MembraneMechanismApplicator):
+class ChannelApplicatorUniform(ChannelApplicator):
 
     def __init__(self,  parameter_multipliers=None, parameter_overrides=None):
-        super(MembraneMechanismApplicator_Uniform, self).__init__()
+        super(ChannelApplicatorUniform, self).__init__()
         self._parameter_multipliers =  parameter_multipliers or {}
         self._parameter_overrides = parameter_overrides or {}
 
