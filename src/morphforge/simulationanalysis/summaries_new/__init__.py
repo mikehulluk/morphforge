@@ -302,21 +302,21 @@ class SimulationMRedoc(object):
         return mrd.Section('Single Cell Details', *sub_sections)
 
 
-    def _build_details_channel(self, mech):
+    def _build_details_channel(self, chl):
 
-        sumcls = SummariserLibrary.get_summarisier(mech)
+        sumcls = SummariserLibrary.get_summarisier(chl)
         if not sumcls:
-            return mrd.Section('Summary of channel: %s' % mech.name,
-                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(mech))
+            return mrd.Section('Summary of channel: %s' % chl.name,
+                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(chl))
                 )
 
-        return mrd.Section('Summary of channel: %s' % mech.name,
-                           sumcls.build(mech))
+        return mrd.Section('Summary of channel: %s' % chl.name,
+                           sumcls.build(chl))
 
     def build_details_channels(self):
         mechs = sorted( self.sim.get_mechanisms_in_simulation(), key=lambda i: i.name)
         return mrd.SectionNewPage('Channels',
-                *[ self._build_details_channel(mech) for mech in mechs]
+                *[ self._build_details_channel(chl) for chl in mechs]
                 )
 
 

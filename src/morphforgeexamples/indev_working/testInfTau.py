@@ -135,7 +135,7 @@ def build_simulation(gbar_multiplier):
 
     eqnset = EquationSetLoader.load('std_leak_chl.txt',
                                     dir=LocMgr.getTestEqnSetsPath())
-    leakChannels = env.MembraneMechanism(EqnSetChl, eqnset=eqnset,
+    lk_chl = env.MembraneMechanism(EqnSetChl, eqnset=eqnset,
             chlname='LeakChls', mechanism_id='std_lk_chl',
             parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV'
             )})
@@ -145,7 +145,7 @@ def build_simulation(gbar_multiplier):
 
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(cell, leakChannels)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
     apply_mechanism_everywhere_uniform(cell, ks)
 
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))

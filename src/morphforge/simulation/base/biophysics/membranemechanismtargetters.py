@@ -29,6 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from morphforge.morphology.core import Region
 
 class Targeter(object):
 
@@ -104,7 +105,12 @@ class MembraneMechanismTargeter_Region(Targeter):
         return 20
 
     def does_target_section(self, section):
-        return section.region == self.region
+        if isinstance(self.region, Region):
+            return section.region == self.region
+        elif isinstance(self.region, basestring):
+            return section.region.name == self.region
+        else:
+            assert False
 
     def get_description(self):
         return 'Region: %s' % self.region.name

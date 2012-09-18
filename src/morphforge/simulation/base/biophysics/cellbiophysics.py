@@ -109,7 +109,7 @@ class CellBiophysics(object):
         return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id() == mech_id])
 
     def get_chl(self, chlname):
-        return SeqUtils.filter_expect_single(self.get_all_mechanisms_applied_to_cell(), lambda mech: mech.name==chlname)
+        return SeqUtils.filter_expect_single(self.get_all_mechanisms_applied_to_cell(), lambda chl: chl.name==chlname)
 
 
 

@@ -48,7 +48,7 @@ def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
             mechanism=mech_builder(env=sim.environment))
 
     soma_loc = cell.get_location('soma')
-    sim.add_record( cell, what=cell.Recordables.MembraneVoltage, name='SomaVoltage' , cell_location=soma_loc)
+    sim.record( cell, what=cell.Recordables.MembraneVoltage, name='SomaVoltage' , cell_location=soma_loc)
 
     vc = sim.create_voltageclamp(
         name='Stim1',

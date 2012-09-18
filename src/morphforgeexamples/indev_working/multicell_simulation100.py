@@ -253,12 +253,12 @@ def load_std_channels(param_str):
         eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
         eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
 
-        naChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, mechanism_id='mechid1',  default_parameters = nrn_params_na)
-        lkChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, mechanism_id='mechid2',  default_parameters = nrn_params_lk)
+        na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, mechanism_id='mechid1',  default_parameters = nrn_params_na)
+        lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, mechanism_id='mechid2',  default_parameters = nrn_params_lk)
         ksChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnsetk,  mechanism_id='mechid3',  default_parameters = nrn_params_ks)
         kfChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl4", eqnset=eqnsetk,  mechanism_id='mechid4',  default_parameters = nrn_params_kf)
 
-        chls =  [naChls, lkChls, ksChls, kfChls]
+        chls =  [na_chl, lk_chl, ksChls, kfChls]
         return chls
         #cache[param_str] = chls
 
@@ -687,17 +687,17 @@ for tr in res.get_traces():
 
 mf.TagViewer(res,
         plots=[
-    mf.TagPlot(s="ALL{Voltage}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s="ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
-    mf.TagPlot(s='ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
-    mf.TagPlot(s='ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
+    mf.TagPlot("ALL{Voltage}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,driver_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,dINR_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,cIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,aIN_LHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,driver_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,dINR_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,cIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot("ALL{Voltage,aIN_RHS}", yrange=(-80*mf.mV, 50*mf.mV) ),
+    mf.TagPlot('ALL{PREPOP:cIN_LHS,POSTPOP:dINR_RHS}'),
+    mf.TagPlot('ALL{PREPOP:cIN_RHS,POSTPOP:dINR_LHS}'),
 
            ])
 

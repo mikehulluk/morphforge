@@ -52,7 +52,7 @@ class CellAnalysis_StepInputResponse(object):
         cell_functor,
         currents,
         env,
-        cell_description,
+        cell_description=None,
         plot_all=False,
         sim_kwargs=None,
         tagviewer_kwargs=None,
@@ -315,7 +315,7 @@ class CellAnalysis_IVCurve(object):
 
     def plot_iv_curve(self, ax=None):
         # pylint: disable=E1103
-        title = '%s: IV Curve' % self.cell_description
+        title = '%s: IV Curve' % (self.cell_description or None)
         if not ax:
             f = QuantitiesFigure()
             f.suptitle(title)

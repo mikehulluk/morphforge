@@ -83,10 +83,10 @@ class MembraneMechanismApplicator_Uniform(MembraneMechanismApplicator):
 
 
     def get_description(self):
-        s1 = 'Uniform Applicator:'
+        s1 = 'Uniform Applicator: '
         s2 = ('Overrides:{%s} ' % (','.join( [ "%s=%s" % (key,value) for (key,value) in self._parameter_overrides] )) ) if self._parameter_overrides else ''
         s3 = ('Multipliers:{%s} ' % (','.join( [ "%s=%s" % (key,value) for (key,value) in self._parameter_multipliers] )) ) if self._parameter_multipliers else ''
-        return s1 + s2 + s3
+        return (s1 + s2 + s3).strip()
 
 
 

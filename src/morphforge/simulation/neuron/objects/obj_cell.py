@@ -105,8 +105,8 @@ class NEURONCell(Cell, NEURONObject):
     def build_mod(self, modfile_set):
         mechanisms = set([mta.mechanism for mta in
                          self.get_biophysics().appliedmechanisms])
-        for mech in mechanisms:
-            mech.create_modfile(modfile_set)
+        for chl in mechanisms:
+            chl.create_modfile(modfile_set)
 
     def get_recordable(self, what=Cell.Recordables.MembraneVoltage, **kwargs):
 

@@ -58,14 +58,14 @@ cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
 # Apply the mechanisms to the cells
-leakChannels = env.MembraneMechanism(MM_LeakChannel,
+lk_chl = env.MembraneMechanism(MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.25:mS/cm2"),
                          reversalpotential=unit("-51:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
                        )
 
-apply_mechanism_everywhere_uniform(cell, leakChannels)
+apply_mechanism_everywhere_uniform(cell, lk_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
@@ -78,7 +78,7 @@ cc = sim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"
 
 # Define what to record:
 sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
-sim.recordall(leakChannels, cell_location=somaLoc)
+sim.recordall(lk_chl, cell_location=somaLoc)
 
 
 # run the simulation

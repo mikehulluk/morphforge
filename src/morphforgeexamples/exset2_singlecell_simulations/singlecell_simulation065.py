@@ -65,14 +65,14 @@ def getSimpleMorphology():
 
 
 def get_sample_lk(env):
-    lkChannels = env.MembraneMechanism(
+    lk_chl = env.MembraneMechanism(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
                          mechanism_id = 'HULL12_DIN_LK_ID'
                        )
-    return lkChannels
+    return lk_chl
 
 
 def get_sample_na(env):
@@ -84,7 +84,7 @@ def get_sample_na(env):
                             "beta": [1.00,0.00,1.00,35.00,-10.00]}
                       }
 
-    naChannels = env.MembraneMechanism(
+    na_chl = env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
@@ -93,14 +93,14 @@ def get_sample_na(env):
                             statevars=naStateVars,
                             mechanism_id="HH_NA_CURRENT"
                            )
-    return naChannels
+    return na_chl
 
 
 def get_sample_k(env):
     kStateVars = { "n": { "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
                           "beta": [0.125,0,0,65,80]},
                        }
-    kChannels = env.MembraneMechanism(
+    k_chl = env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
@@ -109,7 +109,7 @@ def get_sample_k(env):
                             statevars=kStateVars,
                             mechanism_id="HH_K_CURRENT"
                            )
-    return kChannels
+    return k_chl
 
 
 
@@ -143,13 +143,13 @@ morphology=MorphologyLibrary.get_morphology(modelsrc=modelsrc, celltype=celltype
 cell = sim.create_cell(morphology=morphology)
 
 # Apply the channels uniformly over the cell
-naChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
-kChls  = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
-lkChls = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env)
+na_chl = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Na", env=env)
+k_chl  = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="K", env=env)
+lk_chl = ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=celltype, channeltype="Lk", env=env)
 
-apply_mechanism_everywhere_uniform(cell, naChls)
-apply_mechanism_everywhere_uniform(cell, kChls )
-apply_mechanism_everywhere_uniform(cell, lkChls)
+apply_mechanism_everywhere_uniform(cell, na_chl)
+apply_mechanism_everywhere_uniform(cell, k_chl )
+apply_mechanism_everywhere_uniform(cell, lk_chl)
 
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 

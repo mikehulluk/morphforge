@@ -56,15 +56,15 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
-lkChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
-naChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=env)
-kChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
+lk_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
+na_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=env)
+k_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(cell, lkChannels)
-apply_mechanism_everywhere_uniform(cell, naChannels)
-apply_mechanism_everywhere_uniform(cell, kChannels)
+apply_mechanism_everywhere_uniform(cell, lk_chl)
+apply_mechanism_everywhere_uniform(cell, na_chl)
+apply_mechanism_everywhere_uniform(cell, k_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
@@ -77,28 +77,28 @@ sim.record(cc, what=StandardTags.Current)
 sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
 
 
-sim.record(lkChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-sim.record(naChannels, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(lk_chl, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(na_chl, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
 
-sim.record(lkChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-sim.record(naChannels, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(lk_chl, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(na_chl, cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
 
 
-sim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
-sim.record(naChannels, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
-sim.record(kChannels,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
+sim.record(na_chl, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
+sim.record(na_chl, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
+sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
 
 
 # Also:
-#sim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
-#sim.record(naChannels, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
-#sim.record(kChannels,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
+#sim.record(na_chl, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
+#sim.record(na_chl, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
+#sim.record(k_chl,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
 
-#sim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
-#sim.record(naChannels, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
-#sim.record(kChannels,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
+#sim.record(na_chl, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
+#sim.record(na_chl, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
+#sim.record(k_chl,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
 
 
 # run the simulation

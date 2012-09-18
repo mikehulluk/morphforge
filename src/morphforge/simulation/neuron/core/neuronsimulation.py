@@ -114,11 +114,11 @@ class NEURONSimulation(Simulation):
 
         mech_id_to_obj = {}
         for cell in self.cells:
-            for mech in cell.get_biophysics().get_all_mechanisms_applied_to_cell():
-                m_id = mech.get_mechanism_id()
+            for chl in cell.get_biophysics().get_all_mechanisms_applied_to_cell():
+                m_id = chl.get_mechanism_id()
                 if not m_id in mech_id_to_obj:
                     mech_id_to_obj[m_id] = []
-                mech_id_to_obj[m_id].append(mech)
+                mech_id_to_obj[m_id].append(chl)
 
         for mech_id in mech_id_to_obj:
             mechobjs = mech_id_to_obj[mech_id]

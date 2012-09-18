@@ -44,8 +44,8 @@ def empty_str_matrix(N, M):
     return [['' for _m in range(M)] for _n in range(N)]
 
 
-def to_symbol(mech, env):
-    return ('X' if mech in env else '-')
+def to_symbol(chl, env):
+    return ('X' if chl in env else '-')
 
 
 class PluginMgr(object):

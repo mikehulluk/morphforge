@@ -89,7 +89,7 @@ class ChannelConverter(object):
                 new_state_vars[state_var] = InfTauInterpolation(V=V, inf=inf, tau=tau)
 
 
-            mech = env.MembraneMechanism(
+            chl = env.MembraneMechanism(
                 MM_InfTauInterpolatedChannel,
                 name=chl_name,
                 mechanism_id=chl_id,
@@ -99,7 +99,7 @@ class ChannelConverter(object):
                 reversalpotential=old_chl.reversalpotential,
                 statevars_new=new_state_vars,
                )
-            return mech
+            return chl
 
         return newFunctor
 

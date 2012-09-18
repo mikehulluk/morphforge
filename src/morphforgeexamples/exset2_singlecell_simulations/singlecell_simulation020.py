@@ -59,7 +59,7 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
-leakChannels = env.MembraneMechanism(
+lk_chl = env.MembraneMechanism(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -67,7 +67,7 @@ leakChannels = env.MembraneMechanism(
                          mechanism_id = 'HULL12_DIN_LK_ID'
                        )
 
-sodiumStateVars = { "m": {
+na_state_vars = { "m": {
                       "alpha":[-4.00,-0.10,-1.00,40.00,-10.00],
                       "beta": [4.00, 0.00, 0.00,65.00, 18.00]},
                     "h": {
@@ -75,13 +75,13 @@ sodiumStateVars = { "m": {
                         "beta": [1.00,0.00,1.00,35.00,-10.00]}
                   }
 
-sodiumChannels = env.MembraneMechanism(
+na_chl = env.MembraneMechanism(
                         MM_AlphaBetaChannel,
                         name="NaChl", ion="na",
                         equation="m*m*m*h",
                         conductance=unit("120:mS/cm2"),
                         reversalpotential=unit("50:mV"),
-                        statevars=sodiumStateVars,
+                        statevars=na_state_vars,
                         mechanism_id="HH_NA_CURRENT"
                        )
 kStateVars = { "n": {
@@ -89,7 +89,7 @@ kStateVars = { "n": {
                       "beta": [0.125,0,0,65,80]},
                    }
 
-kChannels = env.MembraneMechanism(
+k_chl = env.MembraneMechanism(
                         MM_AlphaBetaChannel,
                         name="KChl", ion="k",
                         equation="n*n*n*n",
@@ -101,9 +101,9 @@ kChannels = env.MembraneMechanism(
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(cell, leakChannels)
-apply_mechanism_everywhere_uniform(cell, sodiumChannels)
-apply_mechanism_everywhere_uniform(cell, kChannels)
+apply_mechanism_everywhere_uniform(cell, lk_chl)
+apply_mechanism_everywhere_uniform(cell, na_chl)
+apply_mechanism_everywhere_uniform(cell, k_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:

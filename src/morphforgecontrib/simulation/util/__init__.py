@@ -60,8 +60,8 @@ def record_from_mechanism(sim, mechanism_name, cell_location, what, on_error_ski
     mechs = cell_location.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
 
 
-    mech = SeqUtils.filter_expect_single(seq=mechs, filter_func=lambda m:m.name==mechanism_name)
-    r = sim.record(mech, what=what, cell_location=cell_location, user_tags = user_tags + [mech.name], **kwargs)
+    chl = SeqUtils.filter_expect_single(seq=mechs, filter_func=lambda m:m.name==mechanism_name)
+    r = sim.record(chl, what=what, cell_location=cell_location, user_tags = user_tags + [chl.name], **kwargs)
 
     return r
 

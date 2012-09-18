@@ -146,24 +146,24 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
 
-    naChls = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":unit("120:mS/cm2")}, mechanism_id="JLK")
-    lkChls = Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnset_txt_lk, mechanism_id="JasdasdasdLK")
-    kChls  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
+    na_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":unit("120:mS/cm2")}, mechanism_id="JLK")
+    lk_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnset_txt_lk, mechanism_id="JasdasdasdLK")
+    k_chl  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
 
 
-    apply_mechanism_everywhere_uniform(cell, naChls)
-    apply_mechanism_everywhere_uniform(cell, lkChls)
-    apply_mechanism_everywhere_uniform(cell, kChls)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
+    apply_mechanism_everywhere_uniform(cell, k_chl)
 
 
-    sim.record(naChls, what='m', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(naChls, what='mtau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(na_chl, what='m', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(na_chl, what='mtau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    sim.record(naChls, what='h', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(naChls, what='htau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(na_chl, what='h', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(na_chl, what='htau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
-    sim.record(kChls, what='n', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(kChls, what='ntau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(k_chl, what='n', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
+    sim.record(k_chl, what='ntau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
 
 
 
@@ -172,7 +172,7 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
 
 
 
-    leakChannels = env.MembraneMechanism(
+    lk_chl = env.MembraneMechanism(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -180,21 +180,21 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
                          mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
-    sodiumChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    na_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
                                            )
 
-    kChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    k_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
                                            )
 
-    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
     apply_mechanism_everywhere_uniform(cell, leakChannels)
-    apply_mechanism_everywhere_uniform(cell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, k_chl)
 
 
 
@@ -207,7 +207,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
 
-    leakChannels = env.MembraneMechanism(
+    lk_chl = env.MembraneMechanism(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
@@ -215,33 +215,33 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                          mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
-    sodiumChannels = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
+    na_chl = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             #xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="Na"
                                            )
 
-    kChannels = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
-    #kChannels = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
+    k_chl = env.MembraneMechanism(NeuroML_Via_XSL_Channel,
+    #k_chl = env.MembraneMechanism(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
                                             mechanism_id="K"
                                            )
 
-    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(cell, leakChannels)
-    apply_mechanism_everywhere_uniform(cell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
+    apply_mechanism_everywhere_uniform(cell, k_chl)
 
 
     #for v in variables:
-    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=sodiumChannels, modvar=v, name=v, cell_location=cell.get_location("soma"))
+    #    s =MM_Neuron_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.get_location("soma"))
     #    sim.add_recordable(s)
 
 
 
 def apply_hh_chls_morphforge_format(env, cell, sim):
 
-    leakChannels = env.MembraneMechanism(
+    lk_chl = env.MembraneMechanism(
                              MM_LeakChannel,
                              name="LkChl",
                              conductance=unit("0.3:mS/cm2"),
@@ -249,7 +249,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                              mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
-    sodiumStateVars = { "m": {
+    na_state_vars = { "m": {
                           "alpha":[-4.00, -0.10, -1.00, 40.00, -10.00],
                           "beta": [4.00, 0.00, 0.00, 65.00, 18.00]},
                     "h": {
@@ -257,13 +257,13 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             "beta": [1.00, 0.00, 1.00, 35.00, -10.00]}
                       }
 
-    sodiumChannels = env.MembraneMechanism(
+    na_chl = env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
                             conductance=unit("120:mS/cm2"),
                             reversalpotential=unit("50:mV"),
-                            statevars=sodiumStateVars,
+                            statevars=na_state_vars,
                             mechanism_id="HH_NA_CURRENT"
                            )
     kStateVars = { "n": {
@@ -271,7 +271,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                           "beta": [0.125, 0, 0, 65, 80]},
                        }
 
-    kChannels = env.MembraneMechanism(
+    k_chl = env.MembraneMechanism(
                             MM_AlphaBetaChannel,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
@@ -281,9 +281,9 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             mechanism_id="HH_K_CURRENT"
                            )
 
-    apply_mechanism_everywhere_uniform(cell, leakChannels)
-    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
-    apply_mechanism_everywhere_uniform(cell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
+    apply_mechanism_everywhere_uniform(cell, k_chl)
 
 
 

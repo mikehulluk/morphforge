@@ -95,14 +95,14 @@ def get_Kf_Channels(env):
                            )
 
 def get_Lk_Channels(env):
-    leakChannels = env.MembraneMechanism(
+    lk_chl = env.MembraneMechanism(
                          MM_LeakChannel,
                          name="LkChl",
                          conductance=unit("3.6765:nS") / unit("400:um2"),
                          reversalpotential=unit("-51:mV"),
                          mechanism_id = 'Lk_ID'
                        )
-    return leakChannels
+    return lk_chl
 
 
 
@@ -120,13 +120,13 @@ def simulate(current_inj_level):
     morph = MorphologyTree.fromDictionary(morphDict1)
     cell = sim.create_cell(name="Cell1", morphology=morph)
 
-    leakChannels = get_Lk_Channels(env)
-    sodiumChannels = get_Na_Channels(env)
+    lk_chl = get_Lk_Channels(env)
+    na_chl = get_Na_Channels(env)
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
 
-    apply_mechanism_everywhere_uniform(cell, leakChannels)
-    apply_mechanism_everywhere_uniform(cell, sodiumChannels)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
     apply_mechanism_everywhere_uniform(cell, potFastChannels)
     apply_mechanism_everywhere_uniform(cell, potSlowChannels)
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))

@@ -60,18 +60,18 @@ def sim(glk_multiplier, gna_multiplier, tag):
     cell = sim.create_cell(name="Cell1", morphology=morph)
 
 
-    lkChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
-    naChannels = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=env)
-    kChannels  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
+    lk_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
+    na_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=env)
+    k_chl  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
     # Apply the channels uniformly over the cell
-    apply_mechanism_everywhere_uniform(cell, lkChannels)
-    apply_mechanism_everywhere_uniform(cell, naChannels)
-    apply_mechanism_everywhere_uniform(cell, kChannels)
+    apply_mechanism_everywhere_uniform(cell, lk_chl)
+    apply_mechanism_everywhere_uniform(cell, na_chl)
+    apply_mechanism_everywhere_uniform(cell, k_chl)
 
     # Over-ride the parameters in the axon:
-    apply_mechanism_region_uniform(cell=cell, mechanism=lkChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})
-    apply_mechanism_region_uniform(cell=cell, mechanism=naChannels, region=morph.get_region("axon"), parameter_multipliers={'gScale':gna_multiplier})
+    apply_mechanism_region_uniform(cell=cell, mechanism=lk_chl, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})
+    apply_mechanism_region_uniform(cell=cell, mechanism=na_chl, region=morph.get_region("axon"), parameter_multipliers={'gScale':gna_multiplier})
 
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
@@ -98,11 +98,11 @@ results_a = [
 
 TagViewer(results_a, timerange=(97.5, 140)*pq.ms, show=False,
           plots = [
-                    TagPlot(s="ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
                        ])
 
 results_b = [
@@ -114,9 +114,9 @@ results_b = [
 
 TagViewer(results_b, timerange=(97.5, 140)*pq.ms, show=True,
           plots = [
-                    TagPlot(s="ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot(s="ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
                        ])
 
