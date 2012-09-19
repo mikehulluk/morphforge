@@ -222,8 +222,8 @@ FUNCTION vtrap(x,y)
 
 
         m.add_breakpoint('c = (CaZ * F) / (R * T)')
-        m.add_breakpoint('cV = c * v * 1e-3 * 1e-3')
-        m.add_breakpoint('i = pca * cV * CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale')
+        m.add_breakpoint('cV = c * v * 1e-3')
+        m.add_breakpoint('i = pca * cV * 1e-3 *  CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale')
 
         modtxt = m.get_text()
         modFile = ModFile(name=caAlphaBetaBetaChl.name, modtxt=modtxt)

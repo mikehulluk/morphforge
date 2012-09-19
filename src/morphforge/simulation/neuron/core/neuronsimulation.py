@@ -69,14 +69,19 @@ class redirect_stdout(object):
         self.stderr_save_stream = stderr_stream
         self.stdout_prev = None
         self.stderr_prev = None
+        self.active=False
 
     def __enter__(self):
+        if not self.active:
+            return
         self.stdout_prev = self.stdout_save_stream
         self.stderr_prev = self.stderr_save_stream
         sys.stdout = self.stdout_save_stream
         sys.stderr = self.stderr_save_stream
 
     def __exit__(self, exc_type, exc_value, traceback):
+        if not self.active:
+            return
         sys.stdout = self.stdout_prev
         sys.stderr = self.stderr_prev
 
