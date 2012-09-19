@@ -84,13 +84,13 @@ class NEURONChl_RecGen(NEURONRecordableOnLocation):
 
 
 class NeuroUnitEqnsetMechanism(Channel):
-    def __init__(self, eqnset, mechanism_id, name=None,  default_parameters={}, recordables_map= None, recordables_data=None):
-        Channel.__init__(self, mechanism_id=mechanism_id)
+    def __init__(self, eqnset,  default_parameters={}, recordables_map= None, recordables_data=None, **kwargs):
+        super(NeuroUnitEqnsetMechanism, self).__init__( **kwargs)
 
         if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
-        self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name(NeuroUnitEqnsetMechanism)
+        #self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name(NeuroUnitEqnsetMechanism)
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
@@ -141,8 +141,7 @@ SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetM
 
 class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def __init__(self, **kwargs):
-        NEURONChl_Base.__init__(self)
-        NeuroUnitEqnsetMechanism.__init__(self, **kwargs)
+        super(Neuron_NeuroUnitEqnsetMechanism, self).__init__(**kwargs)
 
         self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism, prefix=""))
 
@@ -166,8 +165,8 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
 
 
     def get_mod_file_changeables(self):
-        change_attrs = set(['name', "nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set(['mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
+        change_attrs = set([ "nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
+        fixed_attrs = set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
         return dict([(a, getattr(self, a)) for a in change_attrs])

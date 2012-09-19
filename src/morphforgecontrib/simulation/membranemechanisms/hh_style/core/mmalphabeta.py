@@ -50,9 +50,10 @@ class StdChlAlphaBeta(Channel):
                StateVarSteadyState, StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, conductance, reversalpotential, mechanism_id, statevars={}):
-        Channel.__init__(self, mechanism_id=mechanism_id)
-        self.name = name
+    def __init__(self, name, ion, equation, conductance, reversalpotential, mechanism_id, statevars={}, **kwargs):
+        super(StdChlAlphaBeta, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
+        
+        #self.name = name
         self.ion = ion
         self.eqn = equation
         self.conductance = unit(conductance)

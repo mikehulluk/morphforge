@@ -36,16 +36,9 @@ from morphforge.core import ObjectLabeller
 
 class NEURONChl_Base(object):
 
-    #MM_count = 0
-
-    #@classmethod
-    #def get_next_neuron_number(cls):
-    #    x = NEURONChl_Base.MM_count
-    #    NEURONChl_Base.MM_count += 1
-    #    return x
-
-    def __init__(self):
-        #self.mm_neuronNumber = NEURONChl_Base.get_next_neuron_number()
+    def __init__(self, **kwargs):
+        print kwargs
+        super(NEURONChl_Base, self).__init__(**kwargs)
         self.mm_neuronNumber = ObjectLabeller.get_next_count_for_type( NEURONChl_Base)
         self.cachedNeuronSuffix = None
 
@@ -69,3 +62,10 @@ class NEURONChl_Base(object):
 
     def get_mod_file_changeables(self):
         raise NotImplementedError()
+
+
+
+
+
+
+

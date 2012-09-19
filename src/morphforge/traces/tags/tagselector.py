@@ -112,6 +112,6 @@ class TagSelect(TagSelectorAll):
 
     def __init__(self, s):
         assert isinstance(s, basestring)
-        TagSelectorAll.__init__(self, tags=[s])
+        super(TagSelect, self).__init__(tags=[s])
 
 

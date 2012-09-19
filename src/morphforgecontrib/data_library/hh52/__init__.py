@@ -31,7 +31,6 @@
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
 from morphforge.core.quantities.fromcore import unit
-#from morphforge.core.misc import cached_functor
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 from morphforgecontrib.data_library.stdmodels import StandardModels

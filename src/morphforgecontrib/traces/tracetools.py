@@ -39,7 +39,8 @@ from morphforge.traces.eventset import Event
 class NewSpike(Event):
 
     def __init__(self, time):
-        NewSpike.__init__(self, time)
+        super(NewEvent, self).__init__(time=time)
+        
 
 
 class SpikeFinder(object):

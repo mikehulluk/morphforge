@@ -136,9 +136,8 @@ class NEURONChl_InfTauInterpolated_StateVariableInfRecord(NEURONChl_InfTauInterp
 
 class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base):
 
-    def __init__(self, *args, **kwargs):
-        MM_InfTauInterpolatedChannel.__init__(self, *args, **kwargs)
-        NEURONChl_Base.__init__(self)
+    def __init__(self, **kwargs):
+        super( NEURONChl_InfTauInterpolated, self).__init__( **kwargs)
 
     def get_recordable(self, what, **kwargs):
 
@@ -162,14 +161,13 @@ class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base)
         return NEURONChlWriterInfTauInterpolated.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
 
     def create_modfile(self, modfile_set):
-        NEURONChlWriterInfTauInterpolated.build_mod(alphabeta_chl=self,
-                modfile_set=modfile_set)
+        NEURONChlWriterInfTauInterpolated.build_mod(alphabeta_chl=self, modfile_set=modfile_set)
 
     def get_mod_file_changeables(self):
 
          # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance', 'name','ion','eqn','conductance','statevars_new','reversalpotential', 'mechanism_id'])
-        assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
+        change_attrs = set(['conductance', 'ion','eqn','conductance','statevars_new','reversalpotential', 'mechanism_id'])
+        assert set(self.__dict__) == set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
         # attrs = ['name','ion','eqn','conductance','statevars_new','reversalpotential','mechanism_id']
         return dict([(a, getattr(self, a)) for a in change_attrs])

@@ -30,15 +30,12 @@
 # ----------------------------------------------------------------------
 
 
+from morphforge.stdimports import Channel
 
-
-class NeuroML_Via_XSL_Channel(object):
-    def __init__(self, xml_filename, xsl_filename, chlname=None, mechanism_id=None):
+class NeuroML_Via_XSL_Channel(Channel):
+    def __init__(self, xml_filename, xsl_filename, chlname=None,**kwargs):
+        super( NeuroML_Via_XSL_Channel, self).__init__(**kwargs)
         self.xml_filename = xml_filename
         self.xsl_filename = xsl_filename
 
         self.chlname = chlname
-        self.mechanism_id = mechanism_id
-
-    def get_mechanism_id(self):
-        return self.mechanism_id

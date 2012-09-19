@@ -57,7 +57,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
     def __init__(self, cell, cell_location=None, **kwargs):
         super(MembraneVoltageRecord, self).__init__(**kwargs)
         self.cell = cell
-        self.cell_location = cell_location if cell_location is not None else cell.get_location("soma")
+        self.cell_location = cell_location if cell_location is not None else cell.soma
 
 
 

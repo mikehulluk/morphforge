@@ -38,15 +38,14 @@ from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_brid
 
 class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, NeuroML_Via_NeuroUnits_Channel):
 
-    def __init__(self, xml_filename, chlname=None, mechanism_id=None):
-        # self.mechanism_id = mechanism_id
+    def __init__(self, xml_filename, chlname=None,**kwargs):
 
         (eqnset, chlinfo, default_params) = ChannelMLReader.BuildEqnset(xml_filename)
 
         default_params = dict([(k, v.as_quantities_quantity()) for (k, v) in default_params.iteritems()])
 
-        Neuron_NeuroUnitEqnsetMechanism.__init__(self, name=chlname, eqnset=eqnset, mechanism_id=mechanism_id, default_parameters=default_params, recordables_map=None, recordables_data=None)
-        NeuroML_Via_NeuroUnits_Channel.__init__(self, xml_filename=xml_filename, chlname=chlname, mechanism_id=mechanism_id)
+        super(NeuroML_Via_NeuroUnits_ChannelNEURON,self).__init__(eqnset=eqnset, default_parameters=default_params, recordables_map=None, recordables_data=None, xml_filename=xml_filename, chlname=chlname, **kwargs)
+
 
 
 NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)

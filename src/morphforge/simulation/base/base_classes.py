@@ -43,11 +43,12 @@ class NamedSimulationObject(object):
 
     _obj_names = {}
 
-    def __init__(self, simulation, name=None):
+    def __init__(self, simulation=None, name=None, does_require_simulation=True, **kwargs):
 
-        assert simulation is not None
+        if does_require_simulation:
+            assert simulation is not None
 
-        if not simulation in NamedSimulationObject._obj_names:
+        if simulation is not None and not simulation in NamedSimulationObject._obj_names:
             NamedSimulationObject._obj_names[simulation] = set()
 
         if not name:
@@ -55,11 +56,14 @@ class NamedSimulationObject(object):
                     obj_type=NamedSimulationObject,
                     prefix='AnonObj')
 
-        assert not name in NamedSimulationObject._obj_names[simulation], 'Duplicate name:%s' % name
-        NamedSimulationObject._obj_names[simulation].add(name)
+        if does_require_simulation:
+            assert not name in NamedSimulationObject._obj_names[simulation], 'Duplicate name:%s' % name
+            NamedSimulationObject._obj_names[simulation].add(name)
 
         self._name = name
         self._simulation = simulation
+
+        super(NamedSimulationObject, self).__init__(**kwargs)
 
     def get_name(self):
         return self._name

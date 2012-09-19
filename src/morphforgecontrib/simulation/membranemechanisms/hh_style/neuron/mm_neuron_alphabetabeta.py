@@ -149,10 +149,8 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
         CurrentDensity = StandardTags.CurrentDensity
 
 
-    def __init__(self, *args, **kwargs):
-        # TODO: Fix constructor:
-        StdChlAlphaBetaBeta.__init__(self, *args, **kwargs)
-        NEURONChl_Base.__init__(self)
+    def __init__(self,  **kwargs):
+        super( NEURONChl_AlphaBetaBeta, self).__init__(**kwargs)
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
         return NEURONChlWriterAlphaBetaBeta.build_hoc_section(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta)
@@ -176,7 +174,6 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
         change_attrs = set([
             'conductance',
             'beta2threshold',
-            'name',
             'ion',
             'eqn',
             'conductance',
@@ -184,11 +181,10 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
             'reversalpotential',
             'mechanism_id',
             ])
-        assert set(self.__dict__) == set(['mm_neuronNumber',
+        assert set(self.__dict__) == set(['mm_neuronNumber','_name','_simulation', 
                 'cachedNeuronSuffix']) | change_attrs
 
         attrs = [
-            'name',
             'ion',
             'eqn',
             'conductance',

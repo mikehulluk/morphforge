@@ -79,8 +79,7 @@ class TracePieceFunctionLinear(TracePieceFunction):
 
     def __init__(self, time_window, x0=None, x1=None):
         assert x0 is not None and x1 is not None
-
-        TracePieceFunction.__init__(self, time_window=time_window)
+        super(TracePieceFunctionLinear, self).__init__(time_window=time_window)
         self.x0 = x0
         self.x1 = x1
 
@@ -104,7 +103,7 @@ class TracePieceFunctionLinear(TracePieceFunction):
 class TracePieceFunctionFlat(TracePieceFunction):
 
     def __init__(self, time_window, x=None):
-        TracePieceFunction.__init__(self, time_window=time_window)
+        super(TracePieceFunctionFlat, self).__init__(time_window=time_window)
         assert x is not None
         self.x = x
 
@@ -126,7 +125,7 @@ class TracePieceFunctionFlat(TracePieceFunction):
 
 class TracePiecewise(Trace):
     def __init__(self, pieces, name=None, comment=None, tags=None):
-        Trace.__init__(self, name=name, comment=comment, tags=tags)
+        super(TracePiecewise, self).__init__(name=name, comment=comment, tags=tags)
         self._pieces = pieces
 
         # Check we link up:

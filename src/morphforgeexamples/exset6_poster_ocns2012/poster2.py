@@ -111,7 +111,7 @@ syn1 = sim.create_synapse(
                                     NeuroUnitEqnsetPostSynaptic,
                                     eqnset = neurounits.NeuroUnitParser.EqnSet(simple_ampa_syn),
                                     default_parameters= {'scale':1.0*pq.dimensionless},
-                                    cell_location = cell2.get_location("soma")
+                                    cell_location = cell2.soma
                                    )
        )
 

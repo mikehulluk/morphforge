@@ -156,14 +156,14 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     apply_mechanism_everywhere_uniform(cell, k_chl)
 
 
-    sim.record(na_chl, what='m', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(na_chl, what='mtau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(na_chl, what='m', cell_location= cell.soma, user_tags=[StandardTags.StateVariable])
+    sim.record(na_chl, what='mtau', cell_location= cell.soma, user_tags=[StandardTags.StateTimeConstant])
 
-    sim.record(na_chl, what='h', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(na_chl, what='htau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(na_chl, what='h', cell_location= cell.soma, user_tags=[StandardTags.StateVariable])
+    sim.record(na_chl, what='htau', cell_location= cell.soma, user_tags=[StandardTags.StateTimeConstant])
 
-    sim.record(k_chl, what='n', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateVariable])
-    sim.record(k_chl, what='ntau', cell_location= cell.get_location("soma"), user_tags=[StandardTags.StateTimeConstant])
+    sim.record(k_chl, what='n', cell_location= cell.soma, user_tags=[StandardTags.StateVariable])
+    sim.record(k_chl, what='ntau', cell_location= cell.soma, user_tags=[StandardTags.StateTimeConstant])
 
 
 
@@ -234,7 +234,7 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
 
 
     #for v in variables:
-    #    s =NEURONChl_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.get_location("soma"))
+    #    s =NEURONChl_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.soma)
     #    sim.add_recordable(s)
 
 
@@ -318,16 +318,12 @@ def simulate_chls_on_neuron(chl_applicator_functor):
 
 
 
-
-    # Get a cell_location on the cell:
-    somaLoc = cell.get_location("soma")
-
     # Create the stimulus and record the injected current:
-    cc = sim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
+    cc = sim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
 
 
     # Define what to record:
-    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
 
 
     # run the simulation

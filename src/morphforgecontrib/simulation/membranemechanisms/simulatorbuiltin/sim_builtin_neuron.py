@@ -47,8 +47,9 @@ class BuiltinChannelNEURON(NEURONChl_Base, BuiltinChannel):
     def __init__(self, **kwargs):
         # TODO: Make this sub:
         # super(BuiltinChannelNEURON, self).__init__(self, **kwargs)
-        NEURONChl_Base.__init__(self)
-        BuiltinChannel.__init__(self, **kwargs)
+        #NEURONChl_Base.__init__(self)
+        #BuiltinChannel.__init__(self, **kwargs)
+        super(BuiltinChannelNEURON, self).__init__(**kwargs)
 
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):

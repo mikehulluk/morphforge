@@ -143,9 +143,10 @@ class NEURONChl_AlphaBeta_StateVariableInfRecord(NEURONChl_AlphaBeta_Record):
 
 class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
 
-    def __init__(self, *args, **kwargs):
-        StdChlAlphaBeta.__init__(self, *args, **kwargs)
-        NEURONChl_Base.__init__(self)
+    def __init__(self, **kwargs):
+        super(NEURONChl_AlphaBeta,self).__init__(**kwargs)
+        #StdChlAlphaBeta.__init__(self, *args, **kwargs)
+        #NEURONChl_Base.__init__(self)
 
     def get_recordable(self, what, **kwargs):
 
@@ -177,8 +178,8 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['name', 'ion','eqn','conductance','statevars','reversalpotential','mechanism_id'])
-        assert set(self.__dict__) == set(['mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
+        change_attrs = set([ 'ion','eqn','conductance','statevars','reversalpotential','mechanism_id'])
+        assert set(self.__dict__) == set(['_name','_simulation', 'mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
 
 
         return dict([(a, getattr(self, a)) for a in change_attrs])

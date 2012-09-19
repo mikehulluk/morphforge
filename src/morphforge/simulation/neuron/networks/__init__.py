@@ -41,9 +41,10 @@ from morphforge.constants.standardtags import StandardTags
 
 class NEURONSynapse(NEURONObject, Synapse):
 
-    def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None):
-        NEURONObject.__init__(self, name=name, simulation=simulation)
-        Synapse.__init__(self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech)
+    def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None, **kwargs):
+        super(NEURONSynapse, self).__init__(simulation=simulation, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech, name=name, **kwargs)
+        #NEURONObject.__init__(self, name=name, simulation=simulation)
+        #Synapse.__init__(self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech)
 
 
     def build_hoc(self, hocfile_obj):

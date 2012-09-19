@@ -153,14 +153,11 @@ apply_mechanism_everywhere_uniform(cell, lk_chl)
 
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
-# Get a cell_location on the cell:
-somaLoc = cell.get_location("soma")
-
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 
 sim.record(cc, what=StandardTags.Current)
-sim.record(cell, what=StandardTags.Voltage, cell_location=somaLoc)
+sim.record(cell, what=StandardTags.Voltage, cell_location=cell.soma)
 
 
 # run the simulation

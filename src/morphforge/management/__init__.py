@@ -162,7 +162,7 @@ import operator
 
 operators = ((operator.__add__, '+'), (operator.__sub__, '-'),
              (operator.__mul__, '*'), (operator.__div__, '/'),
-             (operator.__pow__, '^') )
+             (operator.__pow__, r'$\textrm{exp}$') )
 
 
 

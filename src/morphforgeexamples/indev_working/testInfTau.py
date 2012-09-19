@@ -151,16 +151,12 @@ def build_simulation(gbar_multiplier):
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
-
-    # Define a Point on the morphology - in this case the middle of the soma:
-    somaLoc = cell.get_location("soma")
-
-    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
     sim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
                               dur=unit('100:ms'), delay=unit('100:ms'),
-                              cell_location=somaLoc)
+                              cell_location=cell.soma)
 
 
     result = sim.run()

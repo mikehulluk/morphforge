@@ -66,7 +66,7 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
         assert m
         nrnsuffix = m.groupdict()['suffix']
 
-        self.name = nrnsuffix
+        #self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):

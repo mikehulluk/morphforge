@@ -107,7 +107,7 @@ sim = env.Simulation()
 morph_dict = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
 my_morph = MorphologyTree.fromDictionary(morph_dict)
 cell = sim.create_cell(name="Cell1", morphology=my_morph)
-soma = cell.get_location("soma")
+soma = cell.soma
 
 # Setup passive channels:
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))

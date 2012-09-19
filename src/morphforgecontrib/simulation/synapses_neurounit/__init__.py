@@ -120,8 +120,9 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSyna
 
 
     def __init__(self, **kwargs):
-        NEURONChl_Base.__init__(self)
-        NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
+        super(NEURONChl_Base, self).__init__(**kwargs)
+        #NEURONChl_Base.__init__(self)
+        #NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
 
         #self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
         self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic, prefix=""))
@@ -174,8 +175,8 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSyna
                                    modtxt=self.nmodl_txt))
 
     def get_mod_file_changeables(self):
-        change_attrs = set(['name', "nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set(['mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
+        change_attrs = set(["nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
+        fixed_attrs = set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs
         return dict ([(a, getattr(self, a)) for a in change_attrs])

@@ -438,7 +438,8 @@ class MorphologyTree(MorphologyBase):
         return MorphologyConverter.tree_to_array(self, **kwargs)
 
     def __init__(self, name=None, dummysection=None, metadata=None, region_number_to_name_bidict=None):
-        MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
+        #MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
+        super(MorphologyTree, self).__init__(region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
 
         self._regions = None
         self._dummysection = None

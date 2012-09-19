@@ -47,8 +47,8 @@ class StdChlCalciumAlphaBetaBeta(Channel):
                StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id,):
-        Channel.__init__(self, mechanism_id=mechanism_id)
+    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id, **kwargs):
+        Channel.__init__(self, mechanism_id=mechanism_id, **kwargs)
 
         self.name = name
         self.ion = ion

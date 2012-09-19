@@ -68,14 +68,17 @@ class MM_InfTauInterpolatedChannel(Channel):
                StateVarSteadyState, StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, conductance, reversalpotential, mechanism_id, statevars_new={}):
-        Channel.__init__(self, mechanism_id=mechanism_id)
-        self.name = name
+    def __init__(self, ion, equation, conductance, reversalpotential, statevars_new={}, **kwargs):
+        super(MM_InfTauInterpolatedChannel, self).__init__(**kwargs)
+
+
+        #Channel.__init__(self, mechanism_id=mechanism_id)
+        #self.name = name
         self.ion = ion
         self.eqn = equation
         self.conductance = unit(conductance)
         self.reversalpotential = unit(reversalpotential)
-        self.statevars_new = statevars_new
+        self.statevars_new = statevars_new.copy()
 
     def get_variables(self):
         return ['gBar', 'e_rev', 'gScale']

@@ -68,37 +68,37 @@ apply_mechanism_everywhere_uniform(cell, k_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
-somaLoc = cell.get_location("soma")
+
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
 # Define what to record:
-sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
 
 
-sim.record(lk_chl, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-sim.record(na_chl, cell_location = somaLoc, what=StandardTags.ConductanceDensity)
-sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.ConductanceDensity)
+sim.record(lk_chl, cell_location = cell.soma, what=StandardTags.ConductanceDensity)
+sim.record(na_chl, cell_location = cell.soma, what=StandardTags.ConductanceDensity)
+sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.ConductanceDensity)
 
-sim.record(lk_chl, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-sim.record(na_chl, cell_location = somaLoc, what=StandardTags.CurrentDensity)
-sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.CurrentDensity)
+sim.record(lk_chl, cell_location = cell.soma, what=StandardTags.CurrentDensity)
+sim.record(na_chl, cell_location = cell.soma, what=StandardTags.CurrentDensity)
+sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.CurrentDensity)
 
 
-sim.record(na_chl, cell_location = somaLoc, what=StandardTags.StateVariable, state="m")
-sim.record(na_chl, cell_location = somaLoc, what=StandardTags.StateVariable, state="h")
-sim.record(k_chl,  cell_location = somaLoc, what=StandardTags.StateVariable, state="n")
+sim.record(na_chl, cell_location = cell.soma, what=StandardTags.StateVariable, state="m")
+sim.record(na_chl, cell_location = cell.soma, what=StandardTags.StateVariable, state="h")
+sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.StateVariable, state="n")
 
 
 # Also:
-#sim.record(na_chl, where = somaLoc, what=StandardTags.StateTimeConstant, state="m")
-#sim.record(na_chl, where = somaLoc, what=StandardTags.StateTimeConstant, state="h")
-#sim.record(k_chl,  where = somaLoc, what=StandardTags.StateTimeConstant, state="n")
+#sim.record(na_chl, where = cell.soma, what=StandardTags.StateTimeConstant, state="m")
+#sim.record(na_chl, where = cell.soma, what=StandardTags.StateTimeConstant, state="h")
+#sim.record(k_chl,  where = cell.soma, what=StandardTags.StateTimeConstant, state="n")
 
-#sim.record(na_chl, where = somaLoc, what=StandardTags.StateSteadyState, state="m")
-#sim.record(na_chl, where = somaLoc, what=StandardTags.StateSteadyState, state="h")
-#sim.record(k_chl,  where = somaLoc, what=StandardTags.StateSteadyState, state="n")
+#sim.record(na_chl, where = cell.soma, what=StandardTags.StateSteadyState, state="m")
+#sim.record(na_chl, where = cell.soma, what=StandardTags.StateSteadyState, state="h")
+#sim.record(k_chl,  where = cell.soma, what=StandardTags.StateSteadyState, state="n")
 
 
 # run the simulation

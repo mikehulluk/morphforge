@@ -103,11 +103,9 @@ apply_mechanism_everywhere_uniform(cell, na_chl)
 apply_mechanism_everywhere_uniform(cell, k_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
-# Get a cell_location on the cell:
-somaLoc = cell.get_location("soma")
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
 
 
@@ -122,14 +120,14 @@ for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell
 
     # Create a path along the morphology from the centre of the
     # Soma
-    path = MorphPath(somaLoc, cell_location)
+    path = MorphPath(cell.soma, cell_location)
     print "Distance to Soma Centre:", path.get_length()
 
     sim.record(cell, what=StandardTags.Voltage, cell_location=cell_location, description="Distance Recording at %0.0f (um)"% path.get_length())
 
 
 # Define what to record:
-sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
 
 # run the simulation
 results = sim.run()

@@ -57,7 +57,7 @@ def simulate_chls_on_neuron():
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
     cell1 = sim.create_cell(name="Cell1", morphology=m1)
-    apply_mechanism_everywhere_uniform(cell1, env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
+    apply_mechanism_everywhere_uniform(cell1, env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDB"))
     apply_passive_everywhere_uniform(cell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
@@ -65,12 +65,9 @@ def simulate_chls_on_neuron():
     apply_mechanism_everywhere_uniform(cell2, env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
     apply_passive_everywhere_uniform(cell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
-    # Get a cell_location on the cell:
-    somaLoc1 = cell1.get_location("soma")
-    somaLoc2 = cell2.get_location("soma")
+    
 
-
-    eqnsetfile = "/home/mhtest/hw/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
+    eqnsetfile = "/home/michael/hw_to_come/libs/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
     syn = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
@@ -80,14 +77,14 @@ def simulate_chls_on_neuron():
                                      NeuroUnitEqnsetPostSynaptic,
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     cell_location = somaLoc1
+                                     cell_location = cell1.soma
                                     )
            )
 
     syn = sim.create_synapse(
             presynaptic_mech =  env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
-                                     cell_location=somaLoc1,
+                                     cell_location=cell1.soma,
                                      voltage_threshold=unit("0:mV"),
                                      delay=unit('1:ms'),
                                      weight = unit("1:nS")),
@@ -95,14 +92,14 @@ def simulate_chls_on_neuron():
                                      NeuroUnitEqnsetPostSynaptic,
                                      name = "mYName1",
                                      eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     cell_location = somaLoc2
+                                     cell_location = cell2.soma
                                     )
            )
 
 
     # Define what to record:
-    sim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = somaLoc1)
-    sim.record(what=StandardTags.Voltage, name="SomaVoltage2", cell_location = somaLoc2)
+    sim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = cell1.soma)
+    sim.record(what=StandardTags.Voltage, name="SomaVoltage2", cell_location = cell2.soma)
 
 
     # run the simulation

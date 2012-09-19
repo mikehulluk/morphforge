@@ -53,7 +53,7 @@ def build_simulation(modfilename):
     # Create the simulation:
     sim = env.Simulation()
     cell = sim.create_cell(morphology=m1)
-    somaLoc = cell.get_location("soma")
+
 
     modChls = env.Channel(SimulatorSpecificChannel,
                                      modfilename =  modfilename,
@@ -62,8 +62,8 @@ def build_simulation(modfilename):
     # Apply the mechanisms to the cells
     apply_mechanism_everywhere_uniform(cell, modChls)
 
-    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
-    sim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage')
+    sim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 
     results = sim.run()
     return results

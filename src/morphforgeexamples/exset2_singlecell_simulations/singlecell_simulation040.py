@@ -51,6 +51,7 @@ from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta i
 
 
 
+@cached_functor
 def get_Na_Channels(env):
     na_state_vars = {"m":
                     {"alpha": [13.01,0,4,-1.01,-12.56], "beta": [5.73,0,1,9.01,9.69] },
@@ -68,6 +69,7 @@ def get_Na_Channels(env):
                             mechanism_id = 'Na_ID'
                            )
 
+@cached_functor
 def get_Ks_Channels(env):
     kf_state_vars = {"ks": {"alpha": [0.2,0,1,-6.96,-7.74 ], "beta": [0.05,0,2,-18.07,6.1 ] } }
 
@@ -81,6 +83,7 @@ def get_Ks_Channels(env):
                             mechanism_id = 'IN_Ks_ID'
                            )
 
+@cached_functor
 def get_Kf_Channels(env):
     kf_state_vars = {"kf": {"alpha": [ 3.1,0,1,-31.5,-9.3], "beta": [0.44,0,1,4.98,16.19 ] } }
 
@@ -94,6 +97,7 @@ def get_Kf_Channels(env):
                             mechanism_id = 'N_Kf_ID'
                            )
 
+@cached_functor
 def get_Lk_Channels(env):
     lk_chl = env.Channel(
                          StdChlLeak,
@@ -132,15 +136,13 @@ def simulate(current_inj_level):
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
 
 
-    # Get a cell_location on the cell:
-    somaLoc = cell.get_location("soma")
 
     # Create the stimulus and record the injected current:
-    cc = sim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+    cc = sim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
     sim.record(cc, what=StandardTags.Current)
 
     # Define what to record:
-    sim.record(cell, what=StandardTags.Voltage, cell_location = somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, cell_location = cell.soma)
 
     # run the simulation
     results = sim.run()

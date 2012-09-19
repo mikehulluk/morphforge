@@ -34,8 +34,8 @@ from morphforge.simulation.base.biophysics.membranemechanism import Channel
 
 class BuiltinChannel(Channel):
 
-    def __init__(self, sim_chl_name, mechanism_id=None):
-        Channel.__init__(self, mechanism_id=mechanism_id)
+    def __init__(self, sim_chl_name, **kwargs):
+        super(BuiltinChannel, self).__init__( **kwargs)
         self.sim_chl_name = sim_chl_name
 
 

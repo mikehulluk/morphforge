@@ -113,8 +113,7 @@ class NeuronPopulation(object):
         user_tags = user_tags or []
         user_tag_functors = user_tag_functors \
             or StdTagFunctors.get_record_functors_neuron()
-        location_func = location_func or (lambda cell: \
-                cell.get_location('soma'))
+        location_func = location_func or (lambda cell: cell.soma)
         cell_location = location_func(cell)
 
         kw_utf = {'cell_location': cell_location,

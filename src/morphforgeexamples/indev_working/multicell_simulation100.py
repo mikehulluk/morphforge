@@ -360,7 +360,7 @@ def test_cell_current(cell_name, cell_chl_functor, current):
 
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     cell = sim.create_cell(name=cell_name, morphology=m1)
-    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.get_location("soma"))
+    cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.soma)
 
     for chl in cell_chl_functor():
         mf.apply_mechanism_everywhere_uniform(cell, chl)
@@ -641,7 +641,7 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS,
 
 
 #cell = dINr_LHS[0]
-#somaLoc1 = cell.get_location("soma")
+
 #
 #
 #syn = sim.create_synapse(
@@ -654,7 +654,7 @@ syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS,
 #                                    name = "mYName1",
 #                                    eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
 #                                    default_parameters= {'scale': 1 *mf.dimensionless},
-#                                    cell_location = somaLoc1
+#                                    cell_location = cell.soma1
 #                                   )
 #       )
 #

@@ -56,8 +56,9 @@ class MorphologyArray(MorphologyBase):
         return MorphologyConverter.array_to_tree(self, **kwargs)
 
     def __init__(self, vertices, connectivity, dummy_vertex_index=0, section_types=None, region_number_to_name_bidict=None, name=None, metadata=None):
-        MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
-
+        #MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
+        super(MorphologyArray, self).__init__(region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)
+        
         # Save the data in the correct formats:
         self._connectivity = np.array(connectivity).reshape(-1, 2)
         N = self._connectivity.shape[0]

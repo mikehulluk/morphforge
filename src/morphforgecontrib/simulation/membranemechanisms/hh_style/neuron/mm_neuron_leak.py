@@ -104,9 +104,9 @@ class NEURONChl_Leak_CurrentDensityRecord(NEURONChl_Leak_Record):
 
 class NEURONChl_Leak(StdChlLeak, NEURONChl_Base):
 
-    def __init__(self, *args, **kwargs):
-        StdChlLeak.__init__(self, *args, **kwargs)
-        NEURONChl_Base.__init__(self)
+    def __init__(self, **kwargs):
+        super(NEURONChl_Leak, self).__init__(**kwargs)
+
 
     def get_recordable(self, what, **kwargs):
 
@@ -127,8 +127,11 @@ class NEURONChl_Leak(StdChlLeak, NEURONChl_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance', 'name','reversalpotential','mechanism_id'])
-        assert set(self.__dict__) == set(['mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
+        change_attrs = set(['conductance', 'reversalpotential','mechanism_id'])
+        print change_attrs
+        print '__dict__', self.__dict__
+        print 
+        assert set(self.__dict__) == set(['_name','_simulation', 'mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
         return dict ([(a, getattr(self, a)) for a in change_attrs])
 
 

@@ -81,22 +81,19 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
 
 
 
-    # Get a cell_location on the cell:
-    somaLoc = cell.get_location("soma")
-
     # Create the stimulus and record the injected current:
-    #cc = sim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=somaLoc)
+    #cc = sim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
 
     cc = sim.create_voltageclamp(name="Stim1",
                                    dur1=unit("200:ms"), amp1=unit("-60:mV"),
                                    dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
                                    dur3=unit("500:ms")* R.uniform(0.95, 1.0), amp3=unit("-50:mV"),
-                                   cell_location=somaLoc,
+                                   cell_location=cell.soma,
                                   )
 
 
     # Define what to record:
-    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc)
+    sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
     sim.record(cc, what=StandardTags.Current, name="CurrentClamp")
 
 
@@ -210,10 +207,10 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_neuro(env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_neuro)
-        sim.record(chl_neuro, what= 'h', cell_location=cell.get_location("soma"),   name="h")
-        sim.record(chl_neuro,  what='h_inf', cell_location=cell.get_location("soma"),   name="hinf")
-        sim.record(chl_neuro, what = 'h_tau', cell_location=cell.get_location("soma"),   name="htau")
-        sim.record(chl_neuro, what= 'g', cell_location=cell.get_location("soma"),  name="g")
+        sim.record(chl_neuro, what= 'h', cell_location=cell.soma,   name="h")
+        sim.record(chl_neuro,  what='h_inf', cell_location=cell.soma,   name="hinf")
+        sim.record(chl_neuro, what = 'h_tau', cell_location=cell.soma,   name="htau")
+        sim.record(chl_neuro, what= 'g', cell_location=cell.soma,  name="g")
         return chl_neuro
 
     # via xsl transformation:
@@ -222,10 +219,10 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_xsl(env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_xsl)
-        sim.record(chl_xsl,  what='h', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="h")
-        sim.record(chl_xsl ,  what='hinf', cell_location=cell.get_location("soma"), nrn_unit=unit(""),  name="hinf")
-        sim.record(chl_xsl,  what='htau', cell_location=cell.get_location("soma"), nrn_unit=unit("ms"),  name="htau")
-        sim.record(chl_xsl, what='gion', cell_location=cell.get_location("soma"), nrn_unit=unit("S/cm2"),  name="g")
+        sim.record(chl_xsl,  what='h', cell_location=cell.soma, nrn_unit=unit(""),  name="h")
+        sim.record(chl_xsl ,  what='hinf', cell_location=cell.soma, nrn_unit=unit(""),  name="hinf")
+        sim.record(chl_xsl,  what='htau', cell_location=cell.soma, nrn_unit=unit("ms"),  name="htau")
+        sim.record(chl_xsl, what='gion', cell_location=cell.soma, nrn_unit=unit("S/cm2"),  name="g")
         return chl_xsl
 
     import os

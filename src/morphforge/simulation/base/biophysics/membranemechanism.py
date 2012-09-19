@@ -29,11 +29,20 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from ..base_classes import NamedSimulationObject
+from morphforge.core import ObjectLabeller
 
-class Channel(object):
+class Channel(NamedSimulationObject):
 
-    def __init__(self, mechanism_id):
+    def __init__(self, mechanism_id, name=None, **kwargs):
+        super(Channel, self).__init__(does_require_simulation=False, **kwargs)
         self.mechanism_id = mechanism_id
+
+
+    def get_name(self):
+        return self._name
+    name = property(get_name)
+
 
     def get_membranemechanism_name(self):
         raise NotImplementedError()
@@ -49,4 +58,6 @@ class Channel(object):
 
     def get_mechanism_id(self):
         return self.mechanism_id
+
+
 

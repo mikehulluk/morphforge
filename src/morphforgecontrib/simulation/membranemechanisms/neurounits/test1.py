@@ -158,25 +158,19 @@ apply_mechanism_everywhere_uniform(cell, hhChannels)
 
 
 
-
-
-
-# Get a cell_location on the cell:
-somaLoc = cell.get_location('soma')
-
 # Create the simulous:
-sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=somaLoc)
+sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 
 
 # Define what to record:
-sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = somaLoc, description='Membrane Voltage')
-#sim.recordall(lk_chl, cell_location=somaLoc)
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage')
+#sim.recordall(lk_chl, cell_location=cell.soma)
 
-sim.record(hhChannels, what="i", cell_location=somaLoc)
-sim.record(hhChannels, what="g", cell_location=somaLoc, user_tags=[StandardTags.ConductanceDensity])
-sim.record(hhChannels, what="m", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-sim.record(hhChannels, what="mult", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
-sim.record(hhChannels, what="h", cell_location=somaLoc, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="i", cell_location=cell.soma)
+sim.record(hhChannels, what="g", cell_location=cell.soma, user_tags=[StandardTags.ConductanceDensity])
+sim.record(hhChannels, what="m", cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="mult", cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
+sim.record(hhChannels, what="h", cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
 
 # run the simulation
 results = sim.run()

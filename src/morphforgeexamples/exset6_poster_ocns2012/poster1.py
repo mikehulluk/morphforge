@@ -107,7 +107,7 @@ sim = env.Simulation()
 morph_dict = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
 my_morph = MorphologyTree.fromDictionary(morph_dict)
 cell = sim.create_cell(name="Cell1", morphology=my_morph)
-soma = cell.get_location("soma")
+#soma = cell.get_location("soma")
 
 # Setup passive channels:
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
@@ -123,13 +123,13 @@ apply_mechanism_everywhere_uniform(cell, lk_chl)
 apply_mechanism_everywhere_uniform(cell, k_chl)
 
 # Define what to record:
-sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = soma)
-sim.record(na_chl, what='m', cell_location=soma, user_tags=[StandardTags.StateVariable])
-sim.record(na_chl, what='h', cell_location=soma, user_tags=[StandardTags.StateVariable])
-sim.record(k_chl,  what='n', cell_location=soma, user_tags=[StandardTags.StateVariable])
+sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
+sim.record(na_chl, what='m', cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
+sim.record(na_chl, what='h', cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
+sim.record(k_chl,  what='n', cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay=U("100:ms"), cell_location=soma)
+cc = sim.create_currentclamp(name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay=U("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
 
 
