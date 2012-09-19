@@ -31,11 +31,13 @@
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary
 from morphforge.core.quantities.fromcore import unit
+from morphforge.core import cached_functor
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
 from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
+@cached_functor
 def get_sample_lk(env):
     lk_chl = env.Channel(StdChlLeak, name='LkChl',
             conductance=unit('0.3:mS/cm2'),
@@ -44,6 +46,7 @@ def get_sample_lk(env):
     return lk_chl
 
 
+@cached_functor
 def get_sample_na(env):
     na_state_vars = { 'm': {
                           'alpha': [-4.00,-0.10,-1.00,40.00,-10.00],
@@ -66,6 +69,7 @@ def get_sample_na(env):
     return na_chl
 
 
+@cached_functor
 def get_sample_k(env):
     kStateVars = {'n': {'alpha': [-0.55, -0.01, -1.00, 55.0, -10.00],
                   'beta': [0.125, 0, 0, 65, 80]}}

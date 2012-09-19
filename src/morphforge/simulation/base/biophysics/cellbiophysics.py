@@ -79,6 +79,10 @@ class CellBiophysics(object):
 
     def get_resolved_mtas_for_section(self, section):
 
+        # TODO: Some basic error checking here: we should ensure that if we specialise a region/section, then we also
+        # cover the Everywhere. This should help us catch errors in ehich the user creates 2 mechanisms of the same thing, and 
+        # and so applies the same channel twice accidentally.
+
         # All the mechanisms targetting a certain region:
         mechanisms_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
 
@@ -87,6 +91,7 @@ class CellBiophysics(object):
         res = []
         for mech_id in mechanism_ids:
             mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mech_id]
+
             highest_prority_mech = SeqUtils.max_with_unique_check(mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority())
             res.append(highest_prority_mech)
         return res

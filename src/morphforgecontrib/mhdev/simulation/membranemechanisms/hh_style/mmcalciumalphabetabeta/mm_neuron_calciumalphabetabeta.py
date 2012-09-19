@@ -32,16 +32,17 @@
 from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
 from morphforge.core.quantities import unit
 from mmwriter_caalphabetabeta import NEURONChlWriterCalciumAlphaBetaBeta
-from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
+#from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable 
+#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable 
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
 class NEURONChl_CalciumAlphaBetaBeta_Record(NEURONRecordableOnLocation):
+
     def __init__(self, caAlphaBetaBetaChl, **kwargs):
 
         super(NEURONChl_CalciumAlphaBetaBeta_Record,
@@ -139,6 +140,12 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(NEURONChl_Calciu
                             % self.name, modvar=self.state)
 
 
+
+
+
+
+
+
 class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base):
 
     def __init__(self, *args, **kwargs):
@@ -155,8 +162,6 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
             }
 
         recorder = recorders[what]
-        # print recorder
-        # print kwargs
         recordable = recorder(caAlphaBetaBetaChl=self, **kwargs)
         return recordable
 
@@ -172,7 +177,6 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
     def get_mod_file_changeables(self):
 
         change_attrs = set(['CaZ', 'name', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration'])
-        #print set(self.__dict__)
         assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
         return dict([(a, getattr(self, a)) for a in change_attrs])
