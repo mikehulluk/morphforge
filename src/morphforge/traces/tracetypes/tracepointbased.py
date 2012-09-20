@@ -74,7 +74,7 @@ class TracePointBased(Trace):
     def time_pts_ms(self):
         return self._time.rescale('ms').magnitude
 
-    @property
+    #@property
     def time_pts_in(self, rebase_unit):
         return self._time.rescale(rebase_unit).magnitude
 
@@ -83,7 +83,7 @@ class TracePointBased(Trace):
     def data_pts(self):
         return self._data
 
-    @property
+    #@property
     def data_pts_in(self, rebase_unit):
         return self._data.rescale(rebase_unit).magnitude
 
@@ -93,7 +93,7 @@ class TracePointBased(Trace):
 
     @property
     def data_unit(self):
-        print 'in @prop:data_unit'
+        #print 'in @prop:data_unit'
         return self._data.units
 
     @property

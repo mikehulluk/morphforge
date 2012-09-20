@@ -48,9 +48,10 @@ class StdChlCalciumAlphaBetaBeta(Channel):
 
 
     def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id, **kwargs):
-        Channel.__init__(self, mechanism_id=mechanism_id, **kwargs)
+        super( StdChlCalciumAlphaBetaBeta, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
+        #Channel.__init__(self, mechanism_id=mechanism_id, **kwargs)
 
-        self.name = name
+        #self.name = name
         self.ion = ion
 
         self.permeability = unit(permeability)
@@ -67,11 +68,11 @@ class StdChlCalciumAlphaBetaBeta(Channel):
         self.T = unit(temperature)
 
     def get_variables(self):
-        return ['gScale']
+        return ['gScale', 'pca']
 
     def get_defaults(self):
-        return {'gScale': unit('1.0')}
+        return {'gScale': unit('1.0'), 'pca':self.permeability}
 
     def get_prefered_units(self):
-        return {'gScale': pq.dimensionless }
+        return {'gScale': pq.dimensionless, 'pca': unit('cm/sec') }
 

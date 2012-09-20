@@ -53,7 +53,7 @@ $(cell_name).internalsections [$section_index] {
 }
 """
 
-    Units = {'gScale': ''}
+    Units = {'gScale': '','pca':'cm/sec'}
 
     @classmethod
     def build_hoc_section(cls, cell, section, hocfile_obj, mta):

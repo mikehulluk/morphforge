@@ -175,9 +175,12 @@ class DictionaryLoader(object):
             assert len(rgs) <= 1
 
             #Diameter & length:
-            if not yaml_sect.has_key("diam") or not (yaml_sect["diam"] > 0):
-                raise ValueError("indvalid radius")
-            rad = yaml_sect["diam"] / 2.0
+            if not yaml_sect.has_key("diam"): 
+                raise ValueError("Not radius given")
+            diam = yaml_sect["diam"]
+            if not (diam > 0):
+                raise ValueError("indvalid radius: %s" % diam )
+            rad = diam / 2.0
 
 
 
