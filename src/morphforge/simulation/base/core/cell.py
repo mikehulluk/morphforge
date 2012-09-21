@@ -66,7 +66,7 @@ class Cell(NamedSimulationObject):
         self.cell_segmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
         self.cell_segmenter.connect_to_cell(self)
 
-        self.biophysics = CellBiophysics()
+        self.biophysics = CellBiophysics(self)
 
         self.initial_voltage = initial_voltage or unit('-51:mV')
 
@@ -131,4 +131,8 @@ class Cell(NamedSimulationObject):
         return len( self.morphology ) == 1 and \
                self.segmenter.get_num_segments(self.soma.section) == 1
 
+
+    # Simple forwarding method to biophysics, for aestetic purposes:
+    def apply_channel(self, *args, **kwargs) :
+        self.biophysics.apply_channel(*args, **kwargs)
 

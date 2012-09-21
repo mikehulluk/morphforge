@@ -99,26 +99,27 @@ class ChannelTargeterRegion(Targeter):
 
     def __init__(self, region):
         super(ChannelTargeterRegion, self).__init__()
+        assert isinstance(region, Region)
         self.region = region
 
     def get_priority(self):
         return 20
 
     def does_target_section(self, section):
-        if isinstance(self.region, Region):
-            return section.region == self.region
-        elif isinstance(self.region, basestring):
-            return section.region.name == self.region
-        else:
-            assert False
+        #if isinstance(self.region, Region):
+        return section.region == self.region
+        #elif isinstance(self.region, basestring):
+        #    return section.region.name == self.region
+        #else:
+        #    assert False
 
     def get_description(self):
-        if isinstance(self.region, Region):
-            region_name = self.region.name
-        elif isinstance(self.region, basestring):
-            region_name = self.region
-        else:
-            assert False
+        #if isinstance(self.region, Region):
+        region_name = self.region.name
+        #elif isinstance(self.region, basestring):
+        #    region_name = self.region
+        #else:
+        #    assert False
         return 'Region: %s' % region_name
 
 

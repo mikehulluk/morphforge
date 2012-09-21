@@ -32,6 +32,14 @@
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_EverywhereDefault
 from morphforge.core.misc import SeqUtils
+import types
+#from morphforge.simulation.base.biophysics import PassiveProperty
+#from morphforge.simulation.base.biophysics import ChannelApplicatorUniform
+from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicatorUniform
+from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
+from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
+#from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
+
 
 
 # A type for holding a mechanism/passive, where it is applied, and how much where.
@@ -54,7 +62,8 @@ class _PassiveTargetApplicator(object):
 
 class CellBiophysics(object):
 
-    def __init__(self):
+    def __init__(self, cell):
+        self._cell = cell
         self.appliedmechanisms = []
         self.appliedpassives = []
 
@@ -114,6 +123,38 @@ class CellBiophysics(object):
             raise
 
 
+
+    # Simplified interface to adding mechanisms:
+    def apply_channel(self, channel, where = None, parameter_overrides=None, parameter_multipliers=None):
+        """ A simplified interface to applying channels.  """
+
+        from morphforge.morphology.core import Region
+
+        # Resolve 'where' if its a string:
+        if isinstance(where, basestring):
+            assert not (where in self._cell.get_region_names() and where in self._cell.get_idtags)
+            if where in self._cell.get_region_names():
+                where = self._cell.get_region(name=where)
+            elif where in self._cell.get_idtag():
+                raise NotImplementedError()
+            else:
+                assert False, 'I dont knwo what to do with: %s' % where
+
+        # Convert where to a targetter:
+        where_to_targetter_LUT = {
+                types.NoneType: lambda: ChannelTargeterEverywhere(),
+                Region: lambda: ChannelTargeterRegion(where)
+        }
+
+        # Build targetters and applicators:
+        targetter = where_to_targetter_LUT[type(where)]()
+        applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+
+        return self.add_mechanism(
+            mechanism=channel,
+            targetter=targetter,
+            applicator=applicator
+            )
 
 
 
