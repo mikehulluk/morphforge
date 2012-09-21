@@ -113,7 +113,13 @@ class ChannelTargeterRegion(Targeter):
             assert False
 
     def get_description(self):
-        return 'Region: %s' % self.region.name
+        if isinstance(self.region, Region):
+            region_name = self.region.name
+        elif isinstance(self.region, basestring):
+            region_name = self.region
+        else:
+            assert False
+        return 'Region: %s' % region_name
 
 
 class ChannelTargeterSectionPath(Targeter):

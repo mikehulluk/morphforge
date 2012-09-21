@@ -47,9 +47,9 @@ class NeuronSimSetupObj(NEURONObject):
                                    """load_file("noload.hoc")""")
 
         if self.simsettings['cvode']:
-            hocfile_obj.add_to_section(
-                    MHOCSections.InitHeader,
-                    """cvode_active(1)""")
+            hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode_active(1)""")
+            #hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.atol(1e-12)""")
+            #hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.rtol(1e-12)""")
 
         # For testing: should be done properly:
         hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%(self.simsettings["tstop"].rescale("ms").magnitude))

@@ -137,6 +137,8 @@ INITIAL {
     ${updatefunctionname}(v)
 #for $state, ($initialvalue, $equation) in $internalstates.iteritems():
     $state = $initialvalue
+    : MH TEMP HACK
+    $state = 0
 #end for
 
 }
