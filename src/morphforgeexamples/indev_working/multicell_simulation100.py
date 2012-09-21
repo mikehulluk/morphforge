@@ -320,7 +320,7 @@ def make_cell(sim, cell_name, cell_chl_functor):
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     cell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(cell, chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
+        mf.cell.apply_channel( chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
     mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
     return cell
 
@@ -363,7 +363,7 @@ def test_cell_current(cell_name, cell_chl_functor, current):
     cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.soma)
 
     for chl in cell_chl_functor():
-        mf.apply_mechanism_everywhere_uniform(cell, chl)
+        mf.cell.apply_channel( chl)
 
     mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
 

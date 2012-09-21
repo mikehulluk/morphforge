@@ -106,9 +106,9 @@ k_chl = env.Channel(
 
 
 # Apply the channels uniformly over the cell
-apply_mechanism_everywhere_uniform(cell, lk_chl)
-apply_mechanism_everywhere_uniform(cell, na_chl)
-apply_mechanism_everywhere_uniform(cell, k_chl)
+cell.apply_channel( lk_chl)
+cell.apply_channel( na_chl)
+cell.apply_channel( k_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 

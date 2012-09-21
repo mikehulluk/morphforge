@@ -206,7 +206,7 @@ def testfile_voltage(xmlfile, voltage):
     chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlfile,  )
     def applicator_neuro(env, cell, sim):
 
-        apply_mechanism_everywhere_uniform(cell, chl_neuro)
+        cell.apply_channel( chl_neuro)
         sim.record(chl_neuro, what= 'h', cell_location=cell.soma,   name="h")
         sim.record(chl_neuro,  what='h_inf', cell_location=cell.soma,   name="hinf")
         sim.record(chl_neuro, what = 'h_tau', cell_location=cell.soma,   name="htau")
@@ -218,7 +218,7 @@ def testfile_voltage(xmlfile, voltage):
     chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlfile, xsl_filename=xsl_file,  )
     def applicator_xsl(env, cell, sim):
 
-        apply_mechanism_everywhere_uniform(cell, chl_xsl)
+        cell.apply_channel( chl_xsl)
         sim.record(chl_xsl,  what='h', cell_location=cell.soma, nrn_unit=unit(""),  name="h")
         sim.record(chl_xsl ,  what='hinf', cell_location=cell.soma, nrn_unit=unit(""),  name="hinf")
         sim.record(chl_xsl,  what='htau', cell_location=cell.soma, nrn_unit=unit("ms"),  name="htau")

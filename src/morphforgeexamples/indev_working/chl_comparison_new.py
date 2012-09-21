@@ -72,7 +72,7 @@ def simulate_chl_vclamp(chl, voltage_level):
 
     # Setup the HH-channels on the cell:
     #chl = chl_applicator_functor(env, cell, sim)
-    apply_mechanism_everywhere_uniform(cell, chl)
+    cell.apply_channel( chl)
 
 
 

@@ -104,7 +104,7 @@ lk_chl = env.Channel(EqnSetChl,
         eqnset=EquationSetLoader.load('std_leak_chl.txt',
         dir=LocMgr.getTestEqnSetsPath()),
         parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
-apply_mechanism_everywhere_uniform(cell, lk_chl)
+cell.apply_channel( lk_chl)
 apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
@@ -151,7 +151,7 @@ hhChannels = env.Channel(NeuroUnitEqnsetMechanism,
                                                           }
 
                                      )
-apply_mechanism_everywhere_uniform(cell, hhChannels)
+cell.apply_channel( hhChannels)
 
 
 

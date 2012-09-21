@@ -58,7 +58,7 @@ def build_simulation(modfilename):
     modChls = env.Channel(SimulatorSpecificChannel, modfilename=modfilename)
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(cell, modChls)
+    cell.apply_channel( modChls)
 
     sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage')
     sim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)

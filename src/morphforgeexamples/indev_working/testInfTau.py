@@ -144,8 +144,8 @@ def build_simulation(gbar_multiplier):
 
 
     # Apply the mechanisms to the cells
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, ks)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( ks)
 
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 

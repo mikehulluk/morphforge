@@ -65,9 +65,9 @@ def sim(glk_multiplier, gna_multiplier, tag):
     k_chl  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
     # Apply the channels uniformly over the cell
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, k_chl)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( k_chl)
 
     # Over-ride the parameters in the axon:
     apply_mechanism_region_uniform(cell=cell, mechanism=lk_chl, region=morph.get_region("axon"), parameter_multipliers={'gScale':glk_multiplier})

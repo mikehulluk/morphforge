@@ -125,10 +125,10 @@ def simulate(current_inj_level):
     potFastChannels = get_Kf_Channels(env)
     potSlowChannels = get_Ks_Channels(env)
 
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, potFastChannels)
-    apply_mechanism_everywhere_uniform(cell, potSlowChannels)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( potFastChannels)
+    cell.apply_channel( potSlowChannels)
     apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
 
 

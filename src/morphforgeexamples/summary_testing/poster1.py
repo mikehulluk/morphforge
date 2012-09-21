@@ -118,9 +118,9 @@ na_chl = env.Channel(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_n
 k_chl = env.Channel(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, )
 lk_chl = env.Channel(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, )
 
-apply_mechanism_everywhere_uniform(cell, na_chl)
-apply_mechanism_everywhere_uniform(cell, lk_chl)
-apply_mechanism_everywhere_uniform(cell, k_chl)
+cell.apply_channel( na_chl)
+cell.apply_channel( lk_chl)
+cell.apply_channel( k_chl)
 
 # Define what to record:
 sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = soma)

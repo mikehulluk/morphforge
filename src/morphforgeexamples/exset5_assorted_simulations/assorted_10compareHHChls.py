@@ -151,9 +151,9 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     k_chl  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  )
 
 
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, k_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( k_chl)
 
 
     sim.record(na_chl, what='m', cell_location= cell.soma, user_tags=[StandardTags.StateVariable])
@@ -191,9 +191,9 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
                                             
                                            )
 
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, k_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( k_chl)
 
 
 
@@ -226,9 +226,9 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                                             
                                            )
 
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, k_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( k_chl)
 
 
     #for v in variables:
@@ -278,9 +278,9 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             
                            )
 
-    apply_mechanism_everywhere_uniform(cell, lk_chl)
-    apply_mechanism_everywhere_uniform(cell, na_chl)
-    apply_mechanism_everywhere_uniform(cell, k_chl)
+    cell.apply_channel( lk_chl)
+    cell.apply_channel( na_chl)
+    cell.apply_channel( k_chl)
 
 
 
@@ -288,7 +288,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
 def apply_hh_chls_NEURON_builtin(env, cell, sim):
 
     hhChls = env.Channel(BuiltinChannel,  sim_chl_name="hh", )
-    apply_mechanism_everywhere_uniform(cell, hhChls)
+    cell.apply_channel( hhChls)
 
 
 
