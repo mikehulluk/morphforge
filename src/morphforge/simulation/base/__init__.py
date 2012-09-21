@@ -45,8 +45,8 @@ from biophysics import ChannelTargeterEverywhere, \
     ChannelTargeterRegion, \
     ChannelTargeterSection, \
     ChannelTargeterSectionPath
-from biophysics import PassiveTargeter_Everywhere, \
-    PassiveTargeter_EverywhereDefault
+from biophysics import PassiveTargetterEverywhere, \
+    PassiveTargetterEverywhereDefault
 from biophysics import PassiveProperty
 
 from networks import Synapse, GapJunction
@@ -73,8 +73,8 @@ __all__ = [
     'ChannelTargeterRegion',
     'ChannelTargeterSection',
     'ChannelTargeterSectionPath',
-    'PassiveTargeter_Everywhere',
-    'PassiveTargeter_EverywhereDefault',
+    'PassiveTargetterEverywhere',
+    'PassiveTargetterEverywhereDefault',
     'PassiveProperty',
 
     'Synapse',

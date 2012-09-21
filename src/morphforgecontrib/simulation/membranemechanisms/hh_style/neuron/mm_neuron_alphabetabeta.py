@@ -160,7 +160,7 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
 
 
     def get_recordable(self, what, name, cell_location, **kwargs):
-        
+
         recorders = {
             StdChlAlphaBetaBeta.Recordables.CurrentDensity: NEURONChl_AlphaBetaBeta_CurrentDensityRecord,
         }
@@ -180,7 +180,7 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
             'statevars',
             'reversalpotential',
             ])
-        assert set(self.__dict__) == set(['mm_neuronNumber','_name','_simulation', 
+        assert set(self.__dict__) == set(['mm_neuronNumber','_name','_simulation',
                 'cachedNeuronSuffix']) | change_attrs
 
         attrs = [
@@ -195,6 +195,4 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
 
 
 # Register the channel
-NEURONEnvironment.channels.register_plugin(
-    StdChlAlphaBetaBeta,
-    NEURONChl_AlphaBetaBeta)
+NEURONEnvironment.channels.register_plugin( StdChlAlphaBetaBeta, NEURONChl_AlphaBetaBeta)

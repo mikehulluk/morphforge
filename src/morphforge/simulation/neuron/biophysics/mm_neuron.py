@@ -37,7 +37,6 @@ from morphforge.core import ObjectLabeller
 class NEURONChl_Base(object):
 
     def __init__(self, **kwargs):
-        print kwargs
         super(NEURONChl_Base, self).__init__(**kwargs)
         self.mm_neuronNumber = ObjectLabeller.get_next_count_for_type( NEURONChl_Base)
         self.cachedNeuronSuffix = None

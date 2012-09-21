@@ -42,9 +42,9 @@ from membranemechanismapplicators import ChannelApplicatorUniform
 
 # Targettors:
 from membranemechanismtargetters import Targeter
-from membranemechanismtargetters import PassiveTargeter_EverywhereDefault
-from membranemechanismtargetters import PassiveTargeter_Everywhere
-from membranemechanismtargetters import PassiveTargeter_Region
+from membranemechanismtargetters import PassiveTargetterEverywhereDefault
+from membranemechanismtargetters import PassiveTargetterEverywhere
+from membranemechanismtargetters import PassiveTargetterRegion
 
 from membranemechanismtargetters import ChannelTargeterEverywhere
 from membranemechanismtargetters import ChannelTargeterRegion
@@ -58,9 +58,9 @@ __all__ = [
     'ChannelApplicator',
     'ChannelApplicatorUniform',
     'Targeter',
-    'PassiveTargeter_EverywhereDefault',
-    'PassiveTargeter_Everywhere',
-    'PassiveTargeter_Region',
+    'PassiveTargetterEverywhereDefault',
+    'PassiveTargetterEverywhere',
+    'PassiveTargetterRegion',
     'ChannelTargeterEverywhere',
     'ChannelTargeterRegion',
     'ChannelTargeterSection',

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_EverywhereDefault
+from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhereDefault
 from morphforge.core.misc import SeqUtils
 import types
 #from morphforge.simulation.base.biophysics import PassiveProperty
@@ -38,8 +38,8 @@ import types
 from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicatorUniform
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
-#from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_Everywhere
+#from morphforge.simulation.base.biophysics import PassiveTargetterEverywhere
+from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhere
 
 
 
@@ -71,11 +71,11 @@ class CellBiophysics(object):
         # Add default passive configuration:
         self.add_passive(
                 passiveproperty=PassiveProperty.AxialResistance,
-                targetter=PassiveTargeter_EverywhereDefault(),
+                targetter=PassiveTargetterEverywhereDefault(),
                 value=PassiveProperty.defaults[PassiveProperty.AxialResistance])
         self.add_passive(
                 passiveproperty=PassiveProperty.SpecificCapacitance,
-                targetter=PassiveTargeter_EverywhereDefault(),
+                targetter=PassiveTargetterEverywhereDefault(),
                 value=PassiveProperty.defaults[PassiveProperty.SpecificCapacitance])
 
     # Active Mechanisms:
@@ -195,6 +195,6 @@ class CellBiophysics(object):
         if where != None:
             raise NotImplementedError()
         self.add_passive(passiveproperty=passiveproperty,
-                         targetter=PassiveTargeter_Everywhere(),
+                         targetter=PassiveTargetterEverywhere(),
                          value=value)
 

@@ -43,7 +43,7 @@ class Targeter(object):
         raise NotImplementedError()
 
 
-class PassiveTargeter_EverywhereDefault(Targeter):
+class PassiveTargetterEverywhereDefault(Targeter):
 
     def get_priority(self):
         return 0
@@ -55,7 +55,7 @@ class PassiveTargeter_EverywhereDefault(Targeter):
         return 'Default'
 
 
-class PassiveTargeter_Everywhere(Targeter):
+class PassiveTargetterEverywhere(Targeter):
 
     def get_priority(self):
         return 5
@@ -67,10 +67,10 @@ class PassiveTargeter_Everywhere(Targeter):
         return 'Everywhere'
 
 
-class PassiveTargeter_Region(Targeter):
+class PassiveTargetterRegion(Targeter):
 
     def __init__(self, region):
-        super(PassiveTargeter_Region, self).__init__()
+        super(PassiveTargetterRegion, self).__init__()
         self.region = region
 
     def get_priority(self):

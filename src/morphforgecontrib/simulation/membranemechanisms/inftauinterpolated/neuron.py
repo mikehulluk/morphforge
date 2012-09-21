@@ -175,4 +175,4 @@ class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base)
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(MM_InfTauInterpolatedChannel, NEURONChl_InfTauInterpolated)
+NEURONEnvironment.channels.register_plugin(MM_InfTauInterpolatedChannel, NEURONChl_InfTauInterpolated)
