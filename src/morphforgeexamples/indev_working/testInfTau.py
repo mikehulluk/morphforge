@@ -63,7 +63,6 @@ def getKSInfTau(env):
         conductance='2.:pS/um2',
         reversalpotential='-80:mV',
         statevars_new=ks_vars,
-        mechanism_id='KFInfTauMechID',
         )
     return ks_chl
 
@@ -136,7 +135,7 @@ def build_simulation(gbar_multiplier):
     eqnset = EquationSetLoader.load('std_leak_chl.txt',
                                     dir=LocMgr.getTestEqnSetsPath())
     lk_chl = env.Channel(EqnSetChl, eqnset=eqnset,
-            chlname='LeakChls', mechanism_id='std_lk_chl',
+            chlname='LeakChls', 
             parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV'
             )})
 

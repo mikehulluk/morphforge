@@ -127,7 +127,7 @@ class NEURONChl_Leak(StdChlLeak, NEURONChl_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance', 'reversalpotential','mechanism_id'])
+        change_attrs = set(['conductance', 'reversalpotential',])
         print change_attrs
         print '__dict__', self.__dict__
         print 

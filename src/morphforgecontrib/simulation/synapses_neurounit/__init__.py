@@ -175,7 +175,7 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSyna
                                    modtxt=self.nmodl_txt))
 
     def get_mod_file_changeables(self):
-        change_attrs = set(["nmodl_txt", 'mechanism_id',  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
+        change_attrs = set(["nmodl_txt",  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
         fixed_attrs = set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
         print set(self.__dict__)
         assert set(self.__dict__) == fixed_attrs | change_attrs

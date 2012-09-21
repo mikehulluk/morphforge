@@ -70,7 +70,6 @@ def get_sample_lk(env):
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
-                         mechanism_id = 'HULL12_DIN_LK_ID'
                        )
     return lk_chl
 
@@ -91,7 +90,7 @@ def get_sample_na(env):
                             conductance=unit("120:mS/cm2"),
                             reversalpotential=unit("50:mV"),
                             statevars=na_state_vars,
-                            mechanism_id="HH_NA_CURRENT"
+                            
                            )
     return na_chl
 
@@ -107,7 +106,7 @@ def get_sample_k(env):
                             conductance=unit("36:mS/cm2"),
                             reversalpotential=unit("-77:mV"),
                             statevars=k_state_vars,
-                            mechanism_id="HH_K_CURRENT"
+                            
                            )
     return k_chl
 

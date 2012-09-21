@@ -50,10 +50,10 @@ class StdChlAlphaBeta(Channel):
                StateVarSteadyState, StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, conductance, reversalpotential, mechanism_id, statevars={}, **kwargs):
-        super(StdChlAlphaBeta, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
+    def __init__(self, name, ion, equation, conductance, reversalpotential,  statevars={}, **kwargs):
+        super(StdChlAlphaBeta, self).__init__(name=name, **kwargs)
+        # TODO: FIXED DEFAULT PARAMETER 'statevars'
         
-        #self.name = name
         self.ion = ion
         self.eqn = equation
         self.conductance = unit(conductance)

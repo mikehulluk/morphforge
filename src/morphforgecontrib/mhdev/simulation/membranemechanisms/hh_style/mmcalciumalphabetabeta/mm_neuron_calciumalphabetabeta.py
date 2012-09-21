@@ -150,8 +150,6 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
 
     def __init__(self, **kwargs):
         super(NEURONChl_CalciumAlphaBetaBeta, self).__init__(**kwargs)
-        #StdChlCalciumAlphaBetaBeta.__init__(self, *args, **kwargs)
-        #NEURONChl_Base.__init__(self)
 
     def get_recordable(self, what, **kwargs):
 
@@ -177,7 +175,7 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
 
     def get_mod_file_changeables(self):
 
-        change_attrs = set(['CaZ', 'F', 'mechanism_id', 'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration'])
+        change_attrs = set(['CaZ', 'F',  'beta2threshold', 'extracellular_concentration', 'ion', 'R', 'statevars', 'T', 'eqn', 'permeability', 'intracellular_concentration'])
         assert set(self.__dict__) == set(['mm_neuronNumber', 'cachedNeuronSuffix','_name','_simulation',]) | change_attrs
 
         return dict([(a, getattr(self, a)) for a in change_attrs])

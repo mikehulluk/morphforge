@@ -264,7 +264,7 @@ def compareNeuroMLChl(xmlFile):
     try:
 
         # Make the NeuroUnits channel:
-        chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlFile,  mechanism_id="Blhkjl")
+        chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlFile,  )
         c.chl_neurounits = chl_neuro
 
 
@@ -275,7 +275,7 @@ def compareNeuroMLChl(xmlFile):
 
         # Make the NeuroML channel:
         xsl_file = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl"
-        chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlFile, xsl_filename=xsl_file,  mechanism_id="Blah")
+        chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlFile, xsl_filename=xsl_file,  )
         c.chl_xsl = chl_xsl
         c.chl_xsl_hoc = []
 

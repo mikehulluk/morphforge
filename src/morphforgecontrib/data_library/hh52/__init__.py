@@ -40,8 +40,8 @@ from morphforgecontrib.data_library.stdmodels import StandardModels
 def get_sample_lk(env):
     lk_chl = env.Channel(StdChlLeak, name='LkChl',
             conductance=unit('0.3:mS/cm2'),
-            reversalpotential=unit('-54.3:mV'),
-            mechanism_id='HULL12_DIN_LK_ID')
+            reversalpotential=unit('-54.3:mV') )
+
     return lk_chl
 
 
@@ -62,9 +62,9 @@ def get_sample_na(env):
         equation='m*m*m*h',
         conductance=unit('120:mS/cm2'),
         reversalpotential=unit('50:mV'),
-        statevars=na_state_vars,
-        mechanism_id='HH_NA_CURRENT',
+        statevars=na_state_vars, 
         )
+        
     return na_chl
 
 
@@ -80,7 +80,6 @@ def get_sample_k(env):
         conductance=unit('36:mS/cm2'),
         reversalpotential=unit('-77:mV'),
         statevars=kStateVars,
-        mechanism_id='HH_K_CURRENT',
         )
     return k_chl
 

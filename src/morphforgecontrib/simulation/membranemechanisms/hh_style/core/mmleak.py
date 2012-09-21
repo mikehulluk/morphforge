@@ -45,12 +45,9 @@ class StdChlLeak(Channel):
         CurrentDensity = StandardTags.CurrentDensity
         all = [ConductanceDensity, CurrentDensity]
 
-    def __init__(self, name, conductance, reversalpotential, mechanism_id=None, **kwargs):
-        #if not mechanism_id:
-        #    mechanism_id = 'StdLeakChl'
+    def __init__(self, name, conductance, reversalpotential, **kwargs):
         
-        super(StdChlLeak, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
-        #self.name = name
+        super(StdChlLeak, self).__init__(name=name, **kwargs)
         self.conductance = unit(conductance)
         self.reversalpotential = unit(reversalpotential)
 

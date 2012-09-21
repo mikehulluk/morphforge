@@ -115,28 +115,9 @@ class NEURONSimulation(Simulation):
 
 
 
-    def get_mechanisms_in_simulation(self):
-
-        mech_id_to_obj = {}
-        for cell in self.cells:
-            for chl in cell.get_biophysics().get_all_mechanisms_applied_to_cell():
-                m_id = chl.get_mechanism_id()
-                if not m_id in mech_id_to_obj:
-                    mech_id_to_obj[m_id] = []
-                mech_id_to_obj[m_id].append(chl)
-
-        for mech_id in mech_id_to_obj:
-            mechobjs = mech_id_to_obj[mech_id]
-            mechobj0 = mechobjs[0]
-            for m in mechobjs:
-                assert m is mechobj0, 'Different objects found for same id: %s' % (mech_id)
-        return [ values[0] for values in mech_id_to_obj.values() ]
 
 
     def run(self, do_spawn=True):
-
-        # Lets do some sanity checking on the mechanisms and id's:
-        self.get_mechanisms_in_simulation()
 
 
         if do_spawn:

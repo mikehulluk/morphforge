@@ -42,8 +42,8 @@ class StdChlAlphaBetaBeta(Channel):
         Current = 'Current'
         all = [Current]
 
-    def __init__(self, name, ion, equation, conductance, reversalpotential, statevars, beta2threshold, mechanism_id, **kwargs):
-        super(StdChlAlphaBetaBeta, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
+    def __init__(self, name, ion, equation, conductance, reversalpotential, statevars, beta2threshold, **kwargs):
+        super(StdChlAlphaBetaBeta, self).__init__(name=name,  **kwargs)
 
         #self.name = name
         self.ion = ion

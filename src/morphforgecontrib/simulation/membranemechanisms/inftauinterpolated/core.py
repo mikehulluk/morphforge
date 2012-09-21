@@ -72,8 +72,6 @@ class MM_InfTauInterpolatedChannel(Channel):
         super(MM_InfTauInterpolatedChannel, self).__init__(**kwargs)
 
 
-        #Channel.__init__(self, mechanism_id=mechanism_id)
-        #self.name = name
         self.ion = ion
         self.eqn = equation
         self.conductance = unit(conductance)

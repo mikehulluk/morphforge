@@ -47,11 +47,9 @@ class StdChlCalciumAlphaBetaBeta(Channel):
                StateVarTimeConstant]
 
 
-    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, mechanism_id, **kwargs):
-        super( StdChlCalciumAlphaBetaBeta, self).__init__(name=name, mechanism_id=mechanism_id, **kwargs)
-        #Channel.__init__(self, mechanism_id=mechanism_id, **kwargs)
+    def __init__(self, name, ion, equation, permeability, intracellular_concentration, extracellular_concentration, temperature, beta2threshold,  statevars, **kwargs):
+        super( StdChlCalciumAlphaBetaBeta, self).__init__(name=name, **kwargs)
 
-        #self.name = name
         self.ion = ion
 
         self.permeability = unit(permeability)

@@ -179,7 +179,6 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
             'conductance',
             'statevars',
             'reversalpotential',
-            'mechanism_id',
             ])
         assert set(self.__dict__) == set(['mm_neuronNumber','_name','_simulation', 
                 'cachedNeuronSuffix']) | change_attrs
@@ -190,7 +189,6 @@ class NEURONChl_AlphaBetaBeta(StdChlAlphaBetaBeta, NEURONChl_Base):
             'conductance',
             'statevars',
             'reversalpotential',
-            'mechanism_id',
             'beta2threshold',
             ]
         return dict([(a, getattr(self, a)) for a in attrs])

@@ -84,17 +84,16 @@ class CellBiophysics(object):
         # and so applies the same channel twice accidentally.
 
         # All the mechanisms targetting a certain region:
-        mechanisms_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
+        mtas_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
+        mechs_targetting_section = set([ mta.mechanism for mta in self.appliedmechanisms])
 
-        mechanism_ids = set([mta.mechanism.get_mechanism_id() for mta in mechanisms_targetting_section])
+        resolved_mechs = []
+        for mech in mechs_targetting_section:
+            mtas_with_mech = [mta for mta in mtas_targetting_section if mta.mechanism is mech]
+            highest_prority_mech = SeqUtils.max_with_unique_check(mtas_with_mech, key=lambda pta: pta.targetter.get_priority())
+            resolved_mechs.append(highest_prority_mech)
+        return resolved_mechs
 
-        res = []
-        for mech_id in mechanism_ids:
-            mechs_of_i_dn_section = [mta for mta in mechanisms_targetting_section if mta.mechanism.get_mechanism_id() == mech_id]
-
-            highest_prority_mech = SeqUtils.max_with_unique_check(mechs_of_i_dn_section, key=lambda pta: pta.targetter.get_priority())
-            res.append(highest_prority_mech)
-        return res
 
     # Used for summariser:
     def get_applied_mtas(self):
@@ -103,18 +102,17 @@ class CellBiophysics(object):
     def get_all_mechanisms_applied_to_cell(self):
         return set([mta.mechanism for mta in self.appliedmechanisms])
 
+    def get_channels(self):
+        # TODO: RENAME ONE OF THESE!
+        return self.get_all_mechanisms_applied_to_cell()
 
-    def get_mechanism_ids(self):
-		# TODO: REMOVE HERE!
-        return set([mta.mechanism.get_mechanism_id() for mta in
-                   self.appliedmechanisms])
+    def get_channel(self, name):
+        try:
+            return SeqUtils.filter_expect_single(self.get_all_mechanisms_applied_to_cell(), lambda chl: chl.name==name)
+        except:
+            print 'Options: ', [ chl.name for chl in self.get_all_mechanisms_applied_to_cell() ]
+            raise
 
-    def get_mta_by_mechanism_id_for_section(self, mech_id, section):
-        assert False, 'Deprecated? 2012-01-20'
-        return SeqUtils.expect_single([mta for mta in self.get_resolved_mtas_for_section(section=section) if mta.mechanism.get_mechanism_id() == mech_id])
-
-    def get_chl(self, chlname):
-        return SeqUtils.filter_expect_single(self.get_all_mechanisms_applied_to_cell(), lambda chl: chl.name==chlname)
 
 
 
@@ -148,9 +146,5 @@ class CellBiophysics(object):
 
 
 
-    # Used for summariser:
-    def get_applied_mechanisms(self):
-        assert False, 'should be using get_applied_mtas()'
-        return self.appliedmechanisms
 
 

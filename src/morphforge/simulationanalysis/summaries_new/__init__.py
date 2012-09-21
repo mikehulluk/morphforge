@@ -32,7 +32,7 @@
 #from morphforge.morphology.core  import MorphPath
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
-from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
+#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from random import randint, choice
 import pylab
 
@@ -246,7 +246,7 @@ class SimulationMRedoc(object):
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d" % (len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d" % len(cell.electrical_connections),
-                  " ".join(cell.biophysics.get_mechanism_ids()),
+                  " ".join(cell.biophysics.get_channels()),
                  ) for cell in cell_list])
 
         return table
@@ -372,7 +372,7 @@ class SimulationMRedoc(object):
         mechs = nrn.biophysics.get_applied_mtas()
         return mrd.VerticalColTable(
                 'Mechanism|Priority|Targetter|Applicator', 
-                [ ( '%s (%s)' % (mta.mechanism.name, mta.mechanism.get_mechanism_id()),
+                [ ( '%s ' % (mta.mechanism.name, ),
                     mta.targetter.get_priority(),
                     mta.targetter.get_description(),
                     mta.applicator.get_description(),

@@ -34,14 +34,14 @@ from morphforge.core import ObjectLabeller
 
 class Channel(NamedSimulationObject):
 
-    def __init__(self, mechanism_id, name=None, **kwargs):
+    def __init__(self, name=None, **kwargs):
         super(Channel, self).__init__(does_require_simulation=False, **kwargs)
-        self.mechanism_id = mechanism_id
 
 
-    def get_name(self):
+    @property
+    def name(self):
         return self._name
-    name = property(get_name)
+    #name = property(get_name)
 
 
     def get_membranemechanism_name(self):
@@ -56,8 +56,6 @@ class Channel(NamedSimulationObject):
     def get_default(self, key):
         return self.get_defaults()[key]
 
-    def get_mechanism_id(self):
-        return self.mechanism_id
 
 
 

@@ -57,12 +57,12 @@ def simulate_chls_on_neuron():
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
     m1 = MorphologyTree.fromDictionary(morphDict1)
     cell1 = sim.create_cell(name="Cell1", morphology=m1)
-    apply_mechanism_everywhere_uniform(cell1, env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDB"))
+    apply_mechanism_everywhere_uniform(cell1, env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
     apply_passive_everywhere_uniform(cell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
     cell2 = sim.create_cell(name="Cell2", morphology=m2)
-    apply_mechanism_everywhere_uniform(cell2, env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA"))
+    apply_mechanism_everywhere_uniform(cell2, env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
     apply_passive_everywhere_uniform(cell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     

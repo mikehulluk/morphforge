@@ -253,10 +253,10 @@ def load_std_channels(param_str):
         eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
         eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
 
-        na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, mechanism_id='mechid1',  default_parameters = nrn_params_na)
-        lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, mechanism_id='mechid2',  default_parameters = nrn_params_lk)
-        ksChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnsetk,  mechanism_id='mechid3',  default_parameters = nrn_params_ks)
-        kfChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl4", eqnset=eqnsetk,  mechanism_id='mechid4',  default_parameters = nrn_params_kf)
+        na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, default_parameters = nrn_params_na)
+        lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, default_parameters = nrn_params_lk)
+        ksChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnsetk,  default_parameters = nrn_params_ks)
+        kfChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl4", eqnset=eqnsetk,  default_parameters = nrn_params_kf)
 
         chls =  [na_chl, lk_chl, ksChls, kfChls]
         return chls
@@ -293,7 +293,7 @@ def load_ka_channel():
     nrn_params_ka = extract_params(nrn_params, prefix='ka_')
     print nrn_params_ka
     eqnsetka = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt.replace("sautois", "saut2"))
-    kaChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl5", eqnset=eqnsetka, mechanism_id='mechid5',  default_parameters = nrn_params_ka)
+    kaChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl5", eqnset=eqnsetka,  default_parameters = nrn_params_ka)
     return kaChls
 
 

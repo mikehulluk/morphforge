@@ -32,15 +32,11 @@
 
 class NeuroML_Via_NeuroUnits_Channel(object):
 
-    def __init__(self, xml_filename, chlname=None, mechanism_id=None, **kwargs):
+    def __init__(self, xml_filename, chlname=None,  **kwargs):
         self.xml_filename = xml_filename
-
         self.chlname = chlname
-        self.mechanism_id = mechanism_id
         super(NeuroML_Via_NeuroUnits_Channel, self).__init__(**kwargs)
 
-    def get_mechanism_id(self):
-        return self.mechanism_id
 
     def get_mod_file_changeables(self):
         return {}

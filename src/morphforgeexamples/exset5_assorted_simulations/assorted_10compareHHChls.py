@@ -146,9 +146,9 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
 
-    na_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":unit("120:mS/cm2")}, mechanism_id="JLK")
-    lk_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnset_txt_lk, mechanism_id="JasdasdasdLK")
-    k_chl  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  mechanism_id="JLasdasdK")
+    na_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":unit("120:mS/cm2")}, )
+    lk_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnset_txt_lk, )
+    k_chl  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  )
 
 
     apply_mechanism_everywhere_uniform(cell, na_chl)
@@ -177,19 +177,18 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
-                         mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
     na_chl = env.Channel(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            mechanism_id="Na"
+                                            
                                            )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            mechanism_id="K"
+                                            
                                            )
 
     apply_mechanism_everywhere_uniform(cell, na_chl)
@@ -212,20 +211,19 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
-                         mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
     na_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
                                             #xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            mechanism_id="Na"
+                                            
                                            )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
     #k_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
                                             xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
                                             xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            mechanism_id="K"
+                                            
                                            )
 
     apply_mechanism_everywhere_uniform(cell, na_chl)
@@ -246,7 +244,6 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                              name="LkChl",
                              conductance=unit("0.3:mS/cm2"),
                              reversalpotential=unit("-54.3:mV"),
-                             mechanism_id = 'HULL12_DIN_LK_ID'
                            )
 
     na_state_vars = { "m": {
@@ -264,7 +261,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             conductance=unit("120:mS/cm2"),
                             reversalpotential=unit("50:mV"),
                             statevars=na_state_vars,
-                            mechanism_id="HH_NA_CURRENT"
+                            
                            )
     k_state_vars = { "n": {
                           "alpha":[-0.55, -0.01, -1.0, 55.0, -10.0],
@@ -278,7 +275,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             conductance=unit("36:mS/cm2"),
                             reversalpotential=unit("-77:mV"),
                             statevars=k_state_vars,
-                            mechanism_id="HH_K_CURRENT"
+                            
                            )
 
     apply_mechanism_everywhere_uniform(cell, lk_chl)
@@ -290,7 +287,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
 
 def apply_hh_chls_NEURON_builtin(env, cell, sim):
 
-    hhChls = env.Channel(BuiltinChannel,  sim_chl_name="hh", mechanism_id="IDA")
+    hhChls = env.Channel(BuiltinChannel,  sim_chl_name="hh", )
     apply_mechanism_everywhere_uniform(cell, hhChls)
 
 

@@ -62,7 +62,6 @@ lk_chl = env.Channel(StdChlLeak,
                          name="LkChl",
                          conductance=unit("0.25:mS/cm2"),
                          reversalpotential=unit("-51:mV"),
-                         mechanism_id = 'HULL12_DIN_LK_ID'
                        )
 
 apply_mechanism_everywhere_uniform(cell, lk_chl)

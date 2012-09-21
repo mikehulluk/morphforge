@@ -114,9 +114,9 @@ apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit
 
 # Setup active channels:
 na_chl = env.Channel(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
-        default_parameters={"g":U("120:mS/cm2")}, mechanism_id="NaChl")
-k_chl = env.Channel(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, mechanism_id="kChl")
-lk_chl = env.Channel(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, mechanism_id="lkChl")
+        default_parameters={"g":U("120:mS/cm2")}, )
+k_chl = env.Channel(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, )
+lk_chl = env.Channel(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, )
 
 apply_mechanism_everywhere_uniform(cell, na_chl)
 apply_mechanism_everywhere_uniform(cell, lk_chl)

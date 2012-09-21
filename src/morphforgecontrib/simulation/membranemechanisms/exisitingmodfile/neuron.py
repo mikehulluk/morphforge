@@ -43,12 +43,9 @@ import re
 
 class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChannel):
 
-    def __init__(self, modfilename=None, modtxt=None, mechanism_id=None):
-        self.mechanism_id = mechanism_id
-        NEURONChl_Base.__init__(self)
-        SimulatorSpecificChannel.__init__(self)
+    def __init__(self, modfilename=None, modtxt=None, **kwargs ):
+        super(NEURONChl_SimulatorSpecificChannel,self).__init__(**kwargs)
 
-        assert mechanism_id
         if modfilename:
             assert not modtxt
             self.mod_text = open(modfilename).read()
@@ -57,7 +54,6 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
             self.mod_text = modtxt
 
 
-        #SUFFIX exampleChannels3a
 
 
         r = re.compile(r"""^[^:]* SUFFIX \s* (?P<suffix>[a-zA-Z0-9_]+) (\s+:.*)? $ """, re.VERBOSE | re.MULTILINE |re.DOTALL)
@@ -66,7 +62,6 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
         assert m
         nrnsuffix = m.groupdict()['suffix']
 
-        #self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):

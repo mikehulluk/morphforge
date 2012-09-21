@@ -55,9 +55,7 @@ def build_simulation(modfilename):
     cell = sim.create_cell(morphology=m1)
 
 
-    modChls = env.Channel(SimulatorSpecificChannel,
-                                     modfilename =  modfilename,
-                                     mechanism_id='ID1')
+    modChls = env.Channel(SimulatorSpecificChannel, modfilename=modfilename)
 
     # Apply the mechanisms to the cells
     apply_mechanism_everywhere_uniform(cell, modChls)

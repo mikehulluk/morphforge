@@ -66,7 +66,6 @@ def get_Na_Channels(env):
                             conductance=unit("210:nS") / unit("400:um2"),
                             reversalpotential=unit("50.0:mV"),
                             statevars=na_state_vars,
-                            mechanism_id = 'Na_ID'
                            )
 
 @cached_functor
@@ -80,7 +79,6 @@ def get_Ks_Channels(env):
                             conductance=unit("3:nS") / unit("400:um2"),
                             reversalpotential=unit("-80.0:mV"),
                             statevars=kf_state_vars,
-                            mechanism_id = 'IN_Ks_ID'
                            )
 
 @cached_functor
@@ -94,7 +92,6 @@ def get_Kf_Channels(env):
                             conductance=unit("0.5:nS") / unit("400:um2") ,
                             reversalpotential=unit("-80.0:mV"),
                             statevars=kf_state_vars,
-                            mechanism_id = 'N_Kf_ID'
                            )
 
 @cached_functor
@@ -104,7 +101,6 @@ def get_Lk_Channels(env):
                          name="LkChl",
                          conductance=unit("3.6765:nS") / unit("400:um2"),
                          reversalpotential=unit("-51:mV"),
-                         mechanism_id = 'Lk_ID'
                        )
     return lk_chl
 

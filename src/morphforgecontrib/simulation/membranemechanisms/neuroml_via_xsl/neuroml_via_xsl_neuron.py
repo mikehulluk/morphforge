@@ -47,13 +47,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
     def __init__(self, xml_filename, xsl_filename, **kwargs):
-        print 'NeuroML_Via_XSL_ChannelNEURON',  kwargs
         super( NeuroML_Via_XSL_ChannelNEURON, self).__init__(xml_filename=xml_filename, xsl_filename=xsl_filename, **kwargs)
-        #self.mechanism_id = mechanism_id
-        #NEURONChl_Base.__init__(self)
-        #NeuroML_Via_XSL_Channel.__init__(self,
-        #        xml_filename=xml_filename, xsl_filename=xsl_filename,
-        #        chlname=chlname, mechanism_id=mechanism_id)
 
         xslt_root = etree.parse(open(self.xsl_filename))
         xsl_transform = etree.XSLT(xslt_root)

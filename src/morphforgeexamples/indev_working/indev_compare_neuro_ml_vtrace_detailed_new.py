@@ -203,7 +203,7 @@ v_invest = "h"
 def testfile_voltage(xmlfile, voltage):
 
     #  via the neurounits bridge:
-    chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlfile,  mechanism_id="Blhkjl")
+    chl_neuro = NeuroML_Via_NeuroUnits_ChannelNEURON(xml_filename=xmlfile,  )
     def applicator_neuro(env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_neuro)
@@ -215,7 +215,7 @@ def testfile_voltage(xmlfile, voltage):
 
     # via xsl transformation:
     xsl_file = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl"
-    chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlfile, xsl_filename=xsl_file,  mechanism_id="Blah")
+    chl_xsl = NeuroML_Via_XSL_ChannelNEURON(xml_filename=xmlfile, xsl_filename=xsl_file,  )
     def applicator_xsl(env, cell, sim):
 
         apply_mechanism_everywhere_uniform(cell, chl_xsl)

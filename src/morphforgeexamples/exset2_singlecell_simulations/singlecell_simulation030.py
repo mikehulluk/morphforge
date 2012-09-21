@@ -71,7 +71,6 @@ lk_chl = env.Channel(
                          name="LkChl",
                          conductance=unit("0.3:mS/cm2"),
                          reversalpotential=unit("-54.3:mV"),
-                         mechanism_id = 'HULL12_DIN_LK_ID'
                        )
 
 na_state_vars = { "m": {
@@ -89,7 +88,6 @@ na_chl = env.Channel(
                         conductance=unit("120:mS/cm2"),
                         reversalpotential=unit("50:mV"),
                         statevars=na_state_vars,
-                        mechanism_id="HH_NA_CURRENT"
                        )
 k_state_vars = { "n": {
                       "alpha":[-0.55,-0.01,-1.0,55.0,-10.0],
@@ -103,7 +101,7 @@ k_chl = env.Channel(
                         conductance=unit("36:mS/cm2"),
                         reversalpotential=unit("-77:mV"),
                         statevars=k_state_vars,
-                        mechanism_id="HH_K_CURRENT"
+                        
                        )
 
 

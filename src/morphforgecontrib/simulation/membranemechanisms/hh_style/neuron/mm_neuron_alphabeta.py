@@ -178,7 +178,7 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
     def get_mod_file_changeables(self):
 
         # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set([ 'ion','eqn','conductance','statevars','reversalpotential','mechanism_id'])
+        change_attrs = set([ 'ion','eqn','conductance','statevars','reversalpotential',])
         assert set(self.__dict__) == set(['_name','_simulation', 'mm_neuronNumber','cachedNeuronSuffix']) | change_attrs
 
 

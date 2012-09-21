@@ -61,17 +61,11 @@ class ChannelConverter(object):
             assert isinstance(old_chl, (StdChlAlphaBeta,
                               StdChlAlphaBetaBeta))  # or issubclass(StdChlAlphaBetaBeta, old_chl)
 
-            # New ID:
-            if new_id is not None:
-                chl_id = new_id
-            else:
-                chl_id = old_chl.mechanism_id + clone_id_suffix
-
             # New Name
             if new_name is not None:
                 chl_name = new_name
             else:
-                chl_name = old_chl.mechanism_id + clone_name_suffix
+                chl_name = old_chl.name + clone_name_suffix
 
             # Interpolation voltages:
             # voltage_interpolation_values=voltage_interpolation_values
@@ -92,7 +86,6 @@ class ChannelConverter(object):
             chl = env.Channel(
                 MM_InfTauInterpolatedChannel,
                 name=chl_name,
-                mechanism_id=chl_id,
                 ion=old_chl.ion,
                 equation=old_chl.eqn,
                 conductance=old_chl.conductance,
@@ -138,7 +131,6 @@ class ChannelConverter(object):
 #                                      name=self.chlname,
 #                                      ion='None',
 #                                      equation=self.eqn,
-#                                      mechanism_id=self.mechanism_id,
 #                                      conductance = '%2.2f:mS/cm2' % gbar,
 #                                      reversalpotential = '%2.2f:mV' % vrev,
 #                                      statevars_new = ks_vars)
@@ -157,7 +149,6 @@ class ChannelConverter(object):
 #                            temperature = unit("300:K"),
 #                            beta2threshold = unit("-25:mV"),
 #                            statevars=ca_state_vars,
-#                            mechanism_id = 'HULL12_RB_CA_ID'
 #                           )
 #    return caChannels
 #
@@ -182,7 +173,6 @@ class ChannelConverter(object):
 #                                         state_pane1=state1,
 #                                         state_pane2=state2,
 #                                         eqn = chl.eqn,
-#                                         mechanism_id = chl.mechanism_id,
 #                                         state_var_name1 = state_name1,
 #                                         state_var_name2 = state_name2,
 #                                         chlname = chlname
