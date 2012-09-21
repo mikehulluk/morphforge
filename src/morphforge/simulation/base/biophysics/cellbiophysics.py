@@ -39,7 +39,7 @@ from morphforge.simulation.base.biophysics.membranemechanismapplicators import C
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
 #from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
-from morphforge.simulation.base.biophysics.passiveproperties import PassiveTargeter_Everywhere
+from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargeter_Everywhere
 
 
 

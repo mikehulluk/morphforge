@@ -110,7 +110,7 @@ cell = sim.create_cell(name="Cell1", morphology=my_morph)
 soma = cell.soma
 
 # Setup passive channels:
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Setup active channels:
 na_chl = env.Channel(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,

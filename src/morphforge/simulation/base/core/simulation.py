@@ -229,3 +229,8 @@ class Simulation(object):
             return SeqUtils.expect_single(self.cells)
 
 
+    def get_all_channels(self):
+        return list(set(itertools.chain(*[cell.biophysics.get_channels() for cell in self.cells])) )
+
+
+

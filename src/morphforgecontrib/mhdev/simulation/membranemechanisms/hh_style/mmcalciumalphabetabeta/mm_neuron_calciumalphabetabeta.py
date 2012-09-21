@@ -183,4 +183,4 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(StdChlCalciumAlphaBetaBeta, NEURONChl_CalciumAlphaBetaBeta)
+NEURONEnvironment.channels.register_plugin(StdChlCalciumAlphaBetaBeta, NEURONChl_CalciumAlphaBetaBeta)

@@ -132,7 +132,9 @@ class Cell(NamedSimulationObject):
                self.segmenter.get_num_segments(self.soma.section) == 1
 
 
-    # Simple forwarding method to biophysics, for aestetic purposes:
+    # Simple forwarding method to biophysics, (syntactic sugar)
     def apply_channel(self, *args, **kwargs) :
         self.biophysics.apply_channel(*args, **kwargs)
 
+    def set_passive(self, *args, **kwargs) :
+        self.biophysics.set_passive(*args, **kwargs)

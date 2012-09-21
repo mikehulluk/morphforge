@@ -147,7 +147,7 @@ def build_simulation(gbar_multiplier):
     cell.apply_channel( lk_chl)
     cell.apply_channel( ks)
 
-    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
     sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)

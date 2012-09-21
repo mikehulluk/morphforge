@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.biophysics import PassiveProperty
-#from morphforge.simulation.base.biophysics import ChannelApplicatorUniform
-#from morphforge.simulation.base.biophysics import ChannelTargeterEverywhere
-#from morphforge.simulation.base.biophysics import ChannelTargeterRegion
-from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
+#from morphforge.simulation.base.biophysics import PassiveProperty
+##from morphforge.simulation.base.biophysics import ChannelApplicatorUniform
+##from morphforge.simulation.base.biophysics import ChannelTargeterEverywhere
+##from morphforge.simulation.base.biophysics import ChannelTargeterRegion
+#from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
 
 
 
@@ -58,9 +58,9 @@ from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
     #        )
 
 
-def apply_passive_everywhere_uniform(cell, passiveproperty, value):
-    assert passiveproperty in PassiveProperty.all
-    cell.get_biophysics().add_passive(passiveproperty=passiveproperty,
-                                      targetter=PassiveTargeter_Everywhere(),
-                                      value=value)
-
+#def cell.set_passive( passiveproperty, value):
+#    assert passiveproperty in PassiveProperty.all
+#    cell.get_biophysics().add_passive(passiveproperty=passiveproperty,
+#                                      targetter=PassiveTargeter_Everywhere(),
+#                                      value=value)
+#

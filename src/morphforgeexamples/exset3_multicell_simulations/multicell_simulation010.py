@@ -58,12 +58,12 @@ def simulate_chls_on_neuron():
     m1 = MorphologyTree.fromDictionary(morphDict1)
     cell1 = sim.create_cell(name="Cell1", morphology=m1)
     cell1.apply_channel( env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
-    apply_passive_everywhere_uniform(cell1, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell1.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     m2 = MorphologyTree.fromDictionary(morphDict1)
     cell2 = sim.create_cell(name="Cell2", morphology=m2)
     cell2.apply_channel( env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
-    apply_passive_everywhere_uniform(cell2, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell2.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
     
 

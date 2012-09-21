@@ -65,7 +65,7 @@ lk_chl = env.Channel(StdChlLeak,
                        )
 
 cell.apply_channel( lk_chl)
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 

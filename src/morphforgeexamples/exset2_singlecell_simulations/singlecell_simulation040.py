@@ -129,7 +129,7 @@ def simulate(current_inj_level):
     cell.apply_channel( na_chl)
     cell.apply_channel( potFastChannels)
     cell.apply_channel( potSlowChannels)
-    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
 
 
 

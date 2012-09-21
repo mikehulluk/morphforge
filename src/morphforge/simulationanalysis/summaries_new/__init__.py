@@ -246,7 +246,7 @@ class SimulationMRedoc(object):
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d" % (len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d" % len(cell.electrical_connections),
-                  " ".join(cell.biophysics.get_channels()),
+                  " ".join([chl.name for chl in cell.biophysics.get_channels()]),
                  ) for cell in cell_list])
 
         return table
@@ -314,7 +314,7 @@ class SimulationMRedoc(object):
                            sumcls.build(chl))
 
     def build_details_channels(self):
-        mechs = sorted( self.sim.get_mechanisms_in_simulation(), key=lambda i: i.name)
+        mechs = sorted( self.sim.get_all_channels(), key=lambda i: i.name)
         return mrd.SectionNewPage('Channels',
                 *[ self._build_details_channel(chl) for chl in mechs]
                 )

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+channelsusr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -87,7 +87,7 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
         raise ValueError("Can't find Recordable: %s" % what)
 
 
-NEURONEnvironment.membranemechanisms.register_plugin(
+NEURONEnvironment.channels.register_plugin(
         SimulatorSpecificChannel,
         NEURONChl_SimulatorSpecificChannel)
 

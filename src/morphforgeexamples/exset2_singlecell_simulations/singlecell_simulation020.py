@@ -103,7 +103,7 @@ k_chl = env.Channel(
 cell.apply_channel( lk_chl)
 cell.apply_channel( na_chl)
 cell.apply_channel( k_chl)
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 # Create the stimulus and record the injected current:

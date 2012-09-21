@@ -321,7 +321,7 @@ def make_cell(sim, cell_name, cell_chl_functor):
     cell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
         mf.cell.apply_channel( chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
-    mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    mf.cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
     return cell
 
 
@@ -365,7 +365,7 @@ def test_cell_current(cell_name, cell_chl_functor, current):
     for chl in cell_chl_functor():
         mf.cell.apply_channel( chl)
 
-    mf.apply_passive_everywhere_uniform(cell, mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    mf.cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
 
     sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)

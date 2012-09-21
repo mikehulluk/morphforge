@@ -136,5 +136,5 @@ class NEURONChl_Leak(StdChlLeak, NEURONChl_Base):
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(StdChlLeak, NEURONChl_Leak)
+NEURONEnvironment.channels.register_plugin(StdChlLeak, NEURONChl_Leak)
 

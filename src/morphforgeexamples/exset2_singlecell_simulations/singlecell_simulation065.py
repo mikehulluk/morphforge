@@ -150,7 +150,7 @@ cell.apply_channel( na_chl)
 cell.apply_channel( k_chl )
 cell.apply_channel( lk_chl)
 
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Create the stimulus and record the injected current:
 cc = sim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.soma)

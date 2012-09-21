@@ -202,7 +202,7 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
 
 
 
-NEURONEnvironment.membranemechanisms.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
+NEURONEnvironment.channels.register_plugin(NeuroUnitEqnsetMechanism, Neuron_NeuroUnitEqnsetMechanism)
 
 
 

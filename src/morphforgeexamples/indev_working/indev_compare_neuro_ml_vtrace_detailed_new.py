@@ -76,7 +76,7 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
 
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 

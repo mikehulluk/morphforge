@@ -30,22 +30,11 @@
 # ----------------------------------------------------------------------
 
 from ..base_classes import NamedSimulationObject
-from morphforge.core import ObjectLabeller
 
 class Channel(NamedSimulationObject):
 
-    def __init__(self, name=None, **kwargs):
+    def __init__(self, **kwargs):
         super(Channel, self).__init__(does_require_simulation=False, **kwargs)
-
-
-    @property
-    def name(self):
-        return self._name
-    #name = property(get_name)
-
-
-    def get_membranemechanism_name(self):
-        raise NotImplementedError()
 
     def get_variables(self):
         raise NotImplementedError()

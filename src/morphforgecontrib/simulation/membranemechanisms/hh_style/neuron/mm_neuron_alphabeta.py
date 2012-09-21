@@ -186,6 +186,6 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
 
 
 # Register the channel
-NEURONEnvironment.membranemechanisms.register_plugin(
+NEURONEnvironment.channels.register_plugin(
         StdChlAlphaBeta,
         NEURONChl_AlphaBeta)

@@ -46,7 +46,7 @@ import lxml.etree as etree
 import pylab
 
 from morphforge.stdimports import NEURONEnvironment, MorphologyTree, unit
-from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform
+from morphforge.stdimports import PassiveProperty 
 from morphforge.stdimports import  pq
 from morphforge.stdimports import  StandardTags
 
@@ -80,7 +80,7 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Setup passive channels:
-    apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 

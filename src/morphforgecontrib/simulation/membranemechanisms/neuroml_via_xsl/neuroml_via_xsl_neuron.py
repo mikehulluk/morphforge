@@ -117,6 +117,6 @@ class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
 
 
-NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
+NEURONEnvironment.channels.register_plugin(NeuroML_Via_XSL_Channel, NeuroML_Via_XSL_ChannelNEURON)
 
 

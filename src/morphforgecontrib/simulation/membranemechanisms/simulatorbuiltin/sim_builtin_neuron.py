@@ -73,5 +73,5 @@ class BuiltinChannelNEURON(NEURONChl_Base, BuiltinChannel):
         raise ValueError("Can't find Recordable: %s" % what)
 
 
-NEURONEnvironment.membranemechanisms.register_plugin(BuiltinChannel, BuiltinChannelNEURON)
+NEURONEnvironment.channels.register_plugin(BuiltinChannel, BuiltinChannelNEURON)
 

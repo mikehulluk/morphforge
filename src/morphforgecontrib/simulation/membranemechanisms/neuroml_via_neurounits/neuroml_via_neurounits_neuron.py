@@ -48,6 +48,6 @@ class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, Neur
 
 
 
-NEURONEnvironment.membranemechanisms.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
+NEURONEnvironment.channels.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
 
 

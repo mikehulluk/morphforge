@@ -53,19 +53,16 @@ class NEURONEnvironment(SimulationEnvironment):
     def SimulationSettings(self, **kwargs):
         return NEURONSimulationSettings(**kwargs)
 
-    membranemechanisms = PluginDict()
+    channels = PluginDict()
     presynapticmechanisms = PluginDict()
     postsynapticmechanisms = PluginDict()
     currentclamps = PluginDict()
     voltageclamps = PluginDict()
 
-    @classmethod
-    def MembraneMechanism(cls, mechanismtype, **kwargs):
-        chl = cls.membranemechanisms.get_plugin(mechanismtype)
-        return chl(**kwargs)
+
     @classmethod
     def Channel(cls, mechanismtype, **kwargs):
-        chl = cls.membranemechanisms.get_plugin(mechanismtype)
+        chl = cls.channels.get_plugin(mechanismtype)
         return chl(**kwargs)
 
     @classmethod

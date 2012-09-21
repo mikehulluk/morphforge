@@ -105,7 +105,7 @@ lk_chl = env.Channel(EqnSetChl,
         dir=LocMgr.getTestEqnSetsPath()),
         parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
 cell.apply_channel( lk_chl)
-apply_passive_everywhere_uniform(cell, PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 
 
