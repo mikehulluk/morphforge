@@ -39,6 +39,7 @@ from morphforge.simulation.base.biophysics.membranemechanismapplicators import C
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
 #from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
+from morphforge.simulation.base.biophysics.passiveproperties import PassiveTargeter_Everywhere
 
 
 
@@ -132,10 +133,11 @@ class CellBiophysics(object):
 
         # Resolve 'where' if its a string:
         if isinstance(where, basestring):
-            assert not (where in self._cell.get_region_names() and where in self._cell.get_idtags)
-            if where in self._cell.get_region_names():
-                where = self._cell.get_region(name=where)
-            elif where in self._cell.get_idtag():
+            morphology = self._cell.morphology
+            assert not (where in morphology.get_region_names() and where in morphology.get_idtags()), 'where ambigious: %s'%where
+            if where in morphology.get_region_names():
+                where = morphology.get_region(name=where)
+            elif where in morphology.get_idtags():
                 raise NotImplementedError()
             else:
                 assert False, 'I dont knwo what to do with: %s' % where
@@ -188,4 +190,11 @@ class CellBiophysics(object):
 
 
 
+    def set_passive(self, passiveproperty, value, where=None,):
+        assert passiveproperty in PassiveProperty.all
+        if where != None:
+            raise NotImplementedError()
+        self.add_passive(passiveproperty=passiveproperty,
+                         targetter=PassiveTargeter_Everywhere(),
+                         value=value)
 

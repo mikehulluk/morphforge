@@ -40,16 +40,17 @@ from morphforge.simulation.base.biophysics import PassiveTargeter_Everywhere
 
 
 
-def apply_mechanism_everywhere_uniform(cell, mechanism, parameter_multipliers=None, parameter_overrides=None):
-    return cell.apply_channel(channel=mechanism, parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+#def apply_mechanism_everywhere_uniform(cell, mechanism, parameter_multipliers=None, parameter_overrides=None):
+#
+#    return cell.apply_channel(channel=mechanism, parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
     #return cell.get_biophysics().add_mechanism(
     #        mechanism=mechanism,
     #        targetter=ChannelTargeterEverywhere(),
     #        applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
     #        )
 
-def apply_mechanism_region_uniform(cell, mechanism, region, parameter_multipliers=None, parameter_overrides=None):
-    return cell.apply_channel(channel=mechanism, where=region, parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
+#def apply_mechanism_region_uniform(cell, mechanism, region, parameter_multipliers=None, parameter_overrides=None):
+#    return cell.apply_channel(channel=mechanism, where=region, parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
     #return cell.get_biophysics().add_mechanism(
     #        mechanism=mechanism,
     #        targetter=ChannelTargeterRegion(region),

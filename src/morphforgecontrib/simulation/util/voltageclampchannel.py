@@ -30,7 +30,6 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities import unit
-from morphforge.stdimports import apply_mechanism_everywhere_uniform
 
 
 
@@ -44,7 +43,7 @@ def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
     sim = env.Simulation(name='SimXX')
     cell = sim.create_cell(name='Cell1', morphology=morphology)
 
-    apply_mechanism_everywhere_uniform(cell=cell,
+    cell.apply_channel(
             mechanism=mech_builder(env=sim.environment))
 
 

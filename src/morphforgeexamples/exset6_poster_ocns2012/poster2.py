@@ -60,13 +60,10 @@ def build_cell(name, sim):
     k_chls  = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K",  env=sim.environment)
     lk_chls = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=sim.environment)
 
-    apply_mechanism_everywhere_uniform(my_cell, lk_chls)
-    apply_mechanism_everywhere_uniform(my_cell, k_chls)
-    apply_mechanism_everywhere_uniform(my_cell, na_chls)
-    apply_mechanism_region_uniform(my_cell,
-                                    na_chls,
-                                    region = my_cell.get_region("axon"),
-                                    parameter_multipliers={'gScale':1.0})
+    my_cell.apply_channel(lk_chls)
+    my_cell.apply_channel(k_chls)
+    my_cell.apply_channel(na_chls)
+    my_cell.apply_channel(na_chls, where="axon", parameter_multipliers={'gScale':1.0})
     return my_cell
 
 

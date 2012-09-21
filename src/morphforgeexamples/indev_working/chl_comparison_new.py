@@ -47,7 +47,7 @@ import pylab
 
 from morphforge.stdimports import NEURONEnvironment, MorphologyTree, unit
 from morphforge.stdimports import PassiveProperty, apply_passive_everywhere_uniform
-from morphforge.stdimports import  apply_mechanism_everywhere_uniform, pq
+from morphforge.stdimports import  pq
 from morphforge.stdimports import  StandardTags
 
 import random as R
