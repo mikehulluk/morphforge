@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities import unit
+#from morphforge.core.quantities import unit
 import morphforge.core.quantities as q
 
 

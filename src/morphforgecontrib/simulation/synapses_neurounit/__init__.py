@@ -49,6 +49,57 @@ from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
 
+
+
+
+
+# WORK ON BUILDING TEMPLATES:
+class NEURONPostSynapticTemplateInstantiation(PostSynapticMech):
+    def __init__(self, src_tmpl,_default_parameters, parameter_multipliers=None, parameter_overides=None,  **kwargs):
+        super(NEURONPostSynapticTemplateInstantiation, self).__init__(**kwargs)
+        self.src_tmpl = src_tmpl
+
+        self._default_parameters = _default_parameters.copy()
+        self.parameter_multipliers=parameter_multipliers or {}
+        self.parameter_overides=parameter_overides or {}
+
+    def get_resolved_parameters(self):
+        # Resolve the parameters:
+        params = self._default_parameters.copy()
+        assert not ( set(self.parameter_multipliers.keys()) & set(self.parameter_overides.keys()))
+
+        for k,v in self.parameter_multipliers.iteritems():
+            params[k] = params[k] * v
+
+        for k,v in self.parameter_overides.iteritems():
+            params[k] = v
+
+        #print 'params', params
+        #print 'expected_variables', self.src_tmpl.get_variables()
+        assert set( params.keys() ) == set( self.src_tmpl.get_variables() )
+
+        return params
+
+
+    def build_hoc(self, hocfile_obj):
+        raise NotImplementedError()
+
+    def build_mod(self, modfile_set):
+        return self.src_tmpl.template_build_mod(modfile_set=modfile_set)
+
+class NEURONPostSynapticTemplate(object):
+
+    def instantiate(self, **kwargs):
+        raise NotImplementedError()
+
+    def get_variables(self):
+        raise NotImplementedError()
+
+
+
+
+
+
 class RecordableData(object):
 
     def __init__(self, standard_tags=None):
@@ -83,16 +134,17 @@ class NEURONChl_RecGen(NEURONRecordable):
         return self.std_tags
 
 
-class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
-    def __init__(self, cell_location, eqnset, default_parameters={}, recordables_map= None, recordables_data=None, name=None):
-        PostSynapticMech.__init__(self, cell_location=cell_location)
+
+
+class NeuroUnitEqnsetPostSynaptic(object):
+    def __init__(self, eqnset, default_parameters=None, recordables_map= None, recordables_data=None, **kwargs):
+        super(NeuroUnitEqnsetPostSynaptic, self).__init__(**kwargs)
 
         if isinstance(eqnset, basestring):
             eqnset = NeuroUnitParser.EqnSet(eqnset)
 
-        self.name = name if name else ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic)
-        self._parameters = default_parameters
         self.eqnset = eqnset
+        self._default_parameters = default_parameters or {}
         self.recordables_map = recordables_map or {}
         self.recordables_data = recordables_data or {}
 
@@ -100,10 +152,13 @@ class NeuroUnitEqnsetPostSynaptic(PostSynapticMech):
             print param
             print param.symbol
             print 'iii', param.get_dimension().as_quantities_unit(), type(param.get_dimension().as_quantities_unit())
-            print "iiii", default_parameters[param.symbol], type(default_parameters[param.symbol])
-            assert param.symbol in default_parameters
-            assert (param.get_dimension().as_quantities_unit() / default_parameters[param.symbol]).rescale("")
+            print "iiii", self._default_parameters[param.symbol], type(self._default_parameters[param.symbol])
+            assert param.symbol in self._default_parameters
+            assert (param.get_dimension().as_quantities_unit() / self._default_parameters[param.symbol]).rescale("")
 
+
+    def get_variables(self):
+        return [p.symbol for p in self.eqnset.parameters]
 
 
 exp2HOCTmpl = """
@@ -116,27 +171,45 @@ ${cellname}.internalsections[$sectionindex] $synnamepost = new $synapsetypename 
 
 """
 
-class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSynaptic):
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class NEURONPostSynapticTemplateInstantiation_NeuroUnitEquationSetPostSynaptic(NEURONPostSynapticTemplateInstantiation):
     def __init__(self, **kwargs):
-        super(NEURONChl_Base, self).__init__(**kwargs)
-        #NEURONChl_Base.__init__(self)
-        #NeuroUnitEqnsetPostSynaptic.__init__(self, **kwargs)
-
-        #self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset)
-        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetPostSynaptic, prefix=""))
-
-        assert self.buildparameters.mechanismtype == MechanismType.Point
-        self.units = {}
-        for (param_str, value) in self._parameters.iteritems():
-            sym = self.eqnset.get_terminal_obj(param_str)
-            param_default_unit = self.buildparameters.symbol_units[sym]
-            self.units[param_str] = param_default_unit.as_quantities_unit()
-
-        self.NRNSUFFIX = self.buildparameters.suffix
+        super(NEURONPostSynapticTemplateInstantiation_NeuroUnitEquationSetPostSynaptic, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
+        # Resolve the parameters for this instance:
+        params = self.get_resolved_parameters()
+
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
         syn_name_post = self.synapse.get_name() + 'Post'
@@ -147,11 +220,9 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSyna
             'cellname': cell_hoc['cell_name'],
             'sectionindex': cell_hoc['section_indexer'][section],
             'sectionpos': self.cell_location.morphlocation.sectionpos,
-            'synapsetypename': self.NRNSUFFIX,
+            'synapsetypename': self.src_tmpl.NRNSUFFIX,
 
-             'parameters': [(k, float(v/self.units[k])) for (k, v) in self._parameters.iteritems()]
-
-
+            'parameters': [(k, float(v/self.src_tmpl.units[k])) for (k, v) in params.iteritems()]
                }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
@@ -159,60 +230,38 @@ class Neuron_NeuroUnitEqnsetPostSynaptic(NEURONChl_Base, NeuroUnitEqnsetPostSyna
         hocfile_obj[MHocFileData.Synapses][self.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][self.synapse]['POST'] = data
 
-    def build_mod(self, modfile_set):
-        modfile = ModFile(modtxt=self.nmodl_txt,
-                          name='UnusedParameterXXXExpSyn2')
-        modfile_set.append(modfile)
+
+class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnsetPostSynaptic, NEURONPostSynapticTemplate):
+    def __init__(self, template_name=None, **kwargs):
+        super(NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic, self).__init__( **kwargs)
+
+        self.template_name =template_name
+        self.is_mod_built = False
+
+        self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSETSYN"+ObjectLabeller.get_next_unamed_object_name(type(self), prefix=""))
+
+        assert self.buildparameters.mechanismtype == MechanismType.Point
+        self.units = {}
+        for (param_str, value) in self._default_parameters.iteritems():
+            sym = self.eqnset.get_terminal_obj(param_str)
+            param_default_unit = self.buildparameters.symbol_units[sym]
+            self.units[param_str] = param_default_unit.as_quantities_unit()
+
+        self.NRNSUFFIX = self.buildparameters.suffix
+
+    def instantiate(self, parameter_multipliers=None, parameter_overides=None, **kwargs):
+        return NEURONPostSynapticTemplateInstantiation_NeuroUnitEquationSetPostSynaptic(
+                src_tmpl=self, 
+                _default_parameters=self._default_parameters,
+                 parameter_multipliers=parameter_multipliers,
+                 parameter_overides=parameter_overides,
+                 **kwargs
+                )
+
+    def template_build_mod(self, modfile_set):
+        if not self.is_mod_built:
+            modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2'))
+            self.is_mod_built = True
 
 
 
-
-    def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix)
-
-    def create_modfile(self, modfile_set):
-        modfile_set.append(ModFile(name=self.name,
-                                   modtxt=self.nmodl_txt))
-
-    def get_mod_file_changeables(self):
-        change_attrs = set(["nmodl_txt",  'recordables_map', 'buildparameters', 'units', 'recordables_data'])
-        fixed_attrs = set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
-        print set(self.__dict__)
-        assert set(self.__dict__) == fixed_attrs | change_attrs
-        return dict ([(a, getattr(self, a)) for a in change_attrs])
-
-
-
-
-    def get_recordables(self):
-        return self._get_recordable_symbols()
-        assert False
-
-    def _get_recordable_symbols(self):
-        return [s.symbol for s in list(self.eqnset.states)
-                + list(self.eqnset.assignedvalues)
-                + list(self.eqnset.suppliedvalues)
-                + list(self.eqnset.parameters)]
-
-    def get_recordable(self, what, **kwargs):
-
-        # Map it through the recordables_map, so that we can alias to StandardTags:
-        what = self.recordables_map.get(what, what)
-
-        valid_symbols = self._get_recordable_symbols()
-        if not what in valid_symbols:
-            err ="Unknown record value: %s. Expecting one of: %s "%(what, valid_symbols)
-            raise ValueError(err)
-
-        obj = self.eqnset.get_terminal_obj(what)
-        unit_in_nrn = self.buildparameters.symbol_units[obj].as_quantities_unit()
-
-        std_tags = []
-        if what in self.recordables_data:
-            std_tags = self.recordables_data[what].standard_tags
-
-        return NEURONChl_RecGen(src_chl=self, objvar=what, unit_in_nrn=unit_in_nrn, std_tags=std_tags, **kwargs)
-
-
-
-NEURONEnvironment.postsynapticmechanisms.register_plugin(NeuroUnitEqnsetPostSynaptic, Neuron_NeuroUnitEqnsetPostSynaptic)

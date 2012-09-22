@@ -65,6 +65,8 @@ class EventSet(object):
 
 
     def __init__(self, events=None, name=None, comment=None, tags=None,):
+        print events, type(events)
+
 
         if events is None:
             events = []

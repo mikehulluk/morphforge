@@ -30,49 +30,49 @@
 # ----------------------------------------------------------------------
 
 
-class CellSegment(object):
-    def __init__(self, cell, section, nsegments, segmentno, segmenter):
-        self.cell = cell
-        self.section = section
-        self.nsegments = nsegments
-        self.segmentno = segmentno
-
-        self.segmenter = segmenter
-
-    def get_section_pos(self, p_segment):
-        ''' Converts a position from [0-1] within a segment into a
-        position [0-1] within a section '''
-
-        segment_size = 1.0 / self.nsegments
-        segment_pos_prox = segment_size * self.segmentno
-        sectionpos = segment_pos_prox + p_segment * segment_size
-
-        assert 0 <= sectionpos <= 1.0
-        return sectionpos
-
-    def get_cell_location(self, p_segment=0.5):
-        from morphforge.simulation.base.core.celllocation import CellLocation
-        sectionpos = self.get_section_pos(p_segment)
-        return CellLocation(cell=self.cell,
-                            section=self.section,
-                            sectionpos=sectionpos)
-
-    def get_proximal_np4a(self):
-        return self.section.get_npa4(self.get_section_pos(0.0))
-
-    def get_distal_np4a(self):
-        return self.section.get_npa4(self.get_section_pos(1.0))
-
-    def get_distance_from_proximal_section_end(self, p_segment=0.5):
-        return self.get_section_pos(p_segment) * self.section.get_length()
-
-    def get_parent_segment(self):
-        if self.segmentno == 0:
-            if self.section.is_a_root_section():
-                assert False, 'Need to check here!'
-                return None
-            else:
-                return self.segmenter.get_segments(self.section.parent)[-1]
-        else:
-            return self.segmenter.get_segments(self.section)[self.segmentno - 1]
+#class CellSegment(object):
+#    def __init__(self, cell, section, nsegments, segmentno, segmenter):
+#        self.cell = cell
+#        self.section = section
+#        self.nsegments = nsegments
+#        self.segmentno = segmentno
+#
+#        self.segmenter = segmenter
+#
+#    def get_section_pos(self, p_segment):
+#        ''' Converts a position from [0-1] within a segment into a
+#        position [0-1] within a section '''
+#
+#        segment_size = 1.0 / self.nsegments
+#        segment_pos_prox = segment_size * self.segmentno
+#        sectionpos = segment_pos_prox + p_segment * segment_size
+#
+#        assert 0 <= sectionpos <= 1.0
+#        return sectionpos
+#
+#    def get_cell_location(self, p_segment=0.5):
+#        from morphforge.simulation.base.core.celllocation import CellLocation
+#        sectionpos = self.get_section_pos(p_segment)
+#        return CellLocation(cell=self.cell,
+#                            section=self.section,
+#                            sectionpos=sectionpos)
+#
+#    def get_proximal_np4a(self):
+#        return self.section.get_npa4(self.get_section_pos(0.0))
+#
+#    def get_distal_np4a(self):
+#        return self.section.get_npa4(self.get_section_pos(1.0))
+#
+#    def get_distance_from_proximal_section_end(self, p_segment=0.5):
+#        return self.get_section_pos(p_segment) * self.section.get_length()
+#
+#    def get_parent_segment(self):
+#        if self.segmentno == 0:
+#            if self.section.is_a_root_section():
+#                assert False, 'Need to check here!'
+#                return None
+#            else:
+#                return self.segmenter.get_segments(self.section.parent)[-1]
+#        else:
+#            return self.segmenter.get_segments(self.section)[self.segmentno - 1]
 

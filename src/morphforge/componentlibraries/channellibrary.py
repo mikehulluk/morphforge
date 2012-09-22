@@ -29,6 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import mredoc
 
 class cached_functor(object):
 
@@ -53,7 +54,7 @@ class cached_functor(object):
 
 class ChannelLibrary(object):
 
-    channels = dict()
+    _channels = dict()
 
     @classmethod
     def register_channel(
@@ -65,25 +66,25 @@ class ChannelLibrary(object):
         ):
         assert modelsrc or celltype
         key = (modelsrc, celltype, channeltype)
-        assert not key in cls.channels
-        cls.channels[key] = chl_functor
+        assert not key in cls._channels
+        cls._channels[key] = chl_functor
 
     @classmethod
     def get_channel_functor(cls, channeltype, modelsrc=None, celltype=None):
-        return cls.channels[(modelsrc, celltype, channeltype)]
+        return cls._channels[(modelsrc, celltype, channeltype)]
 
     @classmethod
     def get_channel( cls, channeltype, env, modelsrc=None, celltype=None,):
-        functor = cls.channels[(modelsrc, celltype, channeltype)]
+        functor = cls._channels[(modelsrc, celltype, channeltype)]
         return functor(env=env)
 
-    @classmethod
-    def list_channels(cls):
-        for (chl_type, _chl) in cls.channels.iteritems():
-            print chl_type
 
     @classmethod
-    def iteritems(cls):
-        return cls.channels.iteritems()
+    def summary_table(cls, ):
+        summary_data = []
+        for ((modelsrc,celltype, channel_type), functor) in sorted(cls._channels.iteritems()):
+            summary_data.append( ( modelsrc, celltype, channel_type ))# , functor.__file__)
+        summary_table = mredoc.VerticalColTable( ('Model','CellType','Channel-Type'), summary_data)
+        return mredoc.Section('Channel Library Summary', summary_table )
 
 

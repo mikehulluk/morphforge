@@ -29,16 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import types
+from morphforge.core import SeqUtils
+
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhereDefault
-from morphforge.core.misc import SeqUtils
-import types
-#from morphforge.simulation.base.biophysics import PassiveProperty
-#from morphforge.simulation.base.biophysics import ChannelApplicatorUniform
 from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicatorUniform
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
-#from morphforge.simulation.base.biophysics import PassiveTargetterEverywhere
 from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhere
 
 

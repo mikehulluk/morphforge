@@ -29,6 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import mredoc
 
 class MorphologyLibrary(object):
 
@@ -50,12 +51,10 @@ class MorphologyLibrary(object):
         return functor(**kwargs)
 
     @classmethod
-    def list_morphologys(cls):
-        for (morph_key, _morph_functor) in cls._morphology_functors.iteritems():
-            print morph_key
-
-    @classmethod
-    def iteritems(cls):
-        return cls._morphology_functors.iteritems()
-
+    def summary_table(cls, ):
+        summary_data = []
+        for ((modelsrc,celltype), functor) in sorted(cls._morphology_functors.iteritems()):
+            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
+        summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
+        return mredoc.Section('Cell Library Summary', summary_table )
 

@@ -29,13 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from hocbuilder import HocBuilder
-from hocbuilder_cell import HocBuilder_Cell
 
-from hocmodutils import HocModUtils
-
-from modfilesectioned import ModFileSectioned, NeuronParameter
-from modfilewriterbase import MM_ModFileWriterBase
+from morphforge.simulation.neuron.hocmodbuilders.hocbuilder import HocBuilder
+from morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell import HocBuilder_Cell
+from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
+from morphforge.simulation.neuron.hocmodbuilders.modfilesectioned import ModFileSectioned, NeuronParameter
+from morphforge.simulation.neuron.hocmodbuilders.modfilewriterbase import MM_ModFileWriterBase
 
 __all__ = [
     'HocBuilder',

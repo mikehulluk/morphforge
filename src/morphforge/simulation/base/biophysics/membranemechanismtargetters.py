@@ -106,20 +106,10 @@ class ChannelTargeterRegion(Targeter):
         return 20
 
     def does_target_section(self, section):
-        #if isinstance(self.region, Region):
         return section.region == self.region
-        #elif isinstance(self.region, basestring):
-        #    return section.region.name == self.region
-        #else:
-        #    assert False
 
     def get_description(self):
-        #if isinstance(self.region, Region):
         region_name = self.region.name
-        #elif isinstance(self.region, basestring):
-        #    region_name = self.region
-        #else:
-        #    assert False
         return 'Region: %s' % region_name
 
 

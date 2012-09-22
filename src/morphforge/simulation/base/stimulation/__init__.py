@@ -30,9 +30,11 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core.quantities.fromcore import unit
-from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.constants import StandardTags
 from morphforge.morphology.core  import MorphPath
+
+
+from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 
 class Stimulation(NamedSimulationObject):

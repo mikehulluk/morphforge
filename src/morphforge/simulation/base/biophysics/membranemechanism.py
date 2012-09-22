@@ -29,7 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from ..base_classes import NamedSimulationObject
+#from ..base_classes import NamedSimulationObject
+from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 class Channel(NamedSimulationObject):
 

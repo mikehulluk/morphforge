@@ -33,7 +33,7 @@ import itertools
 
 from morphforge.morphology.util.morphlocator import MorphLocator
 from morphforge.simulation.base.core.celllocation import CellLocation
-from morphforge.core.misc import SeqUtils
+from morphforge.core import SeqUtils
 
 
 class CellLocator(object):

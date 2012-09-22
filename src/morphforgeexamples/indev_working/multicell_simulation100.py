@@ -31,12 +31,13 @@
 
 
 
-import sys
-sys.exit(0)
 
 import morphforge.stdimports as mf
 import morphforgecontrib.stdimports as mfc
 import pylab
+
+from morphforgecontrib.simulation.synapses_neurounit import * 
+import quantities as pq
 
 
 # Define the formulae used in the model:
@@ -239,30 +240,25 @@ params_dINr = """
 
 
 def load_std_channels(param_str):
-    #cache = {}
-    #if not param_str in cache:
+    nrn_params = dict([(p, mf.unit("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(param_names.split(), param_units.split(';'), param_str.split())])
+    nrn_params_na = extract_params(nrn_params, prefix='na_')
+    nrn_params_lk = extract_params(nrn_params, prefix='lk_')
+    nrn_params_ks = extract_params(nrn_params, prefix='ks_', replace_prefix='k_')
+    nrn_params_kf = extract_params(nrn_params, prefix='kf_', replace_prefix='k_')
+    nrn_params_ks = remap_keys(nrn_params_ks, {'k_gmax':'gmax', 'k_erev':'erev'})
+    nrn_params_kf = remap_keys(nrn_params_kf, {'k_gmax':'gmax', 'k_erev':'erev'})
+    eqnsetna = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt)
+    eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
+    eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
 
-        nrn_params = dict([(p, mf.unit("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(param_names.split(), param_units.split(';'), param_str.split())])
-        nrn_params_na = extract_params(nrn_params, prefix='na_')
-        nrn_params_lk = extract_params(nrn_params, prefix='lk_')
-        nrn_params_ks = extract_params(nrn_params, prefix='ks_', replace_prefix='k_')
-        nrn_params_kf = extract_params(nrn_params, prefix='kf_', replace_prefix='k_')
-        nrn_params_ks = remap_keys(nrn_params_ks, {'k_gmax':'gmax', 'k_erev':'erev'})
-        nrn_params_kf = remap_keys(nrn_params_kf, {'k_gmax':'gmax', 'k_erev':'erev'})
-        eqnsetna = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt)
-        eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
-        eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
+    na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, default_parameters = nrn_params_na)
+    lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, default_parameters = nrn_params_lk)
+    ksChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnsetk,  default_parameters = nrn_params_ks)
+    kfChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl4", eqnset=eqnsetk,  default_parameters = nrn_params_kf)
 
-        na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, default_parameters = nrn_params_na)
-        lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, default_parameters = nrn_params_lk)
-        ksChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnsetk,  default_parameters = nrn_params_ks)
-        kfChls = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl4", eqnset=eqnsetk,  default_parameters = nrn_params_kf)
+    chls =  [na_chl, lk_chl, ksChls, kfChls]
+    return chls
 
-        chls =  [na_chl, lk_chl, ksChls, kfChls]
-        return chls
-        #cache[param_str] = chls
-
-    #return cache[param_str]
 
 
 def load_ka_channel():
@@ -297,20 +293,28 @@ def load_ka_channel():
     return kaChls
 
 
+@mf.cached_functor
 def get_ain_chls():
     return load_std_channels(params_aIN)
+@mf.cached_functor
 def get_mn_chls():
     return load_std_channels(params_MN)
+@mf.cached_functor
 def get_dinr_chls():
     return load_std_channels(params_dINr)
+@mf.cached_functor
 def get_din_chls():
     return load_std_channels(params_dIN)
+@mf.cached_functor
 def get_rb_chls():
     return load_std_channels(params_RB)
+@mf.cached_functor
 def get_dla_chls():
     return load_std_channels(params_dla)
+@mf.cached_functor
 def get_dlc_chls():
     return load_std_channels(params_dlc)
+@mf.cached_functor
 def get_cin_chls():
     return load_std_channels(params_cIN) + [load_ka_channel()]
 
@@ -320,8 +324,8 @@ def make_cell(sim, cell_name, cell_chl_functor):
     m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
     cell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
-        mf.cell.apply_channel( chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
-    mf.cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+        cell.apply_channel( chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
+    cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
     return cell
 
 
@@ -409,8 +413,6 @@ EQNSET syn_simple {
 """
 
 
-
-
 syn_inhib = """
 EQNSET syn_decaying_inhib {
     o' = - o/{1.5 ms}
@@ -445,8 +447,9 @@ EQNSET syn_simple {
 
     o' = - o/{1.5 ms}
     c' = - c/{10.0 s}
-    i = {0.835nS} * (v- {0mV})  * (c-o)
+    i = {0.835nS} * (v- {0mV})  * (c-o) * scale
 
+    <=> PARAMETER scale:()
     <=> INPUT     v: mV       METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
     <=> OUTPUT    i:(mA)      METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
 
@@ -497,7 +500,39 @@ EQNSET syn_simple {
 """
 
 
-#class PostSynapticTemplate(object):
+
+driver_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+        template_name='driver_syn_templ',
+        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_onto_driver), 
+        default_parameters={'scale':1.0} 
+        )
+
+excite_ampa_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+        template_name='excite_ampa_syn_tmpl',
+        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_AMPA), 
+        default_parameters={'scale':1.0} 
+        )
+
+excite_nmda_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+        template_name='excite_nmda_syn_tmpl',
+        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_NMDA), 
+        default_parameters={'scale':1.0} 
+        )
+
+inhib_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+        template_name='inhib_syn_tmpl',
+        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib), 
+        default_parameters={'scale':1.0} 
+        )
+
+def build_presynaptic_mech( env, cell):
+    return env.PreSynapticMechanism(
+                mfc.PreSynapticMech_VoltageThreshold,
+                cell_location = cell.soma,
+                voltage_threshold = mf.unit("0:mV"),
+                delay = mf.unit("1:ms"),
+                weight = mf.unit("1:nS"),
+               )
 
 
 def onto_driver(sim, postsynaptic, times):
@@ -506,69 +541,35 @@ def onto_driver(sim, postsynaptic, times):
                                         mfc.PreSynapticMech_TimeList,
                                         time_list =   times,
                                         weight = mf.unit("1:nS")),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                        mfc.NeuroUnitEqnsetPostSynaptic,
-                                        name = "mYName1",
-                                        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_onto_driver),
-                                        default_parameters= {},
-                                        cell_location = postsynaptic.get_location("soma")
+            postsynaptic_mech = driver_syn_tmpl.instantiate(
+                                        cell_location = postsynaptic.soma,
+                                        parameter_multipliers = {'scale':1.0 },
                                        )
            )
-
-
-
-
 
 def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
     ampa = sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
-                                        mfc.PreSynapticMech_VoltageThreshold,
-                                        cell_location = presynaptic.get_location("soma"),
-                                        voltage_threshold = mf.unit("0:mV"),
-                                        delay = mf.unit("1:ms"),
-                                        weight = mf.unit("1:nS"),
-                                       ),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                        mfc.NeuroUnitEqnsetPostSynaptic,
-                                        name = "mYName1",
-                                        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_AMPA),
-                                        default_parameters= {'scale':ampa_scale*mf.pq.dimensionless},
-                                        cell_location = postsynaptic.get_location("soma")
+            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
+                                        cell_location = postsynaptic.soma,
+                                        parameter_multipliers = {'scale':ampa_scale * pq.dimensionless },
                                        )
            )
     nmda = sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
-                                        mfc.PreSynapticMech_VoltageThreshold,
-                                        cell_location = presynaptic.get_location("soma"),
-                                        voltage_threshold = mf.unit("0:mV"),
-                                        delay = mf.unit("1:ms"),
-                                        weight = mf.unit("1:nS"),
-                                       ),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                        mfc.NeuroUnitEqnsetPostSynaptic,
-                                        name = "mYName1",
-                                        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_NMDA),
-                                        default_parameters= {'scale':nmda_scale*mf.pq.dimensionless},
-                                        cell_location = postsynaptic.get_location("soma")
+            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
+                                        cell_location = postsynaptic.soma,
+                                        parameter_multipliers = {'scale':nmda_scale * pq.dimensionless },
                                        )
            )
     return [ampa, nmda]
 
 def inhib(sim, presynaptic, postsynaptic, scale):
     inhib_syn = sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
-                                        mfc.PreSynapticMech_VoltageThreshold,
-                                        cell_location = presynaptic.get_location("soma"),
-                                        voltage_threshold = mf.unit("0:mV"),
-                                        delay = mf.unit("1:ms"),
-                                        weight = mf.unit("1:nS"),
-                                       ),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                        mfc.NeuroUnitEqnsetPostSynaptic,
-                                        name = "mYName1",
-                                        eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
-                                        default_parameters= {'scale':scale*mf.pq.dimensionless},
-                                        cell_location = postsynaptic.get_location("soma")
+            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            postsynaptic_mech = inhib_syn_tmpl.instantiate(
+                                        cell_location = postsynaptic.soma,
+                                        parameter_multipliers = {'scale':scale * pq.dimensionless },
                                        )
            )
     return [inhib_syn]
@@ -577,10 +578,8 @@ def driver_onto_dinr(sim, presynaptic, postsynaptic):
     return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=1.0)
 def driver_onto_cin(sim, presynaptic, postsynaptic):
     return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=0.1)
-
 def dinr_onto_cin(sim, presynaptic, postsynaptic):
     return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.0, nmda_scale=1.0)
-
 def cin_onto_cin(sim, presynaptic, postsynaptic):
     return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
 def cin_onto_dinr(sim, presynaptic, postsynaptic):
@@ -609,9 +608,9 @@ driver_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=nNeur
 
 
 # Connect the drivers:
-mfc.Connectors.times_to_all(sim, syncronous_times=(100)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
-mfc.Connectors.times_to_all(sim, syncronous_times=(105)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
-
+mfc.Connectors.times_to_all(sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
+#
 # LHS
 #######
 # Connect the drivers to eveything:
@@ -635,29 +634,8 @@ mfc.Connectors.all_to_all(sim, presynaptic_population=dINr_RHS, postsynaptic_pop
 
 # Connect the cINs to eveything contra-laterally:
 mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = cin_onto_cin)
-syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr')
+#syn_cin_dinr_rl = mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= dINr_LHS, connect_functor = cin_onto_dinr, synapse_pop_name='syn_cin_dinr_lr')
 
-
-
-
-#cell = dINr_LHS[0]
-
-#
-#
-#syn = sim.create_synapse(
-#        presynaptic_mech =  env.PreSynapticMechanism(
-#                                    mfc.PreSynapticMech_TimeList,
-#                                    time_list =   ((100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155) + (300, 305, 310, 315, 320, 325, 330, 335, 340, 345, 350, 355)) * mf.ms ,
-#                                    weight = mf.unit("1:nS")),
-#        postsynaptic_mech = env.PostSynapticMechanism(
-#                                    mfc.NeuroUnitEqnsetPostSynaptic,
-#                                    name = "mYName1",
-#                                    eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib),
-#                                    default_parameters= {'scale': 1 *mf.dimensionless},
-#                                    cell_location = cell.soma1
-#                                   )
-#       )
-#
 
 
 
@@ -671,14 +649,18 @@ cIN_RHS.record_from_all(what=mf.Cell.Recordables.MembraneVoltage)
 #aIN_RHS.record_from_all(what=mf.Cell.Recordables.MembraneVoltage)
 
 
-syn_cin_dinr_lr.record_from_all(what='g')
+#syn_cin_dinr_lr.record_from_all(what='g')
 
 
 
 #cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.get_location("soma"))
 #sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
 #sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
+#assert False
 
+
+
+mf.SimulationMRedoc.build(sim).to_pdf('~/Desktop/BartSim.pdf')
 res =sim.run()
 
 for tr in res.get_traces():

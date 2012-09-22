@@ -95,7 +95,8 @@ class PreSynapticMechanism(object):
 
 class PostSynapticMech(object):
 
-    def __init__(self, cell_location):
+    def __init__(self, cell_location, **kwargs):
+        super(PostSynapticMech, self).__init__(**kwargs)
         self.cell_location = cell_location
         self.synapse = None
 

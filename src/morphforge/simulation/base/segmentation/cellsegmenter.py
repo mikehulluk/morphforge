@@ -29,27 +29,21 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.segmentation.segment import CellSegment
+#from morphforge.simulation.base.segmentation.segment import CellSegment
 
 
 class AbstCellSegmenter(object):
 
-    def __init__(self, cell=None):
+    def __init__(self, cell=None, **kwargs):
+        super(AbstCellSegmenter,self).__init__(**kwargs)
         self.cell = cell
 
     def connect_to_cell(self, cell):
-        raise NotImplementedError()
+        assert self.cell is None
+        self.cell = cell
 
     def get_num_segments(self, section):
         raise NotImplementedError()
-
-    def get_segments(self, section):
-        raise NotImplementedError()
-
-    def __iter__(self):
-        for section in self.cell.morphology:
-            for seg in self.get_segments(section):
-                yield seg
 
     def get_num_segment_total(self):
         return sum([self.get_num_segments(section) for section in
@@ -62,44 +56,22 @@ class AbstCellSegmenter(object):
 
 class CellSegmenterStd(AbstCellSegmenter):
 
-    def __init__(self, cell=None):
-        AbstCellSegmenter.__init__(self, cell)
-        self._cell_segments = None
-
-        if self.cell:
-            self.connect_to_cell(cell)
-
-    def connect_to_cell(self, cell):
-        assert not self.cell
-        self.cell = cell
+    def __init__(self, **kwargs):
+        super(CellSegmenterStd, self).__init__(**kwargs)
 
     def get_num_segments(self, section):
         return self._get_n_segments(section)
 
-    def get_segments(self, section):
-        assert False, 'What is using the cell segment objects??'
-        return self.cell_segments[section]
-
     def _get_n_segments(self, section):
         raise NotImplementedError()
 
-    @property
-    def cell_segments(self):
-        assert False, 'To remove, as off Jun-2012'
-        if self._cell_segments is None:
-            self._cell_segments = {}
-
-            # Segment the cell:
-            for section in self.cell.morphology:
-                n_segs = self._get_n_segments(section)
-                self._cell_segments[section] = [CellSegment(cell=self.cell, section=section, nsegments=n_segs, segmentno=i, segmenter=self) for i in range(0, n_segs)]
-        return self._cell_segments
 
 
 class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
-    def __init__(self, cell=None, max_segment_length=5):
-        CellSegmenterStd.__init__(self, cell)
+    def __init__(self, max_segment_length=5, **kwargs):
+        super(CellSegmenter_MaxCompartmentLength, self).__init__(**kwargs)
+        #CellSegmenterStd.__init__(self, cell)
         self.max_segment_length = max_segment_length
 
     def _get_n_segments(self, section):
@@ -114,11 +86,12 @@ class CellSegmenter_SingleSegment(CellSegmenterStd):
 
 class CellSegmenter_MaxLengthByID(CellSegmenterStd):
 
-    def __init__(self, cell=None, section_id_segment_maxsizes=None, default_segment_length=5):
+    def __init__(self, section_id_segment_maxsizes=None, default_segment_length=5, **kwargs):
         self.default_segment_length = default_segment_length
         self.section_id_segment_sizes = section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
 
-        CellSegmenterStd.__init__(self, cell)
+        super(CellSegmenter_MaxLengthByID, self).__init__(**kwargs)
+        #CellSegmenterStd.__init__(self, cell)
 
     def _get_n_segments(self, section):
         max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length)

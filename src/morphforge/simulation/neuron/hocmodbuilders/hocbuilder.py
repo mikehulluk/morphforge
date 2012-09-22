@@ -29,10 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from hocbuilder_cell import HocBuilder_Cell
+#from hocbuilder_cell import HocBuilder_Cell
 
 from Cheetah.Template import Template
-
+from morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell import HocBuilder_Cell
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.misc import NEURONSettings

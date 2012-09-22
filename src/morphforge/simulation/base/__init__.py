@@ -51,6 +51,7 @@ from biophysics import PassiveProperty
 
 from networks import Synapse, GapJunction
 from networks import PostSynapticMech, PreSynapticMechanism
+from base_classes import NamedSimulationObject
 
 __all__ = [
     'CurrentClamp',
@@ -81,4 +82,5 @@ __all__ = [
     'GapJunction',
     'PostSynapticMech',
     'PreSynapticMechanism',
+    'NamedSimulationObject',
     ]
