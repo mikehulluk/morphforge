@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -31,35 +32,30 @@
 
 import mredoc
 
-class CellLibrary(object):
+class PostSynapticTemplateLibrary(object):
 
-    _cells = dict()
-
-    @classmethod
-    def register_cell(cls, cell_builder):
-        celltype = cell_builder.get_cell_type()
-        modelsrc = cell_builder.get_model()
-        cls._cells[(modelsrc, celltype)] = cell_builder
+    _postsynaptic_template_functors = dict()
 
     @classmethod
-    def register(cls, celltype, modelsrc, cell_functor):
-        cls._cells[(modelsrc, celltype)] = cell_functor
+    def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
+        key = (modelsrc, synapsetype)
+        assert not key in cls._morphology_functors
+        cls._postsynaptic_template_functors[key] = psm_template_functor
 
     @classmethod
-    def get_cellfunctor(cls, modelsrc, celltype):
-        return cls._cells[(modelsrc, celltype)]
+    def get_postsynaptic_template_functor(cls, synapsetype, modelsrc=None):
+        return cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
 
     @classmethod
-    def create_cell(cls, sim,  modelsrc, celltype, **kwargs):
-        return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
-
+    def get_postsynaptic_template(cls, synapsetype, modelsrc=None, **kwargs):
+        functor = cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
+        return functor(**kwargs)
 
     @classmethod
     def summary_table(cls, ):
         summary_data = []
-        for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
-            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
-        summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
-        return mredoc.Section('Cell Library Summary', summary_table )
-
+        for ((modelsrc,synapsetype), functor) in sorted(cls._postsynaptic_template_functors.iteritems()):
+            summary_data.append( ( modelsrc, synapsetype ))
+        summary_table = mredoc.VerticalColTable( ('Model','Synapse-Type'), summary_data)
+        return mredoc.Section('Synapse Library Summary', summary_table )
 

@@ -40,62 +40,59 @@ from neurounits import NeuroUnitParser
 
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList
 from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold
-from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
+#from morphforgecontrib.simulation.synapses.neurounit import NeuroUnitEqnsetPostSynaptic
+
+from morphforgecontrib.simulation.synapse_templates.neurounit import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
 
 
 from morphforge.stdimports import *
 from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
+from morphforgecontrib.data_library.stdmodels import StandardModels
+
 
 def simulate_chls_on_neuron():
+    
+    
     # Create the environment:
     env = NEURONEnvironment()
-
-    # Create the simulation:
     sim = env.Simulation()
 
     # Create a cell:
-    morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
-    m1 = MorphologyTree.fromDictionary(morphDict1)
-    cell1 = sim.create_cell(name="Cell1", morphology=m1)
-    cell1.apply_channel( env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
-    cell1.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell1 = CellLibrary.create_cell(celltype=None, modelsrc=StandardModels.HH52, sim=sim)
+    cell2 = CellLibrary.create_cell(celltype=None, modelsrc=StandardModels.HH52, sim=sim)
+ 
 
-    m2 = MorphologyTree.fromDictionary(morphDict1)
-    cell2 = sim.create_cell(name="Cell2", morphology=m2)
-    cell2.apply_channel( env.Channel(BuiltinChannel,  sim_chl_name="hh", ))
-    cell2.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
-
+    exp2template = env.PostSynapticMechTemplate(
+        PostSynapticMech_Exp2SynNMDA_Base,
+        template_name='expsyn2tmpl',
+        tau_open = 5 * pq.ms, tau_close=20*pq.ms, e_rev=0 * pq.mV, popening=1.0, vdep=False,
+        )
     
 
-    eqnsetfile = "/home/michael/hw_to_come/libs/NeuroUnits/src/test_data/eqnsets/syn_simple.eqn"
+    
     syn = sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
+            presynaptic_mech = env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
                                      time_list =   (100,105,110,112,115, 115,115) * pq.ms ,
                                      weight = unit("1:nS")),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                     NeuroUnitEqnsetPostSynaptic,
-                                     name = "mYName1",
-                                     eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     cell_location = cell1.soma
-                                    )
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma ),
            )
-
+           
     syn = sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
+            presynaptic_mech = env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
                                      cell_location=cell1.soma,
                                      voltage_threshold=unit("0:mV"),
                                      delay=unit('1:ms'),
                                      weight = unit("1:nS")),
-            postsynaptic_mech = env.PostSynapticMechanism(
-                                     NeuroUnitEqnsetPostSynaptic,
-                                     name = "mYName1",
-                                     eqnset = NeuroUnitParser.EqnSet(open(eqnsetfile).read()),
-                                     cell_location = cell2.soma
-                                    )
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell2.soma ),
            )
 
+
+    
 
     # Define what to record:
     sim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = cell1.soma)

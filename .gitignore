@@ -1,5 +1,5 @@
 # Ignore everything:
-*
+#*
 
 src/morphforge/management/__init__.pyc
 *.pyc

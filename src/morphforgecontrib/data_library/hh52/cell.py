@@ -1,4 +1,4 @@
-#!/usr/bin/python
+  #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,37 +29,31 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
-
-class CellLibrary(object):
-
-    _cells = dict()
-
-    @classmethod
-    def register_cell(cls, cell_builder):
-        celltype = cell_builder.get_cell_type()
-        modelsrc = cell_builder.get_model()
-        cls._cells[(modelsrc, celltype)] = cell_builder
-
-    @classmethod
-    def register(cls, celltype, modelsrc, cell_functor):
-        cls._cells[(modelsrc, celltype)] = cell_functor
-
-    @classmethod
-    def get_cellfunctor(cls, modelsrc, celltype):
-        return cls._cells[(modelsrc, celltype)]
-
-    @classmethod
-    def create_cell(cls, sim,  modelsrc, celltype, **kwargs):
-        return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
 
 
-    @classmethod
-    def summary_table(cls, ):
-        summary_data = []
-        for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
-            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
-        summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
-        return mredoc.Section('Cell Library Summary', summary_table )
+
+from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
+from morphforge.componentlibraries.celllibrary import CellLibrary
+from morphforge.core.quantities.fromcore import unit
+from morphforgecontrib.data_library.stdmodels import StandardModels
+
+from morphforge.morphology.builders import MorphologyBuilder
 
 
+def build_hh_cell(sim, cell_area=None):
+    
+    if cell_area is None:
+        cell_area = unit('5000:um2')
+    
+    morphology = MorphologyBuilder.get_single_section_soma(area = cell_area)
+    cell = sim.create_cell(morphology=morphology)
+
+    # Apply the channels uniformly over the cell
+    env = sim.environment
+    modelsrc=StandardModels.HH52
+    cell.apply_channel( ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=None, channeltype="Na", env=env) )
+    cell.apply_channel( ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=None, channeltype="K", env=env)  )
+    cell.apply_channel( ChannelLibrary.get_channel(modelsrc=modelsrc, celltype=None, channeltype="Lk", env=env) )
+
+    return cell
+CellLibrary.register(celltype=None, modelsrc=StandardModels.HH52, cell_functor=build_hh_cell)

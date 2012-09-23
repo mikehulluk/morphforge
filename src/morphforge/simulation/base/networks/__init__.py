@@ -110,6 +110,11 @@ class PostSynapticMech(object):
 
 
 class PostSynapticMechTemplate(object):
+
+    def __init__(self, template_name=None, **kwargs):
+        super(PostSynapticMechTemplate, self).__init__(**kwargs)
+        self.template_name = template_name
+
     def instantiate(self, **kwargs):
         raise NotImplementedError()
 

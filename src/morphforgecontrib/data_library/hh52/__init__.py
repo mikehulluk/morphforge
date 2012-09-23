@@ -29,68 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
-from morphforge.core.quantities.fromcore import unit
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
-from morphforgecontrib.data_library.stdmodels import StandardModels
 
-
-@cached_functor
-def get_sample_lk(env):
-    lk_chl = env.Channel(StdChlLeak, name='LkChl',
-            conductance=unit('0.3:mS/cm2'),
-            reversalpotential=unit('-54.3:mV') )
-
-    return lk_chl
-
-
-@cached_functor
-def get_sample_na(env):
-    na_state_vars = { 'm': {
-                          'alpha': [-4.00,-0.10,-1.00,40.00,-10.00],
-                          'beta':  [4.00, 0.00, 0.00,65.00, 18.00]},
-                    'h': {
-                            'alpha': [0.07,0.00,0.00,65.00,20.00],
-                            'beta':  [1.00,0.00,1.00,35.00,-10.00]}
-                      }
-
-    na_chl = env.Channel(
-        StdChlAlphaBeta,
-        name='NaChl',
-        ion='na',
-        equation='m*m*m*h',
-        conductance=unit('120:mS/cm2'),
-        reversalpotential=unit('50:mV'),
-        statevars=na_state_vars, 
-        )
-        
-    return na_chl
-
-
-@cached_functor
-def get_sample_k(env):
-    kStateVars = {'n': {'alpha': [-0.55, -0.01, -1.00, 55.0, -10.00],
-                  'beta': [0.125, 0, 0, 65, 80]}}
-    k_chl = env.Channel(
-        StdChlAlphaBeta,
-        name='KChl',
-        ion='k',
-        equation='n*n*n*n',
-        conductance=unit('36:mS/cm2'),
-        reversalpotential=unit('-77:mV'),
-        statevars=kStateVars,
-        )
-    return k_chl
-
-
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
-                                channeltype='Na',
-                                chl_functor=get_sample_na)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
-                                channeltype='K',
-                                chl_functor=get_sample_k)
-ChannelLibrary.register_channel(modelsrc=StandardModels.HH52,
-                                channeltype='Lk',
-                                chl_functor=get_sample_lk)
+import channels
+import cell
 

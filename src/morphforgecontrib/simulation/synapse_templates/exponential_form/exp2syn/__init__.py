@@ -29,37 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 
-class CellLibrary(object):
-
-    _cells = dict()
-
-    @classmethod
-    def register_cell(cls, cell_builder):
-        celltype = cell_builder.get_cell_type()
-        modelsrc = cell_builder.get_model()
-        cls._cells[(modelsrc, celltype)] = cell_builder
-
-    @classmethod
-    def register(cls, celltype, modelsrc, cell_functor):
-        cls._cells[(modelsrc, celltype)] = cell_functor
-
-    @classmethod
-    def get_cellfunctor(cls, modelsrc, celltype):
-        return cls._cells[(modelsrc, celltype)]
-
-    @classmethod
-    def create_cell(cls, sim,  modelsrc, celltype, **kwargs):
-        return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
-
-
-    @classmethod
-    def summary_table(cls, ):
-        summary_data = []
-        for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
-            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
-        summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
-        return mredoc.Section('Cell Library Summary', summary_table )
-
-
+import core
+import neuron

@@ -217,12 +217,12 @@ class NEURONPostSynapticMechTemplateForwardToTemplate(NEURONPostSynapticMechTemp
     def get_record_for_instance(self, instance, **kwargs):
         raise NotImplementedError()
 
-    def instantiate(self, parameter_multipliers=None, parameter_overides=None, **kwargs):
+    def instantiate(self, parameter_multipliers=None, parameter_overrides=None, **kwargs):
         return NEURONPostSynapticMechInstantiationForwardToTemplate(
                 src_tmpl=self, 
                 _default_parameters=self._default_parameters,
                  parameter_multipliers=parameter_multipliers,
-                 parameter_overides=parameter_overides,
+                 parameter_overides=parameter_overrides,
                  **kwargs
                 )
 

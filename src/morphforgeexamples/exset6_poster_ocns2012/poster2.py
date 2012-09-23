@@ -98,18 +98,19 @@ EQNSET syn_simple {
 """
 
 
+post_syn_tmpl = env.PostSynapticMechTemplate(
+        NeuroUnitEqnsetPostSynaptic,
+        eqnset = simple_ampa_syn,
+        default_parameters = { 'scale':1.0}
+        )
+
 syn1 = sim.create_synapse(
         presynaptic_mech =  env.PreSynapticMechanism(
                                     PreSynapticMech_VoltageThreshold,
                                     cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 300),
                                     voltage_threshold = U("0:mV"),  delay = U("0:ms"),     weight = U("1:nS"),
                                    ),
-        postsynaptic_mech = env.PostSynapticMechanism(
-                                    NeuroUnitEqnsetPostSynaptic,
-                                    eqnset = neurounits.NeuroUnitParser.EqnSet(simple_ampa_syn),
-                                    default_parameters= {'scale':1.0*pq.dimensionless},
-                                    cell_location = cell2.soma
-                                   )
+        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell2.soma)
        )
 
 syn1 = sim.create_synapse(
@@ -118,12 +119,7 @@ syn1 = sim.create_synapse(
                                     cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 700),
                                     voltage_threshold = U("0:mV"),  delay = U("0:ms"), weight = U("1:nS"),
                                    ),
-        postsynaptic_mech = env.PostSynapticMechanism(
-                                    NeuroUnitEqnsetPostSynaptic,
-                                    eqnset = neurounits.NeuroUnitParser.EqnSet(simple_ampa_syn),
-                                    default_parameters= {'scale':2.0*pq.dimensionless},
-                                    cell_location = cell3.get_location("soma")
-                                   )
+	postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell3.soma, parameter_overrides={'scale':2.0} )
        )
 
 # Record Voltages from axons:

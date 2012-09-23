@@ -37,6 +37,9 @@ import morphforgecontrib.stdimports as mfc
 import pylab
 
 from morphforgecontrib.simulation.synapse_templates.neurounit import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
 import quantities as pq
 
 
@@ -530,6 +533,19 @@ inhib_syn_tmpl = env.PostSynapticMechTemplate(
         default_parameters={'scale':1.0} 
         )
 
+exptemplate = env.PostSynapticMechTemplate(
+        PostSynapticMech_ExpSyn_Base,
+        template_name='expsyn1tmpl',
+        tau = 5 * pq.ms, e_rev = 0 * pq.mV,
+        )
+
+
+exp2template = env.PostSynapticMechTemplate(
+        PostSynapticMech_Exp2Syn_Base,
+        template_name='expsyn2tmpl',
+        tau_open = 5 * pq.ms, tau_close=20*pq.ms, e_rev = 0 * pq.mV, popening=1.0,
+        )
+
 def build_presynaptic_mech( env, cell):
     return env.PreSynapticMechanism(
                 mfc.PreSynapticMech_VoltageThreshold,
@@ -538,7 +554,6 @@ def build_presynaptic_mech( env, cell):
                 delay = mf.unit("1:ms"),
                 weight = mf.unit("1:nS"),
                )
-
 
 def onto_driver(sim, postsynaptic, times):
     return sim.create_synapse(
@@ -579,6 +594,21 @@ def inhib(sim, presynaptic, postsynaptic, scale):
            )
     return [inhib_syn]
 
+def expbuiltin_syn(sim, presynaptic, postsynaptic, scale):
+    inhib_syn = sim.create_synapse(
+            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            postsynaptic_mech = exptemplate.instantiate( cell_location = postsynaptic.soma,)
+           )
+    return [inhib_syn]
+
+
+def exp2builtin_syn(sim, presynaptic, postsynaptic, scale):
+    inhib_syn = sim.create_synapse(
+            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            postsynaptic_mech = exp2template.instantiate( cell_location = postsynaptic.soma,)
+           )
+    return [inhib_syn]
+
 def driver_onto_dinr(sim, presynaptic, postsynaptic):
     return dual_driver(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, ampa_scale=0.1, nmda_scale=1.0)
 def driver_onto_cin(sim, presynaptic, postsynaptic):
@@ -589,8 +619,10 @@ def cin_onto_cin(sim, presynaptic, postsynaptic):
     return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
 def cin_onto_dinr(sim, presynaptic, postsynaptic):
     return inhib(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
-
-
+def expbuiltin(sim, presynaptic, postsynaptic):
+    return expbuiltin_syn(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
+def exp2builtin(sim, presynaptic, postsynaptic):
+    return exp2builtin_syn(sim=sim, presynaptic=presynaptic, postsynaptic=postsynaptic, scale=4.0)
 
 
 
@@ -657,10 +689,9 @@ cIN_RHS.record_from_all(what=mf.Cell.Recordables.MembraneVoltage)
 
 
 
-#cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.get_location("soma"))
-#sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
-#sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
-#assert False
+mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = expbuiltin)
+mfc.Connectors.all_to_all(sim, presynaptic_population=cIN_RHS, postsynaptic_population= cIN_LHS, connect_functor = exp2builtin)
+
 
 
 

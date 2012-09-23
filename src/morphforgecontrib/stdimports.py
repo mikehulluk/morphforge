@@ -86,3 +86,10 @@ from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_brid
 #from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
 
 from morphforgecontrib.data_library.stdmodels import StandardModels
+
+
+from morphforgecontrib.simulation.synapse_templates.neurounit import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
+

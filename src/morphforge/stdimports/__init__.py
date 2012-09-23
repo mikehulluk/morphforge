@@ -74,7 +74,6 @@ from morphforge.simulation.base.util.celllocator import CellLocator
 
 from morphforge.componentlibraries import *
 
-from morphforge.simulation.base.biophysics.mta_helpers import *
 
 import morphforge.simulation.neuron.objects.obj_cclamp
 import morphforge.simulation.neuron.objects.obj_vclamp

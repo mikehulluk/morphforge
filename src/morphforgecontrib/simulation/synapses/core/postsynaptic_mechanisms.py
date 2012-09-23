@@ -59,5 +59,4 @@ class PostSynapticMech_Exp2SynNMDA(PostSynapticMech):
         self.vdep = vdep
 
 
-        # extracellular_mg = extracellular_mg
 
