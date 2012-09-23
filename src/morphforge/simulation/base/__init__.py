@@ -53,6 +53,10 @@ from networks import Synapse, GapJunction
 from networks import PostSynapticMech, PreSynapticMechanism
 from base_classes import NamedSimulationObject
 
+# New Synapse implementation
+from networks import PostSynapticMechTemplate
+from networks import PostSynapticMechInstantiation
+
 __all__ = [
     'CurrentClamp',
     'VoltageClamp',
@@ -83,4 +87,7 @@ __all__ = [
     'PostSynapticMech',
     'PreSynapticMechanism',
     'NamedSimulationObject',
+
+    'PostSynapticMechTemplate',
+    'PostSynapticMechInstantiation',
     ]

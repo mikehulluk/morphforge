@@ -104,3 +104,21 @@ class PostSynapticMech(object):
         return self.cell_location.cell
 
 
+
+
+
+
+
+class PostSynapticMechTemplate(object):
+    def instantiate(self, **kwargs):
+        raise NotImplementedError()
+
+    def get_variables(self):
+        raise NotImplementedError()
+
+
+class PostSynapticMechInstantiation(PostSynapticMech):
+    pass
+
+
+

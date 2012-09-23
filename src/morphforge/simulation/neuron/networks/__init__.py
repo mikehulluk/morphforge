@@ -38,13 +38,13 @@ from morphforge.simulation.base.networks import GapJunction
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.constants.standardtags import StandardTags
 
+from morphforge.simulation.base import PostSynapticMechTemplate
+from morphforge.simulation.base import PostSynapticMechInstantiation
 
 class NEURONSynapse(NEURONObject, Synapse):
 
     def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None, **kwargs):
         super(NEURONSynapse, self).__init__(simulation=simulation, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech, name=name, **kwargs)
-        #NEURONObject.__init__(self, name=name, simulation=simulation)
-        #Synapse.__init__(self, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech)
 
 
     def build_hoc(self, hocfile_obj):
@@ -159,3 +159,80 @@ class NEURONGapJunction(GapJunction, NEURONObject):
         raise NotImplementedError()
 
 
+
+
+
+class NEURONPostSynapticMechTemplate( PostSynapticMechTemplate):
+    pass
+
+
+
+
+
+
+
+class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
+    def __init__(self, src_tmpl,_default_parameters, parameter_multipliers=None, parameter_overides=None,  **kwargs):
+        super(NEURONPostSynapticMechInstantiation, self).__init__(**kwargs)
+        self.src_tmpl = src_tmpl
+
+        self._default_parameters = _default_parameters.copy()
+        self.parameter_multipliers=parameter_multipliers or {}
+        self.parameter_overides=parameter_overides or {}
+
+    def get_resolved_parameters(self):
+        # Resolve the parameters:
+        params = self._default_parameters.copy()
+        assert not ( set(self.parameter_multipliers.keys()) & set(self.parameter_overides.keys()))
+
+        for k,v in self.parameter_multipliers.iteritems():
+            params[k] = params[k] * v
+
+        for k,v in self.parameter_overides.iteritems():
+            params[k] = v
+
+        assert set( params.keys() ) == set( self.src_tmpl.get_variables() )
+
+        return params
+
+
+    # The default behaviour is for instances to forward
+    # responsbility back to thier parent:
+    def build_hoc(self, hocfile_obj):
+        raise NotImplementedError()
+    def build_mod(self, modfile_set):
+        raise NotImplementedError()
+
+
+
+
+
+class NEURONPostSynapticMechTemplateForwardToTemplate(NEURONPostSynapticMechTemplate):
+    def template_build_mod(self, modfile_set):
+        raise NotImplementedError()
+
+    def build_hoc_for_instance(self, instance, hocfile_obj):
+        raise NotImplementedError()
+
+    def get_record_for_instance(self, instance, **kwargs):
+        raise NotImplementedError()
+
+    def instantiate(self, parameter_multipliers=None, parameter_overides=None, **kwargs):
+        return NEURONPostSynapticMechInstantiationForwardToTemplate(
+                src_tmpl=self, 
+                _default_parameters=self._default_parameters,
+                 parameter_multipliers=parameter_multipliers,
+                 parameter_overides=parameter_overides,
+                 **kwargs
+                )
+
+
+class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMechInstantiation):
+
+    # The default behaviour is for instances to forward
+    # responsbility back to thier parent:
+    def build_hoc(self, hocfile_obj):
+        return self.src_tmpl.build_hoc_for_instance(hocfile_obj=hocfile_obj, instance=self)
+
+    def build_mod(self, modfile_set):
+        return self.src_tmpl.template_build_mod(modfile_set=modfile_set)

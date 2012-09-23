@@ -60,6 +60,7 @@ class NEURONEnvironment(SimulationEnvironment):
     voltageclamps = PluginDict()
 
 
+
     @classmethod
     def Channel(cls, mechanismtype, **kwargs):
         chl = cls.channels.get_plugin(mechanismtype)
@@ -90,4 +91,11 @@ class NEURONEnvironment(SimulationEnvironment):
         from morphforge.simulation.neuron.networks import NEURONSynapse
         return NEURONSynapse(**kwargs)
 
+
+
+    synapse_psm_template_type = PluginDict()
+
+    def PostSynapticMechTemplate(self, psm_type, **kwargs):
+        tmpl_functor = self.synapse_psm_template_type.get_plugin(psm_type)
+        return tmpl_functor(**kwargs)
 

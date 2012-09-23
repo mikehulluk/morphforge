@@ -29,6 +29,23 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import membranemechanisms
 
-import synapse_templates
+
+""" Summarise the cells and channels that are registered to an environment
+"""
+
+import mredoc
+from morphforge.stdimports import PluginMgr, CellLibrary, ChannelLibrary, MorphologyLibrary
+import morphforgecontrib.stdimports as mfc
+from  modelling import *
+fname = '~/Desktop/morphforge_channels.pdf'
+
+mredoc.Section('Summary',
+    CellLibrary.summary_table(),
+    ChannelLibrary.summary_table(),
+    MorphologyLibrary.summary_table(),
+    ).to_pdf(fname)
+
+print 'Cell & Channel summary stored at: %s'%fname
+
+

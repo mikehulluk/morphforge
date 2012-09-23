@@ -36,7 +36,7 @@ import morphforge.stdimports as mf
 import morphforgecontrib.stdimports as mfc
 import pylab
 
-from morphforgecontrib.simulation.synapses_neurounit import * 
+from morphforgecontrib.simulation.synapse_templates.neurounit import * 
 import quantities as pq
 
 
@@ -460,9 +460,6 @@ EQNSET syn_simple {
 }
 """
 
-
-
-
 syn_std_excite_AMPA= """
 EQNSET syn_simple {
 
@@ -480,6 +477,7 @@ EQNSET syn_simple {
     }
 }
 """
+
 syn_std_excite_NMDA= """
 EQNSET syn_simple {
 
@@ -500,26 +498,33 @@ EQNSET syn_simple {
 """
 
 
+env = mf.NEURONEnvironment()
 
-driver_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
-        template_name='driver_syn_templ',
+
+# Create the synaptic templates:
+driver_syn_tmpl = env.PostSynapticMechTemplate(
+        NeuroUnitEqnsetPostSynaptic,
         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_onto_driver), 
+        template_name='driver_syn_templ',
         default_parameters={'scale':1.0} 
         )
 
-excite_ampa_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+excite_ampa_syn_tmpl = env.PostSynapticMechTemplate(
+        NeuroUnitEqnsetPostSynaptic,
         template_name='excite_ampa_syn_tmpl',
         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_AMPA), 
         default_parameters={'scale':1.0} 
         )
 
-excite_nmda_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+excite_nmda_syn_tmpl = env.PostSynapticMechTemplate(
+        NeuroUnitEqnsetPostSynaptic,
         template_name='excite_nmda_syn_tmpl',
         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_std_excite_NMDA), 
         default_parameters={'scale':1.0} 
         )
 
-inhib_syn_tmpl = NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic( 
+inhib_syn_tmpl = env.PostSynapticMechTemplate(
+        NeuroUnitEqnsetPostSynaptic,
         template_name='inhib_syn_tmpl',
         eqnset = mf.neurounits.NeuroUnitParser.EqnSet(syn_inhib), 
         default_parameters={'scale':1.0} 
@@ -589,7 +594,6 @@ def cin_onto_dinr(sim, presynaptic, postsynaptic):
 
 
 
-env = mf.NEURONEnvironment()
 sim = env.Simulation()
 
 nNeurons = 1
@@ -660,7 +664,7 @@ cIN_RHS.record_from_all(what=mf.Cell.Recordables.MembraneVoltage)
 
 
 
-mf.SimulationMRedoc.build(sim).to_pdf('~/Desktop/BartSim.pdf')
+#mf.SimulationMRedoc.build(sim).to_pdf('~/Desktop/BartSim.pdf')
 res =sim.run()
 
 for tr in res.get_traces():
