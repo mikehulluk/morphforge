@@ -28,7 +28,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-
-from core import PostSynapticMech_ExpSyn, PostSynapticMech_Exp2Syn
-from neuron import Neuron_PSM_Exp2Syn
+assert False
+#from core import PostSynapticMech_ExpSyn, PostSynapticMech_Exp2Syn
+#from neuron import Neuron_PSM_Exp2Syn
 

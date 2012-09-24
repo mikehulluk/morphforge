@@ -138,7 +138,6 @@ class PluginMgr(object):
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Presynaptic Mechanisms', mrd.VerticalColTable(rows[0], rows[1:]))
-        #return mrd.Section('PreSynapticMechanisms', mrd.Paragraph('asda') )
 
     @classmethod
     def summarise_postsynapticmechs(cls):

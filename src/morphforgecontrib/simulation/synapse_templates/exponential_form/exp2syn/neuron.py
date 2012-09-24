@@ -49,7 +49,6 @@ from morphforge.core import ObjectLabeller
 from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
-
 from morphforge.simulation.base import PostSynapticMechTemplate
 from morphforge.simulation.base import PostSynapticMechInstantiation
 
@@ -81,7 +80,7 @@ ${synnamepost}.popening = $pOpening
 """
 
 
-class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate):
+class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate, ):
    
         
 
@@ -132,15 +131,29 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
             modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile_new.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
             modfile_set.append(modfile)
 
-    def get_recordable(self, what, **kwargs):
-        assert False
+    def get_record_for_instance(self, instance, what, **kwargs):
+        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_CurrentRecord
+        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
+        from morphforge.simulation.neuron.networks import NEURONSynapse
+
         if what == NEURONSynapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=self,
+            return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=instance,
                     **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
-            return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=self,
+            return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=instance,
                     **kwargs)
         assert False
+
+
+    #def get_recordable(self, what, **kwargs):
+    #    assert False
+    #    if what == NEURONSynapse.Recordables.SynapticCurrent:
+    #        return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=self,
+    #                **kwargs)
+    #    if what == NEURONSynapse.Recordables.SynapticConductance:
+    #        return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=self,
+    #                **kwargs)
+    #    assert False
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplate_Exp2Syn)

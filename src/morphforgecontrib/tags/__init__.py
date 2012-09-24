@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.networks import PreSynapticMechanism
 from morphforge.simulation.base.networks import PreSynapticTypes
 
 

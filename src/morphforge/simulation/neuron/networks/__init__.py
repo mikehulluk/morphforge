@@ -236,3 +236,11 @@ class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMec
 
     def build_mod(self, modfile_set):
         return self.src_tmpl.template_build_mod(modfile_set=modfile_set)
+
+    def get_recordable(self, **kwargs):
+        return  self.src_tmpl.get_record_for_instance( instance=self, **kwargs)
+
+    @property
+    def weight(self):
+        return self.get_resolved_parameters()['weight']
+

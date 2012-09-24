@@ -29,6 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+# These need to be imported so they register with the 
+# plugin system.
 import membranemechanisms
-
 import synapse_templates
+import presynapticmechanisms

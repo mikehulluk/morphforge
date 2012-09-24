@@ -99,6 +99,7 @@ class PostSynapticMech(object):
         super(PostSynapticMech, self).__init__(**kwargs)
         self.cell_location = cell_location
         self.synapse = None
+        #self.weight = weight
 
     def get_postsynaptic_cell(self):
         return self.cell_location.cell

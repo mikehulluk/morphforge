@@ -32,64 +32,55 @@
 
 # pylint: disable=W0401,W0611,W0614
 
+
+# Move to morphforge:
+#TODO: move to morphforge
+from morphforgecontrib.simulation.populations import NeuronPopulation, Connectors, PopAnalSpiking, SynapsePopulation
+
+
+
 from morphology.util import AxonTrimmer
 from morphology.util import cell_location_distance_from_soma
 from morphology.util import MorphologyTranslator
 
-# Simulation Channels:
-from simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
-from simulation.membranemechanisms.hh_style.core import StdChlAlphaBeta, StdChlLeak, StdChlAlphaBetaBeta
-from simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
 
+# Pre synaptic mechanisms
+from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_TimeList
+from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_VoltageThreshold
+
+
+
+# Traces tagging:
+from traces import AutoTaggerFromUnit
+from morphforgecontrib.tags import StdTagFunctors, UserTagFunctorCellLocation
+
+# Simulation utility functions:
 from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve
-
-from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList,  \
-    PreSynapticMech_VoltageThreshold
-from morphforgecontrib.simulation.synapses.core.postsynaptic_mechanisms import PostSynapticMech_Exp2Syn, \
-    PostSynapticMech_ExpSyn,  PostSynapticMech_Exp2SynNMDA
-
-from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import PostSynapticMech_Exp2SynNMDAMGTimeDepBlock
-
-# Traces:
-from traces import AutoTaggerFromUnit
-
-
-from morphforgecontrib.simulation.populations import NeuronPopulation, Connectors, PopAnalSpiking, SynapsePopulation
-from morphforgecontrib.traces.tracetools import SpikeFinder
-
-
 from morphforgecontrib.simulation.util.calculate_input_resistance import CellAnalysis_IVCurve, CellAnalysis_StepInputResponse, CellAnalysis_ReboundResponse
-
+from morphforgecontrib.traces.tracetools import SpikeFinder
 from morphforgecontrib.simulation.util.spaced_recordings import space_record_cell
 from morphforgecontrib.simulation.util import exec_with_prob
-from morphforgecontrib.simulation.synapse_management.util import SynapseParameter, create_synapse_cell_to_cell, create_synapse_times_to_cell
-
-
-
-from morphforgecontrib.tags import StdTagFunctors, UserTagFunctorCellLocation#, UserTagFunctorNeuronPopulation
-
-
 from morphforgecontrib.simulation_analysis.spikinggrouping import DBScan
+
+
+# Simulation Channels:
+from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
+from morphforgecontrib.simulation.membranemechanisms.hh_style.core import StdChlAlphaBeta, StdChlLeak, StdChlAlphaBetaBeta
+from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
+from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
+from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 
 # Mike Hull development:
 from socket import gethostname
 if gethostname() in ['michael-DQ57TM']:
-
     from morphforgecontrib.mhdev import *
 
-from morphforgecontrib.simulation.util.voltageclampchannel import get_voltageclamp_soma_current_trace
-
-from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
-from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
-#from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
-#from morphforgecontrib.simulation.synapses_neurounit import NeuroUnitEqnsetPostSynaptic
-
-from morphforgecontrib.data_library.stdmodels import StandardModels
-
-
+# Syanptic Templates:
 from morphforgecontrib.simulation.synapse_templates.neurounit import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
 
+# Constants for accessing standard models:
+from morphforgecontrib.data_library.stdmodels import StandardModels

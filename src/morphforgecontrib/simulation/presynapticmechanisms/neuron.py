@@ -34,7 +34,7 @@ from Cheetah.Template import Template
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold, PreSynapticMech_TimeList
+from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_VoltageThreshold, PreSynapticMech_TimeList
 
 preTmpl = """
 // Pre-Synapse [$synname]

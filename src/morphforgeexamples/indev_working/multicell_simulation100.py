@@ -552,7 +552,7 @@ def build_presynaptic_mech( env, cell):
                 cell_location = cell.soma,
                 voltage_threshold = mf.unit("0:mV"),
                 delay = mf.unit("1:ms"),
-                weight = mf.unit("1:nS"),
+                #,
                )
 
 def onto_driver(sim, postsynaptic, times):
@@ -560,10 +560,11 @@ def onto_driver(sim, postsynaptic, times):
             presynaptic_mech =  env.PreSynapticMechanism(
                                         mfc.PreSynapticMech_TimeList,
                                         time_list =   times,
-                                        weight = mf.unit("1:nS")),
+                                        ),
             postsynaptic_mech = driver_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':1.0 },
+                                        weight = mf.unit("1:nS")
                                        )
            )
 
@@ -573,6 +574,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':ampa_scale * pq.dimensionless },
+                                        weight = mf.unit("1:nS")
                                        )
            )
     nmda = sim.create_synapse(
@@ -580,6 +582,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':nmda_scale * pq.dimensionless },
+                                        weight = mf.unit("1:nS")
                                        )
            )
     return [ampa, nmda]

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforgecontrib.simulation.synapses.core import PostSynapticMech_Exp2SynNMDA
@@ -51,10 +50,12 @@ import postsynaptic_mechanisms_exp2syn_nmda_modfile
 
 
 class Neuron_PSM_Exp2SynNMDA_CurrentRecord(Neuron_PSM_Std_CurrentRecord):
+
     pass
 
 
 class Neuron_PSM_Exp2SynNMDA_ConductanceRecord(Neuron_PSM_Std_ConductanceRecord):
+
     pass
 
 
@@ -105,17 +106,16 @@ class Neuron_PSM_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA):
         syn_name_post = self.synapse.get_name() + 'Post'
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
-               "synnamepost":syn_name_post,
-               "cell":cell,
-               "cellname": cell_hoc['cell_name'],
-               "sectionindex": cell_hoc['section_indexer'][section],
-               "sectionpos":self.cell_location.morphlocation.sectionpos,
-
-               "tau_open": self.tau_open,
-               "tau_close": self.tau_close,
-               "e_rev": self.e_rev,
-               "pOpening": self.popening,
-               'random_seed': MFRandom.get_seed(),
+            'synnamepost': syn_name_post,
+            'cell': cell,
+            'cellname': cell_hoc['cell_name'],
+            'sectionindex': cell_hoc['section_indexer'][section],
+            'sectionpos': self.cell_location.morphlocation.sectionpos,
+            'tau_open': self.tau_open,
+            'tau_close': self.tau_close,
+            'e_rev': self.e_rev,
+            'pOpening': self.popening,
+            'random_seed': MFRandom.get_seed(),
                }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())

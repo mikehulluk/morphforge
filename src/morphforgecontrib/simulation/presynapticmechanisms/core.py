@@ -36,11 +36,12 @@ from morphforge.traces.eventset import EventSet
 
 class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
 
-    def __init__(self, cell_location, voltage_threshold, delay, weight):
+    #def __init__(self, cell_location, voltage_threshold, delay, weight):
+    def __init__(self, cell_location, voltage_threshold, delay):
         self.cell_location = cell_location
         self.voltage_threshold = voltage_threshold
         self.delay = delay
-        self.weight = weight
+        #self.weight = weight
 
     def get_presynaptic_cell_location(self):
         return self.cell_location
@@ -51,10 +52,17 @@ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
     def get_type(self):
         return PreSynapticTypes.Cell
 
+    @property 
+    def weight(self):
+        return self.synapse.postSynapticMech.weight
+
 
 class PreSynapticMech_TimeList(PreSynapticMechanism):
 
-    def __init__(self, time_list, weight):
+    #def __init__(self, time_list, weight):
+    def __init__(self, time_list):
+        # TODO: Add kwargs to constructor, and in above class.
+        super(PreSynapticMech_TimeList, self).__init__()
         PreSynapticMechanism.__init__(self)
 
         # Convert into an event set
@@ -64,10 +72,15 @@ class PreSynapticMech_TimeList(PreSynapticMechanism):
 
 
         self.time_list = time_list
-        self.weight = weight
+        #self.weight = weight
 
     def get_presynaptic_cell(self):
         return None
 
     def get_type(self):
         return PreSynapticTypes.FixedTiming
+
+
+    @property 
+    def weight(self):
+        return self.synapse.postSynapticMech.weight

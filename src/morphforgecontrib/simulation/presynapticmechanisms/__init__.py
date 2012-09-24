@@ -1,4 +1,4 @@
-  #!/usr/bin/python
+ #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,16 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.networks import PostSynapticMech
 
-
-class PostSynapticMech_Exp2Syn_Base(object):
-
-    def __init__(self, tau_open, tau_close, e_rev, popening, weight, **kwargs):
-        super(PostSynapticMech_Exp2Syn_Base, self).__init__( **kwargs)
-        self._default_parameters = { 'tau_open':tau_open, 'tau_close':tau_close, 'e_rev':e_rev, 'popening':popening, 'weight':weight}
-
-    def get_variables(self,):
-        return ['tau_open','tau_close', 'popening','e_rev', 'weight']
-
-
+import core
+import neuron

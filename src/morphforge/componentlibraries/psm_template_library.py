@@ -52,11 +52,15 @@ class PostSynapticTemplateLibrary(object):
     def get_template(cls, sim, modelsrc, synapsetype):
         key = (sim, modelsrc, synapsetype)
         if not key in cls._sim_instances:
-            templ_type, kwargs = cls._postsynaptic_template_functors
+            templ_type, kwargs = cls._postsynaptic_template_functor_info[(modelsrc, synapsetype)]
             cls._sim_instances[key] = sim.environment.PostSynapticMechTemplate(templ_type, **kwargs)
         return cls._sim_instances[key]
 
 
+    @classmethod 
+    def instantiate(cls, sim, modelsrc, synapsetype, **kwargs):
+        tmpl = cls.get_template(sim=sim, modelsrc=modelsrc, synapsetype=synapsetype)
+        return tmpl.instantiate(**kwargs)
 
     #@classmethod
     #def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
