@@ -73,13 +73,15 @@ def _unit(s):
 
         return value * unt
 
-    #if ' ' in s:
-    #    tokens = s.split(' ')
-    #    if len(tokens) == 2:
-    #        (value_str, unit_str) = tokens
-    #        value = float(value_str)
-    #        unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
-    #        return value * unt
+    if ' ' in s:
+        tokens = s.split(' ')
+        if len(tokens) == 2:
+            (value_str, unit_str) = tokens
+            value = float(value_str)
+            unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
+            return value * unt
+        else:
+            assert False
 
     return morphforge.core.quantities.unit_string_parser.parse(s)
 

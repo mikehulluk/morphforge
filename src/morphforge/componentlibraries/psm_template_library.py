@@ -34,28 +34,50 @@ import mredoc
 
 class PostSynapticTemplateLibrary(object):
 
-    _postsynaptic_template_functors = dict()
+    _postsynaptic_template_functor_info = dict()
+    _sim_instances = dict()
+
 
     @classmethod
-    def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
+    def register_template_specialisation( cls,
+                  modelsrc, synapsetype,
+                  template_type, 
+                  **kwargs
+                  ):
         key = (modelsrc, synapsetype)
-        assert not key in cls._morphology_functors
-        cls._postsynaptic_template_functors[key] = psm_template_functor
+        assert not key in cls._postsynaptic_template_functor_info
+        cls._postsynaptic_template_functor_info[key] = (template_type, kwargs)
 
     @classmethod
-    def get_postsynaptic_template_functor(cls, synapsetype, modelsrc=None):
-        return cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
+    def get_template(cls, sim, modelsrc, synapsetype):
+        key = (sim, modelsrc, synapsetype)
+        if not key in cls._sim_instances:
+            templ_type, kwargs = cls._postsynaptic_template_functors
+            cls._sim_instances[key] = sim.environment.PostSynapticMechTemplate(templ_type, **kwargs)
+        return cls._sim_instances[key]
 
-    @classmethod
-    def get_postsynaptic_template(cls, synapsetype, modelsrc=None, **kwargs):
-        functor = cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
-        return functor(**kwargs)
 
-    @classmethod
-    def summary_table(cls, ):
-        summary_data = []
-        for ((modelsrc,synapsetype), functor) in sorted(cls._postsynaptic_template_functors.iteritems()):
-            summary_data.append( ( modelsrc, synapsetype ))
-        summary_table = mredoc.VerticalColTable( ('Model','Synapse-Type'), summary_data)
-        return mredoc.Section('Synapse Library Summary', summary_table )
+
+    #@classmethod
+    #def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
+    #    key = (modelsrc, synapsetype)
+    #    assert not key in cls._morphology_functors
+    #    cls._postsynaptic_template_functors[key] = psm_template_functor
+
+    #@classmethod
+    #def get_postsynaptic_template_functor(cls, synapsetype, modelsrc=None):
+    #    return cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
+
+    #@classmethod
+    #def get_postsynaptic_template(cls, synapsetype, modelsrc=None, **kwargs):
+    #    functor = cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
+    #    return functor(**kwargs)
+
+    #@classmethod
+    #def summary_table(cls, ):
+    #    summary_data = []
+    #    for ((modelsrc,synapsetype), functor) in sorted(cls._postsynaptic_template_functors.iteritems()):
+    #        summary_data.append( ( modelsrc, synapsetype ))
+    #    summary_table = mredoc.VerticalColTable( ('Model','Synapse-Type'), summary_data)
+    #    return mredoc.Section('Synapse Library Summary', summary_table )
 

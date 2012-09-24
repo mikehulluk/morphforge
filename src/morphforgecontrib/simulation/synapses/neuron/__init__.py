@@ -36,7 +36,6 @@
 #from postsynaptic_mechanisms_exp2syn_nmda_mgblocktimedependant import *
 #from presynaptic_mechanisms import *
 
-#from postsynaptic_mechanisms_expsyn import PostSynapticMech_ExpSyn
 from postsynaptic_mechanisms_exp2syn import Neuron_PSM_Exp2Syn
 
 
