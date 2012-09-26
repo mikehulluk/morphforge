@@ -60,6 +60,10 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 from morphforge.stdimports import MFRandom, unit
 
 from morphforge.stdimports import StandardTags
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
+#from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
+from morphforge.simulation.neuron.networks import NEURONSynapse
         
         
 class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
@@ -144,14 +148,14 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):
-        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_CurrentRecord
-        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
-        #from postsynaptic_mechanisms_exp2syn_nmda  import Neuron_PSM_Std_NMDAVoltageDependanceRecord
-        from morphforge.simulation.neuron.networks import NEURONSynapse
+        #from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_CurrentRecord
+        #from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
+        ##from postsynaptic_mechanisms_exp2syn_nmda  import Neuron_PSM_Std_NMDAVoltageDependanceRecord
+        #from morphforge.simulation.neuron.networks import NEURONSynapse
         if what == NEURONSynapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=instance, **kwargs)
+            return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance, **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
-            return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=instance, **kwargs)
+            return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance, **kwargs)
         if what == StandardTags.NMDAVoltageDependancy:
             return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=instance, **kwargs)
         assert False

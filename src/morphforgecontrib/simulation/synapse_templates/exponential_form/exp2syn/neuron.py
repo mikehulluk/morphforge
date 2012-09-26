@@ -58,13 +58,11 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
+#from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
+from morphforge.simulation.neuron.networks import NEURONSynapse
 
-        
-        
-        
-        
-        
-        
 
 
 
@@ -81,24 +79,21 @@ ${synnamepost}.popening = $pOpening
 
 
 class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate, ):
-   
-        
-
 
     def __init__(self, vdep=None, **kwargs):
         super(NEURONPostSynapticMechTemplate_Exp2Syn, self).__init__( **kwargs)
         assert vdep == None
         self.is_mod_built = False
-        
+
     def build_hoc_for_instance(self, instance, hocfile_obj):
-        
+
         params = instance.get_resolved_parameters()
         tau_open = params['tau_open']
         tau_close = params['tau_close']
         e_rev = params['e_rev']
         popening = params['popening']
-        
-        
+
+
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
         syn_name_post = instance.synapse.get_name() + 'Post'
@@ -114,7 +109,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
                "tau_close": tau_close,
                "e_rev": e_rev,
                "pOpening": popening,
-               
+
                }
 
 
@@ -124,7 +119,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
         hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
-        
+
     def template_build_mod(self, modfile_set):
         if not self.is_mod_built:
             import postsynaptic_mechanisms_exp2syn_modfile_new
@@ -132,28 +127,14 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
             modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):
-        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_CurrentRecord
-        from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
-        from morphforge.simulation.neuron.networks import NEURONSynapse
 
         if what == NEURONSynapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=instance,
+            return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance,
                     **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
-            return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=instance,
+            return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance,
                     **kwargs)
         assert False
-
-
-    #def get_recordable(self, what, **kwargs):
-    #    assert False
-    #    if what == NEURONSynapse.Recordables.SynapticCurrent:
-    #        return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=self,
-    #                **kwargs)
-    #    if what == NEURONSynapse.Recordables.SynapticConductance:
-    #        return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=self,
-    #                **kwargs)
-    #    assert False
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplate_Exp2Syn)
@@ -161,6 +142,6 @@ NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp
 
 
 
-        
-        
-        
+
+
+

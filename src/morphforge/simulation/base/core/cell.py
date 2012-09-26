@@ -36,6 +36,7 @@ from morphforge.core.quantities.fromcore import unit
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.simulation.base.core.celllocation import CellLocation
 
+from morphforge.morphology.builders import MorphologyBuilder
 
 class Cell(NamedSimulationObject):
 
@@ -52,7 +53,11 @@ class Cell(NamedSimulationObject):
         return (self._cell_type if self._cell_type else '<?>')
 
 
-    def __init__(self,  morphology, segmenter=None, initial_voltage=None, cell_tags=None, cell_type=None, **kwargs):
+    def __init__(self,  morphology=None, area=None, segmenter=None, initial_voltage=None, cell_tags=None, cell_type=None, **kwargs):
+
+        if area is not None:
+            assert morphology is None
+            morphology = MorphologyBuilder.get_single_section_soma(area=area)
 
         if cell_tags == None:
             cell_tags = []

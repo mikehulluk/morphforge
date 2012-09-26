@@ -45,9 +45,9 @@ class StdChlLeak(Channel):
         CurrentDensity = StandardTags.CurrentDensity
         all = [ConductanceDensity, CurrentDensity]
 
-    def __init__(self, name, conductance, reversalpotential, **kwargs):
-        
-        super(StdChlLeak, self).__init__(name=name, **kwargs)
+    def __init__(self, conductance, reversalpotential, **kwargs):
+
+        super(StdChlLeak, self).__init__(**kwargs)
         self.conductance = unit(conductance)
         self.reversalpotential = unit(reversalpotential)
 
@@ -60,7 +60,7 @@ class StdChlLeak(Channel):
 
     def get_prefered_units(self):
         return {'gLk': mf.mS/mf.cm2,
-                'eLk': pq.mV, 
+                'eLk': pq.mV,
                 'gScale': pq.dimensionless
                 }
 

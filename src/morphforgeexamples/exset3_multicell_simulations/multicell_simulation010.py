@@ -36,26 +36,26 @@ another cell via an excitatry synapse.
 
 """
 
-from neurounits import NeuroUnitParser
+#from neurounits import NeuroUnitParser
 
-from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_TimeList
-from morphforgecontrib.simulation.synapses.core.presynaptic_mechanisms import PreSynapticMech_VoltageThreshold
+from morphforgecontrib.stdimports import PreSynapticMech_TimeList
+from morphforgecontrib.stdimports import PreSynapticMech_VoltageThreshold
 #from morphforgecontrib.simulation.synapses.neurounit import NeuroUnitEqnsetPostSynaptic
 
-from morphforgecontrib.simulation.synapse_templates.neurounit import * 
-from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
-from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
-from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
+from morphforgecontrib.simulation.synapse_templates.neurounit import *
+from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import *
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import *
+from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import *
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
+#from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
 def simulate_chls_on_neuron():
-    
-    
+
+
     # Create the environment:
     env = NEURONEnvironment()
     sim = env.Simulation()
@@ -63,16 +63,16 @@ def simulate_chls_on_neuron():
     # Create a cell:
     cell1 = CellLibrary.create_cell(celltype=None, modelsrc=StandardModels.HH52, sim=sim)
     cell2 = CellLibrary.create_cell(celltype=None, modelsrc=StandardModels.HH52, sim=sim)
- 
+
 
     exp2template = env.PostSynapticMechTemplate(
         PostSynapticMech_Exp2SynNMDA_Base,
         template_name='expsyn2tmpl',
         tau_open = 5 * pq.ms, tau_close=20*pq.ms, e_rev=0 * pq.mV, popening=1.0, vdep=False,
         )
-    
 
-    
+
+
     syn = sim.create_synapse(
             presynaptic_mech = env.PreSynapticMechanism(
                                      PreSynapticMech_TimeList,
@@ -80,7 +80,7 @@ def simulate_chls_on_neuron():
                                      weight = unit("1:nS")),
             postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma ),
            )
-           
+
     syn = sim.create_synapse(
             presynaptic_mech = env.PreSynapticMechanism(
                                      PreSynapticMech_VoltageThreshold,
@@ -92,7 +92,7 @@ def simulate_chls_on_neuron():
            )
 
 
-    
+
 
     # Define what to record:
     sim.record(what=StandardTags.Voltage, name="SomaVoltage1", cell_location = cell1.soma)

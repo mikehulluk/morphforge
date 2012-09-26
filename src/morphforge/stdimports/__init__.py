@@ -115,7 +115,7 @@ class MembraneMechanismSummariser(object):
 
 
 
-
+from morphforge.core.quantities import available_units as units
 
 
 
