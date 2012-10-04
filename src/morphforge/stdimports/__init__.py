@@ -102,6 +102,7 @@ from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 from morphforge.componentlibraries.channellibrary import cached_functor
 
 
+from morphforge.componentlibraries.psm_template_library import PostSynapticTemplateLibrary
 
 
 class MembraneMechanismSummariser(object):

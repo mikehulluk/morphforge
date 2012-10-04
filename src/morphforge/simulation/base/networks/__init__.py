@@ -105,6 +105,9 @@ class PostSynapticMech(object):
         return self.cell_location.cell
 
 
+    @classmethod
+    def get_variables(cls):
+        raise NotImplementedError()
 
 
 

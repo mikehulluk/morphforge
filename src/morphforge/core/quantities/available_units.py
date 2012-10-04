@@ -1,4 +1,4 @@
-  #!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,29 +29,17 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.simulation.base.networks import PostSynapticMech
-from morphforge.stdimports import units
 
-class PostSynapticMech_Exp2Syn_Base(object):
 
-    def __init__(self, tau_open, tau_close, e_rev, popening, weight, **kwargs):
-        super(PostSynapticMech_Exp2Syn_Base, self).__init__( **kwargs)
-        self._default_parameters = { 'tau_open':tau_open, 'tau_close':tau_close, 'e_rev':e_rev, 'popening':popening, 'weight':weight}
 
-    @classmethod
-    def get_variables(cls):
-        return ['tau_open','tau_close', 'popening','e_rev', 'weight']
+from quantities import *
+from common_neuroscience_defs import mS, uS, nS, pS
+from common_neuroscience_defs import mF, uF, nF, pF
+from common_neuroscience_defs import um2, cm2, mm2, m2
 
-    @classmethod
-    def get_preferred_unit(cls, varname):
-        import quantities as pq
-        
-        _units = {
-                'tau_open': units.ms,
-                'tau_close': units.ms,
-                'popening': units.dimensionless,
-                'e_rev': pq.mV,
-                'weight': units.nS,
-                }
-        return _units[varname]
+
+from common_neuroscience_defs import ohmcm 
+from common_neuroscience_defs import MOhm
+from common_neuroscience_defs import mV
+
 

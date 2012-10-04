@@ -31,6 +31,11 @@
 # ----------------------------------------------------------------------
 
 import mredoc
+import mredoc as mrd
+
+import quantities as pq
+import types
+
 
 class PostSynapticTemplateLibrary(object):
 
@@ -40,8 +45,9 @@ class PostSynapticTemplateLibrary(object):
 
     @classmethod
     def register_template_specialisation( cls,
-                  modelsrc, synapsetype,
-                  template_type, 
+                  modelsrc,
+                  synapsetype,
+                  template_type,
                   **kwargs
                   ):
         key = (modelsrc, synapsetype)
@@ -57,10 +63,85 @@ class PostSynapticTemplateLibrary(object):
         return cls._sim_instances[key]
 
 
-    @classmethod 
+    @classmethod
     def instantiate(cls, sim, modelsrc, synapsetype, **kwargs):
         tmpl = cls.get_template(sim=sim, modelsrc=modelsrc, synapsetype=synapsetype)
         return tmpl.instantiate(**kwargs)
+
+
+    @classmethod
+    def _dummy_instantiate(cls, modelsrc, synapsetype):
+        from morphforge.stdimports import NEURONEnvironment
+        sim = NEURONEnvironment().Simulation()
+        cell = sim.create_cell(area=1000)
+        postsyn = cls.instantiate(sim=sim, modelsrc=modelsrc, synapsetype=synapsetype, cell_location=cell.soma)
+        return postsyn
+
+
+
+
+    @classmethod
+    def summary_table(cls):
+        #synapsetypes = set([ synapsetype for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ])
+        modelsrcs = sorted( set([ modelsrc for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ]) )
+        #tmpl_types = sorted( set([ template_type for (template_type, _kwargs) in cls._postsynaptic_template_functor_info.values() ]) )
+
+        # We are going to make one table per synapse_type per modelsrc:
+
+        sects = []
+        for modelsrc in modelsrcs:
+
+            model_data = [ (template_type,synapsetype) for ((_modelsrc,synapsetype), (template_type,_kwargs)) in cls._postsynaptic_template_functor_info.iteritems()  if _modelsrc==modelsrc]
+            tmpl_types = sorted(set( [ tt for (tt,st) in model_data] ))
+            tmpl_types = [ (tt, sorted([st2 for (tt2,st2) in model_data if tt==tt2])) for tt in tmpl_types]
+            tmpl_types = [ (tt,sts) for (tt, sts) in tmpl_types if sts]
+            print 
+            print tmpl_types
+
+            subsect=[]
+            for template_type, synapsetypes in tmpl_types:
+
+                var_names = template_type.get_variables()
+                cols = ['Name'] + var_names
+                row_data = []
+                for synapsetype in synapsetypes:
+                    print 'SynType', synapsetype, template_type
+                    syn = cls._dummy_instantiate(modelsrc=modelsrc, synapsetype=synapsetype)
+                    syn_vars_dict = syn.get_resolved_parameters()
+
+                    for k,v in syn_vars_dict.iteritems():
+                        if isinstance(v, (float, types.BooleanType )):
+                            continue
+                        syn_vars_dict[k] = v.rescale(template_type.get_preferred_unit(k))
+
+
+                    row_data.append( [synapsetype] + [str(syn_vars_dict[varname]) for varname in var_names] )
+
+                tbl = mredoc.VerticalColTable(cols, row_data)
+                subsect.append( mrd.Section('Type: %s' %(template_type.__name__), tbl) )
+
+            sects.append( mrd.Section('ModelSrc: %s' %(modelsrc), *subsect) )
+
+        sect = mrd.Section('SynapseLibrary', *sects)
+        return sect
+
+
+
+        #    new_sect = mredoc.Section(template_type,
+        #                )
+        #        subsect.append(new_sect)
+
+        #    sects.append(subsect)
+
+
+
+
+
+
+        return mredoc.Section('Synaptic Templates', *sects )
+
+
+
 
     #@classmethod
     #def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
