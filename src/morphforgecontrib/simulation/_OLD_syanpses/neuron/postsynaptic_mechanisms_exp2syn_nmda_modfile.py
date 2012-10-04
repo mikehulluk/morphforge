@@ -144,7 +144,7 @@ FUNCTION vdep(Vin)
 BREAKPOINT {
     SOLVE state METHOD cnexp
     voltage_dependancy = vdep(v)
-    g = (B - A) :* vdep(v)
+    g = (B - A) 
 
     i = g*(v - e) * vdep(v)
 

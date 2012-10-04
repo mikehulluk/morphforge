@@ -36,23 +36,30 @@ import quantities as pq
 from morphforge.traces import TagSelector
 
 
-def is_number_roundable_to(num, n):
-    return abs(num - round(num, n)) < 0.000000001
-
-
-def get_max_rounding(num):
-    for i in range(0, 10):
-        if is_number_roundable_to(num, i):
-            return i
-    assert False
-
-
-def float_list_to_string(seq):
-    for obj in seq:
-        assert isinstance(obj, (int, float))
-    roundings = [get_max_rounding(obj) for obj in seq]
-    max_round = max(roundings)
-    return ['%.*f' % (max_round, obj) for obj in seq]
+#def is_number_roundable_to(num, n):
+#    return abs(num - round(num, n)) < 0.000000001
+#
+#
+#def get_max_rounding(num):
+#    for i in range(0, 10):
+#        if is_number_roundable_to(num, i):
+#            return i
+#    assert False
+#
+#def get_max_rounding_list(nums):
+#    for obj in nums:
+#        assert isinstance(obj, (int, float))
+#    roundings = [get_max_rounding(obj) for obj in nums]
+#    max_round = max(roundings)
+#    return max_round
+#
+#
+#def float_list_to_string(seq):
+#    for obj in seq:
+#        assert isinstance(obj, (int, float))
+#    roundings = [get_max_rounding(obj) for obj in seq]
+#    max_round = max(roundings)
+#    return ['%.*f' % (max_round, obj) for obj in seq]
 
 
 def default_legend_labeller(tr):
@@ -79,7 +86,7 @@ class YAxisConfig(object):
         ymargin=None,
 
         show_yticklabels=True,
-        show_yticklabels_with_units=False,
+        show_yticklabels_with_units=False, 
         ):
         self.yrange = yrange
         self.yunit = yunit
@@ -110,23 +117,12 @@ class YAxisConfig(object):
             if isinstance( self.yticks, int):
                 ax.set_yaxis_maxnlocator(self.yticks)
             elif is_iterable(self.yticks):
-
-                #print 'yticks', self.yticks
                 ax.set_yticks(self.yticks)
             else:
                 assert False
 
+        ax.set_yticklabel_mode(show_ticks=self.show_yticklabels, include_units=self.show_yticklabels_with_units)
 
-        if self.show_yticklabels:
-            #print 'yticks', ax.get_yticks()
-            ylocs = [float(ytick.rescale(ax.xyUnitDisplay[1])) for ytick in ax.get_yticks()]
-            # This call makes sure that we only display as many deciaml places as is sensible.
-            yticklabels = float_list_to_string(ylocs)
-            ax.set_yticklabels(yticklabels, include_unit=self.show_yticklabels_with_units)
-        else:
-            ax.set_yticklabels('')
-
-            
         #TODO: Something funky is going on and this is not making a difference
         if self.ymargin is not None:
             ax.set_ymargin(self.ymargin)
@@ -150,7 +146,7 @@ class TagPlot(object):
         ymargin=None,
 
         show_yticklabels=True,
-        show_yticklabels_with_units=False,
+        show_yticklabels_with_units=True, ##
         ):
 
         if yaxisconfig is None:
@@ -306,19 +302,16 @@ class TagPlot(object):
             ax.set_xlabel('Time')
         else:
             ax.set_xlabel('')
-            #assert False
 
+        #show_xticklabels_with_units = True
+        #assert False
         # Similarly, plot the axis-ticklabel, if
-        if show_xticklabels == 'all' or \
-			show_xticklabels == 'only-once' and xaxis_position is not None:
-            ms_times = [float(x.rescale('ms')) for x in ax.get_xticks()]
-            # This call makes sure that we only display as many deciaml places as is sensible.
-            ts = float_list_to_string(ms_times)
-            ax.set_xticklabels(ts, include_unit=show_xticklabels_with_units)
-
-        else:
-            
-            ax.set_xticklabels('')
+        show_xticks = show_xticklabels == 'all' or (show_xticklabels == 'only-once' and xaxis_position is not None)
+        ax.set_xticklabel_mode(show_ticks=show_xticks, include_units=show_xticklabels_with_units)
+        #    mode = 'with-units' if show_xticklabels_with_units else 'without-units'
+        #    ax.set_xticklabel_mode(mode=mode)
+        #else:
+        #    ax.set_xticklabel_mode(mode=None)
 
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)

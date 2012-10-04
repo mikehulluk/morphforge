@@ -41,6 +41,7 @@ from morphforge.traces import TracePiecewise
 from morphforge.traces.eventset import EventSet
 from morphforge.core import quantities as pq
 
+import quantities as PQ
 # pylint: disable=W0108
 # (Suppress warning about 'unnessesary lambda functions')
 
@@ -50,7 +51,7 @@ class DefaultTagPlots(object):
     Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
     CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
     Current =            TagPlot("Current", ylabel='Current', yunit=pq.picoamp)
-    Conductance =        TagPlot("Conductance", ylabel="Conductance")
+    Conductance =        TagPlot("Conductance", ylabel="Conductance", yunit=PQ.pico* PQ.S)
     ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
     StateVariable =      TagPlot("StateVariable", ylabel="StateVariable")
     StateVariableTau =   TagPlot("StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")

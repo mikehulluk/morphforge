@@ -159,7 +159,6 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         if what == StandardTags.NMDAVoltageDependancy:
             return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=instance, **kwargs)
         assert False
-        assert False
 
 
     #def get_recordable(self, what, **kwargs):

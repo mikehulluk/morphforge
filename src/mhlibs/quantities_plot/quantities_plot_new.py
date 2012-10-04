@@ -35,19 +35,58 @@ import quantities as pq
 from decimal import Decimal
 
 
+
+def is_number_roundable_to(num, n):
+    return abs(num - round(num, n)) < 0.000000001
+
+
+def get_max_rounding(num):
+    for i in range(0, 10):
+        if is_number_roundable_to(num, i):
+            return i
+    assert False
+
+def get_max_rounding_list(nums):
+    for obj in nums:
+        assert isinstance(obj, (int, float))
+    roundings = [get_max_rounding(obj) for obj in nums]
+    max_round = max(roundings)
+    return max_round
+
+
+
+
+
+
+
+
+
+
 class ScalarFormatterWithUnit(object):
-    def __init__(self, scaling, symbol=None):
+    def __init__(self, scaling, symbol=None, ax=None, mode=None,xy=None):
         self.scaling = scaling
         self.symbol = symbol
 
+        assert ax is not None
+        self.ax = ax
+
+        self.mode = mode
+        self.xy=xy
+
 
     def __call__(self, x, pos):
+
         x = x * float(self.scaling)
 
         d = Decimal(str(x))
         num_str = "%s" % d.to_eng_string()
 
-        unit_str = "%s" % self.symbol if self.symbol else ""
+        if self.xy=='x':
+            unit_str = "%s" % self.symbol if self.ax.units_in_ticksx and self.symbol else ""
+        elif self.xy=='y':
+            unit_str = "%s" % self.symbol if self.ax.units_in_ticksy and self.symbol else ""
+        else:
+            assert False
         return num_str + unit_str
 
 
@@ -58,33 +97,27 @@ class QuantitiesAxisNew(object):
 
     def getSymbolFromUnit(self, u):
         if not u:
-            return "(??)"
+            return " (??)"
 
         s = u.dimensionality.string
         if s == 'dimensionless':
             return ''
-        return '(%s)'%s
+        return '%s'%s
 
-    def xTickFormatGenerator(self, scaling, symbol):
-
-        from matplotlib.ticker import FuncFormatter
-        if self.units_in_label:
-            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=None))
-        else:
-            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol))
-
-    def yTickFormatGenerator(self, scaling, symbol):
+    def xTickFormatGenerator(self, scaling, symbol, ):
 
         from matplotlib.ticker import FuncFormatter
-        if self.units_in_label:
-            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=None))
-        else:
-            return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol))
+        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='x'))
+
+    def yTickFormatGenerator(self, scaling, symbol, ):
+
+        from matplotlib.ticker import FuncFormatter
+        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='y'))
 
 
 
 
-    def __init__(self, ax, units_in_label=True):
+    def __init__(self, ax, units_in_label=True, units_in_ticks=False):
         self.xyUnitBase = [None, None]
         self.xyUnitDisplay = [None, None]
 
@@ -94,13 +127,18 @@ class QuantitiesAxisNew(object):
 
         self.safetychecking = True
 
-        self.units_in_label = units_in_label
+        self.units_in_labelx = units_in_label
+        self.units_in_labely = units_in_label
+        self.units_in_ticksx = units_in_ticks
+        self.units_in_ticksy = units_in_ticks
 
         # Store these internally, so we can
         # reapply them if units change:
         self.labelX = "<NotSet>"
         self.labelY = "<NotSet>"
         self.ax.margins(0.05,0.05)
+
+
 
     def _setxyUnitBase(self, unitX=None, unitY=None):
         from morphforge.stdimports import unit
@@ -211,66 +249,49 @@ class QuantitiesAxisNew(object):
             self.ax.set_xlim(right =  x1.rescale(self.xyUnitBase[0]).magnitude, **kwargs)
 
 
-    
+
 
     def set_xaxis_visible(self, visible):
         return self.ax.get_yaxis().set_visible(visible)
     def set_yaxis_visible(self, visible):
         return self.ax.get_yaxis().set_visible(visible)
 
-    def get_xticks(self,):
-        return self.ax.get_xticks() * self.xyUnitBase[0]
 
-    def set_xticks(self, locations):
-        # Are the baseunits set? If not, then lets set them:
-        assert self.xyUnitBase[0] is not None and self.xyUnitDisplay[0] is not None
-        locs_no_unit = [ float(x.rescale(self.xyUnitBase[0]).magnitude) for x in locations]
-        return self.ax.set_xticks(locs_no_unit)
+    def set_xticklabel_mode(self, show_ticks=None, include_units=None, ):
+        assert show_ticks in [None,True,False]
+        assert include_units in [None,True,False]
+        symbol = self.getSymbolFromUnit(self.xyUnitDisplay[0])
+        scaling = (self.xyUnitBase[0]/self.xyUnitDisplay[0]).rescale(pq.dimensionless)
 
-    def set_xticklabels(self, labels, include_unit=False):
-        if include_unit:
-            unit_str = ' ' + self.getSymbolFromUnit(self.xyUnitDisplay[0]) if self.xyUnitDisplay[0] is not None else "??"
-            unit_str = unit_str.replace('(','').replace(')','')
-        else:
-            unit_str = ''
+        if show_ticks is not None:
+            self.units_in_ticksy = show_ticks
+        if include_units is not None:
+            symbol=symbol if include_units else None
 
-        if isinstance(labels, basestring):
-            if labels == '':
-                self.ax.set_xticklabels(labels)
-            else:
-                self.ax.set_xticklabels(labels + unit_str)
-
-        else:
-            labels = [label + unit_str for label in labels if label]
-            self.ax.set_xticklabels(labels)
+        # Update the axis ticks:
+        xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol)
+        self.ax.xaxis.set_major_formatter(xFormatterFunc)
 
 
+    def set_yticklabel_mode(self, show_ticks=None, include_units=None ):
+        assert show_ticks in [None,True,False]
+        assert include_units in [None,True,False]
+        symbol = self.getSymbolFromUnit(self.xyUnitDisplay[1])
+        scaling = (self.xyUnitBase[1]/self.xyUnitDisplay[1]).rescale(pq.dimensionless)
 
-    def get_yticks(self,):
-        return self.ax.get_yticks() * self.xyUnitBase[1]
+        if show_ticks is not None:
+            self.units_in_ticksy = show_ticks
+        if include_units is not None:
+            symbol=symbol if include_units else None
 
-    def set_yticks(self, locations):
-        # Are the baseunits set? If not, then lets set them:
-        assert self.xyUnitBase[1] is not None and self.xyUnitDisplay[1] is not None
-        locs_no_unit = [ float(y.rescale(self.xyUnitBase[1]).magnitude) for y in locations]
-        return self.ax.set_yticks(locs_no_unit)
+        # Update the axis ticks:
+        yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol)
+        self.ax.yaxis.set_major_formatter(yFormatterFunc)
 
-    def set_yticklabels(self, labels, include_unit=False):
-        if include_unit:
-            unit_str = ' ' + self.getSymbolFromUnit(self.xyUnitDisplay[1]) if self.xyUnitDisplay[1] is not None else "??"
-            unit_str = unit_str.replace('(','').replace(')','')
-        else:
-            unit_str = ''
 
-        if isinstance(labels, basestring):
-            if labels == '':
-                self.ax.set_yticklabels(labels)
-            else:
-                self.ax.set_yticklabels(labels + unit_str)
 
-        else:
-            labels = [label + unit_str for label in labels if label]
-            self.ax.set_yticklabels(labels)
+
+
 
 
 
@@ -322,18 +343,18 @@ class QuantitiesAxisNew(object):
         if not self.labelX:
             self.ax.set_xlabel(self.labelX)
 
-        elif self.units_in_label:
+        elif self.units_in_labelx:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[0]) if self.xyUnitDisplay[0] is not None else "??"
-            self.ax.set_xlabel("%s %s"%(self.labelX, unit_str))
+            self.ax.set_xlabel("%s %s"%(self.labelX, (' (%s)' %unit_str if unit_str else '')))
         else:
             self.ax.set_xlabel(self.labelX)
 
         # Y-label
         if not self.labelY:
             self.ax.set_ylabel(self.labelY)
-        elif self.units_in_label:
+        elif self.units_in_labely:
             unit_str = self.getSymbolFromUnit(self.xyUnitDisplay[1]) if self.xyUnitDisplay[1] is not None else "??"
-            self.ax.set_ylabel("%s %s"%(self.labelY, unit_str))
+            self.ax.set_ylabel("%s %s"%(self.labelY, (' (%s)'%unit_str if unit_str else '')))
         else:
             self.ax.set_ylabel(self.labelY)
 
@@ -353,6 +374,8 @@ class QuantitiesAxisNew(object):
         self.ax.xaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
 
 
+    # These handle is the ticks and labels are top/bottom off the
+    # graphs:
     def set_xaxis_ticks_position(self, pos):
             self.ax.xaxis.set_ticks_position(pos)
     def set_xaxis_label_position(self, pos):
@@ -404,7 +427,7 @@ class QuantitiesAxisNew(object):
 
 
     def __str__(self):
-        return "<QuantitiesAxisNew: DisplayUnit:'%s' >" % (self.xyUnitDisplay) 
+        return "<QuantitiesAxisNew: DisplayUnit:'%s' >" % (self.xyUnitDisplay)
 
 class QuantitiesFigureNew(object):
 

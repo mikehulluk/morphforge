@@ -82,12 +82,9 @@ class PostSynapticTemplateLibrary(object):
 
     @classmethod
     def summary_table(cls):
-        #synapsetypes = set([ synapsetype for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ])
         modelsrcs = sorted( set([ modelsrc for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ]) )
-        #tmpl_types = sorted( set([ template_type for (template_type, _kwargs) in cls._postsynaptic_template_functor_info.values() ]) )
 
         # We are going to make one table per synapse_type per modelsrc:
-
         sects = []
         for modelsrc in modelsrcs:
 
@@ -95,8 +92,8 @@ class PostSynapticTemplateLibrary(object):
             tmpl_types = sorted(set( [ tt for (tt,st) in model_data] ))
             tmpl_types = [ (tt, sorted([st2 for (tt2,st2) in model_data if tt==tt2])) for tt in tmpl_types]
             tmpl_types = [ (tt,sts) for (tt, sts) in tmpl_types if sts]
-            print 
-            print tmpl_types
+            #print 
+            #print tmpl_types
 
             subsect=[]
             for template_type, synapsetypes in tmpl_types:
@@ -105,7 +102,7 @@ class PostSynapticTemplateLibrary(object):
                 cols = ['Name'] + var_names
                 row_data = []
                 for synapsetype in synapsetypes:
-                    print 'SynType', synapsetype, template_type
+                    #print 'SynType', synapsetype, template_type
                     syn = cls._dummy_instantiate(modelsrc=modelsrc, synapsetype=synapsetype)
                     syn_vars_dict = syn.get_resolved_parameters()
 
