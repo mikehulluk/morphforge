@@ -29,6 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import types
 
 class PluginDict(object):
 
@@ -44,13 +45,17 @@ class PluginDict(object):
     def register_plugin(self, plugin_name, plugin):
         """ Registers a plugin"""
 
+        # We are expecting classes
+        assert plugin_name.__class__ == types.TypeType 
+        assert plugin.__class__ == types.TypeType
+
         assert not plugin_name in self.dict
         self.dict[plugin_name] = plugin
 
     def get_plugin(self, plugin_name):
         """ Returns a previously registered plugin"""
 
-        assert plugin_name in self.dict
+        assert plugin_name in self.dict, 'No plugin registered for: %s' % plugin_name
         return self.dict[plugin_name]
 
     def __iter__(self):

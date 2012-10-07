@@ -60,12 +60,12 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstanti
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
 
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
 
 
@@ -80,22 +80,22 @@ ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 
 
 class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURONPostSynapticMechTemplateForwardToTemplate):
-   
-        
+
+
 
 
     def __init__(self, vdep=None, **kwargs):
         super(NEURONPostSynapticMechTemplate_ExpSyn, self).__init__( **kwargs)
         assert vdep == None
         self.is_mod_built = False
-        
+
     def build_hoc_for_instance(self, instance, hocfile_obj):
-        
+
         params = instance.get_resolved_parameters()
         tau = params['tau']
         e_rev = params['e_rev']
-        
-        
+
+
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
         syn_name_post = instance.synapse.get_name() + 'Post'
@@ -118,9 +118,9 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
         hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
-        
+
     def template_build_mod(self, modfile_set):
-        return 
+        return
         if not self.is_mod_built:
             modfile_set.append( ModFile(modtxt=postsynaptic_mechanisms_expsyn_modfile.getExpSynModfile(), name='UnusedParameterXXXExpSyn'))
             self.is_mod_built = True
@@ -141,6 +141,6 @@ NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp
 
 
 
-        
-        
-        
+
+
+

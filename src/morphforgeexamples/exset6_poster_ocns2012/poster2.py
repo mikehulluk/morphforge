@@ -107,19 +107,19 @@ post_syn_tmpl = env.PostSynapticMechTemplate(
 syn1 = sim.create_synapse(
         presynaptic_mech =  env.PreSynapticMechanism(
                                     PreSynapticMech_VoltageThreshold,
-                                    cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 300),
-                                    voltage_threshold = U("0:mV"),  delay = U("0:ms"),     weight = U("1:nS"),
+                                        cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 300),
+                                        voltage_threshold = U("0:mV"),  delay=U("0:ms"), 
                                    ),
-        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell2.soma)
+        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell2.soma,), # parameter_overrides={'weight':U("1:nS") })
        )
 
 syn1 = sim.create_synapse(
         presynaptic_mech =  env.PreSynapticMechanism(
                                     PreSynapticMech_VoltageThreshold,
                                     cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 700),
-                                    voltage_threshold = U("0:mV"),  delay = U("0:ms"), weight = U("1:nS"),
+                                    voltage_threshold = U("0:mV"),  delay = U("0:ms"),
                                    ),
-	postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell3.soma, parameter_overrides={'scale':2.0} )
+        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell3.soma, parameter_overrides={'scale':2.0} )  #'weight':U('1:nS'),
        )
 
 # Record Voltages from axons:
