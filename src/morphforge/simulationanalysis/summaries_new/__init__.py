@@ -372,7 +372,7 @@ class SimulationMRedoc(object):
         mechs = nrn.biophysics.get_applied_mtas()
         return mrd.VerticalColTable(
                 'Mechanism|Priority|Targetter|Applicator', 
-                [ ( '%s ' % (mta.mechanism.name, ),
+                [ ( '%s ' % (mta.channel.name, ),
                     mta.targetter.get_priority(),
                     mta.targetter.get_description(),
                     mta.applicator.get_description(),

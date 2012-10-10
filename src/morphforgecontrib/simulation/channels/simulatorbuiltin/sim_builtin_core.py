@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.biophysics.membranemechanism import Channel
+from morphforge.simulation.base.biophysics.channel import Channel
 
 
 class BuiltinChannel(Channel):

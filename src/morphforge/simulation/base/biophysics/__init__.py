@@ -33,23 +33,23 @@
 from morphforge.simulation.base.biophysics.cellbiophysics import CellBiophysics
 
 # Base Classes:
-from morphforge.simulation.base.biophysics.membranemechanism import Channel
+from morphforge.simulation.base.biophysics.channel import Channel
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
 
 # Applicators:
-from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicator
-from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicatorUniform
+from morphforge.simulation.base.biophysics.channelapplicators import ChannelApplicator
+from morphforge.simulation.base.biophysics.channelapplicators import ChannelApplicatorUniform
 
 # Targettors:
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import Targeter
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhereDefault
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhere
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterRegion
+from morphforge.simulation.base.biophysics.channeltargetters import Targeter
+from morphforge.simulation.base.biophysics.channeltargetters import PassiveTargetterEverywhereDefault
+from morphforge.simulation.base.biophysics.channeltargetters import PassiveTargetterEverywhere
+from morphforge.simulation.base.biophysics.channeltargetters import PassiveTargetterRegion
 
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterSection
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterSectionPath
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterEverywhere
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterRegion
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterSection
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterSectionPath
 
 __all__ = [
     'CellBiophysics',

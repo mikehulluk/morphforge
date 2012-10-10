@@ -93,7 +93,7 @@ def build_hoc_default(cell, section, hocfile_obj, mta,  units, nrnsuffix):
 
     # Calculate the values of the variables for the section:
     variables = []
-    for variable_name in mta.mechanism.get_variables():
+    for variable_name in mta.channel.get_variables():
         variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
         variable_unit = units[variable_name]
         variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude

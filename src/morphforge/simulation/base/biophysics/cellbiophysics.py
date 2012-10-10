@@ -33,20 +33,20 @@ import types
 from morphforge.core import SeqUtils
 
 from morphforge.simulation.base.biophysics.passiveproperties import PassiveProperty
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhereDefault
-from morphforge.simulation.base.biophysics.membranemechanismapplicators import ChannelApplicatorUniform
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterEverywhere
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import ChannelTargeterRegion
-from morphforge.simulation.base.biophysics.membranemechanismtargetters import PassiveTargetterEverywhere
+from morphforge.simulation.base.biophysics.channeltargetters import PassiveTargetterEverywhereDefault
+from morphforge.simulation.base.biophysics.channelapplicators import ChannelApplicatorUniform
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterEverywhere
+from morphforge.simulation.base.biophysics.channeltargetters import ChannelTargeterRegion
+from morphforge.simulation.base.biophysics.channeltargetters import PassiveTargetterEverywhere
 
 
 
-# A type for holding a mechanism/passive, where it is applied, and how much where.
+# A type for holding a channel/passive, where it is applied, and how much where.
 
 class _MechanismTargetApplicator(object):
 
-    def __init__(self, mechanism, targetter, applicator):
-        self.mechanism = mechanism
+    def __init__(self, channel, targetter, applicator):
+        self.channel = channel
         self.targetter = targetter
         self.applicator = applicator
 
@@ -78,11 +78,11 @@ class CellBiophysics(object):
 
     # Active Mechanisms:
     # ####################
-    def add_mechanism(self, mechanism, targetter, applicator):
-        # Ensure the applicator is connected to the mechanism
-        applicator.set_target_mechanism(mechanism)
+    def add_mechanism(self, channel, targetter, applicator):
+        # Ensure the applicator is connected to the channel
+        applicator.set_target_mechanism(channel)
 
-        mta = _MechanismTargetApplicator(mechanism=mechanism, targetter=targetter, applicator=applicator)
+        mta = _MechanismTargetApplicator(channel=channel, targetter=targetter, applicator=applicator)
         self.appliedmechanisms.append(mta)
 
     def get_resolved_mtas_for_section(self, section):
@@ -93,11 +93,11 @@ class CellBiophysics(object):
 
         # All the mechanisms targetting a certain region:
         mtas_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
-        mechs_targetting_section = set([ mta.mechanism for mta in self.appliedmechanisms])
+        mechs_targetting_section = set([ mta.channel for mta in self.appliedmechanisms])
 
         resolved_mechs = []
         for mech in mechs_targetting_section:
-            mtas_with_mech = [mta for mta in mtas_targetting_section if mta.mechanism is mech]
+            mtas_with_mech = [mta for mta in mtas_targetting_section if mta.channel is mech]
             highest_prority_mech = SeqUtils.max_with_unique_check(mtas_with_mech, key=lambda pta: pta.targetter.get_priority())
             resolved_mechs.append(highest_prority_mech)
         return resolved_mechs
@@ -108,7 +108,7 @@ class CellBiophysics(object):
         return self.appliedmechanisms
 
     def get_all_mechanisms_applied_to_cell(self):
-        return set([mta.mechanism for mta in self.appliedmechanisms])
+        return set([mta.channel for mta in self.appliedmechanisms])
 
     def get_channels(self):
         # TODO: RENAME ONE OF THESE!
@@ -151,7 +151,7 @@ class CellBiophysics(object):
         applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
 
         return self.add_mechanism(
-            mechanism=channel,
+            channel=channel,
             targetter=targetter,
             applicator=applicator
             )

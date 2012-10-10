@@ -129,7 +129,7 @@ class HocBuilder_Cell(object):
         # Create the membrane properties:
         for section in cell.morphology:
             for mta in cell.get_biophysics().get_resolved_mtas_for_section(section):
-                mta.mechanism.build_hoc_section(cell=cell,
+                mta.channel.build_hoc_section(cell=cell,
                         section=section, hocfile_obj=hocfile_obj, mta=mta)
 
 

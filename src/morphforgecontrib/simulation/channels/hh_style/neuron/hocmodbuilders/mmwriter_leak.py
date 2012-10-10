@@ -57,11 +57,11 @@ $(cell_name).internalsections [$section_index] {
         cell_name = hocfile_obj[MHocFileData.Cells][cell]['cell_name']
         section_index = hocfile_obj[MHocFileData.Cells][cell]['section_indexer'][section]
 
-        neuron_suffix = mta.mechanism.get_neuron_suffix()
+        neuron_suffix = mta.channel.get_neuron_suffix()
 
         # Calculate the values of the variables for the section:
         variables = []
-        for variable_name in mta.mechanism.get_variables():
+        for variable_name in mta.channel.get_variables():
             variable_value_with_unit = mta.applicator.get_variable_value_for_section(variable_name=variable_name, section=section)
             variable_unit = NEURONChlWriterLeak.Units[variable_name]
             variable_value_nounit = variable_value_with_unit.rescale(variable_unit).magnitude

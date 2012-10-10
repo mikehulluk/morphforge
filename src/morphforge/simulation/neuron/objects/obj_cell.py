@@ -103,7 +103,7 @@ class NEURONCell(Cell, NEURONObject):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
 
     def build_mod(self, modfile_set):
-        mechanisms = set([mta.mechanism for mta in
+        mechanisms = set([mta.channel for mta in
                          self.get_biophysics().appliedmechanisms])
         for chl in mechanisms:
             chl.create_modfile(modfile_set)
