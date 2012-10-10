@@ -70,7 +70,7 @@ class SynapseInPopulationRecordTags(object):
         tags = []
 
         # Presynaptic Cell Tagging:
-        if synapse.get_presynaptic_mechanism().get_type() == PreSynapticTypes.Cell:
+        if synapse.get_trigger().get_type() == PreSynapticTypes.Cell:
             tags.append('PRECELL:%s' % synapse.get_presynaptic_cell().name)
             if synapse.get_presynaptic_cell().population is not None:
                 tags.append('PREPOP:%s'

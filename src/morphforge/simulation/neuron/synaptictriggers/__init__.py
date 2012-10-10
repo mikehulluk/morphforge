@@ -36,7 +36,7 @@ from Cheetah.Template import Template
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.base.synaptictriggers import PreSynapticMech_VoltageThreshold, PreSynapticMech_TimeList
+from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltageThreshold, SynapticTriggerAtTimes
 
 
 
@@ -47,7 +47,7 @@ ${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($section
 """
 
 
-class NeuronSynapseTriggerVoltageThreshold(PreSynapticMech_VoltageThreshold):
+class NeuronSynapseTriggerVoltageThreshold(SynapticTriggerByVoltageThreshold):
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
@@ -98,7 +98,7 @@ ${synnamepre}.event($event.get_time.rescale('ms').magnitude )
 
 """
 
-class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
+class NeuronSynapseTriggerTimeList(SynapticTriggerAtTimes):
 
     def build_hoc(self, hocfile_obj):
         hoc_data = hocfile_obj[MHocFileData.Synapses][self.synapse]
@@ -123,7 +123,7 @@ class NeuronSynapseTriggerTimeList(PreSynapticMech_TimeList):
         pass
 
 
-NEURONEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_VoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
-NEURONEnvironment.presynapticmechanisms.register_plugin(PreSynapticMech_TimeList, NeuronSynapseTriggerTimeList)
+NEURONEnvironment.presynapticmechanisms.register_plugin(SynapticTriggerByVoltageThreshold, NeuronSynapseTriggerVoltageThreshold)
+NEURONEnvironment.presynapticmechanisms.register_plugin(SynapticTriggerAtTimes, NeuronSynapseTriggerTimeList)
 
 

@@ -105,8 +105,8 @@ post_syn_tmpl = env.PostSynapticMechTemplate(
         )
 
 syn1 = sim.create_synapse(
-        presynaptic_mech =  env.PreSynapticMechanism(
-                                    PreSynapticMech_VoltageThreshold,
+        trigger =  env.SynapticTrigger(
+                                    SynapticTriggerByVoltageThreshold,
                                         cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 300),
                                         voltage_threshold = U("0:mV"),  delay=U("0:ms"), 
                                    ),
@@ -114,8 +114,8 @@ syn1 = sim.create_synapse(
        )
 
 syn1 = sim.create_synapse(
-        presynaptic_mech =  env.PreSynapticMechanism(
-                                    PreSynapticMech_VoltageThreshold,
+        trigger =  env.SynapticTrigger(
+                                    SynapticTriggerByVoltageThreshold,
                                     cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 700),
                                     voltage_threshold = U("0:mV"),  delay = U("0:ms"),
                                    ),

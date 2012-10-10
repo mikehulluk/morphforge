@@ -37,29 +37,26 @@ class Synapse(object):
         SynapticCurrent = 'SynapticCurrent'
         SynapticConductance = 'SynapticConductance'
 
-    def __init__(self, presynaptic_mech, postsynaptic_mech):
-        self.preSynapticTrigger = presynaptic_mech
-        self.postSynapticMech = postsynaptic_mech
+    def __init__(self, trigger, postsynaptic_mech):
+        self._trigger = trigger
+        self._post_synaptic_mechanism = postsynaptic_mech
 
-        self.preSynapticTrigger = presynaptic_mech
-        self.postSynapticMech = postsynaptic_mech
-
-        self.postSynapticMech.synapse = self
-        self.preSynapticTrigger.synapse = self
+        self._post_synaptic_mechanism.synapse = self
+        self._trigger.synapse = self
 
         self.population = None
 
-    def get_presynaptic_mechanism(self):
-        return self.preSynapticTrigger
+    def get_trigger(self):
+        return self._trigger
 
     def get_postsynaptic_mechanism(self):
-        return self.postSynapticMech
+        return self._post_synaptic_mechanism
 
     def get_presynaptic_cell(self):
-        return self.preSynapticTrigger.get_presynaptic_cell()
+        return self._trigger.get_presynaptic_cell()
 
     def get_postsynaptic_cell(self):
-        return self.postSynapticMech.get_postsynaptic_cell()
+        return self._post_synaptic_mechanism.get_postsynaptic_cell()
 
 
 class GapJunction(object):
@@ -81,7 +78,7 @@ class PreSynapticTypes(object):
     FixedTiming = 'Timing'
 
 
-class PreSynapticMechanism(object):
+class SynapticTrigger(object):
 
     def __init__(self):
         self.synapse = None
@@ -92,6 +89,9 @@ class PreSynapticMechanism(object):
     def get_type(self):
         raise NotImplementedError()
 
+    #@property
+    #def weight(self):
+    #    return self.synapse._post_synaptic_mechanism.weight
 
 class PostSynapticMech(object):
 
@@ -99,7 +99,6 @@ class PostSynapticMech(object):
         super(PostSynapticMech, self).__init__(**kwargs)
         self.cell_location = cell_location
         self.synapse = None
-        #self.weight = weight
 
     def get_postsynaptic_cell(self):
         return self.cell_location.cell

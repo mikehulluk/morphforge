@@ -68,7 +68,7 @@ class NEURONEnvironment(SimulationEnvironment):
         return chl(**kwargs)
 
     @classmethod
-    def PreSynapticMechanism(cls, mechanismtype, **kwargs):
+    def SynapticTrigger(cls, mechanismtype, **kwargs):
         mech = cls.presynapticmechanisms.get_plugin(mechanismtype)
         return mech(**kwargs)
 

@@ -48,8 +48,8 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 from morphforge.stdimports import MFRandom, unit
 
 from morphforge.stdimports import StandardTags
-from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
-from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records import Neuron_PSM_Std_CurrentRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records import Neuron_PSM_Std_ConductanceRecord
 from morphforge.simulation.neuron.networks import NEURONSynapse
 
 

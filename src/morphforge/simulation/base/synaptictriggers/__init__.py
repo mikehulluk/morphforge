@@ -30,12 +30,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.networks import PreSynapticMechanism
+from morphforge.simulation.base.networks import SynapticTrigger
 from morphforge.simulation.base.networks import PreSynapticTypes
 from morphforge.traces.eventset import EventSet
 
 
-class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
+class SynapticTriggerByVoltageThreshold(SynapticTrigger):
 
     def __init__(self, cell_location, voltage_threshold, delay):
         self.cell_location = cell_location
@@ -53,14 +53,15 @@ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
 
     @property 
     def weight(self):
-        return self.synapse.postSynapticMech.weight
+        #assert False
+        return self.synapse._post_synaptic_mechanism.weight
 
 
-class PreSynapticMech_TimeList(PreSynapticMechanism):
+class SynapticTriggerAtTimes(SynapticTrigger):
 
     def __init__(self, time_list):
         # TODO: Add kwargs to constructor, and in above class.
-        super(PreSynapticMech_TimeList, self).__init__()
+        super(SynapticTriggerAtTimes, self).__init__()
 
         # Convert into an event set
         if not isinstance(time_list, EventSet):
@@ -77,4 +78,5 @@ class PreSynapticMech_TimeList(PreSynapticMechanism):
 
     @property 
     def weight(self):
-        return self.synapse.postSynapticMech.weight
+        #assert False
+        return self.synapse._post_synaptic_mechanism.weight

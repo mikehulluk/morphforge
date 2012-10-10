@@ -53,9 +53,9 @@ class Simulation(object):
         self.add_voltageclamp(voltage_clamp)
         return voltage_clamp
 
-    def create_synapse(self, presynaptic_mech, postsynaptic_mech):
+    def create_synapse(self, trigger, postsynaptic_mech):
         syn = self.environment.Synapse(simulation=self,
-                presynaptic_mech=presynaptic_mech,
+                trigger=trigger,
                 postsynaptic_mech=postsynaptic_mech)
         self.add_synapse(syn)
         return syn

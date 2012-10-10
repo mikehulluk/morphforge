@@ -69,8 +69,8 @@ from morphforge.simulation.base import *
 from morphforge.simulation.neuron import *
 from morphforge.simulation.base.util.celllocator import CellLocator
 
-from morphforge.simulation.base.synaptictriggers import PreSynapticMech_TimeList
-from morphforge.simulation.base.synaptictriggers import PreSynapticMech_VoltageThreshold
+from morphforge.simulation.base.synaptictriggers import SynapticTriggerAtTimes
+from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltageThreshold
 
 
 # Simulation Analysis

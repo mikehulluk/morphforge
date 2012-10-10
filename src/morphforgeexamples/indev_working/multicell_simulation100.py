@@ -546,9 +546,9 @@ exp2template = env.PostSynapticMechTemplate(
         tau_open = 5 * pq.ms, tau_close=20*pq.ms, e_rev = 0 * pq.mV, popening=1.0,
         )
 
-def build_presynaptic_mech( env, cell):
-    return env.PreSynapticMechanism(
-                mfc.PreSynapticMech_VoltageThreshold,
+def build_trigger( env, cell):
+    return env.SynapticTrigger(
+                mfc.SynapticTriggerByVoltageThreshold,
                 cell_location = cell.soma,
                 voltage_threshold = mf.unit("0:mV"),
                 delay = mf.unit("1:ms"),
@@ -557,8 +557,8 @@ def build_presynaptic_mech( env, cell):
 
 def onto_driver(sim, postsynaptic, times):
     return sim.create_synapse(
-            presynaptic_mech =  env.PreSynapticMechanism(
-                                        mfc.PreSynapticMech_TimeList,
+            trigger =  env.SynapticTrigger(
+                                        mfc.SynapticTriggerAtTimes,
                                         time_list =   times,
                                         ),
             postsynaptic_mech = driver_syn_tmpl.instantiate(
@@ -570,7 +570,7 @@ def onto_driver(sim, postsynaptic, times):
 
 def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
     ampa = sim.create_synapse(
-            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':ampa_scale * pq.dimensionless },
@@ -578,7 +578,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
                                        )
            )
     nmda = sim.create_synapse(
-            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':nmda_scale * pq.dimensionless },
@@ -589,7 +589,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
 
 def inhib(sim, presynaptic, postsynaptic, scale):
     inhib_syn = sim.create_synapse(
-            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = inhib_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':scale * pq.dimensionless },
@@ -599,7 +599,7 @@ def inhib(sim, presynaptic, postsynaptic, scale):
 
 def expbuiltin_syn(sim, presynaptic, postsynaptic, scale):
     inhib_syn = sim.create_synapse(
-            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = exptemplate.instantiate( cell_location = postsynaptic.soma,)
            )
     return [inhib_syn]
@@ -607,7 +607,7 @@ def expbuiltin_syn(sim, presynaptic, postsynaptic, scale):
 
 def exp2builtin_syn(sim, presynaptic, postsynaptic, scale):
     inhib_syn = sim.create_synapse(
-            presynaptic_mech = build_presynaptic_mech( env, presynaptic),
+            trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = exp2template.instantiate( cell_location = postsynaptic.soma,)
            )
     return [inhib_syn]

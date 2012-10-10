@@ -43,17 +43,17 @@ from morphforge.simulation.base import PostSynapticMechInstantiation
 
 class NEURONSynapse(NEURONObject, Synapse):
 
-    def __init__(self, simulation, presynaptic_mech, postsynaptic_mech, name=None, **kwargs):
-        super(NEURONSynapse, self).__init__(simulation=simulation, presynaptic_mech=presynaptic_mech, postsynaptic_mech=postsynaptic_mech, name=name, **kwargs)
+    def __init__(self, simulation, trigger, postsynaptic_mech, name=None, **kwargs):
+        super(NEURONSynapse, self).__init__(simulation=simulation, trigger=trigger, postsynaptic_mech=postsynaptic_mech, name=name, **kwargs)
 
 
     def build_hoc(self, hocfile_obj):
-        self.postSynapticMech.build_hoc(hocfile_obj)
-        self.preSynapticTrigger.build_hoc(hocfile_obj)
+        self._post_synaptic_mechanism.build_hoc(hocfile_obj)
+        self._trigger.build_hoc(hocfile_obj)
 
     def build_mod(self, modfile_set):
-        self.postSynapticMech.build_mod(modfile_set)
-        self.preSynapticTrigger.build_mod(modfile_set)
+        self._post_synaptic_mechanism.build_mod(modfile_set)
+        self._trigger.build_mod(modfile_set)
 
     def get_recordable(self, what, **kwargs):
         if what == StandardTags.Conductance:
@@ -65,10 +65,10 @@ class NEURONSynapse(NEURONObject, Synapse):
                     Synapse.Recordables.SynapticConductance,
                     StandardTags.NMDAVoltageDependancy,
                     StandardTags.NMDAVoltageDependancySS]:
-            return self.postSynapticMech.get_recordable(what=what,
+            return self._post_synaptic_mechanism.get_recordable(what=what,
                     **kwargs)
         if what in ['g']:
-            return self.postSynapticMech.get_recordable(what=what, **kwargs)
+            return self._post_synaptic_mechanism.get_recordable(what=what, **kwargs)
 
         assert False
 

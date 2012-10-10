@@ -45,10 +45,10 @@ from morphology.util import MorphologyTranslator
 
 
 # Pre synaptic mechanisms
-#from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_TimeList
-#from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_VoltageThreshold
-from morphforge.stdimports import PreSynapticMech_TimeList
-from morphforge.stdimports import PreSynapticMech_VoltageThreshold
+#from morphforgecontrib.simulation.presynapticmechanisms.core import SynapticTriggerAtTimes
+#from morphforgecontrib.simulation.presynapticmechanisms.core import SynapticTriggerByVoltageThreshold
+from morphforge.stdimports import SynapticTriggerAtTimes
+from morphforge.stdimports import SynapticTriggerByVoltageThreshold
 
 
 

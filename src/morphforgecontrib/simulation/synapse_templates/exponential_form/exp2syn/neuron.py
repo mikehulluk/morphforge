@@ -43,8 +43,8 @@ from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
-from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
-from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records import Neuron_PSM_Std_CurrentRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records import Neuron_PSM_Std_ConductanceRecord
 from morphforge.simulation.neuron.networks import NEURONSynapse
 
 

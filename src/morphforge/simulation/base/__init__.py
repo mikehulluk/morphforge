@@ -50,7 +50,7 @@ from biophysics import PassiveTargetterEverywhere, \
 from biophysics import PassiveProperty
 
 from networks import Synapse, GapJunction
-from networks import PostSynapticMech, PreSynapticMechanism
+from networks import PostSynapticMech, SynapticTrigger
 from base_classes import NamedSimulationObject
 
 # New Synapse implementation
@@ -85,7 +85,7 @@ __all__ = [
     'Synapse',
     'GapJunction',
     'PostSynapticMech',
-    'PreSynapticMechanism',
+    'SynapticTrigger',
     'NamedSimulationObject',
 
     'PostSynapticMechTemplate',
