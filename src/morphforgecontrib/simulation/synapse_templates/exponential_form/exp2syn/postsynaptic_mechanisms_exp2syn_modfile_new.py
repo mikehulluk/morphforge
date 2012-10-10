@@ -79,6 +79,7 @@ NEURON {
 
     RANGE g
     RANGE popening
+    RANGE peak_conductance
 }
 
 UNITS {
@@ -92,6 +93,7 @@ PARAMETER {
     tau2 = 12.0 (ms) <1e-9,1e9>
     e=0    (mV)
     popening=1.0 () <0.0,1.0>
+    peak_conductance = -100000 ()
 }
 
 ASSIGNED {
@@ -140,16 +142,16 @@ DERIVATIVE state {
 
 NET_RECEIVE(weight (uS)) {
 
-VERBATIM
 
+VERBATIM
 float x = ((float) rand()) /  RAND_MAX;
-if(x < popening)
-{
+if(x < popening) {
 ENDVERBATIM
 
-    A = A + weight*factor
-    B = B + weight*factor
-
+    weight = 1.0    
+    A = A + weight*factor*peak_conductance
+    B = B + weight*factor*peak_conductance
+    
 VERBATIM
 }
 ENDVERBATIM

@@ -43,7 +43,7 @@ from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltage
 preTmpl = """
 // Pre-Synapse [$synname]
 objref $synnamepre
-${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, $weight.rescale("uS").magnitude )
+${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, 1.0 )
 """
 
 
@@ -68,7 +68,7 @@ class NeuronSynapseTriggerVoltageThreshold(SynapticTriggerByVoltageThreshold):
             'sectionpos': self.cell_location.morphlocation.sectionpos,
             'threshold': self.voltage_threshold,
             'delay': self.delay,
-            'weight': self.weight,
+            #'weight': self.weight,
             }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,
@@ -84,7 +84,7 @@ preTmplList = """
 // Pre-Synapse [$synname]
 objref ${synnamepre}_NullObj
 objref $synnamepre
-$synnamepre = new NetCon(${synnamepre}_NullObj, $synnamepost, 0, 0, $weight.rescale("uS").magnitude )
+$synnamepre = new NetCon(${synnamepre}_NullObj, $synnamepost, 0, 0, 1.0)
 
 
 objref fih_${synnamepre}
@@ -111,7 +111,7 @@ class NeuronSynapseTriggerTimeList(SynapticTriggerAtTimes):
             'synnamepost': syn_name_post,
             'synnamepre': syn_name_pre,
             'timelist': self.time_list,
-            'weight': self.weight,
+            #'weight': self.weight,
             }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,

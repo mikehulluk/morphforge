@@ -61,17 +61,14 @@ objref $synnamepost
 ${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSynMorphforge ($sectionpos)
 ${synnamepost}.tau = $tau.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
+${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
 """
 
 
 
 class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURONPostSynapticMechTemplateForwardToTemplate):
 
-
-
-
     def __init__(self, **kwargs):
-        print kwargs
         super(NEURONPostSynapticMechTemplate_ExpSyn, self).__init__( **kwargs)
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
@@ -94,6 +91,7 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
 
                "tau":   tau,
                "e_rev": e_rev,
+               'peak_conductance': instance.weight
                }
 
 

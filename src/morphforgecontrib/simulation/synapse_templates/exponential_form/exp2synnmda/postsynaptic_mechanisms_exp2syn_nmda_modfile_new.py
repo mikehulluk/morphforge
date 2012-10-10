@@ -83,6 +83,7 @@ NEURON {
     RANGE popening
     RANGE voltage_dependancy
     RANGE is_vdep_on
+    RANGE peak_conductance
 }
 
 UNITS {
@@ -97,6 +98,8 @@ PARAMETER {
     e=0    (mV)
     popening=1.0 () <0.0, 1.0>
     is_vdep_on = 1
+    peak_conductance = -100000 ()
+        
 }
 
 ASSIGNED {
@@ -165,11 +168,12 @@ NET_RECEIVE(weight (uS)) {
     {
         //printf("%f %f", A, B);
     ENDVERBATIM
+        weight = 1.0
 
-        A = A + weight*factor
-        B = B + weight*factor
+        A = A + weight*factor * peak_conductance
+        B = B + weight*factor * peak_conductance
 
-        clip = weight*factor *3000
+        clip = weight*factor *3000 * peak_conductance
         if(A>clip) {A=clip}
         if(B>clip) {B=clip}
 

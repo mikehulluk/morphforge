@@ -58,6 +58,8 @@ ${synnamepost}.tau1 = $tau_open.rescale("ms").magnitude
 ${synnamepost}.tau2 = $tau_close.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 ${synnamepost}.popening = $pOpening
+${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
+
 
 """
 
@@ -91,6 +93,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
                "tau_close": tau_close,
                "e_rev": e_rev,
                "pOpening": popening,
+                'peak_conductance': instance.weight
 
                }
 

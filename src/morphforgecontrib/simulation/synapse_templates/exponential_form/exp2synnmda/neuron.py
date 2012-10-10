@@ -84,6 +84,7 @@ ${synnamepost}.tau2 = $tau_close.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 ${synnamepost}.popening = $pOpening
 ${synnamepost}.is_vdep_on = $is_vdep_on
+${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
 """
 
 
@@ -117,6 +118,8 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             'pOpening': popening,
             'random_seed': MFRandom.get_seed(),
             'is_vdep_on': (1.0 if vdep else 0.0),
+            'peak_conductance': instance.weight
+                           
                }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,

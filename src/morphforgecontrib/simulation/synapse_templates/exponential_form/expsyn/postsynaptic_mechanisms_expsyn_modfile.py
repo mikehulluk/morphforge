@@ -5,6 +5,8 @@ NEURON {
 	POINT_PROCESS ExpSynMorphforge
 	RANGE tau, e, i
 	NONSPECIFIC_CURRENT i
+    
+    RANGE peak_conductance
 }
 
 UNITS {
@@ -16,6 +18,7 @@ UNITS {
 PARAMETER {
 	tau = 0.1 (ms) <1e-9,1e9>
 	e = 0	(mV)
+    peak_conductance = -100000 ()
 }
 
 ASSIGNED {
@@ -41,7 +44,8 @@ DERIVATIVE state {
 }
 
 NET_RECEIVE(weight (uS)) {
-	g = g + weight
+    weight = 1.0
+	g = g + weight * peak_conductance
 }"""
 
 def getExpSynModfile():

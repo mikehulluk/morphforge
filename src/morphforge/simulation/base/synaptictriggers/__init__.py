@@ -51,10 +51,6 @@ class SynapticTriggerByVoltageThreshold(SynapticTrigger):
     def get_type(self):
         return PreSynapticTypes.Cell
 
-    @property 
-    def weight(self):
-        #assert False
-        return self.synapse._post_synaptic_mechanism.weight
 
 
 class SynapticTriggerAtTimes(SynapticTrigger):
@@ -76,7 +72,3 @@ class SynapticTriggerAtTimes(SynapticTrigger):
         return PreSynapticTypes.FixedTiming
 
 
-    @property 
-    def weight(self):
-        #assert False
-        return self.synapse._post_synaptic_mechanism.weight
