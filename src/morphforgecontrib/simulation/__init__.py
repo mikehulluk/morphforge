@@ -33,4 +33,3 @@
 # plugin system.
 import channels
 import synapse_templates
-import presynapticmechanisms
