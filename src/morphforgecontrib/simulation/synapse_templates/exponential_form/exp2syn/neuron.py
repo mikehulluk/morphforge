@@ -76,7 +76,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
         tau_close = params['tau_close']
         e_rev = params['e_rev']
         popening = params['popening']
-
+        peak_conductance = params['peak_conductance']
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
@@ -90,10 +90,10 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
                "sectionpos": instance.cell_location.morphlocation.sectionpos,
 
                 "tau_open": tau_open,
-               "tau_close": tau_close,
-               "e_rev": e_rev,
-               "pOpening": popening,
-                'peak_conductance': instance.weight
+                "tau_close": tau_close,
+                "e_rev": e_rev,
+                "pOpening": popening,
+                'peak_conductance': peak_conductance
 
                }
 
@@ -113,11 +113,9 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
     def get_record_for_instance(self, instance, what, **kwargs):
 
         if what == NEURONSynapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance,
-                    **kwargs)
+            return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance, **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
-            return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance,
-                    **kwargs)
+            return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance, **kwargs)
         assert False
 
 

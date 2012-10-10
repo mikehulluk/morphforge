@@ -33,13 +33,13 @@ from morphforge.stdimports import units
 
 
 class PostSynapticMech_ExpSyn_Base(object):
-    def __init__(self, tau, e_rev, weight, **kwargs):
+    def __init__(self, tau, e_rev, peak_conductance, **kwargs):
         super(PostSynapticMech_ExpSyn_Base, self).__init__( **kwargs)
-        self._default_parameters = { 'tau':tau, 'e_rev':e_rev, 'weight':weight}
+        self._default_parameters = { 'tau':tau, 'e_rev':e_rev, 'peak_conductance':peak_conductance}
 
     @classmethod
     def get_variables(self,):
-        return ['tau', 'e_rev', 'weight']
+        return ['tau', 'e_rev', 'peak_conductance']
 
 
     @classmethod
@@ -49,7 +49,7 @@ class PostSynapticMech_ExpSyn_Base(object):
         _units = {
                 'tau': units.ms,
                 'e_rev': pq.mV,
-                'weight': units.nS,
+                'peak_conductance': units.nS,
                 }
         return _units[varname]
 

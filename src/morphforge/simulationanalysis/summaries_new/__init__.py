@@ -314,9 +314,9 @@ class SimulationMRedoc(object):
                            sumcls.build(chl))
 
     def build_details_channels(self):
-        mechs = sorted( self.sim.get_all_channels(), key=lambda i: i.name)
+        channels = sorted( self.sim.get_all_channels(), key=lambda i: i.name)
         return mrd.SectionNewPage('Channels',
-                *[ self._build_details_channel(chl) for chl in mechs]
+                *[ self._build_details_channel(chl) for chl in channels]
                 )
 
 
@@ -369,14 +369,14 @@ class SimulationMRedoc(object):
 
 
     def _create_neuron_details_2_mta(self, nrn):
-        mechs = nrn.biophysics.get_applied_mtas()
+        channels = nrn.biophysics.get_applied_mtas()
         return mrd.VerticalColTable(
                 'Mechanism|Priority|Targetter|Applicator', 
                 [ ( '%s ' % (mta.channel.name, ),
                     mta.targetter.get_priority(),
                     mta.targetter.get_description(),
                     mta.applicator.get_description(),
-                    ) for mta in mechs], 
+                    ) for mta in channels], 
                 caption='%s:Channels' % nrn.name)
 
     def _create_neuron_details_3a_presynapses(self, nrn):

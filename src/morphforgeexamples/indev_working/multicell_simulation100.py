@@ -564,7 +564,7 @@ def onto_driver(sim, postsynaptic, times):
             postsynaptic_mech = driver_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':1.0 },
-                                        weight = mf.unit("1:nS")
+                                        peak_conductance = mf.unit("1:nS")
                                        )
            )
 
@@ -574,7 +574,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':ampa_scale * pq.dimensionless },
-                                        weight = mf.unit("1:nS")
+                                        peak_conductance = mf.unit("1:nS")
                                        )
            )
     nmda = sim.create_synapse(
@@ -582,7 +582,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':nmda_scale * pq.dimensionless },
-                                        weight = mf.unit("1:nS")
+                                        peak_conductance = mf.unit("1:nS")
                                        )
            )
     return [ampa, nmda]

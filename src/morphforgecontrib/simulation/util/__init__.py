@@ -57,10 +57,10 @@ def record_from_mechanism(sim, mechanism_name, cell_location, what, on_error_ski
     assert on_error_skip == False
 
 
-    mechs = cell_location.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
+    channels = cell_location.cell.get_biophysics().get_all_mechanisms_applied_to_cell()
 
 
-    chl = SeqUtils.filter_expect_single(seq=mechs, filter_func=lambda m:m.name==mechanism_name)
+    chl = SeqUtils.filter_expect_single(seq=channels, filter_func=lambda m:m.name==mechanism_name)
     r = sim.record(chl, what=what, cell_location=cell_location, user_tags = user_tags + [chl.name], **kwargs)
 
     return r
@@ -75,13 +75,13 @@ def record_from_all_mechanisms(sim, cell_location, what, on_error_skip=False, us
 
     cell = cell_location.cell
 
-    mechs = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
+    channels = cell.get_biophysics().get_all_mechanisms_applied_to_cell()
 
     recs = []
-    for mech in mechs:
+    for chl in channels:
 
-        r = sim.record(mech, what=what, cell_location=cell_location,
-                       user_tags=user_tags + [mech.name], **kwargs)
+        r = sim.record(chl, what=what, cell_location=cell_location,
+                       user_tags=user_tags + [chl.name], **kwargs)
         recs.append(r)
 
     return recs

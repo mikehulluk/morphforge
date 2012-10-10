@@ -68,11 +68,11 @@ def getKSInfTau(env):
 
 
 tr0 = get_voltageclamp_soma_current_trace(env=env, V='-50:mV',
-        mech_builder=getKSInfTau, morphology=m1)
+        channel_functor=getKSInfTau, morphology=m1)
 tr1 = get_voltageclamp_soma_current_trace(env=env, V='-20:mV',
-        mech_builder=getKSInfTau, morphology=m1)
+        channel_functor=getKSInfTau, morphology=m1)
 tr2 = get_voltageclamp_soma_current_trace(env=env, V='20:mV',
-        mech_builder=getKSInfTau, morphology=m1)
+        channel_functor=getKSInfTau, morphology=m1)
 
 
 TagViewer([tr0, tr1, tr2])

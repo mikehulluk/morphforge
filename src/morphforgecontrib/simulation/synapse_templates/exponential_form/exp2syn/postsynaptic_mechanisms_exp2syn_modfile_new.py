@@ -37,25 +37,7 @@ def getExp2SynModfile():
 
     x = """
 COMMENT
-Two state kinetic scheme synapse described by rise time tau1,
-and decay time constant tau2. The normalized peak condunductance is 1.
-Decay time MUST be greater than rise time.
 
-The solution of A->G->bath with rate constants 1/tau1 and 1/tau2 is
- A = a*exp(-t/tau1) and
- G = a*tau2/(tau2-tau1)*(-exp(-t/tau1) + exp(-t/tau2))
-    where tau1 < tau2
-
-If tau2-tau1 -> 0 then we have a alphasynapse.
-and if tau1 -> 0 then we have just single exponential decay.
-
-The factor is evaluated in the
-initial block such that an event of weight 1 generates a
-peak conductance of 1.
-
-Because the solution is a sum of exponentials, the
-coupled equations can be solved as a pair of independent equations
-by the more efficient cnexp method.
 
 
 MODIFIED BY MIKE HULL, TO ALLOW FOR STOCHASITIC TRANSMISSION

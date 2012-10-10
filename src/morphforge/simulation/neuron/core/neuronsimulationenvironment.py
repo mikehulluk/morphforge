@@ -56,30 +56,25 @@ class NEURONEnvironment(SimulationEnvironment):
     channels = PluginDict()
     presynapticmechanisms = PluginDict()
     synapse_psm_template_type = PluginDict()
-    #postsynapticmechanisms = PluginDict()
     currentclamps = PluginDict()
     voltageclamps = PluginDict()
 
 
 
     @classmethod
-    def Channel(cls, mechanismtype, **kwargs):
-        chl = cls.channels.get_plugin(mechanismtype)
+    def Channel(cls, chltype, **kwargs):
+        chl = cls.channels.get_plugin(chltype)
         return chl(**kwargs)
 
     @classmethod
-    def SynapticTrigger(cls, mechanismtype, **kwargs):
-        mech = cls.presynapticmechanisms.get_plugin(mechanismtype)
-        return mech(**kwargs)
+    def SynapticTrigger(cls, triggertype, **kwargs):
+        trigger_functor = cls.presynapticmechanisms.get_plugin(triggertype)
+        return trigger_functor(**kwargs)
 
     def PostSynapticMechTemplate(self, psm_type, **kwargs):
         tmpl_functor = self.synapse_psm_template_type.get_plugin(psm_type)
         return tmpl_functor(**kwargs)
 
-    #@classmethod
-    #def PostSynapticMechanism(cls, mechanismtype, **kwargs):
-    #    mech = cls.postsynapticmechanisms.get_plugin(mechanismtype)
-    #    return mech(**kwargs)
 
     def CurrentClamp(self, form=CurrentClampStepChange, **kwargs):
         current_clamp = self.currentclamps.get_plugin(form)

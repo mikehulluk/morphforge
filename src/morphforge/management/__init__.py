@@ -101,50 +101,50 @@ class PluginMgr(object):
 
     @classmethod
     def summarise_channels(cls):
-        mech_types = cls.get_all_chls()
-        col1 = ['Channel Name'] + [mech.__name__ for mech in mech_types]
-        cols = [[env._env_name] + [to_symbol(mech, env.channels) for mech in mech_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(mech, SummariserLibrary.summarisers) for mech in mech_types] 
+        obj_types = cls.get_all_chls()
+        col1 = ['Channel Name'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.channels) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Channels', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_currentclamps(cls):
-        mech_types = cls.get_all_iclamps()
-        col1 = ['Clamp Name'] + [mech.__name__ for mech in mech_types]
-        cols = [[env._env_name] + [to_symbol(mech, env.currentclamps) for mech in mech_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(mech, SummariserLibrary.summarisers) for mech in mech_types] 
+        obj_types = cls.get_all_iclamps()
+        col1 = ['Clamp Name'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.currentclamps) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Current Clamps', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_voltageclamps(cls):
-        mech_types = cls.get_all_vclamps()
-        col1 = ['Clamp Name'] + [mech.__name__ for mech in mech_types]
-        cols = [[env._env_name] + [to_symbol(mech, env.voltageclamps) for mech in mech_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(mech, SummariserLibrary.summarisers) for mech in mech_types] 
+        obj_types = cls.get_all_vclamps()
+        col1 = ['Clamp Name'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.voltageclamps) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Voltage Clamps', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_presynapticmechs(cls):
-        mech_types = cls.get_all_presynmechs()
-        col1 = ['PreSynMech'] + [mech.__name__ for mech in mech_types]
-        cols = [[env._env_name] + [to_symbol(mech, env.presynapticmechanisms) for mech in mech_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(mech, SummariserLibrary.summarisers) for mech in mech_types] 
+        obj_types = cls.get_all_presynmechs()
+        col1 = ['PreSynMech'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.presynapticmechanisms) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Presynaptic Mechanisms', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_postsynapticmechs(cls):
-        mech_types = cls.get_all_postsynmechs()
-        col1 = ['PostSynMech'] + [mech.__name__ for mech in mech_types]
-        cols = [[env._env_name] + [to_symbol(mech, env.postsynapticmechanisms) for mech in mech_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(mech, SummariserLibrary.summarisers) for mech in mech_types] 
+        obj_types = cls.get_all_postsynmechs()
+        col1 = ['PostSynMech'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.postsynapticmechanisms) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
         return mrd.Section('Postsynaptic Mechanisms', mrd.VerticalColTable(rows[0], rows[1:]))

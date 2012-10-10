@@ -101,6 +101,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         e_rev = params['e_rev']
         popening = params['popening']
         vdep = params['vdep']
+        peak_conductance = params['peak_conductance']
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
@@ -118,7 +119,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             'pOpening': popening,
             'random_seed': MFRandom.get_seed(),
             'is_vdep_on': (1.0 if vdep else 0.0),
-            'peak_conductance': instance.weight
+            'peak_conductance': peak_conductance
                            
                }
 

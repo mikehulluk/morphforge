@@ -111,7 +111,6 @@ class NeuronSynapseTriggerTimeList(SynapticTriggerAtTimes):
             'synnamepost': syn_name_post,
             'synnamepre': syn_name_pre,
             'timelist': self.time_list,
-            #'weight': self.weight,
             }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,

@@ -86,7 +86,6 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
             'sectionindex': section_index,
             'sectionpos': self.cell_location.morphlocation.sectionpos,
             }
-        #print tmpl_dict
 
         sect_txt = Template(MembraneVoltageRecord._tmpl_str_obj_ref, tmpl_dict).respond()
         hocfile_obj.add_to_section(MHOCSections.InitRecords, sect_txt)
@@ -103,15 +102,15 @@ class NEURONCell(Cell, NEURONObject):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
 
     def build_mod(self, modfile_set):
-        mechanisms = set([mta.channel for mta in
-                         self.get_biophysics().appliedmechanisms])
-        for chl in mechanisms:
+        channels = set([mta.channel for mta in self.get_biophysics().appliedmechanisms])
+        for chl in channels:
             chl.create_modfile(modfile_set)
 
     def get_recordable(self, what=Cell.Recordables.MembraneVoltage, **kwargs):
 
-        recordables = \
-            {Cell.Recordables.MembraneVoltage: MembraneVoltageRecord}
+        recordables = { 
+                Cell.Recordables.MembraneVoltage: MembraneVoltageRecord
+                }
         return recordables[what](cell=self, **kwargs)
 
 

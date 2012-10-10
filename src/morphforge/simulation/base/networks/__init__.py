@@ -89,9 +89,6 @@ class SynapticTrigger(object):
     def get_type(self):
         raise NotImplementedError()
 
-    #@property
-    #def weight(self):
-    #    return self.synapse._post_synaptic_mechanism.weight
 
 class PostSynapticMech(object):
 

@@ -33,17 +33,17 @@ from morphforge.core.quantities import unit
 
 
 
-def get_voltageclamp_soma_current_trace(env, V, mech_builder, morphology):
-    sim = build_voltageclamp_soma_simulation(env, V, mech_builder, morphology)
+def get_voltageclamp_soma_current_trace(env, V, channel_functor, morphology):
+    sim = build_voltageclamp_soma_simulation(env, V, channel_functor, morphology)
     res = sim.run()
     return res.get_trace('VCCurrent')
 
 
-def build_voltageclamp_soma_simulation(env, V, mech_builder, morphology):
+def build_voltageclamp_soma_simulation(env, V, channel_functor, morphology):
     sim = env.Simulation(name='SimXX')
     cell = sim.create_cell(name='Cell1', morphology=morphology)
 
-    cell.apply_channel( channel=mech_builder(env=sim.environment))
+    cell.apply_channel( channel=channel_functor(env=sim.environment))
 
 
     sim.record( cell, what=cell.Recordables.MembraneVoltage, name='SomaVoltage' , cell_location=cell.soma)

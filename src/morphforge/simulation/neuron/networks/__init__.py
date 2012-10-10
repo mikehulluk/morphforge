@@ -172,7 +172,7 @@ class NEURONPostSynapticMechTemplate(PostSynapticMechTemplate):
 
 
 class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
-    def __init__(self, src_tmpl,_default_parameters, parameter_multipliers=None, parameter_overides=None,  **kwargs):
+    def __init__(self, src_tmpl, _default_parameters, parameter_multipliers=None, parameter_overides=None,  **kwargs):
         super(NEURONPostSynapticMechInstantiation, self).__init__(**kwargs)
         self.src_tmpl = src_tmpl
 
@@ -183,7 +183,7 @@ class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
     def get_resolved_parameters(self):
         # Resolve the parameters:
         params = self._default_parameters.copy()
-        assert not ( set(self.parameter_multipliers.keys()) & set(self.parameter_overides.keys()))
+        assert not (set(self.parameter_multipliers.keys()) & set(self.parameter_overides.keys()))
 
         for k,v in self.parameter_multipliers.iteritems():
             params[k] = params[k] * v
@@ -196,8 +196,6 @@ class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
         return params
 
 
-    # The default behaviour is for instances to forward
-    # responsbility back to thier parent:
     def build_hoc(self, hocfile_obj):
         raise NotImplementedError()
     def build_mod(self, modfile_set):
@@ -249,8 +247,4 @@ class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMec
 
     def get_recordable(self, **kwargs):
         return  self.src_tmpl.get_record_for_instance( instance=self, **kwargs)
-
-    @property
-    def weight(self):
-        return self.get_resolved_parameters()['weight']
 

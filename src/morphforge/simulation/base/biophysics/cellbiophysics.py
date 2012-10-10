@@ -93,14 +93,14 @@ class CellBiophysics(object):
 
         # All the mechanisms targetting a certain region:
         mtas_targetting_section = [mta for mta in self.appliedmechanisms if mta.targetter.does_target_section(section)]
-        mechs_targetting_section = set([ mta.channel for mta in self.appliedmechanisms])
+        channels_targetting_section = set([ mta.channel for mta in mtas_targetting_section])
 
-        resolved_mechs = []
-        for mech in mechs_targetting_section:
-            mtas_with_mech = [mta for mta in mtas_targetting_section if mta.channel is mech]
-            highest_prority_mech = SeqUtils.max_with_unique_check(mtas_with_mech, key=lambda pta: pta.targetter.get_priority())
-            resolved_mechs.append(highest_prority_mech)
-        return resolved_mechs
+        resolved_chls = []
+        for chl in channels_targetting_section:
+            mtas_with_chl = [mta for mta in mtas_targetting_section if mta.channel is chl]
+            highest_prority_chl = SeqUtils.max_with_unique_check(mtas_with_chl, key=lambda pta: pta.targetter.get_priority())
+            resolved_chls.append(highest_prority_chl)
+        return resolved_chls
 
 
     # Used for summariser:

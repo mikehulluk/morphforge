@@ -76,6 +76,7 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
         params = instance.get_resolved_parameters()
         tau = params['tau']
         e_rev = params['e_rev']
+        peak_conductance = params['peak_conductance']
 
 
         cell = instance.cell_location.cell
@@ -91,7 +92,7 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
 
                "tau":   tau,
                "e_rev": e_rev,
-               'peak_conductance': instance.weight
+               'peak_conductance': peak_conductance
                }
 
 
