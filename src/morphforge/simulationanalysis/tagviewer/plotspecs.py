@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-from morphforge.core import unit, is_iterable
+from morphforge.core import is_iterable
 import quantities as pq
 
 from morphforge.traces import TagSelector
@@ -109,7 +109,6 @@ class YAxisConfig(object):
         if self.yrange is not None:
             ax.set_ylim(self.yrange)
         if self.yunit is not None:
-            #print 'Setting yunit', self.yunit
             ax.set_display_unit(y=self.yunit)
 
 
@@ -117,7 +116,7 @@ class YAxisConfig(object):
             if isinstance( self.yticks, int):
                 ax.set_yaxis_maxnlocator(self.yticks)
             elif is_iterable(self.yticks):
-                ax.set_yticks(self.yticks)
+                ax.set_yaxis_fixedlocator(self.yticks)
             else:
                 assert False
 
@@ -280,7 +279,7 @@ class TagPlot(object):
             if isinstance(xticks, int):
                 ax.set_xaxis_maxnlocator(xticks)
             else:
-                ax.set_xticks(xticks)
+                ax.set_xaxis_fixedlocator(xticks)
 
         # Should we plot xaxis-info at all?:
         if is_top_plot and show_xaxis_position == 'top':
@@ -303,15 +302,9 @@ class TagPlot(object):
         else:
             ax.set_xlabel('')
 
-        #show_xticklabels_with_units = True
-        #assert False
         # Similarly, plot the axis-ticklabel, if
         show_xticks = show_xticklabels == 'all' or (show_xticklabels == 'only-once' and xaxis_position is not None)
         ax.set_xticklabel_mode(show_ticks=show_xticks, include_units=show_xticklabels_with_units)
-        #    mode = 'with-units' if show_xticklabels_with_units else 'without-units'
-        #    ax.set_xticklabel_mode(mode=mode)
-        #else:
-        #    ax.set_xticklabel_mode(mode=None)
 
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)

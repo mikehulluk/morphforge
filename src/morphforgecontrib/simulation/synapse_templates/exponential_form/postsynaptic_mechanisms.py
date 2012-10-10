@@ -29,35 +29,35 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.base.networks import PostSynapticMech
-
-
-class PostSynapticMech_ExpSyn(PostSynapticMech):
-
-    def __init__(self, cell_location, tau, e_rev):
-        super(PostSynapticMech_ExpSyn, self).__init__(cell_location)
-        self.tau = tau
-        self.e_rev = e_rev
-
-
-class PostSynapticMech_Exp2Syn(PostSynapticMech):
-    def __init__(self, cell_location, tau_open, tau_close, e_rev, popening=1.0):
-        super(PostSynapticMech_Exp2Syn, self).__init__(cell_location)
-        self.tau_open = tau_open
-        self.tau_close = tau_close
-        self.e_rev = e_rev
-        self.popening = popening
-
-
-class PostSynapticMech_Exp2SynNMDA(PostSynapticMech):
-    def __init__(self, cell_location, tau_open, tau_close, e_rev, popening=1.0, vdep=True):
-        super(PostSynapticMech_Exp2SynNMDA, self).__init__(cell_location)
-        self.tau_open = tau_open
-        self.tau_close = tau_close
-        self.e_rev = e_rev
-        self.popening = popening
-        self.vdep = vdep
-
-
-        # extracellular_mg = extracellular_mg
-
+#from morphforge.simulation.base.networks import PostSynapticMech
+#
+#
+#class PostSynapticMech_ExpSyn(PostSynapticMech):
+#
+#    def __init__(self, cell_location, tau, e_rev):
+#        super(PostSynapticMech_ExpSyn, self).__init__(cell_location)
+#        self.tau = tau
+#        self.e_rev = e_rev
+#
+#
+#class PostSynapticMech_Exp2Syn(PostSynapticMech):
+#    def __init__(self, cell_location, tau_open, tau_close, e_rev, popening=1.0):
+#        super(PostSynapticMech_Exp2Syn, self).__init__(cell_location)
+#        self.tau_open = tau_open
+#        self.tau_close = tau_close
+#        self.e_rev = e_rev
+#        self.popening = popening
+#
+#
+#class PostSynapticMech_Exp2SynNMDA(PostSynapticMech):
+#    def __init__(self, cell_location, tau_open, tau_close, e_rev, popening=1.0, vdep=True):
+#        super(PostSynapticMech_Exp2SynNMDA, self).__init__(cell_location)
+#        self.tau_open = tau_open
+#        self.tau_close = tau_close
+#        self.e_rev = e_rev
+#        self.popening = popening
+#        self.vdep = vdep
+#
+#
+#        # extracellular_mg = extracellular_mg
+#

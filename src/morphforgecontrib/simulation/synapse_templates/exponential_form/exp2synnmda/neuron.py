@@ -34,27 +34,15 @@ from .core import PostSynapticMech_Exp2SynNMDA_Base
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
-from neurounits.neurounitparser import NeuroUnitParser
 
-from morphforge.core import ObjectLabeller
-from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
-from morphforge.simulation.base import PostSynapticMechTemplate
-from morphforge.simulation.base import PostSynapticMechInstantiation
 
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
-
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
 from morphforge.stdimports import MFRandom, unit
@@ -62,16 +50,14 @@ from morphforge.stdimports import MFRandom, unit
 from morphforge.stdimports import StandardTags
 from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
-#from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
 from morphforge.simulation.neuron.networks import NEURONSynapse
-        
-        
+
+
 class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
 
     def __init__(self, neuron_syn_post, **kwargs):
 
-        super(Neuron_PSM_Std_NMDAVoltageDependanceRecord,
-              self).__init__(**kwargs)
+        super(Neuron_PSM_Std_NMDAVoltageDependanceRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
@@ -86,8 +72,8 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
 
     def build_mod(self, modfile_set):
         pass
-        
-        
+
+
 
 exp2HOCTmpl = """
 // Post-Synapse [$synnamepost]
@@ -105,17 +91,16 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
 
     def __init__(self, **kwargs):
         super(NEURONPostSynapticMechTemplate_Exp2SynNMDA, self).__init__(**kwargs)
-        self.is_mod_built = False
-        
+
     def build_hoc_for_instance(self, instance, hocfile_obj):
-        
+
         params = instance.get_resolved_parameters()
         tau_open = params['tau_open']
         tau_close = params['tau_close']
         e_rev = params['e_rev']
         popening = params['popening']
         vdep = params['vdep']
-        
+
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
         syn_name_post = instance.synapse.get_name() + 'Post'
@@ -130,7 +115,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             'tau_close': tau_close,
             'e_rev': e_rev,
             'pOpening': popening,
-               'random_seed': MFRandom.get_seed(),
+            'random_seed': MFRandom.get_seed(),
             'is_vdep_on': (1.0 if vdep else 0.0),
                }
 
@@ -140,18 +125,13 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
         hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
-        
+
     def template_build_mod(self, modfile_set):
-        if not self.is_mod_built:
-            import postsynaptic_mechanisms_exp2syn_nmda_modfile_new
-            modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile_new.get_exp2_syn_nmda_modfile(), name='UnusedParameterXXXExpSyn2')
-            modfile_set.append(modfile)
+        import postsynaptic_mechanisms_exp2syn_nmda_modfile_new
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile_new.get_exp2_syn_nmda_modfile(), name='UnusedParameterXXXExpSyn2')
+        modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):
-        #from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_CurrentRecord
-        #from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
-        ##from postsynaptic_mechanisms_exp2syn_nmda  import Neuron_PSM_Std_NMDAVoltageDependanceRecord
-        #from morphforge.simulation.neuron.networks import NEURONSynapse
         if what == NEURONSynapse.Recordables.SynapticCurrent:
             return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance, **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
@@ -161,15 +141,6 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         assert False
 
 
-    #def get_recordable(self, what, **kwargs):
-    #    assert False
-    #    if what == NEURONSynapse.Recordables.SynapticCurrent:
-    #        return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=self,
-    #                **kwargs)
-    #    if what == NEURONSynapse.Recordables.SynapticConductance:
-    #        return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=self,
-    #                **kwargs)
-    #    assert False
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp2SynNMDA_Base, NEURONPostSynapticMechTemplate_Exp2SynNMDA)

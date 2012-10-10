@@ -99,7 +99,7 @@ class TagViewer(object):
 
         share_x_labels=True,
 
-        nxticks=4, 
+        nxticks=4,
         show_xlabel='only-once',
         show_xticklabels='only-once',
         show_xticklabels_with_units=True,
@@ -107,28 +107,6 @@ class TagViewer(object):
         xticks=None
 
         ):
-        """Plot a set of traces.
-
-        Keyword arguments:
-        plots -- 
-        srcs --
-        plots --
-        additional_plots -- 
-        figtitle --
-        fig_kwargs --
-        show --
-        linkage --
-        timerange -- 
-        mpl_tight_bounds --
-        share_x_labels --
-
-        nxticks=4, 
-        show_xlabel -- which plots should the x-axis be displayed on.
-        show_xticklabels --
-        show_xticklabels_with_units -- 
-        show_xaxis_position --
-        xticks -- 
-        """
 
         if fig_kwargs is None:
             fig_kwargs = self._default_fig_kwargs
@@ -173,7 +151,7 @@ class TagViewer(object):
         self.mpl_tight_bounds = mpl_tight_bounds
 
         self.timerange = timerange
-        self.share_x_labels = share_x_labels
+        #self.share_x_labels = share_x_labels
         self.nxticks = nxticks
 
 
@@ -186,7 +164,7 @@ class TagViewer(object):
         assert self.show_xlabel in self._options_show_xlabel, 'Invalid'
         assert self.show_xticklabels in self._options_show_xticklabels
         assert self.show_xticklabels_with_units in self._options_show_xticklabels_with_units
-        assert self.show_xaxis_position in self._options_show_xaxis_position 
+        assert self.show_xaxis_position in self._options_show_xaxis_position
         if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
             self.xticks = [ xtick*pq.ms for xtick in self.xticks]
         assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(xtick) for xtick in self.xticks] )
@@ -226,11 +204,11 @@ class TagViewer(object):
             ax.set_xaxis_maxnlocator(self.nxticks)
 
             # Leave the plotting to the tag-plot object
-            plot_spec.plot( ax=ax, 
-                            all_traces=self.all_trace_objs, 
-                            all_eventsets=self.all_event_set_objs, 
-                            time_range=self.timerange, 
-                            linkage=self.linkage, 
+            plot_spec.plot( ax=ax,
+                            all_traces=self.all_trace_objs,
+                            all_eventsets=self.all_event_set_objs,
+                            time_range=self.timerange,
+                            linkage=self.linkage,
                             #plot_xaxis_details=plot_xaxis_details,
 
                             show_xlabel = self.show_xlabel,

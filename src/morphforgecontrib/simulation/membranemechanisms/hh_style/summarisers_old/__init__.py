@@ -29,41 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import cPickle as pickle
-from morphforge.core.misc import StrUtils
-from morphforge.core import ObjectLabeller
-
-
-class NEURONChl_Base(object):
-
-    def __init__(self, **kwargs):
-        super(NEURONChl_Base, self).__init__(**kwargs)
-        self.mm_neuronNumber = None #ObjectLabeller.get_next_count_for_type( NEURONChl_Base)
-        self.cachedNeuronSuffix = None
-
-    def get_neuron_suffix(self):
-
-        # Cache the result: (We shouldn't have to do this, but there is a bug
-        # with EqnSetChlNeuron::getModFileChangeble(), which is not returning the same thing
-        # on each call for some reason.
-        if self.cachedNeuronSuffix is None:
-            # We take the hash off the parameters that will change the mod-file.
-            # This means we don't duplicate millions of mod-files
-            mod_file_changeables = self.get_mod_file_changeables()
-            mod_file_changeables[None] = str(type(mod_file_changeables).__str__), str(self.__class__.__name__)
-
-            md5 = StrUtils.get_hash_md5(pickle.dumps(sorted(tuple(mod_file_changeables.iteritems()))))
-            self.cachedNeuronSuffix = 'MIKETMP%sChl' % md5
-
-        return self.cachedNeuronSuffix
-
-
-    def get_mod_file_changeables(self):
-        raise NotImplementedError()
-
-
-
-
-
+import mmalphabeta
+import mmalphabetabeta
+import mmleak
 
 

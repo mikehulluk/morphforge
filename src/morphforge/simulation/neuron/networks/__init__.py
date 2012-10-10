@@ -162,7 +162,7 @@ class NEURONGapJunction(GapJunction, NEURONObject):
 
 
 
-class NEURONPostSynapticMechTemplate( PostSynapticMechTemplate):
+class NEURONPostSynapticMechTemplate(PostSynapticMechTemplate):
     pass
 
 
@@ -208,6 +208,16 @@ class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
 
 
 class NEURONPostSynapticMechTemplateForwardToTemplate(NEURONPostSynapticMechTemplate):
+
+    def __init__(self, **kwargs):
+        super(NEURONPostSynapticMechTemplateForwardToTemplate, self).__init__(**kwargs)
+        self.is_mod_built=False
+
+    def template_build_mod_once(self, modfile_set):
+        if not self.is_mod_built:
+            self.is_mod_built=True
+            return self.template_build_mod(modfile_set=modfile_set)
+
     def template_build_mod(self, modfile_set):
         raise NotImplementedError()
 
@@ -235,7 +245,7 @@ class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMec
         return self.src_tmpl.build_hoc_for_instance(hocfile_obj=hocfile_obj, instance=self)
 
     def build_mod(self, modfile_set):
-        return self.src_tmpl.template_build_mod(modfile_set=modfile_set)
+        return self.src_tmpl.template_build_mod_once(modfile_set=modfile_set)
 
     def get_recordable(self, **kwargs):
         return  self.src_tmpl.get_record_for_instance( instance=self, **kwargs)

@@ -45,7 +45,7 @@ class PostSynapticMech_Exp2Syn_Base(object):
     @classmethod
     def get_preferred_unit(cls, varname):
         import quantities as pq
-        
+
         _units = {
                 'tau_open': units.ms,
                 'tau_close': units.ms,

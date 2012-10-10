@@ -373,6 +373,15 @@ class QuantitiesAxisNew(object):
         import matplotlib as mpl
         self.ax.xaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
 
+    def set_xaxis_fixedlocator(self, xticks):
+        import matplotlib as mpl
+        values = [float(f.rescale(self.xyUnitBase[0]).magnitude) for f in xticks]
+        self.ax.xaxis.set_major_locator(mpl.ticker.FixedLocator(values))
+
+    def set_yaxis_fixedlocator(self, yticks):
+        import matplotlib as mpl
+        values = [float(f.rescale(self.xyUnitBase[1]).magnitude) for f in yticks]
+        self.ax.yaxis.set_major_locator(mpl.ticker.FixedLocator(values))
 
     # These handle is the ticks and labels are top/bottom off the
     # graphs:
@@ -418,7 +427,7 @@ class QuantitiesAxisNew(object):
 
         # Make sure certain functions are not touched:
         if name in protected_objects and self.safetychecking:
-            raise ValueError('Quantities Figure plays with axis to properly display values, messing with it might have surprise consequences!')
+            raise ValueError('Quantities Figure plays with "axis" to properly display values, calling functions on it directly it might have surprise consequences!')
 
         else:
             # Otherwise, forward it on to the original Axes object

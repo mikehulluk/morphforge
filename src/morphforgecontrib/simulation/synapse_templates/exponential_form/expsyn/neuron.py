@@ -35,30 +35,16 @@ from .core import PostSynapticMech_ExpSyn_Base
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
-from neurounits.neurounitparser import NeuroUnitParser
-
-from morphforge.core import ObjectLabeller
-from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
-
-
-from morphforge.simulation.base import PostSynapticMechTemplate
-from morphforge.simulation.base import PostSynapticMechInstantiation
-
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
-
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
+from morphforge.simulation.neuron.networks import NEURONSynapse
+
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
+from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
 
 
 
@@ -72,7 +58,7 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 _expr_tmpl = """
 // Post-Synapse [$synnamepost]
 objref $synnamepost
-${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSyn ($sectionpos)
+${cellname}.internalsections[$sectionindex] $synnamepost = new ExpSynMorphforge ($sectionpos)
 ${synnamepost}.tau = $tau.rescale("ms").magnitude
 ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 """
@@ -84,10 +70,9 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
 
 
 
-    def __init__(self, vdep=None, **kwargs):
+    def __init__(self, **kwargs):
+        print kwargs
         super(NEURONPostSynapticMechTemplate_ExpSyn, self).__init__( **kwargs)
-        assert vdep == None
-        self.is_mod_built = False
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
 
@@ -120,19 +105,15 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
 
 
     def template_build_mod(self, modfile_set):
-        return
-        if not self.is_mod_built:
-            modfile_set.append( ModFile(modtxt=postsynaptic_mechanisms_expsyn_modfile.getExpSynModfile(), name='UnusedParameterXXXExpSyn'))
-            self.is_mod_built = True
+        import postsynaptic_mechanisms_expsyn_modfile
+        modfile_set.append( ModFile(modtxt=postsynaptic_mechanisms_expsyn_modfile.getExpSynModfile(), name='UnusedParameterXXXExpSyn'))
+        #self.is_mod_built = True
 
-    def get_recordable(self, what, **kwargs):
-        assert False
+    def get_record_for_instance(self, instance, what, **kwargs):
         if what == NEURONSynapse.Recordables.SynapticCurrent:
-            return Neuron_PSM_ExpSyn_CurrentRecord(neuron_syn_post=self,
-                    **kwargs)
+            return Neuron_PSM_Std_CurrentRecord(neuron_syn_post=instance, **kwargs)
         if what == NEURONSynapse.Recordables.SynapticConductance:
-            return Neuron_PSM_ExpSyn_ConductanceRecord(neuron_syn_post=self,
-                    **kwargs)
+            return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance, **kwargs)
         assert False
 
 

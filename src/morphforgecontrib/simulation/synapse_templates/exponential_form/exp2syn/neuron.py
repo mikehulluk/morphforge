@@ -35,32 +35,16 @@ from .core import PostSynapticMech_Exp2Syn_Base
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-#from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
-#from neurounits.tools.nmodl import WriteToNMODL #, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-#from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-#from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
-#from neurounits.neurounitparser import NeuroUnitParser
 
-#from morphforge.core import ObjectLabeller
-#from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
-#from morphforge.simulation.base import PostSynapticMechTemplate
-#from morphforge.simulation.base import PostSynapticMechInstantiation
-
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
-
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_CurrentRecord
 from morphforgecontrib.simulation.synapse_templates.exponential_form.postsynaptic_mechanisms_baseclasses import Neuron_PSM_Std_ConductanceRecord
-#from morphforgecontrib.simulation.synapses.neuron.postsynaptic_mechanisms_expsyn import Neuron_PSM_ExpSyn_ConductanceRecord
 from morphforge.simulation.neuron.networks import NEURONSynapse
 
 
@@ -80,10 +64,8 @@ ${synnamepost}.popening = $pOpening
 
 class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate, ):
 
-    def __init__(self, vdep=None, **kwargs):
+    def __init__(self, **kwargs):
         super(NEURONPostSynapticMechTemplate_Exp2Syn, self).__init__( **kwargs)
-        assert vdep == None
-        self.is_mod_built = False
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
 
@@ -120,11 +102,10 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
         hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
 
-    def template_build_mod(self, modfile_set):
-        if not self.is_mod_built:
-            import postsynaptic_mechanisms_exp2syn_modfile_new
-            modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile_new.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
-            modfile_set.append(modfile)
+    def template_build_mod_once(self, modfile_set):
+        import postsynaptic_mechanisms_exp2syn_modfile_new
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile_new.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
+        modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):
 

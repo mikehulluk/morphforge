@@ -310,7 +310,7 @@ class SimulationMRedoc(object):
                     mrd.Paragraph('<Summariser Missing for type: %s>' % type(chl))
                 )
 
-        return mrd.Section('Summary of channel: %s' % chl.name,
+        return mrd.SectionNewPage('Summary of channel: %s' % chl.name,
                            sumcls.build(chl))
 
     def build_details_channels(self):

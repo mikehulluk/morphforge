@@ -112,7 +112,7 @@ class MembraneMechanismSummariser(object):
 
 
 
-
+from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 
 

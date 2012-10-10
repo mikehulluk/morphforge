@@ -71,7 +71,6 @@ class NEURONChl_AlphaBeta_Record(NEURONRecordableOnLocation):
 class NEURONChl_AlphaBeta_CurrentDensityRecord(NEURONChl_AlphaBeta_Record):
 
     def __init__(self, **kwargs):
-
         super(NEURONChl_AlphaBeta_CurrentDensityRecord,
               self).__init__(modvar='i', **kwargs)
 
@@ -145,8 +144,6 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
 
     def __init__(self, **kwargs):
         super(NEURONChl_AlphaBeta,self).__init__(**kwargs)
-        #StdChlAlphaBeta.__init__(self, *args, **kwargs)
-        #NEURONChl_Base.__init__(self)
 
     def get_recordable(self, what, **kwargs):
 

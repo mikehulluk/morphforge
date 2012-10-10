@@ -29,16 +29,29 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from morphforge.stdimports import units
+
 
 class PostSynapticMech_ExpSyn_Base(object):
-    def __init__(self, tau, e_rev, **kwargs):
+    def __init__(self, tau, e_rev, weight, **kwargs):
         super(PostSynapticMech_ExpSyn_Base, self).__init__( **kwargs)
-        self._default_parameters = { 'tau':tau, 'e_rev':e_rev}
-        
+        self._default_parameters = { 'tau':tau, 'e_rev':e_rev, 'weight':weight}
+
+    @classmethod
     def get_variables(self,):
-        return ['tau', 'e_rev']
+        return ['tau', 'e_rev', 'weight']
 
-    
 
-        
+    @classmethod
+    def get_preferred_unit(cls, varname):
+        import quantities as pq
+
+        _units = {
+                'tau': units.ms,
+                'e_rev': pq.mV,
+                'weight': units.nS,
+                }
+        return _units[varname]
+
+
 

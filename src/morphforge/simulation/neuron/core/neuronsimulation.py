@@ -119,6 +119,10 @@ class NEURONSimulation(Simulation):
 
     def run(self, do_spawn=True):
 
+        # Some sanity checks:
+        # Are we simulating anything?
+        assert len(self.cells) > 0, 'No Cells in simulation!'
+
 
         if do_spawn:
             return self._run_spawn()

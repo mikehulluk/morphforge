@@ -352,7 +352,7 @@ class CellAnalysis_IVCurve(object):
         self.input_resistance = input_resistance
         self.reversal_potential = reversal_potential
 
-        ax.plot(i, i*input_resistance + reversal_potential, label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s, b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)  )
+        ax.plot(i, i*input_resistance + reversal_potential,'o-', label = "Fit: [V(mV) = %2.3f * I(pA)  + %2.3f]"%(a_s, b_s) + " \n[Input Resistance: %2.2fMOhm  Reversal Potential: %2.2f mV"%(input_resistance, reversal_potential)  )
         ax.legend()
 
         PM.save_figure(figname=title)
