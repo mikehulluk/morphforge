@@ -38,7 +38,7 @@ We run two simulations, using 2 slightly different mod files, and plot the membr
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
+from morphforgecontrib.simulation.channels.exisitingmodfile.core import SimulatorSpecificChannel
 
 
 def build_simulation(modfilename):

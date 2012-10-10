@@ -41,7 +41,7 @@ from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.membranemechanisms.common.neuron import build_hoc_default
+from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
 from neurounits.neurounitparser import NeuroUnitParser
 
 from morphforge.core import ObjectLabeller

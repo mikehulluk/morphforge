@@ -45,8 +45,10 @@ from morphology.util import MorphologyTranslator
 
 
 # Pre synaptic mechanisms
-from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_TimeList
-from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_VoltageThreshold
+#from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_TimeList
+#from morphforgecontrib.simulation.presynapticmechanisms.core import PreSynapticMech_VoltageThreshold
+from morphforge.stdimports import PreSynapticMech_TimeList
+from morphforge.stdimports import PreSynapticMech_VoltageThreshold
 
 
 
@@ -65,11 +67,11 @@ from morphforgecontrib.simulation_analysis.spikinggrouping import DBScan
 
 
 # Simulation Channels:
-from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core import StdChlAlphaBeta, StdChlLeak, StdChlAlphaBetaBeta
-from morphforgecontrib.simulation.membranemechanisms.exisitingmodfile.core import SimulatorSpecificChannel
-from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
-from morphforgecontrib.simulation.membranemechanisms.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
+from morphforgecontrib.simulation.channels.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
+from morphforgecontrib.simulation.channels.hh_style.core import StdChlAlphaBeta, StdChlLeak, StdChlAlphaBetaBeta
+from morphforgecontrib.simulation.channels.exisitingmodfile.core import SimulatorSpecificChannel
+from morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge import NeuroUnitEqnsetMechanism
+from morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 
 # Mike Hull development:
 from socket import gethostname

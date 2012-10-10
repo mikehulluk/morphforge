@@ -31,6 +31,6 @@
 
 # These need to be imported so they register with the 
 # plugin system.
-import membranemechanisms
+import channels
 import synapse_templates
 import presynapticmechanisms

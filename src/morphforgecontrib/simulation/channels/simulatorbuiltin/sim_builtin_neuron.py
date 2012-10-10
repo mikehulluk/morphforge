@@ -29,38 +29,49 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects import MembraneVoltageRecord
-from morphforge.simulation.neuron.objects import NEURONCell
-from morphforge.simulation.neuron.objects import NeuronSimSetupObj
+import re
 
-from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
-
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
+from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.misc import NeuronSimulationConstants
-
-from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-
-from morphforge.simulation.neuron.biophysics import ModFile
-from morphforge.simulation.neuron.biophysics import ModFileCompiler
-from morphforge.simulation.neuron.biophysics import NEURONChl_Base
+from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default 
+from morphforgecontrib.simulation.channels.exisitingmodfile.core import SimulatorSpecificChannel
+from morphforgecontrib.simulation.channels.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 
 
 
-# Needed to register handlers:
-import synaptictriggers
 
 
+class BuiltinChannelNEURON(NEURONChl_Base, BuiltinChannel):
 
-__all__ = [
-    'MembraneVoltageRecord',
-    'NEURONCell',
-    'NeuronSimSetupObj',
-    'NEURONSimulation',
-    'NEURONEnvironment',
-    'NeuronSimulationConstants',
-    'HocModUtils',
-    'ModFile',
-    'ModFileCompiler',
-    'NEURONChl_Base',
-    ]
+    def __init__(self, **kwargs):
+        # TODO: Make this sub:
+        # super(BuiltinChannelNEURON, self).__init__(self, **kwargs)
+        #NEURONChl_Base.__init__(self)
+        #BuiltinChannel.__init__(self, **kwargs)
+        super(BuiltinChannelNEURON, self).__init__(**kwargs)
+
+
+    def build_hoc_section(self, cell, section, hocfile_obj, mta):
+        build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.sim_chl_name)
+
+    def create_modfile(self, modfile_set):
+        pass
+
+    # No Internal recording or adjusting of parameters for now:
+    class Recordables:
+
+        all = []
+
+    def get_variables(self):
+        return []
+
+    def get_defaults(self):
+        return {}
+
+    def get_recordable(self, what, **kwargs):
+        raise ValueError("Can't find Recordable: %s" % what)
+
+
+NEURONEnvironment.channels.register_plugin(BuiltinChannel, BuiltinChannelNEURON)
 

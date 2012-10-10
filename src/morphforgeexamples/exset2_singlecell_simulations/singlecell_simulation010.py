@@ -39,7 +39,7 @@ We also create a summary pdf of the simulation.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
 
 
 # Create the morphology for the cell:

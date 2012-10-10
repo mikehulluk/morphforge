@@ -49,8 +49,8 @@ TODO: THIS IS NOT WORKING  - DISABLED TO ALLOW runnnign during pdf gen refactor
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
+from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
 
 
 # Create the environment:

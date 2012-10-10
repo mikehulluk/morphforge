@@ -28,52 +28,52 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-
-from morphforge.simulation.base.networks import PreSynapticMechanism
-from morphforge.simulation.base.networks import PreSynapticTypes
-from morphforge.traces.eventset import EventSet
-
-
-class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
-
-    def __init__(self, cell_location, voltage_threshold, delay):
-        self.cell_location = cell_location
-        self.voltage_threshold = voltage_threshold
-        self.delay = delay
-
-    def get_presynaptic_cell_location(self):
-        return self.cell_location
-
-    def get_presynaptic_cell(self):
-        return self.cell_location.cell
-
-    def get_type(self):
-        return PreSynapticTypes.Cell
-
-    @property 
-    def weight(self):
-        return self.synapse.postSynapticMech.weight
-
-
-class PreSynapticMech_TimeList(PreSynapticMechanism):
-
-    def __init__(self, time_list):
-        # TODO: Add kwargs to constructor, and in above class.
-        super(PreSynapticMech_TimeList, self).__init__()
-
-        # Convert into an event set
-        if not isinstance(time_list, EventSet):
-            time_list = EventSet(time_list)
-
-        self.time_list = time_list
-
-    def get_presynaptic_cell(self):
-        return None
-
-    def get_type(self):
-        return PreSynapticTypes.FixedTiming
-
-
-    @property 
-    def weight(self):
-        return self.synapse.postSynapticMech.weight
+#~ 
+#~ from morphforge.simulation.base.networks import PreSynapticMechanism
+#~ from morphforge.simulation.base.networks import PreSynapticTypes
+#~ from morphforge.traces.eventset import EventSet
+#~ 
+#~ 
+#~ class PreSynapticMech_VoltageThreshold(PreSynapticMechanism):
+#~ 
+    #~ def __init__(self, cell_location, voltage_threshold, delay):
+        #~ self.cell_location = cell_location
+        #~ self.voltage_threshold = voltage_threshold
+        #~ self.delay = delay
+#~ 
+    #~ def get_presynaptic_cell_location(self):
+        #~ return self.cell_location
+#~ 
+    #~ def get_presynaptic_cell(self):
+        #~ return self.cell_location.cell
+#~ 
+    #~ def get_type(self):
+        #~ return PreSynapticTypes.Cell
+#~ 
+    #~ @property 
+    #~ def weight(self):
+        #~ return self.synapse.postSynapticMech.weight
+#~ 
+#~ 
+#~ class PreSynapticMech_TimeList(PreSynapticMechanism):
+#~ 
+    #~ def __init__(self, time_list):
+        #~ # TODO: Add kwargs to constructor, and in above class.
+        #~ super(PreSynapticMech_TimeList, self).__init__()
+#~ 
+        #~ # Convert into an event set
+        #~ if not isinstance(time_list, EventSet):
+            #~ time_list = EventSet(time_list)
+#~ 
+        #~ self.time_list = time_list
+#~ 
+    #~ def get_presynaptic_cell(self):
+        #~ return None
+#~ 
+    #~ def get_type(self):
+        #~ return PreSynapticTypes.FixedTiming
+#~ 
+#~ 
+    #~ @property 
+    #~ def weight(self):
+        #~ return self.synapse.postSynapticMech.weight

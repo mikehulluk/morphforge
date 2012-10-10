@@ -49,7 +49,7 @@ from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda
 
 
 from morphforge.stdimports import *
-#from morphforgecontrib.simulation.membranemechanisms.simulatorbuiltin.sim_builtin_core import BuiltinChannel
+#from morphforgecontrib.simulation.channels.simulatorbuiltin.sim_builtin_core import BuiltinChannel
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 

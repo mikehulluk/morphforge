@@ -46,8 +46,8 @@ The aim of this script is just to show that it is possible to run multiple simul
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.membranemechanisms.hh_style.core.mmalphabeta import StdChlAlphaBeta
+from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
 
 
 

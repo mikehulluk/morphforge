@@ -29,38 +29,25 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects import MembraneVoltageRecord
-from morphforge.simulation.neuron.objects import NEURONCell
-from morphforge.simulation.neuron.objects import NeuronSimSetupObj
-
-from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
-
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.misc import NeuronSimulationConstants
-
-from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-
-from morphforge.simulation.neuron.biophysics import ModFile
-from morphforge.simulation.neuron.biophysics import ModFileCompiler
-from morphforge.simulation.neuron.biophysics import NEURONChl_Base
+from morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_core import NeuroML_Via_NeuroUnits_Channel
+from neurounits.importers.neuroml import ChannelMLReader
+from morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge import Neuron_NeuroUnitEqnsetMechanism
 
 
 
-# Needed to register handlers:
-import synaptictriggers
+class NeuroML_Via_NeuroUnits_ChannelNEURON(Neuron_NeuroUnitEqnsetMechanism, NeuroML_Via_NeuroUnits_Channel):
+
+    def __init__(self, xml_filename, chlname=None,**kwargs):
+
+        (eqnset, chlinfo, default_params) = ChannelMLReader.BuildEqnset(xml_filename)
+
+        default_params = dict([(k, v.as_quantities_quantity()) for (k, v) in default_params.iteritems()])
+
+        super(NeuroML_Via_NeuroUnits_ChannelNEURON,self).__init__(eqnset=eqnset, default_parameters=default_params, recordables_map=None, recordables_data=None, xml_filename=xml_filename, chlname=chlname, **kwargs)
 
 
 
-__all__ = [
-    'MembraneVoltageRecord',
-    'NEURONCell',
-    'NeuronSimSetupObj',
-    'NEURONSimulation',
-    'NEURONEnvironment',
-    'NeuronSimulationConstants',
-    'HocModUtils',
-    'ModFile',
-    'ModFileCompiler',
-    'NEURONChl_Base',
-    ]
+NEURONEnvironment.channels.register_plugin(NeuroML_Via_NeuroUnits_Channel, NeuroML_Via_NeuroUnits_ChannelNEURON)
+
 

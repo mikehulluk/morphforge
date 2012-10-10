@@ -247,8 +247,8 @@ def write_local_page(data):
         f.write(Template(local_tmpl, context).respond())
 
 
-from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
-from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_neuron import NeuroML_Via_XSL_ChannelNEURON
+from morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
+from morphforgecontrib.simulation.channels.neuroml_via_xsl.neuroml_via_xsl_neuron import NeuroML_Via_XSL_ChannelNEURON
 from mhlibs.quantities_plot import QuantitiesFigure
 
 

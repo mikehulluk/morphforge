@@ -29,38 +29,31 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.simulation.neuron.objects import MembraneVoltageRecord
-from morphforge.simulation.neuron.objects import NEURONCell
-from morphforge.simulation.neuron.objects import NeuronSimSetupObj
-
-from morphforge.simulation.neuron.core.neuronsimulation import NEURONSimulation
-
-from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-from morphforge.simulation.neuron.misc import NeuronSimulationConstants
-
-from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
-
-from morphforge.simulation.neuron.biophysics import ModFile
-from morphforge.simulation.neuron.biophysics import ModFileCompiler
-from morphforge.simulation.neuron.biophysics import NEURONChl_Base
+#from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
+from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
 
 
+class Summarise_MM_LeakChannel(object):
 
-# Needed to register handlers:
-import synaptictriggers
+    @classmethod
+    def to_report_lab(cls, leak_chl, reportlabconfig, make_graphs):
+        from reportlab.platypus import Paragraph, Table
+        chl = leak_chl
+
+        local_elements = []
+        local_elements.append(Paragraph('Overview',
+                              reportlabconfig.styles['Heading3']))
+
+        # Summary:
+        overview_table_data = [
+                  ['Conductance', chl.conductance],
+                  ['Reversal Potential', chl.reversalpotential],
+                           ]
+
+        local_elements.append(Table(overview_table_data, style=reportlabconfig.listTableStyle))
+
+        return local_elements
 
 
 
-__all__ = [
-    'MembraneVoltageRecord',
-    'NEURONCell',
-    'NeuronSimSetupObj',
-    'NEURONSimulation',
-    'NEURONEnvironment',
-    'NeuronSimulationConstants',
-    'HocModUtils',
-    'ModFile',
-    'ModFileCompiler',
-    'NEURONChl_Base',
-    ]
-
+#SummariserLibrary.register_summariser(channel_baseclass=StdChlLeak, summariser_class=Summarise_MM_LeakChannel)

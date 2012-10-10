@@ -33,7 +33,7 @@
 
 
 
-from morphforgecontrib.simulation.membranemechanisms.neuroml_via_xsl.neuroml_via_xsl_neuron import NeuroML_Via_XSL_ChannelNEURON
+from morphforgecontrib.simulation.channels.neuroml_via_xsl.neuroml_via_xsl_neuron import NeuroML_Via_XSL_ChannelNEURON
 import glob
 
 
@@ -43,7 +43,7 @@ import glob
 from morphforge.stdimports import *
 
 import random as R
-from morphforgecontrib.simulation.membranemechanisms.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
+from morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_neuron import NeuroML_Via_NeuroUnits_ChannelNEURON
 
 
 
