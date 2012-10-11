@@ -23,5 +23,5 @@
 # POSSIBILITY OF SUCH DAMAGE.
 # -------------------------------------------------------------------------------
 
-from morphlocator import MorphLocator
+from morphforge.morphology.util.morphlocator import MorphLocator
 __all__ = ['MorphLocator']

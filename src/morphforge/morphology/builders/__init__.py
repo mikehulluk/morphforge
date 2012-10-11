@@ -32,6 +32,6 @@
 """ This modules contains methods for building simple morphologies.
 """
 
-from morphologybuilder import MorphologyBuilder
+from morphforge.morphology.builders.morphologybuilder import MorphologyBuilder
 
 __all__ = ['MorphologyBuilder']

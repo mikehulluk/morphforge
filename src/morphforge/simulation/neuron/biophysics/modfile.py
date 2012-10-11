@@ -71,7 +71,7 @@ class ModFile(object):
 
     def ensure_built(self):
         LogMgr.info('Ensuring Modfile is built')
-        from modfilecompiler import ModFileCompiler
+        from morphforge.simulation.neuron.biophysics.modfilecompiler import ModFileCompiler
         ModFileCompiler().build_modfile(self)
 
     def get_md5_hash(self):

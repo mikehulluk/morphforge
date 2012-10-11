@@ -37,7 +37,7 @@ from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 from morphforge.core.quantities import unit
 
 # Lexing:
-from gen_parser_lexer import TraceGeneratorParserLexer
+from morphforge.traces.generation.gen_parser_lexer import TraceGeneratorParserLexer
 l = TraceGeneratorParserLexer()
 tokens = l.tokens
 

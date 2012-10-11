@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphologyexporter import MorphologyExporter
+from morphforge.morphology.exporter.morphologyexporter import MorphologyExporter
 
 # Import specific loaders:
-import export_tree_swc
-import export_array_swc
+import morphforge.morphology.exporter.export_tree_swc
+import morphforge.morphology.exporter.export_array_swc

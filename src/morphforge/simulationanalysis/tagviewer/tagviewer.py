@@ -34,7 +34,7 @@ from morphforge.core import unit
 from morphforge.simulation.base import SimulationResult
 from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
-from plotspecs import TagPlot
+from morphforge.simulationanalysis.tagviewer.plotspecs import TagPlot
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePiecewise

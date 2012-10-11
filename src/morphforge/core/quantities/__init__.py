@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from quantities import *
 from morphforge.core.quantities.fromcore import factorise_units_from_list
 from morphforge.core.quantities.fromcore import unit
 import common_neuroscience_defs

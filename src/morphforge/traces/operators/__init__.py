@@ -30,9 +30,9 @@
 # ----------------------------------------------------------------------
  
 # Import the modules to allow dynamic loading:
-import op_piecewise_scalar
-import op_fixeddt_scalar
-import op_fixeddt_quantity
-import op_fixeddt_fixeddt
-import op_variabledt_scalar
+import morphforge.traces.operators.op_piecewise_scalar
+import morphforge.traces.operators.op_fixeddt_scalar
+import morphforge.traces.operators.op_fixeddt_quantity
+import morphforge.traces.operators.op_fixeddt_fixeddt
+import morphforge.traces.operators.op_variabledt_scalar
 

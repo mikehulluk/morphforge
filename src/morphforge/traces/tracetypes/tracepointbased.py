@@ -47,7 +47,7 @@ class TracePointBased(Trace):
 
         _dummy = time.rescale('ms').magnitude
 
-        if not isinstance(data, (pq.quantity.Quantity, pq.Dimensionless)):
+        if not isinstance(data, (pq.quantity.Quantity, pq.unitquantity.Dimensionless)):
             raise ValueError("Data is not a 'unit'ed quantity")
         if not time.shape == data.shape:
             raise ValueError('Time and Data are different shapes! %s vs %s' % (time.shape, data.shape))

@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from modfile import ModFile
-from modfilecompiler import ModFileCompiler
-from mm_neuron import NEURONChl_Base
+from morphforge.simulation.neuron.biophysics.modfile import ModFile
+from morphforge.simulation.neuron.biophysics.modfilecompiler import ModFileCompiler
+from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 
 __all__ = ['ModFile', 'ModFileCompiler', 'NEURONChl_Base']

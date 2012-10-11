@@ -34,7 +34,7 @@ from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePiecewise
-from MMtrace_conversion import TraceConverter, TraceApproximator
+from morphforge.traces.methods.MMtrace_conversion import TraceConverter, TraceApproximator
 
 # Conversion to: FixedDT:
 #########################

@@ -44,7 +44,7 @@ import morphforge.traces.operators
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 
-from tags import TagSelector
+from morphforge.traces.tags import TagSelector
 
 __all__ = [
     'TraceFixedDT',

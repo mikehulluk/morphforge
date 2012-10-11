@@ -33,13 +33,13 @@
 
 
 from quantities import *
-from common_neuroscience_defs import mS, uS, nS, pS
-from common_neuroscience_defs import mF, uF, nF, pF
-from common_neuroscience_defs import um2, cm2, mm2, m2
+from morphforge.core.quantities.common_neuroscience_defs import mS, uS, nS, pS
+from morphforge.core.quantities.common_neuroscience_defs import mF, uF, nF, pF
+from morphforge.core.quantities.common_neuroscience_defs import um2, cm2, mm2, m2
 
 
-from common_neuroscience_defs import ohmcm 
-from common_neuroscience_defs import MOhm
-from common_neuroscience_defs import mV
+from morphforge.core.quantities.common_neuroscience_defs import ohmcm 
+from morphforge.core.quantities.common_neuroscience_defs import MOhm
+from morphforge.core.quantities.common_neuroscience_defs import mV
 
 

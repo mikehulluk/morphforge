@@ -145,7 +145,7 @@ from morphforge.core import check_cstyle_varname
 
 from morphforge.morphology.core.base import MorphologyBase
 from morphforge.morphology.visitor import SectionListerDF
-from morphologyconsistency import MorphologyConsistencyMgr
+from morphforge.morphology.core.morphologyconsistency import MorphologyConsistencyMgr
 
 
 class Section(object):

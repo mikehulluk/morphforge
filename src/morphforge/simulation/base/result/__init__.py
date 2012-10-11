@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from simulationresult import SimulationResult
+from morphforge.simulation.base.result.simulationresult import SimulationResult
 
 __all__ = ['SimulationResult']
 

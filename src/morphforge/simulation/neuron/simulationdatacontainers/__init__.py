@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from mhocfile import MHOCSections, MHocFileData, MHocFile
+from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections, MHocFileData, MHocFile
 
-from mmodfileset import MModFileSet
+from morphforge.simulation.neuron.simulationdatacontainers.mmodfileset import MModFileSet
 
 __all__ = ['MHOCSections', 'MHocFileData', 'MHocFile', 'MModFileSet']

@@ -56,7 +56,7 @@ class LocMgr(object):
         Useful for temporary locations"""
 
         if dir_location and not os.path.exists(dir_location):
-            from logmgr import LogMgr
+            from morphforge.core.mgrs.logmgr import LogMgr
             LogMgr.info('Creating FS Location - ' + dir_location)
             if not os.path.exists(dir_location):
                 os.makedirs(dir_location)
@@ -92,7 +92,7 @@ class LocMgr(object):
 
     @classmethod
     def get_path_from_rcfile(cls, subsection, default):
-        from rcmgr import RCMgr
+        from morphforge.core.mgrs.rcmgr import RCMgr
         if not RCMgr.has_config():
             return default
 

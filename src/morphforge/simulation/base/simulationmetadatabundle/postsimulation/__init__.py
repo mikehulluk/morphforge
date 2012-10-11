@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from postsimulationaction import PostSimulationAction
-from postsimulationaction import PostSimulationActionPickleSimulation
+from morphforge.simulation.base.simulationmetadatabundle.postsimulation.postsimulationaction import PostSimulationAction
+from morphforge.simulation.base.simulationmetadatabundle.postsimulation.postsimulationaction import PostSimulationActionPickleSimulation
 
 __all__ = ['PostSimulationAction',
            'PostSimulationActionPickleSimulation']

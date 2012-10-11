@@ -88,10 +88,10 @@ In general, you will only need to use one of the two representations, depending 
 
 """
 
-from tree import MorphologyTree, Section, Region
-from tree import MorphLocation
-from tree import MorphPath
-from array import MorphologyArray
+from morphforge.morphology.core.tree import MorphologyTree, Section, Region
+from morphforge.morphology.core.tree import MorphLocation
+from morphforge.morphology.core.tree import MorphPath
+from morphforge.morphology.core.array import MorphologyArray
 
 __all__ = [
      'MorphologyTree',

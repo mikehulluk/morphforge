@@ -37,7 +37,8 @@ from morphforge.traces.eventset import EventSet
 
 class SynapticTriggerByVoltageThreshold(SynapticTrigger):
 
-    def __init__(self, cell_location, voltage_threshold, delay):
+    def __init__(self, cell_location, voltage_threshold, delay, **kwargs):
+        super(SynapticTriggerByVoltageThreshold, self).__init__(**kwargs)
         self.cell_location = cell_location
         self.voltage_threshold = voltage_threshold
         self.delay = delay
@@ -55,9 +56,8 @@ class SynapticTriggerByVoltageThreshold(SynapticTrigger):
 
 class SynapticTriggerAtTimes(SynapticTrigger):
 
-    def __init__(self, time_list):
-        # TODO: Add kwargs to constructor, and in above class.
-        super(SynapticTriggerAtTimes, self).__init__()
+    def __init__(self, time_list, **kwargs):
+        super(SynapticTriggerAtTimes, self).__init__(**kwargs)
 
         # Convert into an event set
         if not isinstance(time_list, EventSet):

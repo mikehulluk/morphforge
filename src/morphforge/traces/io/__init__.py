@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from fromcsv import NeuroCSVParser
-from fromcsv import InvalidNeuroCSVFile
+from morphforge.traces.io.fromcsv import NeuroCSVParser
+from morphforge.traces.io.fromcsv import InvalidNeuroCSVFile
 
-from tocsv import NeuroCSVWriter
-from traceio import TraceLoader
+from morphforge.traces.io.tocsv import NeuroCSVWriter
+from morphforge.traces.io.traceio import TraceLoader
 
 __all__ = [ 
     'NeuroCSVParser',

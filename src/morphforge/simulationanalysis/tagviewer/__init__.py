@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tagviewer import TagViewer, DefaultTagPlots
-from plotspecs import TagPlot
+from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer, DefaultTagPlots
+from morphforge.simulationanalysis.tagviewer.plotspecs import TagPlot
 
 __all__ = ['TagViewer', 'DefaultTagPlots','TagPlot']
 

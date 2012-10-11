@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.simulation.base import CurrentClamp
-from neuronobject import NEURONObject
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.core.quantities import unit

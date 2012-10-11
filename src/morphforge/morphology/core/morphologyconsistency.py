@@ -130,7 +130,7 @@ class MorphConsistencyChecker(object):
 
 
     def check_section_infra_structure(self, section, morph, dummysection):
-        from tree import Section
+        from morphforge.morphology.core.tree import Section
         assert isinstance(self.morph._dummysection, Section)
 
         # Check the parent/children connections:

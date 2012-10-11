@@ -29,11 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from celllibrary import CellLibrary
-from channellibrary import ChannelLibrary
-from morphologylibrary import MorphologyLibrary
+from morphforge.componentlibraries.celllibrary import CellLibrary
+from morphforge.componentlibraries.channellibrary import ChannelLibrary
+from morphforge.componentlibraries.morphologylibrary import MorphologyLibrary
 
-from builderbaseclass import CellBuilder
+from morphforge.componentlibraries.builderbaseclass import CellBuilder
 
 __all__ = ['CellLibrary', 'ChannelLibrary', 'CellBuilder',
            'MorphologyLibrary']

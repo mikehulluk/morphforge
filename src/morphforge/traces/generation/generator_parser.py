@@ -37,7 +37,7 @@ from morphforge.core import LocMgr, SettingsMgr
 from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
 
 # Lexing:
-from gen_parser_lexer import TraceGeneratorParserLexer
+from morphforge.traces.generation.gen_parser_lexer import TraceGeneratorParserLexer
 l = TraceGeneratorParserLexer()
 tokens = l.tokens
 
@@ -45,19 +45,19 @@ tokens = l.tokens
 
 # pylint: disable=W0611
 # Parsing
-from gen_parser_yacc import p_complete
-from gen_parser_yacc import p_unit_definiton
-from gen_parser_yacc import p_time
-from gen_parser_yacc import p_abs_timespec
-from gen_parser_yacc import p_end_timespec
-from gen_parser_yacc import p_func
-from gen_parser_yacc import p_func_name
-from gen_parser_yacc import p_pieceblock_chain1
-from gen_parser_yacc import p_pieceblock_chain2
-from gen_parser_yacc import p_pieceblock_chain3
-from gen_parser_yacc import p_pieceblock_chain4
-from gen_parser_yacc import p_pieceblock_chain_complete
-from gen_parser_yacc import p_error
+from morphforge.traces.generation.gen_parser_yacc import p_complete
+from morphforge.traces.generation.gen_parser_yacc import p_unit_definiton
+from morphforge.traces.generation.gen_parser_yacc import p_time
+from morphforge.traces.generation.gen_parser_yacc import p_abs_timespec
+from morphforge.traces.generation.gen_parser_yacc import p_end_timespec
+from morphforge.traces.generation.gen_parser_yacc import p_func
+from morphforge.traces.generation.gen_parser_yacc import p_func_name
+from morphforge.traces.generation.gen_parser_yacc import p_pieceblock_chain1
+from morphforge.traces.generation.gen_parser_yacc import p_pieceblock_chain2
+from morphforge.traces.generation.gen_parser_yacc import p_pieceblock_chain3
+from morphforge.traces.generation.gen_parser_yacc import p_pieceblock_chain4
+from morphforge.traces.generation.gen_parser_yacc import p_pieceblock_chain_complete
+from morphforge.traces.generation.gen_parser_yacc import p_error
 
 
 class TraceStringParser(object):

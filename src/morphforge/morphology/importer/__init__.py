@@ -29,9 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphologyimporter import MorphologyImporter
+from morphforge.morphology.importer.morphologyimporter import MorphologyImporter
 
 # Use this to dynamically register the particular loaders:
-import import_array_swc
-import import_tree_dictionary
+import morphforge.morphology.importer.import_array_swc
+import morphforge.morphology.importer.import_tree_dictionary
 

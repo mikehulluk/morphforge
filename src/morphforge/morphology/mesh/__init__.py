@@ -29,12 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from mesh import TriangleMesh
-from util import find_closest_points, get_normal_vectors
-from util import get_point_circle_about, norm_vec
-from util import get_best_joining_offset
-from writer_ply import MeshWriterPLY
-from builder_rings import MeshBuilderRings
+from morphforge.morphology.mesh.mesh import TriangleMesh
+from morphforge.morphology.mesh.util import find_closest_points, get_normal_vectors
+from morphforge.morphology.mesh.util import get_point_circle_about, norm_vec
+from morphforge.morphology.mesh.util import get_best_joining_offset
+from morphforge.morphology.mesh.writer_ply import MeshWriterPLY
+from morphforge.morphology.mesh.builder_rings import MeshBuilderRings
 
 __all__ = [
     'TriangleMesh',

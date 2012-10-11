@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from cell import Cell
-from celllocation import CellLocation
-from simulation import Simulation
-from simulationenvironment import SimulationEnvironment
-from recordable import Recordable
+from morphforge.simulation.base.core.cell import Cell
+from morphforge.simulation.base.core.celllocation import CellLocation
+from morphforge.simulation.base.core.simulation import Simulation
+from morphforge.simulation.base.core.simulationenvironment import SimulationEnvironment
+from morphforge.simulation.base.core.recordable import Recordable

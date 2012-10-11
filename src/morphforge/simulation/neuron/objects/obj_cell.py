@@ -31,7 +31,7 @@
 
 from morphforge.core.quantities import unit
 
-from neuronobject import NEURONObject
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.simulation.base import Cell
 
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder

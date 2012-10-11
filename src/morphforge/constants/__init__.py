@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from ions import ChlIon
-from standardtags import StandardTags
+from morphforge.constants.ions import ChlIon
+from morphforge.constants.standardtags import StandardTags
 __all__ = ['ChlIon', 'StandardTags']
 

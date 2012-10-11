@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tracepointbased import TracePointBased
+from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
 
 class TraceVariableDT(TracePointBased):

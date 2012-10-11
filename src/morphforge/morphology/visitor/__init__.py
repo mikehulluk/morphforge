@@ -29,18 +29,18 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from visitorbaseclasses import SectionVisitorDF
-from visitorbaseclasses import SectionVisitorDFOverrider
-from visitorbaseclasses import ListBuilderSectionVisitor
+from morphforge.morphology.visitor.visitorbaseclasses import SectionVisitorDF
+from morphforge.morphology.visitor.visitorbaseclasses import SectionVisitorDFOverrider
+from morphforge.morphology.visitor.visitorbaseclasses import ListBuilderSectionVisitor
 
-from visitorbaseclasses import SectionIndexerDF
-from visitorbaseclasses import SectionListerDF
-from visitorbaseclasses import DictBuilderSectionVisitorHomo
-from visitorbaseclasses import SectionIndexerDF
-from visitorbaseclasses import SectionIndexerWithOffsetDF
+from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
+from morphforge.morphology.visitor.visitorbaseclasses import SectionListerDF
+from morphforge.morphology.visitor.visitorbaseclasses import DictBuilderSectionVisitorHomo
+from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerDF
+from morphforge.morphology.visitor.visitorbaseclasses import SectionIndexerWithOffsetDF
 
-from visitorfactory import SectionVistorFactory
-from morphologyoperators import SectionVisitorDFNeuronBuilder
+from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
+from morphforge.morphology.visitor.morphologyoperators import SectionVisitorDFNeuronBuilder
 
 __all__ = [
     'SectionVisitorDF',

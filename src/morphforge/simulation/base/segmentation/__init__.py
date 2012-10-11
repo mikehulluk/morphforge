@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from cellsegmenter import AbstCellSegmenter
-from cellsegmenter import CellSegmenter_MaxCompartmentLength
+from morphforge.simulation.base.segmentation.cellsegmenter import AbstCellSegmenter
+from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxCompartmentLength
 
 __all__ = ['AbstCellSegmenter', 'CellSegmenter_MaxCompartmentLength']

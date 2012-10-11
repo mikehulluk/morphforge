@@ -47,7 +47,7 @@ from morphforge.simulation.neuron.biophysics import NEURONChl_Base
 
 
 # Needed to register handlers:
-import synaptictriggers
+import morphforge.simulation.neuron.synaptictriggers
 
 
 

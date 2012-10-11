@@ -29,33 +29,33 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from core.cell import Cell
-from core.celllocation import CellLocation
-from core.simulation import Simulation
-from core.simulationenvironment import SimulationEnvironment
-from stimulation import CurrentClamp, VoltageClamp
-from stimulation import CurrentClampStepChange, VoltageClampStepChange
-from result import SimulationResult
-from segmentation import AbstCellSegmenter
-from segmentation import CellSegmenter_MaxCompartmentLength
-from biophysics import CellBiophysics, Channel, \
+from morphforge.simulation.base.core.cell import Cell
+from morphforge.simulation.base.core.celllocation import CellLocation
+from morphforge.simulation.base.core.simulation import Simulation
+from morphforge.simulation.base.core.simulationenvironment import SimulationEnvironment
+from morphforge.simulation.base.stimulation import CurrentClamp, VoltageClamp
+from morphforge.simulation.base.stimulation import CurrentClampStepChange, VoltageClampStepChange
+from morphforge.simulation.base.result import SimulationResult
+from morphforge.simulation.base.segmentation import AbstCellSegmenter
+from morphforge.simulation.base.segmentation import CellSegmenter_MaxCompartmentLength
+from morphforge.simulation.base.biophysics import CellBiophysics, Channel, \
     ChannelApplicator, ChannelApplicatorUniform, \
     Targeter
-from biophysics import ChannelTargeterEverywhere, \
+from morphforge.simulation.base.biophysics import ChannelTargeterEverywhere, \
     ChannelTargeterRegion, \
     ChannelTargeterSection, \
     ChannelTargeterSectionPath
-from biophysics import PassiveTargetterEverywhere, \
+from morphforge.simulation.base.biophysics import PassiveTargetterEverywhere, \
     PassiveTargetterEverywhereDefault
-from biophysics import PassiveProperty
+from morphforge.simulation.base.biophysics import PassiveProperty
 
-from networks import Synapse, GapJunction
-from networks import PostSynapticMech, SynapticTrigger
-from base_classes import NamedSimulationObject
+from morphforge.simulation.base.networks import Synapse, GapJunction
+from morphforge.simulation.base.networks import PostSynapticMech, SynapticTrigger
+from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 # New Synapse implementation
-from networks import PostSynapticMechTemplate
-from networks import PostSynapticMechInstantiation
+from morphforge.simulation.base.networks import PostSynapticMechTemplate
+from morphforge.simulation.base.networks import PostSynapticMechInstantiation
 
 __all__ = [
     'CurrentClamp',

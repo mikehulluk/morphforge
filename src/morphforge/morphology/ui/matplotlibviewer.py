@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphmaths import MorphologyForRenderingOperator
+from morphforge.morphology.ui.morphmaths import MorphologyForRenderingOperator
 
 from morphforge.morphology.visitor import DictBuilderSectionVisitorHomo
 

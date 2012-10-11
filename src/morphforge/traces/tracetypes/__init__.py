@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from trace import Trace
-from tracefixeddt import TraceFixedDT
-from tracepointbased import TracePointBased
-from tracevariabledt import TraceVariableDT
-from tracepiecewise import TracePiecewise
-from tracepiecewise import TracePieceFunctionFlat
-from tracepiecewise import TracePieceFunctionLinear
-from tracepiecewise import PieceWiseComponentVisitor
-from tracepiecewise import TracePieceFunction
+from morphforge.traces.tracetypes.trace import Trace
+from morphforge.traces.tracetypes.tracefixeddt import TraceFixedDT
+from morphforge.traces.tracetypes.tracepointbased import TracePointBased
+from morphforge.traces.tracetypes.tracevariabledt import TraceVariableDT
+from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
+from morphforge.traces.tracetypes.tracepiecewise import PieceWiseComponentVisitor
+from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunction
 

@@ -45,13 +45,13 @@ class TraceOperator_TraceFixedDT_Scalar(object):
     @classmethod
     def do_add(cls, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == float)
-        assert isinstance(lhs.data_pts, pq.Dimensionless)
+        assert isinstance(lhs.data_pts, pq.unitquantity.Dimensionless)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts + rhs)
         
     @classmethod
     def do_sub(cls, lhs, rhs):
         assert (type(lhs) == TraceFixedDT and type(rhs) == float)
-        assert isinstance(lhs.data_pts, pq.Dimensionless)
+        assert isinstance(lhs.data_pts, pq.unitquantity.Dimensionless)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts - rhs)
         
     @classmethod
@@ -75,13 +75,13 @@ class TraceOperator_Scalar_TraceFixedDT(object):
     @classmethod
     def do_add(cls, lhs, rhs):
         assert type(rhs) == TraceFixedDT and type(lhs) == float
-        assert isinstance(rhs.data_pts, pq.Dimensionless)
+        assert isinstance(rhs.data_pts, pq.unitquantity.Dimensionless)
         return TraceFixedDT(rhs.time_pts, lhs + rhs.data_pts)
 
     @classmethod
     def do_sub(cls, lhs, rhs):
         assert type(rhs) == TraceFixedDT and type(lhs) == float
-        assert isinstance(rhs.data_pts, pq.Dimensionless)
+        assert isinstance(rhs.data_pts, pq.unitquantity.Dimensionless)
         return TraceFixedDT(rhs.time_pts, lhs - rhs.data_pts)
 
     @classmethod

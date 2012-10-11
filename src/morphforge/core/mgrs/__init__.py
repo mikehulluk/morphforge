@@ -29,9 +29,9 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from locmgr import LocMgr
-from logmgr import LogMgr
-from settingsmgr import SettingsMgr
-from rcmgr import RCMgr
+from morphforge.core.mgrs.locmgr import LocMgr
+from morphforge.core.mgrs.logmgr import LogMgr
+from morphforge.core.mgrs.settingsmgr import SettingsMgr
+from morphforge.core.mgrs.rcmgr import RCMgr
 
 __all__ = ['LocMgr', 'LogMgr', 'SettingsMgr', 'RCMgr']

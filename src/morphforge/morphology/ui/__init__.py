@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from mayavirenderer import MayaViRenderer
-from matplotlibviewer import MatPlotLibViewer
+from morphforge.morphology.ui.mayavirenderer import MayaViRenderer
+from morphforge.morphology.ui.matplotlibviewer import MatPlotLibViewer
 
 __all__ = ['MayaViRenderer', 'MatPlotLibViewer']

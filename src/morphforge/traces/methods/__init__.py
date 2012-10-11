@@ -29,13 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import trace_methods_std
-import trace_methods_std_clone
-import trace_methods_std_math
-import trace_methods_std_splicing
-import trace_methods_std_filters
-import trace_methods_std_conversions
-import trace_methods_std_fft
-#import trace_methods_std_integrate
-
-from MMtrace_conversion import TraceApproximator, TraceConverter
+import morphforge.traces.methods.trace_methods_std
+import morphforge.traces.methods.trace_methods_std_clone
+import morphforge.traces.methods.trace_methods_std_math
+import morphforge.traces.methods.trace_methods_std_splicing
+import morphforge.traces.methods.trace_methods_std_filters
+import morphforge.traces.methods.trace_methods_std_conversions
+import morphforge.traces.methods.trace_methods_std_fft
+from morphforge.traces.methods.MMtrace_conversion import TraceApproximator, TraceConverter

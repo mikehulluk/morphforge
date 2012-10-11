@@ -43,15 +43,15 @@ def parse(s):
 
 
     # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
-    if s=='nA':
+    if s == 'nA':
         return pq.nano * pq.amp
-    if s=='pA':
+    if s == 'pA':
         return pq.pico * pq.amp
-    if s=='nS':
+    if s == 'nS':
         return pq.nano * pq.S
-    if s=='pS':
+    if s == 'pS':
         return pq.pico * pq.S
-    if s=='mV':
+    if s == 'mV':
         return pq.mV
 
 

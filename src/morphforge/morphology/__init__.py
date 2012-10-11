@@ -52,6 +52,6 @@ from morphforge.morphology.core import MorphologyTree
 from morphforge.morphology.core import MorphologyArray
 
 # Ensure that the plugins get added dynamically:
-import importer
-import exporter
+import morphforge.morphology.importer
+import morphforge.morphology.exporter
 

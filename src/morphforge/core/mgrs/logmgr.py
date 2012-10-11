@@ -48,7 +48,7 @@ class LogMgr(object):
 
     @classmethod
     def config(cls):
-        from locmgr import LocMgr
+        from morphforge.core.mgrs.locmgr import LocMgr
 
         if cls._initialised_state == LogMgrState.Configuring:
             return
@@ -96,7 +96,7 @@ class LogMgr(object):
     def _is_logging_active_and_ready(cls):
 
         if cls._initialised_state == LogMgrState.Ready:
-            from settingsmgr import SettingsMgr
+            from morphforge.core.mgrs.settingsmgr import SettingsMgr
             if not SettingsMgr.is_logging():
                 return False
             return True

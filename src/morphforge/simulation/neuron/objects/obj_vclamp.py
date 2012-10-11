@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from neuronobject import NEURONObject
+from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.simulation.base import VoltageClamp
 from morphforge.simulation.base import VoltageClampStepChange
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData

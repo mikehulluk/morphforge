@@ -51,9 +51,9 @@ Root:
 
         /Cells:
             /Population1
-                /Cell1,Cell2
+                /Cell1, Cell2
             /Population2
-                /Cell1,Cell2
+                /Cell1, Cell2
         /Chemical Synapses:
             All Details: (By type)
             By-Presynaptic
@@ -447,22 +447,22 @@ def build_connectivity_graph(synapse_pop, size=0.75):
     max_len = max( (prepop_len, postpop_len) )
 
     import pylab
-    figsize_raw =(size * (float(prepop_len)/max_len),size*(float(postpop_len)/max_len))
+    figsize_raw =(size * (float(prepop_len)/max_len), size*(float(postpop_len)/max_len))
     figsize = figsize_raw #figsize_raw[0]+0.75, figsize_raw[1]+0.75
     print figsize
 
 
 
     fig = pylab.figure(figsize=figsize, dpi=400 )
-    #ax = fig.add_subplot(1,1,1, aspect='equal') 
-    ax = fig.add_axes([0,0,1,1], aspect='equal') 
-    xpts,ypts = zip(*connectivity)
-    ax.scatter(xpts,ypts, marker='s', s=7, edgecolors='none')
+    #ax = fig.add_subplot(1, 1, 1, aspect='equal') 
+    ax = fig.add_axes([0, 0, 1, 1], aspect='equal') 
+    xpts, ypts = zip(*connectivity)
+    ax.scatter(xpts, ypts, marker='s', s=7, edgecolors='none')
     #ax.axis('equal')
     ax.set_xlim(-0.5, prepop_len-0.5 )
     ax.set_ylim(-0.5, postpop_len-0.5 )
-    ax.xaxis.set_major_locator(MaxNLocator(min(prepop_len,3)))
-    ax.yaxis.set_major_locator(MaxNLocator(min(postpop_len,3)))
+    ax.xaxis.set_major_locator(MaxNLocator(min(prepop_len, 3)))
+    ax.yaxis.set_major_locator(MaxNLocator(min(postpop_len, 3)))
     ax.axes.get_xaxis().set_ticklabels([])
     ax.axes.get_yaxis().set_ticklabels([])
     #pylab.suptitle('Connectivity: %d synapses'%len(synapse_pop))
@@ -487,7 +487,7 @@ class DOTWriter(object):
         fig_count = 0
         fig_out = '/tmp/dotimages/'
         import pydot
-        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7' , ratio='compress', compound='true', splines='true',sep='0.3' )
+        graph = pydot.Dot('graphname', graph_type='digraph', size='7,7' , ratio='compress', compound='true', splines='true', sep='0.3' )
 
         size = '0.55'
         fontsize = '6'
@@ -505,9 +505,9 @@ class DOTWriter(object):
         kwargs_cc = {'shape':'circle', 'style':'filled', 'width':'0.05', }
 
 
-        kwargs_pop = {'style':'filled', 'color':'lightgrey','nodesep':'100' }
+        kwargs_pop = {'style':'filled', 'color':'lightgrey', 'nodesep':'100' }
         kwargs_synpop = {'shape':'none', 'fixedsize':'false'  }
-        kwargs_synpop_img = {'shape':'square', 'labelloc':'b',   'scale':'false','fixedsize': 'true',}
+        kwargs_synpop_img = {'shape':'square', 'labelloc':'b',   'scale':'false', 'fixedsize': 'true'}
         kwargs_synpop_edge = {'penwidth':'3', 'color':'green', 'minlen':'50' } 
 
 
@@ -553,10 +553,10 @@ class DOTWriter(object):
             # Create the connectivity graph:
             connectivity_graph_figure = build_connectivity_graph(synpop)
             fname = fig_out + '/synpop%d.png' % synpopindex
-            pylab.savefig(fname, transparent=True, dpi=400,bb_inches='tight')
+            pylab.savefig(fname, transparent=True, dpi=400, bb_inches='tight')
 
 
-            n = pydot.Node(synpop.synapse_pop_name+'im',label='', image=fname, **dict(kwargs_general.items() + kwargs_synpop_img.items()))
+            n = pydot.Node(synpop.synapse_pop_name+'im', label='', image=fname, **dict(kwargs_general.items() + kwargs_synpop_img.items()))
             synpopcluster.add_node(n)
 
 
@@ -567,9 +567,9 @@ class DOTWriter(object):
             #print pc_conn
             #pc_conn=50.
             #label+= '\\nType: %s'% (synpop.type)
-            label+= '\\nSynapses: %d (%d%%)'% (len(synpop),pc_conn )
+            label+= '\\nSynapses: %d (%d%%)'% (len(synpop), pc_conn )
             #label= synpop.synapse_pop_name
-            n = pydot.Node(synpop.synapse_pop_name+'cap',label='"%s"'%label,  **dict(kwargs_general.items() + kwargs_synpop.items()))
+            n = pydot.Node(synpop.synapse_pop_name+'cap', label='"%s"'%label,  **dict(kwargs_general.items() + kwargs_synpop.items()))
             synpopcluster.add_node(n)
 
 

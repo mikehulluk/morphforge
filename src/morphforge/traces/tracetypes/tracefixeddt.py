@@ -35,7 +35,7 @@ import numpy as np
 
 #import quantities as pq
 
-from tracepointbased import TracePointBased
+from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
 
 class TraceFixedDT(TracePointBased):

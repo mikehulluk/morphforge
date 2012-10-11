@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from obj_cell import MembraneVoltageRecord, NEURONCell
-from obj_basesetup import NeuronSimSetupObj
+from morphforge.simulation.neuron.objects.obj_cell import MembraneVoltageRecord, NEURONCell
+from morphforge.simulation.neuron.objects.obj_basesetup import NeuronSimSetupObj
 
 __all__ = ['MembraneVoltageRecord', 'NEURONCell', 'NeuronSimSetupObj']

@@ -33,10 +33,14 @@
 # pylint: disable=W0611
 # (don't complain about wildcard imports)
 
+# Units:
 from morphforge.core.quantities import *
+#import morphforge.core.quantities as u
+from morphforge.core.quantities import available_units as units
 
 
-import morphforge.core.quantities as u
+
+
 
 from mhlibs.quantities_plot import *
 
@@ -120,7 +124,6 @@ from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 
 
-from morphforge.core.quantities import available_units as units
 
 
 
@@ -140,7 +143,7 @@ from morphforge.core.quantities import available_units as units
 
 
 # Some basic caching.
-# Note that this code looks at every lin of pytohn code that has been run in the 
+# Note that this code looks at every lin of pytohn code that has been run in the
 # funciton and makes sure that it hasn't changes.
 # WHAT IS MISSING IS CODE TO ENSURE THAT DURING LOADUP - THE SAME HAPPENS.
 # WE CAN PROBABLY DO THIS BY INSERTING ANOTHER CALL VERY EARLY ON DURING STARTUP
@@ -175,7 +178,7 @@ class _CachedFileAccessData(object):
 
     def current_line_hash(self):
 
-        lines = self.get_file_lines() 
+        lines = self.get_file_lines()
         if lines is not None:
             hashobj = hashlib.new('sha1')
             hashobj.update('\n'.join(lines ))
@@ -204,13 +207,12 @@ class _CachedFileAccessData(object):
         if self._cachedhashlines is not None and \
            self._cachedhashlines == self.current_line_hash():
             return True
-    
-        
+
+
 
         return False
 
     def __str__(self,):
-        #return '<CachedFileObject: (is_clean:%s) %s>' % (self.is_clean(), self.filename)
         return '<CachedFileObject: (is_clean:%s) %s [%s->%s]>' % (self.is_clean(), self.filename, self._cachedhashfile, HashManager.get_filename_hash(self.filename))
 
 def load_cache(cachefilename):
@@ -277,7 +279,7 @@ def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):#'./_ca
         cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
 
     # Hash up the arguments:
-    if not args: 
+    if not args:
         args=tuple()
     if not kwargs:
         kwargs={}

@@ -29,6 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from builders import MetaDataBundleBuilder
+from morphforge.simulation.base.simulationmetadatabundle.builders.builders import MetaDataBundleBuilder
 
 __all__ = ['MetaDataBundleBuilder']
