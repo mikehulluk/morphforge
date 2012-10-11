@@ -76,11 +76,11 @@ class CellBiophysics(object):
                 targetter=PassiveTargetterEverywhereDefault(),
                 value=PassiveProperty.defaults[PassiveProperty.SpecificCapacitance])
 
-    # Active Mechanisms:
+    # Active Channels:
     # ####################
-    def add_mechanism(self, channel, targetter, applicator):
+    def add_channel(self, channel, targetter, applicator):
         # Ensure the applicator is connected to the channel
-        applicator.set_target_mechanism(channel)
+        applicator.set_target_channel(channel)
 
         mta = _MechanismTargetApplicator(channel=channel, targetter=targetter, applicator=applicator)
         self.appliedmechanisms.append(mta)
@@ -107,23 +107,23 @@ class CellBiophysics(object):
     def get_applied_mtas(self):
         return self.appliedmechanisms
 
-    def get_all_mechanisms_applied_to_cell(self):
+    def get_all_channels_applied_to_cell(self):
         return set([mta.channel for mta in self.appliedmechanisms])
 
-    def get_channels(self):
-        # TODO: RENAME ONE OF THESE!
-        return self.get_all_mechanisms_applied_to_cell()
+    #def get_channels(self):
+    #    # TODO: RENAME ONE OF THESE!
+    #    return self.get_all_channels_applied_to_cell()
 
     def get_channel(self, name):
         try:
-            return SeqUtils.filter_expect_single(self.get_all_mechanisms_applied_to_cell(), lambda chl: chl.name==name)
+            return SeqUtils.filter_expect_single(self.get_all_channels_applied_to_cell(), lambda chl: chl.name==name)
         except:
-            print 'Options: ', [ chl.name for chl in self.get_all_mechanisms_applied_to_cell() ]
+            print 'Options: ', [ chl.name for chl in self.get_all_channels_applied_to_cell() ]
             raise
 
 
 
-    # Simplified interface to adding mechanisms:
+    # Simplified interface to adding channels:
     def apply_channel(self, channel, where = None, parameter_overrides=None, parameter_multipliers=None):
         """ A simplified interface to applying channels.  """
 
@@ -150,7 +150,7 @@ class CellBiophysics(object):
         targetter = where_to_targetter_LUT[type(where)]()
         applicator=ChannelApplicatorUniform( parameter_multipliers=parameter_multipliers, parameter_overrides=parameter_overrides)
 
-        return self.add_mechanism(
+        return self.add_channel(
             channel=channel,
             targetter=targetter,
             applicator=applicator

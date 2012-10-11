@@ -50,7 +50,7 @@ class CellLibrary(object):
         return cls._cells[(modelsrc, celltype)]
 
     @classmethod
-    def create_cell(cls, sim,  modelsrc, celltype, **kwargs):
+    def create_cell(cls, sim,  modelsrc, celltype=None, **kwargs):
         return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
 
 

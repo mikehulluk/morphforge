@@ -246,7 +246,7 @@ class SimulationMRedoc(object):
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d" % (len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d" % len(cell.electrical_connections),
-                  " ".join([chl.name for chl in cell.biophysics.get_channels()]),
+                  " ".join([chl.name for chl in cell.biophysics.get_all_channels_applied_to_cell()]),
                  ) for cell in cell_list])
 
         return table

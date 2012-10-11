@@ -35,10 +35,25 @@ import quantities as pq
 
 def parse(s):
 
+
     on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
     if on_rtd:
         print ' WARNING!! Read the Docs Hack - Not parsing unit:', s
         return 0 * pq.dimensionless
+
+
+    # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
+    if s=='nA':
+        return pq.nano * pq.amp
+    if s=='pA':
+        return pq.pico * pq.amp
+    if s=='nS':
+        return pq.nano * pq.S
+    if s=='pS':
+        return pq.pico * pq.S
+    if s=='mV':
+        return pq.mV
+
 
     # Upgraded on 9th Jun 2012 to use neurounits.
     # print "Parsing Unit:", s

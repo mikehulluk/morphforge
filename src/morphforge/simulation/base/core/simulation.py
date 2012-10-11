@@ -230,7 +230,7 @@ class Simulation(object):
 
 
     def get_all_channels(self):
-        return list(set(itertools.chain(*[cell.biophysics.get_channels() for cell in self.cells])) )
+        return list(set(itertools.chain(*[cell.biophysics.get_all_channels_applied_to_cell() for cell in self.cells])) )
 
 
 

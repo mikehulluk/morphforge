@@ -102,12 +102,10 @@ class NEURONCell(Cell, NEURONObject):
         HocBuilder.Cell(hocfile_obj=hocfile_obj, cell=self)
 
     def build_mod(self, modfile_set):
-        channels = set([mta.channel for mta in self.get_biophysics().appliedmechanisms])
-        for chl in channels:
+        for chl in self.get_biophysics().get_all_channels_applied_to_cell():
             chl.create_modfile(modfile_set)
 
     def get_recordable(self, what=Cell.Recordables.MembraneVoltage, **kwargs):
-
         recordables = { 
                 Cell.Recordables.MembraneVoltage: MembraneVoltageRecord
                 }

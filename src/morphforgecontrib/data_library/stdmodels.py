@@ -33,5 +33,8 @@
 class StandardModels(object):
 
     HH52 = 'HH52'
+    
+    SingleCompartmentPassive = "Single Compartment Passive"
+    
 
 

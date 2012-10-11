@@ -34,15 +34,15 @@ class ChannelApplicator(object):
 
     def __init__(self,):
         super(ChannelApplicator, self).__init__()
-        self.target_mechanism = None
+        self.target_channel = None
 
-    def set_target_mechanism(self, target_mechanism):
-        assert self.target_mechanism is None
-        self.target_mechanism = target_mechanism
+    def set_target_channel(self, target_channel):
+        assert self.target_channel is None
+        self.target_channel = target_channel
 
         # Check that everything that is over-ridden actually exists:
         for varname in self.get_variables_overriden():
-            assert varname in self.target_mechanism.get_variables(), 'unexpected setting of %s' % varname
+            assert varname in self.target_channel.get_variables(), 'unexpected setting of %s' % varname
 
 
     def get_variable_value_for_section(self, variablename, section):
@@ -76,10 +76,10 @@ class ChannelApplicatorUniform(ChannelApplicator):
         assert not ( variable_name in self._parameter_multipliers and  variable_name in self._parameter_overrides)
 
         if variable_name in self._parameter_multipliers:
-            return self._parameter_multipliers[variable_name] * self.target_mechanism.get_default(variable_name)
+            return self._parameter_multipliers[variable_name] * self.target_channel.get_default(variable_name)
         if variable_name in self._parameter_overrides:
             return self._parameter_overrides[variable_name]
-        return self.target_mechanism.get_default(variable_name)
+        return self.target_channel.get_default(variable_name)
 
 
     def get_description(self):
