@@ -49,7 +49,25 @@ def factorise_units_from_list(seq):
     return new_list
 
 
+def parse_unit_string(s):
+    # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
+    if s == 'nA':
+        return pq.nano * pq.amp
+    if s == 'pA':
+        return pq.pico * pq.amp
+    if s == 'nS':
+        return pq.nano * pq.S
+    if s == 'pS':
+        return pq.pico * pq.S
+    if s == 'mV':
+        return pq.mV
 
+    # In the case of units, lets rewrite '**' to nothing and '*' to space:
+    s = s.replace('**', '')
+    s = s.replace('*', ' ')
+
+    import neurounits
+    return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit()
 
 def _unit(s):
     if isinstance(s, pq.quantity.Quantity):
