@@ -146,7 +146,7 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
 
-    na_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":unit("120:mS/cm2")}, )
+    na_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnset_txt_na, default_parameters={"g":qty("120:mS/cm2")}, )
     lk_chl = Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnset_txt_lk, )
     k_chl  = Neuron_NeuroUnitEqnsetMechanism(name="Chl3", eqnset=eqnset_txt_k,  )
 
@@ -175,8 +175,8 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
     lk_chl = env.Channel(
                          StdChlLeak,
                          name="LkChl",
-                         conductance=unit("0.3:mS/cm2"),
-                         reversalpotential=unit("-54.3:mV"),
+                         conductance=qty("0.3:mS/cm2"),
+                         reversalpotential=qty("-54.3:mV"),
                            )
 
     na_chl = env.Channel(NeuroML_Via_XSL_Channel,
@@ -209,8 +209,8 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
     lk_chl = env.Channel(
                          StdChlLeak,
                          name="LkChl",
-                         conductance=unit("0.3:mS/cm2"),
-                         reversalpotential=unit("-54.3:mV"),
+                         conductance=qty("0.3:mS/cm2"),
+                         reversalpotential=qty("-54.3:mV"),
                            )
 
     na_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
@@ -242,8 +242,8 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
     lk_chl = env.Channel(
                              StdChlLeak,
                              name="LkChl",
-                             conductance=unit("0.3:mS/cm2"),
-                             reversalpotential=unit("-54.3:mV"),
+                             conductance=qty("0.3:mS/cm2"),
+                             reversalpotential=qty("-54.3:mV"),
                            )
 
     na_state_vars = { "m": {
@@ -258,8 +258,8 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             StdChlAlphaBeta,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
-                            conductance=unit("120:mS/cm2"),
-                            reversalpotential=unit("50:mV"),
+                            conductance=qty("120:mS/cm2"),
+                            reversalpotential=qty("50:mV"),
                             statevars=na_state_vars,
                             
                            )
@@ -272,8 +272,8 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             StdChlAlphaBeta,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
-                            conductance=unit("36:mS/cm2"),
-                            reversalpotential=unit("-77:mV"),
+                            conductance=qty("36:mS/cm2"),
+                            reversalpotential=qty("-77:mV"),
                             statevars=k_state_vars,
                             
                            )
@@ -311,12 +311,12 @@ def simulate_chls_on_neuron(chl_applicator_functor):
     chl_applicator_functor(env, cell, sim)
 
     # Setup passive channels:
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
 
     # Create the stimulus and record the injected current:
-    cc = sim.create_currentclamp(name="Stim1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
+    cc = sim.create_currentclamp(name="Stim1", amp=qty("100:pA"), dur=qty("100:ms"), delay=qty("100:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
 
 
     # Define what to record:

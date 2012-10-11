@@ -60,7 +60,7 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    sim = env.Simulation(tstop=unit("1500:ms"))
+    sim = env.Simulation(tstop=qty("1500:ms"))
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
@@ -76,18 +76,18 @@ def simulate_chls_on_neuron(chl_applicator_functor, voltage_level, simtype):
 
 
     # Setup passive channels:
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
 
 
     # Create the stimulus and record the injected current:
-    #cc = sim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
+    #cc = sim.create_currentclamp(name="Stim1", amp=qty("10:pA"), dur=qty("100:ms"), delay=qty("300:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
 
     cc = sim.create_voltageclamp(name="Stim1",
-                                   dur1=unit("200:ms"), amp1=unit("-60:mV"),
-                                   dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
-                                   dur3=unit("500:ms")* R.uniform(0.95, 1.0), amp3=unit("-50:mV"),
+                                   dur1=qty("200:ms"), amp1=qty("-60:mV"),
+                                   dur2=qty("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
+                                   dur3=qty("500:ms")* R.uniform(0.95, 1.0), amp3=qty("-50:mV"),
                                    cell_location=cell.soma,
                                   )
 
@@ -149,7 +149,7 @@ def testfile(xmlfile):
     for i, v in enumerate(v_levels):
         #if i> 2:
         #    continue
-        res = testfile_voltage(xmlfile, unit("%d:mV"%v))
+        res = testfile_voltage(xmlfile, qty("%d:mV"%v))
 
         for j, v in enumerate(variables):
             print 'Var', v
@@ -219,10 +219,10 @@ def testfile_voltage(xmlfile, voltage):
     def applicator_xsl(env, cell, sim):
 
         cell.apply_channel( chl_xsl)
-        sim.record(chl_xsl,  what='h', cell_location=cell.soma, nrn_unit=unit(""),  name="h")
-        sim.record(chl_xsl ,  what='hinf', cell_location=cell.soma, nrn_unit=unit(""),  name="hinf")
-        sim.record(chl_xsl,  what='htau', cell_location=cell.soma, nrn_unit=unit("ms"),  name="htau")
-        sim.record(chl_xsl, what='gion', cell_location=cell.soma, nrn_unit=unit("S/cm2"),  name="g")
+        sim.record(chl_xsl,  what='h', cell_location=cell.soma, nrn_unit=qty(""),  name="h")
+        sim.record(chl_xsl ,  what='hinf', cell_location=cell.soma, nrn_unit=qty(""),  name="hinf")
+        sim.record(chl_xsl,  what='htau', cell_location=cell.soma, nrn_unit=qty("ms"),  name="htau")
+        sim.record(chl_xsl, what='gion', cell_location=cell.soma, nrn_unit=qty("S/cm2"),  name="g")
         return chl_xsl
 
     import os

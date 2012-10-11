@@ -32,7 +32,7 @@
 from morphforge.traces.tracetypes.trace import Trace
 from morphforge import units
 import numpy as np
-from morphforge.units import unit
+from morphforge.units import qty
 
 
 class TracePointBased(Trace):
@@ -129,8 +129,8 @@ class TracePointBased(Trace):
 
         if isinstance(time, tuple):
             assert len(time) == 2
-            start = unit(time[0])
-            stop = unit(time[1])
+            start = qty(time[0])
+            stop = qty(time[1])
 
             if start < self._time[0]:
                 assert False, 'Time out of bounds'

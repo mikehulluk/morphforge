@@ -34,7 +34,7 @@ from morphforge import units
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 # Lexing:
 from morphforge.traces.generation.gen_parser_lexer import TraceGeneratorParserLexer
@@ -74,7 +74,7 @@ def p_complete(p):
 
 def p_unit_definiton(p):
     """ unit_def : CURLY_LBRACE D COLON ID CURLY_RBRACE """
-    p[0] = unit(p[4])
+    p[0] = qty(p[4])
 
 
 def p_time(p):

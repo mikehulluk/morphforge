@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.stdimports import CurrentClamp, Cell, unit, StandardTags
+from morphforge.stdimports import CurrentClamp, Cell, qty, StandardTags
 from morphforge.stdimports import NEURONEnvironment
 #from morphforge.stdimports import factorise_units_from_list
 
@@ -210,14 +210,14 @@ class CellAnalysis_ReboundResponse(object):
 
         #SimulationSummariser(res, "/home/michael/Desktop/ForRoman.pdf")
 
-        i = res.get_trace('Current1').convert_to_fixed(unit("0.5:ms")) + res.get_trace('Current2').convert_to_fixed(unit("0.5:ms")) + res.get_trace('Current3').convert_to_fixed(unit("0.5:ms"))
+        i = res.get_trace('Current1').convert_to_fixed(qty("0.5:ms")) + res.get_trace('Current2').convert_to_fixed(qty("0.5:ms")) + res.get_trace('Current3').convert_to_fixed(qty("0.5:ms"))
 
         i = TraceConverter.rebase_to_fixed_dt(res.get_trace('Current1'
-               ), dt=unit('0.5:ms')) \
+               ), dt=qty('0.5:ms')) \
             + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current2'
-               ), dt=unit('0.5:ms')) \
+               ), dt=qty('0.5:ms')) \
             + TraceConverter.rebase_to_fixed_dt(res.get_trace('Current3'
-               ), dt=unit('0.5:ms'))
+               ), dt=qty('0.5:ms'))
         i.tags = [StandardTags.Current]
         return (res.get_trace('SomaVoltage'), i)
 
@@ -237,22 +237,22 @@ class CellAnalysis_IVCurve(object):
     def __init__(self, cell_functor, currents, cell_description=None, sim_functor=None, v_regressor_limit=None, sim_kwargs=None, plot_all=False):
         self.cell_functor = cell_functor
         self.v_regressor_limit = v_regressor_limit
-        #Previously = unit("-30:mV")
+        #Previously = qty("-30:mV")
 
         self.sim_kwargs = sim_kwargs or {}
 
-        self.tCurrentInjStart = unit('50:ms')
-        self.tCurrentInjStop = unit('200:ms')
+        self.tCurrentInjStart = qty('50:ms')
+        self.tCurrentInjStop = qty('200:ms')
 
-        self.tSteaddyStateStart = unit('100:ms')
-        self.tSteaddyStateStop = unit('151:ms')
+        self.tSteaddyStateStart = qty('100:ms')
+        self.tSteaddyStateStop = qty('151:ms')
 
         self.traces = {}
 
         self.currents = currents
         self.cell_description = cell_description or 'Unknown Cell'
 
-        self.input_resistance = unit('-1:MOhm')
+        self.input_resistance = qty('-1:MOhm')
 
         if plot_all:
             self.plot_all()
@@ -339,8 +339,8 @@ class CellAnalysis_IVCurve(object):
         ax.plot(i[np.logical_not(low_v)], v[np.logical_not(low_v)], )
 
         # Plot the regressor:
-        i_units = unit('1:pA').units
-        v_units = unit('1:mV').units
+        i_units = qty('1:pA').units
+        v_units = qty('1:mV').units
         iv = np.vstack((i.rescale(i_units).magnitude,
                        v.rescale(v_units).magnitude)).T
 

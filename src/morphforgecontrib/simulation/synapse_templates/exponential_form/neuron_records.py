@@ -31,7 +31,7 @@
 
 
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-from morphforge.units import unit
+from morphforge.units import qty, parse_unit_str
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 
@@ -46,7 +46,7 @@ class Neuron_PSM_Std_CurrentRecord(NEURONRecordable):
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
-        return unit('nA')
+        return parse_unit_str('nA')
 
     def get_std_tags(self):
         return [StandardTags.Current, Synapse.Recordables.SynapticCurrent]
@@ -66,7 +66,7 @@ class Neuron_PSM_Std_ConductanceRecord(NEURONRecordable):
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
-        return unit('uS')
+        return parse_unit_str('uS')
 
     def get_std_tags(self):
         return [StandardTags.Conductance, Synapse.Recordables.SynapticConductance]
@@ -77,7 +77,7 @@ class Neuron_PSM_Std_ConductanceRecord(NEURONRecordable):
 
     def build_mod(self, modfile_set):
         pass
-        
-        
-        
-        
+
+
+
+

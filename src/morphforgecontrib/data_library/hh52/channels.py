@@ -33,7 +33,7 @@
 
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
 from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
 from morphforgecontrib.data_library.stdmodels import StandardModels
@@ -42,8 +42,8 @@ from morphforgecontrib.data_library.stdmodels import StandardModels
 @cached_functor
 def get_sample_lk(env):
     lk_chl = env.Channel(StdChlLeak, name='LkChl',
-            conductance=unit('0.3:mS/cm2'),
-            reversalpotential=unit('-54.3:mV') )
+            conductance=qty('0.3:mS/cm2'),
+            reversalpotential=qty('-54.3:mV') )
 
     return lk_chl
 
@@ -63,8 +63,8 @@ def get_sample_na(env):
         name='NaChl',
         ion='na',
         equation='m*m*m*h',
-        conductance=unit('120:mS/cm2'),
-        reversalpotential=unit('50:mV'),
+        conductance=qty('120:mS/cm2'),
+        reversalpotential=qty('50:mV'),
         statevars=na_state_vars, 
         )
         
@@ -80,8 +80,8 @@ def get_sample_k(env):
         name='KChl',
         ion='k',
         equation='n*n*n*n',
-        conductance=unit('36:mS/cm2'),
-        reversalpotential=unit('-77:mV'),
+        conductance=qty('36:mS/cm2'),
+        reversalpotential=qty('-77:mV'),
         statevars=kStateVars,
         )
     return k_chl

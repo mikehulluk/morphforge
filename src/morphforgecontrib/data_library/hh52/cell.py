@@ -34,7 +34,7 @@
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
 from morphforge.componentlibraries.celllibrary import CellLibrary
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 from morphforge.morphology.builders import MorphologyBuilder
@@ -43,7 +43,7 @@ from morphforge.morphology.builders import MorphologyBuilder
 def build_hh_cell(sim, cell_area=None):
     
     if cell_area is None:
-        cell_area = unit('5000:um2')
+        cell_area = qty('5000:um2')
     
     morphology = MorphologyBuilder.get_single_section_soma(area = cell_area)
     cell = sim.create_cell(morphology=morphology)

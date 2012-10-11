@@ -36,7 +36,7 @@ import morphforge.stdimports as mf
 from mhlibs.quantities_plot import QuantitiesFigure
 import pylab
 
-from morphforge.stdimports import unit, reduce_to_variable_dt_trace
+from morphforge.stdimports import qty, reduce_to_variable_dt_trace
 
 
 t1 = mf.TraceGenerator.generate_flat(value='1:mV')
@@ -50,7 +50,7 @@ ax = f.add_subplot(111)
 ax.plotTrace(t1, marker='x')
 ax.plotTrace(t2, marker='o')
 ax.plotTrace(t1+t2, marker='<')
-ax.plotTrace((t2+t2)*3.0+unit('0.03:V'), marker='<')
+ax.plotTrace((t2+t2)*3.0+qty('0.03:V'), marker='<')
 
 t1 = mf.fixed_to_variable_dt_trace(t1, '0.01:mV')
 ax.plotTrace(t1, marker='>')

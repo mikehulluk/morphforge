@@ -34,7 +34,7 @@ import numpy
 from morphforge import units
 from morphforge.core.misc import is_float, is_int
 import morphforge
-from morphforge.units import unit
+from morphforge.units import qty
 
 
 # pylint: disable=E1103
@@ -50,7 +50,7 @@ def _convert_to_unit(o, default_unit):
     elif is_float(o) or is_int(o):
         return o * morphforge.units.unit_string_parser.parse(default_unit).rescale(default_unit)
     elif isinstance(o, (str, unicode)) and ':' in o:
-        return unit(o).rescale(default_unit)
+        return qty(o).rescale(default_unit)
     else:
         raise ValueError()
 

@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 
 
@@ -50,12 +50,12 @@ def build_voltageclamp_soma_simulation(env, V, channel_functor, morphology):
 
     vc = sim.create_voltageclamp(
         name='Stim1',
-        amp1=unit('-81.5:mV'),
-        amp2=unit(V),
-        amp3=unit('-81.5:mV'),
-        dur1=unit('100:ms'),
-        dur2=unit('100:ms'),
-        dur3=unit('100:ms'),
+        amp1=qty('-81.5:mV'),
+        amp2=qty(V),
+        amp3=qty('-81.5:mV'),
+        dur1=qty('100:ms'),
+        dur2=qty('100:ms'),
+        dur3=qty('100:ms'),
         cell_location=cell.soma,
         )
     sim.record(vc, what=vc.Recordables.Current, name='VCCurrent')

@@ -68,8 +68,8 @@ def get_sample_lk(env):
     lk_chl = env.Channel(
                          StdChlLeak,
                          name="LkChl",
-                         conductance=unit("0.3:mS/cm2"),
-                         reversalpotential=unit("-54.3:mV"),
+                         conductance=qty("0.3:mS/cm2"),
+                         reversalpotential=qty("-54.3:mV"),
                        )
     return lk_chl
 
@@ -87,8 +87,8 @@ def get_sample_na(env):
                             StdChlAlphaBeta,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
-                            conductance=unit("120:mS/cm2"),
-                            reversalpotential=unit("50:mV"),
+                            conductance=qty("120:mS/cm2"),
+                            reversalpotential=qty("50:mV"),
                             statevars=na_state_vars,
                             
                            )
@@ -103,8 +103,8 @@ def get_sample_k(env):
                             StdChlAlphaBeta,
                             name="KChl", ion="k",
                             equation="n*n*n*n",
-                            conductance=unit("36:mS/cm2"),
-                            reversalpotential=unit("-77:mV"),
+                            conductance=qty("36:mS/cm2"),
+                            reversalpotential=qty("-77:mV"),
                             statevars=k_state_vars,
                             
                            )
@@ -150,10 +150,10 @@ cell.apply_channel( na_chl)
 cell.apply_channel( k_chl )
 cell.apply_channel( lk_chl)
 
-cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("150:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+cc = sim.create_currentclamp(name="Stim1", amp=qty("150:pA"), dur=qty("5:ms"), delay=qty("100:ms"), cell_location=cell.soma)
 
 sim.record(cc, what=StandardTags.Current)
 sim.record(cell, what=StandardTags.Voltage, cell_location=cell.soma)

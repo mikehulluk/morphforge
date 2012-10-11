@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge import units
 from morphforge.simulation.base import Channel
 
@@ -52,25 +52,25 @@ class StdChlCalciumAlphaBetaBeta(Channel):
 
         self.ion = ion
 
-        self.permeability = unit(permeability)
-        self.intracellular_concentration = unit(intracellular_concentration)
-        self.extracellular_concentration = unit(extracellular_concentration)
+        self.permeability = qty(permeability)
+        self.intracellular_concentration = qty(intracellular_concentration)
+        self.extracellular_concentration = qty(extracellular_concentration)
 
         self.eqn = equation
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
-        self.beta2threshold = unit(beta2threshold)
+        self.beta2threshold = qty(beta2threshold)
 
-        self.F = unit('96485.3365:C/mol')
-        self.R = unit('8.314421:J/(K mol)')
-        self.CaZ = unit('2:')
-        self.T = unit(temperature)
+        self.F = qty('96485.3365:C/mol')
+        self.R = qty('8.314421:J/(K mol)')
+        self.CaZ = qty('2:')
+        self.T = qty(temperature)
 
     def get_variables(self):
         return ['gScale', 'pca']
 
     def get_defaults(self):
-        return {'gScale': unit('1.0'), 'pca':self.permeability}
+        return {'gScale': qty('1.0'), 'pca':self.permeability}
 
     def get_prefered_units(self):
-        return {'gScale': units.dimensionless, 'pca': unit('cm/sec') }
+        return {'gScale': units.dimensionless, 'pca': qty('cm/sec') }
 

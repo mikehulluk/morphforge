@@ -37,7 +37,7 @@ from mhlibs.quantities_plot.quantities_plot_new import QuantitiesAxisNew
 from util import InfTauCalculator
 from util import ReportLabTools
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 from morphforge.traces import TraceFixedDT
 
@@ -49,7 +49,7 @@ from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdC
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms")) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * qty("1:ms")) :
 
         raise NotImplementedError()
 
@@ -89,7 +89,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         #cell_density = chl.conductance * cell_area
         #i_chl = chl.conductance * cell_area * state_equation_evaluation * (V - chl.reversalpotential)
 
-        #return TraceFixedDT(time=t * unit('1:ms'),
+        #return TraceFixedDT(time=t * qty('1:ms'),
         #                    data=i_chl.rescale('pA'))
 
 
@@ -107,7 +107,7 @@ class Summarise_MM_AlphaBetaChannel(object):
     @classmethod
     def plot_curve(cls, ax, curve, chl, state, infpower=None, *args, **kwargs):
 
-        V = np.linspace(-80,50)*unit('mV')
+        V = np.linspace(-80,50)*qty('mV')
         #V = StdLimits.get_default_voltage_array().rescale('mV')
 
         (alpha, beta) = chl.get_alpha_beta_at_voltage(V, state)
@@ -131,7 +131,7 @@ class Summarise_MM_AlphaBetaChannel(object):
             ax.set_ylabel(y_label)
 
             if y_unit:
-                ax.set_yunit(unit(y_unit))
+                ax.set_yunit(qty(y_unit))
         else:
 
             ax.plot(V, plot_what, *args, **kwargs)

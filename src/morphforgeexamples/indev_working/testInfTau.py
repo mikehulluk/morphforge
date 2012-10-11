@@ -98,32 +98,32 @@ def build_simulation(gbar_multiplier):
 
 
     parameters = {
-        'e_rev': unit('50:mV'),
-        'gbar': unit('120:pS/um2'),
+        'e_rev': qty('50:mV'),
+        'gbar': qty('120:pS/um2'),
 
-        'm_alpha_a': unit('13.01e3:s-1'),
-        'm_alpha_b': unit('0e0:/V s'),
-        'm_alpha_c': unit('4.0:'),
-        'm_alpha_d': unit('6.01e-3:V'),
-        'm_alpha_e': unit('-12.56e-3:V'),
+        'm_alpha_a': qty('13.01e3:s-1'),
+        'm_alpha_b': qty('0e0:/V s'),
+        'm_alpha_c': qty('4.0:'),
+        'm_alpha_d': qty('6.01e-3:V'),
+        'm_alpha_e': qty('-12.56e-3:V'),
 
-        'm_beta_a': unit('5.73e3:s-1'),
-        'm_beta_b': unit('0e3:/V s'),
-        'm_beta_c': unit('1.0:'),
-        'm_beta_d': unit('16.01e-3:V'),
-        'm_beta_e': unit('9.69e-3:V'),
+        'm_beta_a': qty('5.73e3:s-1'),
+        'm_beta_b': qty('0e3:/V s'),
+        'm_beta_c': qty('1.0:'),
+        'm_beta_d': qty('16.01e-3:V'),
+        'm_beta_e': qty('9.69e-3:V'),
 
-        'h_alpha_a': unit('0.04e3:s-1'),
-        'h_alpha_b': unit('0.0e3:/V s'),
-        'h_alpha_c': unit('1.0:'),
-        'h_alpha_d': unit('29.88e-3:V'),
-        'h_alpha_e': unit('26e-3:V'),
+        'h_alpha_a': qty('0.04e3:s-1'),
+        'h_alpha_b': qty('0.0e3:/V s'),
+        'h_alpha_c': qty('1.0:'),
+        'h_alpha_d': qty('29.88e-3:V'),
+        'h_alpha_e': qty('26e-3:V'),
 
-        'h_beta_a': unit('2.04e3:s-1'),
-        'h_beta_b': unit('0.0e3:/V s'),
-        'h_beta_c': unit('1:'),
-        'h_beta_d': unit('-8.09e-3:V'),
-        'h_beta_e': unit('-10.21e-3:V'),
+        'h_beta_a': qty('2.04e3:s-1'),
+        'h_beta_b': qty('0.0e3:/V s'),
+        'h_beta_c': qty('1:'),
+        'h_beta_d': qty('-8.09e-3:V'),
+        'h_beta_e': qty('-10.21e-3:V'),
         }
 
 
@@ -136,8 +136,8 @@ def build_simulation(gbar_multiplier):
                                     dir=LocMgr.getTestEqnSetsPath())
     lk_chl = env.Channel(EqnSetChl, eqnset=eqnset,
             chlname='LeakChls', 
-            parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV'
-            )})
+            parameters={'gl': qty('5:pS/um2'), 'e_rev': qty('-70:mV')}
+            )
 
 
 
@@ -147,14 +147,14 @@ def build_simulation(gbar_multiplier):
     cell.apply_channel( lk_chl)
     cell.apply_channel( ks)
 
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
     sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma, description='Membrane Voltage (gbar_multiplier = %2.2f)'%gbar_multiplier)
 
 
-    sim.create_currentclamp(name='Stim1', amp=unit('200:pA'),
-                              dur=unit('100:ms'), delay=unit('100:ms'),
+    sim.create_currentclamp(name='Stim1', amp=qty('200:pA'),
+                              dur=qty('100:ms'), delay=qty('100:ms'),
                               cell_location=cell.soma)
 
 

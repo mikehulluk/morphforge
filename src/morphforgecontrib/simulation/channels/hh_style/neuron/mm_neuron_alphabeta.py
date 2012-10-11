@@ -33,7 +33,8 @@
 
 
 from ..core import StdChlAlphaBeta
-from morphforge.units import unit
+from morphforge.units import qty, parse_unit_str
+from morphforge import units
 from hocmodbuilders.mmwriter_alphabeta import NEURONChlWriterAlphaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
@@ -75,7 +76,7 @@ class NEURONChl_AlphaBeta_CurrentDensityRecord(NEURONChl_AlphaBeta_Record):
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
-        return unit('mA/cm2')
+        return parse_unit_str('mA/cm2')
 
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
@@ -89,7 +90,7 @@ class NEURONChl_AlphaBeta_ConductanceDensityRecord(NEURONChl_AlphaBeta_Record):
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
-        return unit('S/cm2')
+        return parse_unit_str('S/cm2')
 
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
@@ -104,7 +105,7 @@ class NEURONChl_AlphaBeta_StateVariableRecord(NEURONChl_AlphaBeta_Record):
         assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
-        return unit('')
+        return units.dimensionless
 
     def get_std_tags(self):
         return [StandardTags.StateVariable]
@@ -119,7 +120,7 @@ class NEURONChl_AlphaBeta_StateVariableTauRecord(NEURONChl_AlphaBeta_Record):
         assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
-        return unit('ms')
+        return parse_unit_str('ms')
 
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant]
@@ -134,7 +135,7 @@ class NEURONChl_AlphaBeta_StateVariableInfRecord(NEURONChl_AlphaBeta_Record):
         assert state in self.alphabeta_chl.statevars
 
     def get_unit(self):
-        return unit('')
+        return parse_unit_str('')
 
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]

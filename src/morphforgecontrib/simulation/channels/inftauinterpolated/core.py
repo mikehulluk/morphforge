@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.base import Channel
 from morphforge.constants import StandardTags
 
@@ -74,8 +74,8 @@ class MM_InfTauInterpolatedChannel(Channel):
 
         self.ion = ion
         self.eqn = equation
-        self.conductance = unit(conductance)
-        self.reversalpotential = unit(reversalpotential)
+        self.conductance = qty(conductance)
+        self.reversalpotential = qty(reversalpotential)
         self.statevars_new = statevars_new.copy()
 
     def get_variables(self):
@@ -83,6 +83,6 @@ class MM_InfTauInterpolatedChannel(Channel):
 
     def get_defaults(self):
         return {'gBar': self.conductance,
-                'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
+                'e_rev': self.reversalpotential, 'gScale': qty('1.0')}
 
 

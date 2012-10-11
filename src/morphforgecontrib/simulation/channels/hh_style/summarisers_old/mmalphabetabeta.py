@@ -32,7 +32,7 @@
 from util import InfTauCalculator
 from util import ReportLabTools
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 import numpy as np
 from morphforge.traces import TraceFixedDT
@@ -44,7 +44,7 @@ from morphforge.traces import TraceFixedDT
 class Summarise_MM_AlphaBetaChannelVClamp(object):
 
     @classmethod
-    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * unit("1:ms")) :
+    def get_voltage_clamp_trace(cls, V, chl, duration, cell_area, t=np.arange(0, 300, 0.1) * qty("1:ms")) :
         from scipy.integrate import odeint
         import sympy
 
@@ -82,7 +82,7 @@ class Summarise_MM_AlphaBetaChannelVClamp(object):
         cell_density = chl.conductance * cell_area
         i_chl = chl.conductance * cell_area * state_equation_evaluation * (V - chl.reversalpotential)
 
-        return TraceFixedDT(time=t * unit('1:ms'),
+        return TraceFixedDT(time=t * qty('1:ms'),
                             data=i_chl.rescale('pA'))
 
 

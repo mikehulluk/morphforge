@@ -78,17 +78,17 @@ def simulate_chls_on_neuron():
                                      PreSynapticMech_TimeList,
                                      time_list =   (100,105,110,112,115, 115,115) * units.ms ,
                                      ),
-            postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma, peak_conductance = unit("1:nS") ),
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma, peak_conductance = qty("1:nS") ),
            )
 
     syn = sim.create_synapse(
             trigger = env.SynapticTrigger(
                                      SynapticTriggerByVoltageThreshold,
                                      cell_location=cell1.soma,
-                                     voltage_threshold=unit("0:mV"),
-                                     delay=unit('1:ms'),
+                                     voltage_threshold=qty("0:mV"),
+                                     delay=qty('1:ms'),
                                      ),
-            postsynaptic_mech = exp2template.instantiate(cell_location = cell2.soma, peak_conductance = unit("1:nS") ),
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell2.soma, peak_conductance = qty("1:nS") ),
            )
 
 

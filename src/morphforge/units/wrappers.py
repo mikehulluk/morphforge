@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-from morphforge.units.util import unit
+from morphforge.units.util import qty
 
 # pylint: disable=E1103
 
@@ -39,8 +39,8 @@ class NpPqWrappers(object):
 
     @classmethod
     def linspace(cls, start, stop, num, endpoint=True):
-        start = unit(start)
-        stop = unit(stop)
+        start = qty(start)
+        stop = qty(stop)
 
         # Lets us the same base unit:
         stop = 1.0 * stop
@@ -53,9 +53,9 @@ class NpPqWrappers(object):
     @classmethod
     def arange(cls, start, stop, step):
         #print start, stop, step
-        start = unit(start)
-        stop = unit(stop)
-        step = unit(step)
+        start = qty(start)
+        stop = qty(stop)
+        step = qty(step)
 
         # Lets us the same base unit:
         stop = 1.0 * stop

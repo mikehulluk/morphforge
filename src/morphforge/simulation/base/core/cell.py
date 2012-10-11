@@ -32,7 +32,7 @@
 from morphforge.simulation.base.biophysics import CellBiophysics
 
 from morphforge.constants import StandardTags
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.simulation.base.core.celllocation import CellLocation
 
@@ -73,7 +73,7 @@ class Cell(NamedSimulationObject):
 
         self.biophysics = CellBiophysics(self)
 
-        self.initial_voltage = initial_voltage or unit('-51:mV')
+        self.initial_voltage = initial_voltage or qty('-51:mV')
 
         self.cell_tags = cell_tags
 

@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.constants import StandardTags
 from morphforge.morphology.core  import MorphPath
 
@@ -97,9 +97,9 @@ class CurrentClampStepChange(CurrentClamp):
 
     def __init__(self, amp, dur, delay, **kwargs):
         super(CurrentClampStepChange, self).__init__(**kwargs)
-        self.amp = unit(amp)
-        self.dur = unit(dur)
-        self.delay = unit(delay)
+        self.amp = qty(amp)
+        self.dur = qty(dur)
+        self.delay = qty(delay)
 
     def get_summary_description(self):
         return 'Step-Change: amp=%s dur=%s delay=%s' % (self.amp, self.dur, self.delay)
@@ -120,14 +120,14 @@ class VoltageClampStepChange(VoltageClamp):
 
         super(VoltageClampStepChange, self).__init__(**kwargs)
 
-        self.dur1 = unit(dur1)
-        self.dur2 = unit(dur2)
-        self.dur3 = unit(dur3)
+        self.dur1 = qty(dur1)
+        self.dur2 = qty(dur2)
+        self.dur3 = qty(dur3)
 
-        self.amp1 = unit(amp1)
-        self.amp2 = unit(amp2)
-        self.amp3 = unit(amp3)
-        self.rs = unit(rs)
+        self.amp1 = qty(amp1)
+        self.amp2 = qty(amp2)
+        self.amp3 = qty(amp3)
+        self.rs = qty(rs)
 
 
     def get_summary_description(self):

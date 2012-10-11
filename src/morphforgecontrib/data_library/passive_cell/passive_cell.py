@@ -31,41 +31,40 @@
 
 
 import morphforge.stdimports as mf
-#import morphforgecontrib.stdimports as mfc
-#from  morphforge.stdimports import * 
-from  morphforgecontrib.stdimports import * 
+from morphforge.units import qty
 
 from morphforgecontrib.data_library import StandardModels
 
 def build_passive_cell(sim, input_resistance, capacitance=None, area=None, name=None, reversalpotential=None):
-    unit = mf.unit
+    import morphforgecontrib.stdimports as mfc
+
     env = sim.environment
-    
+
     if area is None:
-        area = unit('1000:um2')
-        
+        area = qty('1000:um2')
+
     if capacitance is None:
-        capacitance = unit('10:pF')
-        
+        capacitance = qty('10:pF')
+
     if reversalpotential is None:
-        reversalpotential = unit('-60:mV')
-    
-    lk = env.Channel( StdChlLeak, 
+        reversalpotential = qty('-60:mV')
+
+    lk = env.Channel( mfc.StdChlLeak,
             conductance = ((1/input_resistance) / area ),
             reversalpotential = reversalpotential,
             )
-            
+
     cell = sim.create_cell(area=area, name=name)
     cell.apply_channel(lk)
     cell.set_passive(mf.PassiveProperty.SpecificCapacitance, capacitance / area)
 
     return cell
-    
-    
+
+
 
 mf.CellLibrary.register(celltype=None, modelsrc=StandardModels.SingleCompartmentPassive, cell_functor=build_passive_cell)
-    
-    
-        
-        
-    
+
+
+
+
+

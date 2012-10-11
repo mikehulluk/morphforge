@@ -33,7 +33,7 @@ import re
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 from morphforge.traces.tracetypes.tracepiecewise import TracePiecewise
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge import units
 import itertools
 
@@ -189,14 +189,14 @@ class LevelSelectorGroup(object):
 
 def main():
 	l1 = TracePiecewise(pieces = [
-		                            TracePieceFunctionFlat(time_window=(0, 50)*units.ms, x=unit("0:pA")),
-		                            TracePieceFunctionFlat(time_window=(50, 150)*units.ms, x=unit("110:pA")),
-		                            TracePieceFunctionFlat(time_window=(150, 350)*units.ms, x=unit("0:pA")),
+		                            TracePieceFunctionFlat(time_window=(0, 50)*units.ms, x=qty("0:pA")),
+		                            TracePieceFunctionFlat(time_window=(50, 150)*units.ms, x=qty("110:pA")),
+		                            TracePieceFunctionFlat(time_window=(150, 350)*units.ms, x=qty("0:pA")),
 		                               ])
 
 
 
-	sel1 = LevelSelectorGroup(" A, { 10:65 @ -1:1 }, B, { 10: @ 90:111 }, C", xunit=unit("ms"), yunit=unit("pA"))
+	sel1 = LevelSelectorGroup(" A, { 10:65 @ -1:1 }, B, { 10: @ 90:111 }, C", xunit=qty("ms"), yunit=qty("pA"))
 
 	matches = sel1.matchall(l1)
 	for m in matches:

@@ -31,7 +31,7 @@
 
 import operator
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.traces.tracetypes import TraceFixedDT
 
 
@@ -116,7 +116,7 @@ class TraceMethodCtrl(object):
     # if a specific method is not available for a type of trace
     fallback_to_fixedtrace_methods = {}
 
-    default_fallback_resolution = unit('0.1:ms')
+    default_fallback_resolution = qty('0.1:ms')
 
     @classmethod
     def register(cls, trace_cls, method_name, method_functor, can_fallback_to_fixed_trace=False, fallback_resolution=None):

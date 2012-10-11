@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 
 class NEURONSimulationSettings(object):
@@ -41,8 +41,8 @@ class NEURONSimulationSettings(object):
 
     @classmethod
     def get_defaults(cls):
-        defs = {NEURONSimulationSettings.dt: unit('0.01:ms'),
-                NEURONSimulationSettings.tstop: unit('500:ms'),
+        defs = {NEURONSimulationSettings.dt: qty('0.01:ms'),
+                NEURONSimulationSettings.tstop: qty('500:ms'),
                 NEURONSimulationSettings.cvode: True}
 
         # Check we have defaults for all parameters:

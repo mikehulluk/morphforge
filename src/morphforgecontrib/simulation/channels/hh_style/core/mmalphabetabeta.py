@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.base import Channel
 
 import numpy as np
@@ -48,19 +48,19 @@ class StdChlAlphaBetaBeta(Channel):
         #self.name = name
         self.ion = ion
         self.eqn = equation
-        self.conductance = unit(conductance)
+        self.conductance = qty(conductance)
 
-        self.beta2threshold = unit(beta2threshold)
+        self.beta2threshold = qty(beta2threshold)
 
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta1'], sDict['beta2'])) for s, sDict in statevars.iteritems()])
-        self.reversalpotential = unit(reversalpotential)
+        self.reversalpotential = qty(reversalpotential)
 
     def get_variables(self):
         return ['gBar', 'e_rev', 'gScale']
 
     def get_defaults(self):
         return {'gBar': self.conductance,
-                'e_rev': self.reversalpotential, 'gScale': unit('1.0')}
+                'e_rev': self.reversalpotential, 'gScale': qty('1.0')}
 
     def get_alpha_beta_at_voltage(self, V, statevar):
 

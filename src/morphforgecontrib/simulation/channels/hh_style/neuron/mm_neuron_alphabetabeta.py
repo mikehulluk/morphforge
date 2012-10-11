@@ -31,7 +31,8 @@
 
 
 from ..core import StdChlAlphaBetaBeta
-from morphforge.units import unit
+from morphforge.units import qty
+from morphforge import units
 from hocmodbuilders.mmwriter_alphabetabeta import NEURONChlWriterAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
@@ -80,7 +81,7 @@ class NEURONChl_AlphaBetaBeta_CurrentDensityRecord(NEURONChl_AlphaBetaBeta_Recor
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
-        return unit('mA/cm2')
+        return units.parse_unit_str('mA/cm2')
 
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
@@ -94,7 +95,7 @@ class NEURONChl_AlphaBetaBeta_ConductanceDensityRecord(NEURONChl_AlphaBetaBeta_R
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
-        return unit('S/cm2')
+        return qty('S/cm2')
 
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
@@ -108,7 +109,7 @@ class NEURONChl_AlphaBetaBeta_StateVariableRecord(NEURONChl_AlphaBetaBeta_Record
               self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
-        return unit('')
+        return qty('')
 
     def get_std_tags(self):
         return [StandardTags.StateVariable]
@@ -122,7 +123,7 @@ class NEURONChl_AlphaBetaBeta_StateVariableTauRecord(NEURONChl_AlphaBetaBeta_Rec
               self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
-        return unit('ms')
+        return qty('ms')
 
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant]
@@ -136,7 +137,7 @@ class NEURONChl_AlphaBetaBeta_StateVariableInfRecord(NEURONChl_AlphaBetaBeta_Rec
               self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
-        return unit('')
+        return qty('')
 
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]

@@ -60,17 +60,17 @@ cell = sim.create_cell(name="Cell1", morphology=m1)
 # Apply the mechanisms to the cells
 lk_chl = env.Channel(StdChlLeak,
                          name="LkChl",
-                         conductance=unit("0.25:mS/cm2"),
-                         reversalpotential=unit("-51:mV"),
+                         conductance=qty("0.25:mS/cm2"),
+                         reversalpotential=qty("-51:mV"),
                        )
 
 cell.apply_channel( lk_chl)
-cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("200:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+cc = sim.create_currentclamp(name="Stim1", amp=qty("200:pA"), dur=qty("100:ms"), delay=qty("100:ms"), cell_location=cell.soma)
 
 
 # Define what to record:

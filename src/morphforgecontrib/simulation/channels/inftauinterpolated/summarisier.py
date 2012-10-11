@@ -42,7 +42,7 @@ from reportlab.platypus import Table, Paragraph
 from mhlibs.quantities_plot import QuantitiesFigure
 from mhlibs.quantities_plot import QuantitiesAxis
 
-#from morphforge.units import unit
+#from morphforge.units import qty
 #
 #from scipy.integrate import odeint
 import numpy as np

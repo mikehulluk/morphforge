@@ -29,7 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge import units
+#from morphforge.units import qty
 
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.simulation.base import Cell
@@ -62,7 +63,7 @@ ${recVecName}.record(& ${cellname}.internalsections[${sectionindex}].v ($section
 
 
     def get_unit(self):
-        return unit('mV')
+        return units.mV
 
     def get_std_tags(self):
         return [StandardTags.Voltage]

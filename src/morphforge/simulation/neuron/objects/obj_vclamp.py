@@ -29,11 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from morphforge import units
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.simulation.base import VoltageClamp
 from morphforge.simulation.base import VoltageClampStepChange
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
-from morphforge.units import unit
+#from morphforge.units import qty
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
@@ -48,7 +49,7 @@ class VoltageClampCurrentRecord(NEURONRecordable):
         self.vclamp = vclamp
 
     def get_unit(self):
-        return unit('nA')
+        return units.nA
 
     def get_std_tags(self):
         return [StandardTags.Current]

@@ -34,6 +34,7 @@ import quantities as pq
 
 from decimal import Decimal
 
+from morphforge.units import qty
 
 
 def is_number_roundable_to(num, n):
@@ -141,27 +142,25 @@ class QuantitiesAxisNew(object):
 
 
     def _setxyUnitBase(self, unitX=None, unitY=None):
-        from morphforge.stdimports import unit
         if unitX is not None:
-            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
+            unitX = (qty(unitX) if isinstance(unitX, basestring) else unitX)
         if unitY is not None:
-            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
+            unitY = (qty(unitY) if isinstance(unitY, basestring) else unitY)
 
         if unitX is not None:
             assert self.xyUnitBase[0] == None
-            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
+            unitX = (qty(unitX) if isinstance(unitX, basestring) else unitX)
             self.xyUnitBase[0] = unitX.units.simplified.units
         if unitY is not None:
             assert self.xyUnitBase[1] == None
-            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
+            unitY = (qty(unitY) if isinstance(unitY, basestring) else unitY)
             self.xyUnitBase[1] = unitY.units.simplified.units
 
     def _setxyUnitDisplay(self, unitX=None, unitY=None):
-        from morphforge.stdimports import unit
         if unitX is not None:
-            unitX = (unit(unitX) if isinstance(unitX, basestring) else unitX)
+            unitX = (qty(unitX) if isinstance(unitX, basestring) else unitX)
         if unitY is not None:
-            unitY = (unit(unitY) if isinstance(unitY, basestring) else unitY)
+            unitY = (qty(unitY) if isinstance(unitY, basestring) else unitY)
 
 
         # Set the base units, if they are not already set:
@@ -231,11 +230,9 @@ class QuantitiesAxisNew(object):
 
         #
         if x0 is not None and isinstance(x0, basestring):
-            from morphforge.stdimports import unit
-            x0 = unit(x0)
+            x0 = qty(x0)
         if x1 is not None and isinstance(x1, basestring):
-            from morphforge.stdimports import unit
-            x1 = unit(x1)
+            x1 = qty(x1)
 
         # Are the baseunits set? If not, then lets set them:
         if self.xyUnitBase[0] is None:
@@ -319,11 +316,9 @@ class QuantitiesAxisNew(object):
 
         #Convert strings to units
         if x0 is not None and isinstance(x0, basestring):
-            from morphforge.stdimports import unit
-            x0 = unit(x0)
+            x0 = qty(x0)
         if x1 is not None and isinstance(x1, basestring):
-            from morphforge.stdimports import unit
-            x1 = unit(x1)
+            x1 = qty(x1)
 
 
         # Are the baseunits set? If not, then lets set them:

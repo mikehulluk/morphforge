@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from Cheetah.Template import Template
 from morphforge.core import ObjectLabeller
@@ -100,6 +100,7 @@ ${stimname}.del =    $delay.rescale("ms").magnitude
 ${stimname}.bias = $bias.rescale("nA").magnitude
 
 """
+from morphforge import units
 
 
 class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
@@ -109,7 +110,7 @@ class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
         self.cclamp = cclamp
 
     def get_unit(self):
-        return unit('nA')
+        return units.nA
 
     def get_std_tags(self):
         return [StandardTags.Current]

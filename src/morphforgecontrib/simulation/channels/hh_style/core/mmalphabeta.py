@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.base import Channel
 
 from morphforge.constants import StandardTags
@@ -58,9 +58,9 @@ class StdChlAlphaBeta(Channel):
         
         self.ion = ion
         self.eqn = equation
-        self.conductance = unit(conductance)
+        self.conductance = qty(conductance)
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta'])) for s, sDict in statevars.iteritems()])
-        self.reversalpotential = unit(reversalpotential)
+        self.reversalpotential = qty(reversalpotential)
 
         self.conductance = self.conductance.rescale('S/cm2')
         self.reversalpotential = self.reversalpotential.rescale('mV')
@@ -71,7 +71,7 @@ class StdChlAlphaBeta(Channel):
     def get_defaults(self):
         return {'gBar': self.conductance,
                 'e_rev': self.reversalpotential, 
-                'gScale': unit('1.0')}
+                'gScale': qty('1.0')}
 
     def get_prefered_units(self):
         return {'gBar': mf.mS/mf.cm2,

@@ -49,7 +49,8 @@ def factorise_units_from_list(seq):
     return new_list
 
 
-def parse_unit_string(s):
+
+def parse_unit_str(s):
     # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
     if s == 'nA':
         return pq.nano * pq.amp
@@ -69,7 +70,22 @@ def parse_unit_string(s):
     import neurounits
     return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit()
 
-def _unit(s):
+
+
+
+
+
+
+# Lets cache the units:
+_cached_units = {}
+def qty(s):
+    if not s in _cached_units:
+        _cached_units[s] = _qty(s)
+    return _cached_units[s]
+
+
+
+def _qty(s):
     if isinstance(s, pq.quantity.Quantity):
         return s
 
@@ -81,10 +97,14 @@ def _unit(s):
         (value_str, unit_str) = s.split(':')
         value = float(value_str)
         unt = parse_unit(unit_str)
-
         return value * unt
 
+    print s
+    assert False, "MH I Don't think we get here, Oct 2012"
+
     if ' ' in s:
+        print s
+        assert False, "MH I Don't think we get here, Oct 2012"
         tokens = s.split(' ')
         if len(tokens) == 2:
             (value_str, unit_str) = tokens
@@ -93,15 +113,10 @@ def _unit(s):
             return value * unt
         else:
             assert False
-
+    assert False, "MH I Don't think we get here, Oct 2012"
     return parse_unit(s)
 
-# Lets cache the units:
-_cached_units = {}
-def unit(s):
-    if not s in _cached_units:
-        _cached_units[s] = _unit(s)
-    return _cached_units[s]
+
 
 
 
@@ -135,9 +150,9 @@ def parse_unit(s):
         return pq.mV
 
 
-    # Upgraded on 9th Jun 2012 to use neurounits.
-    if s == 'ohmcm':
-        s = 'ohm cm'
+    ## Upgraded on 9th Jun 2012 to use neurounits.
+    #if s == 'ohmcm':
+    #    s = 'ohm cm'
 
 
     # In the case of units, lets rewrite '**' to nothing and '*' to space:

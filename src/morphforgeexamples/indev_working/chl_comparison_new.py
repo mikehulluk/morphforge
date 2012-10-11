@@ -63,7 +63,7 @@ def simulate_chl_vclamp(chl, voltage_level):
     env = NEURONEnvironment()
 
     # Create the simulation:
-    sim = env.Simulation(tstop=unit("1500:ms"))
+    sim = env.Simulation(tstop=qty("1500:ms"))
 
     # Create a cell:
     morphDict1 = {'root': {'length': 18.8, 'diam': 18.8, 'id':'soma'} }
@@ -80,21 +80,21 @@ def simulate_chl_vclamp(chl, voltage_level):
 
 
     # Setup passive channels:
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
 
 
 
     # Create the stimulus and record the injected current:
-    #cc = sim.create_currentclamp(name="Stim1", amp=unit("10:pA"), dur=unit("100:ms"), delay=unit("300:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
+    #cc = sim.create_currentclamp(name="Stim1", amp=qty("10:pA"), dur=qty("100:ms"), delay=qty("300:ms") * R.uniform(0.95, 1.0), cell_location=cell.soma)
 
     cc = sim.create_voltageclamp(name="Stim1",
-                                   dur1=unit("200:ms"), amp1=unit("-60:mV"),
-                                   #dur2=unit("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
-                                   dur2=unit("500:ms"), amp2=voltage_level,
-                                   #dur3=unit("500:ms")* R.uniform(0.95, 1.0), amp3=unit("-50:mV"),
-                                   dur3=unit("500:ms"), amp3=unit("-50:mV"),
+                                   dur1=qty("200:ms"), amp1=qty("-60:mV"),
+                                   #dur2=qty("500:ms")* R.uniform(0.95, 1.0), amp2=voltage_level,
+                                   dur2=qty("500:ms"), amp2=voltage_level,
+                                   #dur3=qty("500:ms")* R.uniform(0.95, 1.0), amp3=qty("-50:mV"),
+                                   dur3=qty("500:ms"), amp3=qty("-50:mV"),
                                    cell_location=cell.soma,
                                   )
 
@@ -119,11 +119,11 @@ def simulate_chl_vclamp(chl, voltage_level):
 def simulate_chl_all(chl):
     #res = {}
     return [
-        #simulate_chl_vclamp(chl, unit("-80:mV")),
-        #simulate_chl_vclamp(chl, unit("-50:mV")),
-        #simulate_chl_vclamp(chl, unit("-20:mV")),
-        #simulate_chl_vclamp(chl, unit("10:mV")),
-        simulate_chl_vclamp(chl, unit("40:mV")),
+        #simulate_chl_vclamp(chl, qty("-80:mV")),
+        #simulate_chl_vclamp(chl, qty("-50:mV")),
+        #simulate_chl_vclamp(chl, qty("-20:mV")),
+        #simulate_chl_vclamp(chl, qty("10:mV")),
+        simulate_chl_vclamp(chl, qty("40:mV")),
        ]
 
 
@@ -290,8 +290,8 @@ def compareNeuroMLChl(xmlFile):
             c.chl_neurounit_hoc.append(rN.hocfilename )
             c.chl_xsl_hoc.append(rX.hocfilename )
 
-            tN = rN.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
-            tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=unit("1.01:ms"))
+            tN = rN.get_trace("CurrentClamp").convert_to_fixed(dt=qty("1.01:ms"))
+            tX = rX.get_trace("CurrentClamp").convert_to_fixed(dt=qty("1.01:ms"))
 
             # Compare current traces:
             tN._data[np.fabs(tN.time_pts_ms - 0) <0.05] *=0
@@ -319,7 +319,7 @@ def compareNeuroMLChl(xmlFile):
             ax4.plotTrace(rN.get_trace('SomaVoltage'), color='m')
             ax4.plotTrace(rX.get_trace('SomaVoltage'), color='m', linewidth=20, alpha=0.2)
 
-            if num.max()[1] > unit("0.1:pA"):
+            if num.max()[1] > qty("0.1:pA"):
                 c.same_chl = False
 
             out_im = Join(op_dir, "out_im%03d" % i)

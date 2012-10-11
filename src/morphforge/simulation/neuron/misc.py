@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.units import unit
+from morphforge.units import qty
 
 
 class NeuronSimulationConstants(object):
 
     TimeVectorName = 'rect'
-    TimeUnit = unit('1:ms')
+    TimeUnit = qty('1:ms')
 
 
 class NEURONSettings(object):

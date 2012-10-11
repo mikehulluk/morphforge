@@ -42,7 +42,7 @@ from numpy.core.function_base import linspace
 from morphforgecontrib.simulation.channels.hh_style.summarisers import MM_InfTauInterpolatedChannel, \
     InfTauInterpolation
 from morphforgecontrib.simulation.channels.hh_style.summarisers.util import InfTauCalculator
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge import units
 
 
@@ -70,7 +70,7 @@ class ChannelConverter(object):
             # Interpolation voltages:
             # voltage_interpolation_values=voltage_interpolation_values
             if _voltage_interpolation_values is None:
-                _voltage_interpolation_values = linspace(-80, 60, 10) * unit('mV')
+                _voltage_interpolation_values = linspace(-80, 60, 10) * qty('mV')
 
                         # Copy the state variables
             new_state_vars = {}
@@ -143,11 +143,11 @@ class ChannelConverter(object):
 #                            StdChlCalciumAlphaBetaBeta,
 #                            name="CaChl", ion="ca",
 #                            equation="m*m",
-#                            permeability = unit("1.425:cm/s") * 0.1 * 0.15,
-#                            intracellular_concentration = unit("100:nMol"),
-#                            extracellular_concentration = unit("10:uMol"),
-#                            temperature = unit("300:K"),
-#                            beta2threshold = unit("-25:mV"),
+#                            permeability = qty("1.425:cm/s") * 0.1 * 0.15,
+#                            intracellular_concentration = qty("100:nMol"),
+#                            extracellular_concentration = qty("10:uMol"),
+#                            temperature = qty("300:K"),
+#                            beta2threshold = qty("-25:mV"),
 #                            statevars=ca_state_vars,
 #                           )
 #    return caChannels

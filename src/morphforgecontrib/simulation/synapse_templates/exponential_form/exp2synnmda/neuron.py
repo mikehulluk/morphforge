@@ -45,7 +45,8 @@ from Cheetah.Template import Template
 
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
-from morphforge.stdimports import MFRandom, unit
+from morphforge.stdimports import MFRandom
+from morphforge.units import parse_unit_str
 
 from morphforge.stdimports import StandardTags
 from morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records import Neuron_PSM_Std_CurrentRecord
@@ -61,7 +62,7 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
-        return unit('')
+        return parse_unit_str('')
 
     def get_std_tags(self):
         return [StandardTags.NMDAVoltageDependancy]

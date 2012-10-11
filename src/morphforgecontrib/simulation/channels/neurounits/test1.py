@@ -103,39 +103,39 @@ cell = sim.create_cell(name='Cell1', morphology=m1)
 lk_chl = env.Channel(EqnSetChl,
         eqnset=EquationSetLoader.load('std_leak_chl.txt',
         dir=LocMgr.getTestEqnSetsPath()),
-        parameters={'gl': unit('5:pS/um2'), 'e_rev': unit('-70:mV')})
+        parameters={'gl': qty('5:pS/um2'), 'e_rev': qty('-70:mV')})
 cell.apply_channel( lk_chl)
-cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
 
 
 hhChannel_params = {
-        'm_a1': unit('13.01e3:s-1'),
-        'm_a2': unit('0e0:/V s'),
-        'm_a3': unit('4.0:'),
-        'm_a4': unit('6.01e-3:V'),
-        'm_a5': unit('-12.56e-3:V'),
+        'm_a1': qty('13.01e3:s-1'),
+        'm_a2': qty('0e0:/V s'),
+        'm_a3': qty('4.0:'),
+        'm_a4': qty('6.01e-3:V'),
+        'm_a5': qty('-12.56e-3:V'),
 
-        'm_b1': unit('5.73e3:s-1'),
-        'm_b2': unit('0e3:/V s'),
-        'm_b3': unit('1.0:'),
-        'm_b4': unit('16.01e-3:V'),
-        'm_b5': unit('9.69e-3:V'),
+        'm_b1': qty('5.73e3:s-1'),
+        'm_b2': qty('0e3:/V s'),
+        'm_b3': qty('1.0:'),
+        'm_b4': qty('16.01e-3:V'),
+        'm_b5': qty('9.69e-3:V'),
 
-        'h_a1': unit('0.04e3:s-1'),
-        'h_a2': unit('0.0e3:/V s'),
-        'h_a3': unit('1.0:'),
-        'h_a4': unit('29.88e-3:V'),
-        'h_a5': unit('26e-3:V'),
+        'h_a1': qty('0.04e3:s-1'),
+        'h_a2': qty('0.0e3:/V s'),
+        'h_a3': qty('1.0:'),
+        'h_a4': qty('29.88e-3:V'),
+        'h_a5': qty('26e-3:V'),
 
-        'h_b1': unit('2.04e3:s-1'),
-        'h_b2': unit('0.0e3:/V s'),
-        'h_b3': unit('1:'),
-        'h_b4': unit('-8.09e-3:V'),
-        'h_b5': unit('-10.21e-3:V'),
-        'gmax':    unit("120:pS/um2"),
-        'erev': unit("50:mV"), }
+        'h_b1': qty('2.04e3:s-1'),
+        'h_b2': qty('0.0e3:/V s'),
+        'h_b3': qty('1:'),
+        'h_b4': qty('-8.09e-3:V'),
+        'h_b5': qty('-10.21e-3:V'),
+        'gmax':    qty("120:pS/um2"),
+        'erev': qty("50:mV"), }
 
 
 
@@ -158,7 +158,7 @@ cell.apply_channel( hhChannels)
 
 
 # Create the simulous:
-sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+sim.create_currentclamp(name="Stim1", amp=qty("250:pA"), dur=qty("100:ms"), delay=qty("100:ms"), cell_location=cell.soma)
 
 
 # Define what to record:
@@ -179,11 +179,11 @@ results = sim.run()
 
 
 ps = (
-                TagPlot("Voltage", ylabel='Voltage', yrange=(-60*mV, 40*mV) ),
-                TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2") ),
+                TagPlot("Voltage", ylabel='Voltage', yrange=(-60*units.mV, 40*units.mV) ),
+                TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=qty("pA/um2") ),
                 TagPlot("Current", ylabel='Current', yunit=units.picoamp),
                 TagPlot("Conductance", ylabel="Conductance"),
-                TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2") ),
+                TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=qty("pS/um2") ),
                 TagPlot("StateVariable", ylabel="StateVariable"),
                 TagPlot("StateTimeConstant", yunit=units.millisecond, ylabel="Time Constant" ),
                 TagPlot("StateSteadyState", ylabel="Steady State"),

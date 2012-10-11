@@ -73,14 +73,14 @@ def sim(glk_multiplier, gna_multiplier, tag):
     cell.apply_channel(channel=lk_chl, where="axon", parameter_multipliers={'gScale':glk_multiplier})
     cell.apply_channel(channel=na_chl, where="axon", parameter_multipliers={'gScale':gna_multiplier})
 
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 
     for cell_location in CellLocator.get_locations_at_distances_away_from_dummy(cell=cell, distances=range(9, 3000, 100)):
         sim.record(cell, what=StandardTags.Voltage, cell_location=cell_location, user_tags=[tag])
 
     # Create the stimulus and record the injected current:
-    cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("5:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+    cc = sim.create_currentclamp(name="Stim1", amp=qty("250:pA"), dur=qty("5:ms"), delay=qty("100:ms"), cell_location=cell.soma)
     sim.record(cc, what=StandardTags.Current)
 
     # run the simulation

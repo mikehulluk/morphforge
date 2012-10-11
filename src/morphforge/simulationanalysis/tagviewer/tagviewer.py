@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core import is_iterable
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.simulation.base import SimulationResult
 from mhlibs.quantities_plot import QuantitiesFigure
 from morphforge.simulationanalysis.tagviewer.plotspecs import TagPlot
@@ -165,7 +165,7 @@ class TagViewer(object):
         assert self.show_xaxis_position in self._options_show_xaxis_position
         if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
             self.xticks = [ xtick*units.ms for xtick in self.xticks]
-        assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(xtick) for xtick in self.xticks] )
+        assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ qty(xtick) for xtick in self.xticks] )
 
 
         self.fig = None

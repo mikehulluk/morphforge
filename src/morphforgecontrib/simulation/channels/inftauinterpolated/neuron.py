@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from core import MM_InfTauInterpolatedChannel
-from morphforge.units import unit
+from morphforge.units import qty
 from mmwriter_infatauinterpolated import NEURONChlWriterInfTauInterpolated
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
@@ -40,6 +40,7 @@ from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURON
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable, \
     NEURONRecordableOnLocation
 
+from morphforge import units
 
 class NEURONChl_InfTauInterpolated_Record(NEURONRecordableOnLocation):
 
@@ -72,7 +73,7 @@ class NEURONChl_InfTauInterpolated_CurrentDensityRecord(NEURONChl_InfTauInterpol
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
-        return unit('mA/cm2')
+        return units.parse_unit_str('mA/cm2')
 
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
@@ -86,7 +87,7 @@ class NEURONChl_InfTauInterpolated_ConductanceDensityRecord(NEURONChl_InfTauInte
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
-        return unit('S/cm2')
+        return units.parse_unit_str('S/cm2')
 
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
@@ -100,7 +101,7 @@ class NEURONChl_InfTauInterpolated_StateVariableRecord(NEURONChl_InfTauInterpola
               self).__init__(modvar=state, **kwargs)
 
     def get_unit(self):
-        return unit('')
+        return units.dimensionless
 
     def get_std_tags(self):
         return [StandardTags.StateVariable]
@@ -114,7 +115,7 @@ class NEURONChl_InfTauInterpolated_StateVariableTauRecord(NEURONChl_InfTauInterp
               self).__init__(modvar=state + 'tau', **kwargs)
 
     def get_unit(self):
-        return unit('ms')
+        return units.ms
 
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant]
@@ -128,7 +129,7 @@ class NEURONChl_InfTauInterpolated_StateVariableInfRecord(NEURONChl_InfTauInterp
               self).__init__(modvar=state + 'inf', **kwargs)
 
     def get_unit(self):
-        return unit('')
+        return units.dimensionless
 
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]

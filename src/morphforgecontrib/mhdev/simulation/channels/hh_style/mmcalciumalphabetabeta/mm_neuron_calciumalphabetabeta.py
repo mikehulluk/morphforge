@@ -30,7 +30,8 @@
 # ----------------------------------------------------------------------
 
 from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
-from morphforge.units import unit
+from morphforge import units
+from morphforge.units import parse_unit_str
 from mmwriter_caalphabetabeta import NEURONChlWriterCalciumAlphaBetaBeta
 #from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
@@ -73,7 +74,7 @@ class NEURONChl_CalciumAlphaBetaBeta_Record(NEURONRecordableOnLocation):
 class NEURONChl_CalciumAlphaBetaBeta_CurrentDensityRecord(NEURONChl_CalciumAlphaBetaBeta_Record):
 
     def get_unit(self):
-        return unit('mA/cm2')
+        return parse_unit_str('mA/cm2')
 
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]
@@ -92,7 +93,8 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordState(NEURONChl_CalciumAlphaBetaBeta_
         self.state = state
 
     def get_unit(self):
-        return unit('1')
+        #return parse_unit_str('1')
+        return units.dimensionless
 
     def get_std_tags(self):
         return [StandardTags.StateVariable]
@@ -111,7 +113,8 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordStateVarSteedyState(NEURONChl_Calcium
         self.state = state
 
     def get_unit(self):
-        return unit('1')
+        return units.dimensionless
+        #return parse_unit_str('1')
 
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]
@@ -130,7 +133,7 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(NEURONChl_Calciu
         self.state = state
 
     def get_unit(self):
-        return unit('ms')
+        return units.ms
 
     def get_std_tags(self):
         return [StandardTags.StateTimeConstant]

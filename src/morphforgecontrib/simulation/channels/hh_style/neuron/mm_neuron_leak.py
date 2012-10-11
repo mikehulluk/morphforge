@@ -31,7 +31,7 @@
 
 
 from ..core import StdChlLeak
-from morphforge.units import unit
+from morphforge.units import qty, parse_unit_str
 from hocmodbuilders.mmwriter_leak import NEURONChlWriterLeak
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
@@ -70,7 +70,7 @@ class NEURONChl_Leak_ConductanceDensityRecord(NEURONChl_Leak_Record):
               self).__init__(modvar='g', **kwargs)
 
     def get_unit(self):
-        return unit('S/cm2')
+        return parse_unit_str('S/cm2')
 
     def get_std_tags(self):
         return [StandardTags.ConductanceDensity]
@@ -90,7 +90,7 @@ class NEURONChl_Leak_CurrentDensityRecord(NEURONChl_Leak_Record):
               self).__init__(modvar='i', **kwargs)
 
     def get_unit(self):
-        return unit('mA/cm2')
+        return parse_unit_str('mA/cm2')
 
     def get_std_tags(self):
         return [StandardTags.CurrentDensity]

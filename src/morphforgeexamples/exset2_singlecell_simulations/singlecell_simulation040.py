@@ -63,8 +63,8 @@ def get_Na_Channels(env):
                             StdChlAlphaBeta,
                             name="NaChl", ion="na",
                             equation="m*m*m*h",
-                            conductance=unit("210:nS") / unit("400:um2"),
-                            reversalpotential=unit("50.0:mV"),
+                            conductance=qty("210:nS") / qty("400:um2"),
+                            reversalpotential=qty("50.0:mV"),
                             statevars=na_state_vars,
                            )
 
@@ -76,8 +76,8 @@ def get_Ks_Channels(env):
                             StdChlAlphaBeta,
                             name="KsChl", ion="ks",
                             equation="ks*ks*ks*ks",
-                            conductance=unit("3:nS") / unit("400:um2"),
-                            reversalpotential=unit("-80.0:mV"),
+                            conductance=qty("3:nS") / qty("400:um2"),
+                            reversalpotential=qty("-80.0:mV"),
                             statevars=kf_state_vars,
                            )
 
@@ -89,8 +89,8 @@ def get_Kf_Channels(env):
                             StdChlAlphaBeta,
                             name="KfChl", ion="kf",
                             equation="kf*kf*kf*kf",
-                            conductance=unit("0.5:nS") / unit("400:um2") ,
-                            reversalpotential=unit("-80.0:mV"),
+                            conductance=qty("0.5:nS") / qty("400:um2") ,
+                            reversalpotential=qty("-80.0:mV"),
                             statevars=kf_state_vars,
                            )
 
@@ -99,8 +99,8 @@ def get_Lk_Channels(env):
     lk_chl = env.Channel(
                          StdChlLeak,
                          name="LkChl",
-                         conductance=unit("3.6765:nS") / unit("400:um2"),
-                         reversalpotential=unit("-51:mV"),
+                         conductance=qty("3.6765:nS") / qty("400:um2"),
+                         reversalpotential=qty("-51:mV"),
                        )
     return lk_chl
 
@@ -129,12 +129,12 @@ def simulate(current_inj_level):
     cell.apply_channel( na_chl)
     cell.apply_channel( potFastChannels)
     cell.apply_channel( potSlowChannels)
-    cell.set_passive( PassiveProperty.SpecificCapacitance, unit('2.0:uF/cm2'))
+    cell.set_passive( PassiveProperty.SpecificCapacitance, qty('2.0:uF/cm2'))
 
 
 
     # Create the stimulus and record the injected current:
-    cc = sim.create_currentclamp(amp=current_inj_level, dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+    cc = sim.create_currentclamp(amp=current_inj_level, dur=qty("100:ms"), delay=qty("100:ms"), cell_location=cell.soma)
     sim.record(cc, what=StandardTags.Current)
 
     # Define what to record:

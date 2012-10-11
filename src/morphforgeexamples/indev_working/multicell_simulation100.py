@@ -243,7 +243,7 @@ params_dINr = """
 
 
 def load_std_channels(param_str):
-    nrn_params = dict([(p, mf.unit("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(param_names.split(), param_units.split(';'), param_str.split())])
+    nrn_params = dict([(p, mf.qty("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(param_names.split(), param_units.split(';'), param_str.split())])
     nrn_params_na = extract_params(nrn_params, prefix='na_')
     nrn_params_lk = extract_params(nrn_params, prefix='lk_')
     nrn_params_ks = extract_params(nrn_params, prefix='ks_', replace_prefix='k_')
@@ -288,7 +288,7 @@ def load_ka_channel():
     10.000   0   500 -22.09  -10.21
     """
 
-    nrn_params = dict([(p, mf.unit("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split())])
+    nrn_params = dict([(p, mf.qty("%s:%s"%(v, u.strip()))) for (p, u, v) in zip(ka_param_names.split(), ka_param_units.split(';'), ka_param_str.split())])
     nrn_params_ka = extract_params(nrn_params, prefix='ka_')
     print nrn_params_ka
     eqnsetka = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt.replace("sautois", "saut2"))
@@ -324,11 +324,11 @@ def get_cin_chls():
 
 import random
 def make_cell(sim, cell_name, cell_chl_functor):
-    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.qty("1:um2"))
     cell = sim.create_cell(name=cell_name, morphology=m1)
     for chl in cell_chl_functor():
         cell.apply_channel( chl, parameter_multipliers={'gmax':random.uniform(0.9, 1.1)})
-    cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.qty('4:pF/um2'))
     return cell
 
 
@@ -365,14 +365,14 @@ celltypes = [
 def test_cell_current(cell_name, cell_chl_functor, current):
     sim = mf.NEURONEnvironment().Simulation()
 
-    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.unit("1:um2"))
+    m1 = mf.MorphologyBuilder.get_single_section_soma(area=mf.qty("1:um2"))
     cell = sim.create_cell(name=cell_name, morphology=m1)
     cc = sim.create_currentclamp(name="CC1", delay=100*mf.ms, dur=400*mf.ms, amp=current * mf.pA, cell_location=cell.soma)
 
     for chl in cell_chl_functor():
         mf.cell.apply_channel( chl)
 
-    mf.cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.unit('4:pF/um2'))
+    mf.cell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.qty('4:pF/um2'))
 
     sim.record(cell, what=mf.Cell.Recordables.MembraneVoltage)
     sim.record(cc, what=mf.CurrentClamp.Recordables.Current)
@@ -550,8 +550,8 @@ def build_trigger( env, cell):
     return env.SynapticTrigger(
                 mfc.SynapticTriggerByVoltageThreshold,
                 cell_location = cell.soma,
-                voltage_threshold = mf.unit("0:mV"),
-                delay = mf.unit("1:ms"),
+                voltage_threshold = mf.qty("0:mV"),
+                delay = mf.qty("1:ms"),
                 #,
                )
 
@@ -564,7 +564,7 @@ def onto_driver(sim, postsynaptic, times):
             postsynaptic_mech = driver_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':1.0 },
-                                        peak_conductance = mf.unit("1:nS")
+                                        peak_conductance = mf.qty("1:nS")
                                        )
            )
 
@@ -574,7 +574,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':ampa_scale * units.dimensionless },
-                                        peak_conductance = mf.unit("1:nS")
+                                        peak_conductance = mf.qty("1:nS")
                                        )
            )
     nmda = sim.create_synapse(
@@ -582,7 +582,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
                                         parameter_multipliers = {'scale':nmda_scale * units.dimensionless },
-                                        peak_conductance = mf.unit("1:nS")
+                                        peak_conductance = mf.qty("1:nS")
                                        )
            )
     return [ampa, nmda]

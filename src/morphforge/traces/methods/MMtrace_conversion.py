@@ -32,7 +32,7 @@
 from morphforge.traces.tracetypes.tracevariabledt import TraceVariableDT
 
 from morphforge.traces.tracetypes import TracePointBased
-from morphforge.units import unit
+from morphforge.units import qty
 
 import numpy as np
 
@@ -58,7 +58,7 @@ class TraceConverter(object):
     @classmethod
     def reduce_to_variable_dt_trace(cls, original_trace, epsilon):
         assert isinstance(original_trace, TracePointBased)
-        epsilon = unit(epsilon)
+        epsilon = qty(epsilon)
 
         time_units = original_trace.time_unit
         time_data = original_trace.time_pts_np

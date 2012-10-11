@@ -65,13 +65,13 @@ k_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K"
 cell.apply_channel( lk_chl)
 cell.apply_channel( na_chl)
 cell.apply_channel( k_chl)
-cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
+cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
 # Get a cell_location on the cell:
 
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="Stim1", amp=unit("250:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
+cc = sim.create_currentclamp(name="Stim1", amp=qty("250:pA"), dur=qty("100:ms"), delay=qty("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
 # Define what to record:
 sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)

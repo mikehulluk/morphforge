@@ -33,9 +33,10 @@
 # Make these functions available through morphforge.units,
 # since they are commonly used
 from morphforge.units.util import factorise_units_from_list
-from morphforge.units.util import unit
+from morphforge.units.util import qty
 from morphforge.units.wrappers import NpPqWrappers
 
+from morphforge.units.util import parse_unit_str
 
 
 # Import all the units from quantities:

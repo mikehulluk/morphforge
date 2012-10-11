@@ -34,7 +34,7 @@ import re
 
 import numpy as np
 
-from morphforge.units import unit
+from morphforge.units import qty
 from morphforge.traces.tracetypes import TraceVariableDT, TraceFixedDT
 
 
@@ -179,7 +179,7 @@ class NeuroCSVParser(object):
 
         # Get the time column:
         time_data_raw = data_array[:, 0]
-        time_unit = unit(str(header_info.column_data[0]['unit']))
+        time_unit = qty(str(header_info.column_data[0]['unit']))
         time_data = time_data_raw * time_unit
 
         # Do we build as fixed or variable array:
@@ -189,7 +189,7 @@ class NeuroCSVParser(object):
         for i in range(1, n_cols):
             d_i = data_array[:, i]
             column_metadict = header_info.column_data[i]
-            dataUnit = unit(str(column_metadict.get('unit', '')))
+            dataUnit = qty(str(column_metadict.get('unit', '')))
             data_label = str(column_metadict.get('label', 'Column%d' % i))
             data_tags = str(column_metadict.get('tags', '')).split(',')
             d = d_i * dataUnit
