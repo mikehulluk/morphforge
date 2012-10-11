@@ -116,6 +116,6 @@ sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = 
 results = sim.run()
 
 # Display the results:
-TagViewer([results], timerange=(50, 250)*pq.ms, show=True)
+TagViewer([results], timerange=(50, 250)*units.ms, show=True)
 
 

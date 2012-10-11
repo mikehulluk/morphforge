@@ -30,10 +30,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 import mredoc as mrd
-
-import quantities as pq
 import types
 
 
@@ -114,7 +111,7 @@ class PostSynapticTemplateLibrary(object):
 
                     row_data.append( [synapsetype] + [str(syn_vars_dict[varname]) for varname in var_names] )
 
-                tbl = mredoc.VerticalColTable(cols, row_data)
+                tbl = mrd.VerticalColTable(cols, row_data)
                 subsect.append( mrd.Section('Type: %s' %(template_type.__name__), tbl) )
 
             sects.append( mrd.Section('ModelSrc: %s' %(modelsrc), *subsect) )
@@ -135,7 +132,7 @@ class PostSynapticTemplateLibrary(object):
 
 
 
-        return mredoc.Section('Synaptic Templates', *sects )
+        return mrd.Section('Synaptic Templates', *sects )
 
 
 

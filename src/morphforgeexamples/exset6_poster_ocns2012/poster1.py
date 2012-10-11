@@ -114,7 +114,7 @@ cell.set_passive( PassiveProperty.SpecificCapacitance, unit('1.0:uF/cm2'))
 
 # Setup active channels:
 na_chl = env.Channel(NeuroUnitEqnsetMechanism, name="NaChl", eqnset=eqnset_txt_na,
-        default_parameters={"g":U("120:mS/cm2")}, )
+        default_parameters={"g":unit("120:mS/cm2")}, )
 k_chl = env.Channel(NeuroUnitEqnsetMechanism, name="KChl", eqnset=eqnset_txt_k, )
 lk_chl = env.Channel(NeuroUnitEqnsetMechanism, name="LKChl", eqnset=eqnset_txt_lk, )
 
@@ -129,12 +129,12 @@ sim.record(na_chl, what='h', cell_location=cell.soma, user_tags=[StandardTags.St
 sim.record(k_chl,  what='n', cell_location=cell.soma, user_tags=[StandardTags.StateVariable])
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="CC1", amp=U("100:pA"), dur=U("100:ms"), delay=U("100:ms"), cell_location=cell.soma)
+cc = sim.create_currentclamp(name="CC1", amp=unit("100:pA"), dur=unit("100:ms"), delay=unit("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
 
 
 # run the simulation
 results = sim.run()
-TagViewer(results, timerange=(50, 250)*pq.ms, show=True)
+TagViewer(results, timerange=(50, 250)*units.ms, show=True)
 
 

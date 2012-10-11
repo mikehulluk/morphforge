@@ -34,10 +34,8 @@
 # (don't complain about wildcard imports)
 
 # Units:
-from morphforge.core.quantities import *
-#import morphforge.core.quantities as u
-from morphforge.core.quantities import available_units as units
-
+import morphforge.units as units
+from morphforge.units import unit
 
 
 
@@ -101,7 +99,7 @@ import os
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID
 
-import quantities as pq
+#from morphforge import units
 
 
 from morphforge.management import PluginMgr

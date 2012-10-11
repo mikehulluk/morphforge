@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.simulation.base import Cell

@@ -29,13 +29,14 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+import numpy
+import numpy as np
+
+from morphforge.units import Quantity
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePointBased
 
-import numpy
-import numpy as np
-from quantities.quantity import Quantity
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
 

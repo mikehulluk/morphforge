@@ -44,11 +44,9 @@ class PostSynapticMech_ExpSyn_Base(object):
 
     @classmethod
     def get_preferred_unit(cls, varname):
-        import quantities as pq
-
         _units = {
                 'tau': units.ms,
-                'e_rev': pq.mV,
+                'e_rev': units.mV,
                 'peak_conductance': units.nS,
                 }
         return _units[varname]

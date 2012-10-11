@@ -96,13 +96,13 @@ results_a = [
     sim(glk_multiplier=10.0, gna_multiplier=1.0, tag="SIM5"),
 ]
 
-TagViewer(results_a, timerange=(97.5, 140)*pq.ms, show=False,
+TagViewer(results_a, timerange=(97.5, 140)*units.ms, show=False,
           plots = [
-                    TagPlot("ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM1}", ylabel='gLeak: 0.1\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM2}", ylabel='gLeak: 0.5\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM3}", ylabel='gLeak: 1.0\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM4}", ylabel='gLeak: 5.0\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM5}", ylabel='gLeak: 10.0\nVoltage',yrange=(-80, 50)*units.mV, legend_labeller=None),
                        ])
 
 results_b = [
@@ -112,11 +112,11 @@ results_b = [
     sim(gna_multiplier=1.0,  glk_multiplier=1.0, tag="SIM9"),
 ]
 
-TagViewer(results_b, timerange=(97.5, 140)*pq.ms, show=True,
+TagViewer(results_b, timerange=(97.5, 140)*units.ms, show=True,
           plots = [
-                    TagPlot("ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
-                    TagPlot("ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80*mV, 50*mV), legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM6}", ylabel='gNa: 0.10\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM7}", ylabel='gNa: 0.50\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM8}", ylabel='gNa: 0.75\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
+                    TagPlot("ALL{Voltage,SIM9}", ylabel='gNa: 1.00\nVoltage', yrange=(-80, 50)*units.mV, legend_labeller=None),
                        ])
 

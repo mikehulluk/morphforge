@@ -29,12 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from morphforge.simulation.base import Channel
 
 from morphforge.constants import StandardTags
 import morphforge.stdimports as mf
-import quantities as pq
+from morphforge import units
 
 
 class StdChlLeak(Channel):
@@ -60,7 +60,7 @@ class StdChlLeak(Channel):
 
     def get_prefered_units(self):
         return {'gLk': mf.mS/mf.cm2,
-                'eLk': pq.mV,
-                'gScale': pq.dimensionless
+                'eLk': units.mV,
+                'gScale': units.dimensionless
                 }
 

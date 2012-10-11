@@ -32,7 +32,7 @@
 from morphforge.traces.tracetypes.tracevariabledt import TraceVariableDT
 
 from morphforge.traces.tracetypes import TracePointBased
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 
 import numpy as np
 
@@ -46,7 +46,7 @@ class TraceConverter(object):
     @classmethod
     def rebase_to_fixed_dt(cls, original_trace, dt):
         print 'dt', dt
-        from morphforge.core.quantities.wrappers import NpPqWrappers
+        from morphforge.units.wrappers import NpPqWrappers
         print original_trace
         time = NpPqWrappers.arange(start=original_trace.get_min_time(), stop=original_trace.get_max_time(), step=dt)
         data = original_trace.get_values(time)

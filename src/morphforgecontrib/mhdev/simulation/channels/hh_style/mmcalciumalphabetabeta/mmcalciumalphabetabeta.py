@@ -29,8 +29,8 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities import unit
-import quantities as pq
+from morphforge.units import unit
+from morphforge import units
 from morphforge.simulation.base import Channel
 
 
@@ -72,5 +72,5 @@ class StdChlCalciumAlphaBetaBeta(Channel):
         return {'gScale': unit('1.0'), 'pca':self.permeability}
 
     def get_prefered_units(self):
-        return {'gScale': pq.dimensionless, 'pca': unit('cm/sec') }
+        return {'gScale': units.dimensionless, 'pca': unit('cm/sec') }
 

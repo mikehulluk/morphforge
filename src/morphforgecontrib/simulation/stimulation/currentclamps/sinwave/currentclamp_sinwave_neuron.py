@@ -36,7 +36,7 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCS
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from Cheetah.Template import Template
 from morphforge.core import ObjectLabeller

@@ -32,7 +32,7 @@
 from util import InfTauCalculator
 from util import ReportLabTools
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 
 import numpy as np
 from morphforge.traces import TraceFixedDT

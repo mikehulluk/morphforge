@@ -167,6 +167,6 @@ results = [
           
           ]
 
-TagViewer(results, timerange=(95, 200)*pq.ms)
+TagViewer(results, timerange=(95, 200)*units.ms)
 pylab.show()
 

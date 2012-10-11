@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import quantities as pq
+from morphforge import units
 
 import operator
 from morphforge.traces.tracetypes import TraceFixedDT
@@ -41,89 +41,89 @@ class TraceOperator_TraceFixedDT_Quantity(object):
 
     @classmethod
     def do_add(cls, lhs, rhs):
-        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity)
+        assert (type(lhs) == TraceFixedDT and type(rhs) == units.Quantity)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts + rhs)
-        
+
     @classmethod
     def do_sub(cls, lhs, rhs):
-        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity)
+        assert (type(lhs) == TraceFixedDT and type(rhs) == units.Quantity)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts - rhs)
-        
+
     @classmethod
     def do_mul(cls, lhs, rhs):
-        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity) 
+        assert (type(lhs) == TraceFixedDT and type(rhs) == units.Quantity)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts * rhs)
-        
+
     @classmethod
     def do_div(cls, lhs, rhs):
-        assert (type(lhs) == TraceFixedDT and type(rhs) == pq.Quantity)
+        assert (type(lhs) == TraceFixedDT and type(rhs) == units.Quantity)
         return TraceFixedDT(lhs.time_pts, lhs.data_pts / rhs)
-        
-        
+
+
 
 class TraceOperator_Quantity_TraceFixedDT(object):
 
     @classmethod
     def do_add(cls, lhs, rhs):
-        assert type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity
+        assert type(rhs) == TraceFixedDT and type(lhs) == units.Quantity
         return TraceFixedDT(rhs.time_pts, lhs + rhs.data_pts)
 
     @classmethod
     def do_sub(cls, lhs, rhs):
-        assert type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity
+        assert type(rhs) == TraceFixedDT and type(lhs) == units.Quantity
         return TraceFixedDT(rhs.time_pts, lhs - rhs.data_pts)
-        
+
     @classmethod
     def do_mul(cls, lhs, rhs):
-        assert type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity
+        assert type(rhs) == TraceFixedDT and type(lhs) == units.Quantity
         return TraceFixedDT(rhs.time_pts, lhs * rhs.data_pts)
 
     @classmethod
     def do_div(cls, lhs, rhs):
-        assert type(rhs) == TraceFixedDT and type(lhs) == pq.Quantity
+        assert type(rhs) == TraceFixedDT and type(lhs) == units.Quantity
         return TraceFixedDT(rhs.time_pts, lhs / rhs.data_pts)
 
 
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__add__,
-        lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
+        lhs_type=TraceFixedDT, rhs_type=units.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_add,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__sub__,
-        lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
+        lhs_type=TraceFixedDT, rhs_type=units.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_sub,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__mul__,
-        lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
+        lhs_type=TraceFixedDT, rhs_type=units.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_mul,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__div__,
-        lhs_type=TraceFixedDT, rhs_type=pq.Quantity,
+        lhs_type=TraceFixedDT, rhs_type=units.Quantity,
         operator_func=TraceOperator_TraceFixedDT_Quantity.do_div,
         flag='default')
-        
+
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__add__,
-        lhs_type=pq.Quantity, rhs_type=TraceFixedDT,
+        lhs_type=units.Quantity, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_Quantity_TraceFixedDT.do_add,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__sub__,
-        
-        lhs_type=pq.Quantity, rhs_type=TraceFixedDT,
+
+        lhs_type=units.Quantity, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_Quantity_TraceFixedDT.do_sub,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__mul__,
-        lhs_type=pq.Quantity, rhs_type=TraceFixedDT,
+        lhs_type=units.Quantity, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_Quantity_TraceFixedDT.do_mul,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__div__,
-        lhs_type=pq.Quantity, rhs_type=TraceFixedDT,
+        lhs_type=units.Quantity, rhs_type=TraceFixedDT,
         operator_func=TraceOperator_Quantity_TraceFixedDT.do_div,
         flag='default')
 

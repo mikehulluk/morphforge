@@ -31,7 +31,7 @@
 
 import operator
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from morphforge.traces.tracetypes import TraceFixedDT
 
 

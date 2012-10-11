@@ -34,7 +34,7 @@ import re
 
 import numpy as np
 
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 from morphforge.traces.tracetypes import TraceVariableDT, TraceFixedDT
 
 

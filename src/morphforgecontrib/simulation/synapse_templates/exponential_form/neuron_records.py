@@ -31,7 +31,7 @@
 
 
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 

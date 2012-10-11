@@ -31,7 +31,7 @@
 
 import operator
 from morphforge.traces.tracetypes import TraceFixedDT
-from morphforge.core.quantities import NpPqWrappers
+from morphforge.units import NpPqWrappers
 from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 
 

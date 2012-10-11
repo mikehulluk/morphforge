@@ -29,23 +29,20 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import morphforge.core.quantities.unit_string_parser
 
-import quantities as pq
-from morphforge.core.misc import is_float#, is_int
-
-# Required to initialise the unit definitions
-#import common_neuroscience_defs
-from quantities.quantity import Quantity
+import os
 
 import morphforge
+from morphforge.core.misc import is_float
+
+import quantities as pq
 
 
 def factorise_units_from_list(seq):
     assert len(seq) > 0
 
     for obj in seq:
-        assert isinstance(obj, Quantity)
+        assert isinstance(obj, pq.quantity.Quantity)
 
     s0unit = seq[0].units
     new_list = [obj.rescale(s0unit).magnitude for obj in seq] * s0unit
@@ -65,7 +62,7 @@ def _unit(s):
     if ':' in s:
         (value_str, unit_str) = s.split(':')
         value = float(value_str)
-        unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
+        unt = parse_unit(unit_str)
 
         return value * unt
 
@@ -74,12 +71,12 @@ def _unit(s):
         if len(tokens) == 2:
             (value_str, unit_str) = tokens
             value = float(value_str)
-            unt = morphforge.core.quantities.unit_string_parser.parse(unit_str)
+            unt = parse_unit(unit_str)
             return value * unt
         else:
             assert False
 
-    return morphforge.core.quantities.unit_string_parser.parse(s)
+    return parse_unit(s)
 
 # Lets cache the units:
 _cached_units = {}
@@ -88,4 +85,47 @@ def unit(s):
         _cached_units[s] = _unit(s)
     return _cached_units[s]
 
+
+
+
+
+
+def parse_unit(s):
+
+
+    on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+    if on_rtd:
+        print ' WARNING!! Read the Docs Hack - Not parsing unit:', s
+        return 0 * pq.dimensionless
+
+    s = s.strip()
+
+    # Return nothing as no unit
+    if s == '':
+        return pq.dimensionless
+
+    # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
+    if s == 'nA':
+        return pq.nano * pq.amp
+    if s == 'pA':
+        return pq.pico * pq.amp
+    if s == 'nS':
+        return pq.nano * pq.S
+    if s == 'pS':
+        return pq.pico * pq.S
+    if s == 'mV':
+        return pq.mV
+
+
+    # Upgraded on 9th Jun 2012 to use neurounits.
+    if s == 'ohmcm':
+        s = 'ohm cm'
+
+
+    # In the case of units, lets rewrite '**' to nothing and '*' to space:
+    s = s.replace('**', '')
+    s = s.replace('*', ' ')
+
+    import neurounits
+    return neurounits.NeuroUnitParser.Unit(s).as_quantities_unit()
 

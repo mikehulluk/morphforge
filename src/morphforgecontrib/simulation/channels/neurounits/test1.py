@@ -181,18 +181,18 @@ results = sim.run()
 ps = (
                 TagPlot("Voltage", ylabel='Voltage', yrange=(-60*mV, 40*mV) ),
                 TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=unit("pA/um2") ),
-                TagPlot("Current", ylabel='Current', yunit=pq.picoamp),
+                TagPlot("Current", ylabel='Current', yunit=units.picoamp),
                 TagPlot("Conductance", ylabel="Conductance"),
                 TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=unit("pS/um2") ),
                 TagPlot("StateVariable", ylabel="StateVariable"),
-                TagPlot("StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant" ),
+                TagPlot("StateTimeConstant", yunit=units.millisecond, ylabel="Time Constant" ),
                 TagPlot("StateSteadyState", ylabel="Steady State"),
                 TagPlot("Event", ylabel="Events"),
 
                )
 
 # Display the results:
-TagViewer([results], timerange=(95, 200)*pq.ms, plots = ps)
+TagViewer([results], timerange=(95, 200)*units.ms, plots = ps)
 pylab.show()
 
 

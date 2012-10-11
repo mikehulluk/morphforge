@@ -108,18 +108,18 @@ syn1 = sim.create_synapse(
         trigger =  env.SynapticTrigger(
                                     SynapticTriggerByVoltageThreshold,
                                         cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 300),
-                                        voltage_threshold = U("0:mV"),  delay=U("0:ms"), 
+                                        voltage_threshold = unit("0:mV"),  delay=unit("0:ms"), 
                                    ),
-        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell2.soma,), # parameter_overrides={'peak_conductance':U("1:nS") })
+        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell2.soma,), 
        )
 
 syn1 = sim.create_synapse(
         trigger =  env.SynapticTrigger(
                                     SynapticTriggerByVoltageThreshold,
                                     cell_location = CellLocator.get_location_at_distance_away_from_dummy(cell1, 700),
-                                    voltage_threshold = U("0:mV"),  delay = U("0:ms"),
+                                    voltage_threshold = unit("0:mV"),  delay = unit("0:ms"),
                                    ),
-        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell3.soma, parameter_overrides={'scale':2.0} )  #'peak_conductance':U('1:nS'),
+        postsynaptic_mech = post_syn_tmpl.instantiate(cell_location = cell3.soma, parameter_overrides={'scale':2.0} )  
        )
 
 # Record Voltages from axons:
@@ -129,17 +129,17 @@ sim.record(what=StandardTags.Voltage, cell_location = cell2.get_location("soma")
 sim.record(what=StandardTags.Voltage, cell_location = cell3.get_location("soma"), user_tags=['cell3'])
 
 # Create the stimulus and record the injected current:
-cc = sim.create_currentclamp(name="CC1", amp=U("200:pA"), dur=U("1:ms"), delay=U("100:ms"), cell_location=cell1.get_location("soma"))
+cc = sim.create_currentclamp(name="CC1", amp=unit("200:pA"), dur=unit("1:ms"), delay=unit("100:ms"), cell_location=cell1.get_location("soma"))
 sim.record(cc, what=StandardTags.Current)
 
 results = sim.run()
-TagViewer(results, timerange=(98, 120)*pq.ms,
+TagViewer(results, timerange=(98, 120)*units.ms,
           fig_kwargs = {'figsize':(12, 10)},
           show=True,
           plots = [
-              TagPlot('Current', yunit=pq.picoamp),
-              TagPlot('Voltage,cell1', yrange=(-80*mV, 50*mV), yunit=pq.mV),
-              TagPlot('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV, -55*mV), yunit=pq.millivolt),
+              TagPlot('Current', yunit=units.picoamp),
+              TagPlot('Voltage,cell1', yrange=(-80*mV, 50*mV), yunit=units.mV),
+              TagPlot('Voltage AND ANY{cell2,cell3}', yrange=(-70*mV, -55*mV), yunit=units.millivolt),
              ],
            )
 

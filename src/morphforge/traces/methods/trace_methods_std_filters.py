@@ -33,7 +33,7 @@ from morphforge.traces.traceobjpluginctrl import copy_trace_attrs
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
 
-import quantities as pq
+from morphforge import units
 import numpy as np
 
         
@@ -84,7 +84,7 @@ def _filterlowpassrc(tr, tau):
     assert isinstance(tr, TraceFixedDT)
     dt = tr.get_dt_new()
     k = 1. / tau * dt
-    k = float(k.rescale(pq.dimensionless))
+    k = float(k.rescale(units.dimensionless))
 
     coeff_denom = np.array([1, k - 1])
     coeff_num = np.array([0, k])

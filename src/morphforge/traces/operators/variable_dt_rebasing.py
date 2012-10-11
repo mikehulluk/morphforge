@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-import quantities as pq
+from morphforge import units
 
 class VariableDTRebaseTimeValues(object):
 
@@ -42,7 +42,7 @@ class VariableDTRebaseTimeValues(object):
         times2 = tr2.time_pts_ms
         all_times = np.hstack((times1, times2))
         all_times = np.sort(all_times)
-        return all_times * pq.ms
+        return all_times * units.ms
 
     @classmethod
     def maintain_maximum_dy(cls, _tr1, _tr2):

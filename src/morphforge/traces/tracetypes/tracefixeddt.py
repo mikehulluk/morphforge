@@ -29,11 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.core.quantities import unit
-
 import numpy as np
-
-#import quantities as pq
 
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 

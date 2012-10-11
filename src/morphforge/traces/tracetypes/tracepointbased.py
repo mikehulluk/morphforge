@@ -30,9 +30,9 @@
 # ----------------------------------------------------------------------
 
 from morphforge.traces.tracetypes.trace import Trace
-import quantities as pq
+from morphforge import units
 import numpy as np
-from morphforge.core import unit
+from morphforge.units import unit
 
 
 class TracePointBased(Trace):
@@ -42,12 +42,12 @@ class TracePointBased(Trace):
         super(TracePointBased, self).__init__(name=name,
                 comment=comment, tags=tags)
 
-        if not isinstance(time, pq.quantity.Quantity):
+        if not isinstance(time, units.quantity.Quantity):
             raise ValueError("Time is not a 'unit'ed quantity")
 
         _dummy = time.rescale('ms').magnitude
 
-        if not isinstance(data, (pq.quantity.Quantity, pq.unitquantity.Dimensionless)):
+        if not isinstance(data, (units.quantity.Quantity, units.unitquantity.Dimensionless)):
             raise ValueError("Data is not a 'unit'ed quantity")
         if not time.shape == data.shape:
             raise ValueError('Time and Data are different shapes! %s vs %s' % (time.shape, data.shape))
@@ -145,7 +145,7 @@ class TracePointBased(Trace):
                                 data=self.data_pts[np.nonzero(mask)[0]])
 
 
-        assert isinstance(time, pq.quantity.Quantity), "Times should be quantity. Found: %s %s"%(time, type(time))
+        assert isinstance(time, units.quantity.Quantity), "Times should be quantity. Found: %s %s"%(time, type(time))
         # Rebase the Time:
         time.rescale(self._time.units)
         interpolator = interp1d(self.time_pts_np,

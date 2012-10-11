@@ -65,7 +65,7 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
         self.nrnsuffix = nrnsuffix
 
     def build_hoc_section(self, cell, section, hocfile_obj, mta):
-        #Units = dict([(p.symbol, pq.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
+        #Units = dict([(p.symbol, units.Quantity(1., p.get_dimension().simplified)) for p in self.eqnset.parameters])
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):

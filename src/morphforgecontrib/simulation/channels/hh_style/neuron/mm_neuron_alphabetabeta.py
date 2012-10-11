@@ -31,7 +31,7 @@
 
 
 from ..core import StdChlAlphaBetaBeta
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from hocmodbuilders.mmwriter_alphabetabeta import NEURONChlWriterAlphaBetaBeta
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base

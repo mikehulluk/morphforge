@@ -31,7 +31,7 @@
 
 import numpy as np
 
-import morphforge.core.quantities as pq
+import morphforge.units as units
 
 
 class AlphaBetaCalculator(object):
@@ -40,14 +40,14 @@ class AlphaBetaCalculator(object):
     def calc_alpha_beta(cls, V, ab):
         v = V.rescale('mV').magnitude
         alphabeta = (ab[0] + ab[1] * v) / (ab[2] + np.exp((ab[3] + v) / ab[4]))
-        alphabeta = alphabeta * (pq.J / pq.J)
+        alphabeta = alphabeta * (units.J / units.J)
         return alphabeta
 
 class InfTauCalculator(object):
     @classmethod
     def alpha_beta_to_inf_tau(cls, alpha, beta):
         inf = alpha / (alpha + beta)
-        tau = 1.0 / (alpha + beta) * pq.milli * pq.second
+        tau = 1.0 / (alpha + beta) * units.milli * units.second
         return (inf, tau)
 
     @classmethod

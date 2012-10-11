@@ -1,7 +1,7 @@
 
 import morphforge.stdimports as mf
 from  morphforge.traces.generation  import TraceStringParser
-import quantities as pq
+from morphforge import units
 
 from mhlibs.quantities_plot import QuantitiesFigure
 
@@ -10,7 +10,7 @@ t = """{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 130ms THEN FLAT(0) THEN AT
 tr = TraceStringParser.Parse(t)
 
 
-trFix = tr.convert_to_fixed(dt=01.*pq.ms)
+trFix = tr.convert_to_fixed(dt=01.*units.ms)
 
 print 't1:', tr.integrate()
 print 't2:', trFix.integrate()

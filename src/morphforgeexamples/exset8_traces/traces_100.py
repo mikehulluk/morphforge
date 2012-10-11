@@ -1,7 +1,7 @@
 
 import morphforge.stdimports as mf
 from  morphforge.traces.generation  import TraceStringParser
-import quantities as pq
+from morphforge import units
 
 
 import mredoc as mrd
@@ -28,22 +28,22 @@ returning_quantities = [
 ]
 
 conversions = [
-    (mf.TraceFixedDT, lambda tr: tr.convert_to_fixed(dt=0.1*pq.ms) ),
+    (mf.TraceFixedDT, lambda tr: tr.convert_to_fixed(dt=0.1*units.ms) ),
     #(mf.TraceVariableDT, lambda tr: tr.convert_to_variable(eps=0.1) ),
     (mf.TracePiecewise, lambda tr: tr.convert_to_piecewise() ),
         ]
 
 
 returning_trace_methods = [
-        ('filterbessel', lambda tr: tr.filterbessel(filterorder=8, cutoff_frequency=1000*pq.Hz) ),
-        ('filterbutterworth', lambda tr: tr.filterbutterworth(filterorder=8, cutoff_frequency=1000*pq.Hz) ),
-        ('filterlowpassrc', lambda tr: tr.filterlowpassrc(tau=2*pq.ms) ),
+        ('filterbessel', lambda tr: tr.filterbessel(filterorder=8, cutoff_frequency=1000*units.Hz) ),
+        ('filterbutterworth', lambda tr: tr.filterbutterworth(filterorder=8, cutoff_frequency=1000*units.Hz) ),
+        ('filterlowpassrc', lambda tr: tr.filterlowpassrc(tau=2*units.ms) ),
 
-        ('shift', lambda tr: tr.shift(offset=100*pq.ms)),
-        ('window', lambda tr: tr.window((75*pq.ms, 160*pq.ms)) ),
-        ('windowshift', lambda tr: tr.windowshift((75*pq.ms, 160*pq.ms)) ),
+        ('shift', lambda tr: tr.shift(offset=100*units.ms)),
+        ('window', lambda tr: tr.window((75*units.ms, 160*units.ms)) ),
+        ('windowshift', lambda tr: tr.windowshift((75*units.ms, 160*units.ms)) ),
 
-        ('convert_to_fixed', lambda tr: tr.convert_to_fixed(dt=0.1*pq.ms) ),
+        ('convert_to_fixed', lambda tr: tr.convert_to_fixed(dt=0.1*units.ms) ),
         ('convert_to_piecewise', lambda tr: tr.convert_to_piecewise() ),
         ]  
 

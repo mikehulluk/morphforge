@@ -42,8 +42,8 @@ from numpy.core.function_base import linspace
 from morphforgecontrib.simulation.channels.hh_style.summarisers import MM_InfTauInterpolatedChannel, \
     InfTauInterpolation
 from morphforgecontrib.simulation.channels.hh_style.summarisers.util import InfTauCalculator
-from morphforge.core.quantities.fromcore import unit
-import quantities as pq
+from morphforge.units import unit
+from morphforge import units
 
 
 class ChannelConverter(object):
@@ -78,7 +78,7 @@ class ChannelConverter(object):
                 alpha, beta = old_chl.get_alpha_beta_at_voltage(statevar=state_var, V=_voltage_interpolation_values)
                 inf, tau = InfTauCalculator.alpha_beta_to_inf_tau(alpha, beta)
                 V = _voltage_interpolation_values.rescale('mV').magnitude
-                inf = inf.rescale(pq.dimensionless).magnitude
+                inf = inf.rescale(units.dimensionless).magnitude
                 tau = tau.rescale('ms').magnitude
                 new_state_vars[state_var] = InfTauInterpolation(V=V, inf=inf, tau=tau)
 

@@ -30,14 +30,12 @@
 # ----------------------------------------------------------------------
 
 from Cheetah.Template import Template
+from morphforge import units
 from morphforge.simulation.neuron import ModFile
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers import MHOCSections
-
 from morphforge.simulation.neuron.hocmodbuilders import ModFileSectioned, NeuronParameter
 
-#from morphforge.core import quantities
-import quantities
 
 
 class NEURONChlWriterCalciumAlphaBetaBeta(object):
@@ -108,10 +106,10 @@ $(cell_name).internalsections [$section_index] {
 
         neuronUnitsToQuantities = {
                                    "cm/sec" : "cm/sec",
-                                   "rUnits" : quantities.joule / (quantities.Kelvin * quantities.mol),
+                                   "rUnits" : units.joule / (units.Kelvin * units.mol),
                                    "K": "K",
                                    "fUnits":"C/mol",
-                                   "M":   quantities.mol / quantities.litre,
+                                   "M":   units.mol / units.litre,
                                    "mA/cm2":"mA/cm2",
                                    "mV":"mV",
                                    }

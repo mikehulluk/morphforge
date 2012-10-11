@@ -42,7 +42,7 @@ from reportlab.platypus import Table, Paragraph
 from mhlibs.quantities_plot import QuantitiesFigure
 from mhlibs.quantities_plot import QuantitiesAxis
 
-#from morphforge.core.quantities import unit
+#from morphforge.units import unit
 #
 #from scipy.integrate import odeint
 import numpy as np
@@ -53,7 +53,7 @@ from core import MM_InfTauInterpolatedChannel
 from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
 from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
 
-from morphforge.stdimports import pq
+from morphforge.stdimports import units
 
 
 
@@ -87,11 +87,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
             if isinstance(ax1, QuantitiesAxis):
 
                 ax1.setYUnit("")
-                ax1.plot(inf_v * pq.mV, alpha * pq.s/pq.s, color=color)
+                ax1.plot(inf_v * units.mV, alpha * units.s/units.s, color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Alpha")
 
-                ax2.plot(inf_v * pq.mV, beta * pq.s/pq.s, color=color)
+                ax2.plot(inf_v * units.mV, beta * units.s/units.s, color=color)
                 ax2.set_xlabel("Voltage")
                 ax2.set_ylabel("Beta")
                 ax2.setYUnit("")
@@ -145,11 +145,11 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
 
                 ax1.setYUnit("")
-                ax1.plot(inf_v * pq.mV, inf * pq.s/pq.s, color=color)
+                ax1.plot(inf_v * units.mV, inf * units.s/units.s, color=color)
                 ax1.set_xlabel("Voltage")
                 ax1.set_ylabel("Inf")
 
-                ax2.plot(inf_v * pq.mV, tau* pq.ms, color=color)
+                ax2.plot(inf_v * units.mV, tau* units.ms, color=color)
                 ax2.set_xlabel("Voltage")
                 ax2.set_ylabel("Tau")
                 ax2.setYUnit("ms")

@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 from morphforge.constants import StandardTags
 from morphforge.morphology.core  import MorphPath
 

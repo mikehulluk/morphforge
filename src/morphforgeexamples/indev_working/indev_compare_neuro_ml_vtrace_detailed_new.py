@@ -145,7 +145,7 @@ def testfile(xmlfile):
 
     #v_levels = [-80, -40, -20, 20]
     v_levels = [-80, -40, -20, 20]
-    min_max_window = (600, 650)*pq.ms
+    min_max_window = (600, 650)*units.ms
     for i, v in enumerate(v_levels):
         #if i> 2:
         #    continue
@@ -179,8 +179,8 @@ def testfile(xmlfile):
         ax[j][0].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
         ax[j][1].set_ylim((view_min[j]-0.1*rRange, view_max[j]+0.1*rRange))
 
-        #ax[j][0].set_xlim((190, 250) * pq.ms)
-        #ax[j][1].set_xlim((100, 700) * pq.ms )
+        #ax[j][0].set_xlim((190, 250) * units.ms)
+        #ax[j][1].set_xlim((100, 700) * units.ms )
 
 
     root_dir = "/home/michael/Desktop/fOut/"

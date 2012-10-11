@@ -29,15 +29,10 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import quantities as pq
 
 import operator
+from morphforge import units
 from morphforge.traces.tracetypes import TracePiecewise
-from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
-from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
-from morphforge.traces.tracetypes.tracepiecewise import PieceWiseComponentVisitor
-
-from morphforge.traces.traceobjpluginctrl import TraceOperatorCtrl
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
 from morphforge.traces.tracetypes.tracepiecewise import PieceWiseComponentVisitor
@@ -83,22 +78,22 @@ class TraceOperator_TracePiecewise_Quantity(object):
 
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__add__,
-        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        lhs_type=TracePiecewise, rhs_type=units.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_add,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__sub__,
-        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        lhs_type=TracePiecewise, rhs_type=units.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_sub,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__mul__,
-        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        lhs_type=TracePiecewise, rhs_type=units.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_mul,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__div__,
-        lhs_type=TracePiecewise, rhs_type=pq.Quantity,
+        lhs_type=TracePiecewise, rhs_type=units.Quantity,
         operator_func=TraceOperator_TracePiecewise_Quantity.do_div,
         flag='default')
 
@@ -149,22 +144,22 @@ class TraceOperator_Quantity_TracePiecewise(object):
 
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__add__,
-        lhs_type=pq.Quantity, rhs_type=TracePiecewise,
+        lhs_type=units.Quantity, rhs_type=TracePiecewise,
         operator_func=TraceOperator_Quantity_TracePiecewise.do_add,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__sub__,
-        lhs_type=pq.Quantity, rhs_type=TracePiecewise,
+        lhs_type=units.Quantity, rhs_type=TracePiecewise,
         operator_func=TraceOperator_Quantity_TracePiecewise.do_sub,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__mul__,
-        lhs_type=pq.Quantity, rhs_type=TracePiecewise,
+        lhs_type=units.Quantity, rhs_type=TracePiecewise,
         operator_func=TraceOperator_Quantity_TracePiecewise.do_mul,
         flag='default')
 TraceOperatorCtrl.add_trace_operator(
         operator_type=operator.__div__,
-        lhs_type=pq.Quantity, rhs_type=TracePiecewise,
+        lhs_type=units.Quantity, rhs_type=TracePiecewise,
         operator_func=TraceOperator_Quantity_TracePiecewise.do_div,
         flag='default')
 

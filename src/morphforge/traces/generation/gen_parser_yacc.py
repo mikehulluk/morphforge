@@ -29,12 +29,12 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import quantities as pq
+from morphforge import units
 
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
 from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 
 # Lexing:
 from morphforge.traces.generation.gen_parser_lexer import TraceGeneratorParserLexer
@@ -79,7 +79,7 @@ def p_unit_definiton(p):
 
 def p_time(p):
     """time : FLOAT MS"""
-    p[0] = p[1] * pq.ms
+    p[0] = p[1] * units.ms
 
 
 def p_abs_timespec(p):
@@ -116,7 +116,7 @@ def p_pieceblock_chain1(p):
 def p_pieceblock_chain2(p):
     """pieceblock_chain : func """
     func_piece = p[1]
-    func_piece.start_time = 0 * pq.ms
+    func_piece.start_time = 0 * units.ms
     p[0] = ([], func_piece)
 
 

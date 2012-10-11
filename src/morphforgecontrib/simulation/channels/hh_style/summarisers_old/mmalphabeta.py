@@ -37,7 +37,7 @@ from mhlibs.quantities_plot.quantities_plot_new import QuantitiesAxisNew
 from util import InfTauCalculator
 from util import ReportLabTools
 
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 
 from morphforge.traces import TraceFixedDT
 

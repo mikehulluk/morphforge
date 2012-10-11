@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from core import MM_InfTauInterpolatedChannel
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from mmwriter_infatauinterpolated import NEURONChlWriterInfTauInterpolated
 from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils

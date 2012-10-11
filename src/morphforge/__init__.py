@@ -39,5 +39,5 @@ if not _ON_RTD:
     mreorg.ScriptFlags.MREORG_SAVEALL = True
 
 # Import quantities, so that custom quantities are registered appropriately.
-import morphforge.core.quantities
+import morphforge.units
 

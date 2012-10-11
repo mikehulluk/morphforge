@@ -34,7 +34,7 @@
 
 from morphforge.componentlibraries.channellibrary import ChannelLibrary, cached_functor
 from morphforge.componentlibraries.celllibrary import CellLibrary
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 from morphforgecontrib.data_library.stdmodels import StandardModels
 
 from morphforge.morphology.builders import MorphologyBuilder

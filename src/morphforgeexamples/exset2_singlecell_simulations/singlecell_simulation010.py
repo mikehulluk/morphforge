@@ -39,7 +39,7 @@ We also create a summary pdf of the simulation.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
+from morphforgecontrib.stdimports import StdChlLeak
 
 
 # Create the morphology for the cell:
@@ -85,7 +85,7 @@ results = sim.run()
 #SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
 
 # Display the results:
-TagViewer([results], figtitle="The response of a neuron to step current injection", timerange=(95, 200)*pq.ms, show=True)
+TagViewer([results], figtitle="The response of a neuron to step current injection", timerange=(95, 200)*units.ms, show=True)
 
 
 

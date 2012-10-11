@@ -32,7 +32,7 @@
 from morphforge.simulation.base.biophysics import CellBiophysics
 
 from morphforge.constants import StandardTags
-from morphforge.core.quantities.fromcore import unit
+from morphforge.units import unit
 from morphforge.simulation.base.base_classes import NamedSimulationObject
 from morphforge.simulation.base.core.celllocation import CellLocation
 

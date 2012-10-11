@@ -33,7 +33,7 @@ from morphforge.simulation.base import CurrentClamp
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers import MHocFileData
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforge.simulation.neuron.hocmodbuilders import HocBuilder
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable

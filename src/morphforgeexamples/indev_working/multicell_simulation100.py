@@ -40,7 +40,7 @@ from morphforgecontrib.simulation.synapse_templates.neurounit import *
 from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
-import quantities as pq
+from morphforge import units
 
 
 # Define the formulae used in the model:
@@ -536,14 +536,14 @@ inhib_syn_tmpl = env.PostSynapticMechTemplate(
 exptemplate = env.PostSynapticMechTemplate(
         PostSynapticMech_ExpSyn_Base,
         template_name='expsyn1tmpl',
-        tau = 5 * pq.ms, e_rev = 0 * pq.mV,
+        tau = 5 * units.ms, e_rev = 0 * units.mV,
         )
 
 
 exp2template = env.PostSynapticMechTemplate(
         PostSynapticMech_Exp2Syn_Base,
         template_name='expsyn2tmpl',
-        tau_open = 5 * pq.ms, tau_close=20*pq.ms, e_rev = 0 * pq.mV, popening=1.0,
+        tau_open = 5 * units.ms, tau_close=20*units.ms, e_rev = 0 * units.mV, popening=1.0,
         )
 
 def build_trigger( env, cell):
@@ -573,7 +573,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = excite_ampa_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
-                                        parameter_multipliers = {'scale':ampa_scale * pq.dimensionless },
+                                        parameter_multipliers = {'scale':ampa_scale * units.dimensionless },
                                         peak_conductance = mf.unit("1:nS")
                                        )
            )
@@ -581,7 +581,7 @@ def dual_driver(sim, presynaptic, postsynaptic, ampa_scale, nmda_scale):
             trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = excite_nmda_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
-                                        parameter_multipliers = {'scale':nmda_scale * pq.dimensionless },
+                                        parameter_multipliers = {'scale':nmda_scale * units.dimensionless },
                                         peak_conductance = mf.unit("1:nS")
                                        )
            )
@@ -592,7 +592,7 @@ def inhib(sim, presynaptic, postsynaptic, scale):
             trigger = build_trigger( env, presynaptic),
             postsynaptic_mech = inhib_syn_tmpl.instantiate(
                                         cell_location = postsynaptic.soma,
-                                        parameter_multipliers = {'scale':scale * pq.dimensionless },
+                                        parameter_multipliers = {'scale':scale * units.dimensionless },
                                        )
            )
     return [inhib_syn]
@@ -647,8 +647,8 @@ driver_RHS =mfc.NeuronPopulation(sim=sim, neuron_functor=make_cell_dinr, n=nNeur
 
 
 # Connect the drivers:
-mfc.Connectors.times_to_all(sim, syncronous_times=(100,)*mf.pq.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
-mfc.Connectors.times_to_all(sim, syncronous_times=(105,)*mf.pq.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(100,)*mf.units.ms, postsynaptic_population= driver_LHS, connect_functor = onto_driver)
+mfc.Connectors.times_to_all(sim, syncronous_times=(105,)*mf.units.ms, postsynaptic_population= driver_RHS, connect_functor = onto_driver)
 #
 # LHS
 #######

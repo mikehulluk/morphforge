@@ -34,20 +34,17 @@
 
 import morphforge.core.monkey_patching
 
+
+
 from morphforge.core.mfrandom import MFRandom
-
 from morphforge.core.mgrs import LocMgr, LogMgr, SettingsMgr, RCMgr
-
 from morphforge.core.misc import merge_dictionaries, check_cstyle_varname
 from morphforge.core.misc import is_iterable, FileIO
 from morphforge.core.misc import SeqUtils, StrUtils
 from morphforge.core.misc import ParameterSweepValues
-
 from morphforge.core.objectnumberer import ObjectLabeller
 from os.path import join as Join
 from morphforge.core.plugindict import PluginDict
-
-from morphforge.core.quantities import unit, U
 
 __all__ = [
     'LocMgr',
@@ -64,8 +61,6 @@ __all__ = [
     'Join',
     'PluginDict',
     'MFRandom',
-    'unit',
-    'U',
     'ParameterSweepValues',
     ]
 

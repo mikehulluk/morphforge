@@ -346,7 +346,7 @@ resultsE = simulate_chls_on_neuron(apply_hh_chls_neurounits_direct)
 #
 trs = [resultsA, resultsB, resultsC, resultsD, resultsE]
 trs = [tr for tr in trs if tr is not None]
-TagViewer(trs, timerange=(95, 200)*pq.ms, show=True)
+TagViewer(trs, timerange=(95, 200)*units.ms, show=True)
 
 
 pylab.show()

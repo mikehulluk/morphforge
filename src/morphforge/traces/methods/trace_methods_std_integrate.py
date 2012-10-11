@@ -31,12 +31,7 @@
 
 from morphforge.traces.traceobjpluginctrl import TraceMethodCtrl
 from morphforge.traces import TraceFixedDT
-#import numpy as np
-#import quantities as pq
-#import operator
 from morphforge.traces.tracetypes import TracePiecewise, PieceWiseComponentVisitor
-#from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionLinear
-#from morphforge.traces.tracetypes.tracepiecewise import TracePieceFunctionFlat
 
 
 def _integrate_pointbased(tr, ):

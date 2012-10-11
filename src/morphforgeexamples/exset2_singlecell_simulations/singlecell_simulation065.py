@@ -163,4 +163,4 @@ sim.record(cell, what=StandardTags.Voltage, cell_location=cell.soma)
 results = sim.run()
 
 # Display the results:
-TagViewer([results], timerange=(97.5, 140)*pq.ms)
+TagViewer([results], timerange=(97.5, 140)*units.ms)

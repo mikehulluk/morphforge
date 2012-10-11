@@ -74,7 +74,7 @@ results3a = build_simulation(mod3aFilename)
 mod3bFilename = Join(LocMgr.get_test_mods_path(), "exampleChannels3b.mod")
 results3b = build_simulation(mod3bFilename)
 
-TagViewer([results3a, results3b], timerange=(95, 200)*pq.ms)
+TagViewer([results3a, results3b], timerange=(95, 200)*units.ms)
 
 try:
     import os

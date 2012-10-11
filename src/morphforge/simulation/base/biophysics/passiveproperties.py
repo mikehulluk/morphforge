@@ -29,8 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.core.quantities import unit
-import morphforge.core.quantities as q
+import morphforge.units as units
 
 
 class PassiveProperty(object):
@@ -40,7 +39,7 @@ class PassiveProperty(object):
 
     all = [SpecificCapacitance, AxialResistance]
 
-    defaults = {SpecificCapacitance: 1 * q.uF / q.cm2, 
-                AxialResistance: 80 * q.ohmcm  }
+    defaults = {SpecificCapacitance: 1 * units.uF / units.cm2, 
+                AxialResistance: 80 * units.ohmcm  }
 
 

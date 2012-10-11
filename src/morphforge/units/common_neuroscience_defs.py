@@ -74,18 +74,18 @@ for a in areas:
 
 ## Molar Quanities:
 # http://en.wikipedia.org/wiki/Mole_(unit)#Related_units
-Molar = pq.UnitQuantity('Mol', pq.mol / pq.liter)
-nMolar = pq.UnitQuantity('nMol', pq.nano * Molar, symbol='nMolar')
-uMolar = pq.UnitQuantity('uMol', pq.micro * Molar, symbol='uMolar')
+molar = pq.UnitQuantity('M', pq.mol / pq.liter)
+millimolar = pq.UnitQuantity('mM', pq.milli * molar)
+micromolar = pq.UnitQuantity('uM', pq.micro * molar)
+nanomolar = pq.UnitQuantity('nM', pq.nano * molar)
+
 
 # Specials:
 ohmcm = pq.UnitQuantity('ohmcm', pq.ohm * pq.centimeter, symbol='ohmcm')
 MOhm = pq.UnitQuantity('megaOhm', pq.ohm * pq.mega, symbol='MOhm')
 
-mV = pq.milli * pq.volt
+mV = pq.millivolt
 
-# HACK to get old scripts working again!
-pA_um2 = pq.pico * pq.amp / um2
 
 
 

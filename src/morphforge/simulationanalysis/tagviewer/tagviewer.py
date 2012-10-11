@@ -30,31 +30,29 @@
 # ----------------------------------------------------------------------
 
 from morphforge.core import is_iterable
-from morphforge.core import unit
+from morphforge.units import unit
 from morphforge.simulation.base import SimulationResult
-from morphforge.core.quantities import mV, ms, Quantity
 from mhlibs.quantities_plot import QuantitiesFigure
 from morphforge.simulationanalysis.tagviewer.plotspecs import TagPlot
 from morphforge.traces import TraceFixedDT
 from morphforge.traces import TraceVariableDT
 from morphforge.traces import TracePiecewise
 from morphforge.traces.eventset import EventSet
-from morphforge.core import quantities as pq
+import morphforge.units as units
 
-import quantities as PQ
 # pylint: disable=W0108
 # (Suppress warning about 'unnessesary lambda functions')
 
 
 
 class DefaultTagPlots(object):
-    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*mV, 50*mV), yunit=pq.millivolt )
-    CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=pq.milliamp / pq.cm2 )
-    Current =            TagPlot("Current", ylabel='Current', yunit=pq.picoamp)
-    Conductance =        TagPlot("Conductance", ylabel="Conductance", yunit=PQ.pico* PQ.S)
-    ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=pq.milli * pq.siemens / pq.cm2 )
+    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*units.mV, 50*units.mV), yunit=units.mV )
+    CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=units.milliamp / units.cm2 )
+    Current =            TagPlot("Current", ylabel='Current', yunit=units.picoamp)
+    Conductance =        TagPlot("Conductance", ylabel="Conductance", yunit=units.pS)
+    ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=units.mS / units.cm2 )
     StateVariable =      TagPlot("StateVariable", ylabel="StateVariable")
-    StateVariableTau =   TagPlot("StateTimeConstant", yunit=pq.millisecond, ylabel="Time Constant")
+    StateVariableTau =   TagPlot("StateTimeConstant", yunit=units.millisecond, ylabel="Time Constant")
     StateVariableInf =   TagPlot("StateSteadyState", ylabel="Steady State")
     Event =              TagPlot("Event", ylabel="Events")
 
@@ -166,7 +164,7 @@ class TagViewer(object):
         assert self.show_xticklabels_with_units in self._options_show_xticklabels_with_units
         assert self.show_xaxis_position in self._options_show_xaxis_position
         if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
-            self.xticks = [ xtick*pq.ms for xtick in self.xticks]
+            self.xticks = [ xtick*units.ms for xtick in self.xticks]
         assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ unit(xtick) for xtick in self.xticks] )
 
 
@@ -197,7 +195,7 @@ class TagViewer(object):
 
             # Create the axis:
             ax = self.fig.add_subplot(n_plots, 1, i + 1)
-            ax.set_xunit(pq.millisecond)
+            ax.set_xunit(units.millisecond)
             ax.set_xmargin(0.05)
             ax.set_ymargin(0.05)
 

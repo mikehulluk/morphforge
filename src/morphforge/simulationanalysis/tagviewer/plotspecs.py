@@ -31,7 +31,7 @@
 
 import numpy as np
 from morphforge.core import is_iterable
-import quantities as pq
+from morphforge import units
 
 from morphforge.traces import TagSelector
 
@@ -227,7 +227,7 @@ class TagPlot(object):
 
 
 
-        plot_points = ax.plot(data[:, 0] * pq.ms, data[:, 1] * pq.dimensionless, 'o', ms=2, **plot_kwargs)
+        plot_points = ax.plot(data[:, 0] * units.ms, data[:, 1] * units.dimensionless, 'o', ms=2, **plot_kwargs)
         return plot_points
 
 
@@ -253,12 +253,12 @@ class TagPlot(object):
         for index, event_set in enumerate(self._sort_eventsets(eventsets)):
             self._plot_eventset(event_set,  ax=ax, index=index+len(trcs))
 
-            # ax.set_ylim(((-0.5) * pq.dimensionless, (len(eventsets)+0.5) * pq.dimensionless))
+            # ax.set_ylim(((-0.5) * units.dimensionless, (len(eventsets)+0.5) * units.dimensionless))
 
         if len(trcs) == 0:
             padding = 0.5
-            ax.set_yunit(1 * pq.dimensionless)
-            ax.set_ylim(((-padding) * pq.dimensionless, (len(eventsets) - 1 + padding) * pq.dimensionless))
+            ax.set_yunit(1 * units.dimensionless)
+            ax.set_ylim(((-padding) * units.dimensionless, (len(eventsets) - 1 + padding) * units.dimensionless))
 
         # Legend:
         if self.legend_labeller is not None:

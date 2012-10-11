@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
-from morphforge.core.quantities import unit
+from morphforge.units import unit
 from mmwriter_caalphabetabeta import NEURONChlWriterCalciumAlphaBetaBeta
 #from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 import numpy as np
-from morphforge.core.quantities import unit
+from morphforge.units.util import unit
 
 # pylint: disable=E1103
 

@@ -31,7 +31,7 @@
 
 from morphforge.stdimports import CurrentClamp, Cell, unit, StandardTags
 from morphforge.stdimports import NEURONEnvironment
-from morphforge.stdimports import factorise_units_from_list
+#from morphforge.stdimports import factorise_units_from_list
 
 import scipy.stats as stats
 
@@ -42,7 +42,8 @@ import itertools
 from morphforge.traces.methods.MMtrace_conversion import TraceConverter
 from morphforge.simulationanalysis.tagviewer.tagviewer import TagViewer
 from mreorg import PM
-import quantities as pq
+from morphforge import units
+import morphforge
 
 
 class CellAnalysis_StepInputResponse(object):
@@ -324,8 +325,8 @@ class CellAnalysis_IVCurve(object):
             ax.set_ylabel('SteadyStateVoltage')
 
         V_in_mV = [self.get_iv_point_steaddy_state(c).rescale('mV').magnitude for c in self.currents]
-        v = np.array(V_in_mV) * pq.mV
-        i = factorise_units_from_list(self.currents)
+        v = np.array(V_in_mV) * units.mV
+        i = morphforge.units.factorise_units_from_list(self.currents)
 
         low_v = V_in_mV < self.v_regressor_limit if self.v_regressor_limit else range( len(V_in_mV))
 

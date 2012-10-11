@@ -47,7 +47,7 @@ import pylab
 
 from morphforge.stdimports import NEURONEnvironment, MorphologyTree, unit
 from morphforge.stdimports import PassiveProperty 
-from morphforge.stdimports import  pq
+from morphforge.stdimports import  units
 from morphforge.stdimports import  StandardTags
 
 import random as R
@@ -308,8 +308,8 @@ def compareNeuroMLChl(xmlFile):
             ax4 = f.add_subplot(4, 1, 4)
             ax1.plotTrace(tN, color='b')
             ax1.plotTrace(tX, color='g', linewidth=20, alpha=0.2)
-            ax2.plotTrace(tN.window((200, 250)*pq.ms), color='b')
-            ax2.plotTrace(tX.window((200, 250)*pq.ms), color='g', linewidth=20, alpha=0.2)
+            ax2.plotTrace(tN.window((200, 250)*units.ms), color='b')
+            ax2.plotTrace(tX.window((200, 250)*units.ms), color='g', linewidth=20, alpha=0.2)
 
             num = (tN-tX)
             denom = (tN+tX)
