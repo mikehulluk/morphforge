@@ -29,13 +29,13 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from tracetypes import TraceFixedDT
-from tracetypes import TraceVariableDT
-from tracetypes import TracePointBased
-from tracetypes import TracePiecewise
-from tracetypes import TracePieceFunctionLinear
-from tracetypes import TracePieceFunctionFlat
-from tracetypes import TracePieceFunctionLinear
+from morphforge.traces.tracetypes import TraceFixedDT
+from morphforge.traces.tracetypes import TraceVariableDT
+from morphforge.traces.tracetypes import TracePointBased
+from morphforge.traces.tracetypes import TracePiecewise
+from morphforge.traces.tracetypes import TracePieceFunctionLinear
+from morphforge.traces.tracetypes import TracePieceFunctionFlat
+from morphforge.traces.tracetypes import TracePieceFunctionLinear
 
 # Need so that they register the methods:
 import morphforge.traces.methods

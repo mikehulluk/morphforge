@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,20 +29,43 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.traces.tags.tagselector import TagSelector
-from morphforge.traces.tags.tagselector import TagSelectorAny
-from morphforge.traces.tags.tagselector import TagSelectorAll
-from morphforge.traces.tags.tagselector import TagSelectorBinary
-from morphforge.traces.tags.tagselector import TagSelectorOr
-from morphforge.traces.tags.tagselector import TagSelectorAnd
 
+import morphforge.stdimports as mf
+#import morphforgecontrib.stdimports as mfc
+#from  morphforge.stdimports import * 
+from  morphforgecontrib.stdimports import * 
 
-__all__ = [
-    'TagSelector',
-    'TagSelectorAny',
-    'TagSelectorAll',
-    'TagSelectorBinary',
-    'TagSelectorOr',
-    'TagSelectorAnd',
-]
+from morphforgecontrib.data_library import StandardModels
 
+def build_passive_cell(sim, input_resistance, capacitance=None, area=None, name=None, reversalpotential=None):
+    unit = mf.unit
+    env = sim.environment
+    
+    if area is None:
+        area = unit('1000:um2')
+        
+    if capacitance is None:
+        capacitance = unit('10:pF')
+        
+    if reversalpotential is None:
+        reversalpotential = unit('-60:mV')
+    
+    lk = env.Channel( StdChlLeak, 
+            conductance = ((1/input_resistance) / area ),
+            reversalpotential = reversalpotential,
+            )
+            
+    cell = sim.create_cell(area=area, name=name)
+    cell.apply_channel(lk)
+    cell.set_passive(mf.PassiveProperty.SpecificCapacitance, capacitance / area)
+
+    return cell
+    
+    
+
+mf.CellLibrary.register(celltype=None, modelsrc=StandardModels.SingleCompartmentPassive, cell_functor=build_passive_cell)
+    
+    
+        
+        
+    

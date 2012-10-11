@@ -37,7 +37,7 @@ class TagSelector(object):
 
     @classmethod
     def from_string(cls, s):
-        from tagselectorstringparser import parse_tagselector_string
+        from morphforge.traces.tags.tagselectorstringparser import parse_tagselector_string
         return parse_tagselector_string(s)
 
     def filter(self, traces):

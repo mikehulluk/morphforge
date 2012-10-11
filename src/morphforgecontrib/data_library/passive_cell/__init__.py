@@ -29,20 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-from morphforge.traces.tags.tagselector import TagSelector
-from morphforge.traces.tags.tagselector import TagSelectorAny
-from morphforge.traces.tags.tagselector import TagSelectorAll
-from morphforge.traces.tags.tagselector import TagSelectorBinary
-from morphforge.traces.tags.tagselector import TagSelectorOr
-from morphforge.traces.tags.tagselector import TagSelectorAnd
 
 
-__all__ = [
-    'TagSelector',
-    'TagSelectorAny',
-    'TagSelectorAll',
-    'TagSelectorBinary',
-    'TagSelectorOr',
-    'TagSelectorAnd',
-]
-
+import passive_cell

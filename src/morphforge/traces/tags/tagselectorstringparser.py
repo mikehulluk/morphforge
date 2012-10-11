@@ -33,8 +33,8 @@ import ply
 import ply.lex
 import ply.yacc
 from morphforge.core.mgrs.locmgr import LocMgr
-from tagselector import TagSelectorAll, TagSelectorAny
-from tagselector import TagSelectorAnd, TagSelectorNot, TagSelectorOr
+from morphforge.traces.tags.tagselector import TagSelectorAll, TagSelectorAny
+from morphforge.traces.tags.tagselector import TagSelectorAnd, TagSelectorNot, TagSelectorOr
 
 reserved = {
     'AND': 'AND',
