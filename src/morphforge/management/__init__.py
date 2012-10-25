@@ -141,13 +141,13 @@ class PluginMgr(object):
 
     @classmethod
     def summarise_postsynapticmechs(cls):
-        obj_types = cls.get_all_postsynmechs()
-        col1 = ['PostSynMech'] + [obj.__name__ for obj in obj_types]
-        cols = [[env._env_name] + [to_symbol(obj, env.postsynapticmechanisms) for obj in obj_types] for env in cls._environments]
-        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
-        cols = [col1] + cols + [col_]
-        rows = zip(*cols)
-        return mrd.Section('Postsynaptic Mechanisms', mrd.VerticalColTable(rows[0], rows[1:]))
+        #obj_types = cls.get_all_postsynmechs()
+        #col1 = ['PostSynMech'] + [obj.__name__ for obj in obj_types]
+        #cols = [[env._env_name] + [to_symbol(obj, env.postsynapticmechanisms) for obj in obj_types] for env in cls._environments]
+        #col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
+        #cols = [col1] + cols + [col_]
+        #rows = zip(*cols)
+        return mrd.Section('Postsynaptic Mechanisms', mrd.Paragraph('To Bring Up to Date') ) # mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_tracemethods(cls):

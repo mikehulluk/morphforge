@@ -89,8 +89,6 @@ class PostSynapticTemplateLibrary(object):
             tmpl_types = sorted(set( [ tt for (tt,st) in model_data] ))
             tmpl_types = [ (tt, sorted([st2 for (tt2,st2) in model_data if tt==tt2])) for tt in tmpl_types]
             tmpl_types = [ (tt,sts) for (tt, sts) in tmpl_types if sts]
-            #print 
-            #print tmpl_types
 
             subsect=[]
             for template_type, synapsetypes in tmpl_types:
@@ -99,7 +97,6 @@ class PostSynapticTemplateLibrary(object):
                 cols = ['Name'] + var_names
                 row_data = []
                 for synapsetype in synapsetypes:
-                    #print 'SynType', synapsetype, template_type
                     syn = cls._dummy_instantiate(modelsrc=modelsrc, synapsetype=synapsetype)
                     syn_vars_dict = syn.get_resolved_parameters()
 
@@ -116,47 +113,6 @@ class PostSynapticTemplateLibrary(object):
 
             sects.append( mrd.Section('ModelSrc: %s' %(modelsrc), *subsect) )
 
-        sect = mrd.Section('SynapseLibrary', *sects)
-        return sect
-
-
-
-        #    new_sect = mredoc.Section(template_type,
-        #                )
-        #        subsect.append(new_sect)
-
-        #    sects.append(subsect)
-
-
-
-
-
-
-        return mrd.Section('Synaptic Templates', *sects )
-
-
-
-
-    #@classmethod
-    #def register_psm_template(cls, modelsrc, synapsetype, psm_template_functor):
-    #    key = (modelsrc, synapsetype)
-    #    assert not key in cls._morphology_functors
-    #    cls._postsynaptic_template_functors[key] = psm_template_functor
-
-    #@classmethod
-    #def get_postsynaptic_template_functor(cls, synapsetype, modelsrc=None):
-    #    return cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
-
-    #@classmethod
-    #def get_postsynaptic_template(cls, synapsetype, modelsrc=None, **kwargs):
-    #    functor = cls._postsynaptic_template_functors[(modelsrc, synapsetype)]
-    #    return functor(**kwargs)
-
-    #@classmethod
-    #def summary_table(cls, ):
-    #    summary_data = []
-    #    for ((modelsrc,synapsetype), functor) in sorted(cls._postsynaptic_template_functors.iteritems()):
-    #        summary_data.append( ( modelsrc, synapsetype ))
-    #    summary_table = mredoc.VerticalColTable( ('Model','Synapse-Type'), summary_data)
-    #    return mredoc.Section('Synapse Library Summary', summary_table )
+        return  mrd.Section('Synaptic Templates', *sects)
+        #'return sect
 

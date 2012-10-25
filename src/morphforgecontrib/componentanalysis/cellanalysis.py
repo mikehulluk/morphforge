@@ -28,41 +28,12 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
+ 
 
-from morphforge.units import qty
 
 
-class NEURONSimulationSettings(object):
 
-    dt = 'dt'
-    tstop = 'tstop'
-    cvode = 'cvode'
-    reltol = 'reltol'
-    abstol = 'abstol'
-    allparams = (dt, tstop, cvode, reltol, abstol)
 
-    @classmethod
-    def get_defaults(cls):
-        defs = {NEURONSimulationSettings.dt: qty('0.01:ms'),
-                NEURONSimulationSettings.tstop: qty('500:ms'),
-                NEURONSimulationSettings.reltol: 0.0,
-                NEURONSimulationSettings.abstol: 1e-2,
-                NEURONSimulationSettings.cvode: True}
-
-        # Check we have defaults for all parameters:
-        for parameter in NEURONSimulationSettings.allparams:
-            assert parameter in defs
-
-        return defs
-
-    def __init__(self, **kwargs):
-        self.params = NEURONSimulationSettings.get_defaults()
-
-        for key in kwargs:
-            assert key in self.params
-            self.params[key] = kwargs[key]
-
-    def __getitem__(self, key):
-        return self.params[key]
-
+class CellAnalysis(object):
+    pass
 

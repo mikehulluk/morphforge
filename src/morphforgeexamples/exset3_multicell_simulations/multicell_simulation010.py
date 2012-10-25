@@ -68,17 +68,17 @@ def simulate_chls_on_neuron():
     exp2template = env.PostSynapticMechTemplate(
         PostSynapticMech_Exp2SynNMDA_Base,
         template_name='expsyn2tmpl',
-        tau_open = 5 * units.ms, tau_close=20*units.ms, e_rev=0 * units.mV, popening=1.0, vdep=False,
+        tau_open = 5 * units.ms, tau_close=20*units.ms, e_rev=0 * units.mV, popening=1.0, peak_conductance = qty("1:nS"),  vdep=False,
         )
 
 
 
     syn = sim.create_synapse(
             trigger = env.SynapticTrigger(
-                                     PreSynapticMech_TimeList,
+                                     SynapticTriggerAtTimes,
                                      time_list =   (100,105,110,112,115, 115,115) * units.ms ,
                                      ),
-            postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma, peak_conductance = qty("1:nS") ),
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell1.soma, ),
            )
 
     syn = sim.create_synapse(
@@ -88,7 +88,7 @@ def simulate_chls_on_neuron():
                                      voltage_threshold=qty("0:mV"),
                                      delay=qty('1:ms'),
                                      ),
-            postsynaptic_mech = exp2template.instantiate(cell_location = cell2.soma, peak_conductance = qty("1:nS") ),
+            postsynaptic_mech = exp2template.instantiate(cell_location = cell2.soma, ),
            )
 
 

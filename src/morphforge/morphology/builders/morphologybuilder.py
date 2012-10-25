@@ -48,7 +48,7 @@ def _convert_to_unit(o, default_unit):
     if isinstance(o, units.Quantity):
         return o.rescale(default_unit)
     elif is_float(o) or is_int(o):
-        return o * morphforge.units.unit_string_parser.parse(default_unit).rescale(default_unit)
+        return o * morphforge.units.parse_unit_str(default_unit)#.rescale(default_unit)
     elif isinstance(o, (str, unicode)) and ':' in o:
         return qty(o).rescale(default_unit)
     else:

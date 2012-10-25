@@ -110,9 +110,6 @@ class CellBiophysics(object):
     def get_all_channels_applied_to_cell(self):
         return set([mta.channel for mta in self.appliedmechanisms])
 
-    #def get_channels(self):
-    #    # TODO: RENAME ONE OF THESE!
-    #    return self.get_all_channels_applied_to_cell()
 
     def get_channel(self, name):
         try:

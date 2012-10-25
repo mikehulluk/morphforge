@@ -192,6 +192,7 @@ class TagPlot(object):
         return sorted(event_sets, key=lambda trace: trace.name)
 
     def _plot_trace(self, trace,  ax, index, color=None):
+        plot_kwargs = {'marker':'x'}
         plot_kwargs = {}
 
         if self.legend_labeller is not None:

@@ -57,18 +57,24 @@ class CellAnalysis_StepInputResponse(object):
         plot_all=False,
         sim_kwargs=None,
         tagviewer_kwargs=None,
+        include_internal_currents=True
         ):
+
         self.cell_functor = cell_functor
         self.currents = currents
         self.env = env
         self.sim_kwargs = sim_kwargs or {}
         self.tagviewer_kwargs = tagviewer_kwargs or {}
+        self.include_internal_currents=include_internal_currents
+        self.fig=None
 
         self.result_traces = {}
 
         self.cell_description = cell_description
 
         self.simulate_all()
+
+
 
         if plot_all:
             self.plot()
@@ -83,7 +89,7 @@ class CellAnalysis_StepInputResponse(object):
 
         title = '%s- Step Current Inject Responses' \
             % self.cell_description
-        TagViewer(trs, show=False, figtitle=title,
+        self.fig = TagViewer(trs, show=False, figtitle=title,
                   **self.tagviewer_kwargs)
 
     def simulate(self, current):
@@ -91,21 +97,132 @@ class CellAnalysis_StepInputResponse(object):
         sim = self.env.Simulation(**self.sim_kwargs)
         cell = self.cell_functor(sim=sim)
 
-        soma_loc = cell.get_location('soma')
+        #soma_loc = cell.get_location('soma')
 
         cc = sim.create_currentclamp(name='cclamp', amp=current,
-                dur='80:ms', delay='50:ms', cell_location=soma_loc)
+                dur='80:ms', delay='50:ms', cell_location=cell.soma)
+
+
+        if self.include_internal_currents:
+            for chl in cell.biophysics.get_all_channels_applied_to_cell():
+                sim.record(chl, what=StandardTags.CurrentDensity, cell_location=cell.soma)
+                print 'chl',chl
 
         sim.record(cc, name='Current',
                    what=CurrentClamp.Recordables.Current,
                    description='CurrentClampCurrent')
-        sim.record(cell, name='SomaVoltage', cell_location=soma_loc,
+        sim.record(cell, name='SomaVoltage', cell_location=cell.soma,
                    what=Cell.Recordables.MembraneVoltage,
                    description='Response to i_inj=%s ' % current)
 
         res = sim.run()
 
         return (res.get_trace('SomaVoltage'), res.get_trace('Current'))
+
+
+
+
+class CellAnalysis_IFCurve(object):
+
+    def __init__(
+        self,
+        cell_functor,
+        currents,
+        env,
+        cell_description=None,
+        plot_all=False,
+        sim_kwargs=None,
+        tagviewer_kwargs=None,
+        include_internal_currents=True
+        ):
+
+        self.cell_functor = cell_functor
+        self.currents = currents
+        self.env = env
+        self.sim_kwargs = sim_kwargs or {}
+        self.tagviewer_kwargs = tagviewer_kwargs or {}
+        self.include_internal_currents=include_internal_currents
+        self.fig1=None
+        self.fig2=None
+
+        self.result_traces = {}
+        self.freqs = {}
+
+        self.cell_description = cell_description
+
+        self.simulate_all()
+
+
+
+        if plot_all:
+            self.plot()
+
+    def simulate_all(self):
+        for c in self.currents:
+            (current,v, freq) = self.simulate(c)
+            self.result_traces[c] = (current, v)
+            self.freqs[float( c.rescale('pA') )]=freq
+
+    def plot(self):
+        trs = list(itertools.chain(*self.result_traces.values()))
+        title = '%s- Step Current Inject Responses' \
+            % self.cell_description
+        self.fig1 = TagViewer(trs, show=False, figtitle=title,
+                  **self.tagviewer_kwargs)
+
+        import pylab
+        self.fig2 = pylab.figure()
+        ax = self.fig2.add_subplot(1,1,1)
+        
+        cur,freq = zip( *sorted(self.freqs.items() ) )
+        ax.plot( cur,freq, 'x-')
+
+
+
+    def simulate(self, current):
+
+        sim = self.env.Simulation(**self.sim_kwargs)
+        cell = self.cell_functor(sim=sim)
+
+        #soma_loc = cell.get_location('soma')
+
+        cc = sim.create_currentclamp(name='cclamp', amp=current, dur='300:ms', delay='50:ms', cell_location=cell.soma)
+        #print len(sim.cells)
+        #assert False
+
+
+        if self.include_internal_currents:
+            for chl in cell.biophysics.get_all_channels_applied_to_cell():
+                sim.record(chl, what=StandardTags.CurrentDensity, cell_location=cell.soma)
+                print 'chl',chl
+
+        sim.record(cc, name='Current',
+                   what=CurrentClamp.Recordables.Current,
+                   description='CurrentClampCurrent')
+        sim.record(cell, name='SomaVoltage', cell_location=cell.soma,
+                   what=Cell.Recordables.MembraneVoltage,
+                   description='Response to i_inj=%s ' % current)
+
+        res = sim.run()
+
+
+        v = res.get_trace('SomaVoltage')
+        from morphforgecontrib.stdimports import SpikeFinder
+        n_spikes = len( SpikeFinder.find_spikes(trace=v) )
+        freq = n_spikes / 0.3
+
+
+        current =  res.get_trace('Current')
+        return (current,v, freq)
+
+
+
+
+
+
+
+
+
 
 
 class CellAnalysis_ReboundResponse(object):
@@ -148,26 +265,7 @@ class CellAnalysis_ReboundResponse(object):
     def plot(self):
         self.plot_traces()
 
-    # def plot_rebound_graphs(self):
-    #    c1Values = set([k[0] for k in self.result_traces])
-    #    c2Values = set([k[1] for k in self.result_traces])
-    #
-    #    f = pylab.figure()
-    #    ax = f.add_subplot(1, 1, 1)
-    #
-    #    tested_pts = []
-    #    spiking_pts = []
-    #    rebound_pts = []
-    #
-    #    for current1 in c1Values:
-    #        for current2 in c2Values:
-    #            self.result_traces[(current1, current2)]
-    #
-    #            # Plot a dot to show that the simulation was run:
-    #            ax.plot(current1, current2, 'o', markersize=10, color='black')
-    #            #tr =
-    #
-                #            trs = []
+
 
     def plot_traces(self):
         c1_values = set([k[0] for k in self.result_traces])
@@ -237,6 +335,7 @@ class CellAnalysis_IVCurve(object):
     def __init__(self, cell_functor, currents, cell_description=None, sim_functor=None, v_regressor_limit=None, sim_kwargs=None, plot_all=False):
         self.cell_functor = cell_functor
         self.v_regressor_limit = v_regressor_limit
+        self.fig=None
         #Previously = qty("-30:mV")
 
         self.sim_kwargs = sim_kwargs or {}
@@ -296,9 +395,9 @@ class CellAnalysis_IVCurve(object):
         title = '%s: (Voltage Responses to Current Injections)' \
             % self.cell_description
         if not ax:
-            f = QuantitiesFigure()
-            f.suptitle(title)
-            ax = f.add_subplot(1, 1, 1)
+            self.fig = QuantitiesFigure()
+            self.fig.suptitle(title)
+            ax = self.fig.add_subplot(1, 1, 1)
             ax.set_xlabel('Time')
             ax.set_ylabel('Voltage')
 

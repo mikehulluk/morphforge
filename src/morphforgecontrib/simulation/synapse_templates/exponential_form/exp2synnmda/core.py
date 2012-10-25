@@ -35,16 +35,23 @@ from morphforge.stdimports import units
 
 class PostSynapticMech_Exp2SynNMDA_Base(object):
 
-    def __init__(self, tau_open, tau_close, e_rev, popening, peak_conductance, vdep=True, **kwargs):
+    def __init__(self, tau_open, tau_close, e_rev, popening, peak_conductance, eta=None, mg2conc=None, gamma=None, vdep=True, **kwargs):
+
+        # TODO: THESE SHOULD BE SPECIFIED, and should not default:
+
+        if gamma is None:
+            gamma = 0.08 * units.per_mV
+        if eta is None:
+            eta = 0.1 * units.per_mM
+        if mg2conc is None:
+            mg2conc= 0.5 * units.mM
+
+
         super(PostSynapticMech_Exp2SynNMDA_Base, self).__init__( **kwargs)
-        self._default_parameters = { 'vdep':vdep, 'tau_open':tau_open, 'tau_close':tau_close, 'e_rev':e_rev, 'popening':popening, 'peak_conductance':peak_conductance}
+        self._default_parameters = { 'vdep':vdep, 'tau_open':tau_open, 'tau_close':tau_close, 
+                'e_rev':e_rev, 'popening':popening, 'peak_conductance':peak_conductance, 'eta':eta, 'gamma':gamma, 'mg2conc':mg2conc}
 
 
-    @classmethod
-    def get_variables(self,):
-        return ['tau_open','tau_close', 'popening','e_rev', 'vdep', 'peak_conductance' ]
-
-    @classmethod
     def get_preferred_unit(cls, varname):
         _units = {
                 'tau_open': units.ms,
@@ -52,6 +59,15 @@ class PostSynapticMech_Exp2SynNMDA_Base(object):
                 'popening': units.dimensionless,
                 'e_rev': units.mV,
                 'peak_conductance': units.nS,
+                'gamma': (1/units.mV),
+                'eta': (1/units.mM),
+                'mg2conc': units.mM,
+                'vdep':units.dimensionless,
                 }
         return _units[varname]
+
+    @classmethod
+    def get_variables(cls):
+        return [ 'tau_open', 'tau_close', 'popening', 'e_rev', 'vdep',
+                 'peak_conductance', 'gamma', 'eta', 'mg2conc', ]
 

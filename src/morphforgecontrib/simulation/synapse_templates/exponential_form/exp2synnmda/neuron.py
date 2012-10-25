@@ -86,6 +86,10 @@ ${synnamepost}.e = $e_rev.rescale("mV").magnitude
 ${synnamepost}.popening = $pOpening
 ${synnamepost}.is_vdep_on = $is_vdep_on
 ${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
+
+${synnamepost}.gamma = $gamma.rescale('per_mV').magnitude
+${synnamepost}.eta = $eta.rescale('per_mM').magnitude
+${synnamepost}.mg2conc = $mg2conc.rescale('mM').magnitude
 """
 
 
@@ -104,6 +108,10 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         vdep = params['vdep']
         peak_conductance = params['peak_conductance']
 
+        gamma = params['gamma']
+        eta = params['eta']
+        mg2conc = params['mg2conc']
+
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
         syn_name_post = instance.synapse.get_name() + 'Post'
@@ -120,8 +128,11 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             'pOpening': popening,
             'random_seed': MFRandom.get_seed(),
             'is_vdep_on': (1.0 if vdep else 0.0),
-            'peak_conductance': peak_conductance
-                           
+            'peak_conductance': peak_conductance,
+            'gamma':gamma,
+            'eta':eta,
+            'mg2conc':mg2conc,
+
                }
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,

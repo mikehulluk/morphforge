@@ -43,17 +43,21 @@ class NeuronSimSetupObj(NEURONObject):
         self.simsettings = simsettings
 
     def build_hoc(self, hocfile_obj):
-        hocfile_obj.add_to_section(MHOCSections.InitHeader,
-                                   """load_file("noload.hoc")""")
+        hocfile_obj.add_to_section(MHOCSections.InitHeader, """load_file("noload.hoc")""")
 
         if self.simsettings['cvode']:
             hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode_active(1)""")
-            #hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.atol(1e-12)""")
-            #hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.rtol(1e-12)""")
+        else:
+            hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode_active(0)""")
+            hocfile_obj.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%(self.simsettings["dt"].rescale("ms").magnitude))
 
-        # For testing: should be done properly:
+
+        # Simulator accuracy:
+        hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.atol(%e)""" % self.simsettings['abstol'])
+        hocfile_obj.add_to_section( MHOCSections.InitHeader, """cvode.rtol(%e)""" % self.simsettings['reltol'])
+
+        # Duration of the simulation:
         hocfile_obj.add_to_section(MHOCSections.InitSimParams, """tstop=%s"""%(self.simsettings["tstop"].rescale("ms").magnitude))
-        hocfile_obj.add_to_section(MHOCSections.InitSimParams, """dt=%s"""%(self.simsettings["dt"].rescale("ms").magnitude))
         hocfile_obj.add_to_section(MHOCSections.InitRecords, "\n".join(["objref rect", "rect = new Vector()", "rect.record(&t)"]))
 
     def build_mod(self, modfile_set):

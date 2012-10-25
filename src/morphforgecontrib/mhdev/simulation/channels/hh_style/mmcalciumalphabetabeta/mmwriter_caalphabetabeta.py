@@ -102,14 +102,15 @@ $(cell_name).internalsections [$section_index] {
         m.add_unit_definition(unitname='(C/mole)', unitsymbol='fUnits')
 
 
-        m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca", "SCa_i", "Sca_o", "T"])
+        m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca", "SCa_i", "Sca_o", "T",'i_ungated' ])
 
         neuronUnitsToQuantities = {
                                    "cm/sec" : "cm/sec",
                                    "rUnits" : units.joule / (units.Kelvin * units.mol),
                                    "K": "K",
                                    "fUnits":"C/mol",
-                                   "M":   units.mol / units.litre,
+                                   "M":   units.molar,
+                                   "uM":   units.uM,
                                    "mA/cm2":"mA/cm2",
                                    "mV":"mV",
                                    }
@@ -120,8 +121,8 @@ $(cell_name).internalsections [$section_index] {
                   ("R",     "rUnits",   caAlphaBetaBetaChl.R),
                   ("T",     "K",       caAlphaBetaBetaChl.T),
                   ("F",     "fUnits",       caAlphaBetaBetaChl.F),
-                  ("SCa_i", "M",      caAlphaBetaBetaChl.intracellular_concentration),
-                  ("SCa_o", "M",      caAlphaBetaBetaChl.extracellular_concentration),
+                  ("SCa_i", "uM",      caAlphaBetaBetaChl.intracellular_concentration),
+                  ("SCa_o", "uM",      caAlphaBetaBetaChl.extracellular_concentration),
                  ]
         for name, unit, initialvalueUnit in params:
             initval = initialvalueUnit.rescale(neuronUnitsToQuantities[unit]).magnitude
@@ -135,8 +136,9 @@ $(cell_name).internalsections [$section_index] {
         # Assignments:
         assignments = [
                     ("i", "mA/cm2"),
+                    ("i_ungated", "mA/cm2"),
                     ("v", "mV"),
-                    ('c', None),
+                    #('c', None),
                     ('cV', None),
        ]
         for name, unit in assignments:
@@ -215,13 +217,66 @@ FUNCTION vtrap(x,y)
 }
 
 
+FUNCTION ghkvtrap(cV, pca, mcai, mcao)
+{
+
+    LOCAL FL, cV_neg_exp
+    FL = 96485.33
+
+    :cV = -1.54726924948
+    cV_neg_exp = exp(-cV)
+    :cV_neg_exp  = 4.69862188369
+
+    :if(cV < 0.0000001)
+    if( 1<0) :cV < 0.0000001)
+    {
+        ghkvtrap =   ( pca * (1e-2) ) * CaZ * FL * (mcai - mcao) * (1e-3)  * (1e+4)  * (1e3)        * (1e-6)
+        :            ---------------    ---------  -------------   -----     ------    -----          -------
+        :                   |               |           |           |         |          |               |
+        :  Units:         m/sec          C/mol         mol/L       L/m3      m2/cm2   (milli)           [Because the units of conentrations are in uM not M]
+        :
+        :      -->  (C/s) * (/m2) * (m2/cm2) * (milli)
+        ghkvtrap = ghkvtrap / 100
+    }
+    else
+    {
+        ghkvtrap =   ( pca * (1e-2) ) * cV *  CaZ * FL * ((mcai - mcao * cV_neg_exp)    /   (1.0-cV_neg_exp))  * (1e-3)  * (1e4)  * (1e3)    *  (1e-6)
+        :           -----------------  ----  ---------  ------------------------------   ---------------------   ------    ------    -----       -------
+        :                   |            |      |                      |                          |                 |        |         |            |
+        :  Units:          m/sec        (-)   (C/mol)             mol / L                      (-)                L/m3     m2/cm2   (milli)    [Because the units of conentrations are in uM not M]
+
+        :
+        :       ->  C/mol  * (/m2) * (m2/cm2) * (milli)
+        :       ->  mA/cm2
+
+        : Reduse out the large scalings to a single term:
+        ghkvtrap =   ( pca * 1.0    ) * cV *  CaZ * FL * ((mcai - mcao * cV_neg_exp)     /  (1.0-cV_neg_exp))    * (1e-4)
+
+        : Why is this here?
+        : The results it gives are correct, but I do not understand why.
+        : Where does the factor of 100 come from ??
+        ghkvtrap = ghkvtrap / 100
+    }
+
+
+
+}
+
+
 """
         m.add_function(stdFormAlphaBeta)
 
 
-        m.add_breakpoint('c = (CaZ * F) / (R * T)')
-        m.add_breakpoint('cV = c * v * 1e-3')
-        m.add_breakpoint('i = pca * cV * 1e-3 *  CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale')
+        #m.add_breakpoint('c = (CaZ * F) / (R * T)')
+        #m.add_breakpoint('cV = c * v * (1.e-3)')
+        m.add_breakpoint('cV = (v* (1e-3) ) * (CaZ * F ) / (R*T)')
+        m.add_breakpoint('i_ungated = ghkvtrap(cV, pca, SCa_i, SCa_o)  ' )
+        m.add_breakpoint('i = i_ungated * m * m * gScale' )
+
+
+        #m.add_breakpoint('i = pca * cV * 1e-3 *  CaZ * F *(SCa_i - SCa_o * exp(-1.0 * cV)) / (1.0-exp(-1.0*cV)) *m *m * gScale')
+        #m.add_breakpoint('gScale=1.0')
+        #m.add_breakpoint('i = ghkvtrap(cV, pca, SCa_i, SCa_o) * m*m * gScale')
 
         modtxt = m.get_text()
         modFile = ModFile(name=caAlphaBetaBetaChl.name, modtxt=modtxt)

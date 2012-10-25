@@ -84,9 +84,16 @@ nanomolar = pq.UnitQuantity('nM', pq.nano * molar)
 ohmcm = pq.UnitQuantity('ohmcm', pq.ohm * pq.centimeter, symbol='ohmcm')
 MOhm = pq.UnitQuantity('megaOhm', pq.ohm * pq.mega, symbol='MOhm')
 
+
+
+
+# Per XX
+per_mV = pq.UnitQuantity('per_mV', 1/pq.millivolt)
+per_mM = pq.UnitQuantity('per_mM', 1/millimolar)
+
+
+# Aliases:
 mV = pq.millivolt
-
-
-
-
+mM = millimolar
+uM = micromolar
 

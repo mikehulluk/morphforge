@@ -65,6 +65,10 @@ NEURON {
     RANGE voltage_dependancy
     RANGE is_vdep_on
     RANGE peak_conductance
+
+    RANGE eta
+    RANGE mg2conc
+    RANGE gamma
 }
 
 UNITS {
@@ -80,6 +84,10 @@ PARAMETER {
     popening=1.0 () <0.0, 1.0>
     is_vdep_on = 1
     peak_conductance = -100000 ()
+
+    eta = 0.1
+    mg2conc=0.5
+    gamma=0.08
         
 }
 
@@ -123,7 +131,7 @@ FUNCTION vdep_func(Vin, vdep)
         vdep_func = 1.0
     }
     else {
-         vdep_func = (1. / (1.+ 0.1*0.5*exp(-0.08*Vin)))
+         vdep_func = (1. / (1.+ eta*mg2conc*exp(-gamma*Vin)))
     }
 }
 
@@ -143,23 +151,23 @@ DERIVATIVE state {
 
 NET_RECEIVE(weight (uS)) {
     LOCAL clip
+
+
     VERBATIM
     float x = ((float) rand()) /  RAND_MAX;
     if(x < popening)
     {
-        //printf("%f %f", A, B);
     ENDVERBATIM
         weight = 1.0
 
         A = A + weight*factor * peak_conductance
         B = B + weight*factor * peak_conductance
 
-        clip = weight*factor *3000 * peak_conductance
-        if(A>clip) {A=clip}
-        if(B>clip) {B=clip}
+        ://clip = weight*factor *3000 * peak_conductance
+        ://if(A>clip) {A=clip}
+        ://if(B>clip) {B=clip}
 
     VERBATIM
-        //printf("->%f %f (%f)\\n", A, B, _lclip);
     }
     ENDVERBATIM
 

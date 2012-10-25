@@ -114,7 +114,7 @@ class VoltageClampStepChange(VoltageClamp):
         dur3='0:ms',
         amp2='0:mV',
         amp3='0:mV',
-        rs='0.1:MOhm',
+        rs='0.01:MOhm',
         **kwargs
         ):
 

@@ -51,6 +51,8 @@ from morphforge.units.common_neuroscience_defs import ohmcm
 from morphforge.units.common_neuroscience_defs import MOhm
 from morphforge.units.common_neuroscience_defs import mV
 from morphforge.units.common_neuroscience_defs import molar, millimolar, micromolar, nanomolar
+from morphforge.units.common_neuroscience_defs import mM, uM
+from morphforge.units.common_neuroscience_defs import per_mM, per_mV
 
 
 

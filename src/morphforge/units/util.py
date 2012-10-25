@@ -51,6 +51,11 @@ def factorise_units_from_list(seq):
 
 
 def parse_unit_str(s):
+
+    
+    if not s.strip():
+        return pq.dimensionless
+
     # TODO: HACK TO MAKE CERTAIN UNITS LOOK NICE
     if s == 'nA':
         return pq.nano * pq.amp
@@ -99,9 +104,11 @@ def _qty(s):
         unt = parse_unit(unit_str)
         return value * unt
 
+
+
     print s
     assert False, "MH I Don't think we get here, Oct 2012"
-
+    # This can (hopefully) all go . . .
     if ' ' in s:
         print s
         assert False, "MH I Don't think we get here, Oct 2012"

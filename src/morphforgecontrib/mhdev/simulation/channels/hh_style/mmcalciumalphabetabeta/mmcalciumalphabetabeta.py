@@ -31,6 +31,7 @@
 
 from morphforge.units import qty
 from morphforge import units
+from morphforge.stdimports import StandardTags
 from morphforge.simulation.base import Channel
 
 
@@ -38,8 +39,8 @@ class StdChlCalciumAlphaBetaBeta(Channel):
 
     class Recordables(object):
 
-        CurrentDensity = 'CurrentDensity'
-        StateVar = 'StateVar'
+        CurrentDensity = StandardTags.CurrentDensity
+        StateVar = StandardTags.StateVariable
         StateVarSteadyState = 'StateSteaddyState'
         StateVarTimeConstant = 'StateTimeConstant'
 
@@ -62,7 +63,7 @@ class StdChlCalciumAlphaBetaBeta(Channel):
 
         self.F = qty('96485.3365:C/mol')
         self.R = qty('8.314421:J/(K mol)')
-        self.CaZ = qty('2:')
+        self.CaZ = qty('2.0:')
         self.T = qty(temperature)
 
     def get_variables(self):

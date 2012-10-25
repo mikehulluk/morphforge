@@ -33,12 +33,10 @@ from mmcalciumalphabetabeta import StdChlCalciumAlphaBetaBeta
 from morphforge import units
 from morphforge.units import parse_unit_str
 from mmwriter_caalphabetabeta import NEURONChlWriterCalciumAlphaBetaBeta
-#from morphforge.simulation.neuron.hocmodbuilders import MM_ModFileWriterBase
 from morphforge.simulation.neuron.hocmodbuilders import HocModUtils
 from morphforge.simulation.neuron import NEURONChl_Base
 from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable 
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 
 
@@ -63,9 +61,6 @@ class NEURONChl_CalciumAlphaBetaBeta_Record(NEURONRecordableOnLocation):
             recordobj=self,
             )
 
-    #def get_tags(self):
-    #    return []
-
     def get_description(self):
         return '%s %s' % ('CaValue',
                           self.cell_location.get_location_description_str())
@@ -83,6 +78,21 @@ class NEURONChl_CalciumAlphaBetaBeta_CurrentDensityRecord(NEURONChl_CalciumAlpha
         self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s'
                             % self.name, modvar='i')
 
+class NEURONChl_CalciumAlphaBetaBeta_CurrentDensityUngatedRecord(NEURONChl_CalciumAlphaBetaBeta_Record):
+
+    def get_unit(self):
+        return parse_unit_str('mA/cm2')
+
+    def get_std_tags(self):
+        return [StandardTags.CurrentDensity]
+
+    def build_hoc(self, hocfile_obj):
+        self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s'
+                            % self.name, modvar='i_ungated')
+
+
+
+
 
 class NEURONChl_CalciumAlphaBetaBeta_RecordState(NEURONChl_CalciumAlphaBetaBeta_Record):
 
@@ -93,7 +103,6 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordState(NEURONChl_CalciumAlphaBetaBeta_
         self.state = state
 
     def get_unit(self):
-        #return parse_unit_str('1')
         return units.dimensionless
 
     def get_std_tags(self):
@@ -114,7 +123,6 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordStateVarSteedyState(NEURONChl_Calcium
 
     def get_unit(self):
         return units.dimensionless
-        #return parse_unit_str('1')
 
     def get_std_tags(self):
         return [StandardTags.StateSteadyState]
@@ -145,7 +153,42 @@ class NEURONChl_CalciumAlphaBetaBeta_RecordStateVarTimeConstant(NEURONChl_Calciu
 
 
 
-
+#class NEURONChl_CalciumAlphaBetaBeta_RecordGeneral(NEURONChl_CalciumAlphaBetaBeta_Record):
+#
+#    def __init__(self, caAlphaBetaBetaChl, mod_varname, nrn_unit, std_tags, **kwargs):
+#
+#        super(NEURONChl_CalciumAlphaBetaBeta_Record, self).__init__(**kwargs)
+#        self.caAlphaBetaBetaChl = caAlphaBetaBetaChl
+#
+#        self.mod_varname = mod_varname
+#        self.unit = nrn_unit
+#        self.std_tags = std_tags
+#
+#    def get_unit(self):
+#        return self.unit
+#
+#    def get_std_tags(self):
+#        return self.tags[:]
+#
+#    def build_hoc(self, hocfile_obj):
+#        self.buildHocRecVar(hocfile_obj=hocfile_obj, vecname='RecVec%s' % self.name, modvar=self.mod_varname)
+#    #def build_mod(self, modfile_set):
+#    #    pass
+#
+#    #def buildHocRecVar(self, hocfile_obj, vecname, modvar):
+#    #    HocModUtils.create_record_from_modfile(
+#    #        hocfile_obj,
+#    #        vecname=vecname,
+#    #        cell_location=self.cell_location,
+#    #        modvariable=modvar,
+#    #        mod_neuronsuffix=self.caAlphaBetaBetaChl.get_neuron_suffix(),
+#    #        recordobj=self,
+#    #        )
+#
+#    #def get_description(self):
+#    #    return '%s %s' % ('CaValue',
+#    #                      self.cell_location.get_location_description_str())
+#
 
 
 
@@ -157,6 +200,7 @@ class NEURONChl_CalciumAlphaBetaBeta(StdChlCalciumAlphaBetaBeta, NEURONChl_Base)
     def get_recordable(self, what, **kwargs):
 
         recorders = {
+            'IUNGATED': NEURONChl_CalciumAlphaBetaBeta_CurrentDensityUngatedRecord,
             StdChlCalciumAlphaBetaBeta.Recordables.CurrentDensity: NEURONChl_CalciumAlphaBetaBeta_CurrentDensityRecord,
             StdChlCalciumAlphaBetaBeta.Recordables.StateVar: NEURONChl_CalciumAlphaBetaBeta_RecordState,
             StdChlCalciumAlphaBetaBeta.Recordables.StateVarSteadyState: NEURONChl_CalciumAlphaBetaBeta_RecordStateVarSteedyState,

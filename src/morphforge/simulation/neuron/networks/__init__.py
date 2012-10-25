@@ -191,7 +191,9 @@ class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
         for k,v in self.parameter_overides.iteritems():
             params[k] = v
 
-        assert set( params.keys() ) == set( self.src_tmpl.get_variables() )
+        if not set( params.keys() ) == set( self.src_tmpl.get_variables() ):
+            print params.keys(),  self.src_tmpl.get_variables() 
+            assert False
 
         return params
 

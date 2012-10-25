@@ -103,15 +103,23 @@ class ModBuilderParams(object):
 
 
 
-def _simple_exec(cmd, remaining):
+def _simple_exec(cmd, remaining, err_ok=False):
     print 'Executing: %s %s' % (cmd, remaining)
-    output = subprocess.Popen([cmd + ' ' + remaining],
+    args = [cmd + ' ' + remaining]
+    
+    proc = subprocess.Popen(args,
                               shell=True,
                               stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE).communicate()[0]
+                              stderr=subprocess.PIPE)
+    output = proc.communicate()[0]
+    assert proc.returncode== 0 or err_ok==True, 'Problem Building Mod-file!' + '\n %s '% args
+
     if SettingsMgr.simulator_is_verbose():
         print output
     return output
+
+
+
 
 
 def _build_modfile_local(mod_filename_short, modfile=None):
@@ -124,15 +132,9 @@ def _build_modfile_local(mod_filename_short, modfile=None):
 
     libs_dir = '.libs/'
 
-    # Check for some existing files:
-
-    #for gen_file in gen_files:
-    #    if os.path.exists(gen_file):
-    #        assert False, 'We never get here'
-    #        LocMgr.BackupDirectory(gen_file)
 
     c_filename = mod_file_basename + '.c'
-    output = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short)
+    output = _simple_exec(ModBuilderParams.nocmodlpath, mod_filename_short, err_ok=True)
 
     if not os.path.exists(c_filename):
         print 'Failed to compile modfile. Error:'
@@ -148,16 +150,24 @@ def _build_modfile_local(mod_filename_short, modfile=None):
     # Compile the .c file -> .so:
     compile_str = ModBuilderParams.get_compile_str(c_filename, lo_filename)
     link_str = ModBuilderParams.get_link_str(lo_filename, la_filename)
+    compile_flags = modfile.additional_compile_flags if modfile else ''
+    link_flags = modfile.additional_link_flags if modfile else ''
+
+
+
 
     if SettingsMgr.simulator_is_verbose():
         print 'IN:', ModBuilderParams.libtoolpath,
         print compile_str
         print link_str
 
-    compile_flags = modfile.additional_compile_flags if modfile else ''
-    link_flags = modfile.additional_link_flags if modfile else ''
     op1 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_compile_str(c_filename, lo_filename, additional_compile_flags=compile_flags))
     op2 = _simple_exec(ModBuilderParams.libtoolpath, ModBuilderParams.get_link_str(lo_filename, la_filename, additional_link_flags=link_flags))
+
+    for filename in [c_filename, lo_filename, la_filename]:
+        if not os.path.exists(filename):
+            assert False, 'Error building mod-file!'
+
 
     if SettingsMgr.simulator_is_verbose() or True:
         print 'OP1:', op1
@@ -218,7 +228,7 @@ class ModFileCompiler(object):
 
     @classmethod
     def check_modfile_units(cls, modfilename):
-        output = _simple_exec(ModBuilderParams.modlunitpath, modfilename)
+        output = _simple_exec(ModBuilderParams.modlunitpath, modfilename, err_ok=True)
 
         op_expected = """
         model   1.1.1.1   1994/10/12 17:22:51
