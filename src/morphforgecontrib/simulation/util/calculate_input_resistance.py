@@ -133,7 +133,8 @@ class CellAnalysis_IFCurve(object):
         plot_all=False,
         sim_kwargs=None,
         tagviewer_kwargs=None,
-        include_internal_currents=True
+        include_internal_currents=True,
+        inject_all_cells = False
         ):
 
         self.cell_functor = cell_functor
@@ -144,6 +145,7 @@ class CellAnalysis_IFCurve(object):
         self.include_internal_currents=include_internal_currents
         self.fig1=None
         self.fig2=None
+        self.inject_all_cells = inject_all_cells
 
         self.result_traces = {}
         self.freqs = {}
@@ -185,16 +187,18 @@ class CellAnalysis_IFCurve(object):
         cell = self.cell_functor(sim=sim)
 
         #soma_loc = cell.get_location('soma')
+        if self.inject_all_cells:
+            for c in sim.cells:
+                if c != cell:
+                    sim.create_currentclamp(amp=current, dur='300:ms', delay='50:ms', cell_location=c.soma)
 
         cc = sim.create_currentclamp(name='cclamp', amp=current, dur='300:ms', delay='50:ms', cell_location=cell.soma)
-        #print len(sim.cells)
-        #assert False
 
 
         if self.include_internal_currents:
             for chl in cell.biophysics.get_all_channels_applied_to_cell():
                 sim.record(chl, what=StandardTags.CurrentDensity, cell_location=cell.soma)
-                print 'chl',chl
+                #print 'chl',chl
 
         sim.record(cc, name='Current',
                    what=CurrentClamp.Recordables.Current,
