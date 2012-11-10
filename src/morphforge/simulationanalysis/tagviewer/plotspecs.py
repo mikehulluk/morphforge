@@ -120,7 +120,7 @@ class YAxisConfig(object):
             else:
                 assert False
 
-        ax.set_yticklabel_mode(show_ticks=self.show_yticklabels, include_units=self.show_yticklabels_with_units)
+        ax.set_yticklabel_mode(show_ticklabels=self.show_yticklabels, include_units=self.show_yticklabels_with_units)
 
         #TODO: Something funky is going on and this is not making a difference
         if self.ymargin is not None:
@@ -143,6 +143,7 @@ class TagPlot(object):
         yaxisconfig=None,
         yticks=None,
         ymargin=None,
+        height_ratio=1.0,
 
         show_yticklabels=True,
         show_yticklabels_with_units=True, ##
@@ -166,6 +167,7 @@ class TagPlot(object):
 
         self.event_marker_size = event_marker_size
         self.time_range = time_range
+        self.height_ratio = height_ratio
 
         if isinstance(s, TagSelector):
             self.selector = s
@@ -195,7 +197,7 @@ class TagPlot(object):
         plot_kwargs = {'marker':'x'}
         plot_kwargs = {}
 
-        if self.legend_labeller is not None:
+        if self.legend_labeller  not in (None,False):
             plot_kwargs['label'] = self.legend_labeller(trace)
 
         if color is not None:
@@ -215,7 +217,7 @@ class TagPlot(object):
         if self.event_marker_size:
             plot_kwargs['markersize'] = self.event_marker_size
 
-        if self.legend_labeller is not None:
+        if self.legend_labeller not in (None,False):
             plot_kwargs['label'] = self.legend_labeller(eventset)
 
         if 'label' in plot_kwargs:
@@ -262,7 +264,7 @@ class TagPlot(object):
             ax.set_ylim(((-padding) * units.dimensionless, (len(eventsets) - 1 + padding) * units.dimensionless))
 
         # Legend:
-        if self.legend_labeller is not None:
+        if self.legend_labeller not in(None, False):
             import math
             import __builtin__ as BI
             ncols = BI.max(int(math.floor(len(trcs) / 5.0)), 1)
@@ -305,7 +307,7 @@ class TagPlot(object):
 
         # Similarly, plot the axis-ticklabel, if
         show_xticks = show_xticklabels == 'all' or (show_xticklabels == 'only-once' and xaxis_position is not None)
-        ax.set_xticklabel_mode(show_ticks=show_xticks, include_units=show_xticklabels_with_units)
+        ax.set_xticklabel_mode(show_ticklabels=show_xticks, include_units=show_xticklabels_with_units)
 
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)

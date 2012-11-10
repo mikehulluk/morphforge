@@ -66,21 +66,30 @@ class TraceDict(object):
     def __getitem__(self, k):
         return self.data[k]
 
+    def items(self):
+        return self.data.items()
+
 
     def _plot_trace_old(self, k, v, ax, legend_func, xunits, yunits): #, xUnits, yUnits):
         #data_line_curve = ax.plot(expCurrentTrace.time, v.data, label="Cmd: %2.2f mV" % cmdVoltage)
         if legend_func:
             data_line_curve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , label=legend_func(k, v))[0]
             return data_line_curve
+        else:
+            data_line_curve = ax.plot(v._time.rescale(xunits), v._data.rescale(yunits) , )[0]
+            return data_line_curve
 
-    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None):
+    def Plot(self, fig=None, ax=None, title="Untitled", xlabel_prefix="Time", ylabel_prefix="", xunits="ms", yunits=None, legend_func=None, figsize=None):
         assert yunits
+
+        if figsize is None:
+            figsize = (9, 4)
 
         if fig == None and ax == None:
             ax = fig_plot_local(title=title,
                         xlabel=xlabel_prefix + "(" + str(xunits) + ")",
                         ylabel=ylabel_prefix + "(" + str(yunits) + ")",
-                        figsize=(9, 4))
+                        figsize=figsize)
 
 
         #print self.baseunit

@@ -191,10 +191,17 @@ class TagViewer(object):
 
         n_plots = len(self.plot_specs)
 
-        for (i, plot_spec) in enumerate(self.plot_specs):
+
+        import matplotlib.gridspec as gridspec
+        height_ratios = [ps.height_ratio for ps in self.plot_specs]
+        gs = gridspec.GridSpec(n_plots, 1, height_ratios=height_ratios,)
+        axes = [ self.fig.add_axes( ss.get_position(self.fig) ) for ss in gs]
+
+
+        for (i, (plot_spec,ax)) in enumerate(zip(self.plot_specs,axes)):
 
             # Create the axis:
-            ax = self.fig.add_subplot(n_plots, 1, i + 1)
+            #ax = self.fig.add_subplot(n_plots, 1, i + 1)
             ax.set_xunit(units.millisecond)
             ax.set_xmargin(0.05)
             ax.set_ymargin(0.05)

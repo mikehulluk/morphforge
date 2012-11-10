@@ -85,12 +85,17 @@ class CellAnalysis_StepInputResponse(object):
             self.result_traces[c] = (tr_v, tr_i)
 
     def plot(self):
-        trs = list(itertools.chain(*self.result_traces.values()))
+        #trs = list(itertools.chain(*self.result_traces.values()))
+        trs = itertools.chain( *[v for (k,v) in sorted(self.result_traces.items()) ] )
 
-        title = '%s- Step Current Inject Responses' \
-            % self.cell_description
-        self.fig = TagViewer(trs, show=False, figtitle=title,
-                  **self.tagviewer_kwargs)
+        #title = '%s- Step Current Inject Responses' \
+        #    % self.cell_description
+        self.fig = TagViewer(
+                    trs, 
+                    show=False, 
+                    #figtitle=title,
+                    **self.tagviewer_kwargs
+                    )
 
     def simulate(self, current):
 
@@ -99,7 +104,7 @@ class CellAnalysis_StepInputResponse(object):
 
         #soma_loc = cell.get_location('soma')
 
-        cc = sim.create_currentclamp(name='cclamp', amp=current,
+        cc = sim.create_currentclamp(name='cclamp%03d'%( int( current.rescale('pA') )) , amp=current,
                 dur='80:ms', delay='50:ms', cell_location=cell.soma)
 
 

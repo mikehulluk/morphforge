@@ -301,8 +301,9 @@ class SimulationMRedoc(object):
                         self.sim.cells]
         return mrd.Section('Single Cell Details', *sub_sections)
 
-
-    def _build_details_channel(self, chl):
+    
+    @classmethod
+    def build_details_channel(cls, chl):
 
         sumcls = SummariserLibrary.get_summarisier(chl)
         if not sumcls:

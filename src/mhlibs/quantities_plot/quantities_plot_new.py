@@ -36,6 +36,7 @@ from decimal import Decimal
 
 from morphforge.units import qty
 
+import numpy
 
 def is_number_roundable_to(num, n):
     return abs(num - round(num, n)) < 0.000000001
@@ -81,6 +82,13 @@ class ScalarFormatterWithUnit(object):
 
         d = Decimal(str(x))
         num_str = "%s" % d.to_eng_string()
+
+
+        if not self.ax.show_x_ticklabels and self.xy=='x':
+            return ''
+        if not self.ax.show_y_ticklabels and self.xy=='y':
+            return ''
+
 
         if self.xy=='x':
             unit_str = "%s" % self.symbol if self.ax.units_in_ticksx and self.symbol else ""
@@ -132,6 +140,9 @@ class QuantitiesAxisNew(object):
         self.units_in_labely = units_in_label
         self.units_in_ticksx = units_in_ticks
         self.units_in_ticksy = units_in_ticks
+
+        self.show_x_ticklabels = True
+        self.show_y_ticklabels = True
 
         # Store these internally, so we can
         # reapply them if units change:
@@ -193,6 +204,10 @@ class QuantitiesAxisNew(object):
 
 
     def plot(self, x, y, *args, **kwargs):
+        if type(x) == numpy.ndarray:
+            x = x * pq.dimensionless
+        if type(y) == numpy.ndarray:
+            y = y * pq.dimensionless
 
         if self.xyUnitDisplay[0] is None:
             self._setxyUnitDisplay(unitX=x.units)
@@ -254,32 +269,40 @@ class QuantitiesAxisNew(object):
         return self.ax.get_yaxis().set_visible(visible)
 
 
-    def set_xticklabel_mode(self, show_ticks=None, include_units=None, ):
-        assert show_ticks in [None,True,False]
+    def set_xticklabel_mode(self, show_ticklabels=None, include_units=None, ):
+        assert show_ticklabels in [None,True,False]
         assert include_units in [None,True,False]
         symbol = self.getSymbolFromUnit(self.xyUnitDisplay[0])
         scaling = (self.xyUnitBase[0]/self.xyUnitDisplay[0]).rescale(pq.dimensionless)
 
-        if show_ticks is not None:
-            self.units_in_ticksy = show_ticks
+        if show_ticklabels is not None:
+            #self.units_in_ticksy = show_ticks
+            self.show_x_ticklabels = show_ticklabels
+            self.units_in_labelx = not show_ticklabels
         if include_units is not None:
             symbol=symbol if include_units else None
+            self.units_in_ticksx = include_units
+        self._update_labels()
 
         # Update the axis ticks:
         xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol)
         self.ax.xaxis.set_major_formatter(xFormatterFunc)
 
 
-    def set_yticklabel_mode(self, show_ticks=None, include_units=None ):
-        assert show_ticks in [None,True,False]
+    def set_yticklabel_mode(self, show_ticklabels=None, include_units=None ):
+        assert show_ticklabels in [None,True,False]
         assert include_units in [None,True,False]
         symbol = self.getSymbolFromUnit(self.xyUnitDisplay[1])
         scaling = (self.xyUnitBase[1]/self.xyUnitDisplay[1]).rescale(pq.dimensionless)
 
-        if show_ticks is not None:
-            self.units_in_ticksy = show_ticks
+        if show_ticklabels is not None:
+            #self.units_in_ticksy = show_ticklabels
+            self.show_y_ticklabels = show_ticklabels
+            self.units_in_labely = not show_ticklabels
         if include_units is not None:
             symbol=symbol if include_units else None
+            self.units_in_ticksy = include_units
+        self._update_labels()
 
         # Update the axis ticks:
         yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol)
@@ -354,10 +377,10 @@ class QuantitiesAxisNew(object):
             self.ax.set_ylabel(self.labelY)
 
     def set_xlabel(self, xlabel):
-        self.labelX = xlabel
+        self.labelX = xlabel if xlabel is not None else ""
         self._update_labels()
     def set_ylabel(self, ylabel):
-        self.labelY = ylabel
+        self.labelY = ylabel if ylabel is not None else ""
         self._update_labels()
 
     def set_yaxis_maxnlocator(self, n):
@@ -448,6 +471,9 @@ class QuantitiesFigureNew(object):
         # Create a proxy object, that acts like an axes object, but
         # intercepts certain calls:
         return self.subplot_class(subplot_ax)
+
+
+
 
     def add_axes(self, *args, **kwargs):
         subplot_ax = self.fig.add_axes(*args, **kwargs)

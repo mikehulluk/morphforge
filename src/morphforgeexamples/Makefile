@@ -1,10 +1,12 @@
 
 
 all: exset1_morphology exset2_singlecell_simulations exset3_multicell_simulations exset4_advanced_simulations exset5_assorted_simulations exset6_poster_ocns2012
-clean: exset1_morphology_clean exset2_singlecell_simulations_clean exset3_multicell_simulations_clean exset4_advanced_simulations_clean exset5_assorted_simulations_clean
+clean: exset1_morphology_clean exset2_singlecell_simulations_clean exset3_multicell_simulations_clean exset4_advanced_simulations_clean exset5_assorted_simulations_clean indev_clean
 
 
-
+indev_clean:
+	find . -name "_output" -type d -exec rm -rf {} \;
+	#rm -rf indev_notworking/_output/
 
 .PHONY: force_look
 	

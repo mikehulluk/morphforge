@@ -54,7 +54,7 @@ def build_passive_cell(sim, input_resistance, capacitance=None, area=None, name=
             reversalpotential = reversalpotential,
             )
 
-    cell = sim.create_cell(area=area, name=name)
+    cell = sim.create_cell(area=area, name=name, initial_voltage=reversalpotential)
     cell.apply_channel(lk)
     cell.set_passive(mf.PassiveProperty.SpecificCapacitance, capacitance / area)
 

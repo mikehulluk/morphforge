@@ -40,7 +40,7 @@ def get_voltageclamp_soma_current_trace(env, V, channel_functor, morphology):
 
 
 def build_voltageclamp_soma_simulation(env, V, channel_functor, morphology):
-    sim = env.Simulation(name='SimXX')
+    sim = env.Simulation(name='SimXX', cvode=False, dt= qty('0.01:ms'))
     cell = sim.create_cell(name='Cell1', morphology=morphology)
 
     cell.apply_channel( channel=channel_functor(env=sim.environment))
