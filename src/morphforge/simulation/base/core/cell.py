@@ -69,7 +69,7 @@ class Cell(NamedSimulationObject):
         self._cell_type = cell_type
 
         self.cell_segmenter = (segmenter if segmenter else CellSegmenter_MaxCompartmentLength())
-        self.cell_segmenter.connect_to_cell(self)
+        #self.cell_segmenter.connect_to_cell(self)
 
         self.biophysics = CellBiophysics(self)
 

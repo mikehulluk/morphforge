@@ -242,7 +242,7 @@ class SimulationMRedoc(object):
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
-                  "%d:%d" % (len(cell.morphology), cell.segmenter.get_num_segment_total()),
+                  "%d:%d" % (len(cell.morphology), cell.segmenter.get_num_segment_total(cell)),
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
                   "%d %d" % (len(cell.presynaptic_connections), len(cell.postsynaptic_connections)),
                   "%d" % len(cell.electrical_connections),
@@ -303,7 +303,7 @@ class SimulationMRedoc(object):
 
     
     @classmethod
-    def build_details_channel(cls, chl):
+    def _build_details_channel(cls, chl):
 
         sumcls = SummariserLibrary.get_summarisier(chl)
         if not sumcls:

@@ -29,29 +29,27 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.simulation.base.segmentation.segment import CellSegment
 
 
 class AbstCellSegmenter(object):
 
     def __init__(self, cell=None, **kwargs):
         super(AbstCellSegmenter,self).__init__(**kwargs)
-        self.cell = cell
+        assert cell is None, 'CellSegmenters no longer contain references to cells, to allow for sharing'
+        #self.cell = cell
 
-    def connect_to_cell(self, cell):
-        assert self.cell is None
-        self.cell = cell
+    #def connect_to_cell(self, cell):
+    #    assert self.cell is None
+    #    self.cell = cell
 
     def get_num_segments(self, section):
         raise NotImplementedError()
 
-    def get_num_segment_total(self):
-        return sum([self.get_num_segments(section) for section in
-                   self.cell.morphology])
+    def get_num_segment_total(self, cell):
+        return sum([self.get_num_segments(section) for section in cell.morphology])
 
     def get_num_segment_region(self, region):
-        return sum([self.get_num_segments(section) for section in
-                   region])
+        return sum([self.get_num_segments(section) for section in region])
 
 
 class CellSegmenterStd(AbstCellSegmenter):
@@ -71,7 +69,6 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
     def __init__(self, max_segment_length=5, **kwargs):
         super(CellSegmenter_MaxCompartmentLength, self).__init__(**kwargs)
-        #CellSegmenterStd.__init__(self, cell)
         self.max_segment_length = max_segment_length
 
     def _get_n_segments(self, section):
@@ -91,7 +88,6 @@ class CellSegmenter_MaxLengthByID(CellSegmenterStd):
         self.section_id_segment_sizes = section_id_segment_maxsizes if section_id_segment_maxsizes is not None else {}
 
         super(CellSegmenter_MaxLengthByID, self).__init__(**kwargs)
-        #CellSegmenterStd.__init__(self, cell)
 
     def _get_n_segments(self, section):
         max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length)

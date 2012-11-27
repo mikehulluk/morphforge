@@ -108,6 +108,7 @@ class AlphaBetaSummariser(object):
                 )
 
 
+#assert False
 mf.SummariserLibrary.register_summariser( StdChlAlphaBeta, AlphaBetaSummariser)
 
 
