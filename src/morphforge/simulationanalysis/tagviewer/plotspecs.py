@@ -86,7 +86,7 @@ class YAxisConfig(object):
         ymargin=None,
 
         show_yticklabels=True,
-        show_yticklabels_with_units=False, 
+        show_yticklabels_with_units=False,
         ):
         self.yrange = yrange
         self.yunit = yunit
@@ -114,7 +114,10 @@ class YAxisConfig(object):
 
         if self.yticks is not None:
             if isinstance( self.yticks, int):
-                ax.set_yaxis_maxnlocator(self.yticks)
+                if self.yticks==0:
+                    ax.set_yaxis_nulllocator()
+                else:
+                    ax.set_yaxis_maxnlocator(self.yticks)
             elif is_iterable(self.yticks):
                 ax.set_yaxis_fixedlocator(self.yticks)
             else:
@@ -147,6 +150,8 @@ class TagPlot(object):
 
         show_yticklabels=True,
         show_yticklabels_with_units=True, ##
+
+        overlay_traces = None
         ):
 
         if yaxisconfig is None:
@@ -175,6 +180,12 @@ class TagPlot(object):
             self.selector = TagSelector.from_string(s)
         else:
             assert False
+
+        if overlay_traces is None:
+            self.overlay_traces = []
+        else:
+            self.overlay_traces = overlay_traces
+
 
     # Used by TagViewer
     def addtrace_predicate(self, trace):
@@ -255,6 +266,12 @@ class TagPlot(object):
 
         for index, event_set in enumerate(self._sort_eventsets(eventsets)):
             self._plot_eventset(event_set,  ax=ax, index=index+len(trcs))
+
+
+        # Plot overlays:
+        for tr in self.overlay_traces:
+            plt_tr = ax.plotTrace(tr, linewidth=4, alpha=0.4)
+
 
             # ax.set_ylim(((-0.5) * units.dimensionless, (len(eventsets)+0.5) * units.dimensionless))
 

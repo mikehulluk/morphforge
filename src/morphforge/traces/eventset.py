@@ -107,4 +107,7 @@ class EventSet(object):
         self.comment = '%d Mean: %2.2f ms (Std:%2.2f ms)' % (len(self), np.mean(times_a), np.std(times_a))
 
 
+    def times_in_np_array_ms(self):
+        return np.array( [ float(t.rescale('ms') ) for t in self.times] )
+
 

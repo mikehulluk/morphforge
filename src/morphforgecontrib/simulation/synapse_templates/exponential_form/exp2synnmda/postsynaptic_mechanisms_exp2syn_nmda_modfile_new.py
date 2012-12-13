@@ -69,6 +69,10 @@ NEURON {
     RANGE eta
     RANGE mg2conc
     RANGE gamma
+
+
+    RANGE is_conductance_limited_on
+    RANGE conductance_limit
 }
 
 UNITS {
@@ -85,10 +89,13 @@ PARAMETER {
     is_vdep_on = 1
     peak_conductance = -100000 ()
 
+    is_conductance_limited_on = -1
+    conductance_limit = -1
+
     eta = 0.1
     mg2conc=0.5
     gamma=0.08
-        
+
 }
 
 ASSIGNED {
@@ -115,7 +122,7 @@ INITIAL {
     factor = -exp(-tp/tau1) + exp(-tp/tau2)
     factor = 1/factor
 
-   
+
     VERBATIM
     {
         $COMMENT srand($randomseed);
@@ -139,7 +146,7 @@ FUNCTION vdep_func(Vin, vdep)
 BREAKPOINT {
     SOLVE state METHOD cnexp
     voltage_dependancy = vdep_func(v, is_vdep_on)
-    g = (B - A) 
+    g = (B - A)
     i = g*(v - e) * voltage_dependancy
 
 }
@@ -150,7 +157,7 @@ DERIVATIVE state {
 }
 
 NET_RECEIVE(weight (uS)) {
-    LOCAL clip
+    LOCAL clip, sv_max
 
 
     VERBATIM
@@ -162,6 +169,19 @@ NET_RECEIVE(weight (uS)) {
 
         A = A + weight*factor * peak_conductance
         B = B + weight*factor * peak_conductance
+
+
+        if(is_conductance_limited_on> 0.5)
+        {
+            sv_max = weight*factor * peak_conductance * conductance_limit
+
+            if(A>sv_max) {A=sv_max}
+            if(B>sv_max) {B=sv_max}
+
+
+
+        }
+
 
         ://clip = weight*factor *3000 * peak_conductance
         ://if(A>clip) {A=clip}

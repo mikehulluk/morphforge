@@ -119,7 +119,7 @@ class TagViewer(object):
         self.all_trace_objs = []
         self.all_event_set_objs = []
         trace_extractors = {
-            SimulationResult:   lambda obj: self.all_trace_objs.extend(obj.traces),
+            SimulationResult:   lambda obj: (self.all_trace_objs.extend(obj.traces),self.all_event_set_objs.extend(obj.evsets)),
             TraceFixedDT:       lambda obj: self.all_trace_objs.append(obj),
             TraceVariableDT:    lambda obj: self.all_trace_objs.append(obj),
             TracePiecewise:     lambda obj: self.all_trace_objs.append(obj),
@@ -194,9 +194,14 @@ class TagViewer(object):
 
         import matplotlib.gridspec as gridspec
         height_ratios = [ps.height_ratio for ps in self.plot_specs]
-        gs = gridspec.GridSpec(n_plots, 1, height_ratios=height_ratios,)
-        axes = [ self.fig.add_axes( ss.get_position(self.fig) ) for ss in gs]
+        gs = list(gridspec.GridSpec(n_plots, 1, height_ratios=height_ratios,) )
 
+        ## Lets share a commonn x-axis:
+        #axes0 = self.fig.add_axes( gs[0].get_position(self.fig) ) 
+        #axesoneplus = [ self.fig.add_axes( ss.get_position(self.fig), sharex=axes0 ) for ss in gs[1:]]
+        #axes = [axes0] + axesoneplus
+
+        axes = [ self.fig.add_axes( ss.get_position(self.fig) ) for ss in gs]
 
         for (i, (plot_spec,ax)) in enumerate(zip(self.plot_specs,axes)):
 

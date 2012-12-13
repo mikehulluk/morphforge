@@ -386,6 +386,9 @@ class QuantitiesAxisNew(object):
     def set_yaxis_maxnlocator(self, n):
         import matplotlib as mpl
         self.ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(n))
+    def set_yaxis_nulllocator(self, ):
+        import matplotlib as mpl
+        self.ax.yaxis.set_major_locator(mpl.ticker.NullLocator())
 
     def set_xaxis_maxnlocator(self, n):
         import matplotlib as mpl

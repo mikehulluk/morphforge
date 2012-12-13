@@ -86,3 +86,6 @@ from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda
 
 # Constants for accessing standard models:
 from morphforgecontrib.data_library.stdmodels import StandardModels
+
+
+from morphforgecontrib.simulation.postprocessors import FirstSpikeFinderPostProcessor, AddEventSetPostProcessor

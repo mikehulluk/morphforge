@@ -58,7 +58,7 @@ class QuantitiesAxis(QuantitiesAxisNew):
             del kwargs['label']
 
         plotpoints = trace.plotpoints()
-        #return self.plot(plotpoints[0], plotpoints[1],'o-', *args, label=label, **kwargs)
+        #return self.plot(plotpoints[0], plotpoints[1],'x-', *args, label=label, **kwargs)
         return self.plot(plotpoints[0], plotpoints[1], *args, label=label, **kwargs)
 
 

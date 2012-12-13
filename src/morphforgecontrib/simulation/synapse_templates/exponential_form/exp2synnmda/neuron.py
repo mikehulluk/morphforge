@@ -87,6 +87,8 @@ ${synnamepost}.popening = $pOpening
 ${synnamepost}.is_vdep_on = $is_vdep_on
 ${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
 
+${synnamepost}.is_conductance_limited_on = $is_conductance_limited_on
+${synnamepost}.conductance_limit = $conductance_limit
 ${synnamepost}.gamma = $gamma.rescale('per_mV').magnitude
 ${synnamepost}.eta = $eta.rescale('per_mM').magnitude
 ${synnamepost}.mg2conc = $mg2conc.rescale('mM').magnitude
@@ -106,6 +108,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         e_rev = params['e_rev']
         popening = params['popening']
         vdep = params['vdep']
+        limit_conductance = params['limit_conductance']
         peak_conductance = params['peak_conductance']
 
         gamma = params['gamma']
@@ -128,6 +131,8 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             'pOpening': popening,
             'random_seed': MFRandom.get_seed(),
             'is_vdep_on': (1.0 if vdep else 0.0),
+            'is_conductance_limited_on': (1.0 if limit_conductance not in [None,False] else 0.0),
+            'conductance_limit': (limit_conductance if limit_conductance not in [None,False] else -1.0),
             'peak_conductance': peak_conductance,
             'gamma':gamma,
             'eta':eta,

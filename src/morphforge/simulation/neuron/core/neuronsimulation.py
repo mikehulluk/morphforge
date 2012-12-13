@@ -113,6 +113,10 @@ class NEURONSimulation(Simulation):
         self.hocfilename = None
 
 
+        # Move to base class:
+        self._postprocessors = []
+
+
 
 
 
@@ -125,9 +129,19 @@ class NEURONSimulation(Simulation):
 
 
         if do_spawn:
-            return self._run_spawn()
+            res = self._run_spawn()
+            return res
         else:
-            return self._run_no_spawn()
+            res = self._run_no_spawn()
+            return res
+
+
+
+    def do_result_post_processing(self,):
+
+        for pp in self._postprocessors:
+            pp(result=self.result)
+
 
     def _run_spawn(self):
 
@@ -196,7 +210,8 @@ class NEURONSimulation(Simulation):
                                  tags=rec.get_tags())
             traces.append(tr)
 
-        self.result = SimulationResult(traces, self)
+        self.result = SimulationResult(traces=traces, evsets=[], simulation=self)
+        self.do_result_post_processing()
         return self.result
 
     def _run_no_spawn(self):
@@ -287,7 +302,9 @@ class NEURONSimulation(Simulation):
         print 'Time for Extracting Data: (%d records)' % len(records), \
             time.time() - t_trace_read_start
 
-        self.result = SimulationResult(traces, self)
+        self.result = SimulationResult(traces=traces, evsets=[], simulation=self)
+
+        self.do_result_post_processing()
         return self.result
 
     # NEW API:

@@ -37,8 +37,12 @@ import itertools
 class PopAnalSpiking(object):
 
     @classmethod
-    def evset_nth_spike(cls, res, tag_selector, n, comment=None):
+    def evset_nth_spike(cls, res, tag_selector, n, comment=None, comment_incl_nspikes=False, evset_tags=None, evset_name=None):
         comment = comment or ''
+
+        if evset_tags is None:
+            evset_tags = []
+        evset_tags.extend( ['Spike', 'Event'] )
 
         traces = [trace for trace in res.get_traces()
                   if tag_selector(trace)]
@@ -46,17 +50,27 @@ class PopAnalSpiking(object):
         spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,
                       firingthres=None) for tr in traces]
         spike_list = [spl[n] for spl in spike_list if len(spl) > n]
-        spikes = EventSet(spike_list, tags=['Spike', 'Event'],
-                          comment='%s (%d Spike)' % (comment, n))
+
+        comment = '%s (%dth Spike)' % (comment, n)
+
+        if comment_incl_nspikes:
+            comment += ' (NSpikes: %d'%len(spike_list)
+
+        spikes = EventSet(spike_list, tags=evset_tags, name=evset_name, comment=comment)
         return spikes
 
     @classmethod
-    def evset_first_spike(cls, res, tag_selector, comment=None):
-        return cls.evset_nth_spike(res=res, tag_selector=tag_selector,
-                                   n=0, comment=comment)
+    def evset_first_spike(cls,  **kwargs):
+        return cls.evset_nth_spike(n=0, **kwargs)
+
 
     @classmethod
-    def evset_all_spikes(cls, res, tag_selector, comment=None):
+    def evset_all_spikes(cls, res, tag_selector, comment=None, comment_incl_nspikes=False, evset_tags=None, evset_name=None):
+        if evset_tags is None:
+            evset_tags = []
+        evset_tags.extend( ['Spike', 'Event'] )
+
+
         comment = comment or ''
 
         traces = [trace for trace in res.get_traces()
@@ -64,9 +78,14 @@ class PopAnalSpiking(object):
 
         spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,
                       firingthres=None) for tr in traces]
-        spike_list = itertools.chain(*spike_list)
-        spikes = EventSet(spike_list, tags=['Spike', 'Event'],
-                          comment='%s (All Spike)' % comment)
+        spike_list = list(itertools.chain(*spike_list) )
+
+        comment='%s (All Spike)' if not comment else comment
+        if comment_incl_nspikes:
+            comment += ' (NSpikes: %d'%len(list(spike_list) )
+
+        spikes = EventSet(spike_list, tags=evset_tags, comment=comment, name=evset_name)
+
         return spikes
 
 

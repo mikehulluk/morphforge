@@ -38,8 +38,9 @@ class SimulationResult(object):
 
     """ traces is a list of trace Objects"""
 
-    def __init__(self, traces, simulation):
+    def __init__(self, traces,evsets, simulation):
         self.traces = traces
+        self.evsets = evsets
         self.simulation = simulation
         self.t_start = None
         self.t_stop = None
@@ -61,6 +62,14 @@ class SimulationResult(object):
         else:
             return self.get_trace(obj.name)
 
+    def get_evset(self, obj):
+        # Get the results by string:
+        if isinstance(obj, basestring):
+            return SeqUtils.filter_expect_single( self.evsets, lambda s: s.name == obj)
+
+        else:
+            assert False
+
 
     def get_traces(self):
         return self.traces
@@ -77,4 +86,7 @@ class SimulationResult(object):
     def load_from_file(cls, filename):
         return pickle.load(open(filename))
 
+
+    def add_evset(self, evset):
+        self.evsets.append(evset)
 

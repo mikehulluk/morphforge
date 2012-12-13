@@ -47,6 +47,8 @@ class NEURONSimulationSettings(object):
                 NEURONSimulationSettings.tstop: qty('500:ms'),
                 NEURONSimulationSettings.reltol: 0.0,
                 NEURONSimulationSettings.abstol: 1e-2,
+                #NEURONSimulationSettings.reltol: 1e-12,
+                #NEURONSimulationSettings.abstol: 1e-12,
                 NEURONSimulationSettings.cvode: True}
 
         # Check we have defaults for all parameters:
