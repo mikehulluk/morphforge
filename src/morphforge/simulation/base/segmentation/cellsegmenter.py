@@ -69,6 +69,9 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
 
     def __init__(self, max_segment_length=5, **kwargs):
         super(CellSegmenter_MaxCompartmentLength, self).__init__(**kwargs)
+
+        # TODO: MAKE SURE THIS
+        #if isinstance(max_segment_length)
         self.max_segment_length = max_segment_length
 
     def _get_n_segments(self, section):
@@ -92,3 +95,6 @@ class CellSegmenter_MaxLengthByID(CellSegmenterStd):
     def _get_n_segments(self, section):
         max_size = self.section_id_segment_sizes.get(section.idtag, self.default_segment_length)
         return int(section.get_length() / max_size) + 1
+
+
+

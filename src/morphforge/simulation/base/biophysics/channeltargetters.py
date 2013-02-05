@@ -33,8 +33,13 @@ from morphforge.morphology.core import Region
 
 class Targeter(object):
 
+    def __init__(self, priority, **kwargs):
+        super(Targeter,self).__init__(**kwargs)
+        self.priority = priority
+
     def get_priority(self):
-        raise NotImplementedError()
+        return self.priority
+        #raise NotImplementedError()
 
     def does_target_section(self, section):
         raise NotImplementedError()
@@ -45,8 +50,8 @@ class Targeter(object):
 
 class PassiveTargetterEverywhereDefault(Targeter):
 
-    def get_priority(self):
-        return 0
+    def __init__(self, priority=0, **kwargs):
+        super(PassiveTargetterEverywhereDefault, self).__init__(priority=priority,**kwargs)
 
     def does_target_section(self, section):
         return True
@@ -57,8 +62,8 @@ class PassiveTargetterEverywhereDefault(Targeter):
 
 class PassiveTargetterEverywhere(Targeter):
 
-    def get_priority(self):
-        return 5
+    def __init__(self, priority=5, **kwargs):
+        super(PassiveTargetterEverywhere, self).__init__(priority=priority, **kwargs)
 
     def does_target_section(self, section):
         return True
@@ -69,12 +74,9 @@ class PassiveTargetterEverywhere(Targeter):
 
 class PassiveTargetterRegion(Targeter):
 
-    def __init__(self, region):
-        super(PassiveTargetterRegion, self).__init__()
+    def __init__(self, region, priority=10, **kwargs):
+        super(PassiveTargetterRegion, self).__init__(priority=priority, **kwargs)
         self.region = region
-
-    def get_priority(self):
-        return 10
 
     def does_target_section(self, section):
         return section.region == self.region
@@ -83,10 +85,13 @@ class PassiveTargetterRegion(Targeter):
         return 'Passive-Region:%s' % self.region.name
 
 
-class ChannelTargeterEverywhere(Targeter):
 
-    def get_priority(self):
-        return 10
+
+
+class ChannelTargeterEverywhere(Targeter):
+    def __init__(self, priority=10, **kwargs):
+        super(ChannelTargeterEverywhere,self).__init__(priority=priority, **kwargs)
+
 
     def does_target_section(self, section):
         return True
@@ -97,13 +102,11 @@ class ChannelTargeterEverywhere(Targeter):
 
 class ChannelTargeterRegion(Targeter):
 
-    def __init__(self, region):
-        super(ChannelTargeterRegion, self).__init__()
+    def __init__(self, region, priority=20, **kwargs):
+        super(ChannelTargeterRegion, self).__init__(priority=priority, **kwargs)
         assert isinstance(region, Region)
         self.region = region
 
-    def get_priority(self):
-        return 20
 
     def does_target_section(self, section):
         return section.region == self.region
@@ -115,9 +118,6 @@ class ChannelTargeterRegion(Targeter):
 
 class ChannelTargeterSectionPath(Targeter):
 
-    def get_priority(self):
-        return 30
-
     def does_target_section(self, section):
         assert False
 
@@ -127,12 +127,10 @@ class ChannelTargeterSectionPath(Targeter):
 
 class ChannelTargeterSection(Targeter):
 
-    def __init__(self, section):
-        super(ChannelTargeterSection, self).__init__()
+    def __init__(self, section, priority=40, **kwargs):
+        super(ChannelTargeterSection, self).__init__(priority=priority, **kwargs)
         self.section = section
 
-    def get_priority(self):
-        return 40
 
     def does_target_section(self, section):
         return self.section == section

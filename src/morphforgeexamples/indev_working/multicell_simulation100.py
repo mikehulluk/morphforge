@@ -46,7 +46,7 @@ from morphforge import units
 # Define the formulae used in the model:
 
 na_eqnset_txt = """
-EQNSET sautois_hh_na {
+eqnset sautois_hh_na {
     i = gmax * (v-erev) * m**3*h
     minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
     mtau = 1.0 / (m_alpha_rate + m_beta_rate)
@@ -71,7 +71,7 @@ EQNSET sautois_hh_na {
 }"""
 
 lk_eqnset_txt = """
-EQNSET sautois_hh_lk {
+eqnset sautois_hh_lk {
     i = gmax * (v-erev)
 
     <=> PARAMETER gmax:(S/m2), erev:(V)
@@ -81,7 +81,7 @@ EQNSET sautois_hh_lk {
 }"""
 
 k_eqnset_txt = """
-    EQNSET chlstd_hh_k {
+    eqnset chlstd_hh_k {
     i = gmax * (v-erev) * n
     ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
@@ -397,7 +397,7 @@ def test_step_current_injections():
 
 
 simple_syn = """
-EQNSET syn_simple {
+eqnset syn_simple {
 
     g' = - g/g_tau
     i = gmax * (v-erev) * g
@@ -417,7 +417,7 @@ EQNSET syn_simple {
 
 
 syn_inhib = """
-EQNSET syn_decaying_inhib {
+eqnset syn_decaying_inhib {
     o' = - o/{1.5 ms}
     c' = - c/{4.0 ms}
     i = (v- {-80mV}) *g
@@ -446,7 +446,7 @@ EQNSET syn_decaying_inhib {
 
 
 syn_onto_driver= """
-EQNSET syn_simple {
+eqnset syn_simple {
 
     o' = - o/{1.5 ms}
     c' = - c/{10.0 s}
@@ -464,7 +464,7 @@ EQNSET syn_simple {
 """
 
 syn_std_excite_AMPA= """
-EQNSET syn_simple {
+eqnset syn_simple {
 
     o' = - o/{1.5 ms}
     c' = - c/{4.0 ms}
@@ -482,7 +482,7 @@ EQNSET syn_simple {
 """
 
 syn_std_excite_NMDA= """
-EQNSET syn_simple {
+eqnset syn_simple {
 
     o' = - o/{1.5 ms}
     c' = - c/{80 ms}

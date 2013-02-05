@@ -64,7 +64,7 @@ variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate']
 def apply_hh_chls_neurounits_direct(env, cell, sim):
 
     eqnset_txt_na = """
-    EQNSET chlstd_hh_na {
+    eqnset chlstd_hh_na {
         from std.math import exp
         i = g * (v-erev) * m**3*h
         minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
@@ -107,7 +107,7 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
     eqnset_txt_k = """
-    EQNSET chlstd_hh_k {
+    eqnset chlstd_hh_k {
         from std.math import exp
         i = g * (v-erev) * n*n*n*n
         ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
@@ -136,7 +136,7 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
     eqnset_txt_lk = """
-        EQNSET chlstd_hh_lk {
+        eqnset chlstd_hh_lk {
             i = g * (v-erev)
             g = {0.3 mS/cm2}
             erev = -54.3 mV

@@ -34,7 +34,7 @@ from morphforgecontrib.simulation.indev.neuro_units_bridge.neuro_units_bridge im
     RecordableData
 
 
-textHH = r"""EQNSET chlstd_hh_k {
+textHH = r"""eqnset chlstd_hh_k {
     from std.math import exp
     i = g * (v-erev) * n**4
 
@@ -54,7 +54,7 @@ textHH = r"""EQNSET chlstd_hh_k {
 
 
 
-textHH = r"""EQNSET chlstd_hh_k {
+textHH = r"""eqnset chlstd_hh_k {
     from std.math import exp
     mult = m**3*h
     g = gmax* mult

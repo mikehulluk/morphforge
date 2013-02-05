@@ -79,7 +79,7 @@ cell3 = build_cell(name="cell3", sim=sim)
 
 # Connect with a synapse:
 simple_ampa_syn = """
-EQNSET syn_simple {
+eqnset syn_simple {
 
     g' = - g/g_tau
     i = gmax * (v-erev) * g

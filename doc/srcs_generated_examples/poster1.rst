@@ -28,7 +28,7 @@ Code
 	from morphforgecontrib.stdimports import *
 	
 	eqnset_txt_na = """
-	EQNSET hh_na {
+	eqnset hh_na {
 	    i = g * (v-erev) * m**3*h
 	
 	    minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
@@ -56,7 +56,7 @@ Code
 	} """
 	
 	eqnset_txt_k = """
-	EQNSET hh_k {
+	eqnset hh_k {
 	    i = g * (v-erev) * n*n*n*n
 	    ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
 	    ntau = 1.0 / (n_alpha_rate + n_beta_rate)
@@ -75,7 +75,7 @@ Code
 	} """
 	
 	eqnset_txt_lk = """
-	EQNSET hh_lk {
+	eqnset hh_lk {
 	    i = {0.3mS/cm2} * ( v- {-54.3mV} )
 	    <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
 	    <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
