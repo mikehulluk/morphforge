@@ -48,8 +48,15 @@ class NEURONSynapse(NEURONObject, Synapse):
 
 
     def build_hoc(self, hocfile_obj):
-        self._post_synaptic_mechanism.build_hoc(hocfile_obj)
-        self._trigger.build_hoc(hocfile_obj)
+        hocfile_obj[MHocFileData.Synapses][self] = {}
+        # Build the pre and post component, if and only if they don't exist already:
+        if not self._post_synaptic_mechanism in hocfile_obj[MHocFileData.Synapses]:
+            self._post_synaptic_mechanism.build_hoc(hocfile_obj=hocfile_obj)
+            assert self._post_synaptic_mechanism in hocfile_obj[MHocFileData.Synapses]
+
+        if not (self,self._trigger) in hocfile_obj[MHocFileData.Synapses]:
+            self._trigger.build_hoc_syn(hocfile_obj=hocfile_obj, synapse=self)
+            assert  (self,self._trigger) in hocfile_obj[MHocFileData.Synapses]
 
     def build_mod(self, modfile_set):
         self._post_synaptic_mechanism.build_mod(modfile_set)
@@ -166,14 +173,15 @@ class NEURONPostSynapticMechTemplate(PostSynapticMechTemplate):
     pass
 
 
+from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 
 
 
 
-class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation):
+class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation, NamedSimulationObject):
     def __init__(self, src_tmpl, _default_parameters, parameter_multipliers=None, parameter_overides=None,  **kwargs):
-        super(NEURONPostSynapticMechInstantiation, self).__init__(**kwargs)
+        super(NEURONPostSynapticMechInstantiation, self).__init__(does_require_simulation=False, **kwargs)
         self.src_tmpl = src_tmpl
 
         self._default_parameters = _default_parameters.copy()

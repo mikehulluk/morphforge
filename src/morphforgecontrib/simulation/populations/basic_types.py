@@ -52,10 +52,10 @@ class NeuronPopulation(object):
         user_tags = user_tags or []
         if pop_name:
             user_tags.extend(pop_name.split('_'))
-        
+
         if pop_name is None:
             pop_name = ObjectLabeller.get_next_unamed_object_name(NeuronPopulation, prefix='NrnPop', num_fmt_string='%d')
-        
+
         self.pop_name = pop_name
 
         if name_tmpl_str is None:
@@ -69,8 +69,6 @@ class NeuronPopulation(object):
         for i in range(n):
             cell_name = name_tmpl.substitute({'i': i})
 
-            # print cell_name
-            # assert False
 
             cell_tags = user_tags + ['Index%d' % i]
             n = neuron_functor(sim=sim, name=cell_name,
@@ -165,11 +163,11 @@ class SynapsePopulation(object):
             elif is_iterable(s):
                 self.synapses.extend(s)
             else:
-                print 'Not Iterable:', s
+                #print 'Not Iterable:', s
                 self.synapses.append(s)
 
         for s in self.synapses:
-            print s, type(s)
+            #print s, type(s)
             assert s.population is None
             s.population = self
 
@@ -279,7 +277,7 @@ class Connectors(object):
         synapse_pop_name=None,
         ):
 
-        
+
         pre_post_it = itertools.product(presynaptic_population,
                 postsynaptic_population)
         synapses = [connect_functor(sim=sim, presynaptic=pre,
@@ -304,3 +302,93 @@ class Connectors(object):
                                  synapse_pop_name=synapse_pop_name)
 
 
+    @classmethod
+    def all_to_all_template(
+        cls,
+        sim,
+        presynaptic_population,
+        postsynaptic_population,
+        post_synaptic_template,
+        pconnection=1.0,
+        synapse_pop_name=None,
+
+        presynaptic_location_functor=None,
+        postsynaptic_location_functor=None,
+        presynaptic_kwargs=None,
+        postsynaptic_kwargs=None,
+        ):
+
+        #TODO: presynaptic_location_functor, postsynaptic_location_functor are not handled properly!
+        assert presynaptic_location_functor == None
+        assert postsynaptic_location_functor == None
+
+        if presynaptic_kwargs is None:
+            presynaptic_kwargs = {}
+        if postsynaptic_kwargs is None:
+            postsynaptic_kwargs = {}
+
+
+        env = sim.environment
+
+        import numpy as np
+        from morphforgecontrib.stdimports import *
+
+        # Lets build a connectivity matrix:
+        npre = len(presynaptic_population)
+        npost = len(postsynaptic_population)
+
+        connectivity = np.random.rand(npre, npost) < pconnection
+
+        needs_presynaptic = np.any(connectivity, axis=1)
+        needs_postsynaptic = np.any(connectivity, axis=0)
+
+        # OK, so lets make the presynaptic objects:
+        presynaptic_objects = {}
+        for i in range(npre):
+            if needs_presynaptic[i]:
+                pre_cell = presynaptic_population[i]
+                pre_cell_loc = presynaptic_location_functor(pre_cell) if presynaptic_location_functor else pre_cell.soma
+                presynaptic_objects[i] = env.SynapticTrigger( SynapticTriggerByVoltageThreshold, cell_location=pre_cell_loc,**presynaptic_kwargs )
+
+        # And lets make the post-synaptic objects:
+        postsynaptic_objects = {}
+        for i in range(npost):
+            if needs_postsynaptic[i]:
+                post_cell = postsynaptic_population[i]
+                post_cell_loc = postsynaptic_location_functor(post_cell) if postsynaptic_location_functor else post_cell.soma
+                postsynaptic_objects[i] = post_synaptic_template.instantiate(cell_location=post_cell_loc, **postsynaptic_kwargs)
+
+
+        # And let connect them up, according to our connectivty matrix:
+        synapses = []
+        for (pre_index,post_index), are_connected in np.ndenumerate(connectivity):
+            if not are_connected or pre_index==post_index:
+                continue
+
+            # Connecting:
+            syn = sim.create_synapse( trigger = presynaptic_objects[pre_index], postsynaptic_mech=postsynaptic_objects[post_index] )
+            synapses.append(syn)
+
+        return SynapsePopulation(sim=sim, synapses=synapses,
+                                 synapse_pop_name=synapse_pop_name)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #assert False
+
+        #pre_post_it = itertools.product(presynaptic_population, postsynaptic_population)
+        #synapses = [connect_functor(sim=sim, presynaptic=pre, postsynaptic=post) for (pre, post) in pre_post_it if pre != post]
+        #return SynapsePopulation(sim=sim, synapses=synapses, synapse_pop_name=synapse_pop_name)

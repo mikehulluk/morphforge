@@ -40,48 +40,58 @@ from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltage
 
 
 
-preTmpl = """
-// Pre-Synapse [$synname]
-objref $synnamepre
-${cellname}.internalsections[$sectionindex] $synnamepre = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, 1.0 )
-"""
+#preTmpl = """
+#// Pre-Synapse  (will drive:[$synnames])
+##for syn_name_post in $synnamespost:
+#objref $(synnamepre)_$(syn_name_post)
+#${cellname}.internalsections[$sectionindex] $(synnamepre)_$(syn_name_post) = new NetCon(&v($sectionpos), $syn_name_post, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, 1.0 )
+##end for
+#"""
 
+preTmpl = """
+// Pre-Synapse  (will drive:[$synname])
+objref $synname
+${cellname}.internalsections[$sectionindex] $(synname) = new NetCon(&v($sectionpos), $synnamepost, $threshold.rescale("mV").magnitude, $delay.rescale("ms").magnitude, 1.0 )
+"""
 
 class NeuronSynapseTriggerVoltageThreshold(SynapticTriggerByVoltageThreshold):
 
-    def build_hoc(self, hocfile_obj):
+    def build_hoc_syn(self, synapse, hocfile_obj):
+
         cell = self.cell_location.cell
         section = self.cell_location.morphlocation.section
-        syn_name = self.synapse.get_name()
-        syn_name_post = hocfile_obj[MHocFileData.Synapses][self.synapse]['POST']['synnamepost']
-        syn_name_pre = self.synapse.get_name() + 'Pre'
+        syn_name = synapse.get_name()
 
+        #
+        #print hocfile_obj[MHocFileData.Synapses].keys()
+
+        synnamespost =  hocfile_obj[MHocFileData.Synapses][synapse.get_postsynaptic_mechanism()]['synnamepost']
 
         hoc_data = hocfile_obj[MHocFileData.Cells][cell]
         data = {
             'synname': syn_name,
-            'synnamepost': syn_name_post,
-            'synnamepre': syn_name_pre,
+            'synnamepost': synnamespost,
             'cell': cell,
             'cellname': hoc_data['cell_name'],
             'sectionindex': hoc_data['section_indexer'][section],
             'sectionpos': self.cell_location.morphlocation.sectionpos,
             'threshold': self.voltage_threshold,
             'delay': self.delay,
-            #'weight': self.weight,
             }
 
-        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,
-                                   Template(preTmpl, data).respond())
+        assert not (synapse,self) in hocfile_obj[MHocFileData.Synapses]
+        hocfile_obj[MHocFileData.Synapses][(synapse,self)] = data
+        text = Template(preTmpl, data).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre, text)
 
-        hocfile_obj[MHocFileData.Synapses][self.synapse]['PRE'] = data
+
 
     def build_mod(self, modfile_set):
         pass
 
 
 preTmplList = """
-// Pre-Synapse [$synname]
+// Pre-Synapse, which drives the following: [$synname]
 objref ${synnamepre}_NullObj
 objref $synnamepre
 $synnamepre = new NetCon(${synnamepre}_NullObj, $synnamepost, 0, 0, 1.0)
@@ -100,11 +110,10 @@ ${synnamepre}.event($event.get_time.rescale('ms').magnitude )
 
 class NeuronSynapseTriggerTimeList(SynapticTriggerAtTimes):
 
-    def build_hoc(self, hocfile_obj):
-        hoc_data = hocfile_obj[MHocFileData.Synapses][self.synapse]
-        syn_name = self.synapse.get_name()
-        syn_name_post = hoc_data['POST']['synnamepost']
-        syn_name_pre = self.synapse.get_name() + 'Pre'
+    def build_hoc_syn(self, hocfile_obj, synapse):
+        syn_name = synapse.get_name()
+        syn_name_post =  hocfile_obj[MHocFileData.Synapses][synapse.get_postsynaptic_mechanism()]['synnamepost']
+        syn_name_pre = synapse.get_name() + 'Pre'
 
         data = {
             'synname': syn_name,
@@ -113,10 +122,12 @@ class NeuronSynapseTriggerTimeList(SynapticTriggerAtTimes):
             'timelist': self.time_list,
             }
 
-        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre,
-                                   Template(preTmplList,
-                                   data).respond())
-        hocfile_obj[MHocFileData.Synapses][self.synapse]['PRE'] = data
+        assert not (synapse,self) in hocfile_obj[MHocFileData.Synapses]
+        hocfile_obj[MHocFileData.Synapses][(synapse,self)] = data
+        text = Template(preTmplList, data).respond()
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPre, text)
+
+
 
     def build_mod(self, modfile_set):
         pass

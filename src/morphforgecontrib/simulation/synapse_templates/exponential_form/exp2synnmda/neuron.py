@@ -117,7 +117,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
-        syn_name_post = instance.synapse.get_name() + 'Post'
+        syn_name_post = instance.name + 'Post'
         hoc_data_cell = hocfile_obj[MHocFileData.Cells][cell]
         data = {
             'synnamepost': syn_name_post,
@@ -143,8 +143,10 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,
                                    Template(exp2HOCTmpl, data).respond())
 
-        hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
+        assert not instance in hocfile_obj[MHocFileData.Synapses]
+        hocfile_obj[MHocFileData.Synapses][instance] = data
+        #hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
+        #hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
 
     def template_build_mod(self, modfile_set):

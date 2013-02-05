@@ -41,8 +41,9 @@ class Synapse(object):
         self._trigger = trigger
         self._post_synaptic_mechanism = postsynaptic_mech
 
-        self._post_synaptic_mechanism.synapse = self
-        self._trigger.synapse = self
+        #self._post_synaptic_mechanism.synapse = self
+        self._post_synaptic_mechanism.synapses.append(self)
+        self._trigger.synapses.append(self)
 
         self.population = None
 
@@ -81,7 +82,13 @@ class PreSynapticTypes(object):
 class SynapticTrigger(object):
 
     def __init__(self):
-        self.synapse = None
+        self.synapses = []
+        pass
+
+    
+    @property
+    def synapse(self):
+        assert False, 'Deprecated, should use something synapses...'
 
     def get_presynaptic_cell(self):
         raise NotImplementedError()
@@ -95,7 +102,12 @@ class PostSynapticMech(object):
     def __init__(self, cell_location, **kwargs):
         super(PostSynapticMech, self).__init__(**kwargs)
         self.cell_location = cell_location
-        self.synapse = None
+        #self.synapse = None
+        self.synapses = []
+
+    @property
+    def synapse(self):
+        assert False, 'Deprecated, should use synapses'
 
     def get_postsynaptic_cell(self):
         return self.cell_location.cell

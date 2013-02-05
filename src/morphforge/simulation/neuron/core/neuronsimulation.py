@@ -53,6 +53,7 @@ from morphforge.core.mockcontrol import MockControl
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
 import contextlib
+import datetime
 import cStringIO
 
 def _random_walk(t_steps, std_dev):
@@ -260,22 +261,31 @@ class NEURONSimulation(Simulation):
             nrn(neuron.h.load_file, hoc_filename)
             self.hocfilename = hoc_filename
 
-            class Event(object):
+            class UpdateEvent(object):
 
                 def __init__(self):
                     self.interval = 5.0
                     self.fih = neuron.h.FInitializeHandler(0.01, self.callback)
+                    self.starttime = datetime.datetime.now()
 
                 def callback(self):
                     #print display_output
                     #display_output.stdout_prev.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
                     #display_output.stdout_prev.flush()
-                    sys.__stdout__.write('Simulating: t=%.0f/%.0fms \r' % (neuron.h.t, float(neuron.h.tstop)))
+                    time_elapsed = (datetime.datetime.now() - self.starttime).seconds
+                    expected_time = None
+                    remaining_time = None
+                    if neuron.h.t > 5:
+                        expected_time = time_elapsed  * ( float(neuron.h.tstop) / neuron.h.t  )
+                        remaining_time = int( expected_time - time_elapsed)
+
+
+                    sys.__stdout__.write('Simulating: t=%.0f/%.0fms (Remaining:%s s)     \r' % (neuron.h.t, float(neuron.h.tstop), remaining_time))
                     sys.__stdout__.flush()
                     if neuron.h.t + self.interval < neuron.h.tstop:
                         neuron.h.cvode.event(neuron.h.t + self.interval, self.callback)
 
-            Event()
+            UpdateEvent()
             print 'Running Simulation'
             neuron.h.run()
             assert neuron.h.t + 1 >= neuron.h.tstop

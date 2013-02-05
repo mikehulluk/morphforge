@@ -31,14 +31,14 @@
 
 import cPickle as pickle
 from morphforge.core.misc import StrUtils
-from morphforge.core import ObjectLabeller
+#from morphforge.core import ObjectLabeller
 
 
 class NEURONChl_Base(object):
 
     def __init__(self, **kwargs):
         super(NEURONChl_Base, self).__init__(**kwargs)
-        self.mm_neuronNumber = None #ObjectLabeller.get_next_count_for_type( NEURONChl_Base)
+        self.mm_neuronNumber = None 
         self.cachedNeuronSuffix = None
 
     def get_neuron_suffix(self):

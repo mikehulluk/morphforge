@@ -36,6 +36,7 @@ from .core import PostSynapticMech_Exp2Syn_Base
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
+from morphforge.simulation.base.base_classes import NamedSimulationObject
 
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 
@@ -63,11 +64,13 @@ ${synnamepost}.peak_conductance = $peak_conductance.rescale('uS').magnitude
 
 """
 
+#from morphforge.core import ObjectLabeller
 
-class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate, ):
+class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplateForwardToTemplate):
 
     def __init__(self, **kwargs):
-        super(NEURONPostSynapticMechTemplate_Exp2Syn, self).__init__( **kwargs)
+        super(NEURONPostSynapticMechTemplate_Exp2Syn, self).__init__(**kwargs)
+
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
 
@@ -80,7 +83,8 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
-        syn_name_post = instance.synapse.get_name() + 'Post'
+        #syn_name_post = instance.synapse.get_name() + 'Post'
+        syn_name_post = instance.name + 'Post'
         hoc_data_cell = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                "synnamepost": syn_name_post,
@@ -101,8 +105,8 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,
                                    Template(exp2HOCTmpl, data).respond())
 
-        hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
+        assert not instance in hocfile_obj[MHocFileData.Synapses]
+        hocfile_obj[MHocFileData.Synapses][instance] = data
 
 
     def template_build_mod_once(self, modfile_set):
