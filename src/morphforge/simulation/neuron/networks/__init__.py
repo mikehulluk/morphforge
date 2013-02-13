@@ -201,6 +201,7 @@ class NEURONPostSynapticMechInstantiation(PostSynapticMechInstantiation, NamedSi
 
         if not set( params.keys() ) == set( self.src_tmpl.get_variables() ):
             print params.keys(),  self.src_tmpl.get_variables() 
+            print self.src_tmpl, type(self.src_tmpl)
             assert False
 
         return params

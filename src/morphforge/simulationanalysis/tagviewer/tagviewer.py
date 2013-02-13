@@ -94,6 +94,7 @@ class TagViewer(object):
         linkage=None,
         timerange=None,
         mpl_tight_bounds=False,
+        decimate_points=False,
 
         share_x_labels=True,
 
@@ -110,6 +111,7 @@ class TagViewer(object):
             fig_kwargs = self._default_fig_kwargs
 
         self.linkage = linkage
+        self.decimate_points = decimate_points
 
 
         if not is_iterable(srcs):
@@ -219,6 +221,7 @@ class TagViewer(object):
                             all_eventsets=self.all_event_set_objs,
                             time_range=self.timerange,
                             linkage=self.linkage,
+                            decimate_points=self.decimate_points,
                             #plot_xaxis_details=plot_xaxis_details,
 
                             show_xlabel = self.show_xlabel,

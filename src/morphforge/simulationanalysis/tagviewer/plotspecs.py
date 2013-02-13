@@ -204,7 +204,7 @@ class TagPlot(object):
     def _sort_eventsets(cls, event_sets):
         return sorted(event_sets, key=lambda trace: trace.name)
 
-    def _plot_trace(self, trace,  ax, index, color=None):
+    def _plot_trace(self, trace,  ax, index, color=None, decimate_points=False):
         plot_kwargs = {'marker':'x'}
         plot_kwargs = {}
 
@@ -216,6 +216,9 @@ class TagPlot(object):
         else:
             if self.colors:
                 plot_kwargs['color'] = self.colors[index % len(self.colors)]
+
+        if decimate_points is not None and decimate_points is not False:
+            trace = trace.convert_to_fixed(decimate_points)
 
         plt_tr = ax.plotTrace(trace, **plot_kwargs)
         return plt_tr
@@ -247,7 +250,7 @@ class TagPlot(object):
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None) :
+    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None, decimate_points=False) :
 
         if self.time_range is not None:
             time_range = self.time_range
@@ -261,7 +264,7 @@ class TagPlot(object):
         for index, trace in enumerate(self._sort_traces(trcs)):
             #color = linkage.color_allocations.get(trace, None) if linkage else None
             color = linkage.get_trace_color(trace) if linkage else None
-            self._plot_trace(trace, ax=ax, index=index, color=color)
+            self._plot_trace(trace, ax=ax, index=index, color=color, decimate_points=decimate_points)
 
 
         for index, event_set in enumerate(self._sort_eventsets(eventsets)):

@@ -68,7 +68,8 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
         return [StandardTags.NMDAVoltageDependancy]
 
     def build_hoc(self, hocfile_obj):
-        obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapse]["POST"]["synnamepost"]
+        assert len(self.neuron_syn_post.synapses) == 1
+        obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post]["synnamepost"]
         HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s" % self.name, objname=obj_name_hoc, objvar="voltage_dependancy", recordobj=self)
 
     def build_mod(self, modfile_set):
