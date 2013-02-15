@@ -75,7 +75,7 @@ PARAMETER {
     tau2 = 12.0 (ms) <1e-9,1e9>
     e=0    (mV)
     popening=1.0 () <0.0,1.0>
-    peak_conductance = -100000 ()
+    peak_conductance = -100000 (uS)
 }
 
 ASSIGNED {

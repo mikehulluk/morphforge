@@ -93,13 +93,18 @@ $(cell_name).internalsections [$section_index] {
         m.add_unit_definition(unitname='millivolt', unitsymbol='mV')
         m.add_unit_definition(unitname='siemens', unitsymbol='S')
 
-        m.add_unit_definition(unitname='1/liter', unitsymbol='molar')
-        m.add_unit_definition(unitname='micromolar', unitsymbol='uM')
-        m.add_unit_definition(unitname='molar', unitsymbol='M')
-        m.add_unit_definition(unitname='nanomolar', unitsymbol='nM')
+
+        m.add_unit_definition(unitname='mole', unitsymbol='mol')
+        m.add_unit_definition(unitname='mole/liter', unitsymbol='M')
+        m.add_unit_definition(unitname='micro M', unitsymbol='uM')
+
+        #m.add_unit_definition(unitname='1/liter', unitsymbol='molar')
+        #m.add_unit_definition(unitname='micromolar', unitsymbol='uM')
+        #m.add_unit_definition(unitname='molar', unitsymbol='M')
+        #m.add_unit_definition(unitname='nanomolar', unitsymbol='nM')
 
         m.add_unit_definition(unitname='(joule/K-mole)', unitsymbol='rUnits')
-        m.add_unit_definition(unitname='(C/mole)', unitsymbol='fUnits')
+        m.add_unit_definition(unitname='(C/mol)', unitsymbol='fUnits')
 
 
         m.create_neuron_interface(suffix= caAlphaBetaBetaChl.get_neuron_suffix(), nonspecificcurrents=["i"], ioncurrents=None, ranges = ["pca", "SCa_i", "Sca_o", "T",'i_ungated' ])
@@ -140,6 +145,11 @@ $(cell_name).internalsections [$section_index] {
                     ("v", "mV"),
                     #('c', None),
                     ('cV', None),
+                    ('cV_neg_exp', None),
+
+                    ("res1a", "cm/sec"),
+                    ("res1b", "C/mol"),
+                    ("res1c", "uM"),
        ]
         for name, unit in assignments:
             m.add_assigned(NeuronParameter(parametername=name, parameterunit=unit, parameterrange=None))
@@ -216,50 +226,19 @@ FUNCTION vtrap(x,y)
     }
 }
 
-
-FUNCTION ghkvtrap(cV, pca, mcai, mcao)
+FUNCTION ghkvtrap(cV, pca(cm/sec), mcai(uM), mcao(uM))  (mA/cm2)
 {
 
-    LOCAL FL, cV_neg_exp
-    FL = 96485.33
 
-    :cV = -1.54726924948
+
     cV_neg_exp = exp(-cV)
-    :cV_neg_exp  = 4.69862188369
 
-    :if(cV < 0.0000001)
-    if( 1<0) :cV < 0.0000001)
-    {
-        ghkvtrap =   ( pca * (1e-2) ) * CaZ * FL * (mcai - mcao) * (1e-3)  * (1e+4)  * (1e3)        * (1e-6)
-        :            ---------------    ---------  -------------   -----     ------    -----          -------
-        :                   |               |           |           |         |          |               |
-        :  Units:         m/sec          C/mol         mol/L       L/m3      m2/cm2   (milli)           [Because the units of conentrations are in uM not M]
-        :
-        :      -->  (C/s) * (/m2) * (m2/cm2) * (milli)
-        ghkvtrap = ghkvtrap / 100
-    }
-    else
-    {
-        ghkvtrap =   ( pca * (1e-2) ) * cV *  CaZ * FL * ((mcai - mcao * cV_neg_exp)    /   (1.0-cV_neg_exp))  * (1e-3)  * (1e4)  * (1e3)    *  (1e-6)
-        :           -----------------  ----  ---------  ------------------------------   ---------------------   ------    ------    -----       -------
-        :                   |            |      |                      |                          |                 |        |         |            |
-        :  Units:          m/sec        (-)   (C/mol)             mol / L                      (-)                L/m3     m2/cm2   (milli)    [Because the units of conentrations are in uM not M]
-
-        :
-        :       ->  C/mol  * (/m2) * (m2/cm2) * (milli)
-        :       ->  mA/cm2
-
-        : Reduse out the large scalings to a single term:
-        ghkvtrap =   ( pca * 1.0    ) * cV *  CaZ * FL * ((mcai - mcao * cV_neg_exp)     /  (1.0-cV_neg_exp))    * (1e-4)
-
-        : Why is this here?
-        : The results it gives are correct, but I do not understand why.
-        : Where does the factor of 100 come from ??
-        ghkvtrap = ghkvtrap / 100
-    }
+    res1a = ( pca ) * cV
+    res1b = CaZ * F
+    res1c = ((mcai - mcao * cV_neg_exp)    /   (1.0-cV_neg_exp))
 
 
-
+    ghkvtrap = res1a * res1b * res1c * (1e-6)
 }
 
 

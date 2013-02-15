@@ -29,42 +29,63 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import cPickle as pickle
-from morphforge.core.misc import StrUtils
-#from morphforge.core import ObjectLabeller
+from enthought.traits.api import *
+import wx
+
+from enthought.traits.ui.api import View, Item, Group
+from enthought.traits import *
+
+import random
 
 
-class NEURONChl_Base(object):
+class MusicPlayer(HasStrictTraits):
 
-    def __init__(self, **kwargs):
-        print 'KWARGS', kwargs
-        super(NEURONChl_Base, self).__init__(**kwargs)
-        self.mm_neuronNumber = None 
-        self.cachedNeuronSuffix = None
+# Music tracks.
+    track = TraitPrefixList
 
-    def get_neuron_suffix(self):
+    # Current time of the song in seconds.
+    current_time = Range(0.0, 100.0)
 
-        # Cache the result: (We shouldn't have to do this, but there is a bug
-        # with EqnSetChlNeuron::getModFileChangeble(), which is not returning the same thing
-        # on each call for some reason.
-        if self.cachedNeuronSuffix is None:
-            # We take the hash off the parameters that will change the mod-file.
-            # This means we don't duplicate millions of mod-files
-            mod_file_changeables = self.get_mod_file_changeables()
-            mod_file_changeables[None] = str(type(mod_file_changeables).__str__), str(self.__class__.__name__)
+    view = View('track', 'current_time')
 
-            md5 = StrUtils.get_hash_md5(pickle.dumps(sorted(tuple(mod_file_changeables.iteritems()))))
-            self.cachedNeuronSuffix = 'MIKETMP%sChl' % md5
+    def set_songs(self, songs):
+        trait = Trait(songs[0], TraitPrefixList(songs))
+        self.add_trait('track', trait)
 
-        return self.cachedNeuronSuffix
-
-
-    def get_mod_file_changeables(self):
-        raise NotImplementedError()
+    def _track_changed(self, val):
+    # Just set the current song's length to something random.
+        rand_track_time = float(random.randrange(10, 1200))
+        trait = Range(0.0, rand_track_time, 0)
+        self.add_trait('current_time', trait)
+        # Rebuild UI if needed.
+        v = self.trait_view()
+        v.updated = True
+        print 'Range should update to', 0, rand_track_time
 
 
+player = MusicPlayer()
+songs = ['wish you were here', 'time', 'smoke on the water',
+         'acknowledgement']
+player.set_songs(songs)
+
+player.track = 'time'
+player.configure_traits()
 
 
+class Counter(HasTraits):
+
+    value = Int()
+
+    def __init__(self):
+
+        self.add_trait('R', Range(0, 10, 1))
+
+        v = self.trait_view()
+        v.updated = True
+        HasTraits.__init__(self)
 
 
+# Counter().edit_traits()
+Counter().configure_traits()
 
+# wx.PySimpleApp().MainLoop()

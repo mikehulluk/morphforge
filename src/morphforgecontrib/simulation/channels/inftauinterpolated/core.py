@@ -35,6 +35,7 @@ from morphforge.constants import StandardTags
 
 import numpy as np
 
+from morphforge.simulation.neuron import NEURONChl_Base
 
 class InfTauInterpolation(object):
 
@@ -55,7 +56,7 @@ class InfTauInterpolation(object):
         return zip(self.V, self.tau)
 
 
-class MM_InfTauInterpolatedChannel(Channel):
+class MM_InfTauInterpolatedChannel(Channel, NEURONChl_Base):
 
     class Recordables:
 

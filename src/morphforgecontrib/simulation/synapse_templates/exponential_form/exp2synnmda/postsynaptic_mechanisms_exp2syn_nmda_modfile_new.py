@@ -87,14 +87,14 @@ PARAMETER {
     e=0    (mV)
     popening=1.0 () <0.0, 1.0>
     is_vdep_on = 1
-    peak_conductance = -100000 ()
+    peak_conductance = -100000 (uS)
 
     is_conductance_limited_on = -1
     conductance_limit = -1
 
     eta = 0.1
     mg2conc=0.5
-    gamma=0.08
+    gamma=0.08 (/mV)
 
 }
 
@@ -132,7 +132,7 @@ INITIAL {
 }
 
 
-FUNCTION vdep_func(Vin, vdep)
+FUNCTION vdep_func(Vin(mV), vdep)
 {
     if(vdep<0.5){
         vdep_func = 1.0

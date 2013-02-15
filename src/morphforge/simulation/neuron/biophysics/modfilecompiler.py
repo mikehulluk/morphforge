@@ -243,7 +243,7 @@ class ModFileCompiler(object):
                 print 'ERROR ERROR ERROR WITH UNITS!!'
                 print 'Seen', line
                 print 'Expt', line_expected
-                # assert False
+                assert False
 
 
     @classmethod
