@@ -42,17 +42,21 @@ class Recordable(NamedSimulationObject):
         self.user_tags = (user_tags if user_tags else [])
         self._description = description
 
+    
+    # A recordable can 2 two sources of tags, either provided by the user, 
+    # or provided by the class directly.
+
     def get_tags(self):
-        return list(itertools.chain(self.get_std_tags(),
-                    self.user_tags))
+        return list(itertools.chain(self.get_std_tags(), self.user_tags))
 
     def get_std_tags(self):
         raise NotImplementedError()
 
-    def _get_desc(self):
+    @property
+    def decription(self):
         return (self._description if self._description else self.get_description())
 
-    description = property(_get_desc)
+    #description = property(_get_desc)
 
     def get_description(self):
         default_desc = 'No Description'

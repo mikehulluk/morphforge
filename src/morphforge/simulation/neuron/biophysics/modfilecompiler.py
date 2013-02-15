@@ -111,8 +111,10 @@ def _simple_exec(cmd, remaining, err_ok=False):
                               shell=True,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.PIPE)
-    output = proc.communicate()[0]
-    assert proc.returncode== 0 or err_ok==True, 'Problem Building Mod-file!' + '\n %s '% args
+    output,err = proc.communicate()
+    if not proc.returncode == 0 and err_ok!=True:
+        print output, err
+        raise ValueError(('Problem Building Mod-file!' + '\n %s '% args) + output)
 
     if SettingsMgr.simulator_is_verbose():
         print output

@@ -59,7 +59,7 @@ from morphforge.stdimports import NEURONEnvironment
 
 
 class PlotOptions:
-    ShowAlphaBeta = False
+    ShowAlphaBeta = True
 
 
 
@@ -193,7 +193,7 @@ class HHChannelPaneLk(HasTraits):
     def getMechanism(self, env):
         #lk = env.MembraneMechanism( MM_LeakChannel,
         lk = env.Channel( StdChlLeak,
-                                     name='Leak',
+                                     #name='Leak',
                                      #mechanism_id='LKID',
                                      conductance = '%2.2f:mS/cm2' % self.general.gbar,
                                      reversalpotential = '%2.2f:mV' % self.general.vrev)
@@ -311,7 +311,7 @@ class HHChannelPaneInfTau2(HasTraits):
         self.state1.label='m'
         self.state1.label='h'
         ks = env.Channel(MM_InfTauInterpolatedChannel,
-                                      name='InfTau1',
+                                      #name='InfTau1',
                                       ion='ks',
                                       equation=self.eqn,
                                       conductance = '%2.2f:mS/cm2' % gbar,
