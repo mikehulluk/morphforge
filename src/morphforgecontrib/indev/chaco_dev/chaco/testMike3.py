@@ -34,8 +34,10 @@
 from __future__ import division
 
 
-from chaco.api import Plot, ArrayPlotData, add_default_axes, add_default_grids, OverlayPlotContainer, PlotLabel, ScatterPlot, create_line_plot
-from chaco.example_support import COLOR_PALETTE
+#from chaco.api import Plot, ArrayPlotData, add_default_axes, add_default_grids, OverlayPlotContainer, PlotLabel, ScatterPlot, create_line_plot
+#from chaco.example_support import COLOR_PALETTE
+
+from chaco.api import Plot, ArrayPlotData
 from chaco.tools.api import PanTool, ZoomTool, BroadcasterTool
 from modelling.rbmodelling2.modelconstants import ChlType, Model, CellType
 
@@ -45,7 +47,6 @@ from traits.has_traits import HasTraits, on_trait_change
 from traits.trait_types import Instance, Range
 
 
-#from morphforgecontrib.simulation.membranemechanisms.inftauinterpolated.core import MM_InfTauInterpolatedChannel
 from morphforgecontrib.simulation.channels.inftauinterpolated.core import MM_InfTauInterpolatedChannel
 
 from channel_panels import HHChannelPaneInfTau1, HHChannelExistingChannel, HHChannelPaneLk, buildPaneFromExistingChannel,  buildPaneFromExistingChannelLk
@@ -78,7 +79,7 @@ trace_names = [('SomaVoltage', vUnit),
                ]
 
 
-trace_names = [('SomaVoltage', vUnit)]
+#trace_names = [('SomaVoltage', vUnit)]
 
 
 
@@ -92,7 +93,7 @@ class TracePlot(HasTraits):
     plot = Instance(Plot)
     view = View(
             Group(
-                  Item('plot', editor=ComponentEditor(size=(50, 50)), show_label=False),
+                  Item('plot', editor=ComponentEditor(size=(30, 30)), show_label=False),
                ),
                 resizable=True)
 
@@ -114,7 +115,7 @@ class TracePlot(HasTraits):
             self.plot.y_mapper.range.set_bounds(*yRange)
 
         for what, color in zip(plot_what, colors):
-            render = self.plot.plot((what+"_t", what + "_d"), type='line', color=color)
+            self.plot.plot((what+"_t", what + "_d"), type='line', color=color)
 
 
         broadcaster = BroadcasterTool()
@@ -129,7 +130,6 @@ class TracePlot(HasTraits):
 
 
 
-#class SimulationRunWindow(HasTraits):
 
 
 
@@ -190,7 +190,6 @@ class SimulationConfig(HasTraits):
             mech_dict[chl.chlname] = mech
             if mech:
                 # Apply the mechanism:
-                #apply_mechanism_everywhere_uniform(cell=cell, mechanism=mech)
                 cell.apply_channel(mech)
 
 
@@ -247,10 +246,10 @@ class SimulationConfig(HasTraits):
 
 
 class MorphologyConfig(HasTraits):
-    surfacearea = Range(1.0, 1000., 590)
+    area = Range(1.0, 1000., 590)
     capacitance = Range(0.1, 10.0, 1.0)
     view = View(Group(
-                  Item('surfacearea'),
+                  Item('area'),
                   Item('capacitance'),
                ),
                 resizable=True, title='Morphology')
@@ -262,22 +261,20 @@ class MorphologyConfig(HasTraits):
 
 
 
-    @on_trait_change('surfacearea, capacitance')
+    @on_trait_change('area, capacitance')
     def m_update(self):
         self.sim_conf.resimulate()
 
 
 
     def get_cell(self, env, sim):
-        m1 = mf.MorphologyBuilder.get_single_section_soma(area= float(self.surfacearea) * mf.units.um2)
-        #m1 =
+        m1 = mf.MorphologyBuilder.get_single_section_soma(area= float(self.area) * mf.units.um2)
 
         morph_functor = mf.MorphologyLibrary.get_morphology_functor(modelsrc=Model.Hull12SWithAxon, celltype=CellType.dIN)
         m1 = morph_functor(axonDiam = 0.4)
 
         myCell = sim.create_cell(name="Cell1", morphology=m1)
         myCell.set_passive( mf.PassiveProperty.SpecificCapacitance, mf.qty('%f:uF/cm2' % self.capacitance) )
-        #apply_passive_everywhere_uniform(myCell, PassiveProperty.SpecificCapacitance, unit('%f:uF/cm2' % self.capacitance))
         return myCell
 
 
@@ -296,11 +293,13 @@ class InputConfig(HasTraits):
                   Item('amp1'),
                   Item('delay1'),
                   Item('dur1'),
+                  label='Stim1'
                ),
             Group(
                   Item('amp2'),
                   Item('delay2'),
                   Item('dur2'),
+                  label='Stim2'
                ),
                 resizable=True, title='Current Inj')
 
@@ -366,74 +365,6 @@ class Double(HasTraits):
 
 
 
-#naFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Na)
-#kfFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Kf)
-#ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Sautois07, celltype=CellType.dIN, channeltype=ChlType.Ks)
-#
-#
-#naFunctorOld = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Na)
-#kfFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Kf)
-#ksFunctor = ChannelLibrary.get_channel_functor(modelsrc=Model.Hull10, celltype=CellType.RB, channeltype=ChlType.Ks)
-
-#
-#naFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Na)
-#kfFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Kf)
-#ksFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ks)
-#lkFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Lk)
-#caFunctorBase = ChannelLibrary.get_channel_functor(modelsrc=Model.BigSim6, celltype=CellType.RB, channeltype=ChlType.Ca)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ca, chl_functor=getCaChannels)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Kf, chl_functor=getKfChannels)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Ks, chl_functor=getKsChannels)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Lk, chl_functor=getLkChannels)
-##ChannelLibrary.register_channel(modelsrc = Model.BigSim6, celltype=CellType.RB, channeltype= ChlType.Na, chl_functor=get_naChannels)
-#
-##
-#
-#caMult = 1.0
-#naMult = 1.6
-#kfMult = 0.6
-#ksMult = 1.0
-#lkMult = 1.2
-##nrnParams = NeuronParameters({ ChlIon.Na: 1.6, ChlIon.Ca: 1.0, ChlIon.Kf: 0.6, ChlIon.Lk: 1.2 })
-#
-#
-##nrnParams = NeuronParameters({ ChlIon.Na: 1.0, ChlIon.Ca: 1.6, ChlIon.Kf: 0.5, ChlIon.Lk: 0.4 })
-
-
-
-
-"""
-        for mechFunctor in mechFunctors:
-            mech = mechFunctor(env=sim.environment)
-            if mechFunctor == lkFunctor:
-
-                if coupled_leak:
-                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5}, parameter_overrides = {'eLk':unit("-52.0:mV")} )
-                else:
-                    apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':1.0}, parameter_overrides = {'eLk':unit("-52.0:mV")} )
-
-
-            elif mechFunctor == naFunctor:
-                if disable_sodium:
-                    continue
-
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':2.5})
-                apply_mechanism_region_uniform(   cell=myCell, mechanism=mech, region=myCell.morphology.get_region('axon'), parameter_multipliers={'gScale':5.0})
-
-
-            elif mechFunctor == kfFunctor:
-                if disable_kf:
-                    continue
-
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5})
-                apply_mechanism_region_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5} , region=myCell.morphology.get_region('soma'))
-
-            elif mechFunctor == ksFunctor:
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech, parameter_multipliers={'gScale':0.5})
-
-            else:
-                apply_mechanism_everywhere_uniform(cell=myCell, mechanism=mech)
-                """
 
 caMult = 1.0
 naMult = 5.0
@@ -486,7 +417,7 @@ def main():
 
     d = Double(
             s3 = TracePlot(sim_conf=sim_conf, plot_what=['SomaVoltage'], colors=['green'], yRange=(-80, 50), xRange=xRange),
-            #s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i', 'Ks_i', 'Lk_i', 'Na_i', 'Ca_i'], colors=['cyan', 'blue', 'red', 'green', 'orange'], xRange=xRange),
+            s4 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_i', 'Ks_i', 'Lk_i', 'Na_i', 'Ca_i'], colors=['cyan', 'blue', 'red', 'green', 'orange'], xRange=xRange),
             #s5 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_g', 'Ks_g', 'Lk_g', 'Na_g'], colors=['cyan', 'blue', 'red', 'green'], xRange=xRange),
             #s6 = TracePlot(sim_conf=sim_conf, plot_what=['Kf_kf', 'Ks_ks', 'Na_m', 'Na_h'], colors=['cyan', 'blue', 'red', 'green'], xRange=xRange),
             conf_morph= MorphologyConfig(sim_conf=sim_conf),
@@ -501,7 +432,6 @@ def main():
     d.configure_traits()
 
 
-#vrev=unit('-54:mV'), gbar=unit('0.5:mS/cm2')
 
 if __name__ == '__main__':
     main()

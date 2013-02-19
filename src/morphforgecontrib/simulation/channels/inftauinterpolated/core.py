@@ -69,11 +69,10 @@ class MM_InfTauInterpolatedChannel(Channel, NEURONChl_Base):
                StateVarSteadyState, StateVarTimeConstant]
 
 
-    def __init__(self, ion, equation, conductance, reversalpotential, statevars_new={}, **kwargs):
+    def __init__(self, equation, conductance, reversalpotential, statevars_new={}, **kwargs):
         super(MM_InfTauInterpolatedChannel, self).__init__(**kwargs)
 
 
-        self.ion = ion
         self.eqn = equation
         self.conductance = qty(conductance)
         self.reversalpotential = qty(reversalpotential)

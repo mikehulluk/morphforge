@@ -34,28 +34,28 @@
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
+#from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
+#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
+#from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
+#from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
 from neurounits.neurounitparser import NeuroUnitParser
 
 from morphforge.core import ObjectLabeller
-from morphforge.simulation.base.networks import PostSynapticMech
+#from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
 
-from morphforge.simulation.base import PostSynapticMechTemplate
-from morphforge.simulation.base import PostSynapticMechInstantiation
+#from morphforge.simulation.base import PostSynapticMechTemplate
+#from morphforge.simulation.base import PostSynapticMechInstantiation
 
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
+#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
+#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 
-from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
+#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
 
@@ -174,11 +174,16 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
         self.NRNSUFFIX = self.buildparameters.suffix
 
-    def template_build_mod(self, modfile_set):
+    #def template_build_mod(self, modfile_set):
+    #    if not self.is_mod_built:
+    #        modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2'))
+    #        self.is_mod_built = True
+
+    def template_build_mod_once(self, modfile_set):
         if not self.is_mod_built:
             modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2'))
             self.is_mod_built = True
-
+        #self.template_build_mod( modfile_set)
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
         # Resolve the parameters for this instance:
@@ -186,7 +191,7 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
-        syn_name_post = instance.synapse.get_name() + 'Post'
+        syn_name_post = instance.name + 'Post'
         cell_hoc = hocfile_obj[MHocFileData.Cells][cell]
         data = {
             'synnamepost': syn_name_post,
@@ -199,10 +204,14 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
             'parameters': [(k, float(v/instance.src_tmpl.units[k])) for (k, v) in params.iteritems()]
                }
 
-        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
+        #hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
 
-        hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
+        #hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
+        #hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
+
+        hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost, Template(exp2HOCTmpl, data).respond())
+        assert not instance in hocfile_obj[MHocFileData.Synapses]
+        hocfile_obj[MHocFileData.Synapses][instance] = data
 
 
 

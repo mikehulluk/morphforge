@@ -117,7 +117,7 @@ def _simple_exec(cmd, remaining, err_ok=False):
         raise ValueError(('Problem Building Mod-file!' + '\n %s '% args) + output)
 
     if SettingsMgr.simulator_is_verbose():
-        print output
+        print output, err
     return output
 
 

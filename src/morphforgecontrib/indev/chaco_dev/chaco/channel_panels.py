@@ -33,27 +33,19 @@
 
 from __future__ import division
 
+import numpy as np
 
 from chaco.api import  OverlayPlotContainer
 from enable.component_editor import ComponentEditor
-
 from traits.api import HasTraits, Instance,  on_trait_change, Range
 from traitsui.api import View, Item, Group
 
-from chaco_util import VGroup, HGroup
-
-
-import numpy as np
-
+from chaco_util import _create_plot_component, VGroup, HGroup
+from morphforge.stdimports import NEURONEnvironment
+from morphforge.core.misc import SeqUtils
 
 from morphforgecontrib.simulation.channels.inftauinterpolated.core import MM_InfTauInterpolatedChannel, InfTauInterpolation
 from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from chaco_util import _create_plot_component
-from morphforge.core.misc import SeqUtils
-from morphforge.stdimports import NEURONEnvironment
-
-
-
 
 
 
@@ -99,6 +91,7 @@ class HHGeneralStatePanel(HasTraits):
     plotinf = Instance(OverlayPlotContainer)
 
 
+    plotsize = (30,50)
     if PlotOptions.ShowAlphaBeta:
         plotalpha = Instance(OverlayPlotContainer)
         plotbeta = Instance(OverlayPlotContainer)
@@ -106,13 +99,13 @@ class HHGeneralStatePanel(HasTraits):
         traits_view = View(
             VGroup(
                 HGroup(
-                    Item('plottau', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
-                    Item('plotinf', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plottau', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
+                    Item('plotinf', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
                     padding=0,
                    ),
                 HGroup(
-                    Item('plotalpha', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
-                    Item('plotbeta', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plotalpha', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
+                    Item('plotbeta', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
                   padding=0,
                    ),
                  ),
@@ -124,16 +117,14 @@ class HHGeneralStatePanel(HasTraits):
         traits_view = View(
                 VGroup(
                 HGroup(
-                    Item('plottau', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
-                    Item('plotinf', editor=ComponentEditor(size = (50, 50)), show_label=False, resizable=True),
+                    Item('plottau', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
+                    Item('plotinf', editor=ComponentEditor(size = plotsize), show_label=False, resizable=True),
                     padding=0,
                ),
 
-                   ), resizable=True)
+            ), resizable=True)
 
 
-    def on_change_inftau(self):
-        self.parentchlpane.notify_chl_changed()
 
 
 
@@ -144,11 +135,63 @@ class HHGeneralStatePanel(HasTraits):
         self.initial_tau = initial_tau
         self.initial_inf = initial_inf
 
+
+
+    def on_change_inftau(self):
+
+        if PlotOptions.ShowAlphaBeta:
+            inf = self.plotinf.lineplot.value.get_data() 
+            tau = self.plottau.lineplot.value.get_data()
+            alpha = inf/tau
+            beta = (1.-inf)/tau
+
+            self.plotalpha.lineplot.value.set_data(alpha)
+            self.plotbeta.lineplot.value.set_data(beta)
+
+            self.plotalpha.request_redraw()
+            self.plotbeta.request_redraw()
+            self.plotalpha.invalidate_and_redraw()
+            self.plotbeta.invalidate_and_redraw()
+
+
+        # And rerun the simulation
+        self.parentchlpane.notify_chl_changed()
+    
+    def on_change_alphabeta(self):
+
+        alpha = self.plotalpha.lineplot.value.get_data() 
+        beta =  self.plotbeta.lineplot.value.get_data()
+        inf = alpha/(alpha+beta)
+        tau = 1./(alpha+beta)
+
+        self.plotinf.lineplot.value.set_data(inf)
+        self.plottau.lineplot.value.set_data(tau)
+
+        self.plottau.request_redraw()
+        self.plotinf.request_redraw()
+        self.plottau.invalidate_and_redraw()
+        self.plotinf.invalidate_and_redraw()
+
+        # And rerun the simulation
+        self.parentchlpane.notify_chl_changed()
+
     def _plottau_default(self):
         return _create_plot_component(title='tau', on_change_functor=self.on_change_inftau, initial_values = self.initial_tau)
     def _plotinf_default(self):
         return _create_plot_component(title='inf', on_change_functor=self.on_change_inftau, initial_values = self.initial_inf)
 
+    def _plotalpha_default(self):
+        v =self.initial_tau[0]
+        t =self.initial_tau[1]
+        i =self.initial_inf[1]
+        initial_alpha = [v, i/t ]
+        return _create_plot_component(title='alpha', on_change_functor=self.on_change_alphabeta, initial_values = initial_alpha)
+    def _plotbeta_default(self):
+        v =self.initial_tau[0]
+        t =self.initial_tau[1]
+        i =self.initial_inf[1]
+        initial_beta = [v, (1.-i)/t ]
+        return _create_plot_component(title='beta', on_change_functor=self.on_change_alphabeta, initial_values = initial_beta)
 
 
 
@@ -191,10 +234,7 @@ class HHChannelPaneLk(HasTraits):
 
 
     def getMechanism(self, env):
-        #lk = env.MembraneMechanism( MM_LeakChannel,
         lk = env.Channel( StdChlLeak,
-                                     #name='Leak',
-                                     #mechanism_id='LKID',
                                      conductance = '%2.2f:mS/cm2' % self.general.gbar,
                                      reversalpotential = '%2.2f:mV' % self.general.vrev)
         return lk
@@ -227,7 +267,6 @@ class HHChannelPaneInfTau1(HasTraits):
         self.state.parentchlpane = self
 
         self.eqn = eqn
-        #self.mechanism_id = mechanism_id
         self.state_var_name = state_var_name
         self.chlname = chlname
 
@@ -240,15 +279,12 @@ class HHChannelPaneInfTau1(HasTraits):
         gbar = self.general.gbar
         vrev = self.general.vrev
 
-        intp = { self.state_var_name: InfTauInterpolation(V=self.state.plotinf.mx.tolist(),
-                                                          inf=self.state.plotinf.my.tolist(),
-                                                          tau=self.state.plottau.my.tolist()) }
+        intp = { self.state_var_name: InfTauInterpolation(V=self.state.plotinf.lineplot.index.get_data().tolist(),
+                                                          inf=self.state.plotinf.lineplot.value.get_data().tolist(),
+                                                          tau=self.state.plottau.lineplot.value.get_data().tolist()) }
 
         ks = env.Channel(MM_InfTauInterpolatedChannel,
-                                      name='InfTau1',
-                                      ion='ks',
                                       equation=self.eqn,
-                                      #mechanism_id=self.mechanism_id,
                                       conductance = '%2.2f:mS/cm2' % gbar,
                                       reversalpotential = '%2.2f:mV' % vrev,
                                       statevars_new = intp
@@ -301,18 +337,16 @@ class HHChannelPaneInfTau2(HasTraits):
         gbar = self.general.gbar
         vrev = self.general.vrev
 
-        intp = { self.state_var_name1: InfTauInterpolation(V=self.state1.plotinf.mx.tolist(),
-                                                          inf=self.state1.plotinf.my.tolist(),
-                                                          tau=self.state1.plottau.my.tolist()) ,
-                 self.state_var_name2: InfTauInterpolation(V=self.state2.plotinf.mx.tolist(),
-                                                          inf=self.state2.plotinf.my.tolist(),
-                                                          tau=self.state2.plottau.my.tolist()),
+        intp = { self.state_var_name1: InfTauInterpolation(V=self.state1.plotinf.lineplot.index.get_data().tolist(),
+                                                          inf=self.state1.plotinf.lineplot.value.get_data().tolist(),
+                                                          tau=self.state1.plottau.lineplot.value.get_data().tolist()) ,
+                 self.state_var_name2: InfTauInterpolation(V=self.state2.plotinf.lineplot.index.get_data().tolist(),
+                                                          inf=self.state2.plotinf.lineplot.value.get_data().tolist(),
+                                                          tau=self.state2.plottau.lineplot.value.get_data().tolist()),
                 }
         self.state1.label='m'
         self.state1.label='h'
         ks = env.Channel(MM_InfTauInterpolatedChannel,
-                                      #name='InfTau1',
-                                      ion='ks',
                                       equation=self.eqn,
                                       conductance = '%2.2f:mS/cm2' % gbar,
                                       reversalpotential = '%2.2f:mV' % vrev,
@@ -393,7 +427,6 @@ def buildPaneFromExistingChannelInfTau1State(existing_channel_functor, sim_confi
 def buildPaneFromExistingChannelInfTau2State(existing_channel_functor, sim_config, chlname):
 
 
-    # Setup the channel, so we can look at inf_tau:
     chl =  existing_channel_functor(NEURONEnvironment())
 
     assert set(["m", "h"]) == set(chl.statevars.keys())
@@ -406,18 +439,15 @@ def buildPaneFromExistingChannelInfTau2State(existing_channel_functor, sim_confi
             vrev=float(chl.reversalpotential.rescale("mV").magnitude)
            )
 
-
     return  HHChannelPaneInfTau2(sim_config=sim_config,
                                  general_pane=general,
                                  state_pane1=state1,
                                  state_pane2=state2,
                                  eqn = chl.eqn,
-                                 #mechanism_id = chl.mechanism_id,
                                  state_var_name1 = 'm',
                                  state_var_name2 = 'h',
                                  chlname = chlname
                                )
-
 
 def buildPaneFromExistingChannelLk(lkFunctor , sim_config, chlname):
 
@@ -433,14 +463,11 @@ def buildPaneFromExistingChannelLk(lkFunctor , sim_config, chlname):
                             chlname=chlname,
                                )
 
-
-
 def buildPaneFromExistingChannel(existing_channel_functor, sim_config, chlname):
     return HHChannelExistingChannel(sim_config=sim_config,
                                      mechanism_functor = existing_channel_functor,
                                      chlname = chlname
                                     )
-
 
 def buildPaneFromExistingChannelWithInfTau(existing_channel_functor, sim_config):
 

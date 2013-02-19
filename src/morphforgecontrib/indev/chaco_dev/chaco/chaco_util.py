@@ -38,11 +38,13 @@ from chaco.example_support import COLOR_PALETTE
 from chaco.tools.api import PanTool, ZoomTool
 from enable.api import Component
 from enable.tools.api import DragTool
-from numpy import linspace
-from scipy.special import jn
 from traits.api import Instance, Int,  Tuple
+#from traits.ui.api import Group
 
 from traitsui.api import Group
+
+from numpy import linspace
+from scipy.special import jn
 
 
 def VGroup(*args, **kwargs):
@@ -159,7 +161,6 @@ def _create_plot_component(title, initial_values=None, on_change_functor=None):
     container = OverlayPlotContainer(padding = 25, fill_padding = True,
                                      bgcolor = "lightgray", use_backbuffer=True)
 
-    #return container
     if initial_values:
         x = initial_values[0]
         y = initial_values[1]
@@ -206,8 +207,9 @@ def _create_plot_component(title, initial_values=None, on_change_functor=None):
                               font = "swiss 16",
                               overlay_position="top"))
 
-    container.mx = lineplot.index.get_data()
-    container.my = lineplot.value.get_data()
+    #container.mx = lineplot.index.get_data()
+    #container.my = lineplot.value.get_data()
+    container.lineplot = lineplot
     return container
 
 

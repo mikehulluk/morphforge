@@ -167,7 +167,7 @@ class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base)
     def get_mod_file_changeables(self):
 
          # If this fails, then the attirbute probably needs to be added to the list below:
-        change_attrs = set(['conductance', 'ion','eqn','conductance','statevars_new','reversalpotential', ])
+        change_attrs = set(['conductance', 'eqn','conductance','statevars_new','reversalpotential', ])
         assert set(self.__dict__) == set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix']) | change_attrs
 
         # attrs = ['name','ion','eqn','conductance','statevars_new','reversalpotential',]
