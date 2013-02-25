@@ -126,7 +126,7 @@ $(cell_name).internalsections [$section_index] {
         base_writer.functions = """FUNCTION StdAlphaBeta(A, B, C, D, E, V){ StdAlphaBeta = (A + B*V) / (C + exp((D+V)/E)) } """
 
         txt = base_writer.generate_modfile()
-        mod_file = ModFile(name=alphabeta_chl.name, modtxt=txt)
+        mod_file = ModFile(name=alphabeta_chl.name, modtxt=txt, strict_modlunit=True)
         modfile_set.append(mod_file)
 
 

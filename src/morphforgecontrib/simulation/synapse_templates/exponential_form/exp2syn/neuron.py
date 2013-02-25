@@ -111,7 +111,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
 
     def template_build_mod_once(self, modfile_set):
         import postsynaptic_mechanisms_exp2syn_modfile_new
-        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile_new.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2')
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_modfile_new.getExp2SynModfile(), name='UnusedParameterXXXExpSyn2', strict_modlunit=True)
         modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):

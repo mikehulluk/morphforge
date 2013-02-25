@@ -249,7 +249,7 @@ class ModFileCompiler(object):
 
 
     @classmethod
-    def build_modfile(cls, modfile):
+    def build_modfile(cls, modfile, strict_modlunit):
         output_filename = modfile.get_built_filename_full(ensure_built=False)
 
         if not os.path.exists(output_filename):
@@ -257,7 +257,8 @@ class ModFileCompiler(object):
                         % output_filename)
 
             mod_txt_filename = FileIO.write_to_file(modfile.modtxt, suffix='.mod')
-            ModFileCompiler.check_modfile_units(mod_txt_filename)
+            if strict_modlunit:
+                ModFileCompiler.check_modfile_units(mod_txt_filename)
             mod_dyn_filename = _build_mod_file(mod_txt_filename, modfile=modfile)
             shutil.move(mod_dyn_filename, output_filename)
         else:

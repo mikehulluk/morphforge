@@ -98,7 +98,7 @@ class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
     def create_modfile(self, modfile_set):
         modFile = ModFile(name='NeuroMLViaXSLChannelNEURON_%s'
-                          % self.name, modtxt=self.modtxt)
+                          % self.name, modtxt=self.modtxt, strict_modlunit=True)
         modfile_set.append(modFile)
 
     # No Internal recording or adjusting of parameters for now:

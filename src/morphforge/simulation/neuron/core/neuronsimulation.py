@@ -114,8 +114,6 @@ class NEURONSimulation(Simulation):
         self.hocfilename = None
 
 
-        # Move to base class:
-        self._postprocessors = []
 
 
 
@@ -138,10 +136,6 @@ class NEURONSimulation(Simulation):
 
 
 
-    def do_result_post_processing(self,):
-
-        for pp in self._postprocessors:
-            pp(result=self.result)
 
 
     def _run_spawn(self):

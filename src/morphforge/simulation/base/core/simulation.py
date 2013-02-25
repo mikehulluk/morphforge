@@ -191,6 +191,9 @@ class Simulation(object):
         self._synapses = []
         self._recordables = []
 
+        # Postprosessing
+        self._postprocessors = []
+
 
     # Over-ridden in child classes:
     def run(self, **kwargs):
@@ -233,4 +236,12 @@ class Simulation(object):
         return list(set(itertools.chain(*[cell.biophysics.get_all_channels_applied_to_cell() for cell in self.cells])) )
 
 
+    
+    def do_result_post_processing(self,):
+
+        for pp in self._postprocessors:
+            pp(result=self.result)
+
+
+    # Post processing:
 

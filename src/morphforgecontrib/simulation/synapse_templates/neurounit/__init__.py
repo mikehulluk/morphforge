@@ -181,7 +181,7 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
     def template_build_mod_once(self, modfile_set):
         if not self.is_mod_built:
-            modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2'))
+            modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2', strict_modlunit=True))
             self.is_mod_built = True
         #self.template_build_mod( modfile_set)
 

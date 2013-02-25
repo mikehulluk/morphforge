@@ -103,5 +103,5 @@ $(cell_name).internalsections [$section_index] {
         base_writer.conductanceequation = '%s * %s' % (gbar_name, g_scale_name)
 
         modtxt = base_writer.generate_modfile()
-        mod_file = ModFile(name=leak_chl.name, modtxt=modtxt)
+        mod_file = ModFile(name=leak_chl.name, modtxt=modtxt, strict_modlunit=True)
         modfile_set.append(mod_file)

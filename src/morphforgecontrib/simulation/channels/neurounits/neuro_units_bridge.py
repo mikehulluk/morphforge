@@ -161,7 +161,7 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units=self.units, nrnsuffix=self.buildparameters.suffix)
 
     def create_modfile(self, modfile_set):
-        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt))
+        modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt, strict_modlunit=True))
 
 
     def get_mod_file_changeables(self):

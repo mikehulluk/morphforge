@@ -152,7 +152,7 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
 
     def template_build_mod(self, modfile_set):
         import postsynaptic_mechanisms_exp2syn_nmda_modfile_new
-        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile_new.get_exp2_syn_nmda_modfile(), name='UnusedParameterXXXExpSyn2')
+        modfile = ModFile(modtxt=postsynaptic_mechanisms_exp2syn_nmda_modfile_new.get_exp2_syn_nmda_modfile(), name='UnusedParameterXXXExpSyn2', strict_modlunit=True)
         modfile_set.append(modfile)
 
     def get_record_for_instance(self, instance, what, **kwargs):

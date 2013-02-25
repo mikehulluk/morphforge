@@ -4,6 +4,9 @@
 src/morphforge/management/__init__.pyc
 *.pyc
 *~
+parser.out
+parse.tab
+_output/
 
 # Allow specific files:
 !.gitignore

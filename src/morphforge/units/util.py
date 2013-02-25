@@ -104,6 +104,10 @@ def _qty(s):
         unt = parse_unit(unit_str)
         return value * unt
 
+    # Lets parse it as a neurounits string:
+    import neurounits
+    return neurounits.NeuroUnitParser.QuantityExpr(s).as_quantities_quantity()
+    #return parse_unit(s)
 
 
     print s

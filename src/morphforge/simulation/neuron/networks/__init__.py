@@ -130,7 +130,7 @@ class NEURONGapJunction(GapJunction, NEURONObject):
 
         if NEURONGapJunction.is_first_build:
             NEURONGapJunction.is_first_build = False
-            modfile = ModFile(modtxt=gap_mod, name='GapJunction')
+            modfile = ModFile(modtxt=gap_mod, name='GapJunction', strict_modlunit=True)
             modfile_set.append(modfile)
 
     def build_hoc(self, hocfile_obj):

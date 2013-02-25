@@ -56,6 +56,7 @@ class ModFile(object):
         additional_compile_flags='',
         additional_link_flags='',
         additional_ld_library_path='',
+        strict_modlunit=True,
         ):
         
         # if no name is provided:
@@ -69,10 +70,12 @@ class ModFile(object):
         self.additional_link_flags = additional_link_flags
         self.additional_ld_library_path = additional_ld_library_path
 
+        self.strict_modlunit = strict_modlunit
+
     def ensure_built(self):
         LogMgr.info('Ensuring Modfile is built')
         from morphforge.simulation.neuron.biophysics.modfilecompiler import ModFileCompiler
-        ModFileCompiler().build_modfile(self)
+        ModFileCompiler().build_modfile(self, self.strict_modlunit)
 
     def get_md5_hash(self):
         return StrUtils.get_hash_md5(self.modtxt)

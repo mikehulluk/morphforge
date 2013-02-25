@@ -69,7 +69,7 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
         build_hoc_default(cell=cell, section=section, hocfile_obj=hocfile_obj, mta=mta , units={}, nrnsuffix=self.nrnsuffix)
 
     def create_modfile(self, modfile_set):
-        mod_file = ModFile(name='EqnSetModfile', modtxt=self.mod_text)
+        mod_file = ModFile(name='EqnSetModfile', modtxt=self.mod_text, strict_modlunit=True)
         modfile_set.append(mod_file)
 
     # No Internal recording or adjusting of parameters for now:

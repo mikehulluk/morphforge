@@ -39,7 +39,8 @@ class NEURONSimulationSettings(object):
     cvode = 'cvode'
     reltol = 'reltol'
     abstol = 'abstol'
-    allparams = (dt, tstop, cvode, reltol, abstol)
+    strict_modlunit='strict_modlunit'
+    allparams = (dt, tstop, cvode, reltol, abstol, strict_modlunit)
 
     @classmethod
     def get_defaults(cls):
@@ -49,7 +50,9 @@ class NEURONSimulationSettings(object):
                 NEURONSimulationSettings.abstol: 1e-2,
                 #NEURONSimulationSettings.reltol: 1e-12,
                 #NEURONSimulationSettings.abstol: 1e-12,
-                NEURONSimulationSettings.cvode: True}
+                NEURONSimulationSettings.cvode: True,
+                NEURONSimulationSettings.strict_modlunit: True
+                }
 
         # Check we have defaults for all parameters:
         for parameter in NEURONSimulationSettings.allparams:
