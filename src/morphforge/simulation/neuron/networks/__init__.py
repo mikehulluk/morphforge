@@ -169,11 +169,12 @@ class NEURONGapJunction(GapJunction, NEURONObject):
 
 
 
-class NEURONPostSynapticMechTemplate(PostSynapticMechTemplate):
-    pass
-
-
 from morphforge.simulation.base.base_classes import NamedSimulationObject
+class NEURONPostSynapticMechTemplate(PostSynapticMechTemplate, NamedSimulationObject):
+    def __init__(self,  **kwargs):
+        super(NEURONPostSynapticMechTemplate, self).__init__(does_require_simulation=False, **kwargs)
+
+
 
 
 
@@ -249,7 +250,7 @@ class NEURONPostSynapticMechTemplateForwardToTemplate(NEURONPostSynapticMechTemp
 class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMechInstantiation):
 
     # The default behaviour is for instances to forward
-    # responsbility back to thier parent:
+    # responsbility back to their parent:
     def build_hoc(self, hocfile_obj):
         return self.src_tmpl.build_hoc_for_instance(hocfile_obj=hocfile_obj, instance=self)
 
@@ -258,4 +259,8 @@ class NEURONPostSynapticMechInstantiationForwardToTemplate(NEURONPostSynapticMec
 
     def get_recordable(self, **kwargs):
         return  self.src_tmpl.get_record_for_instance( instance=self, **kwargs)
+
+    def get_summary_description(self,):
+        return  self.src_tmpl.get_summary_description( instance=self,)
+
 

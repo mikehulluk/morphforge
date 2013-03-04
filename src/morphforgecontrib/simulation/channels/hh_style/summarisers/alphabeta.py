@@ -57,6 +57,7 @@ class AlphaBetaSummariser(object):
                  ] )
 
 
+        sv_eqns = []
         sv_tbls = []
         for sv in obj.statevars:
             sv_table = mrd.VerticalColTable( ['$%s$'%sv,'A','B','C','D','E'],
@@ -65,11 +66,10 @@ class AlphaBetaSummariser(object):
                        ) )
             sv_tbls.append(sv_table)
 
-        sv_eqns = []
-        sv_eqns.append( r"""\frac{d}{dt}%s &= \frac{%s_\infty(V) - %s}{\tau_{%s}(V)}""".replace('%s','SV') )
-        sv_eqns.append( r"""%s_\infty(V) &= \frac{\alpha_{%s}(V)}{\alpha_{%s}(V) + \beta_{%s}(V)}""".replace('%s','SV') )
-        sv_eqns.append( r"""\tau_{%s}(V) &= \frac{1.0}{\alpha_{%s}(V) + \beta_{%s}(V)}""".replace('%s','SV') )
-        sv_eqns.append( r"""\alpha_{%s}(V),\beta_{%s}(V)  &= \frac{A + BV}{C + exp(\dfrac{D+V}{E})} """.replace('%s','SV') )
+            sv_eqns.append( r"""\frac{d}{dt}%s &= \frac{%s_\infty(V) - %s}{\tau_{%s}(V)}""".replace('%s',sv) )
+            sv_eqns.append( r"""%s_\infty(V) &= \frac{\alpha_{%s}(V)}{\alpha_{%s}(V) + \beta_{%s}(V)}""".replace('%s',sv) )
+            sv_eqns.append( r"""\tau_{%s}(V) &= \frac{1.0}{\alpha_{%s}(V) + \beta_{%s}(V)}""".replace('%s',sv) )
+            sv_eqns.append( r"""\alpha_{%s}(V),\beta_{%s}(V)  &= \frac{A + BV}{C + exp(\dfrac{D+V}{E})} """.replace('%s',sv) )
 
 
         sv_fig = pylab.figure(figsize=(6,4))
@@ -91,6 +91,7 @@ class AlphaBetaSummariser(object):
             ax.set_ylabel(ax_name)
 
         set_fontsize(sv_fig, 8)
+        img_caption = 'The rate constants and resulting steady-state activation and time constants for %s' % ','.join( obj.statevars.keys() )
 
         return mrd.Section('Summary of %s (StdChlAlphaBeta)' % obj.name,
                 mrd.EquationBlock(
@@ -102,7 +103,7 @@ class AlphaBetaSummariser(object):
                     ),
                 param_tbl,
                 sv_tbls,
-                mrd.Image(sv_fig, auto_adjust=False),
+                mrd.Figure( mrd.Image(sv_fig, auto_adjust=False), caption=img_caption  ),
 
 
                 )

@@ -37,7 +37,7 @@ class ObjectLabeller(object):
     Often, we need to automatically generate names for objects. For example,
     a user might not nessesarily provide names for all cells in simulations,
     but the simulator will expect variable names to refer to them. This class
-    provides methods to create new names of objects, based on thier type.
+    provides methods to create new names of objects, based on their type.
     """
 
     objectcount = {}

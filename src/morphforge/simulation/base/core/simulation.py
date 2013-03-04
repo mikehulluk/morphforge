@@ -53,10 +53,11 @@ class Simulation(object):
         self.add_voltageclamp(voltage_clamp)
         return voltage_clamp
 
-    def create_synapse(self, trigger, postsynaptic_mech):
+    def create_synapse(self, trigger, postsynaptic_mech,**kwargs):
         syn = self.environment.Synapse(simulation=self,
                 trigger=trigger,
-                postsynaptic_mech=postsynaptic_mech)
+                postsynaptic_mech=postsynaptic_mech,
+                **kwargs)
         self.add_synapse(syn)
         return syn
 
@@ -130,6 +131,20 @@ class Simulation(object):
             if not cell.population:
                 return False
         return True
+
+
+
+    @property
+    def postsynaptic_templates(self):
+        from morphforge.stdimports import PostSynapticMechInstantiation
+        mechs = [syn.get_postsynaptic_mechanism() for syn in self.synapses ]
+        synaptic_templates = set()
+        for m in mechs:
+            print isinstance(m,PostSynapticMechInstantiation)
+            if isinstance( m,PostSynapticMechInstantiation):
+                synaptic_templates.add(m.src_tmpl)
+        return synaptic_templates
+
 
 
 
@@ -236,7 +251,7 @@ class Simulation(object):
         return list(set(itertools.chain(*[cell.biophysics.get_all_channels_applied_to_cell() for cell in self.cells])) )
 
 
-    
+
     def do_result_post_processing(self,):
 
         for pp in self._postprocessors:

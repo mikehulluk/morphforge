@@ -74,7 +74,7 @@ class TraceStringParser(object):
 
         (unit, trace_prototypes) = parser.parse(srcstr, lexer=l)
 
-        # Copy accross the start values:
+        # Copy across the start values:
         start_value = 0
         for prototype in trace_prototypes:
             prototype.start_value = start_value

@@ -53,12 +53,15 @@ class Recordable(NamedSimulationObject):
         raise NotImplementedError()
 
     @property
-    def decription(self):
+    def _mh_decription(self):
+        assert False
         return (self._description if self._description else self.get_description())
 
     #description = property(_get_desc)
 
     def get_description(self):
+        if self._description is not None:
+            return self._description
         default_desc = 'No Description'
         return ('-'.join(self.user_tags) if self.user_tags else default_desc)
 

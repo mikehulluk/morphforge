@@ -34,72 +34,26 @@
 
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
-#from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
 from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-#from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordable
-#from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-#from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
 from neurounits.neurounitparser import NeuroUnitParser
 
 from morphforge.core import ObjectLabeller
-#from morphforge.simulation.base.networks import PostSynapticMech
 from Cheetah.Template import Template
 
 
-#from morphforge.simulation.base import PostSynapticMechTemplate
-#from morphforge.simulation.base import PostSynapticMechInstantiation
-
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiation
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
-
-#from morphforge.simulation.neuron.networks import NEURONPostSynapticMechInstantiationForwardToTemplate
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
 
 
-
-
-#~ 
-#~ 
-#~ class RecordableData(object):
-#~ 
-    #~ def __init__(self, standard_tags=None):
-        #~ self.standard_tags = standard_tags or []
-#~ 
-#~ 
-#~ class NEURONChl_RecGen(NEURONRecordable):
-    #~ def __init__(self, src_chl, objvar, unit_in_nrn, std_tags, **kwargs):
-        #~ super(NEURONChl_RecGen, self).__init__(**kwargs)
-        #~ self.src_chl = src_chl
-        #~ self.objvar = objvar
-        #~ self.unit_in_nrn = unit_in_nrn
-        #~ self.std_tags = std_tags or []
-#~ 
-    #~ def build_mod(self, modfile_set):
-        #~ pass
-#~ 
-    #~ def build_hoc(self, hocfile_obj):
-        #~ HocModUtils.create_record_from_object(
-                #~ hocfile_obj=hocfile_obj,
-                #~ vecname='RecVec%s' % self.name,
-                #~ objname=self.src_chl.synapse.get_name() + 'Post',
-                #~ objvar=self.objvar, recordobj=self)
-#~ 
-    #~ def get_description(self):
-        #~ return '%s %s' % (self.objvar, self.src_chl.name)
-#~ 
-    #~ def get_unit(self):
-        #~ return self.unit_in_nrn
-#~ 
-    #~ def get_std_tags(self):
-        #~ return self.std_tags
+from morphforge.stdimports import SummariserLibrary
 
 
 
 
 
+import mredoc as mrd
 
 
 
@@ -130,6 +84,15 @@ class NeuroUnitEqnsetPostSynaptic(object):
         return [p.symbol for p in self.eqnset.parameters]
 
 
+    def get_summary_description(self, instance=None):
+        inst_details=''
+        if instance:
+            print instance.__dict__
+            if instance.parameter_multipliers:
+                inst_details += 'Multipliers: %s'%str(instance.parameter_multipliers)
+            if instance.parameter_overides:
+                inst_details += 'Overrides: %s'%str(instance.parameter_overides)
+        return "<Defined through NeuroUnit: '%s' %s>"%( self.name, inst_details )
 
 
 
@@ -137,7 +100,29 @@ class NeuroUnitEqnsetPostSynaptic(object):
 
 
 
+class NeuroUnitEqnsetPostSynapticSummariser(object):
+    
+    @classmethod
+    def build(cls, obj):
+        child_elements = []
+        
+        
+        
+        eqnset_redoc = obj.eqnset.to_redoc()
+        return mrd.Section('%s (Neurounit Synaptic-Template)' %obj.name, 
+                eqnset_redoc, 
+                cls._build_default_parameters(obj),
+                mrd.Section('Source', mrd.VerbatimBlock(obj.eqnset.library_manager.src_text, caption='Source code for template: %s'% obj.name) )
+                )
+        
+    @classmethod
+    def _build_default_parameters(cls, obj):
+        tbl = mrd.VerticalColTable('Parameter| Default Value',
+            [ '%s|%s'%(str(k), str(v)) for (k,v) in obj._default_parameters.items() ] )
+        return mrd.Section('Default Parameters', tbl)
 
+
+SummariserLibrary.register_summariser( NeuroUnitEqnsetPostSynaptic, NeuroUnitEqnsetPostSynapticSummariser)
 
 
 
@@ -174,16 +159,11 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
         self.NRNSUFFIX = self.buildparameters.suffix
 
-    #def template_build_mod(self, modfile_set):
-    #    if not self.is_mod_built:
-    #        modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2'))
-    #        self.is_mod_built = True
 
     def template_build_mod_once(self, modfile_set):
         if not self.is_mod_built:
             modfile_set.append(ModFile(modtxt=self.nmodl_txt, name='UnusedParameterXXXExpSyn2', strict_modlunit=True))
             self.is_mod_built = True
-        #self.template_build_mod( modfile_set)
 
     def build_hoc_for_instance(self, instance, hocfile_obj):
         # Resolve the parameters for this instance:
@@ -200,14 +180,9 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
             'sectionindex': cell_hoc['section_indexer'][section],
             'sectionpos': instance.cell_location.morphlocation.sectionpos,
             'synapsetypename': instance.src_tmpl.NRNSUFFIX,
-
             'parameters': [(k, float(v/instance.src_tmpl.units[k])) for (k, v) in params.iteritems()]
                }
 
-        #hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,  Template(exp2HOCTmpl, data).respond())
-
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost, Template(exp2HOCTmpl, data).respond())
         assert not instance in hocfile_obj[MHocFileData.Synapses]
@@ -218,3 +193,4 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 NEURONEnvironment.synapse_psm_template_type.register_plugin(
         NeuroUnitEqnsetPostSynaptic, 
         NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic )
+        

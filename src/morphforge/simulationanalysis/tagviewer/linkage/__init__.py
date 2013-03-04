@@ -108,7 +108,7 @@ class LinkageRuleTag(object):
 class AbstrLinkage(object):
     """ Linkage classes are used to choose colours for TagViewer plots.
 
-    They are called 'linkages' beacuse they make links between traces accross
+    They are called 'linkages' beacuse they make links between traces across
     different plots. For example, supposing we have graphs of membrane voltage,
     and current flows, then we may wish to specify that all the traces of
     Neuron1 are in blue and all those of Neuron2 are in green.

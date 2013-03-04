@@ -52,6 +52,9 @@ class SynapticTriggerByVoltageThreshold(SynapticTrigger):
     def get_type(self):
         return PreSynapticTypes.Cell
 
+    def get_summary_string(self):
+        return '%s: [threshold: %s]'%( self.cell_location.get_location_description_str(), self.voltage_threshold )
+
 
 
 class SynapticTriggerAtTimes(SynapticTrigger):

@@ -31,7 +31,6 @@
 
 
 import morphforge
-assert False
 """[*] Load from MorphML
 
 

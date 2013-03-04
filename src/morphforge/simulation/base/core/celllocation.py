@@ -70,7 +70,7 @@ class CellLocation(object):
         desc = self.cell.name
         t = ''
         if self.morphlocation.section.idtag:
-            t = self.morphlocation.section.idtag
+            t = '@' + self.morphlocation.section.idtag
         return desc + t
 
 

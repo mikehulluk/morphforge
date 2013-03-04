@@ -124,9 +124,6 @@ class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
     @classmethod
     def build(cls, obj):
         return mrd.HierachyScope(
-                #mrd.Section('Source:',
-                #        mrd.VerbatimBlock(obj.eqnset
-                #        ),
                 MRedocWriterVisitor.build(obj.eqnset)
                 )
 
