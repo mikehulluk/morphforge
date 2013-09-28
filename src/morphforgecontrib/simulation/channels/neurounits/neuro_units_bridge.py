@@ -32,14 +32,14 @@
 from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.base.biophysics.channel import Channel
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
-from neurounits.neurounitparser import NeuroUnitParser
 from morphforge.core import ObjectLabeller
 
+from neurounits.neurounitparser import NeuroUnitParser
+#from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 
 class RecordableData(object):
 
@@ -116,16 +116,16 @@ class NeuroUnitEqnsetMechanism(Channel):
 
 from morphforge.simulationanalysis.summaries_new import SummariserObject
 from morphforge.simulationanalysis.summaries_new import SummariserLibrary
-from neurounits.writers import MRedocWriterVisitor
-import mredoc as mrd
+#from neurounits.writers import MRedocWriterVisitor
 
-#import mredoc as mrd
 class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
     @classmethod
     def build(cls, obj):
-        return mrd.HierachyScope(
-                MRedocWriterVisitor.build(obj.eqnset)
-                )
+        return obj.eqnset.to_mredoc()
+        #import mredoc as mrd
+        #return mrd.HierachyScope(
+        #        MRedocWriterVisitor.build(obj.eqnset)
+        #        )
 
 SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetMechanismSummariser)
 

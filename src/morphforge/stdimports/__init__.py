@@ -277,7 +277,8 @@ def get_arg_string_hash(args, kwargs):
 
 def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):#'./_cache/cache'):
     if cachefilenamebase is None:
-        cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
+        #cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
+        cachefilenamebase = '/local/scratch/mh735/tmp/mf_cache/'
 
     # Hash up the arguments:
     if not args:

@@ -36,7 +36,6 @@ from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocF
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from neurounits.neurounitparser import NeuroUnitParser
 
@@ -57,7 +56,10 @@ import mredoc as mrd
 
 
 
-
+try:
+    from neurounits.tools.nmodl import WriteToNMODL, MechanismType
+except ImportError:
+    pass
 
 
 class NeuroUnitEqnsetPostSynaptic(object):
@@ -104,7 +106,7 @@ class NeuroUnitEqnsetPostSynapticSummariser(object):
     
     @classmethod
     def build(cls, obj):
-        child_elements = []
+        #child_elements = []
         
         
         

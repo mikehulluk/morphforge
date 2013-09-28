@@ -178,7 +178,7 @@ def run_example(index, filename):
 
     # Turn off plotting:
     env = os.environ.copy()
-    env['MREORG_BATCHRUN'] = "True"
+    env['MREORG_CONFIG'] = "BATCHRUN"
 
     args = shlex.split("""python %s"""%newFilename)
     #print 'Launching child process', args
