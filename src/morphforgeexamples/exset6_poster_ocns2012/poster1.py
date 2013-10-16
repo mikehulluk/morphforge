@@ -47,7 +47,7 @@ from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
 eqnset_txt_na = """
-eqnset hh_na {
+define_component hh_na {
     i = g * (v-erev) * m**3*h
 
     m_inf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
@@ -75,7 +75,7 @@ eqnset hh_na {
 } """
 
 eqnset_txt_k = """
-eqnset hh_k {
+define_component hh_k {
     i = g * (v-erev) * n*n*n*n
     n_inf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     n_tau = 1.0 / (n_alpha_rate + n_beta_rate)
@@ -94,7 +94,7 @@ eqnset hh_k {
 } """
 
 eqnset_txt_lk = """
-eqnset hh_lk {
+define_component hh_lk {
     i = {0.3mS/cm2} * (v- {-54.3mV})
     <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }

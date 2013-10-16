@@ -35,31 +35,21 @@
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from neurounits.neurounitparser import NeuroUnitParser
 
 from morphforge.core import ObjectLabeller
 from Cheetah.Template import Template
 
-
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
-
-
 from morphforge.stdimports import SummariserLibrary
-
-
-
 
 
 import mredoc as mrd
 
 
+from neurounits.neurounitparser import NeuroUnitParser
+from neurounits.codegen.nmodl import WriteToNMODL, MechanismType
 
-try:
-    from neurounits.tools.nmodl import WriteToNMODL, MechanismType
-except ImportError:
-    pass
 
 
 class NeuroUnitEqnsetPostSynaptic(object):
@@ -67,7 +57,7 @@ class NeuroUnitEqnsetPostSynaptic(object):
         super(NeuroUnitEqnsetPostSynaptic, self).__init__(**kwargs)
 
         if isinstance(eqnset, basestring):
-            eqnset = NeuroUnitParser.EqnSet(eqnset)
+            eqnset = NeuroUnitParser.Parse9MLFile(eqnset).get_component()
 
         self.eqnset = eqnset
         self._default_parameters = default_parameters or {}
