@@ -241,6 +241,8 @@ def _run_and_cache(func, args, kwargs):
     for (filename, linenumber) in sorted(trace_obj.results().counts):
         if filename .startswith('/usr'):
             continue
+        if filename.startswith("build/bdist.linux-x86_64/egg/"):
+            continue
 
         if not filename in _accessed_functions:
             _accessed_functions[filename] = []
