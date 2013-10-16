@@ -39,7 +39,10 @@ from morphforgecontrib.simulation.channels.common.neuron import build_hoc_defaul
 from morphforge.core import ObjectLabeller
 
 from neurounits.neurounitparser import NeuroUnitParser
+import neurounits
 #from neurounits.tools.nmodl import WriteToNMODL, MechanismType
+from neurounits.codegen.nmodl import WriteToNMODL
+from neurounits.codegen.nmodl.neuron_constants import MechanismType
 
 class RecordableData(object):
 
@@ -88,9 +91,13 @@ class NeuroUnitEqnsetMechanism(Channel):
         super(NeuroUnitEqnsetMechanism, self).__init__( **kwargs)
 
         if isinstance(eqnset, basestring):
-            eqnset = NeuroUnitParser.EqnSet(eqnset)
+            eqnset = NeuroUnitParser.Parse9MLFile(eqnset)
 
-        #self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name(NeuroUnitEqnsetMechanism)
+        if isinstance(eqnset, neurounits.LibraryManager):
+            comps = eqnset.components
+            assert len(comps) == 1
+            eqnset = comps[0]
+
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
@@ -160,6 +167,12 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def create_modfile(self, modfile_set):
         modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt, strict_modlunit=True))
 
+        import os
+        with open(os.path.expanduser('~/Desktop/myfile.mod'),'w') as f:
+            f.write(self.nmodl_txt)
+        #assert False
+
+
 
     def get_mod_file_changeables(self):
         change_attrs = set([ "nmodl_txt", 'recordables_map', 'buildparameters', 'units', 'recordables_data'])
@@ -173,7 +186,7 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
         assert False
 
     def _get_recordable_symbols(self):
-        return [s.symbol for s in list(self.eqnset.states)
+        return [s.symbol for s in list(self.eqnset.state_variables)
                 + list(self.eqnset.assignedvalues)
                 + list(self.eqnset.suppliedvalues)
                 + list(self.eqnset.parameters)]

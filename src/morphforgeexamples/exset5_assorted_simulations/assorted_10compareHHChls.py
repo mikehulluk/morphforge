@@ -64,7 +64,7 @@ variables = ['h', 'm', 'minf', 'mtau', 'm_alpha_rate', 'm_beta_rate']
 def apply_hh_chls_neurounits_direct(env, cell, sim):
 
     eqnset_txt_na = """
-    eqnset chlstd_hh_na {
+    define_component chlstd_hh_na {
         from std.math import exp
         i = g * (v-erev) * m**3*h
         minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
@@ -107,7 +107,7 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
     eqnset_txt_k = """
-    eqnset chlstd_hh_k {
+    define_component chlstd_hh_k {
         from std.math import exp
         i = g * (v-erev) * n*n*n*n
         ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
@@ -136,7 +136,7 @@ def apply_hh_chls_neurounits_direct(env, cell, sim):
     """
 
     eqnset_txt_lk = """
-        eqnset chlstd_hh_lk {
+        define_component chlstd_hh_lk {
             i = g * (v-erev)
             g = {0.3 mS/cm2}
             erev = -54.3 mV
@@ -173,23 +173,22 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
 
 
     lk_chl = env.Channel(
-                         StdChlLeak,
-                         name="LkChl",
-                         conductance=qty("0.3:mS/cm2"),
-                         reversalpotential=qty("-54.3:mV"),
-                           )
+        StdChlLeak,
+        name="LkChl",
+        conductance=qty("0.3:mS/cm2"),
+        reversalpotential=qty("-54.3:mV"),
+          )
 
     na_chl = env.Channel(NeuroML_Via_XSL_Channel,
-                                            xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
-                                            xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            
-                                           )
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/NaChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
+
+       )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
-                                            xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
-                                            xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            
-                                           )
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/KChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
+       )
 
     cell.apply_channel( na_chl)
     cell.apply_channel( lk_chl)
@@ -214,26 +213,18 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                            )
 
     na_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
-                                            xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/NaChannel_HH.xml",
-                                            #xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            
+                                            xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/NaChannel_HH.xml"),
+
                                            )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
-    #k_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
-                                            xml_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/KChannel_HH.xml",
-                                            xsl_filename = "/home/michael/srcs/neuroml/CommandLineUtils/ChannelMLConverter/ChannelML_v1.8.1_NEURONmod.xsl",
-                                            
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/KChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
                                            )
 
     cell.apply_channel( na_chl)
     cell.apply_channel( lk_chl)
     cell.apply_channel( k_chl)
-
-
-    #for v in variables:
-    #    s =NEURONChl_NeuroUnits_GenRecord(chl=na_chl, modvar=v, name=v, cell_location=cell.soma)
-    #    sim.add_recordable(s)
 
 
 
@@ -261,7 +252,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             conductance=qty("120:mS/cm2"),
                             reversalpotential=qty("50:mV"),
                             statevars=na_state_vars,
-                            
+
                            )
     k_state_vars = { "n": {
                           "alpha":[-0.55, -0.01, -1.0, 55.0, -10.0],
@@ -275,7 +266,7 @@ def apply_hh_chls_morphforge_format(env, cell, sim):
                             conductance=qty("36:mS/cm2"),
                             reversalpotential=qty("-77:mV"),
                             statevars=k_state_vars,
-                            
+
                            )
 
     cell.apply_channel( lk_chl)

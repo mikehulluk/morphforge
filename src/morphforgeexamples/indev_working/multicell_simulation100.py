@@ -46,7 +46,7 @@ from morphforge import units
 # Define the formulae used in the model:
 
 na_eqnset_txt = """
-eqnset sautois_hh_na {
+define_component sautois_hh_na {
     i = gmax * (v-erev) * m**3*h
     minf = m_alpha_rate / (m_alpha_rate + m_beta_rate)
     mtau = 1.0 / (m_alpha_rate + m_beta_rate)
@@ -71,7 +71,7 @@ eqnset sautois_hh_na {
 }"""
 
 lk_eqnset_txt = """
-eqnset sautois_hh_lk {
+define_component sautois_hh_lk {
     i = gmax * (v-erev)
 
     <=> PARAMETER gmax:(S/m2), erev:(V)
@@ -81,7 +81,7 @@ eqnset sautois_hh_lk {
 }"""
 
 k_eqnset_txt = """
-    eqnset chlstd_hh_k {
+    define_component chlstd_hh_k {
     i = gmax * (v-erev) * n
     ninf = n_alpha_rate / (n_alpha_rate + n_beta_rate)
     ntau = 1.0 / (n_alpha_rate + n_beta_rate)
@@ -250,9 +250,9 @@ def load_std_channels(param_str):
     nrn_params_kf = extract_params(nrn_params, prefix='kf_', replace_prefix='k_')
     nrn_params_ks = remap_keys(nrn_params_ks, {'k_gmax':'gmax', 'k_erev':'erev'})
     nrn_params_kf = remap_keys(nrn_params_kf, {'k_gmax':'gmax', 'k_erev':'erev'})
-    eqnsetna = mf.neurounits.NeuroUnitParser.EqnSet(na_eqnset_txt)
-    eqnsetlk = mf.neurounits.NeuroUnitParser.EqnSet(lk_eqnset_txt)
-    eqnsetk = mf.neurounits.NeuroUnitParser.EqnSet(k_eqnset_txt)
+    eqnsetna = mf.neurounits.NeuroUnitParser.Parse9MLFile(na_eqnset_txt).get_component()
+    eqnsetlk = mf.neurounits.NeuroUnitParser.Parse9MLFile(lk_eqnset_txt).get_component()
+    eqnsetk = mf.neurounits.NeuroUnitParser.Parse9MLFile(k_eqnset_txt).get_component()
 
     na_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl1", eqnset=eqnsetna, default_parameters = nrn_params_na)
     lk_chl = mfc.Neuron_NeuroUnitEqnsetMechanism(name="Chl2", eqnset=eqnsetlk, default_parameters = nrn_params_lk)
