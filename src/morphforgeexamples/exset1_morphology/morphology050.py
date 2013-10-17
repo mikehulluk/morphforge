@@ -31,23 +31,35 @@
 
 
 import morphforge
-""" Load from MorphML, and plot using 
-
-
-.. todo::
-
-    This!
+""" Load morphologies from MorphML, and plot using MayaVI
 
 """
 import morphforge.stdimports as mf
+import morphforgecontrib.morphology.importers.import_tree_morphml
 import pylab
 
-m = MorphologyTree.fromMorphML(src=open(srcSWCFile))
-MatPlotLibViewer(m, use_pca=False)
-
-
-# Load a morphology from an SWC File, and look at the surface area and
-# volume of the different section types
 testSrcsPath = mf.LocMgr().get_test_srcs_path()
-srcSWCFile = mf.Join(testSrcsPath, "swc_files/28o_spindle20aFI.CNG.swc")
-morph = mf.MorphologyTree.fromSWC(src=open(srcSWCFile))
+srcMorphMLFile = mf.Join(testSrcsPath, "neuroml/morphml/CablesIncluded.xml")
+m = mf.MorphologyTree.fromMorphML(src=open(srcMorphMLFile),
+mf.MayaViRenderer(m).show_as_points_interpolated()
+
+
+
+# TODO - SPEAK TO PADRAIG:
+raise NotImplementedError()
+srcMorphMLFile = mf.Join(testSrcsPath, "neuroml/morphml/L23PyrFRB.morph.xml",)
+m = mf.MorphologyTree.fromMorphML(
+        src=open(srcMorphMLFile),
+        regions={
+            'all':'Rgn1',
+            'ModelViewParmSubset_1':'Rgn2',
+            'ModelViewParmSubset_3':'Rgn2',
+            'ModelViewParmSubset_8':'Rgn2',
+            'OneSecGrp_SectionRef_1':'Rgn1',
+        }
+)
+mf.MayaViRenderer(m).show_as_points_interpolated()
+
+
+
+

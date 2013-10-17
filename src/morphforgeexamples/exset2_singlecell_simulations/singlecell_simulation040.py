@@ -33,15 +33,9 @@
 
 """Investigating the rheobase of a neuron with a parameter sweep
 
-WARNING: The automatic naming and linkage between grpah colors is currently under a refactor;
-what is done in this script is not representing the best possible solution, or even something that
-will reliably work in the future!
+WARNING: The automatic naming and linkage between grpah colors is currently under a refactor; what is done in this script is not representing the best possible solution, or even something that will reliably work in the future!
 
 The aim of this script is just to show that it is possible to run multiple simulations from a single script!
-
-
-
-
 """
 
 

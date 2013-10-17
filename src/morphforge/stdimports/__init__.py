@@ -33,6 +33,19 @@
 # pylint: disable=W0611
 # (don't complain about wildcard imports)
 
+
+
+try:
+    import pylab
+    import numpy as np
+except ImportError:
+    print 'Problem importing Numpy or Matplotlib'
+
+
+
+
+
+
 # Units:
 import morphforge.units as units
 from morphforge.units import qty
@@ -65,6 +78,7 @@ from morphforge.morphology import *
 from morphforge.morphology.core import *
 from morphforge.morphology.builders import *
 from morphforge.morphology.visitor import *
+from morphforge.morphology.ui import *
 from morphforge.morphology.util.morphlocator import MorphLocator
 
 # SIMULATION
@@ -76,25 +90,20 @@ from morphforge.simulation.base.synaptictriggers import SynapticTriggerAtTimes
 from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltageThreshold
 
 
-# Simulation Analysis
-#from morphforge.simulationanalysis.summaries import *
 
 from morphforge.componentlibraries import *
+from morphforge.componentlibraries.psm_template_library import PostSynapticTemplateLibrary
+from morphforge.componentlibraries.channellibrary import cached_functor
 
-
+# Import to ensure that they are registered with the plugin-system:
 import morphforge.simulation.neuron.objects.obj_cclamp
 import morphforge.simulation.neuron.objects.obj_vclamp
 
 from morphforge.morphology.conventions import SWCRegionCodes
 
-try:
-    import pylab
-    import numpy as np
-except ImportError:
-    print 'Problem importing Numpy or Matplotlib'
 
 
-assert False
+#assert False
 import neurounits
 
 import os
@@ -102,16 +111,13 @@ import os
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID
 
-#from morphforge import units
 
 
 from morphforge.management import PluginMgr
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
-from morphforge.componentlibraries.channellibrary import cached_functor
 
 
-from morphforge.componentlibraries.psm_template_library import PostSynapticTemplateLibrary
 
 
 class MembraneMechanismSummariser(object):
@@ -131,9 +137,6 @@ from mreorg import PM
 
 
 
-#import morphforge.units as units
-#print units
-#import morphforge.units
 
 
 

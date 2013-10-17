@@ -38,14 +38,17 @@ from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
 from morphforge.core import ObjectLabeller
 
-from neurounits.neurounitparser import NeuroUnitParser
 import neurounits
-#from neurounits.tools.nmodl import WriteToNMODL, MechanismType
+from neurounits.neurounitparser import NeuroUnitParser
 from neurounits.codegen.nmodl import WriteToNMODL
 from neurounits.codegen.nmodl.neuron_constants import MechanismType
 
-class RecordableData(object):
 
+from morphforge.simulationanalysis.summaries_new import SummariserObject
+from morphforge.simulationanalysis.summaries_new import SummariserLibrary
+
+
+class RecordableData(object):
     def __init__(self, standard_tags=None):
         self.standard_tags = standard_tags or []
 
@@ -121,18 +124,11 @@ class NeuroUnitEqnsetMechanism(Channel):
 
 
 
-from morphforge.simulationanalysis.summaries_new import SummariserObject
-from morphforge.simulationanalysis.summaries_new import SummariserLibrary
-#from neurounits.writers import MRedocWriterVisitor
 
 class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
     @classmethod
     def build(cls, obj):
         return obj.eqnset.to_mredoc()
-        #import mredoc as mrd
-        #return mrd.HierachyScope(
-        #        MRedocWriterVisitor.build(obj.eqnset)
-        #        )
 
 SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetMechanismSummariser)
 
@@ -146,7 +142,6 @@ SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetM
 class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def __init__(self, **kwargs):
         super(Neuron_NeuroUnitEqnsetMechanism, self).__init__(**kwargs)
-
         self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism, prefix=""))
 
 
@@ -166,13 +161,6 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
 
     def create_modfile(self, modfile_set):
         modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt, strict_modlunit=True))
-
-        import os
-        with open(os.path.expanduser('~/Desktop/myfile.mod'),'w') as f:
-            f.write(self.nmodl_txt)
-        #assert False
-
-
 
     def get_mod_file_changeables(self):
         change_attrs = set([ "nmodl_txt", 'recordables_map', 'buildparameters', 'units', 'recordables_data'])

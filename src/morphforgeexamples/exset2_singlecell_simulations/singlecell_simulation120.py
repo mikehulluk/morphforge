@@ -31,4 +31,12 @@
 
 
 
-"""[*] Working with traces"""
+"""[*] Working with traces
+
+Single-cell IV curve.
+We inject hyperpolarising current into a cell and measure its voltage deflection in order to calculate the IV curve of the neuron.
+
+
+"""
+
+

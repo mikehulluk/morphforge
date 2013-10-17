@@ -32,7 +32,6 @@
 
 import os
 
-import morphforge
 from morphforge.core.misc import is_float
 
 import quantities as pq
@@ -51,8 +50,6 @@ def factorise_units_from_list(seq):
 
 
 def parse_unit_str(s):
-
-    
     if not s.strip():
         return pq.dimensionless
 
@@ -107,25 +104,6 @@ def _qty(s):
     # Lets parse it as a neurounits string:
     import neurounits
     return neurounits.NeuroUnitParser.QuantityExpr(s).as_quantities_quantity()
-    #return parse_unit(s)
-
-
-    print s
-    assert False, "MH I Don't think we get here, Oct 2012"
-    # This can (hopefully) all go . . .
-    if ' ' in s:
-        print s
-        assert False, "MH I Don't think we get here, Oct 2012"
-        tokens = s.split(' ')
-        if len(tokens) == 2:
-            (value_str, unit_str) = tokens
-            value = float(value_str)
-            unt = parse_unit(unit_str)
-            return value * unt
-        else:
-            assert False
-    assert False, "MH I Don't think we get here, Oct 2012"
-    return parse_unit(s)
 
 
 

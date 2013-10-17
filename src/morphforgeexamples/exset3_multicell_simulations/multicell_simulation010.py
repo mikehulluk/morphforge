@@ -36,11 +36,9 @@ another cell via an excitatry synapse.
 
 """
 
-#from neurounits import NeuroUnitParser
-
 from morphforgecontrib.stdimports import SynapticTriggerAtTimes
 from morphforgecontrib.stdimports import SynapticTriggerByVoltageThreshold
-#from morphforgecontrib.simulation.synapses.neurounit import NeuroUnitEqnsetPostSynaptic
+
 
 from morphforgecontrib.simulation.synapse_templates.neurounit import *
 from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core import *
@@ -106,4 +104,4 @@ def simulate_chls_on_neuron():
 
 results = simulate_chls_on_neuron()
 TagViewer(results, timerange=(95, 200)*units.ms, show=True)
-#
+
