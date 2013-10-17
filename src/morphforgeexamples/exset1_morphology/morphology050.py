@@ -30,12 +30,24 @@
 # ----------------------------------------------------------------------
 
 
+import morphforge
+""" Load from MorphML, and plot using 
 
-"""[*] Interactive plotting in 3D in mayavi
 
 .. todo::
 
     This!
 
 """
-import morphforge
+import morphforge.stdimports as mf
+import pylab
+
+m = MorphologyTree.fromMorphML(src=open(srcSWCFile))
+MatPlotLibViewer(m, use_pca=False)
+
+
+# Load a morphology from an SWC File, and look at the surface area and
+# volume of the different section types
+testSrcsPath = mf.LocMgr().get_test_srcs_path()
+srcSWCFile = mf.Join(testSrcsPath, "swc_files/28o_spindle20aFI.CNG.swc")
+morph = mf.MorphologyTree.fromSWC(src=open(srcSWCFile))

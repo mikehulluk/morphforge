@@ -173,12 +173,15 @@ class NEURONSimulation(Simulation):
 
 
         # Save the simulation summary:
-
         do_summary = False
         if do_summary:
             fname = '~/Desktop/pdfs/%s.pdf' % (self._sim_desc_str().replace(' ', ''))
             summary = SimulationMRedoc.build(self)
             summary.to_pdf(fname)
+
+        # And unlink the old files (so we don't go mad on disk space)
+        os.unlink(resfilename)
+        os.unlink(_bundlefname)
 
 
         return self.result

@@ -93,6 +93,8 @@ try:
 except ImportError:
     print 'Problem importing Numpy or Matplotlib'
 
+
+assert False
 import neurounits
 
 import os
