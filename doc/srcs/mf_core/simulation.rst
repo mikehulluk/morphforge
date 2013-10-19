@@ -2,6 +2,8 @@ Simulation Layer
 ====================
 
 
+
+
 Overview
 ~~~~~~~~
 The simulation layer provides an object model for building simulations of multicom
@@ -94,8 +96,7 @@ Several Channel types are provided by the morphforge-contrib package, including 
 Biophysics - MTA
 ------------------
 We now discuss how Channels are applied to a neuron’s membrane. In many
-neurons it is known that the distribution density of a particular channel type over the membrane is not uniform. Often in models, we want to incorporate this, and specify that a Channel exists all over particular regions of the neuron, and use specific
-parameters in specific regions. For example, the conductance density of potassium channels might be 30 mS/cm2 all over on a model neuron’s membrane, except in apical dendrites where it is 50 mS/cm2 . Existing models have used even more complex channel distribution schemes, for example that the density of sodium channels on the initial segment of the axon should vary as the function of distance from the soma [Schmidt-Hieber et al., 2008]. Morphforge supports complex specifications of channel densities over neurons using a high-level notation. This is achieved by passing a triplet of objects to the apply_channel method of Cell objects: (Channel, Applicator,Targeter). The Targeter object defines which Sections in the Cell this triplet applies to (i. e. a predicate object). The Applicator object defines how the parameters of the Channel should vary over the specified Sections. Listing D.7 shows an example in which twice the density of potassium channels are applied in the “dendrites” as the rest of the Cell. In this example, we use two Targeters: TargetEverywhere and TargetRegion, and one Applicator: ApplyUniform. A Channel object has an associated set of default parameters (e. g. gbar, see Section D.1.1), which are used by default by ApplyUniform (e. g. Listing D.7 line 2), although they can be overridden or scaled (e. g. Listing D.7 line 3).
+neurons it is known that the distribution density of a particular channel type over the membrane is not uniform. Often in models, we want to incorporate this, and specify that a Channel exists all over particular regions of the neuron, and use specific parameters in specific regions. For example, the conductance density of potassium channels might be 30 mS/cm2 all over on a model neuron’s membrane, except in apical dendrites where it is 50 mS/cm2 . Existing models have used even more complex channel distribution schemes, for example that the density of sodium channels on the initial segment of the axon should vary as the function of distance from the soma [Schmidt-Hieber et al., 2008]. Morphforge supports complex specifications of channel densities over neurons using a high-level notation. This is achieved by passing a triplet of objects to the apply_channel method of Cell objects: (Channel, Applicator,Targeter). The Targeter object defines which Sections in the Cell this triplet applies to (i. e. a predicate object). The Applicator object defines how the parameters of the Channel should vary over the specified Sections. Listing D.7 shows an example in which twice the density of potassium channels are applied in the “dendrites” as the rest of the Cell. In this example, we use two Targeters: TargetEverywhere and TargetRegion, and one Applicator: ApplyUniform. A Channel object has an associated set of default parameters (e. g. gbar, see Section D.1.1), which are used by default by ApplyUniform (e. g. Listing D.7 line 2), although they can be overridden or scaled (e. g. Listing D.7 line 3).
 
 .. code-block:: python
 
@@ -106,7 +107,7 @@ parameters in specific regions. For example, the conductance density of potassiu
 
 The apply_channel method can be called many times for the same Channel on the same Cell, with different Targeters and Applicators. However, in the simulation, a particular Channel will only be applied once to any given Section. If multiple Targeters affect the same Section, a system is needed to resolve which parameter values to use. For example, in Listing D.7, which value of gbar should be applied to the dendrites — should it be the default (since the “dendrites” region will be targeted by TargetEverywhere), or should twice the default (since the “dendrites” region will also be targeted by TargetRegion)?
 
-To resolve these conflicts, each Targeter object has a priority level associated with it. For example TargeterEverywhere has a priority of 10, and TargeterRegion has a priority of 20. When Simulation.run() is called, for every Channel applied to every Section, morphforge finds the corresponding targeter with the highest priority. The algorithm described in Algorithm 1 in Appendix D.2.1. Therefore in Listing D.7, the dendrites will have twice the value of g_bar for k_chl in the dendrites than the rest of the neuron.
+To resolve these conflicts, each Targeter object has a priority level associated with it. For example TargeterEverywhere has a priority of 10, and TargeterRegion has a priority of 20. When Simulation.run() is called, for every Channel applied to every Section, morphforge finds the corresponding targeter with the highest priority.
 
 
 
@@ -129,6 +130,36 @@ Stimuli
 
 Recording
 ~~~~~~~~~~
+
+We need to record various values during a simulation, for example voltages and currents. The morphforge object-model agnostic to the underlying formats of particular synapse and channel formats and supports the recording of any values from any Channel, Synapse or other objects through a consistent interface using the method Simulation.record(), as shown in Listing D.9. Internally, record(obj,...) forwards calls to obj.get_recordable(...), which provides a flexible, yet consistent interface to recording what could be specific
+data from simulation objects (for example the voltage-dependence term of an NMDA synapse).
+
+.. code-block:: python
+
+        env = NEURONEnvironment()
+        sim = env.Simulation()
+
+        # Create a passive cell:
+        cell = CellLibrary.create_cell(sim, StandardModels.SingleCompartmentPassive, area=qty(’1000:um2’), input_resistance=qty(’300:MOhm’))
+
+        # Add active channels (using ComponentLibraries):
+        chl = ChannelLibrary.get_channel( modelsrc = StandardModels.HH52, channeltype="Na", env=sim.environment)
+        cell.apply_channel(chl)
+        cc = current_clamp = sim.create_currentclamp(amp=qty(’100:pA’), dur=qty(’100:ms’), delay=qty(’100:ms’), cell_location = cell.soma)
+
+        # Record:
+        sim.record(cell, what=’Voltage’, name=’V’, cell_location=cell.soma)
+        sim.record(chl, what=’StateVariable’, state=’m’, cell_location=cell.soma)
+        sim.record(cc, what=’Current’)
+
+
+A set of standard strings, such as Voltage, Current and StateVariable are defined in morphforge, which are used in the method calls on lines [14-16] in order to specify what to record. The use of strings allows loose coupling across this interface and allows arbitrary variables to be recorded. sim.record() can take a variety of parameters, depending on the particular object being recorded from. In order to provide a clean architecture behind the scenes, another object called Recordable is introduced (Fig. D.5). Following a call to record(obj,...), the method get_recordable() of obj is called which returns a Recordable object. This contains the relevant machinery to record a particular value from obj using a particular simulator-backend. The get_recordable() method must internally determine which
+type of Recordable object to return, depending on the parameters passed. As a more concrete example, if the NEURON simulator backend is being used and if get_recordable() is called on a NeuroML channel to record the conductance density at a specific neuron
+location, then a Recordable object is returned that knows the name of the conductance variable in the generated MODL file (see Section D.1.1), and is able to insert suitable statements into the HOC script to record and return this conductance after the simulation.
+
+A Recordable object can have a name (e. g. Listing D.9 line 14), which can be used to access the corresponding Trace object after the simulation has been run (see next sec- tion). A Recordable object can also take a set of additional user-defined tags, which will be attached to the Trace object (see Section D.1.2). The units of the recordings are automatically handled, for example, when the user requests the Trace object corresponding to the record() statement on line 14 of Listing D.9, it will automatically have the units of millivolts.
+
+
 
 
 Synapses
@@ -179,8 +210,5 @@ Morphforge takes an explicit approach to constructing multiple synapses of the s
 Electrical Synapses
 -------------------
 
-
-
-Plugins & Extension
-~~~~~~~~~~~~~~~~~~~~
+(See examples)
 

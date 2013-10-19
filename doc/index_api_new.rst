@@ -69,7 +69,7 @@ morphforge-contrib
 
     /srcs/mf_contrib/morphology.rst
     /srcs/mf_contrib/simulation.rst
-    /srcs/mf_contrib/simulationanalysis.rst
+    /srcs/mf_contrib/simulation_analysis.rst
 
 Reference
 =========

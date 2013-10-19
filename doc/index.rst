@@ -117,7 +117,7 @@ Users Guide
    :maxdepth: 2
    :hidden:
     
-   /index_api.rst
+   /index_api_new.rst
 
 For more indepth API information, please see the :doc:`Morphforge Users Guide</index_api_new>` 
 
