@@ -29,8 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-import morphforge
 """ Load morphologies from MorphML, and plot using MayaVI
 
 """
@@ -40,7 +38,7 @@ import pylab
 
 testSrcsPath = mf.LocMgr().get_test_srcs_path()
 srcMorphMLFile = mf.Join(testSrcsPath, "neuroml/morphml/CablesIncluded.xml")
-m = mf.MorphologyTree.fromMorphML(src=open(srcMorphMLFile),
+m = mf.MorphologyTree.fromMorphML(src=open(srcMorphMLFile) )
 #mf.MayaViRenderer(m).show_as_points_interpolated()
 
 

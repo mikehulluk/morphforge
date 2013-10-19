@@ -119,7 +119,7 @@ Users Guide
     
    /index_api.rst
 
-For more indepth API information, please see the :doc:`Morphforge Users Guide</index_api>` 
+For more indepth API information, please see the :doc:`Morphforge Users Guide</index_api_new>` 
 
 
 Contact Information

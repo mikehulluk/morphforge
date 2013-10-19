@@ -181,10 +181,14 @@ def run_example(index, filename):
     env['MREORG_CONFIG'] = "BATCHRUN"
 
     args = shlex.split("""python %s"""%newFilename)
-    result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
+
+    try:
+        result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
+    except subprocess.CalledProcessError:
+        print '  ** Error Running file'
+        result = ''
 
     # Split the output to get at the docstring:
-    output = result
     docstring = mreorg.utils.extract_docstring_from_fileobj( open(filename))
 
     # Get the images:
@@ -194,7 +198,7 @@ def run_example(index, filename):
     src_code = parse_src_file(filename, docstring)
 
     # Create the Output RST File:
-    make_rst_output( index=index, examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=output)
+    make_rst_output( index=index, examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=result)
 
 
 
@@ -205,8 +209,5 @@ clear_directory(examples_dst_dir_images)
 
 for index, fName in enumerate(example_srcs):
     fName_full = os.path.join(examples_src_dir, fName)
-    try:
-        run_example(index, fName_full)
-    except subprocess.CalledProcessError:
-        print '  ** Error Running file'
+    run_example(index, fName_full)
 
