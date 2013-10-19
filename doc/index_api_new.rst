@@ -67,7 +67,9 @@ morphforge-contrib
 .. toctree::
     :maxdepth: 3
 
+    /srcs/mf_contrib/morphology.rst
     /srcs/mf_contrib/simulation.rst
+    /srcs/mf_contrib/simulationanalysis.rst
 
 Reference
 =========

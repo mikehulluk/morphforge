@@ -52,6 +52,7 @@ In this example, we show how channels can be specified using MODL files, NeuroUn
    :glob:
    
    /srcs_generated_examples/assorted_*
+   /srcs_generated_examples/manage010*
    
 
       
@@ -66,23 +67,20 @@ From OCNS-2012 Poster
 
 
 
-To Add
-======
+(To Add)
+========
 
  * Using the MorphologyTree object model (motivation; finding branch points?)
  * Steves analysis example
  * Loading in a XY file and adding the Z coordinate
-  * Pulling out traces by hand and plotting with matplotlib
+ * Pulling out traces by hand and plotting with matplotlib
  * Using Randomness
  * Using Units
- 
  * Trace & Event Sets?
-
  * Sin-wave current clamp injection
-
-16. [*] Specifying the compartmentalisation of neurons
-17. [*] Configuring the TagViewer
-18. [*] Writing an new maths channel
-19. [*] Working with traces
-22. [*] Small CPG network [Sautoius et al?]
-23. [*] Working with traces & component libraries
+ * Specifying the compartmentalisation of neurons
+ * Configuring the TagViewer
+ *  Writing an new maths channel
+ *  Working with traces
+ *  Small CPG network [Sautoius et al?]
+ *  Working with traces & component libraries

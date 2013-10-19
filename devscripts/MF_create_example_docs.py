@@ -129,6 +129,11 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
 
     title = title or '<Missing Docstring>'
 
+
+    # Clean up the output (especially the '\r's iduring simulation
+    output = output.strip()
+    output = '\n'.join( [ l for l in output.split('\n') if not '\r' in l] )
+
     # Prefix the title:
     title = "%d. "%(index+1) +title
     # Create the rst:
@@ -136,9 +141,9 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
                 'title':title,
                 'titleunderline':"="*len(title),
                 'docstring': docstring,
-                'code' : "\n".join( ["\t"+l for l in src_code.split("\n")] ),
+                'code' : "\n".join( ["    "+l for l in src_code.split("\n")] ),
                 'figures':im_names,
-                'output' : "\n".join( ["\t"+l for l in output.split("\n")] ),
+                'output' : "\n".join( ["    "+l for l in output.split("\n")] ),
                 }
     s = Template(rstTmpl, context).respond()
 
