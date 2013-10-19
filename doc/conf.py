@@ -49,8 +49,6 @@ class Mock(object):
         else:
             return Mock()
 
-    @classmethod
-    def set_printoptions
 
 MOCK_MODULES = ['numpy', 'pylab', 'scipy', 'mredoc', 'mreorg']
 for mod_name in MOCK_MODULES:
