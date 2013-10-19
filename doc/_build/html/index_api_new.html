@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Morphforge Users Guide &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="index.html" />
+    <link rel="next" title="Morphology Layer" href="srcs/mf_core/morphology.html" />
+    <link rel="prev" title="20. Action potential propagation and synaptic transmission" href="srcs_generated_examples/poster2.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>Morphforge Users Guide</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="srcs_generated_examples/poster2.html">20. Action potential propagation and synaptic transmission</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="srcs/mf_core/morphology.html">Morphology Layer</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="morphforge-users-guide">
+<h1>Morphforge Users Guide</h1>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>morphforge is described in Mike Hull&#8217;s Ph.D thesis (link) and this paper(link)</p>
+<p>Modern simulators such as NEURON support a range of features; from modelling the internal diffusion of ions within a multicompartmental neuron to the calculation of extracellular potentials. It would require huge number of resources to implement a new interface that was the superset of these features. Rather than try to define a single monolithic system, the approach taken in morphforge is to provide a collection of classes and interfaces which form the core infrastructure, and then use a system of plugins which can be written to implement particular features. For example, morphforge is agnostic to how a synapse model is defined. The core of morphforge defines a minimal interface, and then plugins can be written, which allow a synapse specified in Python or MODL for example to be used with NEURON. This means morphforge naturally splits into two parts, morphforge-core, which contains the core infrastructure, and morphforge-contrib, which contains for example the plugins that define how a synapse model specified in a particular format is mapped to a particular simulator backend.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="37%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">mf-core</th>
+<th class="head">mf-contrib</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>simulation-analysis</td>
+<td><ul class="first last simple">
+<li>Plotting library</li>
+<li>summary generation infrastructure</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>Trace analysis functions (e.g. spike counting)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>simulation</td>
+<td><ul class="first last simple">
+<li>classes for defining simulations, (e.g:
+Cell, Synapse, GapJunction, Channel) and
+results (e.g. Trace, Event)</li>
+<li>NEURON backend support</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>mapping of synapse and
+channel descriptions to
+simulators, e.g.
+NEUROML -&gt; NEURON</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>morphology</td>
+<td><ul class="first last simple">
+<li>Classes for defining
+neuronal morphologies (e.g.
+Morphology, Segment,
+Region, MorphLocation )</li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li>import/export of
+morphologies (e.g. .SWC)</li>
+<li>visualisation</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>core</td>
+<td><ul class="first last simple">
+<li>random number seeding &amp; generation</li>
+<li>file IO</li>
+</ul>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>morphforge is split into four layers each defining a set of classes that work together as an object-model (Table. 1). The higher layers depend on the lower levels, but lower levels do not need the higher ones, for
+example, Morphology objects are used by the simulation-layer, but can also be used without it, for example for anatomical reconstructions. The core-layer provides a single point of access to control random number
+seeding, simulation settings and locations on the filesystem access as well as the plugin infrastructure and utility functions. The morphology-layer provides classes that represent neuronal morphologies as a
+tree of cylinders and functions for their creation, import, export, rendering, traversal and manipulation. The simulation-layer defines a simulator independent object-model on top of the morphology objects
+for defining multicompartmental neurons with complex channel distributions. Primitives for defining network connectivity and an interface for recording values during a simulation are also provided. It
+provides a set of component-libraries to allow objects, such as morphologies, channels and synapses,to be defined once and reused with different parameters as well as an extensible high-level object-model
+for representing analog signals with units. Finally, the simulationanalysis-layer provides functions for analysing the output of simulations such as spike detection, a visualisation system for easily viewing the
+outputs of simulations and infrastructure for automatically generating summaries of simulations including the details of components such as channels and synapses.</p>
+</div>
+<div class="section" id="morphforge-core">
+<h2>morphforge-core</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_core/morphology.html">Morphology Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/morphology.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/morphology.html#tree-based">Tree-Based</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/morphology.html#vertex-based">Vertex-Based</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_core/simulation.html">Simulation Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#environments-simulations">Environments &amp; Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#cells">Cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#channels">Channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#stimuli">Stimuli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#recording">Recording</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulation.html#synapses">Synapses</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_core/simulationanalysis.html">SimulationAnalysis Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulationanalysis.html#traces">Traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulationanalysis.html#trace-tags">Trace Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulationanalysis.html#plotting-with-tagviewer">Plotting with TagViewer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/simulationanalysis.html#simulation-summaries">Simulation Summaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_core/misc.html">Misc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/misc.html#componentlibraries">ComponentLibraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_core/misc.html#morphforgerc">~/.morphforgerc</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="morphforge-contrib">
+<h2>morphforge-contrib</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_contrib/morphology.html">Morphology Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_contrib/simulation.html">Simulation Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_contrib/simulation.html#channel-types">Channel-Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#stdchlleak">StdChlLeak</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#stdchlalphabeta">StdChlAlphaBeta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#stdchlalphabetabeta">StdChlAlphaBetaBeta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#simulatorspecificchannel">SimulatorSpecificChannel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#neurounits">NeuroUnits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#neuroml-via-xsl-channel">NeuroML_Via_XSL_Channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#neuroml-via-neurounits-channel">NeuroML_Via_NeuroUnits_Channel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_contrib/simulation.html#presynaptictrigger-types">PreSynapticTrigger-Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#synaptictriggerattimes">SynapticTriggerAtTimes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#synaptictriggerbyvoltagethreshold">SynapticTriggerByVoltageThreshold</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_contrib/simulation.html#postsynaptictemplate-types">PostSynapticTemplate-Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#id1">NeuroUnits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#postsynapticmech-expsyn-base">PostSynapticMech_ExpSyn_Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#postsynapticmech-exp2syn-base">PostSynapticMech_Exp2Syn_Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#postsynapticmech-exp2synnmda-base">PostSynapticMech_Exp2SynNMDA_Base</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/mf_contrib/simulation.html#stimuli-types">Stimuli-Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#currentclampstepchange">CurrentClampStepChange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#currentclampsinwave">CurrentClampSinwave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="srcs/mf_contrib/simulation.html#voltageclampstepchange">VoltageClampStepChange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/mf_contrib/simulation_analysis.html">SimulationAnalysis Layer</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference</h2>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables</h2>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="srcs_generated_examples/poster2.html">20. Action potential propagation and synaptic transmission</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="srcs/mf_core/morphology.html">Morphology Layer</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

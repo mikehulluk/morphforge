@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>linkage Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>linkage Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="linkage-package">
+<h1>linkage Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">linkage</span></tt> Package</h2>
+<span class="target" id="module-morphforge.simulationanalysis.tagviewer.linkage"></span><dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.AbstrLinkage">
+<em class="property">class </em><tt class="descname">AbstrLinkage</tt><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#AbstrLinkage"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Linkage classes are used to choose colours for TagViewer plots.</p>
+<p>They are called &#8216;linkages&#8217; beacuse they make links between traces across
+different plots. For example, supposing we have graphs of membrane voltage,
+and current flows, then we may wish to specify that all the traces of
+Neuron1 are in blue and all those of Neuron2 are in green.</p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.AbstrLinkage.get_trace_color">
+<tt class="descname">get_trace_color</tt><big>(</big><em>trace</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#AbstrLinkage.get_trace_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the colour code for the <a href="#id2"><span class="problematic" id="id3">*</span></a>trace</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.AbstrLinkage.process">
+<tt class="descname">process</tt><big>(</big><em>plotspec_to_traces_dict</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#AbstrLinkage.process"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Preprocessing of linkages before plotting.
+TagViewer will assign traces to the plotspecs, then call this function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRule">
+<em class="property">class </em><tt class="descname">LinkageRule</tt><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRule"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRule.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>all_traces</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRule.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>returns a sequence of tuples, containing the traces that are connected to each other</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTag">
+<em class="property">class </em><tt class="descname">LinkageRuleTag</tt><big>(</big><em>tagselector</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTag"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTag.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>all_traces</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTag.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTag.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>tagselector</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTag.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTagRegex">
+<em class="property">class </em><tt class="descname">LinkageRuleTagRegex</tt><big>(</big><em>regex</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTagRegex"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTagRegex.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>all_traces</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTagRegex.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTagRegex.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>regex</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTagRegex.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.LinkageRuleTagRegex.get_match_tags">
+<tt class="descname">get_match_tags</tt><big>(</big><em>tr</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#LinkageRuleTagRegex.get_match_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.StandardLinkages">
+<em class="property">class </em><tt class="descname">StandardLinkages</tt><big>(</big><em>linkages_explicit=None</em>, <em>linkage_rules=None</em>, <em>color_rules=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#StandardLinkages"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.StandardLinkages.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>linkages_explicit=None</em>, <em>linkage_rules=None</em>, <em>color_rules=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#StandardLinkages.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.StandardLinkages._get_linkages_from_rules">
+<tt class="descname">_get_linkages_from_rules</tt><big>(</big><em>all_traces</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#StandardLinkages._get_linkages_from_rules"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.StandardLinkages.get_trace_color">
+<tt class="descname">get_trace_color</tt><big>(</big><em>tr</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#StandardLinkages.get_trace_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage.StandardLinkages.process">
+<tt class="descname">process</tt><big>(</big><em>plotspec_to_traces_dict</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#StandardLinkages.process"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Assign colours to the traces. We aim to minise color clashes, but
+still only use one color for a given trace, even if it appears on multiple plots.</p>
+<p>1/ We build a graph, in which each node represents trace, and edges represent &#8216;linkage&#8217;
+2/ We look at the connected components, i.e. the traces that should all have the same color_indices
+3/ If we have more groups than colours, then we allocate &#8216;color indices to these groups based 
+on mimising color collisions the plots.</p>
+<p>## TODO: 4/ Actual colour is assigned by the color_assigner.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.simulationanalysis.tagviewer.linkage._get_collision_of_color_index_for_group">
+<tt class="descname">_get_collision_of_color_index_for_group</tt><big>(</big><em>colorIndex</em>, <em>group</em>, <em>plotspec_to_traces_dict</em>, <em>allocated_trace_colors</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/linkage.html#_get_collision_of_color_index_for_group"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

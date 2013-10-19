@@ -1,0 +1,133 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.operators.variable_dt_rebasing &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.operators.variable_dt_rebasing</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.operators.variable_dt_rebasing</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+
+<div class="viewcode-block" id="VariableDTRebaseTimeValues"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.operators.html#morphforge.traces.operators.variable_dt_rebasing.VariableDTRebaseTimeValues">[docs]</a><span class="k">class</span> <span class="nc">VariableDTRebaseTimeValues</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># Merge all the time indices, so twice the number of</span>
+    <span class="c"># times. this will we bad for things like: A+B+C+D+E+...</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="VariableDTRebaseTimeValues.All"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.operators.html#morphforge.traces.operators.variable_dt_rebasing.VariableDTRebaseTimeValues.All">[docs]</a>    <span class="k">def</span> <span class="nf">All</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">tr1</span><span class="p">,</span> <span class="n">tr2</span><span class="p">):</span>
+        <span class="n">times1</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">time_pts_ms</span>
+        <span class="n">times2</span> <span class="o">=</span> <span class="n">tr2</span><span class="o">.</span><span class="n">time_pts_ms</span>
+        <span class="n">all_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">times1</span><span class="p">,</span> <span class="n">times2</span><span class="p">))</span>
+        <span class="n">all_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">all_times</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">all_times</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">ms</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="VariableDTRebaseTimeValues.maintain_maximum_dy"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.operators.html#morphforge.traces.operators.variable_dt_rebasing.VariableDTRebaseTimeValues.maintain_maximum_dy">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_maximum_dy</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_tr1</span><span class="p">,</span> <span class="n">_tr2</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">False</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="VariableDTRebaseTimeValues.maintain_minimum_frequency"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.operators.html#morphforge.traces.operators.variable_dt_rebasing.VariableDTRebaseTimeValues.maintain_minimum_frequency">[docs]</a>    <span class="k">def</span> <span class="nf">maintain_minimum_frequency</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_tr1</span><span class="p">,</span> <span class="n">_tr2</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">False</span>
+
+
+        <span class="c"># 1. Create a high density time grid,</span>
+        <span class="c"># all zeros except 1&#39;s at the time points of</span>
+        <span class="c"># tr1</span>
+
+        <span class="c"># 2. Convolve this grid with a longer &#39;envelop&#39;</span>
+        <span class="c"># function. (Gaussian 3 times the length of the</span>
+        <span class="c"># longest dt step?</span>
+        <span class="c"># This gives a indication of instanteous frequency.</span>
+
+        <span class="c"># 3. Repeat for tr2</span>
+
+        <span class="c"># 4. Take the min on these two</span>
+
+        <span class="c"># 5. Recreate the times</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

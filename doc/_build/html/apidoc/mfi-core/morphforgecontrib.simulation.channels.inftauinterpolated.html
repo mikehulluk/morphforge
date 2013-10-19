@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>inftauinterpolated Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>inftauinterpolated Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="inftauinterpolated-package">
+<h1>inftauinterpolated Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">inftauinterpolated</span></tt> Package</h2>
+<span class="target" id="module-morphforgecontrib.simulation.channels.inftauinterpolated"></span></div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.inftauinterpolated.core">
+<span id="core-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.InfTauInterpolation">
+<em class="property">class </em><tt class="descname">InfTauInterpolation</tt><big>(</big><em>V</em>, <em>inf</em>, <em>tau</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#InfTauInterpolation"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.InfTauInterpolation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>V</em>, <em>inf</em>, <em>tau</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#InfTauInterpolation.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.InfTauInterpolation.get_v_inf_vals_list">
+<tt class="descname">get_v_inf_vals_list</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#InfTauInterpolation.get_v_inf_vals_list"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.InfTauInterpolation.get_v_tau_vals_list">
+<tt class="descname">get_v_tau_vals_list</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#InfTauInterpolation.get_v_tau_vals_list"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel">
+<em class="property">class </em><tt class="descname">MM_InfTauInterpolatedChannel</tt><big>(</big><em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars_new={}</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#MM_InfTauInterpolatedChannel"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channel.Channel" title="morphforge.simulation.base.biophysics.channel.Channel"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channel.Channel</span></tt></a>, <a class="reference internal" href="morphforge.simulation.neuron.biophysics.html#morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base" title="morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base</span></tt></a></p>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#MM_InfTauInterpolatedChannel.Recordables"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.ConductanceDensity">
+<tt class="descname">ConductanceDensity</tt><em class="property"> = 'ConductanceDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.CurrentDensity">
+<tt class="descname">CurrentDensity</tt><em class="property"> = 'CurrentDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.StateVar">
+<tt class="descname">StateVar</tt><em class="property"> = 'StateVariable'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.StateVarSteadyState">
+<tt class="descname">StateVarSteadyState</tt><em class="property"> = 'StateSteadyState'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.StateVarTimeConstant">
+<tt class="descname">StateVarTimeConstant</tt><em class="property"> = 'StateTimeConstant'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.Recordables.all">
+<tt class="descname">all</tt><em class="property"> = ['ConductanceDensity', 'CurrentDensity', 'StateVariable', 'StateSteadyState', 'StateTimeConstant']</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.__init__">
+<tt class="descclassname">MM_InfTauInterpolatedChannel.</tt><tt class="descname">__init__</tt><big>(</big><em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars_new={}</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#MM_InfTauInterpolatedChannel.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.get_defaults">
+<tt class="descclassname">MM_InfTauInterpolatedChannel.</tt><tt class="descname">get_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#MM_InfTauInterpolatedChannel.get_defaults"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel.get_variables">
+<tt class="descclassname">MM_InfTauInterpolatedChannel.</tt><tt class="descname">get_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/core.html#MM_InfTauInterpolatedChannel.get_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated">
+<span id="mmwriter-infatauinterpolated-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mmwriter_infatauinterpolated</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated.NEURONChlWriterInfTauInterpolated">
+<em class="property">class </em><tt class="descname">NEURONChlWriterInfTauInterpolated</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/mmwriter_infatauinterpolated.html#NEURONChlWriterInfTauInterpolated"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated.NEURONChlWriterInfTauInterpolated.Units">
+<tt class="descname">Units</tt><em class="property"> = {'gBar': 'S/cm2', 'e_rev': 'mV', 'gScale': ''}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated.NEURONChlWriterInfTauInterpolated.build_hoc_section">
+<em class="property">classmethod </em><tt class="descname">build_hoc_section</tt><big>(</big><em>cell</em>, <em>section</em>, <em>hocfile_obj</em>, <em>mta</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/mmwriter_infatauinterpolated.html#NEURONChlWriterInfTauInterpolated.build_hoc_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated.NEURONChlWriterInfTauInterpolated.build_mod">
+<em class="property">classmethod </em><tt class="descname">build_mod</tt><big>(</big><em>alphabeta_chl</em>, <em>modfile_set</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/mmwriter_infatauinterpolated.html#NEURONChlWriterInfTauInterpolated.build_mod"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.mmwriter_infatauinterpolated.NEURONChlWriterInfTauInterpolated.chlHoc">
+<tt class="descname">chlHoc</tt><em class="property"> = '\n\n$(cell_name).internalsections [$section_index] {\n    // InfTauInterpolated Channels\n    insert $neuron_suffix\n    #for variable_name, variable_value_nounit, variable_value_with_unit, variable_unit in $variables:\n    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)\n    #end for\n}\n'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.inftauinterpolated.neuron">
+<span id="neuron-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">neuron</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel" title="morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.core.MM_InfTauInterpolatedChannel</span></tt></a>, <a class="reference internal" href="morphforge.simulation.neuron.biophysics.html#morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base" title="morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.neuron.biophysics.mm_neuron.NEURONChl_Base</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated.build_hoc_section">
+<tt class="descname">build_hoc_section</tt><big>(</big><em>cell</em>, <em>section</em>, <em>hocfile_obj</em>, <em>mta</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated.build_hoc_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated.create_modfile">
+<tt class="descname">create_modfile</tt><big>(</big><em>modfile_set</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated.create_modfile"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated.get_mod_file_changeables">
+<tt class="descname">get_mod_file_changeables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated.get_mod_file_changeables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated.get_recordable">
+<tt class="descname">get_recordable</tt><big>(</big><em>what</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated.get_recordable"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_ConductanceDensityRecord">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_ConductanceDensityRecord</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_ConductanceDensityRecord"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record" title="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_ConductanceDensityRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_ConductanceDensityRecord.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_ConductanceDensityRecord.get_std_tags">
+<tt class="descname">get_std_tags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_ConductanceDensityRecord.get_std_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_ConductanceDensityRecord.get_unit">
+<tt class="descname">get_unit</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_ConductanceDensityRecord.get_unit"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_CurrentDensityRecord">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_CurrentDensityRecord</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_CurrentDensityRecord"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record" title="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_CurrentDensityRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_CurrentDensityRecord.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_CurrentDensityRecord.get_std_tags">
+<tt class="descname">get_std_tags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_CurrentDensityRecord.get_std_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_CurrentDensityRecord.get_unit">
+<tt class="descname">get_unit</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_CurrentDensityRecord.get_unit"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_Record</tt><big>(</big><em>alphabeta_chl</em>, <em>modvar</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_Record"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.neuron.objects.html#morphforge.simulation.neuron.objects.neuronrecordable.NEURONRecordableOnLocation" title="morphforge.simulation.neuron.objects.neuronrecordable.NEURONRecordableOnLocation"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.neuron.objects.neuronrecordable.NEURONRecordableOnLocation</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>alphabeta_chl</em>, <em>modvar</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_Record.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record.build_hoc">
+<tt class="descname">build_hoc</tt><big>(</big><em>hocfile_obj</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_Record.build_hoc"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record.build_mod">
+<tt class="descname">build_mod</tt><big>(</big><em>modfile_set</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_Record.build_mod"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableInfRecord">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_StateVariableInfRecord</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableInfRecord"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record" title="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableInfRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableInfRecord.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableInfRecord.get_std_tags">
+<tt class="descname">get_std_tags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableInfRecord.get_std_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableInfRecord.get_unit">
+<tt class="descname">get_unit</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableInfRecord.get_unit"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableRecord">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_StateVariableRecord</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableRecord"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record" title="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableRecord.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableRecord.get_std_tags">
+<tt class="descname">get_std_tags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableRecord.get_std_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableRecord.get_unit">
+<tt class="descname">get_unit</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableRecord.get_unit"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableTauRecord">
+<em class="property">class </em><tt class="descname">NEURONChl_InfTauInterpolated_StateVariableTauRecord</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableTauRecord"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record" title="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record"><tt class="xref py py-class docutils literal"><span class="pre">morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_Record</span></tt></a></p>
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableTauRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>state</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableTauRecord.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableTauRecord.get_std_tags">
+<tt class="descname">get_std_tags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableTauRecord.get_std_tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.neuron.NEURONChl_InfTauInterpolated_StateVariableTauRecord.get_unit">
+<tt class="descname">get_unit</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/neuron.html#NEURONChl_InfTauInterpolated_StateVariableTauRecord.get_unit"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.inftauinterpolated.summarisier">
+<span id="summarisier-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">summarisier</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.summarisier.Summarise_MM_InfTauInterpolatedChannel">
+<em class="property">class </em><tt class="descname">Summarise_MM_InfTauInterpolatedChannel</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/summarisier.html#Summarise_MM_InfTauInterpolatedChannel"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.summarisier.Summarise_MM_InfTauInterpolatedChannel.plot_alpha_beta_curves">
+<em class="property">classmethod </em><tt class="descname">plot_alpha_beta_curves</tt><big>(</big><em>ax1</em>, <em>ax2</em>, <em>alphabeta_chl</em>, <em>state</em>, <em>color='blue'</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/summarisier.html#Summarise_MM_InfTauInterpolatedChannel.plot_alpha_beta_curves"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.summarisier.Summarise_MM_InfTauInterpolatedChannel.plot_inf_tau_curves">
+<em class="property">classmethod </em><tt class="descname">plot_inf_tau_curves</tt><big>(</big><em>ax1</em>, <em>ax2</em>, <em>alphabeta_chl</em>, <em>state</em>, <em>color='blue'</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/summarisier.html#Summarise_MM_InfTauInterpolatedChannel.plot_inf_tau_curves"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.simulation.channels.inftauinterpolated.summarisier.Summarise_MM_InfTauInterpolatedChannel.plot_state_curve_summary">
+<em class="property">classmethod </em><tt class="descname">plot_state_curve_summary</tt><big>(</big><em>alphabeta_chl</em>, <em>state</em>, <em>figsize</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/inftauinterpolated/summarisier.html#Summarise_MM_InfTauInterpolatedChannel.plot_state_curve_summary"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

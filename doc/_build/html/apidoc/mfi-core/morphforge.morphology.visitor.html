@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>visitor Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>visitor Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="visitor-package">
+<h1>visitor Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">visitor</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology.visitor"></span><dl class="class">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF">
+<em class="property">class </em><tt class="descname">SectionVisitorDF</tt><big>(</big><em>functor</em>, <em>morph=None</em>, <em>dummysectionfunctor=None</em>, <em>rootsectionfunctor=None</em>, <em>returnfunctor=&lt;function &lt;lambda&gt; at 0x5ad7e60&gt;</em>, <em>pretraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7ed8&gt;</em>, <em>posttraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7f50&gt;</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>morph=None</em>, <em>dummysectionfunctor=None</em>, <em>rootsectionfunctor=None</em>, <em>returnfunctor=&lt;function &lt;lambda&gt; at 0x5ad7e60&gt;</em>, <em>pretraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7ed8&gt;</em>, <em>posttraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7f50&gt;</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF.is_visit_dummy">
+<tt class="descname">is_visit_dummy</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF.is_visit_root">
+<tt class="descname">is_visit_root</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDF.visit_section_internal">
+<tt class="descname">visit_section_internal</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd><p>Implements:  1. visit the node. 2. Traverse the subtrees.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFOverrider">
+<em class="property">class </em><tt class="descname">SectionVisitorDFOverrider</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFOverrider.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFOverrider.visit_root_section">
+<tt class="descname">visit_root_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFOverrider.visit_section">
+<tt class="descname">visit_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.ListBuilderSectionVisitor">
+<em class="property">class </em><tt class="descname">ListBuilderSectionVisitor</tt><big>(</big><em>functor</em>, <em>rootfunctor=None</em>, <em>morph=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.ListBuilderSectionVisitor.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>rootfunctor=None</em>, <em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.ListBuilderSectionVisitor.visit_root_section">
+<tt class="descname">visit_root_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.ListBuilderSectionVisitor.visit_section">
+<tt class="descname">visit_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.SectionIndexerDF">
+<em class="property">class </em><tt class="descname">SectionIndexerDF</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo" title="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo</span></tt></a></p>
+<p>Create a dictionary that maps section objects to sequential integers</p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionIndexerDF.__getitem__">
+<tt class="descname">__getitem__</tt><big>(</big><em>key</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionIndexerDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.SectionListerDF">
+<em class="property">class </em><tt class="descname">SectionListerDF</tt><big>(</big><em>morph</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor" title="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionListerDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFNeuronBuilder">
+<em class="property">class </em><tt class="descname">SectionVisitorDFNeuronBuilder</tt><big>(</big><em>transfunctor</em>, <em>morph=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFNeuronBuilder.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>transfunctor</em>, <em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFNeuronBuilder.build_extrusion">
+<tt class="descname">build_extrusion</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.SectionVisitorDFNeuronBuilder.build_root">
+<tt class="descname">build_root</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory">
+<em class="property">class </em><tt class="descname">SectionVistorFactory</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory.array3_all_points">
+<em class="property">classmethod </em><tt class="descname">array3_all_points</tt><big>(</big><em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory.array4_all_points">
+<em class="property">classmethod </em><tt class="descname">array4_all_points</tt><big>(</big><em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory.dict_section_distal_dist_from_soma">
+<em class="property">classmethod </em><tt class="descname">dict_section_distal_dist_from_soma</tt><big>(</big><em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory.dict_section_proximal_dist_from_soma">
+<em class="property">classmethod </em><tt class="descname">dict_section_proximal_dist_from_soma</tt><big>(</big><em>morph=None</em>, <em>soma_centre=False</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.SectionVistorFactory.get_bounding_box">
+<em class="property">classmethod </em><tt class="descname">get_bounding_box</tt><big>(</big><em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.DictBuilderSectionVisitorHomo">
+<em class="property">class </em><tt class="descname">DictBuilderSectionVisitorHomo</tt><big>(</big><em>functor</em>, <em>morph=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.DictBuilderSectionVisitorHomo.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>morph=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.DictBuilderSectionVisitorHomo.add_to_dict">
+<tt class="descname">add_to_dict</tt><big>(</big><em>section</em>, <em>result</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><tt class="descname">SectionIndexerDF</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo" title="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo</span></tt></a></p>
+<p>Create a dictionary that maps section objects to sequential integers</p>
+<dl class="method">
+<dt>
+<tt class="descname">__getitem__</tt><big>(</big><em>key</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descname">__init__</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.visitor.SectionIndexerWithOffsetDF">
+<tt class="descname">SectionIndexerWithOffsetDF</tt></dt>
+<dd><p>alias of <a class="reference internal" href="#morphforge.morphology.visitor.SectionIndexerDF" title="morphforge.morphology.visitor.SectionIndexerDF"><tt class="xref py py-class docutils literal"><span class="pre">SectionIndexerDF</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.visitor.morphologyoperators">
+<span id="morphologyoperators-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">morphologyoperators</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder">
+<em class="property">class </em><tt class="descname">SectionVisitorDFNeuronBuilder</tt><big>(</big><em>transfunctor</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/morphologyoperators.html#SectionVisitorDFNeuronBuilder"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>transfunctor</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/morphologyoperators.html#SectionVisitorDFNeuronBuilder.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.build_extrusion">
+<tt class="descname">build_extrusion</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/morphologyoperators.html#SectionVisitorDFNeuronBuilder.build_extrusion"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.build_root">
+<tt class="descname">build_root</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/morphologyoperators.html#SectionVisitorDFNeuronBuilder.build_root"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.visitor.visitorbaseclasses">
+<span id="visitorbaseclasses-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">visitorbaseclasses</span></tt> Module</h2>
+<p>Visitor Base Classes: Here be Dragons!</p>
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo">
+<em class="property">class </em><tt class="descname">DictBuilderSectionVisitorHomo</tt><big>(</big><em>functor</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#DictBuilderSectionVisitorHomo"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#DictBuilderSectionVisitorHomo.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo.add_to_dict">
+<tt class="descname">add_to_dict</tt><big>(</big><em>section</em>, <em>result</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#DictBuilderSectionVisitorHomo.add_to_dict"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor">
+<em class="property">class </em><tt class="descname">ListBuilderSectionVisitor</tt><big>(</big><em>functor</em>, <em>rootfunctor=None</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#ListBuilderSectionVisitor"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>rootfunctor=None</em>, <em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#ListBuilderSectionVisitor.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.visit_root_section">
+<tt class="descname">visit_root_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#ListBuilderSectionVisitor.visit_root_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.visit_section">
+<tt class="descname">visit_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#ListBuilderSectionVisitor.visit_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF">
+<em class="property">class </em><tt class="descname">SectionIndexerDF</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionIndexerDF"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo" title="morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo</span></tt></a></p>
+<p>Create a dictionary that maps section objects to sequential integers</p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF.__getitem__">
+<tt class="descname">__getitem__</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionIndexerDF.__getitem__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph=None</em>, <em>offset=0</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionIndexerDF.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerWithOffsetDF">
+<tt class="descname">SectionIndexerWithOffsetDF</tt></dt>
+<dd><p>alias of <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF"><tt class="xref py py-class docutils literal"><span class="pre">SectionIndexerDF</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionListerDF">
+<em class="property">class </em><tt class="descname">SectionListerDF</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionListerDF"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor" title="morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionListerDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionListerDF.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF">
+<em class="property">class </em><tt class="descname">SectionVisitorDF</tt><big>(</big><em>functor</em>, <em>morph=None</em>, <em>dummysectionfunctor=None</em>, <em>rootsectionfunctor=None</em>, <em>returnfunctor=&lt;function &lt;lambda&gt; at 0x5ad7e60&gt;</em>, <em>pretraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7ed8&gt;</em>, <em>posttraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7f50&gt;</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>morph=None</em>, <em>dummysectionfunctor=None</em>, <em>rootsectionfunctor=None</em>, <em>returnfunctor=&lt;function &lt;lambda&gt; at 0x5ad7e60&gt;</em>, <em>pretraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7ed8&gt;</em>, <em>posttraversefunctor=&lt;function &lt;lambda&gt; at 0x5ad7f50&gt;</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.is_visit_dummy">
+<tt class="descname">is_visit_dummy</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF.is_visit_dummy"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.is_visit_root">
+<tt class="descname">is_visit_root</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF.is_visit_root"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.visit_section_internal">
+<tt class="descname">visit_section_internal</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDF.visit_section_internal"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Implements:  1. visit the node. 2. Traverse the subtrees.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider">
+<em class="property">class </em><tt class="descname">SectionVisitorDFOverrider</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDFOverrider"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDFOverrider.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.visit_root_section">
+<tt class="descname">visit_root_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDFOverrider.visit_root_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.visit_section">
+<tt class="descname">visit_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorDFOverrider.visit_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider">
+<em class="property">class </em><tt class="descname">SectionVisitorHomogenousOverrider</tt><big>(</big><em>functor</em>, <em>section_result_operator=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorHomogenousOverrider"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider" title="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>functor</em>, <em>section_result_operator=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorHomogenousOverrider.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.visit_root_section">
+<tt class="descname">visit_root_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorHomogenousOverrider.visit_root_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.visit_section">
+<tt class="descname">visit_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorbaseclasses.html#SectionVisitorHomogenousOverrider.visit_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.visitor.visitorfactory">
+<span id="visitorfactory-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">visitorfactory</span></tt> Module</h2>
+<dl class="attribute">
+<dt id="morphforge.morphology.visitor.visitorfactory.SVVisitorFactory">
+<tt class="descname">SVVisitorFactory</tt></dt>
+<dd><p>alias of <a class="reference internal" href="#morphforge.morphology.visitor.visitorfactory.SectionVistorFactory" title="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory"><tt class="xref py py-class docutils literal"><span class="pre">SectionVistorFactory</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory">
+<em class="property">class </em><tt class="descname">SectionVistorFactory</tt><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory.array3_all_points">
+<em class="property">classmethod </em><tt class="descname">array3_all_points</tt><big>(</big><em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory.array3_all_points"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory.array4_all_points">
+<em class="property">classmethod </em><tt class="descname">array4_all_points</tt><big>(</big><em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory.array4_all_points"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory.dict_section_distal_dist_from_soma">
+<em class="property">classmethod </em><tt class="descname">dict_section_distal_dist_from_soma</tt><big>(</big><em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory.dict_section_distal_dist_from_soma"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory.dict_section_proximal_dist_from_soma">
+<em class="property">classmethod </em><tt class="descname">dict_section_proximal_dist_from_soma</tt><big>(</big><em>morph=None</em>, <em>soma_centre=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory.dict_section_proximal_dist_from_soma"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.visitor.visitorfactory.SectionVistorFactory.get_bounding_box">
+<em class="property">classmethod </em><tt class="descname">get_bounding_box</tt><big>(</big><em>morph=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/visitor/visitorfactory.html#SectionVistorFactory.get_bounding_box"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

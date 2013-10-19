@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>generation Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>generation Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="generation-package">
+<h1>generation Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">generation</span></tt> Package</h2>
+<span class="target" id="module-morphforge.traces.generation"></span></div>
+<div class="section" id="module-morphforge.traces.generation.gen_parser_lexer">
+<span id="gen-parser-lexer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">gen_parser_lexer</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer">
+<em class="property">class </em><tt class="descname">TraceGeneratorParserLexer</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.input">
+<tt class="descname">input</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer.input"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.reserved">
+<tt class="descname">reserved</tt><em class="property"> = {'THEN': 'THEN', 'ms': 'MS', 'AT': 'AT', 'FOR': 'FOR', 'FLAT': 'FLAT', 'd': 'D', 'UNTIL': 'UNTIL', 'RAMPTO': 'RAMPTO'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_COLON">
+<tt class="descname">t_COLON</tt><em class="property"> = ':'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_CURLY_LBRACE">
+<tt class="descname">t_CURLY_LBRACE</tt><em class="property"> = '{'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_CURLY_RBRACE">
+<tt class="descname">t_CURLY_RBRACE</tt><em class="property"> = '}'</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_FLOAT">
+<tt class="descname">t_FLOAT</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer.t_FLOAT"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>[-]?[0-9]+(.[0-9]*([eE][+-]?[0-9]+)?)?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_ID">
+<tt class="descname">t_ID</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer.t_ID"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>[<a href="#id2"><span class="problematic" id="id3">a-zA-Z_</span></a>][a-zA-Z_0-9]*</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_LPAREN">
+<tt class="descname">t_LPAREN</tt><em class="property"> = '\\('</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_RPAREN">
+<tt class="descname">t_RPAREN</tt><em class="property"> = '\\)'</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_error">
+<tt class="descname">t_error</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_lexer.html#TraceGeneratorParserLexer.t_error"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.generation.gen_parser_lexer.TraceGeneratorParserLexer.t_ignore">
+<tt class="descname">t_ignore</tt><em class="property"> = ' \t'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.generation.gen_parser_yacc">
+<span id="gen-parser-yacc-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">gen_parser_yacc</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.generation.gen_parser_yacc.FunctionPrototype">
+<em class="property">class </em><tt class="descname">FunctionPrototype</tt><big>(</big><em>funcname</em>, <em>funcarg</em>, <em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#FunctionPrototype"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.generation.gen_parser_yacc.FunctionPrototype.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>funcname</em>, <em>funcarg</em>, <em>start_time=None</em>, <em>end_time=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#FunctionPrototype.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_abs_timespec">
+<tt class="descname">p_abs_timespec</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_abs_timespec"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>abs_timespec : AT time</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_complete">
+<tt class="descname">p_complete</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_complete"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>l : unit_def p_pieceblock_chain_complete</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_end_timespec">
+<tt class="descname">p_end_timespec</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_end_timespec"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>end_timespec : UNTIL time
+| FOR time</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_error">
+<tt class="descname">p_error</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_error"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_func">
+<tt class="descname">p_func</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_func"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>func : func_name LPAREN FLOAT RPAREN</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_func_name">
+<tt class="descname">p_func_name</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_func_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>func_name : FLAT
+| RAMPTO</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_pieceblock_chain1">
+<tt class="descname">p_pieceblock_chain1</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_pieceblock_chain1"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>pieceblock_chain : abs_timespec func</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_pieceblock_chain2">
+<tt class="descname">p_pieceblock_chain2</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_pieceblock_chain2"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>pieceblock_chain : func</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_pieceblock_chain3">
+<tt class="descname">p_pieceblock_chain3</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_pieceblock_chain3"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>pieceblock_chain : pieceblock_chain THEN abs_timespec func</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_pieceblock_chain4">
+<tt class="descname">p_pieceblock_chain4</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_pieceblock_chain4"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>pieceblock_chain : pieceblock_chain end_timespec THEN func</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_pieceblock_chain_complete">
+<tt class="descname">p_pieceblock_chain_complete</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_pieceblock_chain_complete"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>p_pieceblock_chain_complete : pieceblock_chain  end_timespec</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_time">
+<tt class="descname">p_time</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_time"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>time : FLOAT MS</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.generation.gen_parser_yacc.p_unit_definiton">
+<tt class="descname">p_unit_definiton</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/gen_parser_yacc.html#p_unit_definiton"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>unit_def : CURLY_LBRACE D COLON ID CURLY_RBRACE</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.generation.generator_parser">
+<span id="generator-parser-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">generator_parser</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.generation.generator_parser.TraceStringParser">
+<em class="property">class </em><tt class="descname">TraceStringParser</tt><a class="reference internal" href="../../_modules/morphforge/traces/generation/generator_parser.html#TraceStringParser"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.generation.generator_parser.TraceStringParser.Parse">
+<em class="property">classmethod </em><tt class="descname">Parse</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/generator_parser.html#TraceStringParser.Parse"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.generation.generator_parser.TraceStringParser._trace_from_string">
+<em class="property">classmethod </em><tt class="descname">_trace_from_string</tt><big>(</big><em>srcstr</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/generation/generator_parser.html#TraceStringParser._trace_from_string"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

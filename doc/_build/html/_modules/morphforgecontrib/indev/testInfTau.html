@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.indev.testInfTau &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.indev.testInfTau</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.indev.testInfTau</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+<span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.indev.html#morphforgecontrib.indev.testInfTau.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="sd">&quot;&quot;&quot; Change parameters from 3 and show a single spiking and mutltiple spiking neuron in one plot&quot;&quot;&quot;</span>
+    
+    <span class="sd">&quot;&quot;&quot;In this example, we build a single section neuron, with passive channels,</span>
+<span class="sd">     and stimulate it with a current clamp&quot;&quot;&quot;</span>
+    
+    
+    
+    
+    <span class="n">env</span> <span class="o">=</span> <span class="n">NEURONEnvironment</span><span class="p">()</span>
+    <span class="n">morphDict1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;diam&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;soma&#39;</span><span class="p">}}</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="o">.</span><span class="n">fromDictionary</span><span class="p">(</span><span class="n">morphDict1</span><span class="p">)</span>
+    
+    
+    <span class="k">def</span> <span class="nf">getKSInfTau</span><span class="p">(</span><span class="n">env</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">InfTauInterpolation</span><span class="p">(</span>
+            <span class="n">V</span>   <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">80</span><span class="p">,</span>  <span class="o">-</span><span class="mi">40</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">40</span><span class="p">],</span>
+            <span class="n">inf</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>  <span class="mf">0.2</span><span class="p">,</span>   <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span>   <span class="mi">12</span><span class="p">,</span>    <span class="mi">15</span><span class="p">,</span>  <span class="mi">10</span><span class="p">]</span>
+       <span class="p">)</span>
+    
+        <span class="n">ks_vars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;ks&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">}</span>
+    
+    
+        <span class="n">ks_chl</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span>
+            <span class="n">MM_InfTauInterpolatedChannel</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">&#39;InfTau1&#39;</span><span class="p">,</span>
+            <span class="n">equation</span><span class="o">=</span><span class="s">&#39;ks*ks*ks*ks&#39;</span><span class="p">,</span>
+            <span class="n">conductance</span><span class="o">=</span><span class="s">&#39;2.:pS/um2&#39;</span><span class="p">,</span>
+            <span class="n">reversalpotential</span><span class="o">=</span><span class="s">&#39;-80:mV&#39;</span><span class="p">,</span>
+            <span class="n">statevars_new</span><span class="o">=</span><span class="n">ks_vars</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">ks_chl</span>
+    
+    
+    <span class="n">tr0</span> <span class="o">=</span> <span class="n">get_voltageclamp_soma_current_trace</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s">&#39;-50:mV&#39;</span><span class="p">,</span>
+            <span class="n">channel_functor</span><span class="o">=</span><span class="n">getKSInfTau</span><span class="p">,</span> <span class="n">morphology</span><span class="o">=</span><span class="n">m1</span><span class="p">)</span>
+    <span class="n">tr1</span> <span class="o">=</span> <span class="n">get_voltageclamp_soma_current_trace</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s">&#39;-20:mV&#39;</span><span class="p">,</span>
+            <span class="n">channel_functor</span><span class="o">=</span><span class="n">getKSInfTau</span><span class="p">,</span> <span class="n">morphology</span><span class="o">=</span><span class="n">m1</span><span class="p">)</span>
+    <span class="n">tr2</span> <span class="o">=</span> <span class="n">get_voltageclamp_soma_current_trace</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s">&#39;20:mV&#39;</span><span class="p">,</span>
+            <span class="n">channel_functor</span><span class="o">=</span><span class="n">getKSInfTau</span><span class="p">,</span> <span class="n">morphology</span><span class="o">=</span><span class="n">m1</span><span class="p">)</span>
+    
+    
+    <span class="n">TagViewer</span><span class="p">([</span><span class="n">tr0</span><span class="p">,</span> <span class="n">tr1</span><span class="p">,</span> <span class="n">tr2</span><span class="p">])</span>
+    
+    
+    
+    
+    
+    
+    
+    <span class="c">#def build_simulation(gbar_multiplier):</span>
+    <span class="c">#    # Create the morphology for the cell:</span>
+    <span class="c">#    morphDict1 = {&#39;root&#39;: {&#39;length&#39;: 20, &#39;diam&#39;: 20, &#39;id&#39;:&#39;soma&#39;} }</span>
+    <span class="c">#    m1 = MorphologyTree.fromDictionary(morphDict1, name=&quot;SimpleMorphology1&quot;)</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    # Create the environment:</span>
+    <span class="c">#    env = NEURONEnvironment()</span>
+    <span class="c">#</span>
+    <span class="c">#    # Create the simulation:</span>
+    <span class="c">#    sim = env.Simulation(name=&quot;TestSim1&quot;)</span>
+    <span class="c">#    cell = sim.create_cell(name=&quot;Cell1&quot;, morphology=m1)</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    parameters = {</span>
+    <span class="c">#        &#39;e_rev&#39;: qty(&#39;50:mV&#39;),</span>
+    <span class="c">#        &#39;gbar&#39;: qty(&#39;120:pS/um2&#39;),</span>
+    <span class="c">#</span>
+    <span class="c">#        &#39;m_alpha_a&#39;: qty(&#39;13.01e3:s-1&#39;),</span>
+    <span class="c">#        &#39;m_alpha_b&#39;: qty(&#39;0e0:V-1 s&#39;),</span>
+    <span class="c">#        &#39;m_alpha_c&#39;: qty(&#39;4.0:&#39;),</span>
+    <span class="c">#        &#39;m_alpha_d&#39;: qty(&#39;6.01e-3:V&#39;),</span>
+    <span class="c">#        &#39;m_alpha_e&#39;: qty(&#39;-12.56e-3:V&#39;),</span>
+    <span class="c">#</span>
+    <span class="c">#        &#39;m_beta_a&#39;: qty(&#39;5.73e3:s-1&#39;),</span>
+    <span class="c">#        &#39;m_beta_b&#39;: qty(&#39;0e3:V-1 s&#39;),</span>
+    <span class="c">#        &#39;m_beta_c&#39;: qty(&#39;1.0:&#39;),</span>
+    <span class="c">#        &#39;m_beta_d&#39;: qty(&#39;16.01e-3:V&#39;),</span>
+    <span class="c">#        &#39;m_beta_e&#39;: qty(&#39;9.69e-3:V&#39;),</span>
+    <span class="c">#</span>
+    <span class="c">#        &#39;h_alpha_a&#39;: qty(&#39;0.04e3:s-1&#39;),</span>
+    <span class="c">#        &#39;h_alpha_b&#39;: qty(&#39;0.0e3:V-1 s&#39;),</span>
+    <span class="c">#        &#39;h_alpha_c&#39;: qty(&#39;1.0:&#39;),</span>
+    <span class="c">#        &#39;h_alpha_d&#39;: qty(&#39;29.88e-3:V&#39;),</span>
+    <span class="c">#        &#39;h_alpha_e&#39;: qty(&#39;26e-3:V&#39;),</span>
+    <span class="c">#</span>
+    <span class="c">#        &#39;h_beta_a&#39;: qty(&#39;2.04e3:s-1&#39;),</span>
+    <span class="c">#        &#39;h_beta_b&#39;: qty(&#39;0.0e3:V-1 s&#39;),</span>
+    <span class="c">#        &#39;h_beta_c&#39;: qty(&#39;1:&#39;),</span>
+    <span class="c">#        &#39;h_beta_d&#39;: qty(&#39;-8.09e-3:V&#39;),</span>
+    <span class="c">#        &#39;h_beta_e&#39;: qty(&#39;-10.21e-3:V&#39;),</span>
+    <span class="c">#        }</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    ks = getKSInfTau(env)</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    eqnset = EquationSetLoader.load(&#39;std_leak_chl.txt&#39;,</span>
+    <span class="c">#                                    dir=LocMgr.getTestEqnSetsPath())</span>
+    <span class="c">#    lk_chl = env.Channel(EqnSetChl, eqnset=eqnset,</span>
+    <span class="c">#            chlname=&#39;LeakChls&#39;, </span>
+    <span class="c">#            parameters={&#39;gl&#39;: qty(&#39;5:pS/um2&#39;), &#39;e_rev&#39;: qty(&#39;-70:mV&#39;)}</span>
+    <span class="c">#            )</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    # Apply the mechanisms to the cells</span>
+    <span class="c">#    cell.apply_channel( lk_chl)</span>
+    <span class="c">#    cell.apply_channel( ks)</span>
+    <span class="c">#</span>
+    <span class="c">#    cell.set_passive( PassiveProperty.SpecificCapacitance, qty(&#39;1.0:uF/cm2&#39;))</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    sim.record(cell, what=StandardTags.Voltage, name=&quot;SomaVoltage&quot;, cell_location = cell.soma, description=&#39;Membrane Voltage (gbar_multiplier = %2.2f)&#39;%gbar_multiplier)</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    sim.create_currentclamp(name=&#39;Stim1&#39;, amp=qty(&#39;200:pA&#39;),</span>
+    <span class="c">#                              dur=qty(&#39;100:ms&#39;), delay=qty(&#39;100:ms&#39;),</span>
+    <span class="c">#                              cell_location=cell.soma)</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#    result = sim.run()</span>
+    <span class="c">#    return result</span>
+    <span class="c">#</span>
+    <span class="c">#</span>
+    <span class="c">#results = [</span>
+    <span class="c">#           build_simulation(gbar_multiplier = 1.0),</span>
+    <span class="c">#          </span>
+    <span class="c">#          ]</span>
+    <span class="c">#</span>
+    <span class="c">#TagViewer(results, timerange=(95, 200)*units.ms)</span>
+    <span class="c">#pylab.show()</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

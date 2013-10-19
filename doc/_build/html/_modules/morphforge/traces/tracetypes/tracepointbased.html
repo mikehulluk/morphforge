@@ -1,0 +1,218 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.tracetypes.tracepointbased &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.tracetypes.tracepointbased</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.tracetypes.tracepointbased</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.trace</span> <span class="kn">import</span> <span class="n">Trace</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+
+
+<div class="viewcode-block" id="TracePointBased"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased">[docs]</a><span class="k">class</span> <span class="nc">TracePointBased</span><span class="p">(</span><span class="n">Trace</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TracePointBased.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">TracePointBased</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">Quantity</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Time is not a &#39;unit&#39;ed quantity&quot;</span><span class="p">)</span>
+
+        <span class="n">_dummy</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">units</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">Quantity</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">unitquantity</span><span class="o">.</span><span class="n">Dimensionless</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Data is not a &#39;unit&#39;ed quantity&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">time</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Time and Data are different shapes! </span><span class="si">%s</span><span class="s"> vs </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_n</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;Points Based Trace has less than 2 points: </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_n</span><span class="p">()</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.time_pts"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_pts">[docs]</a>    <span class="k">def</span> <span class="nf">time_pts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.time_pts_np"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_pts_np">[docs]</a>    <span class="k">def</span> <span class="nf">time_pts_np</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">magnitude</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.time_pts_s"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_pts_s">[docs]</a>    <span class="k">def</span> <span class="nf">time_pts_s</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.time_pts_ms"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_pts_ms">[docs]</a>    <span class="k">def</span> <span class="nf">time_pts_ms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+    <span class="c">#@property</span></div>
+<div class="viewcode-block" id="TracePointBased.time_pts_in"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_pts_in">[docs]</a>    <span class="k">def</span> <span class="nf">time_pts_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rebase_unit</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">rebase_unit</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.data_pts"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.data_pts">[docs]</a>    <span class="k">def</span> <span class="nf">data_pts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="c">#@property</span></div>
+<div class="viewcode-block" id="TracePointBased.data_pts_in"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.data_pts_in">[docs]</a>    <span class="k">def</span> <span class="nf">data_pts_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rebase_unit</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">rebase_unit</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.data_pts_np"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.data_pts_np">[docs]</a>    <span class="k">def</span> <span class="nf">data_pts_np</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">magnitude</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.data_unit"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.data_unit">[docs]</a>    <span class="k">def</span> <span class="nf">data_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c">#print &#39;in @prop:data_unit&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">units</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePointBased.time_unit"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.time_unit">[docs]</a>    <span class="k">def</span> <span class="nf">time_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">units</span>
+</div>
+<div class="viewcode-block" id="TracePointBased.get_n"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.get_n">[docs]</a>    <span class="k">def</span> <span class="nf">get_n</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">)</span>
+
+    <span class="c"># Conform to interface:</span>
+    <span class="c"># ############################</span>
+</div>
+<div class="viewcode-block" id="TracePointBased.get_min_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.get_min_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_min_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TracePointBased.get_max_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.get_max_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_max_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TracePointBased.get_values"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_array</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.interpolate.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+        <span class="n">time_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">data_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">interpolator</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">interpolator</span><span class="p">(</span><span class="n">time_array</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">time_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span> \
+            <span class="o">*</span> <span class="n">data_units</span>
+    <span class="c"># ##############################</span>
+
+</div>
+<div class="viewcode-block" id="TracePointBased.__getitem__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp1d</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.tracefixeddt</span> <span class="kn">import</span> <span class="n">TraceFixedDT</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;Time out of bounds&#39;</span>
+            <span class="k">if</span> <span class="n">stop</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;Time out of bounds&#39;</span>
+
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">start</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_pts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="n">TraceFixedDT</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]],</span>
+                                <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_pts</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span>
+
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">quantity</span><span class="o">.</span><span class="n">Quantity</span><span class="p">),</span> <span class="s">&quot;Times should be quantity. Found: </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
+        <span class="c"># Rebase the Time:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+        <span class="n">interpolator</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_pts_np</span><span class="p">,</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">data_pts_np</span><span class="p">)</span>
+        <span class="n">d_mag</span> <span class="o">=</span> <span class="n">interpolator</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d_mag</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

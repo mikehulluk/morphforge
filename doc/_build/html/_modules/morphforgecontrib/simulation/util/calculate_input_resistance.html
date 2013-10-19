@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.simulation.util.calculate_input_resistance &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforgecontrib.simulation.util" href="../util.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.simulation.util.calculate_input_resistance</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.simulation.util.calculate_input_resistance</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="n">CurrentClamp</span><span class="p">,</span> <span class="n">Cell</span><span class="p">,</span> <span class="n">qty</span><span class="p">,</span> <span class="n">StandardTags</span>
+<span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="n">NEURONEnvironment</span>
+<span class="c">#from morphforge.stdimports import factorise_units_from_list</span>
+
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">stats</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mhlibs.quantities_plot</span> <span class="kn">import</span> <span class="n">QuantitiesFigure</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.methods.MMtrace_conversion</span> <span class="kn">import</span> <span class="n">TraceConverter</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulationanalysis.tagviewer.tagviewer</span> <span class="kn">import</span> <span class="n">TagViewer</span>
+<span class="kn">from</span> <span class="nn">mreorg</span> <span class="kn">import</span> <span class="n">PM</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">morphforge</span>
+
+
+<div class="viewcode-block" id="CellAnalysis_StepInputResponse"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_StepInputResponse">[docs]</a><span class="k">class</span> <span class="nc">CellAnalysis_StepInputResponse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellAnalysis_StepInputResponse.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_StepInputResponse.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cell_functor</span><span class="p">,</span>
+        <span class="n">currents</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">,</span>
+        <span class="n">cell_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">plot_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">sim_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">tagviewer_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">include_internal_currents</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span> <span class="o">=</span> <span class="n">cell_functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currents</span> <span class="o">=</span> <span class="n">currents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span> <span class="o">=</span> <span class="n">sim_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span> <span class="o">=</span> <span class="n">tagviewer_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_internal_currents</span><span class="o">=</span><span class="n">include_internal_currents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">=</span><span class="bp">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span> <span class="o">=</span> <span class="n">cell_description</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulate_all</span><span class="p">()</span>
+
+
+
+        <span class="k">if</span> <span class="n">plot_all</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_StepInputResponse.simulate_all"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_StepInputResponse.simulate_all">[docs]</a>    <span class="k">def</span> <span class="nf">simulate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">tr_v</span><span class="p">,</span> <span class="n">tr_i</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tr_v</span><span class="p">,</span> <span class="n">tr_i</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_StepInputResponse.plot"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_StepInputResponse.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c">#trs = list(itertools.chain(*self.result_traces.values()))</span>
+        <span class="n">trs</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span> <span class="o">*</span><span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="o">.</span><span class="n">items</span><span class="p">())</span> <span class="p">]</span> <span class="p">)</span>
+
+        <span class="c">#title = &#39;%s- Step Current Inject Responses&#39; \</span>
+        <span class="c">#    % self.cell_description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">TagViewer</span><span class="p">(</span>
+                    <span class="n">trs</span><span class="p">,</span> 
+                    <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> 
+                    <span class="c">#figtitle=title,</span>
+                    <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span>
+                    <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_StepInputResponse.simulate"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_StepInputResponse.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+
+        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span><span class="p">(</span><span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+        <span class="c">#soma_loc = cell.get_location(&#39;soma&#39;)</span>
+
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;cclamp</span><span class="si">%03d</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span> <span class="nb">int</span><span class="p">(</span> <span class="n">current</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;pA&#39;</span><span class="p">)</span> <span class="p">))</span> <span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">current</span><span class="p">,</span>
+                <span class="n">dur</span><span class="o">=</span><span class="s">&#39;80:ms&#39;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&#39;50:ms&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_internal_currents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chl</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">biophysics</span><span class="o">.</span><span class="n">get_all_channels_applied_to_cell</span><span class="p">():</span>
+                <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">chl</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">CurrentDensity</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&#39;chl&#39;</span><span class="p">,</span><span class="n">chl</span>
+
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Current&#39;</span><span class="p">,</span>
+                   <span class="n">what</span><span class="o">=</span><span class="n">CurrentClamp</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s">&#39;CurrentClampCurrent&#39;</span><span class="p">)</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span>
+                   <span class="n">what</span><span class="o">=</span><span class="n">Cell</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">MembraneVoltage</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s">&#39;Response to i_inj=</span><span class="si">%s</span><span class="s"> &#39;</span> <span class="o">%</span> <span class="n">current</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">),</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current&#39;</span><span class="p">))</span>
+
+
+
+</div></div>
+<div class="viewcode-block" id="CellAnalysis_IFCurve"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IFCurve">[docs]</a><span class="k">class</span> <span class="nc">CellAnalysis_IFCurve</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellAnalysis_IFCurve.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IFCurve.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cell_functor</span><span class="p">,</span>
+        <span class="n">currents</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">,</span>
+        <span class="n">cell_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">plot_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">sim_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">tagviewer_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">include_internal_currents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">inject_all_cells</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span> <span class="o">=</span> <span class="n">cell_functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currents</span> <span class="o">=</span> <span class="n">currents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span> <span class="o">=</span> <span class="n">sim_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span> <span class="o">=</span> <span class="n">tagviewer_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">include_internal_currents</span><span class="o">=</span><span class="n">include_internal_currents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig1</span><span class="o">=</span><span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig2</span><span class="o">=</span><span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inject_all_cells</span> <span class="o">=</span> <span class="n">inject_all_cells</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">freqs</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span> <span class="o">=</span> <span class="n">cell_description</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulate_all</span><span class="p">()</span>
+
+
+
+        <span class="k">if</span> <span class="n">plot_all</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IFCurve.simulate_all"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IFCurve.simulate_all">[docs]</a>    <span class="k">def</span> <span class="nf">simulate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">freqs</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span> <span class="n">c</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;pA&#39;</span><span class="p">)</span> <span class="p">)]</span><span class="o">=</span><span class="n">freq</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IFCurve.plot"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IFCurve.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">trs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">- Step Current Inject Responses&#39;</span> \
+            <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig1</span> <span class="o">=</span> <span class="n">TagViewer</span><span class="p">(</span><span class="n">trs</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">figtitle</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                  <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span><span class="p">)</span>
+
+        <span class="kn">import</span> <span class="nn">pylab</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig2</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig2</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">cur</span><span class="p">,</span><span class="n">freq</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span> <span class="o">*</span><span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freqs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span> <span class="n">cur</span><span class="p">,</span><span class="n">freq</span><span class="p">,</span> <span class="s">&#39;x-&#39;</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="CellAnalysis_IFCurve.simulate"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IFCurve.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+
+        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span><span class="p">(</span><span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+        <span class="c">#soma_loc = cell.get_location(&#39;soma&#39;)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inject_all_cells</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">sim</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">cell</span><span class="p">:</span>
+                    <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">amp</span><span class="o">=</span><span class="n">current</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="s">&#39;300:ms&#39;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&#39;50:ms&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;cclamp&#39;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">current</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="s">&#39;300:ms&#39;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&#39;50:ms&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_internal_currents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">chl</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">biophysics</span><span class="o">.</span><span class="n">get_all_channels_applied_to_cell</span><span class="p">():</span>
+                <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">chl</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">CurrentDensity</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+                <span class="c">#print &#39;chl&#39;,chl</span>
+
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Current&#39;</span><span class="p">,</span>
+                   <span class="n">what</span><span class="o">=</span><span class="n">CurrentClamp</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s">&#39;CurrentClampCurrent&#39;</span><span class="p">)</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span>
+                   <span class="n">what</span><span class="o">=</span><span class="n">Cell</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">MembraneVoltage</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s">&#39;Response to i_inj=</span><span class="si">%s</span><span class="s"> &#39;</span> <span class="o">%</span> <span class="n">current</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">import</span> <span class="n">SpikeFinder</span>
+        <span class="n">n_spikes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="n">SpikeFinder</span><span class="o">.</span><span class="n">find_spikes</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">v</span><span class="p">)</span> <span class="p">)</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="n">n_spikes</span> <span class="o">/</span> <span class="mf">0.3</span>
+
+
+        <span class="n">current</span> <span class="o">=</span>  <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">current</span><span class="p">,</span><span class="n">v</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
+
+
+
+
+
+
+
+
+
+
+</div></div>
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse">[docs]</a><span class="k">class</span> <span class="nc">CellAnalysis_ReboundResponse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cell_functor</span><span class="p">,</span>
+        <span class="n">currents_base</span><span class="p">,</span>
+        <span class="n">currents_rebound</span><span class="p">,</span>
+        <span class="n">env</span><span class="p">,</span>
+        <span class="n">cell_description</span><span class="p">,</span>
+        <span class="n">plot_all</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">sim_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">tagviewer_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span> <span class="o">=</span> <span class="n">cell_functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currents_base</span> <span class="o">=</span> <span class="n">currents_base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currents_rebound</span> <span class="o">=</span> <span class="n">currents_rebound</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span> <span class="o">=</span> <span class="n">sim_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span> <span class="o">=</span> <span class="n">tagviewer_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span> <span class="o">=</span> <span class="n">cell_description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_all</span> <span class="o">=</span> <span class="n">plot_all</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulate_all</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">plot_all</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse.simulate_all"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse.simulate_all">[docs]</a>    <span class="k">def</span> <span class="nf">simulate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">current1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents_base</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">current2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents_rebound</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">tr_v</span><span class="p">,</span> <span class="n">tr_i</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">current1</span><span class="p">,</span> <span class="n">current2</span><span class="p">)</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">current1</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;pA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">current2</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;pA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tr_v</span><span class="p">,</span> <span class="n">tr_i</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse.plot"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_traces</span><span class="p">()</span>
+
+
+</div>
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse.plot_traces"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse.plot_traces">[docs]</a>    <span class="k">def</span> <span class="nf">plot_traces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">c1_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">])</span>
+        <span class="n">c2_values</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">])</span>
+
+        <span class="c"># print self.result_traces.keys()</span>
+        <span class="k">for</span> <span class="n">current1</span> <span class="ow">in</span> <span class="n">c1_values</span><span class="p">:</span>
+            <span class="n">trs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">current2</span> <span class="ow">in</span> <span class="n">c2_values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current2</span> <span class="o">&gt;</span> <span class="n">current1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">trs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_traces</span><span class="p">[(</span><span class="n">current1</span><span class="p">,</span> <span class="n">current2</span><span class="p">)])</span>
+
+            <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">- (Response to Current Injections [BaseCurrent </span><span class="si">%s</span><span class="s"> pA])&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span><span class="p">,</span> <span class="n">current1</span><span class="p">)</span>
+            <span class="n">TagViewer</span><span class="p">(</span><span class="n">trs</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">figtitle</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">tagviewer_kwargs</span><span class="p">)</span>
+
+
+
+
+</div>
+<div class="viewcode-block" id="CellAnalysis_ReboundResponse.simulate"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_ReboundResponse.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_base</span><span class="p">,</span> <span class="n">current_rebound</span><span class="p">):</span>
+
+        <span class="n">sim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span><span class="p">(</span><span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+        <span class="n">soma_loc</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s">&#39;soma&#39;</span><span class="p">)</span>
+
+        <span class="n">cc1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;cclamp&quot;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">current_base</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="s">&quot;100:ms&quot;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&quot;50:ms&quot;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">)</span>
+        <span class="n">cc2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;cclamp2&quot;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">current_rebound</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="s">&quot;5:ms&quot;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&quot;80:ms&quot;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">)</span>
+        <span class="n">cc3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;cclamp3&quot;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">current_rebound</span><span class="p">,</span> <span class="n">dur</span><span class="o">=</span><span class="s">&quot;5:ms&quot;</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="s">&quot;120:ms&quot;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">)</span>
+
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Current1&quot;</span><span class="p">,</span>      <span class="n">what</span><span class="o">=</span><span class="n">CurrentClamp</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span>  <span class="n">description</span><span class="o">=</span><span class="s">&quot;CurrentClampCurrent&quot;</span><span class="p">)</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Current2&quot;</span><span class="p">,</span>      <span class="n">what</span><span class="o">=</span><span class="n">CurrentClamp</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span>  <span class="n">description</span><span class="o">=</span><span class="s">&quot;CurrentClampCurrent&quot;</span><span class="p">)</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Current3&quot;</span><span class="p">,</span>      <span class="n">what</span><span class="o">=</span><span class="n">CurrentClamp</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span>  <span class="n">description</span><span class="o">=</span><span class="s">&quot;CurrentClampCurrent&quot;</span><span class="p">)</span>
+
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SomaVoltage&quot;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">,</span>  <span class="n">what</span><span class="o">=</span><span class="n">Cell</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">MembraneVoltage</span><span class="p">,</span>  <span class="n">description</span><span class="o">=</span><span class="s">&quot;Response to iInj1=</span><span class="si">%s</span><span class="s"> iInj2=</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">current_base</span><span class="p">,</span> <span class="n">current_rebound</span><span class="p">))</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+
+        <span class="c">#SimulationSummariser(res, &quot;/home/michael/Desktop/ForRoman.pdf&quot;)</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current1&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to_fixed</span><span class="p">(</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0.5:ms&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to_fixed</span><span class="p">(</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0.5:ms&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current3&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert_to_fixed</span><span class="p">(</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0.5:ms&quot;</span><span class="p">))</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="n">TraceConverter</span><span class="o">.</span><span class="n">rebase_to_fixed_dt</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current1&#39;</span>
+               <span class="p">),</span> <span class="n">dt</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&#39;0.5:ms&#39;</span><span class="p">))</span> \
+            <span class="o">+</span> <span class="n">TraceConverter</span><span class="o">.</span><span class="n">rebase_to_fixed_dt</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current2&#39;</span>
+               <span class="p">),</span> <span class="n">dt</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&#39;0.5:ms&#39;</span><span class="p">))</span> \
+            <span class="o">+</span> <span class="n">TraceConverter</span><span class="o">.</span><span class="n">rebase_to_fixed_dt</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;Current3&#39;</span>
+               <span class="p">),</span> <span class="n">dt</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&#39;0.5:ms&#39;</span><span class="p">))</span>
+        <span class="n">i</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Current</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+
+
+
+
+
+
+
+
+
+
+</div></div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve">[docs]</a><span class="k">class</span> <span class="nc">CellAnalysis_IVCurve</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="CellAnalysis_IVCurve.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell_functor</span><span class="p">,</span> <span class="n">currents</span><span class="p">,</span> <span class="n">cell_description</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sim_functor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">v_regressor_limit</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sim_kwargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">plot_all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span> <span class="o">=</span> <span class="n">cell_functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_regressor_limit</span> <span class="o">=</span> <span class="n">v_regressor_limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">=</span><span class="bp">None</span>
+        <span class="c">#Previously = qty(&quot;-30:mV&quot;)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span> <span class="o">=</span> <span class="n">sim_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tCurrentInjStart</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;50:ms&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tCurrentInjStop</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;200:ms&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStart</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;100:ms&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStop</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;151:ms&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">currents</span> <span class="o">=</span> <span class="n">currents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span> <span class="o">=</span> <span class="n">cell_description</span> <span class="ow">or</span> <span class="s">&#39;Unknown Cell&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_resistance</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;-1:MOhm&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">plot_all</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_all</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve.plot_all"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.plot_all">[docs]</a>    <span class="k">def</span> <span class="nf">plot_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_traces</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_iv_curve</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve._get_cc_simulation_trace"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve._get_cc_simulation_trace">[docs]</a>    <span class="k">def</span> <span class="nf">_get_cc_simulation_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span><span class="p">:</span>
+            <span class="n">env</span> <span class="o">=</span> <span class="n">NEURONEnvironment</span><span class="p">()</span>
+            <span class="n">sim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">sim_kwargs</span><span class="p">)</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_functor</span><span class="p">(</span><span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">False</span>
+
+        <span class="n">soma_loc</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s">&#39;soma&#39;</span><span class="p">)</span>
+
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;cclamp&#39;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">current</span><span class="p">,</span>
+                <span class="n">dur</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tCurrentInjStop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tCurrentInjStart</span><span class="p">,</span>
+                <span class="n">delay</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tCurrentInjStart</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">)</span>
+        <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">soma_loc</span><span class="p">,</span>
+                   <span class="n">what</span><span class="o">=</span><span class="n">Cell</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">MembraneVoltage</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s">&#39;Response to i_inj=</span><span class="si">%s</span><span class="s"> &#39;</span> <span class="o">%</span> <span class="n">current</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="s">&#39;SomaVoltage&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve.get_trace"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.get_trace">[docs]</a>    <span class="k">def</span> <span class="nf">get_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i_inj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">i_inj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">[</span><span class="n">i_inj</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cc_simulation_trace</span><span class="p">(</span><span class="n">i_inj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">[</span><span class="n">i_inj</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve.get_iv_point_steaddy_state"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.get_iv_point_steaddy_state">[docs]</a>    <span class="k">def</span> <span class="nf">get_iv_point_steaddy_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i_inj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="n">i_inj</span><span class="p">)</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStart</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStop</span><span class="p">))</span><span class="o">.</span><span class="n">Mean</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve.plot_traces"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.plot_traces">[docs]</a>    <span class="k">def</span> <span class="nf">plot_traces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: (Voltage Responses to Current Injections)&#39;</span> \
+            <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">QuantitiesFigure</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Time&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;Voltage&#39;</span><span class="p">)</span>
+
+        <span class="c"># Plot the traces</span>
+        <span class="k">for</span> <span class="n">i_inj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plotTrace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_trace</span><span class="p">(</span><span class="n">i_inj</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;i_inj: </span><span class="si">%s</span><span class="s">&#39;</span>
+                         <span class="o">%</span> <span class="n">i_inj</span><span class="p">)</span>
+
+        <span class="c"># Add the regions:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStart</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tSteaddyStateStop</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+        <span class="kn">from</span> <span class="nn">mreorg.scriptplots</span> <span class="kn">import</span> <span class="n">PM</span>
+        <span class="n">PM</span><span class="o">.</span><span class="n">save_figure</span><span class="p">(</span><span class="n">figname</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellAnalysis_IVCurve.plot_iv_curve"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.util.html#morphforgecontrib.simulation.util.calculate_input_resistance.CellAnalysis_IVCurve.plot_iv_curve">[docs]</a>    <span class="k">def</span> <span class="nf">plot_iv_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c"># pylint: disable=E1103</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: IV Curve&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_description</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">QuantitiesFigure</span><span class="p">()</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;Injected Current&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;SteadyStateVoltage&#39;</span><span class="p">)</span>
+
+        <span class="n">V_in_mV</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_iv_point_steaddy_state</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;mV&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">currents</span><span class="p">]</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V_in_mV</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mV</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">morphforge</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">factorise_units_from_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">currents</span><span class="p">)</span>
+
+        <span class="n">low_v</span> <span class="o">=</span> <span class="n">V_in_mV</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_regressor_limit</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_regressor_limit</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">V_in_mV</span><span class="p">))</span>
+
+
+
+        <span class="k">print</span> <span class="s">&#39;i[low_v]&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="n">low_v</span><span class="p">]</span>
+        <span class="k">print</span> <span class="s">&#39;v[low_v]&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">low_v</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">low_v</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">low_v</span><span class="p">],</span> <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">low_v</span><span class="p">)],</span> <span class="n">v</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">low_v</span><span class="p">)],</span> <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">low_v</span><span class="p">)],</span> <span class="n">v</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">low_v</span><span class="p">)],</span> <span class="p">)</span>
+
+        <span class="c"># Plot the regressor:</span>
+        <span class="n">i_units</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;1:pA&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">v_units</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;1:mV&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">i</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">i_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span>
+                       <span class="n">v</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">v_units</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">iv</span><span class="p">[</span><span class="n">low_v</span><span class="p">,</span> <span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span>
+        <span class="p">(</span><span class="n">a_s</span><span class="p">,</span> <span class="n">b_s</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">stderr</span><span class="p">)</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">iv</span><span class="p">[</span><span class="n">low_v</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">iv</span><span class="p">[</span><span class="n">low_v</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">input_resistance</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_s</span> <span class="o">*</span> <span class="p">(</span><span class="n">v_units</span> <span class="o">/</span> <span class="n">i_units</span><span class="p">))</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;MOhm&#39;</span><span class="p">)</span>
+        <span class="n">reversal_potential</span> <span class="o">=</span> <span class="n">b_s</span> <span class="o">*</span> <span class="n">v_units</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_resistance</span> <span class="o">=</span> <span class="n">input_resistance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reversal_potential</span> <span class="o">=</span> <span class="n">reversal_potential</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">*</span><span class="n">input_resistance</span> <span class="o">+</span> <span class="n">reversal_potential</span><span class="p">,</span><span class="s">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&quot;Fit: [V(mV) = </span><span class="si">%2.3f</span><span class="s"> * I(pA)  + </span><span class="si">%2.3f</span><span class="s">]&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">a_s</span><span class="p">,</span> <span class="n">b_s</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; </span><span class="se">\n</span><span class="s">[Input Resistance: </span><span class="si">%2.2f</span><span class="s">MOhm  Reversal Potential: </span><span class="si">%2.2f</span><span class="s"> mV&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">input_resistance</span><span class="p">,</span> <span class="n">reversal_potential</span><span class="p">)</span>  <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+        <span class="n">PM</span><span class="o">.</span><span class="n">save_figure</span><span class="p">(</span><span class="n">figname</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

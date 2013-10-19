@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.tracetypes.tracepiecewise &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.tracetypes.tracepiecewise</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.tracetypes.tracepiecewise</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.trace</span> <span class="kn">import</span> <span class="n">Trace</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<div class="viewcode-block" id="PieceWiseComponentVisitor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.PieceWiseComponentVisitor">[docs]</a><span class="k">class</span> <span class="nc">PieceWiseComponentVisitor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PieceWiseComponentVisitor.visit"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.PieceWiseComponentVisitor.visit">[docs]</a>    <span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">accept_visitor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PieceWiseComponentVisitor.visit_linear"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.PieceWiseComponentVisitor.visit_linear">[docs]</a>    <span class="k">def</span> <span class="nf">visit_linear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PieceWiseComponentVisitor.visit_flat"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.PieceWiseComponentVisitor.visit_flat">[docs]</a>    <span class="k">def</span> <span class="nf">visit_flat</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="TracePieceFunction"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction">[docs]</a><span class="k">class</span> <span class="nc">TracePieceFunction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TracePieceFunction.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_window</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_window</span> <span class="o">=</span> <span class="n">time_window</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunction.get_min_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.get_min_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_min_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_window</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunction.get_max_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.get_max_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_max_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_window</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunction.get_duration"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.get_duration">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunction.get_start_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.get_start_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunction.get_end_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.get_end_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_end_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="c"># To allow for manipulation:</span></div>
+<div class="viewcode-block" id="TracePieceFunction.accept_visitor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction.accept_visitor">[docs]</a>    <span class="k">def</span> <span class="nf">accept_visitor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="TracePieceFunctionLinear"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear">[docs]</a><span class="k">class</span> <span class="nc">TracePieceFunctionLinear</span><span class="p">(</span><span class="n">TracePieceFunction</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TracePieceFunctionLinear.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_window</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x1</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">x0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">x1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TracePieceFunctionLinear</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="n">time_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionLinear.accept_visitor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear.accept_visitor">[docs]</a>    <span class="k">def</span> <span class="nf">accept_visitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visitor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="o">.</span><span class="n">visit_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionLinear.get_start_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear.get_start_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x0</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionLinear.get_end_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear.get_end_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_end_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x1</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionLinear.get_values"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionLinear.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="n">t_scaled</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="n">times</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">())</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()</span> <span class="p">)</span>
+        <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_start_value</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x0</span><span class="p">)</span> <span class="o">*</span><span class="n">t_scaled</span>
+        <span class="k">return</span> <span class="n">x_scaled</span>
+
+        <span class="c">#return np.ones(len(times)) * self.x</span>
+
+</div></div>
+<div class="viewcode-block" id="TracePieceFunctionFlat"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat">[docs]</a><span class="k">class</span> <span class="nc">TracePieceFunctionFlat</span><span class="p">(</span><span class="n">TracePieceFunction</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TracePieceFunctionFlat.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_window</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TracePieceFunctionFlat</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="n">time_window</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionFlat.get_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionFlat.get_values"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionFlat.get_start_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.get_start_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionFlat.get_end_value"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.get_end_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_end_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+</div>
+<div class="viewcode-block" id="TracePieceFunctionFlat.accept_visitor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunctionFlat.accept_visitor">[docs]</a>    <span class="k">def</span> <span class="nf">accept_visitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visitor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">visitor</span><span class="o">.</span><span class="n">visit_flat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TracePiecewise"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise">[docs]</a><span class="k">class</span> <span class="nc">TracePiecewise</span><span class="p">(</span><span class="n">Trace</span><span class="p">):</span>
+<div class="viewcode-block" id="TracePiecewise.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pieces</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TracePiecewise</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span> <span class="o">=</span> <span class="n">pieces</span>
+
+        <span class="c"># Check we link up:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pieces</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">i_stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span>
+            <span class="n">i_next_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">i_stop</span> <span class="o">-</span> <span class="n">i_next_start</span>
+            <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.001</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="TracePiecewise.pieces"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.pieces">[docs]</a>    <span class="k">def</span> <span class="nf">pieces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span>
+</div>
+<div class="viewcode-block" id="TracePiecewise.get_min_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.get_min_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_min_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TracePiecewise.get_max_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.get_max_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_max_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TracePiecewise.n_pieces"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.n_pieces">[docs]</a>    <span class="k">def</span> <span class="nf">n_pieces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TracePiecewise.n_pieces_longer_than"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.n_pieces_longer_than">[docs]</a>    <span class="k">def</span> <span class="nf">n_pieces_longer_than</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">piece</span> <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span> <span class="k">if</span> <span class="n">piece</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">t</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="TracePiecewise.get_values"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePiecewise.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+
+        <span class="n">_datas</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">_times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">times</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">times</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">())</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">done_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">piece</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pieces</span><span class="p">:</span>
+            <span class="n">ind1</span> <span class="o">=</span> <span class="p">(</span><span class="n">times</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">piece</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">))</span>
+            <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">ind1</span><span class="p">,</span> <span class="n">done_times</span><span class="p">)</span>
+            <span class="n">ind_locs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+
+            <span class="n">_time</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">ind_locs</span><span class="p">]</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="n">piece</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span><span class="n">_time</span><span class="p">)</span>
+            <span class="n">_datas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_data</span><span class="p">)</span>
+            <span class="n">_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_time</span><span class="p">)</span>
+
+            <span class="c"># Only visit these times once:</span>
+            <span class="n">done_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">done_times</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">ind</span><span class="p">))</span>
+
+        <span class="n">unit</span> <span class="o">=</span> <span class="n">_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">units</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">datum</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">)</span> <span class="k">for</span> <span class="n">datum</span> <span class="ow">in</span> <span class="n">_datas</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">unit</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

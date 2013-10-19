@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>segmentation Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>segmentation Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="segmentation-package">
+<h1>segmentation Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">segmentation</span></tt> Package</h2>
+<span class="target" id="module-morphforge.simulation.base.segmentation"></span><dl class="class">
+<dt id="morphforge.simulation.base.segmentation.AbstCellSegmenter">
+<em class="property">class </em><tt class="descname">AbstCellSegmenter</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.AbstCellSegmenter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.AbstCellSegmenter.get_num_segment_region">
+<tt class="descname">get_num_segment_region</tt><big>(</big><em>region</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.AbstCellSegmenter.get_num_segment_total">
+<tt class="descname">get_num_segment_total</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.AbstCellSegmenter.get_num_segments">
+<tt class="descname">get_num_segments</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.CellSegmenter_MaxCompartmentLength">
+<em class="property">class </em><tt class="descname">CellSegmenter_MaxCompartmentLength</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd" title="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.CellSegmenter_MaxCompartmentLength.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.CellSegmenter_MaxCompartmentLength._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.segmentation.cellsegmenter">
+<span id="cellsegmenter-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cellsegmenter</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter">
+<em class="property">class </em><tt class="descname">AbstCellSegmenter</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#AbstCellSegmenter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#AbstCellSegmenter.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segment_region">
+<tt class="descname">get_num_segment_region</tt><big>(</big><em>region</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#AbstCellSegmenter.get_num_segment_region"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segment_total">
+<tt class="descname">get_num_segment_total</tt><big>(</big><em>cell</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#AbstCellSegmenter.get_num_segment_total"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segments">
+<tt class="descname">get_num_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#AbstCellSegmenter.get_num_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd">
+<em class="property">class </em><tt class="descname">CellSegmenterStd</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenterStd"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter" title="morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenterStd.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenterStd._get_n_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd.get_num_segments">
+<tt class="descname">get_num_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenterStd.get_num_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength">
+<em class="property">class </em><tt class="descname">CellSegmenter_MaxCompartmentLength</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxCompartmentLength"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd" title="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxCompartmentLength.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxCompartmentLength._get_n_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID">
+<em class="property">class </em><tt class="descname">CellSegmenter_MaxLengthByID</tt><big>(</big><em>section_id_segment_maxsizes=None</em>, <em>default_segment_length=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxLengthByID"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd" title="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section_id_segment_maxsizes=None</em>, <em>default_segment_length=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxLengthByID.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_MaxLengthByID._get_n_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_SingleSegment">
+<em class="property">class </em><tt class="descname">CellSegmenter_SingleSegment</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_SingleSegment"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd" title="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_SingleSegment._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/segmentation/cellsegmenter.html#CellSegmenter_SingleSegment._get_n_segments"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.segmentation.segment">
+<span id="segment-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">segment</span></tt> Module</h2>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

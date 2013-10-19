@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.base.core.cell &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.base" href="../../base.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.base.core.cell</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.base.core.cell</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics</span> <span class="kn">import</span> <span class="n">CellBiophysics</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.constants</span> <span class="kn">import</span> <span class="n">StandardTags</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.base_classes</span> <span class="kn">import</span> <span class="n">NamedSimulationObject</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.core.celllocation</span> <span class="kn">import</span> <span class="n">CellLocation</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.builders</span> <span class="kn">import</span> <span class="n">MorphologyBuilder</span>
+
+<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">NamedSimulationObject</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Cell.Recordables"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.Recordables">[docs]</a>    <span class="k">class</span> <span class="nc">Recordables</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+        <span class="n">MembraneVoltage</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">Voltage</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.cell_type"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.cell_type">[docs]</a>    <span class="k">def</span> <span class="nf">cell_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_type</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.cell_type_str"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.cell_type_str">[docs]</a>    <span class="k">def</span> <span class="nf">cell_type_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cell_type</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_type</span> <span class="k">else</span> <span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Cell.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">morphology</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">segmenter</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">initial_voltage</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cell_tags</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cell_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">morphology</span> <span class="ow">is</span> <span class="bp">None</span>
+            <span class="n">morphology</span> <span class="o">=</span> <span class="n">MorphologyBuilder</span><span class="o">.</span><span class="n">get_single_section_soma</span><span class="p">(</span><span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cell_tags</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cell_tags</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="kn">from</span> <span class="nn">morphforge.simulation.base.segmentation.cellsegmenter</span> <span class="kn">import</span> <span class="n">CellSegmenter_MaxCompartmentLength</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cell</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">morphology</span> <span class="o">=</span> <span class="n">morphology</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cell_type</span> <span class="o">=</span> <span class="n">cell_type</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_segmenter</span> <span class="o">=</span> <span class="p">(</span><span class="n">segmenter</span> <span class="k">if</span> <span class="n">segmenter</span> <span class="k">else</span> <span class="n">CellSegmenter_MaxCompartmentLength</span><span class="p">())</span>
+        <span class="c">#self.cell_segmenter.connect_to_cell(self)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">biophysics</span> <span class="o">=</span> <span class="n">CellBiophysics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_voltage</span> <span class="o">=</span> <span class="n">initial_voltage</span> <span class="ow">or</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;-51:mV&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell_tags</span> <span class="o">=</span> <span class="n">cell_tags</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cell_tags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_tags</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="o">=</span> <span class="bp">None</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.index_in_pop"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.index_in_pop">[docs]</a>    <span class="k">def</span> <span class="nf">index_in_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Cell.get_location"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.get_location">[docs]</a>    <span class="k">def</span> <span class="nf">get_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idtag</span><span class="p">,</span> <span class="n">sectionpos</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">CellLocation</span><span class="p">(</span><span class="n">cell</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">section</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">get_section</span><span class="p">(</span><span class="n">idtag</span><span class="o">=</span><span class="n">idtag</span><span class="p">),</span>
+                            <span class="n">sectionpos</span><span class="o">=</span><span class="n">sectionpos</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Cell.get_region"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.get_region">[docs]</a>    <span class="k">def</span> <span class="nf">get_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">region_name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Cell.get_regions"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.get_regions">[docs]</a>    <span class="k">def</span> <span class="nf">get_regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">get_regions</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Cell.get_biophysics"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.get_biophysics">[docs]</a>    <span class="k">def</span> <span class="nf">get_biophysics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">biophysics</span>
+</div>
+<div class="viewcode-block" id="Cell.get_segmenter"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.get_segmenter">[docs]</a>    <span class="k">def</span> <span class="nf">get_segmenter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_segmenter</span>
+
+    <span class="c"># Make the object a bit more pythonic:</span></div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.segmenter"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.segmenter">[docs]</a>    <span class="k">def</span> <span class="nf">segmenter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_segmenter</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.presynaptic_connections"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.presynaptic_connections">[docs]</a>    <span class="k">def</span> <span class="nf">presynaptic_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">synapse</span> <span class="k">for</span> <span class="n">synapse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">synapses</span>
+                <span class="k">if</span> <span class="n">synapse</span><span class="o">.</span><span class="n">get_presynaptic_cell</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="p">]</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.postsynaptic_connections"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.postsynaptic_connections">[docs]</a>    <span class="k">def</span> <span class="nf">postsynaptic_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">synapse</span> <span class="k">for</span> <span class="n">synapse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">synapses</span>
+                <span class="k">if</span> <span class="n">synapse</span><span class="o">.</span><span class="n">get_postsynaptic_cell</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="p">]</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.electrical_connections"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.electrical_connections">[docs]</a>    <span class="k">def</span> <span class="nf">electrical_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">gap_junction</span> <span class="k">for</span> <span class="n">gap_junction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">gapjunctions</span> <span class="k">if</span> <span class="bp">self</span>
+                <span class="ow">in</span> <span class="n">gap_junction</span><span class="o">.</span><span class="n">connected_cells</span><span class="p">]</span>
+
+
+    <span class="c"># Commonly used helper methods:</span></div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Cell.soma"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.soma">[docs]</a>    <span class="k">def</span> <span class="nf">soma</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_location</span><span class="p">(</span><span class="s">&#39;soma&#39;</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span> 
+<div class="viewcode-block" id="Cell.is_single_compartment"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.is_single_compartment">[docs]</a>    <span class="k">def</span> <span class="nf">is_single_compartment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphology</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">segmenter</span><span class="o">.</span><span class="n">get_num_segments</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">soma</span><span class="o">.</span><span class="n">section</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+
+
+    <span class="c"># Simple forwarding method to biophysics, (syntactic sugar)</span></div>
+<div class="viewcode-block" id="Cell.apply_channel"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.apply_channel">[docs]</a>    <span class="k">def</span> <span class="nf">apply_channel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">biophysics</span><span class="o">.</span><span class="n">apply_channel</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Cell.set_passive"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.core.html#morphforge.simulation.base.core.cell.Cell.set_passive">[docs]</a>    <span class="k">def</span> <span class="nf">set_passive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">biophysics</span><span class="o">.</span><span class="n">set_passive</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

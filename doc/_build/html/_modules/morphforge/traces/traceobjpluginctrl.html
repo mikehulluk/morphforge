@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.traceobjpluginctrl &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.traceobjpluginctrl</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.traceobjpluginctrl</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">operator</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes</span> <span class="kn">import</span> <span class="n">TraceFixedDT</span>
+
+
+<div class="viewcode-block" id="TraceOperatorCtrl"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl">[docs]</a><span class="k">class</span> <span class="nc">TraceOperatorCtrl</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">trace_operators_all</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">trace_operators_active</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">trace_operators</span> <span class="o">=</span> <span class="p">[</span><span class="n">operator</span><span class="o">.</span><span class="n">__add__</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">__sub__</span><span class="p">,</span>
+                       <span class="n">operator</span><span class="o">.</span><span class="n">__div__</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">__mul__</span><span class="p">,</span>
+                       <span class="n">operator</span><span class="o">.</span><span class="n">__pow__</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceOperatorCtrl.add_trace_operator_symmetrical_handler"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.add_trace_operator_symmetrical_handler">[docs]</a>    <span class="k">def</span> <span class="nf">add_trace_operator_symmetrical_handler</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">operator_type</span><span class="p">,</span> <span class="n">lhs_type</span><span class="p">,</span> <span class="n">rhs_type</span><span class="p">,</span> <span class="n">operator_func</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">set_as_default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">False</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">add_trace_operator</span><span class="p">(</span><span class="n">operator_type</span><span class="o">=</span><span class="n">operator_type</span><span class="p">,</span>
+                               <span class="n">lhs_type</span><span class="o">=</span><span class="n">lhs_type</span><span class="p">,</span> 
+                               <span class="n">rhs_type</span><span class="o">=</span><span class="n">rhs_type</span><span class="p">,</span> 
+                               <span class="n">operator_func</span><span class="o">=</span><span class="n">operator_func</span><span class="p">,</span> 
+                               <span class="n">flag</span><span class="o">=</span><span class="n">flag</span><span class="p">,</span> 
+                               <span class="n">set_as_default</span><span class="o">=</span><span class="n">set_as_default</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">add_trace_operator</span><span class="p">(</span><span class="n">operator_type</span><span class="o">=</span><span class="n">operator_type</span><span class="p">,</span>
+                               <span class="n">lhs_type</span><span class="o">=</span><span class="n">rhs_type</span><span class="p">,</span>
+                               <span class="n">rhs_type</span><span class="o">=</span><span class="n">lhs_type</span><span class="p">,</span>
+                               <span class="n">operator_func</span><span class="o">=</span><span class="n">operator_func</span><span class="p">,</span>
+                               <span class="n">flag</span><span class="o">=</span><span class="n">flag</span><span class="p">,</span> 
+                               <span class="n">set_as_default</span><span class="o">=</span><span class="n">set_as_default</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceOperatorCtrl.add_trace_operator"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.add_trace_operator">[docs]</a>    <span class="k">def</span> <span class="nf">add_trace_operator</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">operator_type</span><span class="p">,</span> <span class="n">lhs_type</span><span class="p">,</span> <span class="n">rhs_type</span><span class="p">,</span> <span class="n">operator_func</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">set_as_default</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">operator_type</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">operator_type</span><span class="p">,</span> <span class="n">lhs_type</span><span class="p">,</span> <span class="n">rhs_type</span><span class="p">)</span>
+
+        <span class="c"># Add to the list of all:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c"># Check the flag is not already active:</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="s">&#39;Duplicate key/flag </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">:&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="n">operator_func</span>
+
+        <span class="c"># Set as default if there is no current default, or flag is default:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_active</span> <span class="ow">or</span> <span class="n">flag</span> <span class="o">==</span> <span class="s">&#39;default&#39;</span> <span class="ow">or</span> <span class="n">set_as_default</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_active</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">operator_func</span><span class="p">,</span> <span class="n">flag</span>
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceOperatorCtrl.operate"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">operator_type</span><span class="p">,</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">use_flag</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="c"># Lets map &#39;int&#39; to &#39;float for standard ops (not power)&#39;</span>
+        <span class="k">if</span> <span class="n">operator_type</span> <span class="ow">in</span> <span class="p">[</span> <span class="n">operator</span><span class="o">.</span><span class="n">__add__</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">__sub__</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">__mul__</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">__div__</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="n">lhs</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="n">rhs</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span>
+
+
+
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">operator_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">lhs</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">rhs</span><span class="p">))</span>
+
+        <span class="c"># Use the active operation:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">use_flag</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_active</span><span class="p">,</span> <span class="s">&#39;Trace Operation not defined for: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">opfunctor</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_active</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c"># Use a custom operation:</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span>
+            <span class="k">assert</span> <span class="n">use_flag</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">opfunctor</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">use_flag</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">opfunctor</span><span class="p">(</span><span class="n">lhs</span><span class="o">=</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+
+</div></div>
+<div class="viewcode-block" id="TraceMethodCtrl"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceMethodCtrl">[docs]</a><span class="k">class</span> <span class="nc">TraceMethodCtrl</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">registered_methods</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c"># A list of method names that can be used for anytrace</span>
+    <span class="c"># if a specific method is not available for a type of trace</span>
+    <span class="n">fallback_to_fixedtrace_methods</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">default_fallback_resolution</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;0.1:ms&#39;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceMethodCtrl.register"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method_functor</span><span class="p">,</span> <span class="n">can_fallback_to_fixed_trace</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">fallback_resolution</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c"># print &#39;Registering method&#39;, trace_cls, method_name</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">method_functor</span>
+
+        <span class="c"># Can we fallback to fixed_dt traces to use this operation</span>
+        <span class="k">if</span> <span class="n">can_fallback_to_fixed_trace</span><span class="p">:</span>
+            <span class="n">fallback_resolution</span> <span class="o">=</span> <span class="n">fallback_resolution</span> <span class="ow">or</span> <span class="n">cls</span><span class="o">.</span><span class="n">default_fallback_resolution</span>
+            <span class="k">assert</span> <span class="n">trace_cls</span> <span class="o">==</span> <span class="n">TraceFixedDT</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">fallback_to_fixedtrace_methods</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fallback_resolution</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceMethodCtrl.has_method"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.has_method">[docs]</a>    <span class="k">def</span> <span class="nf">has_method</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">fallback_to_fixedtrace_methods</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceMethodCtrl.get_method"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.get_method">[docs]</a>    <span class="k">def</span> <span class="nf">get_method</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">trace_cls</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="c"># Fallback to FixedDT</span>
+        <span class="k">if</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">fallback_to_fixedtrace_methods</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">[(</span><span class="n">TraceFixedDT</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)]</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">fallback_to_fixedtrace_methods</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">_prepend_conversion_to_fixed_trace_to_function</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">fixed_trace_dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="c"># Error!</span>
+        <span class="k">assert</span> <span class="bp">False</span>
+
+
+</div></div>
+<div class="viewcode-block" id="_prepend_conversion_to_fixed_trace_to_function"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl._prepend_conversion_to_fixed_trace_to_function">[docs]</a><span class="k">def</span> <span class="nf">_prepend_conversion_to_fixed_trace_to_function</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">fixed_trace_dt</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">morphforge.traces.methods.MMtrace_conversion</span> <span class="kn">import</span> <span class="n">TraceConverter</span>
+
+    <span class="k">def</span> <span class="nf">wrapped_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">tr_new</span> <span class="o">=</span> <span class="n">TraceConverter</span><span class="o">.</span><span class="n">rebase_to_fixed_dt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">fixed_trace_dt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">tr_new</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapped_func</span>
+
+</div>
+<div class="viewcode-block" id="copy_trace_attrs"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.traces.html#morphforge.traces.traceobjpluginctrl.copy_trace_attrs">[docs]</a><span class="k">def</span> <span class="nf">copy_trace_attrs</span><span class="p">(</span><span class="n">tr_old</span><span class="p">,</span> <span class="n">tr_new</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">add_tags</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="c"># NewName:</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">):</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">):</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_name</span> <span class="o">=</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="c"># NewComment:</span>
+    <span class="k">if</span> <span class="n">comment</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">comment</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">):</span>
+            <span class="n">new_comment</span> <span class="o">=</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">comment</span> <span class="o">+</span> <span class="n">comment</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">comment</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">):</span>
+            <span class="n">new_comment</span> <span class="o">=</span> <span class="n">comment</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">comment</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_comment</span> <span class="o">=</span> <span class="n">comment</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_comment</span> <span class="o">=</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">comment</span>
+
+    <span class="k">if</span> <span class="n">tags</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">add_tags</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="n">tags</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_tags</span> <span class="o">=</span> <span class="n">tr_old</span><span class="o">.</span><span class="n">tags</span> <span class="o">+</span> <span class="p">((</span><span class="n">add_tags</span> <span class="k">if</span> <span class="n">add_tags</span> <span class="k">else</span> <span class="p">[]))</span>
+
+    <span class="n">tr_new</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>
+    <span class="n">tr_new</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">new_comment</span>
+    <span class="n">tr_new</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">new_tags</span>
+
+    <span class="k">return</span> <span class="n">tr_new</span>
+</pre></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

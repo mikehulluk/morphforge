@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../index.html" />
+    <link rel="up" title="Morphology Examples" href="../srcs/examples/examples.html" />
+    <link rel="next" title="20. Action potential propagation and synaptic transmission" href="poster2.html" />
+    <link rel="prev" title="21. Summarise the various plugins of the environment" href="manage010.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="manage010.html">21. Summarise the various plugins of the environment</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="poster2.html">20. Action potential propagation and synaptic transmission</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="simulation-of-a-hodgkinhuxley-type-neuron-specified-through-neurounits">
+<h1>19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits</h1>
+<p>Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits.</p>
+<div class="section" id="code">
+<h2>Code</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">eqnset_txt_na</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">define_component hh_na {</span>
+<span class="s">    i = g * (v-erev) * m**3*h</span>
+
+<span class="s">    m_inf = m_alpha_rate / (m_alpha_rate + m_beta_rate)</span>
+<span class="s">    m_tau = 1.0 / (m_alpha_rate + m_beta_rate)</span>
+<span class="s">    m&#39; = (m_inf-m) / m_tau</span>
+
+<span class="s">    h_inf = h_alpha_rate / (h_alpha_rate + h_beta_rate)</span>
+<span class="s">    h_tau = 1.0 / (h_alpha_rate + h_beta_rate)</span>
+<span class="s">    h&#39; = (h_inf-h) / h_tau</span>
+<span class="s">    StdFormAB(V, a1, a2, a3, a4, a5) = (a1+a2*V)/(a3+std.math.exp((V+a4)/a5))</span>
+<span class="s">    m_alpha_rate = StdFormAB(V=v, a1=m_a1, a2=m_a2, a3=m_a3, a4=m_a4, a5=m_a5)</span>
+<span class="s">    m_beta_rate =  StdFormAB(V=v, a1=m_b1, a2=m_b2, a3=m_b3, a4=m_b4, a5=m_b5)</span>
+<span class="s">    h_alpha_rate = StdFormAB(V=v, a1=h_a1, a2=h_a2, a3=h_a3, a4=h_a4, a5=h_a5)</span>
+<span class="s">    h_beta_rate =  StdFormAB(V=v, a1=h_b1, a2=h_b2, a3=h_b3, a4=h_b4, a5=h_b5)</span>
+<span class="s">    m_a1={-4.00 ms-1};  m_a2={-0.10 mV-1 ms-1}; m_a3={-1.00}; m_a4={40.00 mV}; m_a5={-10.00 mV};</span>
+<span class="s">    m_b1={ 4.00 ms-1};  m_b2={ 0.00 mV-1 ms-1}; m_b3={ 0.00}; m_b4={65.00 mV}; m_b5={ 18.00 mV};</span>
+<span class="s">    h_a1={ 0.07 ms-1};  h_a2={ 0.00 mV-1 ms-1}; h_a3={ 0.00}; h_a4={65.00 mV}; h_a5={ 20.00 mV};</span>
+<span class="s">    h_b1={ 1.00 ms-1};  h_b2={ 0.00 mV-1 ms-1}; h_b3={ 1.00}; h_b4={35.00 mV}; h_b5={-10.00 mV};</span>
+
+<span class="s">    erev = 50.0mV;</span>
+<span class="s">    &lt;=&gt; PARAMETER g:(S/m2)</span>
+
+<span class="s">    &lt;=&gt; OUTPUT    i:(A/m2)  METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;TRANSMEMBRANECURRENT&quot;} }</span>
+<span class="s">    &lt;=&gt; INPUT     v: V      METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;MEMBRANEVOLTAGE&quot;} }</span>
+<span class="s">} &quot;&quot;&quot;</span>
+
+<span class="n">eqnset_txt_k</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">define_component hh_k {</span>
+<span class="s">    i = g * (v-erev) * n*n*n*n</span>
+<span class="s">    n_inf = n_alpha_rate / (n_alpha_rate + n_beta_rate)</span>
+<span class="s">    n_tau = 1.0 / (n_alpha_rate + n_beta_rate)</span>
+<span class="s">    n&#39; = (n_inf-n) / n_tau</span>
+<span class="s">    StdFormAB(V, a1, a2, a3, a4, a5) = (a1 + a2*V)/(a3+std.math.exp((V+a4)/a5))</span>
+<span class="s">    n_alpha_rate = StdFormAB(V=v, a1=n_a1, a2=n_a2, a3=n_a3, a4=n_a4, a5=n_a5)</span>
+<span class="s">    n_beta_rate =  StdFormAB(V=v, a1=n_b1, a2=n_b2, a3=n_b3, a4=n_b4, a5=n_b5)</span>
+
+<span class="s">    n_a1={-0.55 ms-1}; n_a2={-0.01 mV-1 ms-1}; n_a3={-1.00}; n_a4={55.00 mV}; n_a5={-10.00 mV}</span>
+<span class="s">    n_b1={0.125 ms-1}; n_b2={ 0.00 mV-1 ms-1}; n_b3={ 0.00}; n_b4={65.00 mV}; n_b5={ 80.00 mV}</span>
+
+<span class="s">    g = {36.0mS/cm2}</span>
+<span class="s">    erev = {-77.0mV}</span>
+<span class="s">    &lt;=&gt; OUTPUT    i:(A/m2)  METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;TRANSMEMBRANECURRENT&quot;} }</span>
+<span class="s">    &lt;=&gt; INPUT     v: V      METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;MEMBRANEVOLTAGE&quot;} }</span>
+<span class="s">} &quot;&quot;&quot;</span>
+
+<span class="n">eqnset_txt_lk</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">define_component hh_lk {</span>
+<span class="s">    i = {0.3mS/cm2} * (v- {-54.3mV})</span>
+<span class="s">    &lt;=&gt; OUTPUT    i:(A/m2)  METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;TRANSMEMBRANECURRENT&quot;} }</span>
+<span class="s">    &lt;=&gt; INPUT     v: V      METADATA {&quot;mf&quot;:{&quot;role&quot;:&quot;MEMBRANEVOLTAGE&quot;} }</span>
+<span class="s">} &quot;&quot;&quot;</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">NEURONEnvironment</span><span class="p">()</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">()</span>
+
+<span class="c"># Create a cell:</span>
+<span class="n">morph_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="mf">18.8</span><span class="p">,</span> <span class="s">&#39;diam&#39;</span><span class="p">:</span> <span class="mf">18.8</span><span class="p">,</span> <span class="s">&#39;id&#39;</span><span class="p">:</span><span class="s">&#39;soma&#39;</span><span class="p">}</span> <span class="p">}</span>
+<span class="n">my_morph</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="o">.</span><span class="n">fromDictionary</span><span class="p">(</span><span class="n">morph_dict</span><span class="p">)</span>
+<span class="n">cell</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;Cell1&quot;</span><span class="p">,</span> <span class="n">morphology</span><span class="o">=</span><span class="n">my_morph</span><span class="p">)</span>
+<span class="c">#soma = cell.get_location(&quot;soma&quot;)</span>
+
+<span class="c"># Setup passive channels:</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">set_passive</span><span class="p">(</span> <span class="n">PassiveProperty</span><span class="o">.</span><span class="n">SpecificCapacitance</span><span class="p">,</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;1.0:uF/cm2&#39;</span><span class="p">))</span>
+
+<span class="c"># Setup active channels:</span>
+<span class="n">na_chl</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span><span class="n">NeuroUnitEqnsetMechanism</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;NaChl&quot;</span><span class="p">,</span> <span class="n">eqnset</span><span class="o">=</span><span class="n">eqnset_txt_na</span><span class="p">,</span>
+        <span class="n">default_parameters</span><span class="o">=</span><span class="p">{</span><span class="s">&quot;g&quot;</span><span class="p">:</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;120:mS/cm2&quot;</span><span class="p">)},</span> <span class="p">)</span>
+<span class="n">k_chl</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span><span class="n">NeuroUnitEqnsetMechanism</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;KChl&quot;</span><span class="p">,</span> <span class="n">eqnset</span><span class="o">=</span><span class="n">eqnset_txt_k</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">lk_chl</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span><span class="n">NeuroUnitEqnsetMechanism</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;LKChl&quot;</span><span class="p">,</span> <span class="n">eqnset</span><span class="o">=</span><span class="n">eqnset_txt_lk</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">cell</span><span class="o">.</span><span class="n">apply_channel</span><span class="p">(</span> <span class="n">na_chl</span><span class="p">)</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">apply_channel</span><span class="p">(</span> <span class="n">lk_chl</span><span class="p">)</span>
+<span class="n">cell</span><span class="o">.</span><span class="n">apply_channel</span><span class="p">(</span> <span class="n">k_chl</span><span class="p">)</span>
+
+<span class="c"># Define what to record:</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Voltage</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SomaVoltage&quot;</span><span class="p">,</span> <span class="n">cell_location</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">na_chl</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span> <span class="n">user_tags</span><span class="o">=</span><span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">StateVariable</span><span class="p">])</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">na_chl</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s">&#39;h&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span> <span class="n">user_tags</span><span class="o">=</span><span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">StateVariable</span><span class="p">])</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">k_chl</span><span class="p">,</span>  <span class="n">what</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span> <span class="n">user_tags</span><span class="o">=</span><span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">StateVariable</span><span class="p">])</span>
+
+<span class="c"># Create the stimulus and record the injected current:</span>
+<span class="n">cc</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_currentclamp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;CC1&quot;</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;100:pA&quot;</span><span class="p">),</span> <span class="n">dur</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;100:ms&quot;</span><span class="p">),</span> <span class="n">delay</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;100:ms&quot;</span><span class="p">),</span> <span class="n">cell_location</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Current</span><span class="p">)</span>
+
+
+<span class="c"># run the simulation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">TagViewer</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">timerange</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="figures">
+<h2>Figures</h2>
+<div class="figure" style="width: 4in">
+<img alt="../_images/poster1_out1.png" src="../_images/poster1_out1.png" style="width: 3in;" />
+<p class="caption">Download <a class="reference download internal" href="../_downloads/poster1_out1.png"><tt class="xref download docutils literal"><span class="pre">Figure</span></tt></a></p>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output</h2>
+<div class="highlight-bash"><div class="highlight"><pre>    No handlers could be found <span class="k">for </span>logger <span class="s2">&quot;neurounits&quot;</span>
+Openning ScriptFlags
+/auto/homes/mh735/hw/NeuroUnits/ext_deps
+Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
+CHECKING
+&lt;Parameter <span class="o">[</span>id:69759184<span class="o">]</span> Symbol: <span class="s1">&#39;g&#39;</span> &gt;
+g
+iii 1.0 s**3*A**2/<span class="o">(</span>kg*m**4<span class="o">)</span> &lt;class <span class="s1">&#39;quantities.quantity.Quantity&#39;</span>&gt;
+iiii 1200.0 s**3*A**2/<span class="o">(</span>kg*m**4<span class="o">)</span> &lt;class <span class="s1">&#39;quantities.quantity.Quantity&#39;</span>&gt;
+OK
+
+Output &lt;StateVariable <span class="o">[</span>id:69746000<span class="o">]</span> Symbol: <span class="s1">&#39;h&#39;</span> &gt;
+None
+Output &lt;StateVariable <span class="o">[</span>id:69745168<span class="o">]</span> Symbol: <span class="s1">&#39;m&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69751376<span class="o">]</span> Symbol: <span class="s1">&#39;h_alpha_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69751184<span class="o">]</span> Symbol: <span class="s1">&#39;h_beta_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69754256<span class="o">]</span> Symbol: <span class="s1">&#39;h_inf&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69743760<span class="o">]</span> Symbol: <span class="s1">&#39;h_tau&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69754640<span class="o">]</span> Symbol: <span class="s1">&#39;i&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;TRANSMEMBRANECURRENT&#39;</span><span class="o">}}</span>
+Output &lt;AssignedVariable <span class="o">[</span>id:69752528<span class="o">]</span> Symbol: <span class="s1">&#39;m_alpha_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69754832<span class="o">]</span> Symbol: <span class="s1">&#39;m_beta_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69743056<span class="o">]</span> Symbol: <span class="s1">&#39;m_inf&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69750992<span class="o">]</span> Symbol: <span class="s1">&#39;m_tau&#39;</span> &gt;
+None
+input &lt;SuppliedValue <span class="o">[</span>id:69759632<span class="o">]</span> Symbol: <span class="s1">&#39;v&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;MEMBRANEVOLTAGE&#39;</span><span class="o">}}</span>
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+g &lt;class <span class="s1">&#39;neurounits.ast.astobjects.Parameter&#39;</span>&gt;
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+m &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+h &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69751504<span class="o">]</span> Symbol: h_alpha_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69751312<span class="o">]</span> Symbol: h_beta_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69745104<span class="o">]</span> Symbol: h_tau &gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69752656<span class="o">]</span> Symbol: m_alpha_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69759120<span class="o">]</span> Symbol: m_beta_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69744272<span class="o">]</span> Symbol: m_inf &gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69754768<span class="o">]</span> Symbol: i &gt;
+g &lt;class <span class="s1">&#39;neurounits.ast.astobjects.Parameter&#39;</span>&gt;
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+m &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+h &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69751120<span class="o">]</span> Symbol: m_tau &gt;
+m_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69754384<span class="o">]</span> Symbol: h_inf &gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m_inf &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+m &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+m_tau &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h_inf &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+h &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+h_tau &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+__exp__
+x &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a1 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a2 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+V &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a3 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.DivOp&#39;</span>&gt;<span class="o">]</span>
+V &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a4 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a5 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+Output &lt;StateVariable <span class="o">[</span>id:69834576<span class="o">]</span> Symbol: <span class="s1">&#39;n&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69835216<span class="o">]</span> Symbol: <span class="s1">&#39;i&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;TRANSMEMBRANECURRENT&#39;</span><span class="o">}}</span>
+Output &lt;AssignedVariable <span class="o">[</span>id:69833360<span class="o">]</span> Symbol: <span class="s1">&#39;n_alpha_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:70971600<span class="o">]</span> Symbol: <span class="s1">&#39;n_beta_rate&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69834704<span class="o">]</span> Symbol: <span class="s1">&#39;n_inf&#39;</span> &gt;
+None
+Output &lt;AssignedVariable <span class="o">[</span>id:69836560<span class="o">]</span> Symbol: <span class="s1">&#39;n_tau&#39;</span> &gt;
+None
+input &lt;SuppliedValue <span class="o">[</span>id:70971792<span class="o">]</span> Symbol: <span class="s1">&#39;v&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;MEMBRANEVOLTAGE&#39;</span><span class="o">}}</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+2013-10-19 15:41:35,151 - morphforge.core.logmgr - INFO - Logger Started OK
+2013-10-19 15:41:35,151 - DISABLEDLOGGING - INFO - _run_spawn<span class="o">()</span> <span class="o">[</span>Pickling Sim<span class="o">]</span>
+No handlers could be found <span class="k">for </span>logger <span class="s2">&quot;neurounits&quot;</span>
+2013-10-19 15:41:36,829 - morphforge.core.logmgr - INFO - Logger Started OK
+2013-10-19 15:41:36,829 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+NEURON -- Release 7.1 <span class="o">(</span>359:7f113b76a94b<span class="o">)</span> 2009-10-26
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+See http://www.neuron.yale.edu/credits.html
+
+Openning ScriptFlags
+/auto/homes/mh735/hw/NeuroUnits/ext_deps
+Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
+Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/4b/4ba98eda843959ebd269962e96aa7375.bundle <span class="o">(</span>134k<span class="o">)</span> : 0.822 seconds
+Executing: /opt/nrn//x86_64/bin/modlunit /local/scratch/mh735/tmp/morphforge/tmp/tmp_cd6809176d3abd247f44455d8c36c5d4.mod
+/local/scratch/mh735/tmp/morphforge/tmp/modbuild_18503
+Executing: /opt/nrn//x86_64/bin/nocmodl tmp_cd6809176d3abd247f44455d8c36c5d4.mod
+Executing: /opt/nrn//share/nrn/libtool --mode<span class="o">=</span>compile gcc -DHAVE_CONFIG_H   -I<span class="s2">&quot;.&quot;</span>  -I<span class="s2">&quot;..&quot;</span>  -I<span class="s2">&quot;/opt/nrn//include/nrn&quot;</span>  -I<span class="s2">&quot;/opt/nrn//x86_64/lib&quot;</span>    -g -O2 -c -o tmp_cd6809176d3abd247f44455d8c36c5d4.lo tmp_cd6809176d3abd247f44455d8c36c5d4.c
+Executing: /opt/nrn//share/nrn/libtool --mode<span class="o">=</span>link gcc -module  -g -O2  -shared  -o tmp_cd6809176d3abd247f44455d8c36c5d4.la  -rpath /opt/nrn//x86_64/libs  tmp_cd6809176d3abd247f44455d8c36c5d4.lo  -L/opt/nrn//x86_64/lib -L/opt/nrn//x86_64/lib  /opt/nrn//x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl
+OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn//include/nrn -I/opt/nrn//x86_64/lib -g -O2 -c tmp_cd6809176d3abd247f44455d8c36c5d4.c  -fPIC -DPIC -o .libs/tmp_cd6809176d3abd247f44455d8c36c5d4.o
+
+OP2: libtool: link: gcc -shared  .libs/tmp_cd6809176d3abd247f44455d8c36c5d4.o   -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -L/opt/nrn//x86_64/lib /opt/nrn/x86_64/lib/libnrniv.so /opt/nrn/x86_64/lib/libnrnoc.so /opt/nrn/x86_64/lib/liboc.so /opt/nrn/x86_64/lib/libmemacs.so /opt/nrn/x86_64/lib/libnrnmpi.so /opt/nrn/x86_64/lib/libscopmath.so /opt/nrn/x86_64/lib/libsparse13.so -lreadline -lncurses /opt/nrn/x86_64/lib/libivoc.so /opt/nrn/x86_64/lib/libneuron_gnu.so /opt/nrn/x86_64/lib/libmeschach.so /opt/nrn/x86_64/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_cd6809176d3abd247f44455d8c36c5d4.so.0 -o .libs/tmp_cd6809176d3abd247f44455d8c36c5d4.so.0.0.0
+libtool: link: <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so.0&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so.0.0.0&quot;</span> <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so.0&quot;</span><span class="o">)</span>
+libtool: link: <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so.0.0.0&quot;</span> <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.so&quot;</span><span class="o">)</span>
+libtool: link: <span class="o">(</span> <span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.la&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;../tmp_cd6809176d3abd247f44455d8c36c5d4.la&quot;</span> <span class="s2">&quot;tmp_cd6809176d3abd247f44455d8c36c5d4.la&quot;</span> <span class="o">)</span>
+
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_ca8dcbfc919825f99128141af208e01b.so
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_b710d7b3064eaabef925f2922f85b448.so
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_93d06d3f20b2d6593340a07499d4b3f7.so
+    1
+    1
+    0.01
+    0
+    1
+    50000
+    1
+    50000
+    1
+    50000
+    1
+    50000
+    1
+    50000
+    1
+Running Simulation
+Time <span class="k">for </span>Extracting Data: <span class="o">(</span>5 records<span class="o">)</span> 0.00263094902039
+Running simulation : 0.608 seconds
+Post-processing : 0.022 seconds
+Entire load-run-save <span class="nb">time</span> : 1.452 seconds
+Suceeded
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69833168<span class="o">]</span> Symbol: n_alpha_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:70971728<span class="o">]</span> Symbol: n_beta_rate &gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SymbolicConstant&#39;</span>&gt;, &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;<span class="o">]</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69835152<span class="o">]</span> Symbol: n_inf &gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69836688<span class="o">]</span> Symbol: n_tau &gt;
+n_alpha_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n_beta_rate &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:69835344<span class="o">]</span> Symbol: i &gt;
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n_inf &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+n &lt;class <span class="s1">&#39;neurounits.ast.astobjects.StateVariable&#39;</span>&gt;
+n_tau &lt;class <span class="s1">&#39;neurounits.ast.astobjects.AssignedVariable&#39;</span>&gt;
+__exp__
+x &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a1 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a2 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+V &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a3 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+T <span class="o">[</span>&lt;class <span class="s1">&#39;neurounits.ast.astobjects.DivOp&#39;</span>&gt;<span class="o">]</span>
+V &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a4 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+a5 &lt;class <span class="s1">&#39;neurounits.ast.astobjects.FunctionDefParameter&#39;</span>&gt;
+Output &lt;AssignedVariable <span class="o">[</span>id:71014224<span class="o">]</span> Symbol: <span class="s1">&#39;i&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;TRANSMEMBRANECURRENT&#39;</span><span class="o">}}</span>
+input &lt;SuppliedValue <span class="o">[</span>id:71014096<span class="o">]</span> Symbol: <span class="s1">&#39;v&#39;</span> &gt;
+<span class="o">{</span>u<span class="s1">&#39;mf&#39;</span>: <span class="o">{</span>u<span class="s1">&#39;role&#39;</span>: u<span class="s1">&#39;MEMBRANEVOLTAGE&#39;</span><span class="o">}}</span>
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+Writing assignment <span class="k">for</span>:  &lt;EqnAssignmentByRegime <span class="o">[</span>id:71014352<span class="o">]</span> Symbol: i &gt;
+v &lt;class <span class="s1">&#39;neurounits.ast.astobjects.SuppliedValue&#39;</span>&gt;
+PlotMnager:Saving  _output/figures/poster1/<span class="o">{</span>png,svg<span class="o">}</span>/fig000_Autosave_figure_1.<span class="o">{</span>png,svg<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="manage010.html">21. Summarise the various plugins of the environment</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="poster2.html">20. Action potential propagation and synaptic transmission</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

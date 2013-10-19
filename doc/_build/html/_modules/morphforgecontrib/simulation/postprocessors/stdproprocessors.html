@@ -1,0 +1,92 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.simulation.postprocessors.stdproprocessors &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.simulation.postprocessors.stdproprocessors</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.simulation.postprocessors.stdproprocessors</h1><div class="highlight"><pre>
+ 
+<span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.populations</span> <span class="kn">import</span> <span class="n">PopAnalSpiking</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tags</span> <span class="kn">import</span> <span class="n">TagSelector</span>
+
+
+<div class="viewcode-block" id="AllSpikeFinderPostProcessor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AllSpikeFinderPostProcessor">[docs]</a><span class="k">class</span> <span class="nc">AllSpikeFinderPostProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AllSpikeFinderPostProcessor.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AllSpikeFinderPostProcessor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+</div>
+<div class="viewcode-block" id="AllSpikeFinderPostProcessor.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AllSpikeFinderPostProcessor.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">spikes</span> <span class="o">=</span> <span class="n">PopAnalSpiking</span><span class="o">.</span><span class="n">evset_first_spike</span><span class="p">(</span> <span class="n">res</span><span class="o">=</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">add_evset</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="FirstSpikeFinderPostProcessor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.FirstSpikeFinderPostProcessor">[docs]</a><span class="k">class</span> <span class="nc">FirstSpikeFinderPostProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="FirstSpikeFinderPostProcessor.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.FirstSpikeFinderPostProcessor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+</div>
+<div class="viewcode-block" id="FirstSpikeFinderPostProcessor.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.FirstSpikeFinderPostProcessor.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">spikes</span> <span class="o">=</span> <span class="n">PopAnalSpiking</span><span class="o">.</span><span class="n">evset_all_spikes</span><span class="p">(</span> <span class="n">res</span><span class="o">=</span><span class="n">result</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> 
+        <span class="n">result</span><span class="o">.</span><span class="n">add_evset</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="AddEventSetPostProcessor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AddEventSetPostProcessor">[docs]</a><span class="k">class</span> <span class="nc">AddEventSetPostProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AddEventSetPostProcessor.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AddEventSetPostProcessor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evset</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evset</span> <span class="o">=</span> <span class="n">evset</span>
+</div>
+<div class="viewcode-block" id="AddEventSetPostProcessor.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.simulation.postprocessors.html#morphforgecontrib.simulation.postprocessors.stdproprocessors.AddEventSetPostProcessor.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">add_evset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evset</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.base.biophysics &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.base" href="../base.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.base.biophysics</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.base.biophysics</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="c"># Biophysics holder:</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.cellbiophysics</span> <span class="kn">import</span> <span class="n">CellBiophysics</span>
+
+<span class="c"># Base Classes:</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channel</span> <span class="kn">import</span> <span class="n">Channel</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.passiveproperties</span> <span class="kn">import</span> <span class="n">PassiveProperty</span>
+
+<span class="c"># Applicators:</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channelapplicators</span> <span class="kn">import</span> <span class="n">ChannelApplicator</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channelapplicators</span> <span class="kn">import</span> <span class="n">ChannelApplicatorUniform</span>
+
+<span class="c"># Targettors:</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">Targeter</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">PassiveTargetterEverywhereDefault</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">PassiveTargetterEverywhere</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">PassiveTargetterRegion</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">ChannelTargeterEverywhere</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">ChannelTargeterRegion</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">ChannelTargeterSection</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.biophysics.channeltargetters</span> <span class="kn">import</span> <span class="n">ChannelTargeterSectionPath</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">&#39;CellBiophysics&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Channel&#39;</span><span class="p">,</span>
+    <span class="s">&#39;PassiveProperty&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelApplicator&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelApplicatorUniform&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Targeter&#39;</span><span class="p">,</span>
+    <span class="s">&#39;PassiveTargetterEverywhereDefault&#39;</span><span class="p">,</span>
+    <span class="s">&#39;PassiveTargetterEverywhere&#39;</span><span class="p">,</span>
+    <span class="s">&#39;PassiveTargetterRegion&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelTargeterEverywhere&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelTargeterRegion&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelTargeterSection&#39;</span><span class="p">,</span>
+    <span class="s">&#39;ChannelTargeterSectionPath&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

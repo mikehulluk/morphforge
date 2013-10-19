@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>meshtools Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>meshtools Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="meshtools-package">
+<h1>meshtools Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">meshtools</span></tt> Package</h2>
+<span class="target" id="module-morphforgecontrib.indev.meshtools"></span></div>
+<div class="section" id="module-morphforgecontrib.indev.meshtools.core">
+<span id="core-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.indev.meshtools.core.ColorDef">
+<em class="property">class </em><tt class="descname">ColorDef</tt><big>(</big><em>r</em>, <em>g</em>, <em>b</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#ColorDef"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.ColorDef.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>r</em>, <em>g</em>, <em>b</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#ColorDef.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.ColorDef.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#ColorDef.__str__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.indev.meshtools.core.Context">
+<em class="property">class </em><tt class="descname">Context</tt><big>(</big><em>src_zip_file</em>, <em>dst_zip_file</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>src_zip_file</em>, <em>dst_zip_file</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.add_alias">
+<tt class="descname">add_alias</tt><big>(</big><em>id</em>, <em>color</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.add_alias"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.close_ply_block">
+<tt class="descname">close_ply_block</tt><big>(</big><em>plyfilename</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.close_ply_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.getFileObjRead">
+<tt class="descname">getFileObjRead</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.getFileObjRead"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.getFileObjWrite">
+<tt class="descname">getFileObjWrite</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.getFileObjWrite"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.get_color">
+<tt class="descname">get_color</tt><big>(</big><em>alias</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.get_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.get_option">
+<tt class="descname">get_option</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.get_option"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.has_option_set">
+<tt class="descname">has_option_set</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.has_option_set"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.new_ply_block">
+<tt class="descname">new_ply_block</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.new_ply_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.Context.set_default_region_color">
+<tt class="descname">set_default_region_color</tt><big>(</big><em>rgn_id</em>, <em>color</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#Context.set_default_region_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.indev.meshtools.core.MeshGenerationOptions">
+<em class="property">class </em><tt class="descname">MeshGenerationOptions</tt><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#MeshGenerationOptions"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt id="morphforgecontrib.indev.meshtools.core.MeshGenerationOptions.minimum_diameter">
+<tt class="descname">minimum_diameter</tt><em class="property"> = 'MinimumDiameter'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope">
+<em class="property">class </em><tt class="descname">PlyScope</tt><big>(</big><em>global_scope</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>global_scope</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope.finalise">
+<tt class="descname">finalise</tt><big>(</big><em>plyfilename</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope.finalise"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope.get_region_color">
+<tt class="descname">get_region_color</tt><big>(</big><em>rgn</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope.get_region_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope.include_file">
+<tt class="descname">include_file</tt><big>(</big><em>filename</em>, <em>options</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope.include_file"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.PlyScope.set_region_color">
+<tt class="descname">set_region_color</tt><big>(</big><em>region</em>, <em>color</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#PlyScope.set_region_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.indev.meshtools.core.RegionColorDef">
+<em class="property">class </em><tt class="descname">RegionColorDef</tt><big>(</big><em>rgn</em>, <em>color_def</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#RegionColorDef"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.indev.meshtools.core.RegionColorDef.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>rgn</em>, <em>color_def</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/core.html#RegionColorDef.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.indev.meshtools.errors">
+<span id="errors-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">errors</span></tt> Module</h2>
+<dl class="exception">
+<dt id="morphforgecontrib.indev.meshtools.errors.MultiMeshParseError">
+<em class="property">exception </em><tt class="descname">MultiMeshParseError</tt><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/errors.html#MultiMeshParseError"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.indev.meshtools.mesh_config_parser">
+<span id="mesh-config-parser-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mesh_config_parser</span></tt> Module</h2>
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color">
+<tt class="descname">p_color</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color : color_rgb
+| color_alias</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color1">
+<tt class="descname">p_color1</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color1"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_rgb : LPAREN INT COMMA INT COMMA INT RPAREN</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color2">
+<tt class="descname">p_color2</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color2"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_alias : ID</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color3">
+<tt class="descname">p_color3</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color3"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color : IGNORE_ID</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_aliases_block">
+<tt class="descname">p_color_aliases_block</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_aliases_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_aliases_block :  COLOR_ALIASES_ID LBRACE color_aliases_block_stmts RBRACE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_aliases_block_stmt">
+<tt class="descname">p_color_aliases_block_stmt</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_aliases_block_stmt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_aliases_block_stmt : ID COLON color_rgb SEMICOLON</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_aliases_block_stmts">
+<tt class="descname">p_color_aliases_block_stmts</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_aliases_block_stmts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_aliases_block_stmts : empty
+| color_aliases_block_stmts color_aliases_block_stmt</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_defaults_block">
+<tt class="descname">p_color_defaults_block</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_defaults_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_defaults_block :  COLOR_DEFAULTS_ID LBRACE color_defaults_block_stmts RBRACE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_defaults_block_stmt">
+<tt class="descname">p_color_defaults_block_stmt</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_defaults_block_stmt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_defaults_block_stmt : region_color_def</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_color_defaults_block_stmts">
+<tt class="descname">p_color_defaults_block_stmts</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_color_defaults_block_stmts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>color_defaults_block_stmts : empty
+| color_defaults_block_stmts color_defaults_block_stmt</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_config_completeB">
+<tt class="descname">p_config_completeB</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_config_completeB"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>config :  config config_block
+|  config_block</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_configblocksA">
+<tt class="descname">p_configblocksA</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_configblocksA"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>config_block : color_defaults_block
+| color_aliases_block
+| options_block
+| makeply_block</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_empty">
+<tt class="descname">p_empty</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_empty"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>empty :</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_error">
+<tt class="descname">p_error</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_error"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_include_option_offset">
+<tt class="descname">p_include_option_offset</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_include_option_offset"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>include_option : OFFSET_ID COLON LPAREN INT COMMA INT COMMA INT RPAREN</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_include_option_set">
+<tt class="descname">p_include_option_set</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_include_option_set"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>include_option_set : empty
+| LBRACE include_options RBRACE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_include_option_trim">
+<tt class="descname">p_include_option_trim</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_include_option_trim"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>include_option : TRIM_ID COLON INT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_include_optionsA">
+<tt class="descname">p_include_optionsA</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_include_optionsA"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>include_options : empty</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_include_optionsB">
+<tt class="descname">p_include_optionsB</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_include_optionsB"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>include_options : include_option
+| include_options COMMA include_option</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_int_list">
+<tt class="descname">p_int_list</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_int_list"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>int_list : INT
+| int_list COMMA INT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_int_list_star">
+<tt class="descname">p_int_list_star</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_int_list_star"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>int_list : STAR</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_option_block_block_stmt">
+<tt class="descname">p_option_block_block_stmt</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_option_block_block_stmt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>option_block_stmt : MIN_DIAMETER_ID COLON FLOAT SEMICOLON</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_option_defaults_block">
+<tt class="descname">p_option_defaults_block</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_option_defaults_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>options_block :  OPTION_DEFAULTS_ID LBRACE option_block_stmts RBRACE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_option_defaults_block_stmts">
+<tt class="descname">p_option_defaults_block_stmts</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_option_defaults_block_stmts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>option_block_stmts : empty
+| option_block_stmts option_block_stmt</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block">
+<tt class="descname">p_ply_block</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>makeply_block :  MAKEPLY_ID FILENAME ply_block_open LBRACE makeply_block_stmts  RBRACE</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block_open">
+<tt class="descname">p_ply_block_open</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block_open"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>ply_block_open : empty</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block_stmt">
+<tt class="descname">p_ply_block_stmt</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block_stmt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>makeply_block_stmt : makeply_block_stmt_color
+| makeply_block_stmt_include</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block_stmt_color">
+<tt class="descname">p_ply_block_stmt_color</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block_stmt_color"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>makeply_block_stmt_color : region_color_def</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block_stmt_include">
+<tt class="descname">p_ply_block_stmt_include</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block_stmt_include"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>makeply_block_stmt_include : INCLUDE_ID  FILENAME include_option_set SEMICOLON</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_ply_block_stmts">
+<tt class="descname">p_ply_block_stmts</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_ply_block_stmts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>makeply_block_stmts : empty
+| makeply_block_stmts makeply_block_stmt</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.p_region_color_def_stmt">
+<tt class="descname">p_region_color_def_stmt</tt><big>(</big><em>p</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#p_region_color_def_stmt"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>region_color_def : REGIONCOLOR_ID int_list COLON color SEMICOLON</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.parse_mesh_config">
+<tt class="descname">parse_mesh_config</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#parse_mesh_config"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.parse_zip_file">
+<tt class="descname">parse_zip_file</tt><big>(</big><em>zip_in</em>, <em>zip_out</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#parse_zip_file"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_COMMENT">
+<tt class="descname">t_COMMENT</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_COMMENT"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>#.*</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_FILENAME">
+<tt class="descname">t_FILENAME</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_FILENAME"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>&#8221;.*&#8221;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_FLOAT">
+<tt class="descname">t_FLOAT</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_FLOAT"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>[-+]?[0-9]*.[0-9]+([eE][-+]?[0-9]+)?</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_ID">
+<tt class="descname">t_ID</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_ID"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>[<a href="#id2"><span class="problematic" id="id3">a-zA-Z_</span></a>][a-zA-Z_0-9]*</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_INT">
+<tt class="descname">t_INT</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_INT"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>d+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_error">
+<tt class="descname">t_error</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_error"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_config_parser.t_newline">
+<tt class="descname">t_newline</tt><big>(</big><em>t</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_config_parser.html#t_newline"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>n+</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.indev.meshtools.mesh_from_config">
+<span id="mesh-from-config-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mesh_from_config</span></tt> Module</h2>
+<dl class="function">
+<dt id="morphforgecontrib.indev.meshtools.mesh_from_config.main">
+<tt class="descname">main</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/indev/meshtools/mesh_from_config.html#main"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.indev.meshtools.parsetab">
+<span id="parsetab-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">parsetab</span></tt> Module</h2>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.neuron.core.neuronsimulationsettings &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.neuron" href="../../neuron.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.neuron.core.neuronsimulationsettings</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.neuron.core.neuronsimulationsettings</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+
+
+<div class="viewcode-block" id="NEURONSimulationSettings"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulationsettings.NEURONSimulationSettings">[docs]</a><span class="k">class</span> <span class="nc">NEURONSimulationSettings</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">dt</span> <span class="o">=</span> <span class="s">&#39;dt&#39;</span>
+    <span class="n">tstop</span> <span class="o">=</span> <span class="s">&#39;tstop&#39;</span>
+    <span class="n">cvode</span> <span class="o">=</span> <span class="s">&#39;cvode&#39;</span>
+    <span class="n">reltol</span> <span class="o">=</span> <span class="s">&#39;reltol&#39;</span>
+    <span class="n">abstol</span> <span class="o">=</span> <span class="s">&#39;abstol&#39;</span>
+    <span class="n">strict_modlunit</span><span class="o">=</span><span class="s">&#39;strict_modlunit&#39;</span>
+    <span class="n">allparams</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">tstop</span><span class="p">,</span> <span class="n">cvode</span><span class="p">,</span> <span class="n">reltol</span><span class="p">,</span> <span class="n">abstol</span><span class="p">,</span> <span class="n">strict_modlunit</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NEURONSimulationSettings.get_defaults"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulationsettings.NEURONSimulationSettings.get_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">get_defaults</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">defs</span> <span class="o">=</span> <span class="p">{</span><span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">dt</span><span class="p">:</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;0.01:ms&#39;</span><span class="p">),</span>
+                <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">tstop</span><span class="p">:</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;500:ms&#39;</span><span class="p">),</span>
+                <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">reltol</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">abstol</span><span class="p">:</span> <span class="mf">1e-2</span><span class="p">,</span>
+                <span class="c">#NEURONSimulationSettings.reltol: 1e-12,</span>
+                <span class="c">#NEURONSimulationSettings.abstol: 1e-12,</span>
+                <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">cvode</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+                <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">strict_modlunit</span><span class="p">:</span> <span class="bp">True</span>
+                <span class="p">}</span>
+
+        <span class="c"># Check we have defaults for all parameters:</span>
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">allparams</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">defs</span>
+
+        <span class="k">return</span> <span class="n">defs</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulationSettings.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulationsettings.NEURONSimulationSettings.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">NEURONSimulationSettings</span><span class="o">.</span><span class="n">get_defaults</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulationSettings.__getitem__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulationsettings.NEURONSimulationSettings.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

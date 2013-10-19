@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.conversion.internal_representation_converter &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.conversion.internal_representation_converter</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.conversion.internal_representation_converter</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">Section</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.visitor.visitorbaseclasses</span> <span class="kn">import</span> <span class="n">SectionIndexerDF</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core.array</span> <span class="kn">import</span> <span class="n">MorphologyArray</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.conversion</span> <span class="kn">import</span> <span class="n">AutoRegionToIntMapTable</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">Region</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="c"># We use the internals of the classes to make the conversions:</span>
+<span class="c"># pylint: disable=W0212</span>
+
+<div class="viewcode-block" id="MorphologyConverter"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.conversion.html#morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter">[docs]</a><span class="k">class</span> <span class="nc">MorphologyConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MorphologyConverter.tree_to_array"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.conversion.html#morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter.tree_to_array">[docs]</a>    <span class="k">def</span> <span class="nf">tree_to_array</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">region_number_to_name_bidict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">region_number_to_name_bidict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">region_number_to_name_bidict</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">region_number_to_name_bidict</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">region_number_to_name_bidict</span> <span class="o">=</span> <span class="n">AutoRegionToIntMapTable</span><span class="p">()</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">connectivity</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">section_types</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">section_index</span> <span class="o">=</span> <span class="n">SectionIndexerDF</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">tree</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span>
+        <span class="n">section_index</span><span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">get_dummy_section</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">_every_section</span><span class="p">():</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">section_index</span><span class="p">[</span><span class="n">seg</span><span class="p">]</span>
+
+            <span class="c"># Store the vertices:</span>
+            <span class="n">vertices</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">get_distal_npa4</span><span class="p">()</span>
+
+            <span class="c"># Store the link to the parent:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">seg</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+                <span class="n">connectivity</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">index</span><span class="p">,</span> <span class="n">section_index</span><span class="p">[</span><span class="n">seg</span><span class="o">.</span><span class="n">parent</span><span class="p">]))</span>
+
+            <span class="c"># Store the type:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">seg</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="n">seg</span><span class="o">.</span><span class="n">region</span>
+                <span class="k">if</span> <span class="n">region</span><span class="p">:</span>
+                    <span class="n">section_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">region_number_to_name_bidict</span><span class="o">.</span><span class="n">region_name_to_int</span><span class="p">(</span><span class="n">region</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">section_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">MorphologyArray</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">vertices</span><span class="p">,</span>
+                            <span class="n">connectivity</span><span class="o">=</span><span class="n">connectivity</span><span class="p">,</span>
+                            <span class="n">dummy_vertex_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">section_types</span><span class="o">=</span><span class="n">section_types</span><span class="p">)</span>
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MorphologyConverter.array_to_tree"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.conversion.html#morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter.array_to_tree">[docs]</a>    <span class="k">def</span> <span class="nf">array_to_tree</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">region_number_to_name_bidict</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">region_number_to_name_bidict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">region_number_to_name_bidict</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">region_number_to_name_bidict</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">region_number_to_name_bidict</span> <span class="o">=</span> <span class="n">AutoRegionToIntMapTable</span><span class="p">()</span>
+
+        <span class="n">name_to_region_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">dummy_vertex_index</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">_dummy_vertex_index</span>
+
+        <span class="n">index_to_section_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c"># Create the root section:</span>
+        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">_vertices</span><span class="p">[</span><span class="n">dummy_vertex_index</span><span class="p">]</span>
+        <span class="n">dummy_section</span> <span class="o">=</span> <span class="n">Section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="n">index_to_section_map</span><span class="p">[</span><span class="n">dummy_vertex_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">dummy_section</span>
+
+        <span class="n">indices_to_visit</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">deque</span><span class="p">([</span><span class="n">dummy_vertex_index</span><span class="p">])</span>
+
+        <span class="k">while</span> <span class="n">indices_to_visit</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">indices_to_visit</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">section</span> <span class="o">=</span> <span class="n">index_to_section_map</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+            <span class="n">connections_to_index</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">connections_to_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="n">connections_to_index</span><span class="p">:</span>
+
+                <span class="c"># Have we made this connection already?:</span>
+                <span class="k">if</span> <span class="n">conn</span> <span class="ow">in</span> <span class="n">index_to_section_map</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c"># No? Lets make a connection:</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">_vertices</span><span class="p">[</span><span class="n">conn</span><span class="p">]</span>
+                    <span class="n">index_of_connection</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">index_of_connection</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+
+                    <span class="c"># Create the region, if it doesn&#39;t already exist:</span>
+                    <span class="n">rgn_int</span> <span class="o">=</span>  <span class="n">array</span><span class="o">.</span><span class="n">_section_types</span><span class="p">[</span><span class="n">index_of_connection</span><span class="p">]</span>
+
+
+                    <span class="n">rgn_name</span> <span class="o">=</span> <span class="n">region_number_to_name_bidict</span><span class="o">.</span><span class="n">int_to_region_name</span><span class="p">(</span><span class="n">_int</span><span class="o">=</span><span class="n">rgn_int</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">rgn_name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">rgn</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">rgn_name</span> <span class="ow">in</span> <span class="n">name_to_region_map</span><span class="p">:</span>
+                            <span class="n">name_to_region_map</span><span class="p">[</span><span class="n">rgn_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="n">rgn_name</span><span class="p">)</span>
+                        <span class="n">rgn</span> <span class="o">=</span> <span class="n">name_to_region_map</span><span class="p">[</span><span class="n">rgn_name</span><span class="p">]</span>
+
+                    <span class="n">newsection</span> <span class="o">=</span>  <span class="n">section</span><span class="o">.</span><span class="n">create_distal_section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">rgn</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+                    <span class="n">index_to_section_map</span><span class="p">[</span><span class="n">conn</span><span class="p">]</span> <span class="o">=</span> <span class="n">newsection</span>
+                    <span class="n">indices_to_visit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">MorphologyTree</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dummysection</span><span class="o">=</span><span class="n">dummy_section</span><span class="p">,</span> <span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="n">region_number_to_name_bidict</span><span class="p">)</span>
+
+
+        <span class="c"># A sanity check:</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">),</span> \
+            <span class="s">&#39;The tree and array are not the same size! </span><span class="si">%d</span><span class="s"> vs </span><span class="si">%d</span><span class="s">&#39;</span> \
+            <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">tree</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

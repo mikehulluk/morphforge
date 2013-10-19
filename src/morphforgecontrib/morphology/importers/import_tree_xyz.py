@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-assert False, 'Do not use this module ~ currently in development'
+
 
 from morphforge.morphology.core.tree import MorphologyTree
 from morphforge.morphology.core.tree import Section
@@ -63,6 +63,7 @@ class xyzXYZLoader(object):
          }
     @classmethod
     def Load(self, morphname, src, regionNames=None):
+        assert False, 'Do not use this module ~ currently in development'
 
         regionNames = regionNames if regionNames else self.defaultxyzXYZRegionNames
         lines = [l.strip() for l in src.readlines()]
@@ -109,6 +110,7 @@ class xyzXYZMultiLoader(object):
 
     @classmethod
     def Load(self, src, regionNames=None, minimumradius=0.15):
+        assert False, 'Do not use this module ~ currently in development'
         #assert False
         defaultxyzXYZRegionNames = {"S":"soma", "D":"dendrite", "A":"axon", "H":"hillock", 0:"Something",
                                     10:"soma",

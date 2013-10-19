@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.visitor.visitorbaseclasses &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.morphology.visitor" href="../visitor.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.visitor.visitorbaseclasses</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.visitor.visitorbaseclasses</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot; Visitor Base Classes: Here be Dragons!&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">SeqUtils</span>
+
+
+<div class="viewcode-block" id="SectionVisitorDF"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF">[docs]</a><span class="k">class</span> <span class="nc">SectionVisitorDF</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="SectionVisitorDF.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functor</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dummysectionfunctor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">rootsectionfunctor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">returnfunctor</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span> <span class="n">pretraversefunctor</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span> <span class="n">posttraversefunctor</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functor</span> <span class="o">=</span> <span class="n">functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dummysectionfunctor</span> <span class="o">=</span> <span class="n">dummysectionfunctor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rootsectionfunctor</span> <span class="o">=</span> <span class="n">rootsectionfunctor</span> <span class="k">if</span> <span class="n">rootsectionfunctor</span> <span class="k">else</span> <span class="n">functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">returnfunctor</span> <span class="o">=</span> <span class="n">returnfunctor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pretraversefunctor</span> <span class="o">=</span> <span class="n">pretraversefunctor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posttraversefunctor</span> <span class="o">=</span> <span class="n">posttraversefunctor</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">alreadycalled</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">=</span> <span class="n">morph</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__call__</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDF.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+       
+        <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">=</span> <span class="n">SeqUtils</span><span class="o">.</span><span class="n">filter_expect_single</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">morph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">alreadycalled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pretraversefunctor</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">visit_section_internal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">morph</span><span class="o">.</span><span class="n">get_dummy_section</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">posttraversefunctor</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alreadycalled</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">returnfunctor</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDF.is_visit_root"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.is_visit_root">[docs]</a>    <span class="k">def</span> <span class="nf">is_visit_root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootsectionfunctor</span> <span class="o">!=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDF.is_visit_dummy"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.is_visit_dummy">[docs]</a>    <span class="k">def</span> <span class="nf">is_visit_dummy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dummysectionfunctor</span> <span class="o">!=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDF.visit_section_internal"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDF.visit_section_internal">[docs]</a>    <span class="k">def</span> <span class="nf">visit_section_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Implements:  1. visit the node. 2. Traverse the subtrees. &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">section</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_visit_dummy</span><span class="p">():</span>
+                
+                <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;Should not get here, refactoring starting Jun-12&#39;</span>
+        <span class="k">elif</span> <span class="n">section</span><span class="o">.</span><span class="n">is_a_root_section</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_visit_root</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rootsectionfunctor</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functor</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">visit_section_internal</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="SectionVisitorDFOverrider"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider">[docs]</a><span class="k">class</span> <span class="nc">SectionVisitorDFOverrider</span><span class="p">(</span><span class="n">SectionVisitorDF</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SectionVisitorDFOverrider.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">SectionVisitorDFOverrider</span><span class="p">,</span>
+              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">functor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">visit_section</span><span class="p">,</span>
+                             <span class="n">rootsectionfunctor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">visit_root_section</span><span class="p">,</span>
+                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDFOverrider.visit_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.visit_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDFOverrider.visit_root_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorDFOverrider.visit_root_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_root_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="SectionVisitorHomogenousOverrider"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider">[docs]</a><span class="k">class</span> <span class="nc">SectionVisitorHomogenousOverrider</span><span class="p">(</span><span class="n">SectionVisitorDFOverrider</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SectionVisitorHomogenousOverrider.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functor</span><span class="p">,</span> <span class="n">section_result_operator</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section_result_operator</span> <span class="o">=</span> <span class="n">section_result_operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">myfunctor</span> <span class="o">=</span> <span class="n">functor</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">SectionVisitorHomogenousOverrider</span><span class="p">,</span>
+              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorHomogenousOverrider.visit_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.visit_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">myfunctor</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section_result_operator</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">section_result_operator</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorHomogenousOverrider.visit_root_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionVisitorHomogenousOverrider.visit_root_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_root_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_section</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="DictBuilderSectionVisitorHomo"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo">[docs]</a><span class="k">class</span> <span class="nc">DictBuilderSectionVisitorHomo</span><span class="p">(</span><span class="n">SectionVisitorHomogenousOverrider</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DictBuilderSectionVisitorHomo.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functor</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">DictBuilderSectionVisitorHomo</span><span class="p">,</span>
+              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">section_result_operator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">add_to_dict</span><span class="p">,</span>
+                             <span class="n">functor</span><span class="o">=</span><span class="n">functor</span><span class="p">,</span> <span class="n">returnfunctor</span><span class="o">=</span><span class="k">lambda</span> <span class="p">:</span> \
+                             <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="n">morph</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DictBuilderSectionVisitorHomo.add_to_dict"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.DictBuilderSectionVisitorHomo.add_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+
+</div></div>
+<div class="viewcode-block" id="ListBuilderSectionVisitor"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor">[docs]</a><span class="k">class</span> <span class="nc">ListBuilderSectionVisitor</span><span class="p">(</span><span class="n">SectionVisitorDF</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ListBuilderSectionVisitor.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functor</span><span class="p">,</span> <span class="n">rootfunctor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sect_functor</span> <span class="o">=</span> <span class="n">functor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sect_root_functor</span> <span class="o">=</span> <span class="p">(</span><span class="n">rootfunctor</span> <span class="k">if</span> <span class="n">rootfunctor</span> <span class="k">else</span> <span class="n">functor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">ListBuilderSectionVisitor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">morph</span><span class="p">,</span>
+                <span class="n">functor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">visit_section</span><span class="p">,</span>
+                <span class="n">rootsectionfunctor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">visit_root_section</span><span class="p">,</span>
+                <span class="n">returnfunctor</span><span class="o">=</span><span class="k">lambda</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ListBuilderSectionVisitor.visit_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.visit_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sect_functor</span><span class="p">(</span><span class="n">section</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="ListBuilderSectionVisitor.visit_root_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.ListBuilderSectionVisitor.visit_root_section">[docs]</a>    <span class="k">def</span> <span class="nf">visit_root_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sect_root_functor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sect_root_functor</span><span class="p">(</span><span class="n">section</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="SectionIndexerDF"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF">[docs]</a><span class="k">class</span> <span class="nc">SectionIndexerDF</span><span class="p">(</span><span class="n">DictBuilderSectionVisitorHomo</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Create a dictionary that maps section objects to sequential integers&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SectionIndexerDF.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">functor</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SectionIndexerDF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">morph</span><span class="p">,</span>
+                <span class="n">functor</span><span class="o">=</span><span class="n">functor</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SectionIndexerDF.__getitem__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionIndexerDF.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+</div></div>
+<span class="n">SectionIndexerWithOffsetDF</span> <span class="o">=</span> <span class="n">SectionIndexerDF</span>
+
+
+<div class="viewcode-block" id="SectionListerDF"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionListerDF">[docs]</a><span class="k">class</span> <span class="nc">SectionListerDF</span><span class="p">(</span><span class="n">ListBuilderSectionVisitor</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SectionListerDF.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.visitorbaseclasses.SectionListerDF.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">morph</span><span class="p">):</span>
+        <span class="n">functor</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SectionListerDF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">morph</span><span class="p">,</span>
+                <span class="n">functor</span><span class="o">=</span><span class="n">functor</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

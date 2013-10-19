@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.builders.morphologybuilder &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.morphology.builders" href="../builders.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.builders.morphologybuilder</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.builders.morphologybuilder</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">MorphologyTree</span><span class="p">,</span> <span class="n">Section</span><span class="p">,</span> <span class="n">Region</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">from</span> <span class="nn">morphforge.core.misc</span> <span class="kn">import</span> <span class="n">is_float</span><span class="p">,</span> <span class="n">is_int</span>
+<span class="kn">import</span> <span class="nn">morphforge</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+
+
+<span class="c"># pylint: disable=E1103</span>
+<span class="c"># pylint tries to work out the return value of _convert_to_unit,</span>
+<span class="c"># but does it wrong and makes complaints.</span>
+
+<div class="viewcode-block" id="_convert_to_unit"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.builders.html#morphforge.morphology.builders.morphologybuilder._convert_to_unit">[docs]</a><span class="k">def</span> <span class="nf">_convert_to_unit</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">default_unit</span><span class="p">):</span>
+
+    <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default_unit</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">o</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">default_unit</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_float</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_int</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">o</span> <span class="o">*</span> <span class="n">morphforge</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">parse_unit_str</span><span class="p">(</span><span class="n">default_unit</span><span class="p">)</span><span class="c">#.rescale(default_unit)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span> <span class="ow">and</span> <span class="s">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">o</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">qty</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">default_unit</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="MorphologyBuilder"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.builders.html#morphforge.morphology.builders.morphologybuilder.MorphologyBuilder">[docs]</a><span class="k">class</span> <span class="nc">MorphologyBuilder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Class to build simple neuron morphologies &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MorphologyBuilder.get_single_section_soma"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.builders.html#morphforge.morphology.builders.morphologybuilder.MorphologyBuilder.get_single_section_soma">[docs]</a>    <span class="k">def</span> <span class="nf">get_single_section_soma</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">rad</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">rad</span> <span class="ow">or</span> <span class="n">area</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">rad</span> <span class="ow">and</span> <span class="n">area</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">area</span><span class="p">:</span>
+            <span class="n">area</span> <span class="o">=</span> <span class="n">_convert_to_unit</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">default_unit</span><span class="o">=</span><span class="s">&quot;um2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&quot;um2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+            <span class="n">rad</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">area</span> <span class="o">/</span> <span class="p">(</span><span class="mf">4.0</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">)),</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rad</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rad</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="n">rad</span> <span class="o">=</span> <span class="n">_convert_to_unit</span><span class="p">(</span><span class="n">rad</span><span class="p">,</span> <span class="n">default_unit</span><span class="o">=</span><span class="s">&quot;um&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&quot;um&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="n">soma_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s">&quot;soma&quot;</span><span class="p">)</span>
+        <span class="n">dummysection</span> <span class="o">=</span> <span class="n">Section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">rad</span><span class="p">)</span>
+        <span class="n">dummysection</span><span class="o">.</span><span class="n">create_distal_section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">soma_region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">rad</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">rad</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="s">&quot;soma&quot;</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="p">(</span><span class="s">&quot;SimpleSomaMorph&quot;</span><span class="p">,</span> <span class="n">dummysection</span><span class="o">=</span><span class="n">dummysection</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{})</span>
+        <span class="k">return</span> <span class="n">cell</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MorphologyBuilder.get_soma_axon_morph"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.builders.html#morphforge.morphology.builders.morphologybuilder.MorphologyBuilder.get_soma_axon_morph">[docs]</a>    <span class="k">def</span> <span class="nf">get_soma_axon_morph</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">axon_length</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">axon_radius</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">soma_radius</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">axon_sections</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">soma_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s">&quot;soma&quot;</span><span class="p">)</span>
+        <span class="n">axon_region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="s">&quot;axon&quot;</span><span class="p">)</span>
+
+        <span class="n">axon_section_length</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">axon_length</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">axon_sections</span><span class="p">)</span>
+        <span class="n">dummy_root</span> <span class="o">=</span> <span class="n">Section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">soma_radius</span><span class="p">)</span>
+        <span class="n">soma</span> <span class="o">=</span> <span class="n">dummy_root</span><span class="o">.</span><span class="n">create_distal_section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">soma_region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">soma_radius</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">soma_radius</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="s">&quot;soma&quot;</span><span class="p">)</span>
+        <span class="n">prev_section</span> <span class="o">=</span> <span class="n">soma</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">axon_sections</span><span class="p">):</span>
+            <span class="n">axon</span> <span class="o">=</span> <span class="n">prev_section</span><span class="o">.</span><span class="n">create_distal_section</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="n">axon_region</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span> <span class="o">*</span> <span class="n">axon_section_length</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">soma_radius</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">axon_radius</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="s">&quot;axon_</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">prev_section</span> <span class="o">=</span> <span class="n">axon</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="p">(</span><span class="s">&#39;SimpleSomaAxonMorph&#39;</span><span class="p">,</span>
+                              <span class="n">dummysection</span><span class="o">=</span><span class="n">dummy_root</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{})</span>
+        <span class="k">return</span> <span class="n">cell</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

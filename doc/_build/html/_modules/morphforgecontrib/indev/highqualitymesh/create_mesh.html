@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.indev.highqualitymesh.create_mesh &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.indev.highqualitymesh.create_mesh</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.indev.highqualitymesh.create_mesh</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">pdist</span><span class="p">,</span> <span class="n">squareform</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.mesh.mesh</span> <span class="kn">import</span> <span class="n">TriangleMesh</span>
+
+
+<div class="viewcode-block" id="GeomTools"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.GeomTools">[docs]</a><span class="k">class</span> <span class="nc">GeomTools</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GeomTools.produce_sphere"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.GeomTools.produce_sphere">[docs]</a>    <span class="k">def</span> <span class="nf">produce_sphere</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">centre</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
+
+        <span class="n">angles_step</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">n_steps</span>
+
+        <span class="n">az_angles</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">angles_step</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)]</span>
+        <span class="n">theta_angles</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">angles_step</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)]</span>
+
+        <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">az</span> <span class="ow">in</span> <span class="n">az_angles</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">theta_angles</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span> <span class="o">+</span> <span class="n">centre</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">az</span><span class="p">)</span> <span class="o">+</span> <span class="n">centre</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">az</span><span class="p">)</span> <span class="o">+</span> <span class="n">centre</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">pts</span>
+
+</div></div>
+<div class="viewcode-block" id="MeshFromGTS"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.MeshFromGTS">[docs]</a><span class="k">class</span> <span class="nc">MeshFromGTS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MeshFromGTS.build"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.MeshFromGTS.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">region_color_map</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">gts</span>
+        <span class="n">surface_sections</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">buildsurface_sectiondict</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">to_tree</span><span class="p">())</span>
+
+        <span class="n">meshes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">sect</span><span class="p">,</span> <span class="n">sect_surface</span><span class="p">)</span> <span class="ow">in</span> <span class="n">surface_sections</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">print</span> <span class="n">sect</span>
+            <span class="k">assert</span> <span class="n">sect</span><span class="o">.</span><span class="n">region</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+
+            <span class="c"># Look up the region color:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">sect</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">region_color_map</span><span class="p">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">rgn</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="n">region_color_map</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                    <span class="k">print</span> <span class="n">rgn</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">rgn</span><span class="p">,</span> <span class="n">color</span>
+                <span class="k">print</span> <span class="s">&#39;Looking for:&#39;</span><span class="p">,</span> <span class="n">sect</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sect</span><span class="o">.</span><span class="n">region</span>
+                <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;Can&#39;t find region in color map!&quot;</span>
+            <span class="n">sect_color</span> <span class="o">=</span> <span class="n">region_color_map</span><span class="p">[</span><span class="n">sect</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">print</span> <span class="n">sect_color</span>
+
+            <span class="n">vertex_objs</span> <span class="o">=</span> <span class="n">sect_surface</span><span class="o">.</span><span class="n">vertices</span><span class="p">()</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_objs</span><span class="p">)</span>
+            <span class="n">dShape</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">v</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vertex_objs</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dShape</span><span class="p">)</span>
+
+            <span class="n">color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">sect_color</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">sect_color</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="n">sect_color</span><span class="o">.</span><span class="n">b</span><span class="p">))</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_objs</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dShape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&#39;F&#39;</span><span class="p">)</span>
+
+            <span class="n">triangles</span> <span class="o">=</span> <span class="n">sect_surface</span><span class="o">.</span><span class="n">face_indices</span><span class="p">(</span><span class="n">vertex_objs</span><span class="p">)</span>
+
+            <span class="n">tm</span> <span class="o">=</span> <span class="n">TriangleMesh</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">triangles</span><span class="o">=</span><span class="n">triangles</span><span class="p">,</span>
+                              <span class="n">vertex_colors</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+            <span class="n">meshes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tm</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">TriangleMesh</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">meshes</span><span class="o">=</span><span class="n">meshes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+            <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">surface</span> <span class="ow">in</span> <span class="n">surface_sections</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">gts</span><span class="o">.</span><span class="n">get_coords_and_face_indices</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span>
+                        <span class="bp">True</span><span class="p">)</span>
+                <span class="n">mlab</span><span class="o">.</span><span class="n">triangular_mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">))</span>
+            <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">m</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MeshFromGTS.only_pts_at_min_dist"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.MeshFromGTS.only_pts_at_min_dist">[docs]</a>    <span class="k">def</span> <span class="nf">only_pts_at_min_dist</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">min_dist</span><span class="p">):</span>
+
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+
+        <span class="c"># Create a distance matrix of all the points:</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">squareform</span><span class="p">(</span><span class="n">pdist</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="s">&#39;euclidean&#39;</span><span class="p">))</span>
+
+        <span class="c"># We accept points that at not at a lower index and</span>
+        <span class="c"># are at a minumum distance to the other points. To do this,</span>
+        <span class="c"># we mask out the lower part of the distance matrix:</span>
+        <span class="k">assert</span> <span class="n">min_dist</span> <span class="o">&lt;</span> <span class="mf">1.0</span>
+        <span class="n">Y_to_close</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">tri</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min_dist</span>
+
+        <span class="c"># Now look for inices with no False in the columns</span>
+        <span class="n">any_indices</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">Y_to_close</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">pts</span><span class="p">[</span><span class="n">any_indices</span><span class="p">,</span> <span class="p">:]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MeshFromGTS.buildsurface_sectiondict"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.MeshFromGTS.buildsurface_sectiondict">[docs]</a>    <span class="k">def</span> <span class="nf">buildsurface_sectiondict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="n">surface_sections</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">sect_surface</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">buildsectionsurface</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">surface_sections</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">sect_surface</span>
+
+        <span class="k">return</span> <span class="n">surface_sections</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MeshFromGTS.buildsectionsurface"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.indev.highqualitymesh.html#morphforgecontrib.indev.highqualitymesh.create_mesh.MeshFromGTS.buildsectionsurface">[docs]</a>    <span class="k">def</span> <span class="nf">buildsectionsurface</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">gts</span>
+        <span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">LocMgr</span>
+        <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">Join</span>
+        <span class="k">print</span> <span class="s">&#39;Building Mesh&#39;</span>
+
+        <span class="n">working_dir</span> <span class="o">=</span> <span class="n">LocMgr</span><span class="o">.</span><span class="n">ensure_dir_exists</span><span class="p">(</span><span class="s">&#39;/tmp/mf/mesh/&#39;</span><span class="p">)</span>
+        <span class="n">fTemp1</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s">&#39;pts.txt&#39;</span><span class="p">)</span>
+        <span class="n">fTemp2</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s">&#39;pts.off&#39;</span><span class="p">)</span>
+        <span class="n">fTemp3</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s">&#39;pts.stl&#39;</span><span class="p">)</span>
+        <span class="n">fTemp2b</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s">&#39;pts_postSub.off&#39;</span><span class="p">)</span>
+        <span class="n">fTemp4</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">working_dir</span><span class="p">,</span> <span class="s">&#39;pts.gts&#39;</span><span class="p">)</span>
+
+        <span class="n">nstep</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="k">print</span> <span class="s">&#39;Building Spheres&#39;</span>
+        <span class="n">distal_offset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+        <span class="n">ptsP</span> <span class="o">=</span> <span class="n">GeomTools</span><span class="o">.</span><span class="n">produce_sphere</span><span class="p">(</span><span class="n">centre</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">get_proximal_npa3</span><span class="p">(),</span>
+                <span class="n">radius</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">p_r</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="n">nstep</span><span class="p">)</span>
+        <span class="n">ptsD</span> <span class="o">=</span> <span class="n">GeomTools</span><span class="o">.</span><span class="n">produce_sphere</span><span class="p">(</span><span class="n">centre</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">get_distal_npa3</span><span class="p">()</span>
+                <span class="o">+</span> <span class="n">distal_offset</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">d_r</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="n">nstep</span><span class="p">)</span>
+
+        <span class="k">print</span> <span class="s">&#39;Removing Close Points&#39;</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">only_pts_at_min_dist</span><span class="p">(</span><span class="n">ptsP</span> <span class="o">+</span> <span class="n">ptsD</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+        <span class="k">print</span> <span class="s">&#39;Writing:&#39;</span><span class="p">,</span> <span class="n">fTemp2</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fTemp1</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;3 </span><span class="si">%d</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">))</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pts</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fTemp2</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">fTemp2</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;qhull T1 QJ o &lt; </span><span class="si">%s</span><span class="s"> &gt; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fTemp1</span><span class="p">,</span> <span class="n">fTemp2</span><span class="p">))</span>
+
+        <span class="c"># Don&#39;t do the subdivision, just copy the files:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;cp </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fTemp2</span><span class="p">,</span> <span class="n">fTemp2b</span><span class="p">))</span>
+        <span class="c"># fTemp2 = fTemp2b</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fTemp2b</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="p">(</span><span class="n">nVertex</span><span class="p">,</span> <span class="n">nFace</span><span class="p">,</span> <span class="n">nEdge</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span>
+        <span class="k">assert</span> <span class="n">nVertex</span> <span class="o">&gt;</span> <span class="mi">5</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span> <span class="o">+</span> <span class="n">nVertex</span>
+                            <span class="o">*</span> <span class="mi">3</span><span class="p">]])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nVertex</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="mi">4</span> <span class="o">+</span> <span class="n">nVertex</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:]])</span>
+        <span class="n">triangles</span> <span class="o">=</span> <span class="n">triangles</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">nFace</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">triangles</span> <span class="o">=</span> <span class="n">triangles</span><span class="p">[:,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+
+        <span class="k">print</span> <span class="s">&#39;Writing STL&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fTemp3</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fSTL</span><span class="p">:</span>
+            <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;solid name</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">triangles</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="n">triangles</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;facet normal 0 0 0</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;outer loop </span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;vertex </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;vertex </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;vertex </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="s"> </span><span class="si">%f</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vertices</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">vertices</span><span class="p">[</span><span class="n">c</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;endloop </span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+                <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;endfacet</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+            <span class="n">fSTL</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;solid end&#39;</span><span class="p">)</span>
+
+        <span class="k">print</span> <span class="s">&#39;Running stl2gts...&#39;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fTemp4</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">fTemp4</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;stl2gts &lt; </span><span class="si">%s</span><span class="s"> &gt; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fTemp3</span><span class="p">,</span> <span class="n">fTemp4</span><span class="p">))</span>
+
+        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fTemp4</span><span class="p">)</span>
+
+        <span class="kn">import</span> <span class="nn">gts</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fTemp4</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">gts</span><span class="o">.</span><span class="n">Surface</span><span class="p">()</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">gts</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">s</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">is_closed</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">is_orientable</span><span class="p">()</span>
+
+        <span class="c"># s.tessellate()</span>
+        <span class="k">return</span> <span class="n">s</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

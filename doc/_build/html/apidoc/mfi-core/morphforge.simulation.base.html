@@ -1,0 +1,1246 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>base Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>base Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="base-package">
+<h1>base Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">base</span></tt> Package</h2>
+<span class="target" id="module-morphforge.simulation.base"></span><dl class="class">
+<dt id="morphforge.simulation.base.CurrentClamp">
+<em class="property">class </em><tt class="descname">CurrentClamp</tt><big>(</big><em>cell_location</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.Stimulation" title="morphforge.simulation.base.stimulation.Stimulation"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.stimulation.Stimulation</span></tt></a></p>
+<dl class="class">
+<dt id="morphforge.simulation.base.CurrentClamp.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.CurrentClamp.Recordables.Current">
+<tt class="descname">Current</tt><em class="property"> = 'Current'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CurrentClamp.get_summary_description">
+<tt class="descclassname">CurrentClamp.</tt><tt class="descname">get_summary_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.VoltageClamp">
+<em class="property">class </em><tt class="descname">VoltageClamp</tt><big>(</big><em>cell_location</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.Stimulation" title="morphforge.simulation.base.stimulation.Stimulation"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.stimulation.Stimulation</span></tt></a></p>
+<dl class="class">
+<dt id="morphforge.simulation.base.VoltageClamp.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.VoltageClamp.Recordables.Current">
+<tt class="descname">Current</tt><em class="property"> = 'Current'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.VoltageClamp.get_summary_description">
+<tt class="descclassname">VoltageClamp.</tt><tt class="descname">get_summary_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.CurrentClampStepChange">
+<em class="property">class </em><tt class="descname">CurrentClampStepChange</tt><big>(</big><em>amp</em>, <em>dur</em>, <em>delay</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.CurrentClamp" title="morphforge.simulation.base.stimulation.CurrentClamp"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.stimulation.CurrentClamp</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.CurrentClampStepChange.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>amp</em>, <em>dur</em>, <em>delay</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CurrentClampStepChange.get_summary_description">
+<tt class="descname">get_summary_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.VoltageClampStepChange">
+<em class="property">class </em><tt class="descname">VoltageClampStepChange</tt><big>(</big><em>dur1</em>, <em>amp1</em>, <em>dur2='0:ms'</em>, <em>dur3='0:ms'</em>, <em>amp2='0:mV'</em>, <em>amp3='0:mV'</em>, <em>rs='0.01:MOhm'</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.VoltageClamp" title="morphforge.simulation.base.stimulation.VoltageClamp"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.stimulation.VoltageClamp</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.VoltageClampStepChange.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>dur1</em>, <em>amp1</em>, <em>dur2='0:ms'</em>, <em>dur3='0:ms'</em>, <em>amp2='0:mV'</em>, <em>amp3='0:mV'</em>, <em>rs='0.01:MOhm'</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.VoltageClampStepChange.get_summary_description">
+<tt class="descname">get_summary_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.Simulation">
+<em class="property">class </em><tt class="descname">Simulation</tt><big>(</big><em>name</em>, <em>environment</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>environment</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_cell">
+<tt class="descname">add_cell</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_cell_backend_specific">
+<tt class="descname">add_cell_backend_specific</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_currentclamp">
+<tt class="descname">add_currentclamp</tt><big>(</big><em>cc</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_currentclamp_backend_specific">
+<tt class="descname">add_currentclamp_backend_specific</tt><big>(</big><em>vc</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_gapjunction">
+<tt class="descname">add_gapjunction</tt><big>(</big><em>gj</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_gapjunction_backend_specific">
+<tt class="descname">add_gapjunction_backend_specific</tt><big>(</big><em>syn</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_recordable">
+<tt class="descname">add_recordable</tt><big>(</big><em>recordable</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_recordable_backend_specific">
+<tt class="descname">add_recordable_backend_specific</tt><big>(</big><em>recordable</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_synapse">
+<tt class="descname">add_synapse</tt><big>(</big><em>syn</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_synapse_backend_specific">
+<tt class="descname">add_synapse_backend_specific</tt><big>(</big><em>syn</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_voltageclamp">
+<tt class="descname">add_voltageclamp</tt><big>(</big><em>vc</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.add_voltageclamp_backend_specific">
+<tt class="descname">add_voltageclamp_backend_specific</tt><big>(</big><em>vc</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.are_all_cells_in_pops">
+<tt class="descname">are_all_cells_in_pops</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.cells">
+<tt class="descname">cells</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.create_cell">
+<tt class="descname">create_cell</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.create_currentclamp">
+<tt class="descname">create_currentclamp</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.create_gapjunction">
+<tt class="descname">create_gapjunction</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.create_synapse">
+<tt class="descname">create_synapse</tt><big>(</big><em>trigger</em>, <em>postsynaptic_mech</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.create_voltageclamp">
+<tt class="descname">create_voltageclamp</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.current_clamps">
+<tt class="descname">current_clamps</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.do_result_post_processing">
+<tt class="descname">do_result_post_processing</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.gapjunctions">
+<tt class="descname">gapjunctions</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.get_all_channels">
+<tt class="descname">get_all_channels</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.get_cell">
+<tt class="descname">get_cell</tt><big>(</big><em>cellname=None</em><big>)</big></dt>
+<dd><p>Either return a cell by name if there is more than one cell, otherwise the single cell</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.neuron_populations">
+<tt class="descname">neuron_populations</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.objectnames">
+<tt class="descname">objectnames</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.objects">
+<tt class="descname">objects</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.postsynaptic_templates">
+<tt class="descname">postsynaptic_templates</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.record">
+<tt class="descname">record</tt><big>(</big><em>recordable_src=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.recordables">
+<tt class="descname">recordables</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.recordall">
+<tt class="descname">recordall</tt><big>(</big><em>membrane_mech</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Simulation.run">
+<tt class="descname">run</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.synapse_populations">
+<tt class="descname">synapse_populations</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.synapses">
+<tt class="descname">synapses</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Simulation.voltage_clamps">
+<tt class="descname">voltage_clamps</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.SimulationResult">
+<em class="property">class </em><tt class="descname">SimulationResult</tt><big>(</big><em>traces</em>, <em>evsets</em>, <em>simulation</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>traces is a list of trace Objects</p>
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>traces</em>, <em>evsets</em>, <em>simulation</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.add_evset">
+<tt class="descname">add_evset</tt><big>(</big><em>evset</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.get_evset">
+<tt class="descname">get_evset</tt><big>(</big><em>obj</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.get_trace">
+<tt class="descname">get_trace</tt><big>(</big><em>obj</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.get_traces">
+<tt class="descname">get_traces</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.SimulationResult.hocfilename">
+<tt class="descname">hocfilename</tt></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulation.base.SimulationResult.load_from_file">
+<em class="property">classmethod </em><tt class="descname">load_from_file</tt><big>(</big><em>filename</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.save_to_file">
+<tt class="descname">save_to_file</tt><big>(</big><em>filename</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationResult.set_simulation_time">
+<tt class="descname">set_simulation_time</tt><big>(</big><em>t_start</em>, <em>t_stop</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.Cell">
+<em class="property">class </em><tt class="descname">Cell</tt><big>(</big><em>morphology=None</em>, <em>area=None</em>, <em>segmenter=None</em>, <em>initial_voltage=None</em>, <em>cell_tags=None</em>, <em>cell_type=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.base_classes.NamedSimulationObject" title="morphforge.simulation.base.base_classes.NamedSimulationObject"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.base_classes.NamedSimulationObject</span></tt></a></p>
+<dl class="class">
+<dt id="morphforge.simulation.base.Cell.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.Recordables.MembraneVoltage">
+<tt class="descname">MembraneVoltage</tt><em class="property"> = 'Voltage'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.__init__">
+<tt class="descclassname">Cell.</tt><tt class="descname">__init__</tt><big>(</big><em>morphology=None</em>, <em>area=None</em>, <em>segmenter=None</em>, <em>initial_voltage=None</em>, <em>cell_tags=None</em>, <em>cell_type=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.apply_channel">
+<tt class="descclassname">Cell.</tt><tt class="descname">apply_channel</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.cell_type">
+<tt class="descclassname">Cell.</tt><tt class="descname">cell_type</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.cell_type_str">
+<tt class="descclassname">Cell.</tt><tt class="descname">cell_type_str</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.electrical_connections">
+<tt class="descclassname">Cell.</tt><tt class="descname">electrical_connections</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.get_biophysics">
+<tt class="descclassname">Cell.</tt><tt class="descname">get_biophysics</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.get_location">
+<tt class="descclassname">Cell.</tt><tt class="descname">get_location</tt><big>(</big><em>idtag</em>, <em>sectionpos=0.5</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.get_region">
+<tt class="descclassname">Cell.</tt><tt class="descname">get_region</tt><big>(</big><em>region_name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.get_regions">
+<tt class="descclassname">Cell.</tt><tt class="descname">get_regions</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.get_segmenter">
+<tt class="descclassname">Cell.</tt><tt class="descname">get_segmenter</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.index_in_pop">
+<tt class="descclassname">Cell.</tt><tt class="descname">index_in_pop</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.is_single_compartment">
+<tt class="descclassname">Cell.</tt><tt class="descname">is_single_compartment</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.postsynaptic_connections">
+<tt class="descclassname">Cell.</tt><tt class="descname">postsynaptic_connections</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.presynaptic_connections">
+<tt class="descclassname">Cell.</tt><tt class="descname">presynaptic_connections</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.segmenter">
+<tt class="descclassname">Cell.</tt><tt class="descname">segmenter</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Cell.set_passive">
+<tt class="descclassname">Cell.</tt><tt class="descname">set_passive</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Cell.soma">
+<tt class="descclassname">Cell.</tt><tt class="descname">soma</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.CellLocation">
+<em class="property">class </em><tt class="descname">CellLocation</tt><big>(</big><em>cell</em>, <em>morphlocation=None</em>, <em>section=None</em>, <em>sectionpos=None</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.CellLocation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell</em>, <em>morphlocation=None</em>, <em>section=None</em>, <em>sectionpos=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.CellLocation.cell">
+<tt class="descname">cell</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellLocation.get_3d_position">
+<tt class="descname">get_3d_position</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellLocation.get_cell">
+<tt class="descname">get_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellLocation.get_location_description_str">
+<tt class="descname">get_location_description_str</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.CellLocation.section">
+<tt class="descname">section</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.CellLocation.sectionpos">
+<tt class="descname">sectionpos</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.SimulationEnvironment">
+<em class="property">class </em><tt class="descname">SimulationEnvironment</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.Cell">
+<tt class="descname">Cell</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.Channel">
+<tt class="descname">Channel</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.CurrentClamp">
+<tt class="descname">CurrentClamp</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.GapJunction">
+<tt class="descname">GapJunction</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.Simulation">
+<tt class="descname">Simulation</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.SimulationSettings">
+<tt class="descname">SimulationSettings</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.Synapse">
+<tt class="descname">Synapse</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.VoltageClamp">
+<tt class="descname">VoltageClamp</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SimulationEnvironment.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.AbstCellSegmenter">
+<em class="property">class </em><tt class="descname">AbstCellSegmenter</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.AbstCellSegmenter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.AbstCellSegmenter.get_num_segment_region">
+<tt class="descname">get_num_segment_region</tt><big>(</big><em>region</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.AbstCellSegmenter.get_num_segment_total">
+<tt class="descname">get_num_segment_total</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.AbstCellSegmenter.get_num_segments">
+<tt class="descname">get_num_segments</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.CellSegmenter_MaxCompartmentLength">
+<em class="property">class </em><tt class="descname">CellSegmenter_MaxCompartmentLength</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd" title="morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.CellSegmenter_MaxCompartmentLength.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>max_segment_length=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellSegmenter_MaxCompartmentLength._get_n_segments">
+<tt class="descname">_get_n_segments</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.CellBiophysics">
+<em class="property">class </em><tt class="descname">CellBiophysics</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.add_channel">
+<tt class="descname">add_channel</tt><big>(</big><em>channel</em>, <em>targetter</em>, <em>applicator</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.add_passive">
+<tt class="descname">add_passive</tt><big>(</big><em>passiveproperty</em>, <em>targetter</em>, <em>value</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.apply_channel">
+<tt class="descname">apply_channel</tt><big>(</big><em>channel</em>, <em>where=None</em>, <em>parameter_overrides=None</em>, <em>parameter_multipliers=None</em><big>)</big></dt>
+<dd><p>A simplified interface to applying channels.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_all_channels_applied_to_cell">
+<tt class="descname">get_all_channels_applied_to_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_applied_mtas">
+<tt class="descname">get_applied_mtas</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_applied_passives">
+<tt class="descname">get_applied_passives</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_channel">
+<tt class="descname">get_channel</tt><big>(</big><em>name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_passive_property_for_section">
+<tt class="descname">get_passive_property_for_section</tt><big>(</big><em>section</em>, <em>passive</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_passives_for_section">
+<tt class="descname">get_passives_for_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.get_resolved_mtas_for_section">
+<tt class="descname">get_resolved_mtas_for_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.CellBiophysics.set_passive">
+<tt class="descname">set_passive</tt><big>(</big><em>passiveproperty</em>, <em>value</em>, <em>where=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.Channel">
+<em class="property">class </em><tt class="descname">Channel</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.base_classes.NamedSimulationObject" title="morphforge.simulation.base.base_classes.NamedSimulationObject"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.base_classes.NamedSimulationObject</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.Channel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Channel.get_default">
+<tt class="descname">get_default</tt><big>(</big><em>key</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Channel.get_defaults">
+<tt class="descname">get_defaults</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Channel.get_variables">
+<tt class="descname">get_variables</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelApplicator">
+<em class="property">class </em><tt class="descname">ChannelApplicator</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicator.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicator.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicator.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variablename</em>, <em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicator.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicator.set_target_channel">
+<tt class="descname">set_target_channel</tt><big>(</big><em>target_channel</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelApplicatorUniform">
+<em class="property">class </em><tt class="descname">ChannelApplicatorUniform</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator" title="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicatorUniform.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicatorUniform.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicatorUniform.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variable_name</em>, <em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelApplicatorUniform.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.Targeter">
+<em class="property">class </em><tt class="descname">Targeter</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.Targeter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Targeter.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Targeter.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Targeter.get_priority">
+<tt class="descname">get_priority</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelTargeterEverywhere">
+<em class="property">class </em><tt class="descname">ChannelTargeterEverywhere</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelTargeterRegion">
+<em class="property">class </em><tt class="descname">ChannelTargeterRegion</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterRegion.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterRegion.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterRegion.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelTargeterSection">
+<em class="property">class </em><tt class="descname">ChannelTargeterSection</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterSection.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterSection.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterSection.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.ChannelTargeterSectionPath">
+<em class="property">class </em><tt class="descname">ChannelTargeterSectionPath</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterSectionPath.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.ChannelTargeterSectionPath.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhere">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhere</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhereDefault">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhereDefault</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhereDefault.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhereDefault.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PassiveTargetterEverywhereDefault.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PassiveProperty">
+<em class="property">class </em><tt class="descname">PassiveProperty</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.PassiveProperty.AxialResistance">
+<tt class="descname">AxialResistance</tt><em class="property"> = 'AxialResistance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.PassiveProperty.SpecificCapacitance">
+<tt class="descname">SpecificCapacitance</tt><em class="property"> = 'SpecificCapacitance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.PassiveProperty.all">
+<tt class="descname">all</tt><em class="property"> = ['SpecificCapacitance', 'AxialResistance']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.PassiveProperty.defaults">
+<tt class="descname">defaults</tt><em class="property"> = {'SpecificCapacitance': array(1.0) * uF/cm2, 'AxialResistance': array(80.0) * ohmcm}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.Synapse">
+<em class="property">class </em><tt class="descname">Synapse</tt><big>(</big><em>trigger</em>, <em>postsynaptic_mech</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="class">
+<dt id="morphforge.simulation.base.Synapse.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Synapse.Recordables.SynapticConductance">
+<tt class="descname">SynapticConductance</tt><em class="property"> = 'SynapticConductance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.Synapse.Recordables.SynapticCurrent">
+<tt class="descname">SynapticCurrent</tt><em class="property"> = 'SynapticCurrent'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Synapse.__init__">
+<tt class="descclassname">Synapse.</tt><tt class="descname">__init__</tt><big>(</big><em>trigger</em>, <em>postsynaptic_mech</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Synapse.get_postsynaptic_cell">
+<tt class="descclassname">Synapse.</tt><tt class="descname">get_postsynaptic_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Synapse.get_postsynaptic_mechanism">
+<tt class="descclassname">Synapse.</tt><tt class="descname">get_postsynaptic_mechanism</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Synapse.get_presynaptic_cell">
+<tt class="descclassname">Synapse.</tt><tt class="descname">get_presynaptic_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.Synapse.get_trigger">
+<tt class="descclassname">Synapse.</tt><tt class="descname">get_trigger</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.GapJunction">
+<em class="property">class </em><tt class="descname">GapJunction</tt><big>(</big><em>celllocation1</em>, <em>celllocation2</em>, <em>resistance</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.GapJunction.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>celllocation1</em>, <em>celllocation2</em>, <em>resistance</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.GapJunction.connected_cells">
+<tt class="descname">connected_cells</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PostSynapticMech">
+<em class="property">class </em><tt class="descname">PostSynapticMech</tt><big>(</big><em>cell_location</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.PostSynapticMech.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell_location</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PostSynapticMech.get_postsynaptic_cell">
+<tt class="descname">get_postsynaptic_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulation.base.PostSynapticMech.get_variables">
+<em class="property">classmethod </em><tt class="descname">get_variables</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.PostSynapticMech.synapse">
+<tt class="descname">synapse</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.SynapticTrigger">
+<em class="property">class </em><tt class="descname">SynapticTrigger</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.SynapticTrigger.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SynapticTrigger.get_presynaptic_cell">
+<tt class="descname">get_presynaptic_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.SynapticTrigger.get_type">
+<tt class="descname">get_type</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.SynapticTrigger.synapse">
+<tt class="descname">synapse</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.NamedSimulationObject">
+<em class="property">class </em><tt class="descname">NamedSimulationObject</tt><big>(</big><em>simulation=None</em>, <em>name=None</em>, <em>does_require_simulation=True</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A base class for any object in a simulation that needs a name.</p>
+<p>This class ensures that no two objects in a simulation have the same
+name.</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>_obj_names: A dictionary -&gt; set mapping, recording what object names are in</dt>
+<dd><p class="first last">use at all simulations</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="morphforge.simulation.base.NamedSimulationObject.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>simulation=None</em>, <em>name=None</em>, <em>does_require_simulation=True</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.NamedSimulationObject._obj_names">
+<tt class="descname">_obj_names</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.NamedSimulationObject.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.NamedSimulationObject.name">
+<tt class="descname">name</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.NamedSimulationObject.simulation">
+<tt class="descname">simulation</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PostSynapticMechTemplate">
+<em class="property">class </em><tt class="descname">PostSynapticMechTemplate</tt><big>(</big><em>template_name=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.PostSynapticMechTemplate.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>template_name=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PostSynapticMechTemplate.get_variables">
+<tt class="descname">get_variables</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.PostSynapticMechTemplate.instantiate">
+<tt class="descname">instantiate</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.PostSynapticMechInstantiation">
+<em class="property">class </em><tt class="descname">PostSynapticMechInstantiation</tt><big>(</big><em>cell_location</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.networks.html#morphforge.simulation.base.networks.PostSynapticMech" title="morphforge.simulation.base.networks.PostSynapticMech"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.networks.PostSynapticMech</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.base_classes">
+<span id="base-classes-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">base_classes</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject">
+<em class="property">class </em><tt class="descname">NamedSimulationObject</tt><big>(</big><em>simulation=None</em>, <em>name=None</em>, <em>does_require_simulation=True</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/base_classes.html#NamedSimulationObject"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A base class for any object in a simulation that needs a name.</p>
+<p>This class ensures that no two objects in a simulation have the same
+name.</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>_obj_names: A dictionary -&gt; set mapping, recording what object names are in</dt>
+<dd><p class="first last">use at all simulations</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>simulation=None</em>, <em>name=None</em>, <em>does_require_simulation=True</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/base_classes.html#NamedSimulationObject.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject._obj_names">
+<tt class="descname">_obj_names</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/base_classes.html#NamedSimulationObject.get_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject.name">
+<tt class="descname">name</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.base_classes.NamedSimulationObject.simulation">
+<tt class="descname">simulation</tt><a class="reference internal" href="../../_modules/morphforge/simulation/base/base_classes.html#NamedSimulationObject.simulation"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.biophysics.html">biophysics Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#id1"><tt class="docutils literal"><span class="pre">biophysics</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#module-morphforge.simulation.base.biophysics.cellbiophysics"><tt class="docutils literal"><span class="pre">cellbiophysics</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#module-morphforge.simulation.base.biophysics.channel"><tt class="docutils literal"><span class="pre">channel</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#module-morphforge.simulation.base.biophysics.channelapplicators"><tt class="docutils literal"><span class="pre">channelapplicators</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#module-morphforge.simulation.base.biophysics.channeltargetters"><tt class="docutils literal"><span class="pre">channeltargetters</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.biophysics.html#module-morphforge.simulation.base.biophysics.passiveproperties"><tt class="docutils literal"><span class="pre">passiveproperties</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.core.html">core Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#id1"><tt class="docutils literal"><span class="pre">core</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#module-morphforge.simulation.base.core.cell"><tt class="docutils literal"><span class="pre">cell</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#module-morphforge.simulation.base.core.celllocation"><tt class="docutils literal"><span class="pre">celllocation</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#module-morphforge.simulation.base.core.recordable"><tt class="docutils literal"><span class="pre">recordable</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#module-morphforge.simulation.base.core.simulation"><tt class="docutils literal"><span class="pre">simulation</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.core.html#module-morphforge.simulation.base.core.simulationenvironment"><tt class="docutils literal"><span class="pre">simulationenvironment</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.networks.html">networks Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.networks.html#id1"><tt class="docutils literal"><span class="pre">networks</span></tt> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.result.html">result Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.result.html#id1"><tt class="docutils literal"><span class="pre">result</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.result.html#module-morphforge.simulation.base.result.simulationresult"><tt class="docutils literal"><span class="pre">simulationresult</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.segmentation.html">segmentation Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.segmentation.html#id1"><tt class="docutils literal"><span class="pre">segmentation</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.segmentation.html#module-morphforge.simulation.base.segmentation.cellsegmenter"><tt class="docutils literal"><span class="pre">cellsegmenter</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.segmentation.html#module-morphforge.simulation.base.segmentation.segment"><tt class="docutils literal"><span class="pre">segment</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.html">simulationmetadatabundle Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.html#id1"><tt class="docutils literal"><span class="pre">simulationmetadatabundle</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.html#module-morphforge.simulation.base.simulationmetadatabundle.simbundle"><tt class="docutils literal"><span class="pre">simbundle</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.builders.html">builders Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.builders.html#id1"><tt class="docutils literal"><span class="pre">builders</span></tt> Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.builders.html#module-morphforge.simulation.base.simulationmetadatabundle.builders.builders"><tt class="docutils literal"><span class="pre">builders</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.postsimulation.html">postsimulation Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.postsimulation.html#id1"><tt class="docutils literal"><span class="pre">postsimulation</span></tt> Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="morphforge.simulation.base.simulationmetadatabundle.postsimulation.html#module-morphforge.simulation.base.simulationmetadatabundle.postsimulation.postsimulationaction"><tt class="docutils literal"><span class="pre">postsimulationaction</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.stimulation.html">stimulation Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.stimulation.html#id1"><tt class="docutils literal"><span class="pre">stimulation</span></tt> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.synaptictriggers.html">synaptictriggers Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.synaptictriggers.html#id1"><tt class="docutils literal"><span class="pre">synaptictriggers</span></tt> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulation.base.util.html">util Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.util.html#id1"><tt class="docutils literal"><span class="pre">util</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulation.base.util.html#module-morphforge.simulation.base.util.celllocator"><tt class="docutils literal"><span class="pre">celllocator</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tagviewer Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>tagviewer Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="tagviewer-package">
+<h1>tagviewer Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">tagviewer</span></tt> Package</h2>
+<span class="target" id="module-morphforge.simulationanalysis.tagviewer"></span><dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer">
+<em class="property">class </em><tt class="descname">TagViewer</tt><big>(</big><em>srcs</em>, <em>plots=None</em>, <em>additional_plots=None</em>, <em>figtitle=None</em>, <em>fig_kwargs=None</em>, <em>show=True</em>, <em>linkage=None</em>, <em>timerange=None</em>, <em>mpl_tight_bounds=False</em>, <em>decimate_points=False</em>, <em>share_x_labels=True</em>, <em>nxticks=4</em>, <em>show_xlabel='only-once'</em>, <em>show_xticklabels='only-once'</em>, <em>show_xticklabels_with_units=True</em>, <em>show_xaxis_position='bottom'</em>, <em>xticks=None</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer.MPL_AUTO_SHOW">
+<tt class="descname">MPL_AUTO_SHOW</tt><em class="property"> = True</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>srcs</em>, <em>plots=None</em>, <em>additional_plots=None</em>, <em>figtitle=None</em>, <em>fig_kwargs=None</em>, <em>show=True</em>, <em>linkage=None</em>, <em>timerange=None</em>, <em>mpl_tight_bounds=False</em>, <em>decimate_points=False</em>, <em>share_x_labels=True</em>, <em>nxticks=4</em>, <em>show_xlabel='only-once'</em>, <em>show_xticklabels='only-once'</em>, <em>show_xticklabels_with_units=True</em>, <em>show_xaxis_position='bottom'</em>, <em>xticks=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._default_fig_kwargs">
+<tt class="descname">_default_fig_kwargs</tt><em class="property"> = {'figsize': (12, 8)}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._default_plot_specs">
+<tt class="descname">_default_plot_specs</tt><em class="property"> = (&lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92410&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a210&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a610&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92f50&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f910&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f750&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b910&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b990&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b810&gt;)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._options_show_xaxis_position">
+<tt class="descname">_options_show_xaxis_position</tt><em class="property"> = ('bottom', 'top')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._options_show_xlabel">
+<tt class="descname">_options_show_xlabel</tt><em class="property"> = ('only-once', 'all', False)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._options_show_xticklabels">
+<tt class="descname">_options_show_xticklabels</tt><em class="property"> = ('only-once', 'all', False)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer._options_show_xticklabels_with_units">
+<tt class="descname">_options_show_xticklabels_with_units</tt><em class="property"> = (True, False)</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagViewer.create_figure">
+<tt class="descname">create_figure</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots">
+<em class="property">class </em><tt class="descname">DefaultTagPlots</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.Conductance">
+<tt class="descname">Conductance</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92f50&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.ConductanceDensity">
+<tt class="descname">ConductanceDensity</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f910&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.Current">
+<tt class="descname">Current</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a610&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.CurrentDensity">
+<tt class="descname">CurrentDensity</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a210&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.Event">
+<tt class="descname">Event</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b810&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.StateVariable">
+<tt class="descname">StateVariable</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f750&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.StateVariableInf">
+<tt class="descname">StateVariableInf</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b990&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.StateVariableTau">
+<tt class="descname">StateVariableTau</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b910&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.DefaultTagPlots.Voltage">
+<tt class="descname">Voltage</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92410&gt;</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot">
+<em class="property">class </em><tt class="descname">TagPlot</tt><big>(</big><em>s</em>, <em>title=None</em>, <em>legend_labeller=&lt;function default_legend_labeller at 0x5ad0488&gt;</em>, <em>colors=None</em>, <em>event_marker_size=None</em>, <em>time_range=None</em>, <em>ylabel=None</em>, <em>yrange=None</em>, <em>yunit=None</em>, <em>yaxisconfig=None</em>, <em>yticks=None</em>, <em>ymargin=None</em>, <em>height_ratio=1.0</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=True</em>, <em>overlay_traces=None</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>s</em>, <em>title=None</em>, <em>legend_labeller=&lt;function default_legend_labeller at 0x5ad0488&gt;</em>, <em>colors=None</em>, <em>event_marker_size=None</em>, <em>time_range=None</em>, <em>ylabel=None</em>, <em>yrange=None</em>, <em>yunit=None</em>, <em>yaxisconfig=None</em>, <em>yticks=None</em>, <em>ymargin=None</em>, <em>height_ratio=1.0</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=True</em>, <em>overlay_traces=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot._plot_eventset">
+<tt class="descname">_plot_eventset</tt><big>(</big><em>eventset</em>, <em>ax</em>, <em>index</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot._plot_trace">
+<tt class="descname">_plot_trace</tt><big>(</big><em>trace</em>, <em>ax</em>, <em>index</em>, <em>color=None</em>, <em>decimate_points=False</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot._sort_eventsets">
+<em class="property">classmethod </em><tt class="descname">_sort_eventsets</tt><big>(</big><em>event_sets</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot._sort_traces">
+<em class="property">classmethod </em><tt class="descname">_sort_traces</tt><big>(</big><em>traces</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot.addeventset_predicate">
+<tt class="descname">addeventset_predicate</tt><big>(</big><em>trace</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot.addtrace_predicate">
+<tt class="descname">addtrace_predicate</tt><big>(</big><em>trace</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.TagPlot.plot">
+<tt class="descname">plot</tt><big>(</big><em>ax</em>, <em>all_traces</em>, <em>all_eventsets</em>, <em>show_xlabel</em>, <em>show_xticklabels</em>, <em>show_xticklabels_with_units</em>, <em>show_xaxis_position</em>, <em>is_top_plot</em>, <em>is_bottom_plot</em>, <em>xticks</em>, <em>time_range=None</em>, <em>linkage=None</em>, <em>decimate_points=False</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulationanalysis.tagviewer.plotspecs">
+<span id="plotspecs-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">plotspecs</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot">
+<em class="property">class </em><tt class="descname">TagPlot</tt><big>(</big><em>s</em>, <em>title=None</em>, <em>legend_labeller=&lt;function default_legend_labeller at 0x5ad0488&gt;</em>, <em>colors=None</em>, <em>event_marker_size=None</em>, <em>time_range=None</em>, <em>ylabel=None</em>, <em>yrange=None</em>, <em>yunit=None</em>, <em>yaxisconfig=None</em>, <em>yticks=None</em>, <em>ymargin=None</em>, <em>height_ratio=1.0</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=True</em>, <em>overlay_traces=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>s</em>, <em>title=None</em>, <em>legend_labeller=&lt;function default_legend_labeller at 0x5ad0488&gt;</em>, <em>colors=None</em>, <em>event_marker_size=None</em>, <em>time_range=None</em>, <em>ylabel=None</em>, <em>yrange=None</em>, <em>yunit=None</em>, <em>yaxisconfig=None</em>, <em>yticks=None</em>, <em>ymargin=None</em>, <em>height_ratio=1.0</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=True</em>, <em>overlay_traces=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot._plot_eventset">
+<tt class="descname">_plot_eventset</tt><big>(</big><em>eventset</em>, <em>ax</em>, <em>index</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot._plot_eventset"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot._plot_trace">
+<tt class="descname">_plot_trace</tt><big>(</big><em>trace</em>, <em>ax</em>, <em>index</em>, <em>color=None</em>, <em>decimate_points=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot._plot_trace"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot._sort_eventsets">
+<em class="property">classmethod </em><tt class="descname">_sort_eventsets</tt><big>(</big><em>event_sets</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot._sort_eventsets"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot._sort_traces">
+<em class="property">classmethod </em><tt class="descname">_sort_traces</tt><big>(</big><em>traces</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot._sort_traces"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot.addeventset_predicate">
+<tt class="descname">addeventset_predicate</tt><big>(</big><em>trace</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot.addeventset_predicate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot.addtrace_predicate">
+<tt class="descname">addtrace_predicate</tt><big>(</big><em>trace</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot.addtrace_predicate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot.plot">
+<tt class="descname">plot</tt><big>(</big><em>ax</em>, <em>all_traces</em>, <em>all_eventsets</em>, <em>show_xlabel</em>, <em>show_xticklabels</em>, <em>show_xticklabels_with_units</em>, <em>show_xaxis_position</em>, <em>is_top_plot</em>, <em>is_bottom_plot</em>, <em>xticks</em>, <em>time_range=None</em>, <em>linkage=None</em>, <em>decimate_points=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#TagPlot.plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.YAxisConfig">
+<em class="property">class </em><tt class="descname">YAxisConfig</tt><big>(</big><em>yunit=None</em>, <em>yrange=None</em>, <em>ylabel=None</em>, <em>yticks=None</em>, <em>yticklabels=None</em>, <em>ymargin=None</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#YAxisConfig"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.YAxisConfig.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>yunit=None</em>, <em>yrange=None</em>, <em>ylabel=None</em>, <em>yticks=None</em>, <em>yticklabels=None</em>, <em>ymargin=None</em>, <em>show_yticklabels=True</em>, <em>show_yticklabels_with_units=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#YAxisConfig.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.YAxisConfig.format_axes">
+<tt class="descname">format_axes</tt><big>(</big><em>ax</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#YAxisConfig.format_axes"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.simulationanalysis.tagviewer.plotspecs.default_legend_labeller">
+<tt class="descname">default_legend_labeller</tt><big>(</big><em>tr</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/plotspecs.html#default_legend_labeller"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulationanalysis.tagviewer.post_ax_functors">
+<span id="post-ax-functors-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">post_ax_functors</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.post_ax_functors.Ax_TimeLine">
+<em class="property">class </em><tt class="descname">Ax_TimeLine</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/post_ax_functors.html#Ax_TimeLine"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.post_ax_functors.Ax_TimeLine.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>ax</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/post_ax_functors.html#Ax_TimeLine.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.post_ax_functors.Ax_TimeLine.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/post_ax_functors.html#Ax_TimeLine.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulationanalysis.tagviewer.tagviewer">
+<span id="tagviewer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tagviewer</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots">
+<em class="property">class </em><tt class="descname">DefaultTagPlots</tt><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/tagviewer.html#DefaultTagPlots"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.Conductance">
+<tt class="descname">Conductance</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92f50&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.ConductanceDensity">
+<tt class="descname">ConductanceDensity</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f910&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.Current">
+<tt class="descname">Current</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a610&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.CurrentDensity">
+<tt class="descname">CurrentDensity</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a210&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.Event">
+<tt class="descname">Event</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b810&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.StateVariable">
+<tt class="descname">StateVariable</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f750&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.StateVariableInf">
+<tt class="descname">StateVariableInf</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b990&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.StateVariableTau">
+<tt class="descname">StateVariableTau</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b910&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.DefaultTagPlots.Voltage">
+<tt class="descname">Voltage</tt><em class="property"> = &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92410&gt;</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer">
+<em class="property">class </em><tt class="descname">TagViewer</tt><big>(</big><em>srcs</em>, <em>plots=None</em>, <em>additional_plots=None</em>, <em>figtitle=None</em>, <em>fig_kwargs=None</em>, <em>show=True</em>, <em>linkage=None</em>, <em>timerange=None</em>, <em>mpl_tight_bounds=False</em>, <em>decimate_points=False</em>, <em>share_x_labels=True</em>, <em>nxticks=4</em>, <em>show_xlabel='only-once'</em>, <em>show_xticklabels='only-once'</em>, <em>show_xticklabels_with_units=True</em>, <em>show_xaxis_position='bottom'</em>, <em>xticks=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/tagviewer.html#TagViewer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer.MPL_AUTO_SHOW">
+<tt class="descname">MPL_AUTO_SHOW</tt><em class="property"> = True</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>srcs</em>, <em>plots=None</em>, <em>additional_plots=None</em>, <em>figtitle=None</em>, <em>fig_kwargs=None</em>, <em>show=True</em>, <em>linkage=None</em>, <em>timerange=None</em>, <em>mpl_tight_bounds=False</em>, <em>decimate_points=False</em>, <em>share_x_labels=True</em>, <em>nxticks=4</em>, <em>show_xlabel='only-once'</em>, <em>show_xticklabels='only-once'</em>, <em>show_xticklabels_with_units=True</em>, <em>show_xaxis_position='bottom'</em>, <em>xticks=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/tagviewer.html#TagViewer.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._default_fig_kwargs">
+<tt class="descname">_default_fig_kwargs</tt><em class="property"> = {'figsize': (12, 8)}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._default_plot_specs">
+<tt class="descname">_default_plot_specs</tt><em class="property"> = (&lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92410&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a210&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9a610&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c92f50&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f910&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x587f750&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b910&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b990&gt;, &lt;morphforge.simulationanalysis.tagviewer.plotspecs.TagPlot object at 0x5c9b810&gt;)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._options_show_xaxis_position">
+<tt class="descname">_options_show_xaxis_position</tt><em class="property"> = ('bottom', 'top')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._options_show_xlabel">
+<tt class="descname">_options_show_xlabel</tt><em class="property"> = ('only-once', 'all', False)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._options_show_xticklabels">
+<tt class="descname">_options_show_xticklabels</tt><em class="property"> = ('only-once', 'all', False)</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer._options_show_xticklabels_with_units">
+<tt class="descname">_options_show_xticklabels_with_units</tt><em class="property"> = (True, False)</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulationanalysis.tagviewer.tagviewer.TagViewer.create_figure">
+<tt class="descname">create_figure</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulationanalysis/tagviewer/tagviewer.html#TagViewer.create_figure"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.simulationanalysis.tagviewer.linkage.html">linkage Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.simulationanalysis.tagviewer.linkage.html#id1"><tt class="docutils literal"><span class="pre">linkage</span></tt> Package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

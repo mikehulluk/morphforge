@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="#" />
+    <link rel="next" title="Installation" href="srcs/installation.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="#">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>Overview</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="#">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="srcs/installation.html">Installation</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="overview">
+<h1>Overview</h1>
+<p>morphforge is a high level, simulator independent, Python library for building simulations of small populations of multi-compartmental neurons, in which membrane voltage is calculated from the sum of individual ionic currents flowing across a membrane.
+It was built as part of <a class="reference external" href="http://www.anc.ed.ac.uk/dtc/index.php?option=com_people&amp;func=showall&amp;userid=359">Mike Hull&#8217;s</a> Ph.D thesis; investigating the role of electrical coupling in small populations of interneurons in Xenopus laevis tadpoles.</p>
+<p>The use-case of the API is to allows the user to quickly construct simulations of small populations of neurons and synaptic connections, with particular focus on:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>allowing simulation specification, with visualisation and analysis in a minimal, clean, <strong>human readable language</strong>;</li>
+<li>reduction of complex simulation tool chains to a <strong>single python script</strong>;</li>
+<li>promoting reproducible research through <strong>automatic self-documentation</strong>;</li>
+<li>encourage the <strong>re-use of components</strong> such like morphologies, neurons and channels such so that specific and stochastic variation in parameters is simple;</li>
+<li>transparent handling of different <strong>units</strong>;</li>
+<li>allowing the use of established formats, (e.g. NEURON nmodl files), but also simplify the definition and sharing of new channel types easily, including the possibility to support other libraries and standards easily (e.g. PyNN, 9ML, NeuroML, CSA)</li>
+</ol>
+</div></blockquote>
+<p>Morphforge is not a simulator; it is a high layer interface to simulators (currently NEURON), providing a set of high-level primitives for specifying morphologies, channel distributions, synapses, in python.  It was designed to remove a lot of tedious code currently needed to specify such simulations and what to record from them and provides an API to make visualising results simpler.</p>
+</div>
+<div class="section" id="example-use-case">
+<h1>Example Use-Case</h1>
+<p>Consider the following example:</p>
+<blockquote>
+<div><p>“I would like to build a network, of 30 neurons. Each soma should be 20(± 3) µm diameter, and axons are 1000µm long with have a hillock of radius 5um for the first 10µm, then tapers into a axon of radius 0.3µm which. I will use a single compartment for the soma, divide the hillock into compartments of length 1um, and the axon into 100 compartments. We will use the sodium and potassium voltage-gated channels as specified by the equations and parameters in paper X, but we want to use 3 times the density of sodium channels on the axon hillock.</p>
+<p>The neurons should be connected by gap junctions, distributed according to algorithm X, with resistances of 1GOhm ± 500MOhm. The neurons also self-excite other neurons in the population with AMPA  synapses, with a probability of connections between any pair of neurons of 20%. I would like to stimulate this network with NMDA synaptic input to ~50% of the neurons at fixed times, as well as different levels of step current injections to cell 12, and measure plot graphs of the ionic currents flowing across the membrane of cells 2, 12, and any cells that spike, as well as the membrane voltage of all the neurons. I want to compare against with the case when the gap junctions have been blocked.”</p>
+</div></blockquote>
+<p>The morphforge allows the specification of this complete simulation and visualisation of the results in a single python scripts of less than 100?? lines, only requiring a single command to run. It is designed to make it possible to specify connection algorithms, morphologies, channel descriptions and simulation parameters as high-level objects, such that they can be reused in across other simulations, without the need to copy and paste code. Units are handled transparently, reports of the simulation setup can be automatically generated, and a clean separation between of simulation and visualisation is achieved through a mechanism of <em>tagging</em> in the framework. The library is built on standard Python libraries, (Numpy, matplotlib), making it easy to integrate with other libraries.</p>
+<p>The framework is under active development, with a NEURON backend, currently supporting everything in the above example.</p>
+<div class="section" id="setting-up-and-running-morphforge">
+<h2>Setting up and Running Morphforge</h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>As of July 2012; morphforge is <strong>currently undergoing major API
+changes</strong>! Although the package is unlikely to change conceptually,
+please be aware that class/method/parameter/package names
+will probably change from commit-to-commit, as the packages are tidied!</li>
+<li>This package is provided as-is and should currently be considered <em>alpha</em>
+quality! <strong>YOU HAVE BEEN WARNED: THIS IS NEW SOFTWARE -THERE MAY BE BUGS!</strong> I hope there are
+relatively few, but it is a large piece of code; which I have developed
+informally alongside my Ph.D.  Please contribute any tests you write to
+improve the testsuite!</li>
+<li>morphforge needs to read and write lots of files to interact with
+simulators; so <strong>there is a lot of code which deletes files/directories from
+the filesystem!</strong> There is always the danger that a path gets mis-set
+somewhere in the code and the <strong>wrong thing might be deleted</strong> by mistake. I
+have never had a problem with this  (I have been running this package on my
+computer for the last 2 years with absolutely no problems), but it is a
+still possiblity, especially under different operating systems.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Until lots of people have tested it on different platforms, I recommend
+running *morphforge* within a sandboxed environment; such as a VirtualBox,
+in case there are any issues that cause files to be delete unexpectedly!</strong></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Otherwise, enjoy morphforge!
+Please contribute useful functions you have written, any example scripts, ideas for improving the documentation
+or general feedback about using it.</p>
+<p>Mike Hull, Edinburgh/Bristol, UK. (July 2012)</p>
+<p class="last">P.S. I have started a googlegroup for morphforge at <a class="reference external" href="http://groups.google.com/group/morphforge">http://groups.google.com/group/morphforge</a>. Sign up for
+latest development news!</p>
+</div>
+</div>
+</div>
+<div class="section" id="installing-morphforge">
+<h1>Installing Morphforge</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="srcs/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#package-dependancies">Package Dependancies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#cloning-the-repository">Cloning the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#configuring-morphforgerc">Configuring .morphforgerc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#running-the-examples">Running the Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs/installation.html#running-the-tests">Running the Tests</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html">Morphology Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology010.html">1. Creating morphologies from python dictionaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology020.html">2. Loading from SWC and rendering with Matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology030.html">3. Load  SWC data from a string directly into a MorphologyArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology040.html">4. Converting between the morphology representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology050.html">5. Load morphologies from MorphML, and plot using MayaVI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/morphology060.html">6. Simple morphology analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html#single-cell-simulation-examples">Single Cell Simulation Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation010.html">7. The response of a single compartment neuron with leak channels to step current injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation020.html">8. Hodgkin-Huxley &#8216;52 neuron simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation030.html">9. Hodgkin-Huxley &#8216;52 neuron simulation with automatic summary pdf generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation040.html">10. Investigating the rheobase of a neuron with a parameter sweep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation050.html">11. Demonstrate using NEURON mod files directly in a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation060.html">12. Visualising action potential propagation along an axon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation065.html">13. Using a channel library to reduce duplication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation070.html">14. Visualising the internal states of a neuron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/singlecell_simulation080.html">15. Applying different channel densities over a cell</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html#multiple-cell-simulation-examples">Multiple Cell Simulation Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/multicell_simulation010.html">16. 2 cells connected with an AMPA synapse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/multicell_simulation020.html">17. The responses of two cells connected by a gap junction to a step current injection into the first</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html#assorted-examples">Assorted Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/assorted_10compareHHChls.html">18. Comparing simulations: the Hodgkin-Huxley &#8216;52 channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/manage010.html">21. Summarise the various plugins of the environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html#from-ocns-2012-poster">From OCNS-2012 Poster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/poster1.html">19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="srcs_generated_examples/poster2.html">20. Action potential propagation and synaptic transmission</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="srcs/examples/examples.html#to-add">(To Add)</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="users-guide">
+<h1>Users Guide</h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>For more indepth API information, please see the <a class="reference internal" href="index_api_new.html"><em>Morphforge Users Guide</em></a></p>
+</div>
+<div class="section" id="contact-information">
+<h1>Contact Information</h1>
+<blockquote>
+<div><ul class="simple">
+<li>Email me: <a class="reference external" href="mailto:?ike?ulluk&#37;&#52;&#48;googlemail&#46;com">?ike?ulluk<span>&#64;</span>googlemail<span>&#46;</span>com</a> where ?s can be found at the top of the page!</li>
+<li>Mailing list: <a class="reference external" href="http://groups.google.com/group/morphforge">http://groups.google.com/group/morphforge</a></li>
+<li>GitHub: <a class="reference external" href="https://github.com/mikehulluk/morphforge">https://github.com/mikehulluk/morphforge</a></li>
+</ul>
+</div></blockquote>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="#">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="srcs/installation.html">Installation</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

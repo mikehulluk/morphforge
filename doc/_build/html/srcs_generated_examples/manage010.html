@@ -1,0 +1,104 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>21. Summarise the various plugins of the environment &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../index.html" />
+    <link rel="up" title="Morphology Examples" href="../srcs/examples/examples.html" />
+    <link rel="next" title="19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits" href="poster1.html" />
+    <link rel="prev" title="18. Comparing simulations: the Hodgkin-Huxley ‘52 channels" href="assorted_10compareHHChls.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>21. Summarise the various plugins of the environment</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="assorted_10compareHHChls.html">18. Comparing simulations: the Hodgkin-Huxley &#8216;52 channels</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="poster1.html">19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="summarise-the-various-plugins-of-the-environment">
+<h1>21. Summarise the various plugins of the environment</h1>
+<p>Summarise the various plugins of the environment</p>
+<div class="section" id="code">
+<h2>Code</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="n">PluginMgr</span>
+<span class="kn">import</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">as</span> <span class="nn">mfc</span>
+
+<span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;~/Desktop/morphforge_config.pdf&#39;</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">PluginMgr</span><span class="o">.</span><span class="n">summarise_all</span><span class="p">()</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">to_pdf</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;morphforge environment summary stored at: </span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="n">fname</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output</h2>
+<div class="highlight-bash"><div class="highlight"><pre>    No handlers could be found <span class="k">for </span>logger <span class="s2">&quot;neurounits&quot;</span>
+/usr/bin/pdflatex
+Openning ScriptFlags
+/auto/homes/mh735/hw/NeuroUnits/ext_deps
+Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
+Remove paragraph? <span class="o">(</span>no<span class="o">)</span>
+Remove paragraph? <span class="o">(</span>no<span class="o">)</span>
+Tex File: /tmp/tmp_3175/mredoc/build/pdflatex//eqnset.tex
+Successfully written PDF to:  /home/mh735/Desktop/morphforge_config.pdf
+morphforge environment summary stored at: ~/Desktop/morphforge_config.pdf
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="assorted_10compareHHChls.html">18. Comparing simulations: the Hodgkin-Huxley &#8216;52 channels</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="poster1.html">19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

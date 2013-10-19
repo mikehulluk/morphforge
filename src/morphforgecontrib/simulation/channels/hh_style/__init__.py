@@ -29,7 +29,7 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from core import *
+from core import StdChlAlphaBeta, StdChlAlphaBetaBeta
 
 import neuron
 import summarisers

@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.base.biophysics.channeltargetters &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.base.biophysics" href="../biophysics.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.base.biophysics.channeltargetters</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.base.biophysics.channeltargetters</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">Region</span>
+
+<div class="viewcode-block" id="Targeter"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter">[docs]</a><span class="k">class</span> <span class="nc">Targeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Targeter.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Targeter</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span>
+</div>
+<div class="viewcode-block" id="Targeter.get_priority"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter.get_priority">[docs]</a>    <span class="k">def</span> <span class="nf">get_priority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority</span>
+        <span class="c">#raise NotImplementedError()</span>
+</div>
+<div class="viewcode-block" id="Targeter.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Targeter.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.Targeter.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="PassiveTargetterEverywhereDefault"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault">[docs]</a><span class="k">class</span> <span class="nc">PassiveTargetterEverywhereDefault</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PassiveTargetterEverywhereDefault.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PassiveTargetterEverywhereDefault</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterEverywhereDefault.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterEverywhereDefault.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Default&#39;</span>
+
+</div></div>
+<div class="viewcode-block" id="PassiveTargetterEverywhere"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere">[docs]</a><span class="k">class</span> <span class="nc">PassiveTargetterEverywhere</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PassiveTargetterEverywhere.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PassiveTargetterEverywhere</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterEverywhere.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterEverywhere.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Everywhere&#39;</span>
+
+</div></div>
+<div class="viewcode-block" id="PassiveTargetterRegion"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion">[docs]</a><span class="k">class</span> <span class="nc">PassiveTargetterRegion</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PassiveTargetterRegion.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PassiveTargetterRegion</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterRegion.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">section</span><span class="o">.</span><span class="n">region</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span>
+</div>
+<div class="viewcode-block" id="PassiveTargetterRegion.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Passive-Region:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span>
+
+
+
+
+</div></div>
+<div class="viewcode-block" id="ChannelTargeterEverywhere"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere">[docs]</a><span class="k">class</span> <span class="nc">ChannelTargeterEverywhere</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+<div class="viewcode-block" id="ChannelTargeterEverywhere.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChannelTargeterEverywhere</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ChannelTargeterEverywhere.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="ChannelTargeterEverywhere.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Everywhere&#39;</span>
+
+</div></div>
+<div class="viewcode-block" id="ChannelTargeterRegion"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion">[docs]</a><span class="k">class</span> <span class="nc">ChannelTargeterRegion</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChannelTargeterRegion.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChannelTargeterRegion</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">Region</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
+
+</div>
+<div class="viewcode-block" id="ChannelTargeterRegion.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">section</span><span class="o">.</span><span class="n">region</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span>
+</div>
+<div class="viewcode-block" id="ChannelTargeterRegion.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">region_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">return</span> <span class="s">&#39;Region: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">region_name</span>
+
+</div></div>
+<div class="viewcode-block" id="ChannelTargeterSectionPath"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath">[docs]</a><span class="k">class</span> <span class="nc">ChannelTargeterSectionPath</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChannelTargeterSectionPath.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="ChannelTargeterSectionPath.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;MM-SectionPath: ??&#39;</span>
+
+</div></div>
+<div class="viewcode-block" id="ChannelTargeterSection"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection">[docs]</a><span class="k">class</span> <span class="nc">ChannelTargeterSection</span><span class="p">(</span><span class="n">Targeter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChannelTargeterSection.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChannelTargeterSection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority</span><span class="o">=</span><span class="n">priority</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">=</span> <span class="n">section</span>
+
+</div>
+<div class="viewcode-block" id="ChannelTargeterSection.does_target_section"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.does_target_section">[docs]</a>    <span class="k">def</span> <span class="nf">does_target_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span> <span class="o">==</span> <span class="n">section</span>
+</div>
+<div class="viewcode-block" id="ChannelTargeterSection.get_description"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.get_description">[docs]</a>    <span class="k">def</span> <span class="nf">get_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">idtag</span><span class="p">:</span>
+            <span class="n">section_desc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">idtag</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">section_desc</span> <span class="o">=</span> <span class="s">&#39;[No idtag]&#39;</span>
+        <span class="k">return</span> <span class="s">&#39;Section: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">section_desc</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

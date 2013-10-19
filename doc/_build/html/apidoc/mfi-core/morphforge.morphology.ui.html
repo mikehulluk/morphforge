@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ui Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>ui Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="ui-package">
+<h1>ui Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">ui</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology.ui"></span><dl class="class">
+<dt id="morphforge.morphology.ui.MayaViRenderer">
+<em class="property">class </em><tt class="descname">MayaViRenderer</tt><big>(</big><em>morph=None</em>, <em>morphs=None</em>, <em>scalefactor=1.0</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Display a morphology using the MayaVi interface</p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.MayaViRenderer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph=None</em>, <em>morphs=None</em>, <em>scalefactor=1.0</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.ui.MayaViRenderer.dummy_test">
+<em class="property">classmethod </em><tt class="descname">dummy_test</tt><big>(</big><big>)</big></dt>
+<dd><p>Does not plot neuron - code copied from enthought
+website and only used to make sure that MayaVi is
+install propery for testing purposes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MayaViRenderer.make_video">
+<tt class="descname">make_video</tt><big>(</big><big>)</big></dt>
+<dd><p>Slightly more complex plotting - plot each
+section as a cylinders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MayaViRenderer.showSimpleCylinders">
+<tt class="descname">showSimpleCylinders</tt><big>(</big><big>)</big></dt>
+<dd><p>Slightly more complex plotting - plot each
+section as a cylinders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MayaViRenderer.show_as_points">
+<tt class="descname">show_as_points</tt><big>(</big><big>)</big></dt>
+<dd><p>Very simple plotting for speed with complex neurons - plot each
+section as a sphere about its endpoint. Only works for neurons
+with very small section lengths compared to radii</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MayaViRenderer.show_as_points_interpolated">
+<tt class="descname">show_as_points_interpolated</tt><big>(</big><em>lToRRatio=2.0</em><big>)</big></dt>
+<dd><p>Draws the points as spheres, but also interpolates inbetween the points, so the structure looks
+more &#8216;whole&#8217;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer">
+<em class="property">class </em><tt class="descname">MatPlotLibViewer</tt><big>(</big><em>morph</em>, <em>use_pca=True</em>, <em>fig_kwargs=None</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Plot Projections of a morphology onto XY, XZ, and YZ axes.</p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em>, <em>use_pca=True</em>, <em>fig_kwargs=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._figure_labels">
+<tt class="descname">_figure_labels</tt><em class="property"> = {0: ('X', 'Y'), 1: ('Z', 'Y'), 2: ('X', 'Z')}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._figure_positions">
+<tt class="descname">_figure_positions</tt><em class="property"> = {0: 221, 1: 222, 2: 223}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._figure_projections">
+<tt class="descname">_figure_projections</tt><em class="property"> = {0: array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), 1: array([[ 0.,  0.,  1.],        [ 0.,  1.,  0.],        [ 1.,  0.,  0.]]), 2: array([[ 1.,  0.,  0.],        [ 0.,  0.,  1.],        [ 0.,  1.,  0.]])}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._figure_titles">
+<tt class="descname">_figure_titles</tt><em class="property"> = {0: 'View From Above', 1: 'View From Side', 2: 'View From Front'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._projMatXY">
+<tt class="descname">_projMatXY</tt><em class="property"> = array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._projMatXZ">
+<tt class="descname">_projMatXZ</tt><em class="property"> = array([[ 0.,  0.,  1.],        [ 0.,  1.,  0.],        [ 1.,  0.,  0.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer._projMatYZ">
+<tt class="descname">_projMatYZ</tt><em class="property"> = array([[ 1.,  0.,  0.],        [ 0.,  0.,  1.],        [ 0.,  1.,  0.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer.build_draw_sub_plot">
+<tt class="descname">build_draw_sub_plot</tt><big>(</big><em>rotatedSectionDict</em>, <em>fig</em>, <em>i</em>, <em>plotLims</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer.build_plot">
+<tt class="descname">build_plot</tt><big>(</big><em>usePCA</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.MatPlotLibViewer.plot_views">
+<tt class="descname">plot_views</tt><em class="property"> = [0, 1, 2]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.ui.matplotlibviewer">
+<span id="matplotlibviewer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">matplotlibviewer</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer">
+<em class="property">class </em><tt class="descname">MatPlotLibViewer</tt><big>(</big><em>morph</em>, <em>use_pca=True</em>, <em>fig_kwargs=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/matplotlibviewer.html#MatPlotLibViewer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Plot Projections of a morphology onto XY, XZ, and YZ axes.</p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em>, <em>use_pca=True</em>, <em>fig_kwargs=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/matplotlibviewer.html#MatPlotLibViewer.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._figure_labels">
+<tt class="descname">_figure_labels</tt><em class="property"> = {0: ('X', 'Y'), 1: ('Z', 'Y'), 2: ('X', 'Z')}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._figure_positions">
+<tt class="descname">_figure_positions</tt><em class="property"> = {0: 221, 1: 222, 2: 223}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._figure_projections">
+<tt class="descname">_figure_projections</tt><em class="property"> = {0: array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]]), 1: array([[ 0.,  0.,  1.],        [ 0.,  1.,  0.],        [ 1.,  0.,  0.]]), 2: array([[ 1.,  0.,  0.],        [ 0.,  0.,  1.],        [ 0.,  1.,  0.]])}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._figure_titles">
+<tt class="descname">_figure_titles</tt><em class="property"> = {0: 'View From Above', 1: 'View From Side', 2: 'View From Front'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._projMatXY">
+<tt class="descname">_projMatXY</tt><em class="property"> = array([[ 1.,  0.,  0.],        [ 0.,  1.,  0.],        [ 0.,  0.,  1.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._projMatXZ">
+<tt class="descname">_projMatXZ</tt><em class="property"> = array([[ 0.,  0.,  1.],        [ 0.,  1.,  0.],        [ 1.,  0.,  0.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer._projMatYZ">
+<tt class="descname">_projMatYZ</tt><em class="property"> = array([[ 1.,  0.,  0.],        [ 0.,  0.,  1.],        [ 0.,  1.,  0.]])</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer.build_draw_sub_plot">
+<tt class="descname">build_draw_sub_plot</tt><big>(</big><em>rotatedSectionDict</em>, <em>fig</em>, <em>i</em>, <em>plotLims</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/matplotlibviewer.html#MatPlotLibViewer.build_draw_sub_plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer.build_plot">
+<tt class="descname">build_plot</tt><big>(</big><em>usePCA</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/matplotlibviewer.html#MatPlotLibViewer.build_plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.ui.matplotlibviewer.MatPlotLibViewer.plot_views">
+<tt class="descname">plot_views</tt><em class="property"> = [0, 1, 2]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.ui.mayavirenderer">
+<span id="mayavirenderer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mayavirenderer</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer">
+<em class="property">class </em><tt class="descname">MayaViRenderer</tt><big>(</big><em>morph=None</em>, <em>morphs=None</em>, <em>scalefactor=1.0</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Display a morphology using the MayaVi interface</p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph=None</em>, <em>morphs=None</em>, <em>scalefactor=1.0</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.dummy_test">
+<em class="property">classmethod </em><tt class="descname">dummy_test</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.dummy_test"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Does not plot neuron - code copied from enthought
+website and only used to make sure that MayaVi is
+install propery for testing purposes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.make_video">
+<tt class="descname">make_video</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.make_video"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Slightly more complex plotting - plot each
+section as a cylinders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.showSimpleCylinders">
+<tt class="descname">showSimpleCylinders</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.showSimpleCylinders"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Slightly more complex plotting - plot each
+section as a cylinders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.show_as_points">
+<tt class="descname">show_as_points</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.show_as_points"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Very simple plotting for speed with complex neurons - plot each
+section as a sphere about its endpoint. Only works for neurons
+with very small section lengths compared to radii</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.mayavirenderer.MayaViRenderer.show_as_points_interpolated">
+<tt class="descname">show_as_points_interpolated</tt><big>(</big><em>lToRRatio=2.0</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/mayavirenderer.html#MayaViRenderer.show_as_points_interpolated"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Draws the points as spheres, but also interpolates inbetween the points, so the structure looks
+more &#8216;whole&#8217;</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.ui.morphmaths">
+<span id="morphmaths-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">morphmaths</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyForRenderingOperator">
+<em class="property">class </em><tt class="descname">MorphologyForRenderingOperator</tt><big>(</big><em>morph</em>, <em>usePCA=True</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyForRenderingOperator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.ui.morphmaths.PointOperator" title="morphforge.morphology.ui.morphmaths.PointOperator"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.ui.morphmaths.PointOperator</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyForRenderingOperator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em>, <em>usePCA=True</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyForRenderingOperator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyMeanCenterer">
+<em class="property">class </em><tt class="descname">MorphologyMeanCenterer</tt><big>(</big><em>morph</em>, <em>PtSrc=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyMeanCenterer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.ui.morphmaths.Pointtranslater" title="morphforge.morphology.ui.morphmaths.Pointtranslater"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.ui.morphmaths.Pointtranslater</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyMeanCenterer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em>, <em>PtSrc=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyMeanCenterer.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyPCARotator">
+<em class="property">class </em><tt class="descname">MorphologyPCARotator</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyPCARotator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.ui.morphmaths.PointRotator" title="morphforge.morphology.ui.morphmaths.PointRotator"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.ui.morphmaths.PointRotator</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.MorphologyPCARotator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#MorphologyPCARotator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.PCAAxes">
+<em class="property">class </em><tt class="descname">PCAAxes</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PCAAxes"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.PCAAxes.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PCAAxes.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.PointOperator">
+<em class="property">class </em><tt class="descname">PointOperator</tt><big>(</big><em>operations=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointOperator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.PointOperator.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointOperator.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.PointOperator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>operations=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointOperator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.PointRotator">
+<em class="property">class </em><tt class="descname">PointRotator</tt><big>(</big><em>transMatrix</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointRotator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.PointRotator.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointRotator.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.PointRotator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>transMatrix</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#PointRotator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.ui.morphmaths.Pointtranslater">
+<em class="property">class </em><tt class="descname">Pointtranslater</tt><big>(</big><em>offset</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#Pointtranslater"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.Pointtranslater.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>pt</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#Pointtranslater.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.ui.morphmaths.Pointtranslater.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>offset</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#Pointtranslater.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.morphology.ui.morphmaths._pca">
+<tt class="descname">_pca</tt><big>(</big><em>X</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/ui/morphmaths.html#_pca"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

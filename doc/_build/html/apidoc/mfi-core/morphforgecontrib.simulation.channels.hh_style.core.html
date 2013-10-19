@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>core Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="core-package">
+<h1>core Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> Package</h2>
+<span class="target" id="module-morphforgecontrib.simulation.channels.hh_style.core"></span></div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta">
+<span id="mmalphabeta-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mmalphabeta</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta">
+<em class="property">class </em><tt class="descname">StdChlAlphaBeta</tt><big>(</big><em>name</em>, <em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars=None</em>, <em>ion=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channel.Channel" title="morphforge.simulation.base.biophysics.channel.Channel"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channel.Channel</span></tt></a></p>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.Recordables"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.ConductanceDensity">
+<tt class="descname">ConductanceDensity</tt><em class="property"> = 'ConductanceDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.CurrentDensity">
+<tt class="descname">CurrentDensity</tt><em class="property"> = 'CurrentDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.StateVar">
+<tt class="descname">StateVar</tt><em class="property"> = 'StateVariable'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.StateVarSteadyState">
+<tt class="descname">StateVarSteadyState</tt><em class="property"> = 'StateSteadyState'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.StateVarTimeConstant">
+<tt class="descname">StateVarTimeConstant</tt><em class="property"> = 'StateTimeConstant'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables.all">
+<tt class="descname">all</tt><em class="property"> = ['ConductanceDensity', 'CurrentDensity', 'StateVariable', 'StateSteadyState', 'StateTimeConstant']</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.__init__">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars=None</em>, <em>ion=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_alpha_beta_at_voltage">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">get_alpha_beta_at_voltage</tt><big>(</big><em>V</em>, <em>statevar</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.get_alpha_beta_at_voltage"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_defaults">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">get_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.get_defaults"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_prefered_units">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">get_prefered_units</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.get_prefered_units"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_state_variables">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">get_state_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.get_state_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_variables">
+<tt class="descclassname">StdChlAlphaBeta.</tt><tt class="descname">get_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabeta.html#StdChlAlphaBeta.get_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta">
+<span id="mmalphabetabeta-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mmalphabetabeta</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta">
+<em class="property">class </em><tt class="descname">StdChlAlphaBetaBeta</tt><big>(</big><em>name</em>, <em>ion</em>, <em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars</em>, <em>beta2threshold</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channel.Channel" title="morphforge.simulation.base.biophysics.channel.Channel"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channel.Channel</span></tt></a></p>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta.Recordables"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.Recordables.Current">
+<tt class="descname">Current</tt><em class="property"> = 'Current'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.Recordables.all">
+<tt class="descname">all</tt><em class="property"> = ['Current']</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.__init__">
+<tt class="descclassname">StdChlAlphaBetaBeta.</tt><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>ion</em>, <em>equation</em>, <em>conductance</em>, <em>reversalpotential</em>, <em>statevars</em>, <em>beta2threshold</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.get_alpha_beta_at_voltage">
+<tt class="descclassname">StdChlAlphaBetaBeta.</tt><tt class="descname">get_alpha_beta_at_voltage</tt><big>(</big><em>V</em>, <em>statevar</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta.get_alpha_beta_at_voltage"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.get_defaults">
+<tt class="descclassname">StdChlAlphaBetaBeta.</tt><tt class="descname">get_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta.get_defaults"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta.get_variables">
+<tt class="descclassname">StdChlAlphaBetaBeta.</tt><tt class="descname">get_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmalphabetabeta.html#StdChlAlphaBetaBeta.get_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.simulation.channels.hh_style.core.mmleak">
+<span id="mmleak-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">mmleak</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak">
+<em class="property">class </em><tt class="descname">StdChlLeak</tt><big>(</big><em>conductance</em>, <em>reversalpotential</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.biophysics.html#morphforge.simulation.base.biophysics.channel.Channel" title="morphforge.simulation.base.biophysics.channel.Channel"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channel.Channel</span></tt></a></p>
+<dl class="class">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.Recordables">
+<em class="property">class </em><tt class="descname">Recordables</tt><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak.Recordables"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.Recordables.ConductanceDensity">
+<tt class="descname">ConductanceDensity</tt><em class="property"> = 'ConductanceDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.Recordables.CurrentDensity">
+<tt class="descname">CurrentDensity</tt><em class="property"> = 'CurrentDensity'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.Recordables.all">
+<tt class="descname">all</tt><em class="property"> = ['ConductanceDensity', 'CurrentDensity']</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.__init__">
+<tt class="descclassname">StdChlLeak.</tt><tt class="descname">__init__</tt><big>(</big><em>conductance</em>, <em>reversalpotential</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.get_defaults">
+<tt class="descclassname">StdChlLeak.</tt><tt class="descname">get_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak.get_defaults"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.get_prefered_units">
+<tt class="descclassname">StdChlLeak.</tt><tt class="descname">get_prefered_units</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak.get_prefered_units"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak.get_variables">
+<tt class="descclassname">StdChlLeak.</tt><tt class="descname">get_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/simulation/channels/hh_style/core/mmleak.html#StdChlLeak.get_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

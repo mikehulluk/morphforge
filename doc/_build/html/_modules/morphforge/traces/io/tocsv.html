@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.io.tocsv &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces.io" href="../io.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.io.tocsv</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.io.tocsv</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="NeuroCSVWriter"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.io.html#morphforge.traces.io.tocsv.NeuroCSVWriter">[docs]</a><span class="k">class</span> <span class="nc">NeuroCSVWriter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NeuroCSVWriter.write_to_file"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.io.html#morphforge.traces.io.tocsv.NeuroCSVWriter.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NeuroCSVWriter</span><span class="o">.</span><span class="n">write_to_buffer</span><span class="p">(</span><span class="n">fileObj</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NeuroCSVWriter.write_to_buffer"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.io.html#morphforge.traces.io.tocsv.NeuroCSVWriter.write_to_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_buffer</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">fileObj</span><span class="p">,</span> <span class="n">traces</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">event_sets</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">time_indices</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">csv_metadata</span><span class="o">=</span><span class="bp">None</span> <span class="p">):</span>
+        <span class="n">traces</span> <span class="o">=</span> <span class="n">traces</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">event_sets</span> <span class="o">=</span> <span class="n">event_sets</span> <span class="ow">or</span> <span class="p">[]</span>
+
+        <span class="c"># Column Headers:</span>
+        <span class="n">col_headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">generate_column_header</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">trace</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">traces</span><span class="p">)]</span>
+
+        <span class="c"># Event Data:</span>
+        <span class="n">evt_headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">generate_eventset_header</span><span class="p">(</span><span class="n">evset</span><span class="p">)</span> <span class="k">for</span> <span class="n">evset</span> <span class="ow">in</span> <span class="n">event_sets</span><span class="p">]</span>
+
+        <span class="c"># Build the Header:</span>
+        <span class="n">header_meta</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;&#39;</span> <span class="k">if</span> <span class="n">csv_metadata</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="s">&#39;!</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">csv_metadata</span><span class="p">))</span>
+        <span class="n">header_cols</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col_headers</span><span class="p">)</span>
+        <span class="n">header_events</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">evt_headers</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">header_meta</span><span class="p">,</span> <span class="n">header_cols</span><span class="p">,</span> <span class="n">header_events</span><span class="p">])</span>
+
+
+
+
+
+        <span class="c"># Build the Column Data:</span>
+        <span class="c">#time_indices = traces[0]._time</span>
+
+        <span class="n">col_width</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">def</span> <span class="nf">missing_format</span><span class="p">():</span> 
+            <span class="k">return</span> <span class="s">&quot;-&quot;</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">col_width</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">data_format</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>    
+            <span class="k">return</span> <span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">col_width</span><span class="p">)</span>
+
+        <span class="n">col_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">traces</span><span class="p">:</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">missing_format</span><span class="p">()]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_indices</span><span class="p">)</span>
+
+            <span class="n">tr_valid_times_bool</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">time_within_trace</span><span class="p">(</span><span class="n">time_indices</span><span class="p">)</span>
+            <span class="n">valid_time_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tr_valid_times_bool</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">valid_time_data_vals</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span><span class="n">time_indices</span><span class="p">[</span><span class="n">valid_time_indices</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">tIndex</span><span class="p">,</span> <span class="n">data_val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">valid_time_indices</span><span class="p">,</span> <span class="n">valid_time_data_vals</span><span class="p">):</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">tIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">magnitude</span><span class="p">))</span>
+            <span class="n">col_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c"># Write the header</span>
+        <span class="n">fileObj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+        <span class="n">fileObj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+        <span class="c"># Write the data:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">time_indices</span><span class="p">):</span>
+            <span class="n">tstr</span> <span class="o">=</span> <span class="n">data_format</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+            <span class="n">cstrings</span> <span class="o">=</span> <span class="p">[</span><span class="n">cdata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">cdata</span> <span class="ow">in</span> <span class="n">col_data</span><span class="p">]</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">tstr</span><span class="p">]</span> <span class="o">+</span> <span class="n">cstrings</span><span class="p">)</span>
+            <span class="n">fileObj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+        <span class="c"># print header</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NeuroCSVWriter.generate_column_header"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.io.html#morphforge.traces.io.tocsv.NeuroCSVWriter.generate_column_header">[docs]</a>    <span class="k">def</span> <span class="nf">generate_column_header</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">tr</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">data_dct</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="n">tr</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> 
+                    <span class="s">&#39;unit&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data_unit</span><span class="p">),</span>
+                    <span class="s">&#39;tags&#39;</span><span class="p">:</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">tags</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s">&#39;#! COLUMN</span><span class="si">%d</span><span class="s">: &#39;</span> <span class="o">%</span> <span class="n">index</span><span class="p">)</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_dct</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NeuroCSVWriter.generate_eventset_header"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.io.html#morphforge.traces.io.tocsv.NeuroCSVWriter.generate_eventset_header">[docs]</a>    <span class="k">def</span> <span class="nf">generate_eventset_header</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">eventset</span><span class="p">):</span>
+        <span class="n">data_dct</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="n">eventset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> 
+             <span class="s">&#39;tags&#39;</span><span class="p">:</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eventset</span><span class="o">.</span><span class="n">tags</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s">&#39;#@ EVENT </span><span class="si">%s</span><span class="s"> &#39;</span> <span class="o">%</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data_dct</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%2.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">event</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">eventset</span><span class="p">])</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

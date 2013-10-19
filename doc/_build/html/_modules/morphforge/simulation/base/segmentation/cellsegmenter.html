@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.base.segmentation.cellsegmenter &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.base.segmentation" href="../segmentation.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.base.segmentation.cellsegmenter</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.base.segmentation.cellsegmenter</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+
+<div class="viewcode-block" id="AbstCellSegmenter"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter">[docs]</a><span class="k">class</span> <span class="nc">AbstCellSegmenter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AbstCellSegmenter.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AbstCellSegmenter</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">cell</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;CellSegmenters no longer contain references to cells, to allow for sharing&#39;</span>
+        <span class="c">#self.cell = cell</span>
+
+    <span class="c">#def connect_to_cell(self, cell):</span>
+    <span class="c">#    assert self.cell is None</span>
+    <span class="c">#    self.cell = cell</span>
+</div>
+<div class="viewcode-block" id="AbstCellSegmenter.get_num_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segments">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="AbstCellSegmenter.get_num_segment_total"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segment_total">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_segment_total</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_num_segments</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">morphology</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="AbstCellSegmenter.get_num_segment_region"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.AbstCellSegmenter.get_num_segment_region">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_segment_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_num_segments</span><span class="p">(</span><span class="n">section</span><span class="p">)</span> <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">region</span><span class="p">])</span>
+
+</div></div>
+<div class="viewcode-block" id="CellSegmenterStd"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd">[docs]</a><span class="k">class</span> <span class="nc">CellSegmenterStd</span><span class="p">(</span><span class="n">AbstCellSegmenter</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellSegmenterStd.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CellSegmenterStd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellSegmenterStd.get_num_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd.get_num_segments">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_n_segments</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellSegmenterStd._get_n_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenterStd._get_n_segments">[docs]</a>    <span class="k">def</span> <span class="nf">_get_n_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+
+</div></div>
+<div class="viewcode-block" id="CellSegmenter_MaxCompartmentLength"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength">[docs]</a><span class="k">class</span> <span class="nc">CellSegmenter_MaxCompartmentLength</span><span class="p">(</span><span class="n">CellSegmenterStd</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellSegmenter_MaxCompartmentLength.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_segment_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CellSegmenter_MaxCompartmentLength</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c"># TODO: MAKE SURE THIS</span>
+        <span class="c">#if isinstance(max_segment_length)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_segment_length</span> <span class="o">=</span> <span class="n">max_segment_length</span>
+</div>
+<div class="viewcode-block" id="CellSegmenter_MaxCompartmentLength._get_n_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxCompartmentLength._get_n_segments">[docs]</a>    <span class="k">def</span> <span class="nf">_get_n_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_segment_length</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+</div></div>
+<div class="viewcode-block" id="CellSegmenter_SingleSegment"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_SingleSegment">[docs]</a><span class="k">class</span> <span class="nc">CellSegmenter_SingleSegment</span><span class="p">(</span><span class="n">CellSegmenterStd</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellSegmenter_SingleSegment._get_n_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_SingleSegment._get_n_segments">[docs]</a>    <span class="k">def</span> <span class="nf">_get_n_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+</div></div>
+<div class="viewcode-block" id="CellSegmenter_MaxLengthByID"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID">[docs]</a><span class="k">class</span> <span class="nc">CellSegmenter_MaxLengthByID</span><span class="p">(</span><span class="n">CellSegmenterStd</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CellSegmenter_MaxLengthByID.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section_id_segment_maxsizes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">default_segment_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_segment_length</span> <span class="o">=</span> <span class="n">default_segment_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">section_id_segment_sizes</span> <span class="o">=</span> <span class="n">section_id_segment_maxsizes</span> <span class="k">if</span> <span class="n">section_id_segment_maxsizes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="p">{}</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">CellSegmenter_MaxLengthByID</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CellSegmenter_MaxLengthByID._get_n_segments"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.base.segmentation.html#morphforge.simulation.base.segmentation.cellsegmenter.CellSegmenter_MaxLengthByID._get_n_segments">[docs]</a>    <span class="k">def</span> <span class="nf">_get_n_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="n">max_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">section_id_segment_sizes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">idtag</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_segment_length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span> <span class="o">/</span> <span class="n">max_size</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

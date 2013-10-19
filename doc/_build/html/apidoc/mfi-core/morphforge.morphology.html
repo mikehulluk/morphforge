@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphology Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphology Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="morphology-package">
+<h1>morphology Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">morphology</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology"></span><p>A package for handling neuron morphology models</p>
+<p>This package provides an object model for representing neuronal morphologies,
+as well as tools for import/export from files; construction of morphologies
+within python; traversal of the datastructures; rendering to MayaVI &amp;
+matplotlib and export to triangular mesh.</p>
+<p>Internally, morphforge provides a dual representation for morphologies, either
+<strong>TreeBased:</strong> (<a class="reference internal" href="morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree" title="morphforge.morphology.core.tree.MorphologyTree"><tt class="xref py py-class docutils literal"><span class="pre">MorphologyTree</span></tt></a>) or <strong>VertexBased:</strong>
+(<a class="reference internal" href="morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray" title="morphforge.morphology.core.array.MorphologyArray"><tt class="xref py py-class docutils literal"><span class="pre">MorphologyArray</span></tt></a>). More information about these can
+found at XX.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">&lt;LINK&gt;</p>
+</div>
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.builders.html">builders Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.builders.html#id1"><tt class="docutils literal"><span class="pre">builders</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.builders.html#module-morphforge.morphology.builders.morphologybuilder"><tt class="docutils literal"><span class="pre">morphologybuilder</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.comparison.html">comparison Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.comparison.html#id1"><tt class="docutils literal"><span class="pre">comparison</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.comparison.html#module-morphforge.morphology.comparison.comparearrays"><tt class="docutils literal"><span class="pre">comparearrays</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.conventions.html">conventions Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.conventions.html#id1"><tt class="docutils literal"><span class="pre">conventions</span></tt> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.conversion.html">conversion Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.conversion.html#id1"><tt class="docutils literal"><span class="pre">conversion</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.conversion.html#module-morphforge.morphology.conversion.internal_representation_converter"><tt class="docutils literal"><span class="pre">internal_representation_converter</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.conversion.html#module-morphforge.morphology.conversion.region_to_int_bimap"><tt class="docutils literal"><span class="pre">region_to_int_bimap</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.core.html">core Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.core.html#id1"><tt class="docutils literal"><span class="pre">core</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.core.html#module-morphforge.morphology.core.array"><tt class="docutils literal"><span class="pre">array</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.core.html#module-morphforge.morphology.core.base"><tt class="docutils literal"><span class="pre">base</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.core.html#module-morphforge.morphology.core.morphologyconsistency"><tt class="docutils literal"><span class="pre">morphologyconsistency</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.core.html#module-morphforge.morphology.core.tree"><tt class="docutils literal"><span class="pre">tree</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.errors.html">errors Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.errors.html#id1"><tt class="docutils literal"><span class="pre">errors</span></tt> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.exporter.html">exporter Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.exporter.html#id1"><tt class="docutils literal"><span class="pre">exporter</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.exporter.html#module-morphforge.morphology.exporter.export_array_swc"><tt class="docutils literal"><span class="pre">export_array_swc</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.exporter.html#module-morphforge.morphology.exporter.export_tree_swc"><tt class="docutils literal"><span class="pre">export_tree_swc</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.exporter.html#module-morphforge.morphology.exporter.morphologyexporter"><tt class="docutils literal"><span class="pre">morphologyexporter</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.importer.html">importer Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.importer.html#id1"><tt class="docutils literal"><span class="pre">importer</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.importer.html#module-morphforge.morphology.importer.import_array_swc"><tt class="docutils literal"><span class="pre">import_array_swc</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.importer.html#module-morphforge.morphology.importer.import_tree_dictionary"><tt class="docutils literal"><span class="pre">import_tree_dictionary</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.importer.html#module-morphforge.morphology.importer.morphologyimporter"><tt class="docutils literal"><span class="pre">morphologyimporter</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.mesh.html">mesh Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.mesh.html#id1"><tt class="docutils literal"><span class="pre">mesh</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.mesh.html#module-morphforge.morphology.mesh.builder_rings"><tt class="docutils literal"><span class="pre">builder_rings</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.mesh.html#module-morphforge.morphology.mesh.mesh"><tt class="docutils literal"><span class="pre">mesh</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.mesh.html#module-morphforge.morphology.mesh.util"><tt class="docutils literal"><span class="pre">util</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.mesh.html#module-morphforge.morphology.mesh.writer_ply"><tt class="docutils literal"><span class="pre">writer_ply</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.ui.html">ui Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.ui.html#id1"><tt class="docutils literal"><span class="pre">ui</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.ui.html#module-morphforge.morphology.ui.matplotlibviewer"><tt class="docutils literal"><span class="pre">matplotlibviewer</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.ui.html#module-morphforge.morphology.ui.mayavirenderer"><tt class="docutils literal"><span class="pre">mayavirenderer</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.ui.html#module-morphforge.morphology.ui.morphmaths"><tt class="docutils literal"><span class="pre">morphmaths</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.util.html">util Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.util.html#id1"><tt class="docutils literal"><span class="pre">util</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.util.html#module-morphforge.morphology.util.morphlocator"><tt class="docutils literal"><span class="pre">morphlocator</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.morphology.visitor.html">visitor Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.visitor.html#id1"><tt class="docutils literal"><span class="pre">visitor</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.visitor.html#module-morphforge.morphology.visitor.morphologyoperators"><tt class="docutils literal"><span class="pre">morphologyoperators</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.visitor.html#module-morphforge.morphology.visitor.visitorbaseclasses"><tt class="docutils literal"><span class="pre">visitorbaseclasses</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.morphology.visitor.html#module-morphforge.morphology.visitor.visitorfactory"><tt class="docutils literal"><span class="pre">visitorfactory</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

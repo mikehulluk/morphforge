@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>componentlibraries Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>componentlibraries Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="componentlibraries-package">
+<h1>componentlibraries Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">componentlibraries</span></tt> Package</h2>
+<span class="target" id="module-morphforge.componentlibraries"></span><dl class="class">
+<dt id="morphforge.componentlibraries.CellLibrary">
+<em class="property">class </em><tt class="descname">CellLibrary</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.CellLibrary._cells">
+<tt class="descname">_cells</tt><em class="property"> = {('HH52', None): &lt;function build_hh_cell at 0x665e050&gt;, ('Single Compartment Passive', None): &lt;function build_passive_cell at 0x665e0c8&gt;}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellLibrary.create_cell">
+<em class="property">classmethod </em><tt class="descname">create_cell</tt><big>(</big><em>sim</em>, <em>modelsrc</em>, <em>celltype=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellLibrary.get_cellfunctor">
+<em class="property">classmethod </em><tt class="descname">get_cellfunctor</tt><big>(</big><em>modelsrc</em>, <em>celltype</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellLibrary.register">
+<em class="property">classmethod </em><tt class="descname">register</tt><big>(</big><em>celltype</em>, <em>modelsrc</em>, <em>cell_functor</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellLibrary.register_cell">
+<em class="property">classmethod </em><tt class="descname">register_cell</tt><big>(</big><em>cell_builder</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.componentlibraries.ChannelLibrary">
+<em class="property">class </em><tt class="descname">ChannelLibrary</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.ChannelLibrary._channels">
+<tt class="descname">_channels</tt><em class="property"> = {('HH52', None, 'K'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6650f90&gt;, ('HH52', None, 'Na'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6650f50&gt;, ('HH52', None, 'Lk'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6585450&gt;}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.ChannelLibrary.get_channel">
+<em class="property">classmethod </em><tt class="descname">get_channel</tt><big>(</big><em>channeltype</em>, <em>env</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.ChannelLibrary.get_channel_functor">
+<em class="property">classmethod </em><tt class="descname">get_channel_functor</tt><big>(</big><em>channeltype</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.ChannelLibrary.register_channel">
+<em class="property">classmethod </em><tt class="descname">register_channel</tt><big>(</big><em>channeltype</em>, <em>chl_functor</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.ChannelLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.componentlibraries.CellBuilder">
+<em class="property">class </em><tt class="descname">CellBuilder</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.componentlibraries.CellBuilder.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>sim</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.CellBuilder._n_cells">
+<tt class="descname">_n_cells</tt><em class="property"> = 0</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.CellBuilder.get_cell_type">
+<tt class="descname">get_cell_type</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.CellBuilder.get_model">
+<tt class="descname">get_model</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.CellBuilder.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.CellBuilder.get_name_prefix">
+<tt class="descname">get_name_prefix</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.CellBuilder.get_next_cell_number">
+<em class="property">classmethod </em><tt class="descname">get_next_cell_number</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.componentlibraries.MorphologyLibrary">
+<em class="property">class </em><tt class="descname">MorphologyLibrary</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.MorphologyLibrary._morphology_functors">
+<tt class="descname">_morphology_functors</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.MorphologyLibrary.get_morphology">
+<em class="property">classmethod </em><tt class="descname">get_morphology</tt><big>(</big><em>celltype</em>, <em>modelsrc=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.MorphologyLibrary.get_morphology_functor">
+<em class="property">classmethod </em><tt class="descname">get_morphology_functor</tt><big>(</big><em>celltype</em>, <em>modelsrc=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.MorphologyLibrary.register_morphology">
+<em class="property">classmethod </em><tt class="descname">register_morphology</tt><big>(</big><em>modelsrc</em>, <em>celltype</em>, <em>morph_functor</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.MorphologyLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.componentlibraries.builderbaseclass">
+<span id="builderbaseclass-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">builderbaseclass</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder">
+<em class="property">class </em><tt class="descname">CellBuilder</tt><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>sim</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder._n_cells">
+<tt class="descname">_n_cells</tt><em class="property"> = 0</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.get_cell_type">
+<tt class="descname">get_cell_type</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.get_cell_type"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.get_model">
+<tt class="descname">get_model</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.get_model"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.get_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.get_name_prefix">
+<tt class="descname">get_name_prefix</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.get_name_prefix"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.builderbaseclass.CellBuilder.get_next_cell_number">
+<em class="property">classmethod </em><tt class="descname">get_next_cell_number</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/builderbaseclass.html#CellBuilder.get_next_cell_number"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.componentlibraries.celllibrary">
+<span id="celllibrary-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">celllibrary</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary">
+<em class="property">class </em><tt class="descname">CellLibrary</tt><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary._cells">
+<tt class="descname">_cells</tt><em class="property"> = {('HH52', None): &lt;function build_hh_cell at 0x665e050&gt;, ('Single Compartment Passive', None): &lt;function build_passive_cell at 0x665e0c8&gt;}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary.create_cell">
+<em class="property">classmethod </em><tt class="descname">create_cell</tt><big>(</big><em>sim</em>, <em>modelsrc</em>, <em>celltype=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary.create_cell"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary.get_cellfunctor">
+<em class="property">classmethod </em><tt class="descname">get_cellfunctor</tt><big>(</big><em>modelsrc</em>, <em>celltype</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary.get_cellfunctor"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary.register">
+<em class="property">classmethod </em><tt class="descname">register</tt><big>(</big><em>celltype</em>, <em>modelsrc</em>, <em>cell_functor</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary.register"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary.register_cell">
+<em class="property">classmethod </em><tt class="descname">register_cell</tt><big>(</big><em>cell_builder</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary.register_cell"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.celllibrary.CellLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/celllibrary.html#CellLibrary.summary_table"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.componentlibraries.channellibrary">
+<span id="channellibrary-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">channellibrary</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary">
+<em class="property">class </em><tt class="descname">ChannelLibrary</tt><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#ChannelLibrary"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary._channels">
+<tt class="descname">_channels</tt><em class="property"> = {('HH52', None, 'K'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6650f90&gt;, ('HH52', None, 'Na'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6650f50&gt;, ('HH52', None, 'Lk'): &lt;morphforge.componentlibraries.channellibrary.cached_functor object at 0x6585450&gt;}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary.get_channel">
+<em class="property">classmethod </em><tt class="descname">get_channel</tt><big>(</big><em>channeltype</em>, <em>env</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#ChannelLibrary.get_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary.get_channel_functor">
+<em class="property">classmethod </em><tt class="descname">get_channel_functor</tt><big>(</big><em>channeltype</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#ChannelLibrary.get_channel_functor"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary.register_channel">
+<em class="property">classmethod </em><tt class="descname">register_channel</tt><big>(</big><em>channeltype</em>, <em>chl_functor</em>, <em>modelsrc=None</em>, <em>celltype=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#ChannelLibrary.register_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.channellibrary.ChannelLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#ChannelLibrary.summary_table"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.componentlibraries.channellibrary.cached_functor">
+<em class="property">class </em><tt class="descname">cached_functor</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#cached_functor"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Since we only want functors to return a single object, this 
+decorator is able to cache the output results</p>
+<dl class="method">
+<dt id="morphforge.componentlibraries.channellibrary.cached_functor.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#cached_functor.__call__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.componentlibraries.channellibrary.cached_functor.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/channellibrary.html#cached_functor.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.componentlibraries.morphologylibrary">
+<span id="morphologylibrary-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">morphologylibrary</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary">
+<em class="property">class </em><tt class="descname">MorphologyLibrary</tt><a class="reference internal" href="../../_modules/morphforge/componentlibraries/morphologylibrary.html#MorphologyLibrary"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary._morphology_functors">
+<tt class="descname">_morphology_functors</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary.get_morphology">
+<em class="property">classmethod </em><tt class="descname">get_morphology</tt><big>(</big><em>celltype</em>, <em>modelsrc=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/morphologylibrary.html#MorphologyLibrary.get_morphology"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary.get_morphology_functor">
+<em class="property">classmethod </em><tt class="descname">get_morphology_functor</tt><big>(</big><em>celltype</em>, <em>modelsrc=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/morphologylibrary.html#MorphologyLibrary.get_morphology_functor"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary.register_morphology">
+<em class="property">classmethod </em><tt class="descname">register_morphology</tt><big>(</big><em>modelsrc</em>, <em>celltype</em>, <em>morph_functor</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/morphologylibrary.html#MorphologyLibrary.register_morphology"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.morphologylibrary.MorphologyLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/morphologylibrary.html#MorphologyLibrary.summary_table"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.componentlibraries.psm_template_library">
+<span id="psm-template-library-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">psm_template_library</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary">
+<em class="property">class </em><tt class="descname">PostSynapticTemplateLibrary</tt><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary._dummy_instantiate">
+<em class="property">classmethod </em><tt class="descname">_dummy_instantiate</tt><big>(</big><em>modelsrc</em>, <em>synapsetype</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary._dummy_instantiate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary._postsynaptic_template_functor_info">
+<tt class="descname">_postsynaptic_template_functor_info</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary._sim_instances">
+<tt class="descname">_sim_instances</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary.get_template">
+<em class="property">classmethod </em><tt class="descname">get_template</tt><big>(</big><em>sim</em>, <em>modelsrc</em>, <em>synapsetype</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary.get_template"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary.instantiate">
+<em class="property">classmethod </em><tt class="descname">instantiate</tt><big>(</big><em>sim</em>, <em>modelsrc</em>, <em>synapsetype</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary.instantiate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary.register_template_specialisation">
+<em class="property">classmethod </em><tt class="descname">register_template_specialisation</tt><big>(</big><em>modelsrc</em>, <em>synapsetype</em>, <em>template_type</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary.register_template_specialisation"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.componentlibraries.psm_template_library.PostSynapticTemplateLibrary.summary_table">
+<em class="property">classmethod </em><tt class="descname">summary_table</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/componentlibraries/psm_template_library.html#PostSynapticTemplateLibrary.summary_table"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

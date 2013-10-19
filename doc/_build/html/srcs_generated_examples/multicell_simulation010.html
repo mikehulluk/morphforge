@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>16. 2 cells connected with an AMPA synapse &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../index.html" />
+    <link rel="up" title="Morphology Examples" href="../srcs/examples/examples.html" />
+    <link rel="next" title="17. The responses of two cells connected by a gap junction to a step current injection into the first" href="multicell_simulation020.html" />
+    <link rel="prev" title="15. Applying different channel densities over a cell" href="singlecell_simulation080.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>16. 2 cells connected with an AMPA synapse</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="singlecell_simulation080.html">15. Applying different channel densities over a cell</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="multicell_simulation020.html">17. The responses of two cells connected by a gap junction to a step current injection into the first</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="cells-connected-with-an-ampa-synapse">
+<h1>16. 2 cells connected with an AMPA synapse</h1>
+<p>2 cells connected with an AMPA synapse.</p>
+<p>Timed input into a cell causes an action potential, which causes an EPSP in
+another cell via an excitatry synapse.</p>
+<div class="section" id="code">
+<h2>Code</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">import</span> <span class="n">SynapticTriggerAtTimes</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">import</span> <span class="n">SynapticTriggerByVoltageThreshold</span>
+
+
+<span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.synapse_templates.neurounit</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="kn">from</span> <span class="nn">morphforge.stdimports</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c">#from morphforgecontrib.simulation.channels.simulatorbuiltin.sim_builtin_core import BuiltinChannel</span>
+<span class="kn">from</span> <span class="nn">morphforgecontrib.data_library.stdmodels</span> <span class="kn">import</span> <span class="n">StandardModels</span>
+
+
+<span class="k">def</span> <span class="nf">simulate_chls_on_neuron</span><span class="p">():</span>
+
+
+    <span class="c"># Create the environment:</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">NEURONEnvironment</span><span class="p">()</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Simulation</span><span class="p">()</span>
+
+    <span class="c"># Create a cell:</span>
+    <span class="n">cell1</span> <span class="o">=</span> <span class="n">CellLibrary</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">celltype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">modelsrc</span><span class="o">=</span><span class="n">StandardModels</span><span class="o">.</span><span class="n">HH52</span><span class="p">,</span> <span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+    <span class="n">cell2</span> <span class="o">=</span> <span class="n">CellLibrary</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">celltype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">modelsrc</span><span class="o">=</span><span class="n">StandardModels</span><span class="o">.</span><span class="n">HH52</span><span class="p">,</span> <span class="n">sim</span><span class="o">=</span><span class="n">sim</span><span class="p">)</span>
+
+
+    <span class="n">exp2template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">PostSynapticMechTemplate</span><span class="p">(</span>
+        <span class="n">PostSynapticMech_Exp2SynNMDA_Base</span><span class="p">,</span>
+        <span class="n">template_name</span><span class="o">=</span><span class="s">&#39;expsyn2tmpl&#39;</span><span class="p">,</span>
+        <span class="n">tau_open</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">tau_close</span><span class="o">=</span><span class="mi">20</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">e_rev</span><span class="o">=</span><span class="mi">0</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mV</span><span class="p">,</span> <span class="n">popening</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">peak_conductance</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&quot;1:nS&quot;</span><span class="p">),</span>  <span class="n">vdep</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+
+    <span class="n">syn</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_synapse</span><span class="p">(</span>
+            <span class="n">trigger</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">SynapticTrigger</span><span class="p">(</span>
+                                     <span class="n">SynapticTriggerAtTimes</span><span class="p">,</span>
+                                     <span class="n">time_list</span> <span class="o">=</span>   <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="mi">115</span><span class="p">,</span> <span class="mi">115</span><span class="p">,</span><span class="mi">115</span><span class="p">)</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">ms</span> <span class="p">,</span>
+                                     <span class="p">),</span>
+            <span class="n">postsynaptic_mech</span> <span class="o">=</span> <span class="n">exp2template</span><span class="o">.</span><span class="n">instantiate</span><span class="p">(</span><span class="n">cell_location</span> <span class="o">=</span> <span class="n">cell1</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span> <span class="p">),</span>
+           <span class="p">)</span>
+
+    <span class="n">syn</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_synapse</span><span class="p">(</span>
+            <span class="n">trigger</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">SynapticTrigger</span><span class="p">(</span>
+                                     <span class="n">SynapticTriggerByVoltageThreshold</span><span class="p">,</span>
+                                     <span class="n">cell_location</span><span class="o">=</span><span class="n">cell1</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span>
+                                     <span class="n">voltage_threshold</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0:mV&quot;</span><span class="p">),</span>
+                                     <span class="n">delay</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&#39;1:ms&#39;</span><span class="p">),</span>
+                                     <span class="p">),</span>
+            <span class="n">postsynaptic_mech</span> <span class="o">=</span> <span class="n">exp2template</span><span class="o">.</span><span class="n">instantiate</span><span class="p">(</span><span class="n">cell_location</span> <span class="o">=</span> <span class="n">cell2</span><span class="o">.</span><span class="n">soma</span><span class="p">,</span> <span class="p">),</span>
+           <span class="p">)</span>
+
+
+
+
+    <span class="c"># Define what to record:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Voltage</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SomaVoltage1&quot;</span><span class="p">,</span> <span class="n">cell_location</span> <span class="o">=</span> <span class="n">cell1</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">what</span><span class="o">=</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Voltage</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SomaVoltage2&quot;</span><span class="p">,</span> <span class="n">cell_location</span> <span class="o">=</span> <span class="n">cell2</span><span class="o">.</span><span class="n">soma</span><span class="p">)</span>
+
+
+    <span class="c"># run the simulation</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">simulate_chls_on_neuron</span><span class="p">()</span>
+<span class="n">TagViewer</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">timerange</span><span class="o">=</span><span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="figures">
+<h2>Figures</h2>
+<div class="figure" style="width: 4in">
+<img alt="../_images/multicell_simulation010_out1.png" src="../_images/multicell_simulation010_out1.png" style="width: 3in;" />
+<p class="caption">Download <a class="reference download internal" href="../_downloads/multicell_simulation010_out1.png"><tt class="xref download docutils literal"><span class="pre">Figure</span></tt></a></p>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output</h2>
+<div class="highlight-bash"><div class="highlight"><pre>    No handlers could be found <span class="k">for </span>logger <span class="s2">&quot;neurounits&quot;</span>
+2013-10-19 15:41:12,539 - morphforge.core.logmgr - INFO - Logger Started OK
+2013-10-19 15:41:12,539 - DISABLEDLOGGING - INFO - _run_spawn<span class="o">()</span> <span class="o">[</span>Pickling Sim<span class="o">]</span>
+No handlers could be found <span class="k">for </span>logger <span class="s2">&quot;neurounits&quot;</span>
+2013-10-19 15:41:14,127 - morphforge.core.logmgr - INFO - Logger Started OK
+2013-10-19 15:41:14,127 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+NEURON -- Release 7.1 <span class="o">(</span>359:7f113b76a94b<span class="o">)</span> 2009-10-26
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+See http://www.neuron.yale.edu/credits.html
+
+Openning ScriptFlags
+/auto/homes/mh735/hw/NeuroUnits/ext_deps
+Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
+Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/37/37e71657dcc1a402a4534552a1e69169.bundle <span class="o">(</span>17k<span class="o">)</span> : 0.779 seconds
+<span class="nb">set</span><span class="o">([</span><span class="s1">&#39;conductance&#39;</span>, <span class="s1">&#39;reversalpotential&#39;</span><span class="o">])</span>
+__dict__ <span class="o">{</span><span class="s1">&#39;mm_neuronNumber&#39;</span>: None, <span class="s1">&#39;cachedNeuronSuffix&#39;</span>: None, <span class="s1">&#39;reversalpotential&#39;</span>: array<span class="o">(</span>-54.3<span class="o">)</span> * mV, <span class="s1">&#39;_name&#39;</span>: <span class="s1">&#39;LkChl&#39;</span>, <span class="s1">&#39;_simulation&#39;</span>: None, <span class="s1">&#39;conductance&#39;</span>: array<span class="o">(</span>3.0<span class="o">)</span> * s**3*A**2/<span class="o">(</span>kg*m**4<span class="o">)}</span>
+
+Executing: /opt/nrn//x86_64/bin/modlunit /local/scratch/mh735/tmp/morphforge/tmp/tmp_d89dd47021cf0f922e1856874a78ea72.mod
+/local/scratch/mh735/tmp/morphforge/tmp/modbuild_14704
+Executing: /opt/nrn//x86_64/bin/nocmodl tmp_d89dd47021cf0f922e1856874a78ea72.mod
+Executing: /opt/nrn//share/nrn/libtool --mode<span class="o">=</span>compile gcc -DHAVE_CONFIG_H   -I<span class="s2">&quot;.&quot;</span>  -I<span class="s2">&quot;..&quot;</span>  -I<span class="s2">&quot;/opt/nrn//include/nrn&quot;</span>  -I<span class="s2">&quot;/opt/nrn//x86_64/lib&quot;</span>    -g -O2 -c -o tmp_d89dd47021cf0f922e1856874a78ea72.lo tmp_d89dd47021cf0f922e1856874a78ea72.c
+Executing: /opt/nrn//share/nrn/libtool --mode<span class="o">=</span>link gcc -module  -g -O2  -shared  -o tmp_d89dd47021cf0f922e1856874a78ea72.la  -rpath /opt/nrn//x86_64/libs  tmp_d89dd47021cf0f922e1856874a78ea72.lo  -L/opt/nrn//x86_64/lib -L/opt/nrn//x86_64/lib  /opt/nrn//x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl
+OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn//include/nrn -I/opt/nrn//x86_64/lib -g -O2 -c tmp_d89dd47021cf0f922e1856874a78ea72.c  -fPIC -DPIC -o .libs/tmp_d89dd47021cf0f922e1856874a78ea72.o
+
+OP2: libtool: link: gcc -shared  .libs/tmp_d89dd47021cf0f922e1856874a78ea72.o   -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -L/opt/nrn//x86_64/lib /opt/nrn/x86_64/lib/libnrniv.so /opt/nrn/x86_64/lib/libnrnoc.so /opt/nrn/x86_64/lib/liboc.so /opt/nrn/x86_64/lib/libmemacs.so /opt/nrn/x86_64/lib/libnrnmpi.so /opt/nrn/x86_64/lib/libscopmath.so /opt/nrn/x86_64/lib/libsparse13.so -lreadline -lncurses /opt/nrn/x86_64/lib/libivoc.so /opt/nrn/x86_64/lib/libneuron_gnu.so /opt/nrn/x86_64/lib/libmeschach.so /opt/nrn/x86_64/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_d89dd47021cf0f922e1856874a78ea72.so.0 -o .libs/tmp_d89dd47021cf0f922e1856874a78ea72.so.0.0.0
+libtool: link: <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so.0&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so.0.0.0&quot;</span> <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so.0&quot;</span><span class="o">)</span>
+libtool: link: <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so.0.0.0&quot;</span> <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.so&quot;</span><span class="o">)</span>
+libtool: link: <span class="o">(</span> <span class="nb">cd</span> <span class="s2">&quot;.libs&quot;</span> <span class="o">&amp;&amp;</span> rm -f <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.la&quot;</span> <span class="o">&amp;&amp;</span> ln -s <span class="s2">&quot;../tmp_d89dd47021cf0f922e1856874a78ea72.la&quot;</span> <span class="s2">&quot;tmp_d89dd47021cf0f922e1856874a78ea72.la&quot;</span> <span class="o">)</span>
+
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_468d766f8a3c48bce3bbb5aa16488aa9.so
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_039f076519486e21356008ffe3ac5ef7.so
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_10528623af7b919560a2e2606bf0cd9c.so
+loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_e53416588be6b02ed52a843da0f43a15.so
+    1
+    1
+    0.01
+    0
+    1
+    50000
+    1
+    50000
+    1
+Running Simulation
+Time <span class="k">for </span>Extracting Data: <span class="o">(</span>2 records<span class="o">)</span> 0.00108790397644
+Running simulation : 0.652 seconds
+Post-processing : 0.004 seconds
+Entire load-run-save <span class="nb">time</span> : 1.435 seconds
+Suceeded
+/auto/homes/mh735/hw/NeuroUnits/ext_deps
+Openning ScriptFlags
+Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
+PlotMnager:Saving  _output/figures/multicell_simulation010/<span class="o">{</span>png,svg<span class="o">}</span>/fig000_Autosave_figure_1.<span class="o">{</span>png,svg<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="singlecell_simulation080.html">15. Applying different channel densities over a cell</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="multicell_simulation020.html">17. The responses of two cells connected by a gap junction to a step current injection into the first</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

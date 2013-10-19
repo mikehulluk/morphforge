@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.neuron.hocmodbuilders" href="../hocmodbuilders.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">Cheetah.Template</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.visitor.visitorbaseclasses</span> <span class="kn">import</span> <span class="n">SectionIndexerDF</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHOCSections</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHocFileData</span>
+
+<span class="n">_cell_templ_tmpl</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">v_init = $cell.initial_voltage.rescale(&#39;mV&#39;).magnitude</span>
+
+<span class="s">// Cell Template for: $cell_template_name</span>
+<span class="s">#set nSections = len($section_indexer)</span>
+<span class="s">begintemplate $cell_template_name</span>
+<span class="s">    create internalsections[$nSections]</span>
+<span class="s">    public internalsections</span>
+
+<span class="s">    proc init() {</span>
+<span class="s">        create internalsections[$nSections]</span>
+
+<span class="s">        #for $section in $cell.morphology:</span>
+<span class="s">        internalsections[$section_indexer[$section]] {</span>
+
+
+<span class="s">            // Section Geometry:</span>
+<span class="s">            L = $section.get_length</span>
+<span class="s">            #set p_d = $section.p_r * 2.0</span>
+<span class="s">            #set d_d = $section.d_r * 2.0</span>
+<span class="s">            diam(0.0) = $p_d</span>
+<span class="s">            diam(1.0) = $d_d</span>
+
+<span class="s">            // Passive Parameters:</span>
+<span class="s">            cm = $cell.get_biophysics().get_passive_property_for_section($section, &quot;SpecificCapacitance&quot;).rescale(&quot;uF/cm2&quot;).magnitude</span>
+<span class="s">            Ra = $cell.get_biophysics().get_passive_property_for_section($section, &quot;AxialResistance&quot;).rescale(&quot;ohmcm&quot;).magnitude</span>
+
+<span class="s">            // Segmentation:</span>
+<span class="s">            nseg = $cell.get_segmenter().get_num_segments($section)</span>
+
+
+
+
+
+<span class="s">        }</span>
+<span class="s">        #end for</span>
+
+
+
+
+<span class="s">        // Section Connections</span>
+<span class="s">        ///////////////////////</span>
+
+<span class="s">        // Non-root sections:</span>
+<span class="s">        #for $section in $cell.morphology:</span>
+<span class="s">        #if $section.is_a_root_section(): #continue</span>
+<span class="s">        // Make a Connection</span>
+<span class="s">        connect internalsections[$section_indexer[$section.parent]](1.0),  internalsections[$section_indexer[$section]](0.0)</span>
+<span class="s">        #end for</span>
+
+
+<span class="s">        // Root Sections:</span>
+<span class="s">        #set roots = $cell.morphology.get_root_sections</span>
+<span class="s">        #for r in roots[1:]:</span>
+<span class="s">        connect internalsections[$section_indexer[$r]](0.0),  internalsections[$section_indexer[$r]](0.0)</span>
+<span class="s">        #end for</span>
+
+<span class="s">    }</span>
+<span class="s">endtemplate $cell_template_name</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="n">_cell_obj_decl_tmpl</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">objref $cell_name</span>
+<span class="s">$cell_name = new  $cell_template_name ()</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="HocBuilder_Cell"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.hocmodbuilders.html#morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell.HocBuilder_Cell">[docs]</a><span class="k">class</span> <span class="nc">HocBuilder_Cell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="HocBuilder_Cell.build"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.hocmodbuilders.html#morphforge.simulation.neuron.hocmodbuilders.hocbuilder_cell.HocBuilder_Cell.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">hocfile_obj</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;cell&#39;</span><span class="p">:</span> <span class="n">cell</span><span class="p">,</span>
+            <span class="s">&#39;section_indexer&#39;</span><span class="p">:</span> <span class="n">SectionIndexerDF</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">morphology</span><span class="p">)(),</span>
+            <span class="s">&#39;cell_template_name&#39;</span><span class="p">:</span> <span class="s">&#39;CellTempl_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">cell</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s">&#39;cell_name&#39;</span><span class="p">:</span> <span class="s">&#39;cell_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">cell</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="c"># Create the Cell Topology Template:</span>
+        <span class="n">hocfile_obj</span><span class="o">.</span><span class="n">add_to_section</span><span class="p">(</span>
+                        <span class="n">MHOCSections</span><span class="o">.</span><span class="n">InitTemplates</span><span class="p">,</span>
+                        <span class="n">Template</span><span class="p">(</span><span class="n">_cell_templ_tmpl</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">respond</span><span class="p">())</span>
+        <span class="n">hocfile_obj</span><span class="o">.</span><span class="n">add_to_section</span><span class="p">(</span>
+                        <span class="n">MHOCSections</span><span class="o">.</span><span class="n">InitCells</span><span class="p">,</span>
+                        <span class="n">Template</span><span class="p">(</span><span class="n">_cell_obj_decl_tmpl</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">respond</span><span class="p">())</span>
+
+        <span class="c"># Save the data about this cell:</span>
+        <span class="n">hocfile_obj</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Cells</span><span class="p">][</span><span class="n">cell</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="c"># Create the membrane properties:</span>
+        <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">morphology</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">mta</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_biophysics</span><span class="p">()</span><span class="o">.</span><span class="n">get_resolved_mtas_for_section</span><span class="p">(</span><span class="n">section</span><span class="p">):</span>
+                <span class="n">mta</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">build_hoc_section</span><span class="p">(</span><span class="n">cell</span><span class="o">=</span><span class="n">cell</span><span class="p">,</span>
+                        <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">,</span> <span class="n">hocfile_obj</span><span class="o">=</span><span class="n">hocfile_obj</span><span class="p">,</span> <span class="n">mta</span><span class="o">=</span><span class="n">mta</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

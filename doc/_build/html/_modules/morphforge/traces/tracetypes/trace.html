@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.tracetypes.trace &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.tracetypes.trace</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.tracetypes.trace</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Trace"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace">[docs]</a><span class="k">class</span> <span class="nc">Trace</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Trace.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">comment</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">([]</span> <span class="k">if</span> <span class="n">tags</span> <span class="o">==</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">tags</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="k">else</span> <span class="s">&#39;&lt;Unnamed Trace&gt;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="p">(</span><span class="n">comment</span> <span class="k">if</span> <span class="n">comment</span> <span class="k">else</span> <span class="s">&#39;UnknownSrc&#39;</span><span class="p">)</span>
+
+    <span class="c"># Forward operator functions to be looked up:</span></div>
+<div class="viewcode-block" id="Trace.__add__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span>
+        <span class="k">return</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__add__</span><span class="p">,</span> <span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Trace.__sub__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__sub__">[docs]</a>    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span>
+        <span class="k">return</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__sub__</span><span class="p">,</span> <span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Trace.__div__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__div__">[docs]</a>    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span>
+        <span class="k">return</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__div__</span><span class="p">,</span> <span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Trace.__mul__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__mul__">[docs]</a>    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span>
+        <span class="k">return</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__mul__</span><span class="p">,</span> <span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Trace.__pow__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__pow__">[docs]</a>    <span class="k">def</span> <span class="nf">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span>
+        <span class="k">return</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__pow__</span><span class="p">,</span> <span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span>
+
+
+    <span class="c"># Forward method lookup</span></div>
+<div class="viewcode-block" id="Trace.__getattr__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.traceobjpluginctrl</span> <span class="kn">import</span> <span class="n">TraceMethodCtrl</span>
+
+        <span class="k">if</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">has_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">get_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">available_methods</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">registered_methods</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span> <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s">&#39;No Such method for trace type: </span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s"> (Maybe:</span><span class="si">%s</span><span class="s">)&#39;</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span><span class="n">available_methods</span><span class="p">))</span>
+
+    <span class="c"># Subclasses must implement these:</span></div>
+<div class="viewcode-block" id="Trace.get_min_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.get_min_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_min_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Trace.get_max_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.get_max_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_max_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Trace.get_value_at_time"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.get_value_at_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_value_at_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+
+    <span class="c"># Utility Functions:</span></div>
+<div class="viewcode-block" id="Trace.get_duration"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.get_duration">[docs]</a>    <span class="k">def</span> <span class="nf">get_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Trace.time_within_trace"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace.time_within_trace">[docs]</a>    <span class="k">def</span> <span class="nf">time_within_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">):</span>
+        <span class="n">time_in_ms</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">tstart_ms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">tstop_ms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;ms&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">time_in_ms</span> <span class="o">&gt;=</span> <span class="n">tstart_ms</span><span class="p">,</span> <span class="n">time_in_ms</span> <span class="o">&lt;=</span> <span class="n">tstop_ms</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

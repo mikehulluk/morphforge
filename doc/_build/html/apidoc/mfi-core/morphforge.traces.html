@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>traces Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>traces Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="traces-package">
+<h1>traces Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">traces</span></tt> Package</h2>
+<span class="target" id="module-morphforge.traces"></span><dl class="class">
+<dt id="morphforge.traces.TraceFixedDT">
+<em class="property">class </em><tt class="descname">TraceFixedDT</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased" title="morphforge.traces.tracetypes.tracepointbased.TracePointBased"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.tracepointbased.TracePointBased</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TraceFixedDT.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TraceFixedDT.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TraceFixedDT.get_dt_new">
+<tt class="descname">get_dt_new</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceFixedDT.is_array_fixed_dt">
+<em class="property">classmethod </em><tt class="descname">is_array_fixed_dt</tt><big>(</big><em>time_array</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TraceVariableDT">
+<em class="property">class </em><tt class="descname">TraceVariableDT</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepointbased.TracePointBased" title="morphforge.traces.tracetypes.tracepointbased.TracePointBased"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.tracepointbased.TracePointBased</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TraceVariableDT.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TraceVariableDT.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TracePointBased">
+<em class="property">class </em><tt class="descname">TracePointBased</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace" title="morphforge.traces.tracetypes.trace.Trace"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.trace.Trace</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.__getitem__">
+<tt class="descname">__getitem__</tt><big>(</big><em>time</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time</em>, <em>data</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.data_pts">
+<tt class="descname">data_pts</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.data_pts_in">
+<tt class="descname">data_pts_in</tt><big>(</big><em>rebase_unit</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.data_pts_np">
+<tt class="descname">data_pts_np</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.data_unit">
+<tt class="descname">data_unit</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.get_max_time">
+<tt class="descname">get_max_time</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.get_min_time">
+<tt class="descname">get_min_time</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.get_n">
+<tt class="descname">get_n</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.get_values">
+<tt class="descname">get_values</tt><big>(</big><em>time_array</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.time_pts">
+<tt class="descname">time_pts</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePointBased.time_pts_in">
+<tt class="descname">time_pts_in</tt><big>(</big><em>rebase_unit</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.time_pts_ms">
+<tt class="descname">time_pts_ms</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.time_pts_np">
+<tt class="descname">time_pts_np</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.time_pts_s">
+<tt class="descname">time_pts_s</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePointBased.time_unit">
+<tt class="descname">time_unit</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TracePiecewise">
+<em class="property">class </em><tt class="descname">TracePiecewise</tt><big>(</big><em>pieces</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.trace.Trace" title="morphforge.traces.tracetypes.trace.Trace"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.trace.Trace</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>pieces</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.get_max_time">
+<tt class="descname">get_max_time</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.get_min_time">
+<tt class="descname">get_min_time</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.get_values">
+<tt class="descname">get_values</tt><big>(</big><em>times</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.n_pieces">
+<tt class="descname">n_pieces</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePiecewise.n_pieces_longer_than">
+<tt class="descname">n_pieces_longer_than</tt><big>(</big><em>t</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TracePiecewise.pieces">
+<tt class="descname">pieces</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TracePieceFunctionLinear">
+<em class="property">class </em><tt class="descname">TracePieceFunctionLinear</tt><big>(</big><em>time_window</em>, <em>x0=None</em>, <em>x1=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction" title="morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionLinear.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time_window</em>, <em>x0=None</em>, <em>x1=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionLinear.accept_visitor">
+<tt class="descname">accept_visitor</tt><big>(</big><em>visitor</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionLinear.get_end_value">
+<tt class="descname">get_end_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionLinear.get_start_value">
+<tt class="descname">get_start_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionLinear.get_values">
+<tt class="descname">get_values</tt><big>(</big><em>times</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TracePieceFunctionFlat">
+<em class="property">class </em><tt class="descname">TracePieceFunctionFlat</tt><big>(</big><em>time_window</em>, <em>x=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction" title="morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time_window</em>, <em>x=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.accept_visitor">
+<tt class="descname">accept_visitor</tt><big>(</big><em>visitor</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.get_end_value">
+<tt class="descname">get_end_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.get_start_value">
+<tt class="descname">get_start_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.get_value">
+<tt class="descname">get_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TracePieceFunctionFlat.get_values">
+<tt class="descname">get_values</tt><big>(</big><em>times</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><tt class="descname">TracePieceFunctionLinear</tt><big>(</big><em>time_window</em>, <em>x0=None</em>, <em>x1=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.traces.tracetypes.html#morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction" title="morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.traces.tracetypes.tracepiecewise.TracePieceFunction</span></tt></a></p>
+<dl class="method">
+<dt>
+<tt class="descname">__init__</tt><big>(</big><em>time_window</em>, <em>x0=None</em>, <em>x1=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descname">accept_visitor</tt><big>(</big><em>visitor</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descname">get_end_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descname">get_start_value</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<tt class="descname">get_values</tt><big>(</big><em>times</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TagSelector">
+<em class="property">class </em><tt class="descname">TagSelector</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.TagSelector.__and__">
+<tt class="descname">__and__</tt><big>(</big><em>rhs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TagSelector.__call__">
+<tt class="descname">__call__</tt><big>(</big><em>tr</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TagSelector.__or__">
+<tt class="descname">__or__</tt><big>(</big><em>rhs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TagSelector.filter">
+<tt class="descname">filter</tt><big>(</big><em>traces</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.TagSelector.select">
+<tt class="descname">select</tt><big>(</big><em>trs</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TraceOperatorCtrl">
+<em class="property">class </em><tt class="descname">TraceOperatorCtrl</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceOperatorCtrl.add_trace_operator">
+<em class="property">classmethod </em><tt class="descname">add_trace_operator</tt><big>(</big><em>operator_type</em>, <em>lhs_type</em>, <em>rhs_type</em>, <em>operator_func</em>, <em>flag='default'</em>, <em>set_as_default=False</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceOperatorCtrl.add_trace_operator_symmetrical_handler">
+<em class="property">classmethod </em><tt class="descname">add_trace_operator_symmetrical_handler</tt><big>(</big><em>operator_type</em>, <em>lhs_type</em>, <em>rhs_type</em>, <em>operator_func</em>, <em>flag='default'</em>, <em>set_as_default=False</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceOperatorCtrl.operate">
+<em class="property">classmethod </em><tt class="descname">operate</tt><big>(</big><em>operator_type</em>, <em>lhs</em>, <em>rhs</em>, <em>use_flag=None</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TraceOperatorCtrl.trace_operators">
+<tt class="descname">trace_operators</tt><em class="property"> = [&lt;built-in function __add__&gt;, &lt;built-in function __sub__&gt;, &lt;built-in function __div__&gt;, &lt;built-in function __mul__&gt;, &lt;built-in function __pow__&gt;]</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TraceOperatorCtrl.trace_operators_active">
+<tt class="descname">trace_operators_active</tt><em class="property"> = {(&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'int'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'int'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'float'&gt;): (&lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'int'&gt;): (&lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default')}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TraceOperatorCtrl.trace_operators_all">
+<tt class="descname">trace_operators_all</tt><em class="property"> = {(&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'int'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'int'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'float'&gt;): {'default': &lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'int'&gt;): {'default': &lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;}, (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.TraceMethodCtrl">
+<em class="property">class </em><tt class="descname">TraceMethodCtrl</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.traces.TraceMethodCtrl.default_fallback_resolution">
+<tt class="descname">default_fallback_resolution</tt><em class="property"> = array(0.0001) * s</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TraceMethodCtrl.fallback_to_fixedtrace_methods">
+<tt class="descname">fallback_to_fixedtrace_methods</tt><em class="property"> = {'filterbessel': array(0.0001) * s, 'fft': array(0.0001) * s, 'filterbutterworth': array(0.0001) * s, 'psd': array(0.0001) * s, 'filterlowpassrc': array(0.0001) * s}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceMethodCtrl.get_method">
+<em class="property">classmethod </em><tt class="descname">get_method</tt><big>(</big><em>trace_cls</em>, <em>method_name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceMethodCtrl.has_method">
+<em class="property">classmethod </em><tt class="descname">has_method</tt><big>(</big><em>trace_cls</em>, <em>method_name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.TraceMethodCtrl.register">
+<em class="property">classmethod </em><tt class="descname">register</tt><big>(</big><em>trace_cls</em>, <em>method_name</em>, <em>method_functor</em>, <em>can_fallback_to_fixed_trace=False</em>, <em>fallback_resolution=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.TraceMethodCtrl.registered_methods">
+<tt class="descname">registered_methods</tt><em class="property"> = {(&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterlowpassrc'): &lt;function _filterlowpassrc at 0x5ab9848&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'var'): &lt;function &lt;lambda&gt; at 0x56b42a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'windowshift'): &lt;function &lt;lambda&gt; at 0x5ab96e0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'plotpoints'): &lt;function &lt;lambda&gt; at 0x55b7b90&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'mean'): &lt;function _variabledt_mean at 0x5ab90c8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterbutterworth'): &lt;function _butterworthfilter at 0x5ab9758&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'mean'): &lt;function &lt;lambda&gt; at 0x588ded8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'shift'): &lt;function _shift_pt_trace at 0x5ab9578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'plotpoints'): &lt;function &lt;lambda&gt; at 0x55b7938&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'min'): &lt;function _get_min at 0x5ab9320&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab9230&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_variable'): &lt;function &lt;lambda&gt; at 0x5ab9cf8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'window'): &lt;function _window_fixed_trace at 0x5ab95f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'fft'): &lt;function _fft at 0x5ab9e60&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab91b8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'clone'): &lt;function _clone_variable at 0x588dcf8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9410&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'max'): &lt;function _get_max at 0x5ab92a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'convert_to_piecewise'): &lt;function &lt;lambda&gt; at 0x5ab9de8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'gradient'): &lt;function _fixeddt_gradient at 0x5ab9398&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterbessel'): &lt;function _besselfilter at 0x5ab97d0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9c80&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9c08&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'integrate'): &lt;function _integrate_pointbased at 0x6d35578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'clone'): &lt;function _clone_piecewise at 0x588dd70&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'psd'): &lt;function _psd at 0x5ab9ed8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'max'): &lt;function _get_max at 0x5ab92a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'clone'): &lt;function _clone_fixed at 0x588db90&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9500&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'rms'): &lt;function &lt;lambda&gt; at 0x5ab9050&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'stddev'): &lt;function &lt;lambda&gt; at 0x588df50&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'integrate'): &lt;function _integrate_piecewise at 0x6d355f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_piecewise'): &lt;bound method type.fit_piecewise_linear_trace of &lt;class 'morphforge.traces.methods.MMtrace_conversion.TraceApproximator'&gt;&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9aa0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'window'): &lt;function _window_fixed_trace at 0x5ab95f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'min'): &lt;function _get_min at 0x5ab9320&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'shift'): &lt;function _shift_pt_trace at 0x5ab9578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9488&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab9140&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'convert_to_variable'): &lt;function &lt;lambda&gt; at 0x5ab9d70&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'windowshift'): &lt;function &lt;lambda&gt; at 0x5ab9668&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'plotpoints'): &lt;function _get_piecewise_linear_points at 0x55b7d70&gt;}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.eventset">
+<span id="eventset-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">eventset</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.eventset.Event">
+<em class="property">class </em><tt class="descname">Event</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#Event"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.eventset.Event.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>time</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#Event.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.Event.get_time">
+<tt class="descname">get_time</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#Event.get_time"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.eventset.EventSet">
+<em class="property">class </em><tt class="descname">EventSet</tt><big>(</big><em>events=None</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.__getitem__">
+<tt class="descname">__getitem__</tt><big>(</big><em>i</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.__getitem__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>events=None</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.__iter__">
+<tt class="descname">__iter__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.__iter__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.__len__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.add_event">
+<tt class="descname">add_event</tt><big>(</big><em>ev</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.add_event"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.eventset.EventSet.combine_sets">
+<em class="property">classmethod </em><tt class="descname">combine_sets</tt><big>(</big><em>eventsets</em>, <em>tags=None</em>, <em>comment=None</em>, <em>name=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.combine_sets"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>If &#8216;tags&#8217; is none, then take &#8216;communal&#8217; tags</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.summarise_timings_in_comment">
+<tt class="descname">summarise_timings_in_comment</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.summarise_timings_in_comment"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.eventset.EventSet.tags">
+<tt class="descname">tags</tt><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.tags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.eventset.EventSet.times">
+<tt class="descname">times</tt><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.times"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.eventset.EventSet.times_in_np_array_ms">
+<tt class="descname">times_in_np_array_ms</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/eventset.html#EventSet.times_in_np_array_ms"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.traceobjpluginctrl">
+<span id="traceobjpluginctrl-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">traceobjpluginctrl</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl">
+<em class="property">class </em><tt class="descname">TraceMethodCtrl</tt><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceMethodCtrl"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.default_fallback_resolution">
+<tt class="descname">default_fallback_resolution</tt><em class="property"> = array(0.0001) * s</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.fallback_to_fixedtrace_methods">
+<tt class="descname">fallback_to_fixedtrace_methods</tt><em class="property"> = {'filterbessel': array(0.0001) * s, 'fft': array(0.0001) * s, 'filterbutterworth': array(0.0001) * s, 'psd': array(0.0001) * s, 'filterlowpassrc': array(0.0001) * s}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.get_method">
+<em class="property">classmethod </em><tt class="descname">get_method</tt><big>(</big><em>trace_cls</em>, <em>method_name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceMethodCtrl.get_method"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.has_method">
+<em class="property">classmethod </em><tt class="descname">has_method</tt><big>(</big><em>trace_cls</em>, <em>method_name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceMethodCtrl.has_method"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.register">
+<em class="property">classmethod </em><tt class="descname">register</tt><big>(</big><em>trace_cls</em>, <em>method_name</em>, <em>method_functor</em>, <em>can_fallback_to_fixed_trace=False</em>, <em>fallback_resolution=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceMethodCtrl.register"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceMethodCtrl.registered_methods">
+<tt class="descname">registered_methods</tt><em class="property"> = {(&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterlowpassrc'): &lt;function _filterlowpassrc at 0x5ab9848&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'var'): &lt;function &lt;lambda&gt; at 0x56b42a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'windowshift'): &lt;function &lt;lambda&gt; at 0x5ab96e0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'plotpoints'): &lt;function &lt;lambda&gt; at 0x55b7b90&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'mean'): &lt;function _variabledt_mean at 0x5ab90c8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterbutterworth'): &lt;function _butterworthfilter at 0x5ab9758&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'mean'): &lt;function &lt;lambda&gt; at 0x588ded8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'shift'): &lt;function _shift_pt_trace at 0x5ab9578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'plotpoints'): &lt;function &lt;lambda&gt; at 0x55b7938&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'min'): &lt;function _get_min at 0x5ab9320&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab9230&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_variable'): &lt;function &lt;lambda&gt; at 0x5ab9cf8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'window'): &lt;function _window_fixed_trace at 0x5ab95f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'fft'): &lt;function _fft at 0x5ab9e60&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab91b8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'clone'): &lt;function _clone_variable at 0x588dcf8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9410&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'max'): &lt;function _get_max at 0x5ab92a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'convert_to_piecewise'): &lt;function &lt;lambda&gt; at 0x5ab9de8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'gradient'): &lt;function _fixeddt_gradient at 0x5ab9398&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'filterbessel'): &lt;function _besselfilter at 0x5ab97d0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9c80&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9c08&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'integrate'): &lt;function _integrate_pointbased at 0x6d35578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'clone'): &lt;function _clone_piecewise at 0x588dd70&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'psd'): &lt;function _psd at 0x5ab9ed8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'max'): &lt;function _get_max at 0x5ab92a8&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'clone'): &lt;function _clone_fixed at 0x588db90&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9500&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'rms'): &lt;function &lt;lambda&gt; at 0x5ab9050&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'stddev'): &lt;function &lt;lambda&gt; at 0x588df50&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'integrate'): &lt;function _integrate_piecewise at 0x6d355f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_piecewise'): &lt;bound method type.fit_piecewise_linear_trace of &lt;class 'morphforge.traces.methods.MMtrace_conversion.TraceApproximator'&gt;&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'convert_to_fixed'): &lt;function &lt;lambda&gt; at 0x5ab9aa0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'window'): &lt;function _window_fixed_trace at 0x5ab95f0&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'min'): &lt;function _get_min at 0x5ab9320&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'shift'): &lt;function _shift_pt_trace at 0x5ab9578&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'Mean'): &lt;function &lt;lambda&gt; at 0x5ab9488&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'ptp'): &lt;function &lt;lambda&gt; at 0x5ab9140&gt;, (&lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, 'convert_to_variable'): &lt;function &lt;lambda&gt; at 0x5ab9d70&gt;, (&lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, 'windowshift'): &lt;function &lt;lambda&gt; at 0x5ab9668&gt;, (&lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, 'plotpoints'): &lt;function _get_piecewise_linear_points at 0x55b7d70&gt;}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl">
+<em class="property">class </em><tt class="descname">TraceOperatorCtrl</tt><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceOperatorCtrl"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.add_trace_operator">
+<em class="property">classmethod </em><tt class="descname">add_trace_operator</tt><big>(</big><em>operator_type</em>, <em>lhs_type</em>, <em>rhs_type</em>, <em>operator_func</em>, <em>flag='default'</em>, <em>set_as_default=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceOperatorCtrl.add_trace_operator"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.add_trace_operator_symmetrical_handler">
+<em class="property">classmethod </em><tt class="descname">add_trace_operator_symmetrical_handler</tt><big>(</big><em>operator_type</em>, <em>lhs_type</em>, <em>rhs_type</em>, <em>operator_func</em>, <em>flag='default'</em>, <em>set_as_default=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceOperatorCtrl.add_trace_operator_symmetrical_handler"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.operate">
+<em class="property">classmethod </em><tt class="descname">operate</tt><big>(</big><em>operator_type</em>, <em>lhs</em>, <em>rhs</em>, <em>use_flag=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#TraceOperatorCtrl.operate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.trace_operators">
+<tt class="descname">trace_operators</tt><em class="property"> = [&lt;built-in function __add__&gt;, &lt;built-in function __sub__&gt;, &lt;built-in function __div__&gt;, &lt;built-in function __mul__&gt;, &lt;built-in function __pow__&gt;]</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.trace_operators_active">
+<tt class="descname">trace_operators_active</tt><em class="property"> = {(&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'int'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'int'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'float'&gt;): (&lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): (&lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;, 'default'), (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): (&lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;, 'default'), (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'int'&gt;): (&lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;, 'default'), (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;, 'default'), (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): (&lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;, 'default')}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.traces.traceobjpluginctrl.TraceOperatorCtrl.trace_operators_all">
+<tt class="descname">trace_operators_all</tt><em class="property"> = {(&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'int'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'int'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_fixeddt.TraceOperator_TraceFixedDT_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'float'&gt;): {'default': &lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;}, (&lt;built-in function __sub__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_TraceFixedDT_Quantity'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_Quantity_TracePiecewise'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Quantity'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_TraceFixedDT_Scalar'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;class 'quantities.quantity.Quantity'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_piecewise_scalar.TraceOperator_TracePiecewise_Quantity'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Scalar_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_pow of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __mul__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;): {'default': &lt;bound method type.do_mul of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_Quantity_TraceVariableDT'&gt;&gt;}, (&lt;built-in function __add__&gt;, &lt;class 'morphforge.traces.tracetypes.tracevariabledt.TraceVariableDT'&gt;, &lt;type 'float'&gt;): {'default': &lt;bound method type.do_add of &lt;class 'morphforge.traces.operators.op_variabledt_scalar.TraceOperator_TraceVariableDT_Scalar'&gt;&gt;}, (&lt;built-in function __pow__&gt;, &lt;class 'morphforge.traces.tracetypes.tracepiecewise.TracePiecewise'&gt;, &lt;type 'int'&gt;): {'default': &lt;function do_op_piecewise_pow_scalar at 0x5abf050&gt;}, (&lt;built-in function __sub__&gt;, &lt;type 'float'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_sub of &lt;class 'morphforge.traces.operators.op_fixeddt_scalar.TraceOperator_Scalar_TraceFixedDT'&gt;&gt;}, (&lt;built-in function __div__&gt;, &lt;class 'quantities.quantity.Quantity'&gt;, &lt;class 'morphforge.traces.tracetypes.tracefixeddt.TraceFixedDT'&gt;): {'default': &lt;bound method type.do_div of &lt;class 'morphforge.traces.operators.op_fixeddt_quantity.TraceOperator_Quantity_TraceFixedDT'&gt;&gt;}}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.traceobjpluginctrl._prepend_conversion_to_fixed_trace_to_function">
+<tt class="descname">_prepend_conversion_to_fixed_trace_to_function</tt><big>(</big><em>func</em>, <em>fixed_trace_dt</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#_prepend_conversion_to_fixed_trace_to_function"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.traceobjpluginctrl.copy_trace_attrs">
+<tt class="descname">copy_trace_attrs</tt><big>(</big><em>tr_old</em>, <em>tr_new</em>, <em>name=None</em>, <em>comment=None</em>, <em>tags=None</em>, <em>add_tags=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/traceobjpluginctrl.html#copy_trace_attrs"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.generation.html">generation Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.generation.html#id1"><tt class="docutils literal"><span class="pre">generation</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.generation.html#module-morphforge.traces.generation.gen_parser_lexer"><tt class="docutils literal"><span class="pre">gen_parser_lexer</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.generation.html#module-morphforge.traces.generation.gen_parser_yacc"><tt class="docutils literal"><span class="pre">gen_parser_yacc</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.generation.html#module-morphforge.traces.generation.generator_parser"><tt class="docutils literal"><span class="pre">generator_parser</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.io.html">io Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.io.html#id1"><tt class="docutils literal"><span class="pre">io</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.io.html#module-morphforge.traces.io.fromcsv"><tt class="docutils literal"><span class="pre">fromcsv</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.io.html#module-morphforge.traces.io.tocsv"><tt class="docutils literal"><span class="pre">tocsv</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.io.html#module-morphforge.traces.io.traceio"><tt class="docutils literal"><span class="pre">traceio</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.methods.html">methods Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#id1"><tt class="docutils literal"><span class="pre">methods</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.MMtrace_conversion"><tt class="docutils literal"><span class="pre">MMtrace_conversion</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std"><tt class="docutils literal"><span class="pre">trace_methods_std</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_clone"><tt class="docutils literal"><span class="pre">trace_methods_std_clone</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_conversions"><tt class="docutils literal"><span class="pre">trace_methods_std_conversions</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_fft"><tt class="docutils literal"><span class="pre">trace_methods_std_fft</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_filters"><tt class="docutils literal"><span class="pre">trace_methods_std_filters</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_integrate"><tt class="docutils literal"><span class="pre">trace_methods_std_integrate</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_math"><tt class="docutils literal"><span class="pre">trace_methods_std_math</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.methods.html#module-morphforge.traces.methods.trace_methods_std_splicing"><tt class="docutils literal"><span class="pre">trace_methods_std_splicing</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.operators.html">operators Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#id1"><tt class="docutils literal"><span class="pre">operators</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.op_fixeddt_fixeddt"><tt class="docutils literal"><span class="pre">op_fixeddt_fixeddt</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.op_fixeddt_quantity"><tt class="docutils literal"><span class="pre">op_fixeddt_quantity</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.op_fixeddt_scalar"><tt class="docutils literal"><span class="pre">op_fixeddt_scalar</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.op_piecewise_scalar"><tt class="docutils literal"><span class="pre">op_piecewise_scalar</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.op_variabledt_scalar"><tt class="docutils literal"><span class="pre">op_variabledt_scalar</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.operators.html#module-morphforge.traces.operators.variable_dt_rebasing"><tt class="docutils literal"><span class="pre">variable_dt_rebasing</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.tags.html">tags Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tags.html#id1"><tt class="docutils literal"><span class="pre">tags</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tags.html#module-morphforge.traces.tags.tagselector"><tt class="docutils literal"><span class="pre">tagselector</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tags.html#module-morphforge.traces.tags.tagselectorstringparser"><tt class="docutils literal"><span class="pre">tagselectorstringparser</span></tt> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="morphforge.traces.tracetypes.html">tracetypes Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#id1"><tt class="docutils literal"><span class="pre">tracetypes</span></tt> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#module-morphforge.traces.tracetypes.trace"><tt class="docutils literal"><span class="pre">trace</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#module-morphforge.traces.tracetypes.tracefixeddt"><tt class="docutils literal"><span class="pre">tracefixeddt</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#module-morphforge.traces.tracetypes.tracepiecewise"><tt class="docutils literal"><span class="pre">tracepiecewise</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#module-morphforge.traces.tracetypes.tracepointbased"><tt class="docutils literal"><span class="pre">tracepointbased</span></tt> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morphforge.traces.tracetypes.html#module-morphforge.traces.tracetypes.tracevariabledt"><tt class="docutils literal"><span class="pre">tracevariabledt</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

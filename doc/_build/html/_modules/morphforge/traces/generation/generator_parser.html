@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.generation.generator_parser &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces" href="../../traces.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.generation.generator_parser</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.generation.generator_parser</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">ply</span>
+<span class="kn">import</span> <span class="nn">ply.lex</span>
+<span class="kn">import</span> <span class="nn">ply.yacc</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">LocMgr</span><span class="p">,</span> <span class="n">SettingsMgr</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.tracepiecewise</span> <span class="kn">import</span> <span class="n">TracePiecewise</span>
+
+<span class="c"># Lexing:</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_lexer</span> <span class="kn">import</span> <span class="n">TraceGeneratorParserLexer</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">TraceGeneratorParserLexer</span><span class="p">()</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">tokens</span>
+
+
+
+<span class="c"># pylint: disable=W0611</span>
+<span class="c"># Parsing</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_complete</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_unit_definiton</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_time</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_abs_timespec</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_end_timespec</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_func</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_func_name</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_pieceblock_chain1</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_pieceblock_chain2</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_pieceblock_chain3</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_pieceblock_chain4</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_pieceblock_chain_complete</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.generation.gen_parser_yacc</span> <span class="kn">import</span> <span class="n">p_error</span>
+
+
+<div class="viewcode-block" id="TraceStringParser"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.generation.html#morphforge.traces.generation.generator_parser.TraceStringParser">[docs]</a><span class="k">class</span> <span class="nc">TraceStringParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceStringParser.Parse"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.generation.html#morphforge.traces.generation.generator_parser.TraceStringParser.Parse">[docs]</a>    <span class="k">def</span> <span class="nf">Parse</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_trace_from_string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceStringParser._trace_from_string"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.generation.html#morphforge.traces.generation.generator_parser.TraceStringParser._trace_from_string">[docs]</a>    <span class="k">def</span> <span class="nf">_trace_from_string</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">srcstr</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">ply</span><span class="o">.</span><span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">tabmodule</span><span class="o">=</span><span class="s">&#39;tracestring_parsetab&#39;</span><span class="p">,</span>
+                                <span class="n">outputdir</span><span class="o">=</span><span class="n">LocMgr</span><span class="o">.</span><span class="n">ensure_dir_exists</span><span class="p">(</span><span class="s">&#39;/tmp/parsetabs/&#39;</span><span class="p">),</span>
+                                <span class="n">debug</span><span class="o">=</span><span class="n">SettingsMgr</span><span class="o">.</span><span class="n">get_ply_yacc_debug_flag</span><span class="p">())</span>
+
+        <span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">trace_prototypes</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">srcstr</span><span class="p">,</span> <span class="n">lexer</span><span class="o">=</span><span class="n">l</span><span class="p">)</span>
+
+        <span class="c"># Copy across the start values:</span>
+        <span class="n">start_value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">prototype</span> <span class="ow">in</span> <span class="n">trace_prototypes</span><span class="p">:</span>
+            <span class="n">prototype</span><span class="o">.</span><span class="n">start_value</span> <span class="o">=</span> <span class="n">start_value</span>
+            <span class="n">piece</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">toTracePiece</span><span class="p">()</span>
+            <span class="n">start_value</span> <span class="o">=</span> <span class="n">piece</span><span class="o">.</span><span class="n">get_end_value</span><span class="p">()</span>
+
+        <span class="c"># Convert to pieces</span>
+        <span class="n">pieces</span> <span class="o">=</span> <span class="p">[</span><span class="n">trace_prototype</span><span class="o">.</span><span class="n">toTracePiece</span><span class="p">()</span> <span class="k">for</span> <span class="n">trace_prototype</span> <span class="ow">in</span> <span class="n">trace_prototypes</span><span class="p">]</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">TracePiecewise</span><span class="p">(</span><span class="n">pieces</span><span class="o">=</span><span class="n">pieces</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s">&#39;Src: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">srcstr</span><span class="p">)</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">trace</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">unit</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">trace</span>
+
+
+
+
+<span class="c">#tests = [</span>
+<span class="c">#&quot;&quot;&quot;{d:pA} AT 0ms FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 120ms THEN FLAT(50) FOR 20ms &quot;&quot;&quot;,</span>
+<span class="c">#&quot;&quot;&quot;{d:pA} AT 0ms FLAT(0) UNTIL 150ms THEN FLAT(120) FOR 20ms THEN FLAT(0) FOR 20ms&quot;&quot;&quot;,</span>
+<span class="c">#&quot;&quot;&quot;{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 160ms&quot;&quot;&quot;,</span>
+<span class="c">#&quot;&quot;&quot;{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 130ms THEN FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms&quot;&quot;&quot;,</span>
+<span class="c">#&quot;&quot;&quot;{d:pA} FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms&quot;&quot;&quot;,</span>
+<span class="c"># ]</span>
+<span class="c">#</span>
+<span class="c">#</span>
+<span class="c">#for t in tests:</span>
+<span class="c">#    tr = TraceStringParser.Parse(t)</span>
+<span class="c">#    #tr = trace_from_string(t)</span>
+<span class="c">#    tr.tags = [&#39;Current&#39;]</span>
+<span class="c">#    TagViewer(tr)</span>
+<span class="c">#</span></div></div>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

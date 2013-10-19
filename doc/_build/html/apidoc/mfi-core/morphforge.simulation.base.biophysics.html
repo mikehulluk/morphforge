@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>biophysics Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>biophysics Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="biophysics-package">
+<h1>biophysics Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">biophysics</span></tt> Package</h2>
+<span class="target" id="module-morphforge.simulation.base.biophysics"></span><dl class="class">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics">
+<em class="property">class </em><tt class="descname">CellBiophysics</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.add_channel">
+<tt class="descname">add_channel</tt><big>(</big><em>channel</em>, <em>targetter</em>, <em>applicator</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.add_passive">
+<tt class="descname">add_passive</tt><big>(</big><em>passiveproperty</em>, <em>targetter</em>, <em>value</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.apply_channel">
+<tt class="descname">apply_channel</tt><big>(</big><em>channel</em>, <em>where=None</em>, <em>parameter_overrides=None</em>, <em>parameter_multipliers=None</em><big>)</big></dt>
+<dd><p>A simplified interface to applying channels.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_all_channels_applied_to_cell">
+<tt class="descname">get_all_channels_applied_to_cell</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_applied_mtas">
+<tt class="descname">get_applied_mtas</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_applied_passives">
+<tt class="descname">get_applied_passives</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_channel">
+<tt class="descname">get_channel</tt><big>(</big><em>name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_passive_property_for_section">
+<tt class="descname">get_passive_property_for_section</tt><big>(</big><em>section</em>, <em>passive</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_passives_for_section">
+<tt class="descname">get_passives_for_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.get_resolved_mtas_for_section">
+<tt class="descname">get_resolved_mtas_for_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.CellBiophysics.set_passive">
+<tt class="descname">set_passive</tt><big>(</big><em>passiveproperty</em>, <em>value</em>, <em>where=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.Channel">
+<em class="property">class </em><tt class="descname">Channel</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject" title="morphforge.simulation.base.base_classes.NamedSimulationObject"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.base_classes.NamedSimulationObject</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Channel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Channel.get_default">
+<tt class="descname">get_default</tt><big>(</big><em>key</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Channel.get_defaults">
+<tt class="descname">get_defaults</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Channel.get_variables">
+<tt class="descname">get_variables</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.PassiveProperty">
+<em class="property">class </em><tt class="descname">PassiveProperty</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.PassiveProperty.AxialResistance">
+<tt class="descname">AxialResistance</tt><em class="property"> = 'AxialResistance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.PassiveProperty.SpecificCapacitance">
+<tt class="descname">SpecificCapacitance</tt><em class="property"> = 'SpecificCapacitance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.PassiveProperty.all">
+<tt class="descname">all</tt><em class="property"> = ['SpecificCapacitance', 'AxialResistance']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.PassiveProperty.defaults">
+<tt class="descname">defaults</tt><em class="property"> = {'SpecificCapacitance': array(1.0) * uF/cm2, 'AxialResistance': array(80.0) * ohmcm}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator">
+<em class="property">class </em><tt class="descname">ChannelApplicator</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variablename</em>, <em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicator.set_target_channel">
+<tt class="descname">set_target_channel</tt><big>(</big><em>target_channel</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicatorUniform">
+<em class="property">class </em><tt class="descname">ChannelApplicatorUniform</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator" title="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicatorUniform.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicatorUniform.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicatorUniform.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variable_name</em>, <em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelApplicatorUniform.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.Targeter">
+<em class="property">class </em><tt class="descname">Targeter</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Targeter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Targeter.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Targeter.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.Targeter.get_priority">
+<tt class="descname">get_priority</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhereDefault">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhereDefault</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhereDefault.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhereDefault.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhereDefault.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhere">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhere</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterRegion">
+<em class="property">class </em><tt class="descname">PassiveTargetterRegion</tt><big>(</big><em>region</em>, <em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterRegion.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region</em>, <em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterRegion.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.PassiveTargetterRegion.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterEverywhere">
+<em class="property">class </em><tt class="descname">ChannelTargeterEverywhere</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterRegion">
+<em class="property">class </em><tt class="descname">ChannelTargeterRegion</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterRegion.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterRegion.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterRegion.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSection">
+<em class="property">class </em><tt class="descname">ChannelTargeterSection</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSection.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSection.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSection.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSectionPath">
+<em class="property">class </em><tt class="descname">ChannelTargeterSectionPath</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSectionPath.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.ChannelTargeterSectionPath.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.biophysics.cellbiophysics">
+<span id="cellbiophysics-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">cellbiophysics</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics">
+<em class="property">class </em><tt class="descname">CellBiophysics</tt><big>(</big><em>cell</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cell</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.add_channel">
+<tt class="descname">add_channel</tt><big>(</big><em>channel</em>, <em>targetter</em>, <em>applicator</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.add_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.add_passive">
+<tt class="descname">add_passive</tt><big>(</big><em>passiveproperty</em>, <em>targetter</em>, <em>value</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.add_passive"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.apply_channel">
+<tt class="descname">apply_channel</tt><big>(</big><em>channel</em>, <em>where=None</em>, <em>parameter_overrides=None</em>, <em>parameter_multipliers=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.apply_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>A simplified interface to applying channels.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_all_channels_applied_to_cell">
+<tt class="descname">get_all_channels_applied_to_cell</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_all_channels_applied_to_cell"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_applied_mtas">
+<tt class="descname">get_applied_mtas</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_applied_mtas"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_applied_passives">
+<tt class="descname">get_applied_passives</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_applied_passives"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_channel">
+<tt class="descname">get_channel</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_passive_property_for_section">
+<tt class="descname">get_passive_property_for_section</tt><big>(</big><em>section</em>, <em>passive</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_passive_property_for_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_passives_for_section">
+<tt class="descname">get_passives_for_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_passives_for_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.get_resolved_mtas_for_section">
+<tt class="descname">get_resolved_mtas_for_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.get_resolved_mtas_for_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics.CellBiophysics.set_passive">
+<tt class="descname">set_passive</tt><big>(</big><em>passiveproperty</em>, <em>value</em>, <em>where=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#CellBiophysics.set_passive"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics._MechanismTargetApplicator">
+<em class="property">class </em><tt class="descname">_MechanismTargetApplicator</tt><big>(</big><em>channel</em>, <em>targetter</em>, <em>applicator</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#_MechanismTargetApplicator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics._MechanismTargetApplicator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>channel</em>, <em>targetter</em>, <em>applicator</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#_MechanismTargetApplicator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics._PassiveTargetApplicator">
+<em class="property">class </em><tt class="descname">_PassiveTargetApplicator</tt><big>(</big><em>passiveproperty</em>, <em>targetter</em>, <em>value</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#_PassiveTargetApplicator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.cellbiophysics._PassiveTargetApplicator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>passiveproperty</em>, <em>targetter</em>, <em>value</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/cellbiophysics.html#_PassiveTargetApplicator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.biophysics.channel">
+<span id="channel-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">channel</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channel.Channel">
+<em class="property">class </em><tt class="descname">Channel</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channel.html#Channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject" title="morphforge.simulation.base.base_classes.NamedSimulationObject"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.base_classes.NamedSimulationObject</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channel.Channel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channel.html#Channel.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channel.Channel.get_default">
+<tt class="descname">get_default</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channel.html#Channel.get_default"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channel.Channel.get_defaults">
+<tt class="descname">get_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channel.html#Channel.get_defaults"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channel.Channel.get_variables">
+<tt class="descname">get_variables</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channel.html#Channel.get_variables"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.biophysics.channelapplicators">
+<span id="channelapplicators-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">channelapplicators</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator">
+<em class="property">class </em><tt class="descname">ChannelApplicator</tt><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variablename</em>, <em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator.get_variable_value_for_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator.get_variables_overriden"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator.set_target_channel">
+<tt class="descname">set_target_channel</tt><big>(</big><em>target_channel</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicator.set_target_channel"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicatorUniform">
+<em class="property">class </em><tt class="descname">ChannelApplicatorUniform</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicatorUniform"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator" title="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicator</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicatorUniform.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>parameter_multipliers=None</em>, <em>parameter_overrides=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicatorUniform.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicatorUniform.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicatorUniform.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicatorUniform.get_variable_value_for_section">
+<tt class="descname">get_variable_value_for_section</tt><big>(</big><em>variable_name</em>, <em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicatorUniform.get_variable_value_for_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channelapplicators.ChannelApplicatorUniform.get_variables_overriden">
+<tt class="descname">get_variables_overriden</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channelapplicators.html#ChannelApplicatorUniform.get_variables_overriden"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.biophysics.channeltargetters">
+<span id="channeltargetters-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">channeltargetters</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere">
+<em class="property">class </em><tt class="descname">ChannelTargeterEverywhere</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterEverywhere"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=10</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterEverywhere.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterEverywhere.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterEverywhere.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion">
+<em class="property">class </em><tt class="descname">ChannelTargeterRegion</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterRegion"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region</em>, <em>priority=20</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterRegion.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterRegion.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterRegion.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterRegion.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection">
+<em class="property">class </em><tt class="descname">ChannelTargeterSection</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSection"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section</em>, <em>priority=40</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSection.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSection.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSection.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSection.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath">
+<em class="property">class </em><tt class="descname">ChannelTargeterSectionPath</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSectionPath"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSectionPath.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.ChannelTargeterSectionPath.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#ChannelTargeterSectionPath.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhere</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhere"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=5</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhere.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhere.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhere.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhere.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault">
+<em class="property">class </em><tt class="descname">PassiveTargetterEverywhereDefault</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhereDefault"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority=0</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhereDefault.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhereDefault.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterEverywhereDefault.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterEverywhereDefault.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion">
+<em class="property">class </em><tt class="descname">PassiveTargetterRegion</tt><big>(</big><em>region</em>, <em>priority=10</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterRegion"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.simulation.base.biophysics.channeltargetters.Targeter" title="morphforge.simulation.base.biophysics.channeltargetters.Targeter"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.simulation.base.biophysics.channeltargetters.Targeter</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region</em>, <em>priority=10</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterRegion.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterRegion.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.PassiveTargetterRegion.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#PassiveTargetterRegion.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.Targeter">
+<em class="property">class </em><tt class="descname">Targeter</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#Targeter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.Targeter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>priority</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#Targeter.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.Targeter.does_target_section">
+<tt class="descname">does_target_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#Targeter.does_target_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.Targeter.get_description">
+<tt class="descname">get_description</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#Targeter.get_description"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.simulation.base.biophysics.channeltargetters.Targeter.get_priority">
+<tt class="descname">get_priority</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/channeltargetters.html#Targeter.get_priority"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.simulation.base.biophysics.passiveproperties">
+<span id="passiveproperties-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">passiveproperties</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.simulation.base.biophysics.passiveproperties.PassiveProperty">
+<em class="property">class </em><tt class="descname">PassiveProperty</tt><a class="reference internal" href="../../_modules/morphforge/simulation/base/biophysics/passiveproperties.html#PassiveProperty"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.passiveproperties.PassiveProperty.AxialResistance">
+<tt class="descname">AxialResistance</tt><em class="property"> = 'AxialResistance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.passiveproperties.PassiveProperty.SpecificCapacitance">
+<tt class="descname">SpecificCapacitance</tt><em class="property"> = 'SpecificCapacitance'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.passiveproperties.PassiveProperty.all">
+<tt class="descname">all</tt><em class="property"> = ['SpecificCapacitance', 'AxialResistance']</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.simulation.base.biophysics.passiveproperties.PassiveProperty.defaults">
+<tt class="descname">defaults</tt><em class="property"> = {'SpecificCapacitance': array(1.0) * uF/cm2, 'AxialResistance': array(80.0) * ohmcm}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -38,7 +38,8 @@ help:
 
 clean:
 	-rm -rf $(BUILDDIR)/
-	 rm -rf srcs/packages/GENERATED*
+	 #rm -rf srcs/packages/GENERATED*
+	 rm -rf apidoc/
 
 
 html:
@@ -133,3 +134,11 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
+
+
+api-doc:
+	rm -rf apidoc 
+	sphinx-apidoc ../src/morphforge/ -o apidoc/mfi-core/
+	sphinx-apidoc ../src/morphforgecontrib/ -o apidoc/mfi-core/
+

@@ -1,0 +1,147 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records</h1><div class="highlight"><pre>
+ <span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.objects.neuronrecordable</span> <span class="kn">import</span> <span class="n">NEURONRecordable</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span><span class="p">,</span> <span class="n">parse_unit_str</span>
+<span class="kn">from</span> <span class="nn">morphforge.constants.standardtags</span> <span class="kn">import</span> <span class="n">StandardTags</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers.mhocfile</span> <span class="kn">import</span> <span class="n">MHocFileData</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.hocmodbuilders.hocmodutils</span> <span class="kn">import</span> <span class="n">HocModUtils</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.networks</span> <span class="kn">import</span> <span class="n">Synapse</span>
+
+
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord">[docs]</a><span class="k">class</span> <span class="nc">Neuron_PSM_Std_CurrentRecord</span><span class="p">(</span><span class="n">NEURONRecordable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neuron_syn_post</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Neuron_PSM_Std_CurrentRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span> <span class="o">=</span> <span class="n">neuron_syn_post</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord.get_unit"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord.get_unit">[docs]</a>    <span class="k">def</span> <span class="nf">get_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">parse_unit_str</span><span class="p">(</span><span class="s">&#39;nA&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord.get_std_tags"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord.get_std_tags">[docs]</a>    <span class="k">def</span> <span class="nf">get_std_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Current</span><span class="p">,</span> <span class="n">Synapse</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">SynapticCurrent</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord.build_hoc"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord.build_hoc">[docs]</a>    <span class="k">def</span> <span class="nf">build_hoc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hocfile_obj</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span><span class="o">.</span><span class="n">synapses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39; Trying to record from a super imposed synapse&#39;</span>
+        <span class="c">#obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapses[0]][&quot;POST&quot;][&quot;synnamepost&quot;]</span>
+        <span class="n">obj_name_hoc</span> <span class="o">=</span> <span class="n">hocfile_obj</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Synapses</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span><span class="p">][</span><span class="s">&quot;synnamepost&quot;</span><span class="p">]</span>
+        <span class="n">HocModUtils</span><span class="o">.</span><span class="n">create_record_from_object</span><span class="p">(</span><span class="n">hocfile_obj</span><span class="o">=</span><span class="n">hocfile_obj</span><span class="p">,</span> <span class="n">vecname</span><span class="o">=</span><span class="s">&quot;RecVec</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">objname</span><span class="o">=</span><span class="n">obj_name_hoc</span><span class="p">,</span> <span class="n">objvar</span><span class="o">=</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="n">recordobj</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_CurrentRecord.build_mod"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_CurrentRecord.build_mod">[docs]</a>    <span class="k">def</span> <span class="nf">build_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modfile_set</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div></div>
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord">[docs]</a><span class="k">class</span> <span class="nc">Neuron_PSM_Std_ConductanceRecord</span><span class="p">(</span><span class="n">NEURONRecordable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neuron_syn_post</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Neuron_PSM_Std_ConductanceRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span> <span class="o">=</span> <span class="n">neuron_syn_post</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord.get_unit"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord.get_unit">[docs]</a>    <span class="k">def</span> <span class="nf">get_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">parse_unit_str</span><span class="p">(</span><span class="s">&#39;uS&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord.get_std_tags"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord.get_std_tags">[docs]</a>    <span class="k">def</span> <span class="nf">get_std_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">StandardTags</span><span class="o">.</span><span class="n">Conductance</span><span class="p">,</span> <span class="n">Synapse</span><span class="o">.</span><span class="n">Recordables</span><span class="o">.</span><span class="n">SynapticConductance</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord.build_hoc"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord.build_hoc">[docs]</a>    <span class="k">def</span> <span class="nf">build_hoc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hocfile_obj</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span><span class="o">.</span><span class="n">synapses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39; Trying to record from a super imposed synapse&#39;</span>
+        <span class="c">#obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapses[0]][&quot;POST&quot;][&quot;synnamepost&quot;]</span>
+        <span class="n">obj_name_hoc</span> <span class="o">=</span> <span class="n">hocfile_obj</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Synapses</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">neuron_syn_post</span><span class="p">][</span><span class="s">&quot;synnamepost&quot;</span><span class="p">]</span>
+        <span class="n">HocModUtils</span><span class="o">.</span><span class="n">create_record_from_object</span><span class="p">(</span><span class="n">hocfile_obj</span><span class="o">=</span><span class="n">hocfile_obj</span><span class="p">,</span> <span class="n">vecname</span><span class="o">=</span><span class="s">&quot;RecVec</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">objname</span><span class="o">=</span><span class="n">obj_name_hoc</span><span class="p">,</span> <span class="n">objvar</span><span class="o">=</span><span class="s">&quot;g&quot;</span><span class="p">,</span> <span class="n">recordobj</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Neuron_PSM_Std_ConductanceRecord.build_mod"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.html#morphforgecontrib.simulation.synapse_templates.exponential_form.neuron_records.Neuron_PSM_Std_ConductanceRecord.build_mod">[docs]</a>    <span class="k">def</span> <span class="nf">build_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modfile_set</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

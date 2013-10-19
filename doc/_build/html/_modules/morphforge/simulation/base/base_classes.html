@@ -1,0 +1,139 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.base.base_classes &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.base" href="../base.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.base.base_classes</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.base.base_classes</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">ObjectLabeller</span>
+
+
+<div class="viewcode-block" id="NamedSimulationObject"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject">[docs]</a><span class="k">class</span> <span class="nc">NamedSimulationObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; A base class for any object in a simulation that needs a name.</span>
+
+<span class="sd">    This class ensures that no two objects in a simulation have the same</span>
+<span class="sd">    name.</span>
+<span class="sd">         * _obj_names: A dictionary -&gt; set mapping, recording what object names are in</span>
+<span class="sd">            use at all simulations&quot;&quot;&quot;</span>
+
+    <span class="n">_obj_names</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="NamedSimulationObject.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">does_require_simulation</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">does_require_simulation</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">simulation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="n">simulation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">simulation</span> <span class="ow">in</span> <span class="n">NamedSimulationObject</span><span class="o">.</span><span class="n">_obj_names</span><span class="p">:</span>
+            <span class="n">NamedSimulationObject</span><span class="o">.</span><span class="n">_obj_names</span><span class="p">[</span><span class="n">simulation</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">ObjectLabeller</span><span class="o">.</span><span class="n">get_next_unamed_object_name</span><span class="p">(</span>
+                    <span class="n">obj_type</span><span class="o">=</span><span class="n">NamedSimulationObject</span><span class="p">,</span>
+                    <span class="n">prefix</span><span class="o">=</span><span class="s">&#39;AnonObj&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">does_require_simulation</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">NamedSimulationObject</span><span class="o">.</span><span class="n">_obj_names</span><span class="p">[</span><span class="n">simulation</span><span class="p">],</span> <span class="s">&#39;Duplicate name:</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">name</span>
+            <span class="n">NamedSimulationObject</span><span class="o">.</span><span class="n">_obj_names</span><span class="p">[</span><span class="n">simulation</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_simulation</span> <span class="o">=</span> <span class="n">simulation</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">NamedSimulationObject</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NamedSimulationObject.get_name"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</div>
+    <span class="n">name</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="NamedSimulationObject.simulation"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.simulation.base.html#morphforge.simulation.base.base_classes.NamedSimulationObject.simulation">[docs]</a>    <span class="k">def</span> <span class="nf">simulation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_simulation</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

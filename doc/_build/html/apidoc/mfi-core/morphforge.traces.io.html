@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>io Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>io Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="io-package">
+<h1>io Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">io</span></tt> Package</h2>
+<span class="target" id="module-morphforge.traces.io"></span><dl class="class">
+<dt id="morphforge.traces.io.NeuroCSVParser">
+<em class="property">class </em><tt class="descname">NeuroCSVParser</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVParser.build_traces">
+<em class="property">classmethod </em><tt class="descname">build_traces</tt><big>(</big><em>header_info</em>, <em>data_array</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVParser.extract_header">
+<em class="property">classmethod </em><tt class="descname">extract_header</tt><big>(</big><em>filename</em><big>)</big></dt>
+<dd><p>Reads just the header out of a file</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVParser.parse">
+<em class="property">classmethod </em><tt class="descname">parse</tt><big>(</big><em>filename</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVParser.readbodydata">
+<em class="property">classmethod </em><tt class="descname">readbodydata</tt><big>(</big><em>filename</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVParser.resolve_header_backslashes">
+<em class="property">classmethod </em><tt class="descname">resolve_header_backslashes</tt><big>(</big><em>header_data</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="morphforge.traces.io.InvalidNeuroCSVFile">
+<em class="property">exception </em><tt class="descname">InvalidNeuroCSVFile</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.io.NeuroCSVWriter">
+<em class="property">class </em><tt class="descname">NeuroCSVWriter</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVWriter.generate_column_header">
+<em class="property">classmethod </em><tt class="descname">generate_column_header</tt><big>(</big><em>tr</em>, <em>index</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVWriter.generate_eventset_header">
+<em class="property">classmethod </em><tt class="descname">generate_eventset_header</tt><big>(</big><em>eventset</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVWriter.write_to_buffer">
+<em class="property">classmethod </em><tt class="descname">write_to_buffer</tt><big>(</big><em>fileObj</em>, <em>traces=None</em>, <em>event_sets=None</em>, <em>time_indices=None</em>, <em>csv_metadata=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.NeuroCSVWriter.write_to_file">
+<em class="property">classmethod </em><tt class="descname">write_to_file</tt><big>(</big><em>fileName</em>, <em>**kwargs</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.io.TraceLoader">
+<em class="property">class </em><tt class="descname">TraceLoader</tt></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.io.fromcsv">
+<span id="fromcsv-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">fromcsv</span></tt> Module</h2>
+<dl class="exception">
+<dt id="morphforge.traces.io.fromcsv.InvalidNeuroCSVFile">
+<em class="property">exception </em><tt class="descname">InvalidNeuroCSVFile</tt><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#InvalidNeuroCSVFile"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData">
+<em class="property">class </em><tt class="descname">NeuroCSVHeaderData</tt><big>(</big><em>headerlines</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>headerlines</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData.parse">
+<tt class="descname">parse</tt><big>(</big><em>headerlines</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData.parse"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData.parse_at">
+<em class="property">classmethod </em><tt class="descname">parse_at</tt><big>(</big><em>line</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData.parse_at"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData.parse_exclaim">
+<tt class="descname">parse_exclaim</tt><big>(</big><em>line</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData.parse_exclaim"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVHeaderData.summarise">
+<tt class="descname">summarise</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVHeaderData.summarise"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser">
+<em class="property">class </em><tt class="descname">NeuroCSVParser</tt><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser.build_traces">
+<em class="property">classmethod </em><tt class="descname">build_traces</tt><big>(</big><em>header_info</em>, <em>data_array</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser.build_traces"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser.extract_header">
+<em class="property">classmethod </em><tt class="descname">extract_header</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser.extract_header"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Reads just the header out of a file</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser.parse">
+<em class="property">classmethod </em><tt class="descname">parse</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser.parse"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser.readbodydata">
+<em class="property">classmethod </em><tt class="descname">readbodydata</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser.readbodydata"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.fromcsv.NeuroCSVParser.resolve_header_backslashes">
+<em class="property">classmethod </em><tt class="descname">resolve_header_backslashes</tt><big>(</big><em>header_data</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#NeuroCSVParser.resolve_header_backslashes"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.traces.io.fromcsv.parse_json_helpful">
+<tt class="descname">parse_json_helpful</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/fromcsv.html#parse_json_helpful"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.io.tocsv">
+<span id="tocsv-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tocsv</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.io.tocsv.NeuroCSVWriter">
+<em class="property">class </em><tt class="descname">NeuroCSVWriter</tt><a class="reference internal" href="../../_modules/morphforge/traces/io/tocsv.html#NeuroCSVWriter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.traces.io.tocsv.NeuroCSVWriter.generate_column_header">
+<em class="property">classmethod </em><tt class="descname">generate_column_header</tt><big>(</big><em>tr</em>, <em>index</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/tocsv.html#NeuroCSVWriter.generate_column_header"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.tocsv.NeuroCSVWriter.generate_eventset_header">
+<em class="property">classmethod </em><tt class="descname">generate_eventset_header</tt><big>(</big><em>eventset</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/tocsv.html#NeuroCSVWriter.generate_eventset_header"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.tocsv.NeuroCSVWriter.write_to_buffer">
+<em class="property">classmethod </em><tt class="descname">write_to_buffer</tt><big>(</big><em>fileObj</em>, <em>traces=None</em>, <em>event_sets=None</em>, <em>time_indices=None</em>, <em>csv_metadata=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/tocsv.html#NeuroCSVWriter.write_to_buffer"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.traces.io.tocsv.NeuroCSVWriter.write_to_file">
+<em class="property">classmethod </em><tt class="descname">write_to_file</tt><big>(</big><em>fileName</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/traces/io/tocsv.html#NeuroCSVWriter.write_to_file"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.traces.io.traceio">
+<span id="traceio-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">traceio</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.traces.io.traceio.TraceLoader">
+<em class="property">class </em><tt class="descname">TraceLoader</tt><a class="reference internal" href="../../_modules/morphforge/traces/io/traceio.html#TraceLoader"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

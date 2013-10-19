@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>importers Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>importers Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="importers-package">
+<h1>importers Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">importers</span></tt> Package</h2>
+<span class="target" id="module-morphforgecontrib.morphology.importers"></span></div>
+<div class="section" id="module-morphforgecontrib.morphology.importers.import_tree_morphml">
+<span id="import-tree-morphml-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">import_tree_morphml</span></tt> Module</h2>
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.Filter">
+<tt class="descname">Filter</tt><big>(</big><em>seq</em>, <em>functor</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#Filter"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.FilterChildrenByTag">
+<tt class="descname">FilterChildrenByTag</tt><big>(</big><em>node</em>, <em>tag</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#FilterChildrenByTag"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.FilterExpectSingleChildrenByTag">
+<tt class="descname">FilterExpectSingleChildrenByTag</tt><big>(</big><em>node</em>, <em>tag</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#FilterExpectSingleChildrenByTag"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.Level1NeuroMLRepresentation">
+<em class="property">class </em><tt class="descname">Level1NeuroMLRepresentation</tt><big>(</big><em>cellNode</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#Level1NeuroMLRepresentation"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.Level1NeuroMLRepresentation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cellNode</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#Level1NeuroMLRepresentation.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.MorphMLLoader">
+<em class="property">class </em><tt class="descname">MorphMLLoader</tt><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#MorphMLLoader"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.MorphMLLoader.load">
+<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>src</em>, <em>regions=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#MorphMLLoader.load"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>regions is a dictionary, which maps cable-groups to a Region name; this handles the
+case when there are multiple group tags in a MorphML document, since morphforge does not allow multiple regions&#8217;</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.MorphMLLoader.load_cell">
+<em class="property">classmethod </em><tt class="descname">load_cell</tt><big>(</big><em>cellNode</em>, <em>regions=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#MorphMLLoader.load_cell"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.MorphMLLoader.load_cell_dictionaries">
+<em class="property">classmethod </em><tt class="descname">load_cell_dictionaries</tt><big>(</big><em>cellNode</em>, <em>regions=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#MorphMLLoader.load_cell_dictionaries"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCable">
+<em class="property">class </em><tt class="descname">NeuroMLCable</tt><big>(</big><em>cable_id</em>, <em>name</em>, <em>group=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCable"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCable.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>cable_id</em>, <em>name</em>, <em>group=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCable.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCable.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCable.__repr__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCable.add_to_group">
+<tt class="descname">add_to_group</tt><big>(</big><em>group</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCable.add_to_group"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCableGroup">
+<em class="property">class </em><tt class="descname">NeuroMLCableGroup</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCableGroup"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCableGroup.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCableGroup.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLCableGroup.add_cable">
+<tt class="descname">add_cable</tt><big>(</big><em>cable</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLCableGroup.add_cable"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLSegment">
+<em class="property">class </em><tt class="descname">NeuroMLSegment</tt><big>(</big><em>segment_id</em>, <em>distInfo</em>, <em>proxInfo=None</em>, <em>parent=None</em>, <em>cable=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLSegment"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.NeuroMLSegment.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>segment_id</em>, <em>distInfo</em>, <em>proxInfo=None</em>, <em>parent=None</em>, <em>cable=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#NeuroMLSegment.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet">
+<em class="property">class </em><tt class="descname">SearchableSet</tt><big>(</big><em>data=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet.__str__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet.add">
+<tt class="descname">add</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet.add"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet.getitem">
+<tt class="descname">getitem</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet.getitem"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.SearchableSet.keys">
+<tt class="descname">keys</tt><big>(</big><em>k</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#SearchableSet.keys"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml._clean_name">
+<tt class="descname">_clean_name</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#_clean_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.get_text">
+<tt class="descname">get_text</tt><big>(</big><em>node</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#get_text"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.isElement">
+<tt class="descname">isElement</tt><big>(</big><em>s</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforgecontrib.morphology.importers.import_tree_morphml.isElementWithTag">
+<tt class="descname">isElementWithTag</tt><big>(</big><em>tag</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_morphml.html#isElementWithTag"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforgecontrib.morphology.importers.import_tree_xyz">
+<span id="import-tree-xyz-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">import_tree_xyz</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_xyz.xyzXYZLoader">
+<em class="property">class </em><tt class="descname">xyzXYZLoader</tt><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_xyz.html#xyzXYZLoader"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforgecontrib.morphology.importers.import_tree_xyz.xyzXYZLoader.Load">
+<em class="property">classmethod </em><tt class="descname">Load</tt><big>(</big><em>morphname</em>, <em>src</em>, <em>regionNames=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_xyz.html#xyzXYZLoader.Load"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforgecontrib.morphology.importers.import_tree_xyz.xyzXYZLoader.defaultxyzXYZRegionNames">
+<tt class="descname">defaultxyzXYZRegionNames</tt><em class="property"> = {0: 'Something', 1: 'Unknown', 2: 'Unknown', 3: 'Unknown', 4: 'Unknown', 5: 'Unknown', 6: 'Unknown', 7: 'Unknown', 8: 'Unknown', 9: 'Unknown', 10: 'soma', 11: 'dendrite', 12: 'axon', 13: 'hillock', 14: 'Unknown', 15: 'Unknown', 16: 'Unknown', 17: 'Unknown', 18: 'Unknown', 'A': 'axon', 'D': 'dendrite', 'H': 'hillock', 'S': 'soma'}</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforgecontrib.morphology.importers.import_tree_xyz.xyzXYZMultiLoader">
+<em class="property">class </em><tt class="descname">xyzXYZMultiLoader</tt><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_xyz.html#xyzXYZMultiLoader"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforgecontrib.morphology.importers.import_tree_xyz.xyzXYZMultiLoader.Load">
+<em class="property">classmethod </em><tt class="descname">Load</tt><big>(</big><em>src</em>, <em>regionNames=None</em>, <em>minimumradius=0.15</em><big>)</big><a class="reference internal" href="../../_modules/morphforgecontrib/morphology/importers/import_tree_xyz.html#xyzXYZMultiLoader.Load"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

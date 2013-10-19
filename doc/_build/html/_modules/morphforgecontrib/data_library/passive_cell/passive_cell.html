@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.data_library.passive_cell.passive_cell &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.data_library.passive_cell.passive_cell</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.data_library.passive_cell.passive_cell</h1><div class="highlight"><pre>
+ <span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+<span class="kn">import</span> <span class="nn">morphforge.stdimports</span> <span class="kn">as</span> <span class="nn">mf</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+
+<span class="kn">from</span> <span class="nn">morphforgecontrib.data_library</span> <span class="kn">import</span> <span class="n">StandardModels</span>
+
+<div class="viewcode-block" id="build_passive_cell"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforgecontrib.data_library.passive_cell.html#morphforgecontrib.data_library.passive_cell.passive_cell.build_passive_cell">[docs]</a><span class="k">def</span> <span class="nf">build_passive_cell</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">input_resistance</span><span class="p">,</span> <span class="n">capacitance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reversalpotential</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">morphforgecontrib.stdimports</span> <span class="kn">as</span> <span class="nn">mfc</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">environment</span>
+
+    <span class="k">if</span> <span class="n">area</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;1000:um2&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">capacitance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">capacitance</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;10:pF&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">reversalpotential</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">reversalpotential</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;-60:mV&#39;</span><span class="p">)</span>
+
+    <span class="n">lk</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span> <span class="n">mfc</span><span class="o">.</span><span class="n">StdChlLeak</span><span class="p">,</span>
+            <span class="n">conductance</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">input_resistance</span><span class="p">)</span> <span class="o">/</span> <span class="n">area</span> <span class="p">),</span>
+            <span class="n">reversalpotential</span> <span class="o">=</span> <span class="n">reversalpotential</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">create_cell</span><span class="p">(</span><span class="n">area</span><span class="o">=</span><span class="n">area</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">initial_voltage</span><span class="o">=</span><span class="n">reversalpotential</span><span class="p">)</span>
+    <span class="n">cell</span><span class="o">.</span><span class="n">apply_channel</span><span class="p">(</span><span class="n">lk</span><span class="p">)</span>
+    <span class="n">cell</span><span class="o">.</span><span class="n">set_passive</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">PassiveProperty</span><span class="o">.</span><span class="n">SpecificCapacitance</span><span class="p">,</span> <span class="n">capacitance</span> <span class="o">/</span> <span class="n">area</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cell</span>
+
+
+</div>
+<span class="n">mf</span><span class="o">.</span><span class="n">CellLibrary</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">celltype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">modelsrc</span><span class="o">=</span><span class="n">StandardModels</span><span class="o">.</span><span class="n">SingleCompartmentPassive</span><span class="p">,</span> <span class="n">cell_functor</span><span class="o">=</span><span class="n">build_passive_cell</span><span class="p">)</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">Cheetah.Template</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron</span> <span class="kn">import</span> <span class="n">ModFile</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHocFileData</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHOCSections</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.hocmodbuilders</span> <span class="kn">import</span> <span class="n">MM_ModFileWriterBase</span>
+
+
+<div class="viewcode-block" id="NEURONChlWriterAlphaBetaBeta"><a class="viewcode-back" href="../../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.html#morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta.NEURONChlWriterAlphaBetaBeta">[docs]</a><span class="k">class</span> <span class="nc">NEURONChlWriterAlphaBetaBeta</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+
+
+    <span class="n">chlHoc</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">$(cell_name).internalsections [$section_index] {</span>
+<span class="s">    // AlphaBetaBeta Channels</span>
+<span class="s">    insert $neuron_suffix</span>
+<span class="s">    #for variable_name, variable_value_nounit, variable_value_with_unit, variable_unit in $variables:</span>
+<span class="s">    $(variable_name)_$(neuron_suffix) = $variable_value_nounit //(in $variable_unit, converted from $variable_value_with_unit)</span>
+<span class="s">    #end for</span>
+<span class="s">}</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+    <span class="n">Units</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;gBar&#39;</span><span class="p">:</span> <span class="s">&#39;S/cm2&#39;</span><span class="p">,</span> <span class="s">&#39;e_rev&#39;</span><span class="p">:</span> <span class="s">&#39;mV&#39;</span><span class="p">,</span> <span class="s">&#39;gScale&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">}</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NEURONChlWriterAlphaBetaBeta.build_hoc_section"><a class="viewcode-back" href="../../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.html#morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta.NEURONChlWriterAlphaBetaBeta.build_hoc_section">[docs]</a>    <span class="k">def</span> <span class="nf">build_hoc_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">hocfile_obj</span><span class="p">,</span> <span class="n">mta</span><span class="p">):</span>
+
+        <span class="n">cell_hoc</span> <span class="o">=</span> <span class="n">hocfile_obj</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Cells</span><span class="p">][</span><span class="n">cell</span><span class="p">]</span>
+        <span class="n">cell_name</span> <span class="o">=</span> <span class="n">cell_hoc</span><span class="p">[</span><span class="s">&#39;cell_name&#39;</span><span class="p">]</span>
+        <span class="n">section_index</span> <span class="o">=</span> <span class="n">cell_hoc</span><span class="p">[</span><span class="s">&#39;section_indexer&#39;</span><span class="p">][</span><span class="n">section</span><span class="p">]</span>
+
+        <span class="n">neuron_suffix</span> <span class="o">=</span> <span class="n">mta</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">get_neuron_suffix</span><span class="p">()</span>
+
+        <span class="c"># Calculate the values of the variables for the section:</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">variable_name</span> <span class="ow">in</span> <span class="n">mta</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">get_variables</span><span class="p">():</span>
+            <span class="n">variable_value_with_unit</span> <span class="o">=</span> <span class="n">mta</span><span class="o">.</span><span class="n">applicator</span><span class="o">.</span><span class="n">get_variable_value_for_section</span><span class="p">(</span><span class="n">variable_name</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+            <span class="n">variable_unit</span> <span class="o">=</span> <span class="n">NEURONChlWriterAlphaBetaBeta</span><span class="o">.</span><span class="n">Units</span><span class="p">[</span><span class="n">variable_name</span><span class="p">]</span>
+            <span class="n">variable_value_nounit</span> <span class="o">=</span> <span class="n">variable_value_with_unit</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="n">variable_unit</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+            <span class="n">variables</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">variable_value_nounit</span><span class="p">,</span> <span class="n">variable_value_with_unit</span><span class="p">,</span> <span class="n">variable_unit</span><span class="p">])</span>
+
+        <span class="n">tmpl_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;cell_name&#39;</span><span class="p">:</span> <span class="n">cell_name</span><span class="p">,</span>
+            <span class="s">&#39;section_index&#39;</span><span class="p">:</span> <span class="n">section_index</span><span class="p">,</span>
+            <span class="s">&#39;neuron_suffix&#39;</span><span class="p">:</span> <span class="n">neuron_suffix</span><span class="p">,</span>
+            <span class="s">&#39;variables&#39;</span><span class="p">:</span> <span class="n">variables</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="c"># Add the data to the HOC file</span>
+        <span class="n">hocfile_obj</span><span class="o">.</span><span class="n">add_to_section</span><span class="p">(</span><span class="n">MHOCSections</span><span class="o">.</span><span class="n">InitCellMembranes</span><span class="p">,</span>  <span class="n">Template</span><span class="p">(</span><span class="n">NEURONChlWriterAlphaBetaBeta</span><span class="o">.</span><span class="n">chlHoc</span><span class="p">,</span> <span class="n">tmpl_dict</span><span class="p">)</span><span class="o">.</span><span class="n">respond</span><span class="p">())</span>
+
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="NEURONChlWriterAlphaBetaBeta.build_mod"><a class="viewcode-back" href="../../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.html#morphforgecontrib.simulation.channels.hh_style.neuron.hocmodbuilders.mmwriter_alphabetabeta.NEURONChlWriterAlphaBetaBeta.build_mod">[docs]</a>    <span class="k">def</span> <span class="nf">build_mod</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">alphabeta_beta_chl</span><span class="p">,</span> <span class="n">modfile_set</span><span class="p">):</span>
+
+        <span class="n">gbar_name</span> <span class="o">=</span> <span class="s">&#39;gBar&#39;</span>
+        <span class="n">e_rev_name</span> <span class="o">=</span> <span class="s">&#39;eLk&#39;</span>
+        <span class="n">g_scale_name</span> <span class="o">=</span> <span class="s">&#39;gScale&#39;</span>
+
+        <span class="n">base_writer</span> <span class="o">=</span> <span class="n">MM_ModFileWriterBase</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">get_neuron_suffix</span><span class="p">())</span>
+
+        <span class="c"># Naming Conventions:</span>
+        <span class="n">state_tau</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">tau&#39;</span> <span class="o">%</span> <span class="n">s</span>
+        <span class="n">state_inf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">inf&#39;</span> <span class="o">%</span> <span class="n">s</span>
+        <span class="n">state_alpha</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_alpha&#39;</span> <span class="o">%</span> <span class="n">s</span>
+        <span class="n">state_beta</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">_beta&#39;</span> <span class="o">%</span> <span class="n">s</span>
+
+        <span class="c"># State Equations and initial values:</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">statevars</span><span class="p">:</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">internalstates</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">state_inf</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">,</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&#39;=(</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">)/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">state_inf</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">state_tau</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+        <span class="c"># Parameters:</span>
+        <span class="c"># {name: (value, unit, range)}</span>
+        <span class="n">base_writer</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+                      <span class="c">#gbar_name: (alphabeta_beta_chl.conductance.toval(ounit=&quot;S/cm2&quot;), (&quot;S/cm2&quot;), None),</span>
+                      <span class="c">#e_rev_name: (alphabeta_beta_chl.reversalpotential.toval(&quot;mV&quot;), (&quot;mV&quot;), None)</span>
+                      <span class="n">gbar_name</span><span class="p">:</span> <span class="p">(</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">conductance</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&quot;S/cm2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;S/cm2&quot;</span><span class="p">),</span> <span class="bp">None</span><span class="p">),</span>
+                      <span class="n">e_rev_name</span><span class="p">:</span> <span class="p">(</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">reversalpotential</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&quot;mV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="p">(</span><span class="s">&quot;mV&quot;</span><span class="p">),</span> <span class="bp">None</span><span class="p">),</span>
+                      <span class="n">g_scale_name</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                      <span class="p">}</span>
+
+        <span class="c"># Rates:</span>
+        <span class="c"># name : (locals, code), unit</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">statevars</span><span class="p">:</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">rates</span><span class="p">[</span><span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="p">((</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;= StdAlphaBeta(</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, v)&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">statevars</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">0</span><span class="p">]))),</span> <span class="bp">None</span>
+            <span class="c">#base_writer.rates[state_beta(s)] = ((&quot;&quot;, state_beta(s) + &quot;= StdBetaBeta(%f, %f, %f, %f, %f,  %f, %f, %f, %f, %f,  %f,  v)&quot; % tuple(alphabeta_beta_chl.statevars[s][1] + alphabeta_beta_chl.statevars[s][2] + [alphabeta_beta_chl.beta2threshold.toval(ounit=&quot;mV&quot;)]))), None</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">rates</span><span class="p">[</span><span class="n">state_beta</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="p">((</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">state_beta</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;= StdBetaBeta(</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">,  </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">,  </span><span class="si">%f</span><span class="s">,  v)&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">statevars</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">statevars</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">beta2threshold</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&quot;mV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span><span class="p">]))),</span> <span class="bp">None</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">rates</span><span class="p">[</span><span class="n">state_inf</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="p">((</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">state_inf</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;= </span><span class="si">%s</span><span class="s">/(</span><span class="si">%s</span><span class="s">+</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_beta</span><span class="p">(</span><span class="n">s</span><span class="p">))),</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">rates</span><span class="p">[</span><span class="n">state_tau</span><span class="p">(</span><span class="n">s</span><span class="p">)]</span> <span class="o">=</span> <span class="p">((</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">state_tau</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;= 1.0/(</span><span class="si">%s</span><span class="s">+</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_beta</span><span class="p">(</span><span class="n">s</span><span class="p">))),</span> <span class="s">&quot;ms&quot;</span><span class="p">)</span>
+            <span class="n">base_writer</span><span class="o">.</span><span class="n">ratecalcorder</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">state_alpha</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_beta</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_inf</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">state_tau</span><span class="p">(</span><span class="n">s</span><span class="p">)])</span>
+
+        <span class="n">base_writer</span><span class="o">.</span><span class="n">currentequation</span> <span class="o">=</span> <span class="s">&quot;(v-</span><span class="si">%s</span><span class="s">) * </span><span class="si">%s</span><span class="s"> * </span><span class="si">%s</span><span class="s"> * </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e_rev_name</span><span class="p">,</span> <span class="n">gbar_name</span><span class="p">,</span> <span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">eqn</span><span class="p">,</span> <span class="n">g_scale_name</span><span class="p">)</span>
+        <span class="n">base_writer</span><span class="o">.</span><span class="n">conductanceequation</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> * </span><span class="si">%s</span><span class="s"> * </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">gbar_name</span><span class="p">,</span> <span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">eqn</span><span class="p">,</span> <span class="n">g_scale_name</span><span class="p">)</span>
+
+        <span class="c">#base_writer.currentequation = &quot;(v-%s) * %s * %s&quot; % (e_rev_name, gbar_name, alphabeta_beta_chl.eqn)</span>
+        <span class="n">base_writer</span><span class="o">.</span><span class="n">functions</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">                    FUNCTION StdAlphaBeta(A, B, C, D, E, V){ StdAlphaBeta = (A + B*V) / (C + exp((D+V)/E)) }</span>
+<span class="s">                    FUNCTION StdBetaBeta(A, B, C, D, E, A2, B2, C2, D2, E2, beta2Threshold, V)</span>
+<span class="s">                    {</span>
+<span class="s">                        if(V &lt; beta2Threshold)</span>
+<span class="s">                        {</span>
+<span class="s">                            StdBetaBeta = (A + B*V) / (C + exp((D+V)/E))</span>
+<span class="s">                        }</span>
+<span class="s">                        else</span>
+<span class="s">                        {</span>
+<span class="s">                           StdBetaBeta = (A2 + B2*V) / (C2 + exp((D2+V)/E2))</span>
+<span class="s">                        }</span>
+<span class="s">                    }</span>
+<span class="s">                    &quot;&quot;&quot;</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="n">base_writer</span><span class="o">.</span><span class="n">generate_modfile</span><span class="p">()</span>
+        <span class="n">mod_file</span> <span class="o">=</span> <span class="n">ModFile</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">alphabeta_beta_chl</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">modtxt</span><span class="o">=</span><span class="n">txt</span><span class="p">)</span>
+        <span class="n">modfile_set</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod_file</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.visitor.morphologyoperators &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.morphology.visitor" href="../visitor.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.visitor.morphologyoperators</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.visitor.morphologyoperators</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.visitor.visitorbaseclasses</span> <span class="kn">import</span> <span class="n">SectionVisitorDF</span>
+
+
+<div class="viewcode-block" id="SectionVisitorDFNeuronBuilder"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder">[docs]</a><span class="k">class</span> <span class="nc">SectionVisitorDFNeuronBuilder</span><span class="p">(</span><span class="n">SectionVisitorDF</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SectionVisitorDFNeuronBuilder.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transfunctor</span><span class="p">,</span> <span class="n">morph</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">transfuctor</span> <span class="o">=</span> <span class="n">transfunctor</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig2new_mapping</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgn_mappings</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_morph</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">SectionVisitorDFNeuronBuilder</span><span class="p">,</span>
+              <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">morph</span><span class="o">=</span><span class="n">morph</span><span class="p">,</span> <span class="n">functor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">build_extrusion</span><span class="p">,</span>
+                             <span class="n">dummysectionfunctor</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">build_root</span><span class="p">,</span>
+                             <span class="n">returnfunctor</span><span class="o">=</span><span class="k">lambda</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_morph</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__call__</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDFNeuronBuilder.build_root"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.build_root">[docs]</a>    <span class="k">def</span> <span class="nf">build_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">Section</span><span class="p">,</span> <span class="n">Region</span>
+        <span class="kn">from</span> <span class="nn">morphforge.morphology.core</span> <span class="kn">import</span> <span class="n">MorphologyTree</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig2new_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rgn_mappings</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">rgn</span><span class="p">,</span> <span class="n">Region</span><span class="p">(</span><span class="n">rgn</span><span class="o">.</span><span class="n">name</span><span class="p">))</span> <span class="k">for</span> <span class="n">rgn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph</span><span class="o">.</span><span class="n">get_regions</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_morph</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">d_x</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_y</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_z</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_r</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transfuctor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+        <span class="n">new_section</span> <span class="o">=</span> <span class="n">Section</span><span class="p">(</span><span class="n">regions</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rgn_mappings</span><span class="p">[</span><span class="n">region</span><span class="p">]</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">regions</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">R</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">new_morph</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="p">(</span><span class="s">&#39;MorphCloned&#39;</span><span class="p">,</span> <span class="n">dummysection</span><span class="o">=</span><span class="n">new_section</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig2new_mapping</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_section</span>
+</div>
+<div class="viewcode-block" id="SectionVisitorDFNeuronBuilder.build_extrusion"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.visitor.html#morphforge.morphology.visitor.morphologyoperators.SectionVisitorDFNeuronBuilder.build_extrusion">[docs]</a>    <span class="k">def</span> <span class="nf">build_extrusion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+
+        <span class="n">new_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig2new_mapping</span><span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span>
+
+        <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">section</span><span class="o">.</span><span class="n">d_x</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_y</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_z</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_r</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transfuctor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+
+        <span class="n">new_section</span> <span class="o">=</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">create_distal_section</span><span class="p">(</span><span class="n">regions</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rgn_mappings</span><span class="p">[</span><span class="n">region</span><span class="p">]</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">regions</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">R</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig2new_mapping</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_section</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base</span> <span class="kn">import</span> <span class="n">Channel</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.constants</span> <span class="kn">import</span> <span class="n">StandardTags</span>
+<span class="kn">import</span> <span class="nn">morphforge.stdimports</span> <span class="kn">as</span> <span class="nn">mf</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+
+
+<div class="viewcode-block" id="StdChlAlphaBeta"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta">[docs]</a><span class="k">class</span> <span class="nc">StdChlAlphaBeta</span><span class="p">(</span><span class="n">Channel</span><span class="p">):</span>
+
+<div class="viewcode-block" id="StdChlAlphaBeta.Recordables"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.Recordables">[docs]</a>    <span class="k">class</span> <span class="nc">Recordables</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+        <span class="n">ConductanceDensity</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">ConductanceDensity</span>
+        <span class="n">CurrentDensity</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">CurrentDensity</span>
+        <span class="n">StateVar</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">StateVariable</span>
+        <span class="n">StateVarSteadyState</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">StateSteadyState</span>
+        <span class="n">StateVarTimeConstant</span> <span class="o">=</span> <span class="n">StandardTags</span><span class="o">.</span><span class="n">StateTimeConstant</span>
+        <span class="nb">all</span> <span class="o">=</span> <span class="p">[</span><span class="n">ConductanceDensity</span><span class="p">,</span> <span class="n">CurrentDensity</span><span class="p">,</span> <span class="n">StateVar</span><span class="p">,</span>
+               <span class="n">StateVarSteadyState</span><span class="p">,</span> <span class="n">StateVarTimeConstant</span><span class="p">]</span>
+
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.__init__"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">equation</span><span class="p">,</span> <span class="n">conductance</span><span class="p">,</span> <span class="n">reversalpotential</span><span class="p">,</span> <span class="n">statevars</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ion</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StdChlAlphaBeta</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c"># TODO: FIXED DEFAULT PARAMETER &#39;statevars&#39;</span>
+        <span class="k">if</span> <span class="n">statevars</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">statevars</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">ion</span> <span class="o">=</span> <span class="n">ion</span>
+        <span class="c">#assert self.ion is None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eqn</span> <span class="o">=</span> <span class="n">equation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conductance</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="n">conductance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statevars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="n">sDict</span><span class="p">[</span><span class="s">&#39;alpha&#39;</span><span class="p">],</span> <span class="n">sDict</span><span class="p">[</span><span class="s">&#39;beta&#39;</span><span class="p">]))</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">sDict</span> <span class="ow">in</span> <span class="n">statevars</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reversalpotential</span> <span class="o">=</span> <span class="n">qty</span><span class="p">(</span><span class="n">reversalpotential</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conductance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conductance</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;S/cm2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reversalpotential</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reversalpotential</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="s">&#39;mV&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.get_variables"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_variables">[docs]</a>    <span class="k">def</span> <span class="nf">get_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s">&#39;gBar&#39;</span><span class="p">,</span> <span class="s">&#39;e_rev&#39;</span><span class="p">,</span> <span class="s">&#39;gScale&#39;</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.get_defaults"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">get_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">&#39;gBar&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">conductance</span><span class="p">,</span>
+                <span class="s">&#39;e_rev&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reversalpotential</span><span class="p">,</span> 
+                <span class="s">&#39;gScale&#39;</span><span class="p">:</span> <span class="n">qty</span><span class="p">(</span><span class="s">&#39;1.0&#39;</span><span class="p">)}</span>
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.get_prefered_units"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_prefered_units">[docs]</a>    <span class="k">def</span> <span class="nf">get_prefered_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">&#39;gBar&#39;</span><span class="p">:</span> <span class="n">mf</span><span class="o">.</span><span class="n">mS</span><span class="o">/</span><span class="n">mf</span><span class="o">.</span><span class="n">cm2</span><span class="p">,</span>
+                <span class="s">&#39;e_rev&#39;</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">mV</span><span class="p">,</span> 
+                <span class="s">&#39;gScale&#39;</span><span class="p">:</span> <span class="n">units</span><span class="o">.</span><span class="n">dimensionless</span>
+                <span class="p">}</span>
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.get_state_variables"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_state_variables">[docs]</a>    <span class="k">def</span> <span class="nf">get_state_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">statevars</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="StdChlAlphaBeta.get_alpha_beta_at_voltage"><a class="viewcode-back" href="../../../../../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta.get_alpha_beta_at_voltage">[docs]</a>    <span class="k">def</span> <span class="nf">get_alpha_beta_at_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">statevar</span><span class="p">):</span>
+
+        <span class="kn">from</span> <span class="nn">morphforgecontrib.simulation.channels.hh_style.summarisers.util</span> <span class="kn">import</span> <span class="n">AlphaBetaCalculator</span>
+        <span class="n">AlphaBetaCalculator</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">statevars</span><span class="p">[</span><span class="n">statevar</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">statevars</span><span class="p">[</span><span class="n">statevar</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">AlphaBetaCalculator</span><span class="o">.</span><span class="n">calc_alpha_beta</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">AlphaBetaCalculator</span><span class="o">.</span><span class="n">calc_alpha_beta</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

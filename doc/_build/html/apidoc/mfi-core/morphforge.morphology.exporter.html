@@ -1,0 +1,125 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>exporter Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>exporter Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="exporter-package">
+<h1>exporter Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">exporter</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology.exporter"></span></div>
+<div class="section" id="module-morphforge.morphology.exporter.export_array_swc">
+<span id="export-array-swc-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">export_array_swc</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.exporter.export_array_swc.ExportArray_SWC">
+<em class="property">class </em><tt class="descname">ExportArray_SWC</tt><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_array_swc.html#ExportArray_SWC"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.morphology.exporter.export_array_swc.ExportArray_SWC._export_single_swc">
+<em class="property">classmethod </em><tt class="descname">_export_single_swc</tt><big>(</big><em>morphology</em>, <em>swc_vertex_offset=1</em>, <em>op=None</em>, <em>fmt='%d %d %0.2f %0.2f %0.2f %0.2f %d'</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_array_swc.html#ExportArray_SWC._export_single_swc"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.morphology.exporter.export_array_swc._export_single_swc">
+<tt class="descname">_export_single_swc</tt><big>(</big><em>morphology</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_array_swc.html#_export_single_swc"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.exporter.export_tree_swc">
+<span id="export-tree-swc-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">export_tree_swc</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.exporter.export_tree_swc.SWCTreeWriter">
+<em class="property">class </em><tt class="descname">SWCTreeWriter</tt><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_tree_swc.html#SWCTreeWriter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.morphology.exporter.export_tree_swc.SWCTreeWriter._to_file_multi">
+<em class="property">classmethod </em><tt class="descname">_to_file_multi</tt><big>(</big><em>filename</em>, <em>morphs</em>, <em>regionname_to_int_map=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_tree_swc.html#SWCTreeWriter._to_file_multi"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.exporter.export_tree_swc.SWCTreeWriter._to_str_multi">
+<em class="property">classmethod </em><tt class="descname">_to_str_multi</tt><big>(</big><em>morphs</em>, <em>regionname_to_int_map=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/export_tree_swc.html#SWCTreeWriter._to_str_multi"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.exporter.morphologyexporter">
+<span id="morphologyexporter-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">morphologyexporter</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.exporter.morphologyexporter.MorphologyExporter">
+<em class="property">class </em><tt class="descname">MorphologyExporter</tt><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/morphologyexporter.html#MorphologyExporter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.morphology.exporter.morphologyexporter.MorphologyExporter.method_name_prefix">
+<tt class="descname">method_name_prefix</tt><em class="property"> = 'to'</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.exporter.morphologyexporter.MorphologyExporter.register">
+<em class="property">classmethod </em><tt class="descname">register</tt><big>(</big><em>method_name</em>, <em>export_functor</em>, <em>from_type</em>, <em>allow_override=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/exporter/morphologyexporter.html#MorphologyExporter.register"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

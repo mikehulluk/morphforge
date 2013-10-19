@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.core.tree &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.morphology.core" href="../core.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.core.tree</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.core.tree</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+
+<span class="n">docs</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;Tree-based object-model of morphologies.</span>
+
+<span class="s">In the tree based representation, a morphology is considered as a set of</span>
+<span class="s">:py:class:`~.Section`. A :py:class:`~.Section` is an unbranching length</span>
+<span class="s">neurons, which can be connected to other sections at its end points. If it does</span>
+<span class="s">connect to other sections at the end points, then it shares the same position</span>
+<span class="s">and radius information at that point.</span>
+
+
+
+<span class="s">.. image:: /img_srcs/new_morphology_overview_simplecylinders_tree_simple.svg</span>
+<span class="s">    :align: center</span>
+
+<span class="s">For example, Figure 1 shows a morphology composed of 4 sections. Each end of</span>
+<span class="s">each frustra is specified as a point in 3D space and a radius:</span>
+<span class="s">:math:`(X, Y, Z);R`.  However, since positions and radii are shared, at join</span>
+<span class="s">points, only stores a reference to its parent (orange arrow), and its distal</span>
+<span class="s">coordinate (red dots).  Therefore</span>
+
+
+<span class="s">.. math::</span>
+
+<span class="s">    Section1^{distal}(x, y, z, r)=Section2^{proximal}(x, y, z, r) = (10, 0, 0, 20)</span>
+
+<span class="s">    Section2^{distal}(x, y, z, r)=Section3^{proximal}(x, y, z, r) = (20, 0, 0, 10)</span>
+
+<span class="s">    ...</span>
+
+<span class="s">Some care need to be taken around the start of the tree. In order for</span>
+<span class="s">`Section1` to have some length, We introduce a special Section, with no parent</span>
+<span class="s">(and hence no length), called the Dummy-Section, shown as a blue dot. This</span>
+<span class="s">section is just used for its position &amp; radius coordinate; it does not</span>
+<span class="s">represent any volume or surface area.</span>
+
+<span class="s">The dummy section is always the root of the tree. Sections whose parents are</span>
+<span class="s">the Dummy-Section, are &#39;Root&#39; sections. (shown in light green).  This means</span>
+<span class="s">that there can be many root nodes in a tree, for example:</span>
+
+<span class="s">.. image:: /img_srcs/new_morphology_overview_simplecylinders_tree_complex.svg</span>
+<span class="s">    :align: center</span>
+
+
+<span class="s">.. note::</span>
+
+<span class="s">    There is an assumption that the root nodes in the models are found made</span>
+<span class="s">    at the somata of cells. The terms &#39;Proxmial&#39; and &#39;Distal&#39; on Section</span>
+<span class="s">    objects refer to the ends closest and furthest away from the dummyroot</span>
+<span class="s">    section respectively.</span>
+
+
+<span class="s">.. note::</span>
+
+<span class="s">    This object model is heavily based on the .swc file format. DummyNode</span>
+<span class="s">    correspond to lines in the .swc format with a parent ID of -1.</span>
+
+
+<span class="s">To construct the morphology in the top figure; the code would look like:</span>
+
+
+<span class="s">.. code-block:: python</span>
+
+<span class="s">    askjdls</span>
+<span class="s">    asljf</span>
+
+
+
+<span class="s">.. todo::</span>
+
+<span class="s">    This is not the way morphologies are recommended to be built.</span>
+<span class="s">    It may be more convenient to use the &#39;DictionaryLoader&#39;</span>
+
+
+
+
+<span class="s">Regions provide a way to group sections together, for example as &#39;axon&#39;,</span>
+<span class="s">&#39;soma&#39;.  Each Section in a morphology can optionally be assigned to a single</span>
+<span class="s">Region.  Regions are used by the :py:mod:`morphforge.simulation` layer for</span>
+<span class="s">specifying channel distributions over a morphology.</span>
+
+<span class="s">.. note::</span>
+
+<span class="s">    This way of specifying Regions is very similar to the &#39;type&#39; field in the</span>
+<span class="s">    .swc file format.</span>
+
+<span class="s">Each Section can be assigned an &#39;ID-Tag&#39;. This is simply a string that</span>
+<span class="s">can be used to refer to a particular section easily later. An IDTag can not be</span>
+<span class="s">repeated in a morphology.  For example, when constructing a morphology, we</span>
+<span class="s">might tag the main soma section, so that is it simple to add current clamps for</span>
+<span class="s">exampl in simulations.</span>
+
+
+<span class="s">.. todo::</span>
+
+<span class="s">    Reference some example.</span>
+
+
+
+
+<span class="s">.. todo::</span>
+
+<span class="s">    MorphLocations and MorphPaths</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">SeqUtils</span>
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">check_cstyle_varname</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core.base</span> <span class="kn">import</span> <span class="n">MorphologyBase</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.visitor</span> <span class="kn">import</span> <span class="n">SectionListerDF</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core.morphologyconsistency</span> <span class="kn">import</span> <span class="n">MorphologyConsistencyMgr</span>
+
+
+<div class="viewcode-block" id="Section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section">[docs]</a><span class="k">class</span> <span class="nc">Section</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.d_x"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.d_x">[docs]</a>    <span class="k">def</span> <span class="nf">d_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Distal x coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.d_y"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.d_y">[docs]</a>    <span class="k">def</span> <span class="nf">d_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Distal y coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.d_z"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.d_z">[docs]</a>    <span class="k">def</span> <span class="nf">d_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Distal z coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_pos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.d_r"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.d_r">[docs]</a>    <span class="k">def</span> <span class="nf">d_r</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Distal r coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_r</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.p_x"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.p_x">[docs]</a>    <span class="k">def</span> <span class="nf">p_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Proximal x coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">d_x</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.p_y"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.p_y">[docs]</a>    <span class="k">def</span> <span class="nf">p_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Proximal y coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">d_y</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.p_z"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.p_z">[docs]</a>    <span class="k">def</span> <span class="nf">p_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Proximal z coordinate&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">d_z</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.p_r"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.p_r">[docs]</a>    <span class="k">def</span> <span class="nf">p_r</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">&quot;Proximal radius&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">d_r</span>
+
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.region"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.region">[docs]</a>    <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_region</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.idtag"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.idtag">[docs]</a>    <span class="k">def</span> <span class="nf">idtag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id_tag</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.parent"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.parent">[docs]</a>    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Section.children"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.children">[docs]</a>    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span>
+
+
+</div>
+<div class="viewcode-block" id="Section.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Creation of the section.  &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_d_pos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_d_r</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_region</span> <span class="o">=</span> <span class="n">region</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id_tag</span> <span class="o">=</span> <span class="n">idtag</span>
+
+        <span class="c"># Post Processing: tidy up loose ends:</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c"># Adding new sections:</span></div>
+<div class="viewcode-block" id="Section.create_distal_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.create_distal_section">[docs]</a>    <span class="k">def</span> <span class="nf">create_distal_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates and returns a new Section object from its distal end.</span>
+<span class="sd">        The parameters are the same as for the constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">Section</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="n">idtag</span><span class="o">=</span><span class="n">idtag</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="Section.is_a_root_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.is_a_root_section">[docs]</a>    <span class="k">def</span> <span class="nf">is_a_root_section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">()</span> <span class="o">==</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="Section.is_dummy_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.is_dummy_section">[docs]</a>    <span class="k">def</span> <span class="nf">is_dummy_section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Section.is_leaf"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.is_leaf">[docs]</a>    <span class="k">def</span> <span class="nf">is_leaf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="Section.get_npa3"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_npa3">[docs]</a>    <span class="k">def</span> <span class="nf">get_npa3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">position</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_npa3</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_to_distal_vector_npa3</span><span class="p">()</span> <span class="o">*</span> <span class="n">position</span>
+</div>
+<div class="viewcode-block" id="Section.get_npa4"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_npa4">[docs]</a>    <span class="k">def</span> <span class="nf">get_npa4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">position</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_npa4</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_to_distal_vector_npa4</span><span class="p">()</span> <span class="o">*</span> <span class="n">position</span>
+
+</div>
+<div class="viewcode-block" id="Section.get_distal_npa3"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_distal_npa3">[docs]</a>    <span class="k">def</span> <span class="nf">get_distal_npa3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the 3 coordinates of the distal end of the section.  &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_d_pos</span>
+</div>
+<div class="viewcode-block" id="Section.get_distal_npa4"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_distal_npa4">[docs]</a>    <span class="k">def</span> <span class="nf">get_distal_npa4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the 3 coordinates and the radius of the distal end of the</span>
+<span class="sd">            section.  &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">d_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_r</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Section.get_proximal_npa3"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_proximal_npa3">[docs]</a>    <span class="k">def</span> <span class="nf">get_proximal_npa3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the 3 coordinates of the proximal end of the section.  &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_distal_npa3</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Section.get_proximal_npa4"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_proximal_npa4">[docs]</a>    <span class="k">def</span> <span class="nf">get_proximal_npa4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the 3 coordinates and the radius of the proximal end of the section.  &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">p_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_r</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Section.__repr__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s">&#39;DummySection&#39;</span>
+
+        <span class="k">def</span> <span class="nf">end_summary</span><span class="p">(</span><span class="n">e</span><span class="p">):</span> 
+            <span class="k">return</span> <span class="s">&quot;[</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, r=</span><span class="si">%f</span><span class="s">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">d_x</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">d_y</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">d_z</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">d_r</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="k">else</span> <span class="s">&#39;&lt;None&gt;&#39;</span>
+        <span class="n">end_string</span> <span class="o">=</span> <span class="s">&quot;SectionObject: &quot;</span> <span class="o">+</span> <span class="n">end_summary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; -&gt; &quot;</span> <span class="o">+</span> <span class="n">end_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span>
+        <span class="n">rg_string</span> <span class="o">=</span> <span class="s">&quot;Region:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span><span class="s">&quot;, &quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+        <span class="n">id_string</span> <span class="o">=</span> <span class="s">&quot;idtag:&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">idtag</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">idtag</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+        <span class="n">ln_string</span> <span class="o">=</span> <span class="s">&quot;Length: </span><span class="si">%2.2f</span><span class="s">, &quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;&quot;</span> <span class="o">+</span><span class="n">end_string</span> <span class="o">+</span> <span class="n">ln_string</span> <span class="o">+</span> <span class="n">rg_string</span> <span class="o">+</span> <span class="n">id_string</span> <span class="o">+</span><span class="s">&quot;&gt;&quot;</span>
+</div>
+<div class="viewcode-block" id="Section.get_proximal_to_distal_vector_npa3"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_proximal_to_distal_vector_npa3">[docs]</a>    <span class="k">def</span> <span class="nf">get_proximal_to_distal_vector_npa3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the vector that joins the proximal end of the section to the distal end.  &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_distal_npa3</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_npa3</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Section.get_proximal_to_distal_vector_npa4"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_proximal_to_distal_vector_npa4">[docs]</a>    <span class="k">def</span> <span class="nf">get_proximal_to_distal_vector_npa4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the vector that joins the proximal end of the section to the distal end.  &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_distal_npa4</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_npa4</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Section.get_length"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">(),</span> <span class="s">&quot;Getting Length of dummy section!&quot;</span>
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_to_distal_vector_npa3</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="Section.get_area"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_area">[docs]</a>    <span class="k">def</span> <span class="nf">get_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_end_if_terminal</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the area of the section.  &quot;&quot;&quot;</span>
+
+        <span class="c"># http://mathworld.wolfram.com/ConicalFrustum.html</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">(),</span> <span class="s">&quot;Getting area of dummy section!&quot;</span>
+
+        <span class="c"># We need to consider this; since there are 2 ends that might be</span>
+        <span class="c"># open</span>
+
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_r</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_r</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+        <span class="n">lateral_area</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">r</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">length</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">include_end_if_terminal</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">()</span>  <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_a_root_section</span><span class="p">()):</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">lateral_area</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">():</span>
+                <span class="n">A</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">R</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_a_root_section</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">A</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span>
+            <span class="k">return</span> <span class="n">A</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lateral_area</span>
+</div>
+<div class="viewcode-block" id="Section.get_volume"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_volume">[docs]</a>    <span class="k">def</span> <span class="nf">get_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the volume of the section.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">(),</span> <span class="s">&#39;Getting volume of dummy section!&#39;</span>
+
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_r</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_r</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">R</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+</div>
+    <span class="n">area</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_area</span><span class="p">)</span>
+    <span class="n">surface_area</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_area</span><span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_volume</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_length</span><span class="p">)</span>
+
+    <span class="c"># Deprecated:</span>
+<div class="viewcode-block" id="Section.get_vectorfrom_parent_np4"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Section.get_vectorfrom_parent_np4">[docs]</a>    <span class="k">def</span> <span class="nf">get_vectorfrom_parent_np4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Deprecated: Returns the directional vector and the radious difference in the section.  &quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;Deprecated&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_distal_npa4</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_proximal_npa4</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="Region"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region">[docs]</a><span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Region is a collection of sections. It is used for annotating the sections</span>
+<span class="sd">    (i.e. axon, soma, proximal dendrite, ...) and for collectively assigning</span>
+<span class="sd">    the channels and membrane definitions to the sections.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Region.__str__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;&lt;RegionObject: Name: </span><span class="si">%s</span><span class="s">, nSections: </span><span class="si">%d</span><span class="s"> (ID:</span><span class="si">%s</span><span class="s">)&gt;&#39;</span> \
+            <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">s</span>
+</div>
+<div class="viewcode-block" id="Region.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">check_cstyle_varname</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Region.__iter__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Region.__len__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c">#        assert False</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Region.add_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.add_section">[docs]</a>    <span class="k">def</span> <span class="nf">add_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adding a section to the region.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Section already in Region.sections&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Region.set_morphology"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.set_morphology">[docs]</a>    <span class="k">def</span> <span class="nf">set_morphology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">morph</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">morph</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">morph</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morph</span> <span class="o">=</span> <span class="n">morph</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Region.surface_area"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.Region.surface_area">[docs]</a>    <span class="k">def</span> <span class="nf">surface_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">surface_area</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="MorphLocation"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphLocation">[docs]</a><span class="k">class</span> <span class="nc">MorphLocation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;A MorphLocations represents a cell_location (more accurately a disk) on a</span>
+<span class="sd">    morphology. It is specied by a Section, and the proportion of the distance</span>
+<span class="sd">    along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0</span>
+<span class="sd">    (most distal) (like NEURON).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Read-only&#39;s:</span>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MorphLocation.section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphLocation.section">[docs]</a>    <span class="k">def</span> <span class="nf">section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_section</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MorphLocation.sectionpos"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphLocation.sectionpos">[docs]</a>    <span class="k">def</span> <span class="nf">sectionpos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sectionpos</span>
+</div>
+<div class="viewcode-block" id="MorphLocation.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphLocation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">sectionpos</span><span class="p">):</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_section</span> <span class="o">=</span> <span class="n">section</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sectionpos</span> <span class="o">=</span> <span class="n">sectionpos</span>
+        <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">sectionpos</span> <span class="o">&lt;=</span> <span class="mf">1.0</span>
+</div>
+<div class="viewcode-block" id="MorphLocation.get_3d_position"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphLocation.get_3d_position">[docs]</a>    <span class="k">def</span> <span class="nf">get_3d_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the 3D position of the morphology cell_location&quot;&quot;&quot;</span>
+        <span class="n">local_vector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sectionpos</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">get_proximal_to_distal_vector_npa3</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">get_proximal_npa3</span><span class="p">()</span> <span class="o">+</span> <span class="n">local_vector</span>
+
+</div></div>
+<div class="viewcode-block" id="MorphologyTree"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree">[docs]</a><span class="k">class</span> <span class="nc">MorphologyTree</span><span class="p">(</span><span class="n">MorphologyBase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.morphology.conversion</span> <span class="kn">import</span> <span class="n">MorphologyConverter</span>
+        <span class="k">return</span> <span class="n">MorphologyConverter</span><span class="o">.</span><span class="n">tree_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MorphologyTree.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dummysection</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MorphologyTree</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="n">region_number_to_name_bidict</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">if</span> <span class="n">dummysection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_dummy_section</span><span class="p">(</span><span class="n">dummysection</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensure_consistency</span><span class="p">(</span><span class="n">requiretreeset</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="MorphologyTree.__str__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;MorphologyTree Object: Name: </span><span class="si">%s</span><span class="s">, nSections: </span><span class="si">%d</span><span class="s">, Regions:[</span><span class="si">%s</span><span class="s">], idTags:[</span><span class="si">%s</span><span class="s">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                                       <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+                                                                       <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">rgn</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">rgn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_regions</span><span class="p">()]),</span>
+                                                                       <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_idtags</span><span class="p">())</span>
+                                                                      <span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="c"># It is not nessesary to define the dummy node when we call __init__,</span>
+    <span class="c"># but we need to check it is set before being requested.</span></div>
+<div class="viewcode-block" id="MorphologyTree.is_dummy_section_set"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.is_dummy_section_set">[docs]</a>    <span class="k">def</span> <span class="nf">is_dummy_section_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns whether a tree has been assigned to this morphology&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span> <span class="o">!=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.set_dummy_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.set_dummy_section">[docs]</a>    <span class="k">def</span> <span class="nf">set_dummy_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummysection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Set the tree node for the morphology. You can only do this to a morphology</span>
+<span class="sd">        which has not had its tree assigned yet. The root-object of the tree is a &#39;dummysection&#39;,</span>
+<span class="sd">        but this is **not** the same as a root node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section_set</span><span class="p">(),</span> <span class="s">&quot;Setting of MorphologyTree Twice&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dummysection</span><span class="p">,</span> <span class="n">Section</span><span class="p">),</span> <span class="s">&quot;Setting the tree with something that is not a Section object&quot;</span>
+        <span class="k">assert</span> <span class="n">dummysection</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">(),</span> <span class="s">&quot;Dummysection is not a dummy section!&quot;</span>
+
+        <span class="k">assert</span> <span class="n">MorphologyConsistencyMgr</span><span class="o">.</span><span class="n">get_checker</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span> <span class="o">=</span> <span class="n">dummysection</span>
+        <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_regions</span><span class="p">():</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">set_morphology</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">MorphologyConsistencyMgr</span><span class="o">.</span><span class="n">get_checker</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_consistency</span><span class="p">(),</span> <span class="s">&#39;Morphology is not consistent&#39;</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree._every_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree._every_section">[docs]</a>    <span class="k">def</span> <span class="nf">_every_section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Includes dummy section&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_dummy_section</span><span class="p">()],</span> <span class="bp">self</span><span class="p">])</span>
+
+    <span class="c"># Iteration over morphologies:</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.__iter__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Iteration over each of the sections.&quot;&quot;&quot;</span>
+
+        <span class="c">#assert self.ensure_consistency(), &#39;Morphology is not consistent&#39;</span>
+
+        <span class="c"># TODO: replace this with a iterator method on one of the sections in the tree. I</span>
+        <span class="c"># need to think about this. it might be the dummysection. This will be cleaner.</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">SectionListerDF</span><span class="p">(</span><span class="bp">self</span><span class="p">)())</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.__len__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the numbers of sections in the morphology &quot;&quot;&quot;</span>
+
+        <span class="c">#assert self.ensure_consistency()</span>
+
+        <span class="c"># TODO: as per iter</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">SectionListerDF</span><span class="p">(</span><span class="bp">self</span><span class="p">)())</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_dummy_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_dummy_section">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c">#assert self.ensure_consistency(), &quot;MorphologyTree not consistent&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_root_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_root_section">[docs]</a>    <span class="k">def</span> <span class="nf">get_root_section</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39;Deprecated&#39;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_consistency</span><span class="p">(),</span> <span class="s">&quot;MorphologyTree not consistent&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_root_sections"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_root_sections">[docs]</a>    <span class="k">def</span> <span class="nf">get_root_sections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummysection</span><span class="o">.</span><span class="n">children</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_regions"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_regions">[docs]</a>    <span class="k">def</span> <span class="nf">get_regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a list of unique regions in the morphology</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c">#assert self.ensure_consistency()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">all_regions</span> <span class="o">=</span> <span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">region</span> <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_regions</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span><span class="o">.</span><span class="n">__contains__</span><span class="p">(</span><span class="bp">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MorphologyTree.regions"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.regions">[docs]</a>    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_regions</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_region_names"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_region_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_region_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">region</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_regions</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_region"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_region">[docs]</a>    <span class="k">def</span> <span class="nf">get_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a Region object relevant to this tree, given a filename&quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ensure_consistency</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">SeqUtils</span><span class="o">.</span><span class="n">filter_expect_single</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_regions</span><span class="p">(),</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_section"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_section">[docs]</a>    <span class="k">def</span> <span class="nf">get_section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idtag</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a Section object with a given id&quot;&quot;&quot;</span>
+        <span class="c">#assert self.ensure_consistency()</span>
+        <span class="k">return</span> <span class="n">SeqUtils</span><span class="o">.</span><span class="n">filter_expect_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">idtag</span> <span class="o">==</span> <span class="n">idtag</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.get_idtags"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.get_idtags">[docs]</a>    <span class="k">def</span> <span class="nf">get_idtags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">section</span><span class="o">.</span><span class="n">idtag</span> <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">section</span><span class="o">.</span><span class="n">idtag</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="MorphologyTree.ensure_consistency"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.ensure_consistency">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requiretreeset</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is used to check the consistency of the tree. In production code, all calls to this should be optimised out using</span>
+<span class="sd">        -O optimisation to python.</span>
+<span class="sd">        This requests a check from MorphologyConsistencyMgr. We do this to avoid storing additional attributes in the MorphologyTree</span>
+<span class="sd">        Object, which could cause upset for calculating md5sums or pickling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">requiretreeset</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_dummy_section_set</span><span class="p">()</span>
+
+        <span class="c">#MorphologyConsistencyMgr.check_morphology(self)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="MorphologyTree.surface_area"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphologyTree.surface_area">[docs]</a>    <span class="k">def</span> <span class="nf">surface_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">surface_area</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="MorphPath"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphPath">[docs]</a><span class="k">class</span> <span class="nc">MorphPath</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">DirDistal</span> <span class="o">=</span> <span class="s">&#39;DirDistal&#39;</span>
+    <span class="n">DirProximal</span> <span class="o">=</span> <span class="s">&#39;DirProximal&#39;</span>
+
+    <span class="c"># Find the paths back to the dummy_section()::</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MorphPath.get_sections_to_root"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphPath.get_sections_to_root">[docs]</a>    <span class="k">def</span> <span class="nf">get_sections_to_root</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">sect</span><span class="p">):</span>
+        <span class="n">sects</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+        <span class="n">current_sect</span> <span class="o">=</span> <span class="n">sect</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">current_sect</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="n">sects</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_sect</span><span class="p">)</span>
+            <span class="n">current_sect</span> <span class="o">=</span> <span class="n">current_sect</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">return</span> <span class="n">sects</span>
+</div>
+<div class="viewcode-block" id="MorphPath.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphPath.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">morphloc1</span><span class="p">,</span> <span class="n">morphloc2</span><span class="p">):</span>
+
+        <span class="c"># Check they are on the same morphology!</span>
+        <span class="n">_section1</span> <span class="o">=</span> <span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span>
+        <span class="n">_section2</span> <span class="o">=</span> <span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">_section1</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="n">_section1</span> <span class="o">=</span> <span class="n">_section1</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">_section2</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="n">_section2</span> <span class="o">=</span> <span class="n">_section2</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">assert</span> <span class="n">_section1</span> <span class="ow">is</span> <span class="n">_section2</span>
+
+        <span class="c"># Remap dummy sections to being proximal on the</span>
+        <span class="c"># first child section, to reduce special case handling:</span>
+        <span class="k">if</span> <span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="n">morphloc1</span> <span class="o">=</span> <span class="n">MorphLocation</span><span class="p">(</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">is_dummy_section</span><span class="p">():</span>
+            <span class="n">morphloc2</span> <span class="o">=</span> <span class="n">MorphLocation</span><span class="p">(</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+
+
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span> <span class="o">=</span> <span class="n">morphloc1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2</span> <span class="o">=</span> <span class="n">morphloc2</span>
+
+        <span class="c"># TO SET:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span> <span class="o">==</span> <span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+
+            <span class="c"># Points in the same section:</span>
+            <span class="c">#self._connecting_sections = []</span>
+            <span class="k">if</span> <span class="n">morphloc1</span><span class="o">.</span><span class="n">sectionpos</span> <span class="o">&lt;</span> <span class="n">morphloc2</span><span class="o">.</span><span class="n">sectionpos</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirDistal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirProximal</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirProximal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirDistal</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">s1_sects</span> <span class="o">=</span> <span class="n">MorphPath</span><span class="o">.</span><span class="n">get_sections_to_root</span><span class="p">(</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+            <span class="n">s2_sects</span> <span class="o">=</span> <span class="n">MorphPath</span><span class="o">.</span><span class="n">get_sections_to_root</span><span class="p">(</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+
+            <span class="c"># Is one a direct parent of the other?</span>
+            <span class="k">if</span> <span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span> <span class="ow">in</span> <span class="n">s2_sects</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span> <span class="o">=</span> <span class="nb">set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">s1_sects</span><span class="p">,</span> <span class="n">s2_sects</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">DirDistal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirProximal</span>
+            <span class="k">elif</span> <span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span> <span class="ow">in</span> <span class="n">s1_sects</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span> <span class="o">=</span> <span class="nb">set</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">s1_sects</span><span class="p">,</span> <span class="n">s2_sects</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">DirProximal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DirDistal</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="bp">False</span>
+
+            <span class="c"># Remove the original sections,  from the list of</span>
+            <span class="c"># connecting sections:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span>
+</div>
+<div class="viewcode-block" id="MorphPath.get_length"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.tree.MorphPath.get_length">[docs]</a>    <span class="k">def</span> <span class="nf">get_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c"># Handle the special case of both being on the same section:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">section</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span><span class="o">.</span><span class="n">sectionpos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2</span><span class="o">.</span><span class="n">sectionpos</span><span class="p">)</span>
+
+
+        <span class="k">def</span> <span class="nf">s_len</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">_dir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_dir</span> <span class="o">==</span> <span class="n">MorphPath</span><span class="o">.</span><span class="n">DirDistal</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">loc</span><span class="o">.</span><span class="n">sectionpos</span><span class="p">)</span> <span class="o">*</span> <span class="n">loc</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">_dir</span> <span class="o">==</span> <span class="n">MorphPath</span><span class="o">.</span><span class="n">DirProximal</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">loc</span><span class="o">.</span><span class="n">sectionpos</span> <span class="o">*</span> <span class="n">loc</span><span class="o">.</span><span class="n">section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="bp">False</span>
+
+        <span class="n">s1_length</span> <span class="o">=</span> <span class="n">s_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">morphloc1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc1_dir</span><span class="p">)</span>
+        <span class="n">s2_length</span> <span class="o">=</span> <span class="n">s_len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">morphloc2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">morphloc2_dir</span><span class="p">)</span>
+        <span class="n">connecting_section_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="n">_section</span><span class="o">.</span><span class="n">get_length</span><span class="p">()</span> <span class="k">for</span> <span class="n">_section</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connecting_sections</span><span class="p">]</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">s1_length</span> <span class="o">+</span> <span class="n">s2_length</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">connecting_section_lengths</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">length</span>
+
+
+    <span class="c"># def isSectionInPath(self, section):</span>
+    <span class="c">#    return section in self._connecting_sections</span>
+
+    <span class="c"># def isSectionOnEndpoint(self, section):</span>
+    <span class="c">#    return section in (self.morphloc1.section, self.morphloc2.section)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

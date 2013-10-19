@@ -1,0 +1,118 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Creating morphologies from python dictionaries &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../index.html" />
+    <link rel="up" title="Morphology Examples" href="../srcs/examples/examples.html" />
+    <link rel="next" title="2. Loading from SWC and rendering with Matplotlib" href="morphology020.html" />
+    <link rel="prev" title="Morphology Examples" href="../srcs/examples/examples.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>1. Creating morphologies from python dictionaries</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../srcs/examples/examples.html">Morphology Examples</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="morphology020.html">2. Loading from SWC and rendering with Matplotlib</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="creating-morphologies-from-python-dictionaries">
+<h1>1. Creating morphologies from python dictionaries</h1>
+<p>Creating morphologies from python dictionaries.
+In this example, we create 2 <tt class="xref py py-class docutils literal"><span class="pre">MorphologyTree</span></tt> objects from python
+dictionaries, and then demonstrate iterating over the sections</p>
+<div class="section" id="code">
+<h2>Code</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">morphforge.morphology</span> <span class="kn">import</span> <span class="n">MorphologyTree</span>
+
+
+<span class="c"># Build a morphology consisting of a single-section:</span>
+<span class="n">morphDict1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;diam&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span> <span class="p">}</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="o">.</span><span class="n">fromDictionary</span><span class="p">(</span><span class="n">morphDict1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SimpleMorphology1&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;M1:&quot;</span>
+<span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">m1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">section</span>
+
+
+<span class="c"># Build a morphology consisting of a 2 compartments:</span>
+<span class="n">morphDict2</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;diam&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#39;sections&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s">&#39;length&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="s">&#39;diam&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}]</span>  <span class="p">}</span> <span class="p">}</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">MorphologyTree</span><span class="o">.</span><span class="n">fromDictionary</span><span class="p">(</span><span class="n">morphDict2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;SimpleMorphology2&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;M2:&quot;</span>
+<span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">m2</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Section:&quot;</span>
+    <span class="k">print</span> <span class="s">&quot; - Proximal:&quot;</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">p_x</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">p_y</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">p_z</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">p_r</span>
+    <span class="k">print</span> <span class="s">&quot; - Distal:  &quot;</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_x</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_y</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_z</span><span class="p">,</span> <span class="n">section</span><span class="o">.</span><span class="n">d_r</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output</h2>
+<div class="highlight-bash"><div class="highlight"><pre>    Openning ScriptFlags
+M1:
+&lt;SectionObject: <span class="o">[</span>0.000000, 0.000000, 0.000000, <span class="nv">r</span><span class="o">=</span>10.000000<span class="o">]</span> -&gt; <span class="o">[</span>20.000000, 0.000000, 0.000000, <span class="nv">r</span><span class="o">=</span>10.000000<span class="o">]</span>, Length: 20.00, Region:NoRegionGiven, &gt;
+M2:
+Section:
+ - Proximal: 0.0 0.0 0.0 10.0
+ - Distal:   20.0 0.0 0.0 10.0
+Section:
+ - Proximal: 20.0 0.0 0.0 10.0
+ - Distal:   320.0 0.0 0.0 1.0
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../srcs/examples/examples.html">Morphology Examples</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="morphology020.html">2. Loading from SWC and rendering with Matplotlib</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1120 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>core Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="core-package">
+<h1>core Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">core</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology.core"></span><p>Object-models for morphology representations.</p>
+<dl class="class">
+<dt id="morphforge.morphology.core.MorphologyTree">
+<em class="property">class </em><tt class="descname">MorphologyTree</tt><big>(</big><em>name=None</em>, <em>dummysection=None</em>, <em>metadata=None</em>, <em>region_number_to_name_bidict=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.core.base.MorphologyBase" title="morphforge.morphology.core.base.MorphologyBase"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.core.base.MorphologyBase</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name=None</em>, <em>dummysection=None</em>, <em>metadata=None</em>, <em>region_number_to_name_bidict=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.__iter__">
+<tt class="descname">__iter__</tt><big>(</big><big>)</big></dt>
+<dd><p>Iteration over each of the sections.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the numbers of sections in the morphology</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree._every_section">
+<tt class="descname">_every_section</tt><big>(</big><big>)</big></dt>
+<dd><p>Includes dummy section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.ensure_consistency">
+<tt class="descname">ensure_consistency</tt><big>(</big><em>requiretreeset=True</em><big>)</big></dt>
+<dd><p>This method is used to check the consistency of the tree. In production code, all calls to this should be optimised out using
+-O optimisation to python.
+This requests a check from MorphologyConsistencyMgr. We do this to avoid storing additional attributes in the MorphologyTree
+Object, which could cause upset for calculating md5sums or pickling.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_dummy_section">
+<tt class="descname">get_dummy_section</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_idtags">
+<tt class="descname">get_idtags</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_region">
+<tt class="descname">get_region</tt><big>(</big><em>name</em><big>)</big></dt>
+<dd><p>Returns a Region object relevant to this tree, given a filename</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_region_names">
+<tt class="descname">get_region_names</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_regions">
+<tt class="descname">get_regions</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns a list of unique regions in the morphology</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_root_section">
+<tt class="descname">get_root_section</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_root_sections">
+<tt class="descname">get_root_sections</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.get_section">
+<tt class="descname">get_section</tt><big>(</big><em>idtag</em><big>)</big></dt>
+<dd><p>Returns a Section object with a given id</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.is_dummy_section_set">
+<tt class="descname">is_dummy_section_set</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns whether a tree has been assigned to this morphology</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphologyTree.regions">
+<tt class="descname">regions</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyTree.set_dummy_section">
+<tt class="descname">set_dummy_section</tt><big>(</big><em>dummysection</em><big>)</big></dt>
+<dd><p>Set the tree node for the morphology. You can only do this to a morphology
+which has not had its tree assigned yet. The root-object of the tree is a &#8216;dummysection&#8217;,
+but this is <strong>not</strong> the same as a root node.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphologyTree.surface_area">
+<tt class="descname">surface_area</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.Section">
+<em class="property">class </em><tt class="descname">Section</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>parent=None</em>, <em>idtag=None</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>parent=None</em>, <em>idtag=None</em><big>)</big></dt>
+<dd><p>Creation of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.area">
+<tt class="descname">area</tt></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.children">
+<tt class="descname">children</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.create_distal_section">
+<tt class="descname">create_distal_section</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>idtag=None</em><big>)</big></dt>
+<dd><p>Creates and returns a new Section object from its distal end.
+The parameters are the same as for the constructor.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.d_r">
+<tt class="descname">d_r</tt></dt>
+<dd><p>Distal r coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.d_x">
+<tt class="descname">d_x</tt></dt>
+<dd><p>Distal x coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.d_y">
+<tt class="descname">d_y</tt></dt>
+<dd><p>Distal y coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.d_z">
+<tt class="descname">d_z</tt></dt>
+<dd><p>Distal z coordinate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_area">
+<tt class="descname">get_area</tt><big>(</big><em>include_end_if_terminal=False</em><big>)</big></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_distal_npa3">
+<tt class="descname">get_distal_npa3</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the 3 coordinates of the distal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_distal_npa4">
+<tt class="descname">get_distal_npa4</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the 3 coordinates and the radius of the distal end of the
+section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_npa3">
+<tt class="descname">get_npa3</tt><big>(</big><em>position</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_npa4">
+<tt class="descname">get_npa4</tt><big>(</big><em>position</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_proximal_npa3">
+<tt class="descname">get_proximal_npa3</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the 3 coordinates of the proximal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_proximal_npa4">
+<tt class="descname">get_proximal_npa4</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the 3 coordinates and the radius of the proximal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_proximal_to_distal_vector_npa3">
+<tt class="descname">get_proximal_to_distal_vector_npa3</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the vector that joins the proximal end of the section to the distal end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_proximal_to_distal_vector_npa4">
+<tt class="descname">get_proximal_to_distal_vector_npa4</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the vector that joins the proximal end of the section to the distal end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_vectorfrom_parent_np4">
+<tt class="descname">get_vectorfrom_parent_np4</tt><big>(</big><big>)</big></dt>
+<dd><p>Deprecated: Returns the directional vector and the radious difference in the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.get_volume">
+<tt class="descname">get_volume</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the volume of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.idtag">
+<tt class="descname">idtag</tt></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.is_a_root_section">
+<tt class="descname">is_a_root_section</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.is_dummy_section">
+<tt class="descname">is_dummy_section</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Section.is_leaf">
+<tt class="descname">is_leaf</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.length">
+<tt class="descname">length</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.p_r">
+<tt class="descname">p_r</tt></dt>
+<dd><p>Proximal radius</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.p_x">
+<tt class="descname">p_x</tt></dt>
+<dd><p>Proximal x coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.p_y">
+<tt class="descname">p_y</tt></dt>
+<dd><p>Proximal y coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.p_z">
+<tt class="descname">p_z</tt></dt>
+<dd><p>Proximal z coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.parent">
+<tt class="descname">parent</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.region">
+<tt class="descname">region</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.surface_area">
+<tt class="descname">surface_area</tt></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Section.volume">
+<tt class="descname">volume</tt></dt>
+<dd><p>Returns the volume of the section.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.Region">
+<em class="property">class </em><tt class="descname">Region</tt><big>(</big><em>name</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Region is a collection of sections. It is used for annotating the sections
+(i.e. axon, soma, proximal dendrite, ...) and for collectively assigning
+the channels and membrane definitions to the sections.</p>
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.__iter__">
+<tt class="descname">__iter__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.add_section">
+<tt class="descname">add_section</tt><big>(</big><em>section</em><big>)</big></dt>
+<dd><p>Adding a section to the region.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.Region.set_morphology">
+<tt class="descname">set_morphology</tt><big>(</big><em>morph</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.Region.surface_area">
+<tt class="descname">surface_area</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.MorphLocation">
+<em class="property">class </em><tt class="descname">MorphLocation</tt><big>(</big><em>section</em>, <em>sectionpos</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A MorphLocations represents a cell_location (more accurately a disk) on a
+morphology. It is specied by a Section, and the proportion of the distance
+along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0
+(most distal) (like NEURON).</p>
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphLocation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section</em>, <em>sectionpos</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphLocation.get_3d_position">
+<tt class="descname">get_3d_position</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the 3D position of the morphology cell_location</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphLocation.section">
+<tt class="descname">section</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphLocation.sectionpos">
+<tt class="descname">sectionpos</tt></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.MorphologyArray">
+<em class="property">class </em><tt class="descname">MorphologyArray</tt><big>(</big><em>vertices</em>, <em>connectivity</em>, <em>dummy_vertex_index=0</em>, <em>section_types=None</em>, <em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.core.base.MorphologyBase" title="morphforge.morphology.core.base.MorphologyBase"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.core.base.MorphologyBase</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>vertices</em>, <em>connectivity</em>, <em>dummy_vertex_index=0</em>, <em>section_types=None</em>, <em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns the number of cylinders in the morphology
+(Chosen over the number for vertices, in order to maintain compatibility with MorphologyTree,</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.connections_to_index">
+<tt class="descname">connections_to_index</tt><big>(</big><em>pid</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.get_connection_by_index">
+<tt class="descname">get_connection_by_index</tt><big>(</big><em>i</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.get_leaf_vertices_indices">
+<tt class="descname">get_leaf_vertices_indices</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.get_vertex_by_index">
+<tt class="descname">get_vertex_by_index</tt><big>(</big><em>i</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.index_of_connection">
+<tt class="descname">index_of_connection</tt><big>(</big><em>_id</em>, <em>pid</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphologyArray.is_directed">
+<tt class="descname">is_directed</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.MorphPath">
+<em class="property">class </em><tt class="descname">MorphPath</tt><big>(</big><em>morphloc1</em>, <em>morphloc2</em><big>)</big></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphPath.DirDistal">
+<tt class="descname">DirDistal</tt><em class="property"> = 'DirDistal'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.MorphPath.DirProximal">
+<tt class="descname">DirProximal</tt><em class="property"> = 'DirProximal'</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphPath.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morphloc1</em>, <em>morphloc2</em><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.MorphPath.get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.core.MorphPath.get_sections_to_root">
+<em class="property">classmethod </em><tt class="descname">get_sections_to_root</tt><big>(</big><em>sect</em><big>)</big></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.core.array">
+<span id="array-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">array</span></tt> Module</h2>
+<p>Vertex-based object-model of morphologies.</p>
+<dl class="class">
+<dt id="morphforge.morphology.core.array.MorphologyArray">
+<em class="property">class </em><tt class="descname">MorphologyArray</tt><big>(</big><em>vertices</em>, <em>connectivity</em>, <em>dummy_vertex_index=0</em>, <em>section_types=None</em>, <em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.core.base.MorphologyBase" title="morphforge.morphology.core.base.MorphologyBase"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.core.base.MorphologyBase</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>vertices</em>, <em>connectivity</em>, <em>dummy_vertex_index=0</em>, <em>section_types=None</em>, <em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.__len__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the number of cylinders in the morphology
+(Chosen over the number for vertices, in order to maintain compatibility with MorphologyTree,</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.connections_to_index">
+<tt class="descname">connections_to_index</tt><big>(</big><em>pid</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.connections_to_index"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.get_connection_by_index">
+<tt class="descname">get_connection_by_index</tt><big>(</big><em>i</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.get_connection_by_index"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.get_leaf_vertices_indices">
+<tt class="descname">get_leaf_vertices_indices</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.get_leaf_vertices_indices"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.get_vertex_by_index">
+<tt class="descname">get_vertex_by_index</tt><big>(</big><em>i</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.get_vertex_by_index"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.index_of_connection">
+<tt class="descname">index_of_connection</tt><big>(</big><em>_id</em>, <em>pid</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.index_of_connection"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.array.MorphologyArray.is_directed">
+<tt class="descname">is_directed</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/array.html#MorphologyArray.is_directed"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.core.base">
+<span id="base-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">base</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.core.base.MorphologyBase">
+<em class="property">class </em><tt class="descname">MorphologyBase</tt><big>(</big><em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/base.html#MorphologyBase"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.base.MorphologyBase.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>region_number_to_name_bidict=None</em>, <em>name=None</em>, <em>metadata=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/base.html#MorphologyBase.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.base.MorphologyBase.name">
+<tt class="descname">name</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/base.html#MorphologyBase.name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.core.morphologyconsistency">
+<span id="morphologyconsistency-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">morphologyconsistency</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker">
+<em class="property">class </em><tt class="descname">MorphConsistencyChecker</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_dummy_section">
+<em class="property">classmethod </em><tt class="descname">check_dummy_section</tt><big>(</big><em>dummysection</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_dummy_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_region">
+<tt class="descname">check_region</tt><big>(</big><em>region</em>, <em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_region"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_section">
+<tt class="descname">check_section</tt><big>(</big><em>section</em>, <em>morph</em>, <em>dummysection=False</em>, <em>recurse=True</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_section_contents">
+<tt class="descname">check_section_contents</tt><big>(</big><em>section</em>, <em>morph</em>, <em>dummysection</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_section_contents"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_section_infra_structure">
+<tt class="descname">check_section_infra_structure</tt><big>(</big><em>section</em>, <em>morph</em>, <em>dummysection</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_section_infra_structure"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.check_tree">
+<tt class="descname">check_tree</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.check_tree"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.disable">
+<tt class="descname">disable</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.disable"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.enable">
+<tt class="descname">enable</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.enable"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphConsistencyChecker.run_checks">
+<tt class="descname">run_checks</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphConsistencyChecker.run_checks"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphologyConsistencyMgr">
+<em class="property">class </em><tt class="descname">MorphologyConsistencyMgr</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphologyConsistencyMgr"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphologyConsistencyMgr._morphology_consistency_checkers">
+<tt class="descname">_morphology_consistency_checkers</tt><em class="property"> = {}</em></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphologyConsistencyMgr.check_morphology">
+<em class="property">classmethod </em><tt class="descname">check_morphology</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphologyConsistencyMgr.check_morphology"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.core.morphologyconsistency.MorphologyConsistencyMgr.get_checker">
+<em class="property">classmethod </em><tt class="descname">get_checker</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#MorphologyConsistencyMgr.get_checker"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="morphforge.morphology.core.morphologyconsistency._get_md5_of_morphology">
+<tt class="descname">_get_md5_of_morphology</tt><big>(</big><em>m</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#_get_md5_of_morphology"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforge.morphology.core.morphologyconsistency._get_md5_of_region">
+<tt class="descname">_get_md5_of_region</tt><big>(</big><em>r</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#_get_md5_of_region"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="morphforge.morphology.core.morphologyconsistency._get_md5_of_section">
+<tt class="descname">_get_md5_of_section</tt><big>(</big><em>s</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/morphologyconsistency.html#_get_md5_of_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.core.tree">
+<span id="tree-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">tree</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.core.tree.MorphLocation">
+<em class="property">class </em><tt class="descname">MorphLocation</tt><big>(</big><em>section</em>, <em>sectionpos</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphLocation"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A MorphLocations represents a cell_location (more accurately a disk) on a
+morphology. It is specied by a Section, and the proportion of the distance
+along it, sectionpos. Sectionpos is a float from 0.0 (most proximal) to 1.0
+(most distal) (like NEURON).</p>
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphLocation.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>section</em>, <em>sectionpos</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphLocation.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphLocation.get_3d_position">
+<tt class="descname">get_3d_position</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphLocation.get_3d_position"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the 3D position of the morphology cell_location</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphLocation.section">
+<tt class="descname">section</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphLocation.section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphLocation.sectionpos">
+<tt class="descname">sectionpos</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphLocation.sectionpos"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.tree.MorphPath">
+<em class="property">class </em><tt class="descname">MorphPath</tt><big>(</big><em>morphloc1</em>, <em>morphloc2</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphPath"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphPath.DirDistal">
+<tt class="descname">DirDistal</tt><em class="property"> = 'DirDistal'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphPath.DirProximal">
+<tt class="descname">DirProximal</tt><em class="property"> = 'DirProximal'</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphPath.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>morphloc1</em>, <em>morphloc2</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphPath.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphPath.get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphPath.get_length"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.core.tree.MorphPath.get_sections_to_root">
+<em class="property">classmethod </em><tt class="descname">get_sections_to_root</tt><big>(</big><em>sect</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphPath.get_sections_to_root"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.tree.MorphologyTree">
+<em class="property">class </em><tt class="descname">MorphologyTree</tt><big>(</big><em>name=None</em>, <em>dummysection=None</em>, <em>metadata=None</em>, <em>region_number_to_name_bidict=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.core.base.MorphologyBase" title="morphforge.morphology.core.base.MorphologyBase"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.core.base.MorphologyBase</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name=None</em>, <em>dummysection=None</em>, <em>metadata=None</em>, <em>region_number_to_name_bidict=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.__iter__">
+<tt class="descname">__iter__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.__iter__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Iteration over each of the sections.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.__len__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the numbers of sections in the morphology</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.__str__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree._every_section">
+<tt class="descname">_every_section</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree._every_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Includes dummy section</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.ensure_consistency">
+<tt class="descname">ensure_consistency</tt><big>(</big><em>requiretreeset=True</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.ensure_consistency"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This method is used to check the consistency of the tree. In production code, all calls to this should be optimised out using
+-O optimisation to python.
+This requests a check from MorphologyConsistencyMgr. We do this to avoid storing additional attributes in the MorphologyTree
+Object, which could cause upset for calculating md5sums or pickling.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_dummy_section">
+<tt class="descname">get_dummy_section</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_dummy_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_idtags">
+<tt class="descname">get_idtags</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_idtags"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_region">
+<tt class="descname">get_region</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_region"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns a Region object relevant to this tree, given a filename</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_region_names">
+<tt class="descname">get_region_names</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_region_names"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_regions">
+<tt class="descname">get_regions</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_regions"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns a list of unique regions in the morphology</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_root_section">
+<tt class="descname">get_root_section</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_root_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_root_sections">
+<tt class="descname">get_root_sections</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_root_sections"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.get_section">
+<tt class="descname">get_section</tt><big>(</big><em>idtag</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.get_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns a Section object with a given id</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.is_dummy_section_set">
+<tt class="descname">is_dummy_section_set</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.is_dummy_section_set"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns whether a tree has been assigned to this morphology</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.regions">
+<tt class="descname">regions</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.regions"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.set_dummy_section">
+<tt class="descname">set_dummy_section</tt><big>(</big><em>dummysection</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.set_dummy_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Set the tree node for the morphology. You can only do this to a morphology
+which has not had its tree assigned yet. The root-object of the tree is a &#8216;dummysection&#8217;,
+but this is <strong>not</strong> the same as a root node.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.MorphologyTree.surface_area">
+<tt class="descname">surface_area</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#MorphologyTree.surface_area"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.tree.Region">
+<em class="property">class </em><tt class="descname">Region</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Region is a collection of sections. It is used for annotating the sections
+(i.e. axon, soma, proximal dendrite, ...) and for collectively assigning
+the channels and membrane definitions to the sections.</p>
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.__iter__">
+<tt class="descname">__iter__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.__iter__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.__len__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.__str__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.add_section">
+<tt class="descname">add_section</tt><big>(</big><em>section</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.add_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Adding a section to the region.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Region.set_morphology">
+<tt class="descname">set_morphology</tt><big>(</big><em>morph</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.set_morphology"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Region.surface_area">
+<tt class="descname">surface_area</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Region.surface_area"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.core.tree.Section">
+<em class="property">class </em><tt class="descname">Section</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>parent=None</em>, <em>idtag=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>parent=None</em>, <em>idtag=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Creation of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.__repr__">
+<tt class="descname">__repr__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.__repr__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.area">
+<tt class="descname">area</tt></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.children">
+<tt class="descname">children</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.children"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.create_distal_section">
+<tt class="descname">create_distal_section</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>, <em>region</em>, <em>idtag=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.create_distal_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Creates and returns a new Section object from its distal end.
+The parameters are the same as for the constructor.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.d_r">
+<tt class="descname">d_r</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.d_r"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Distal r coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.d_x">
+<tt class="descname">d_x</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.d_x"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Distal x coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.d_y">
+<tt class="descname">d_y</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.d_y"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Distal y coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.d_z">
+<tt class="descname">d_z</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.d_z"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Distal z coordinate</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_area">
+<tt class="descname">get_area</tt><big>(</big><em>include_end_if_terminal=False</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_area"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_distal_npa3">
+<tt class="descname">get_distal_npa3</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_distal_npa3"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the 3 coordinates of the distal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_distal_npa4">
+<tt class="descname">get_distal_npa4</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_distal_npa4"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the 3 coordinates and the radius of the distal end of the
+section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_length"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_npa3">
+<tt class="descname">get_npa3</tt><big>(</big><em>position</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_npa3"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_npa4">
+<tt class="descname">get_npa4</tt><big>(</big><em>position</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_npa4"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_proximal_npa3">
+<tt class="descname">get_proximal_npa3</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_proximal_npa3"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the 3 coordinates of the proximal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_proximal_npa4">
+<tt class="descname">get_proximal_npa4</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_proximal_npa4"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the 3 coordinates and the radius of the proximal end of the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_proximal_to_distal_vector_npa3">
+<tt class="descname">get_proximal_to_distal_vector_npa3</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_proximal_to_distal_vector_npa3"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the vector that joins the proximal end of the section to the distal end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_proximal_to_distal_vector_npa4">
+<tt class="descname">get_proximal_to_distal_vector_npa4</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_proximal_to_distal_vector_npa4"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the vector that joins the proximal end of the section to the distal end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_vectorfrom_parent_np4">
+<tt class="descname">get_vectorfrom_parent_np4</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_vectorfrom_parent_np4"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Deprecated: Returns the directional vector and the radious difference in the section.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.get_volume">
+<tt class="descname">get_volume</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.get_volume"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the volume of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.idtag">
+<tt class="descname">idtag</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.idtag"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.is_a_root_section">
+<tt class="descname">is_a_root_section</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.is_a_root_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.is_dummy_section">
+<tt class="descname">is_dummy_section</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.is_dummy_section"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.core.tree.Section.is_leaf">
+<tt class="descname">is_leaf</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.is_leaf"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.length">
+<tt class="descname">length</tt></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.p_r">
+<tt class="descname">p_r</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.p_r"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Proximal radius</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.p_x">
+<tt class="descname">p_x</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.p_x"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Proximal x coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.p_y">
+<tt class="descname">p_y</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.p_y"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Proximal y coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.p_z">
+<tt class="descname">p_z</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.p_z"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Proximal z coordinate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.parent">
+<tt class="descname">parent</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.parent"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.region">
+<tt class="descname">region</tt><a class="reference internal" href="../../_modules/morphforge/morphology/core/tree.html#Section.region"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.surface_area">
+<tt class="descname">surface_area</tt></dt>
+<dd><p>Returns the area of the section.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="morphforge.morphology.core.tree.Section.volume">
+<tt class="descname">volume</tt></dt>
+<dd><p>Returns the volume of the section.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

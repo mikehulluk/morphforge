@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.core.misc &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../index.html" />
+    <link rel="up" title="morphforge.core" href="../core.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.core.misc</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.core.misc</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A collection of utility functions.</span>
+<span class="sd">Often these are not the most efficient implementations, especially when</span>
+<span class="sd">dealing with large files, but for most files morphforge has to deal with,</span>
+<span class="sd">they work fine and make code more readable.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="kn">as</span> <span class="nn">fs</span>
+
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core.mgrs</span> <span class="kn">import</span> <span class="n">LocMgr</span>
+
+
+<div class="viewcode-block" id="find_files_recursively"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.find_files_recursively">[docs]</a><span class="k">def</span> <span class="nf">find_files_recursively</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Recursive &#39;glob&#39; for files.</span>
+
+<span class="sd">    This function walks over a directory looking for filenames matching a</span>
+<span class="sd">    certain pattern&quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">_dirs</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">basename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">filename</span>
+
+</div>
+<div class="viewcode-block" id="StrUtils"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.StrUtils">[docs]</a><span class="k">class</span> <span class="nc">StrUtils</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; A collection of string utility functions&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="StrUtils.strip_comments_and_blank_lines"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.StrUtils.strip_comments_and_blank_lines">[docs]</a>    <span class="k">def</span> <span class="nf">strip_comments_and_blank_lines</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">cmt_sym</span><span class="o">=</span><span class="s">&#39;#&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Removes comments and blank lines from block of text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">new</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">cmt_sym</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">idx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="n">new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="StrUtils.get_hash_md5"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.StrUtils.get_hash_md5">[docs]</a>    <span class="k">def</span> <span class="nf">get_hash_md5</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the md5 digest hash of a string&quot;&quot;&quot;</span>
+
+        <span class="n">m</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;md5&#39;</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="FileIO"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.FileIO">[docs]</a><span class="k">class</span> <span class="nc">FileIO</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; A collection of file utility functions&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FileIO.append_to_file"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.FileIO.append_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">append_to_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">file_expected</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Appends text to an existing file.</span>
+
+<span class="sd">        By default the file is expected to already exist, otherwise an IOError</span>
+<span class="sd">        exception be thrown. This can be overridden with the file_expected</span>
+<span class="sd">        parameter. Returns `filename`&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">file_expected</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fs</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s">&quot;Can&#39;t append to non-existant file: </span><span class="si">%s</span><span class="s">&quot;</span>
+                          <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filename</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FileIO.write_to_file"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.FileIO.write_to_file">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span>
+        <span class="n">cls</span><span class="p">,</span>
+        <span class="n">txt</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">filedirectory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">suffix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Writes text to a file</span>
+<span class="sd">        This function will overwrite an existing file. If no filename is given,</span>
+<span class="sd">        a filename will be invented, using LocMgr.get_temporary_filename().</span>
+<span class="sd">        The name of the file written to will be returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">LocMgr</span><span class="o">.</span><span class="n">get_temporary_filename</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span>
+                    <span class="n">filedirectory</span><span class="o">=</span><span class="n">filedirectory</span><span class="p">)</span>
+        <span class="c">#print filename</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filename</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FileIO.read_from_file"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.FileIO.read_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Reads text from a file&quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c">#            txt = f.read()</span>
+<span class="c">#        return txt</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FileIO.get_hash_md5"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.FileIO.get_hash_md5">[docs]</a>    <span class="k">def</span> <span class="nf">get_hash_md5</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the md5 checksum of a file.</span>
+
+<span class="sd">        This function should not be used for large files, since it loads</span>
+<span class="sd">        the entire file into memory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">StrUtils</span><span class="o">.</span><span class="n">get_hash_md5</span><span class="p">(</span><span class="n">FileIO</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="SeqUtils"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils">[docs]</a><span class="k">class</span> <span class="nc">SeqUtils</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; A collection of utility functions for working with sequences&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SeqUtils.flatten"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils.flatten">[docs]</a>    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">flatten_types</span><span class="o">=</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot; &#39;Flattens&#39; a sequence recursively.</span>
+
+<span class="sd">        The objects types to flatten are specified by the flatten_types</span>
+<span class="sd">        parameter, which must by a tuple of classes. By default it flattens</span>
+<span class="sd">        lists and tuples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">flatten_types</span><span class="p">):</span>
+                <span class="n">new_items</span> <span class="o">=</span> <span class="n">SeqUtils</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">flatten_types</span><span class="o">=</span><span class="n">flatten_types</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_items</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SeqUtils.expect_single"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils.expect_single">[docs]</a>    <span class="k">def</span> <span class="nf">expect_single</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Expects a sequence containing a single object and returns it.</span>
+
+<span class="sd">        If 0 or more than 1 objects are found, it raises an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;ExpectSingle has none:&#39;</span><span class="p">,</span> <span class="n">l</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;ExpectSingle has multiple:&#39;</span><span class="p">,</span> <span class="n">l</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SeqUtils.filter_expect_single"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils.filter_expect_single">[docs]</a>    <span class="k">def</span> <span class="nf">filter_expect_single</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">filter_func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Filters a sequence according to the predicate filter_func, then</span>
+<span class="sd">        expects a single item to remain, which it returns.  If 0 or more than</span>
+<span class="sd">        1 objects are found, it raises an error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">filtered_seq</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">seq</span> <span class="k">if</span> <span class="n">filter_func</span><span class="p">(</span><span class="n">obj</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_seq</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span> <span class="n">seq</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to find any occurances&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_seq</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Found too many occurances&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filtered_seq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SeqUtils.filter_with_prob"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils.filter_with_prob">[docs]</a>    <span class="k">def</span> <span class="nf">filter_with_prob</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">lst</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a copy of the sequence, in which each item in the original</span>
+<span class="sd">        has a fixed probability of being in the new sequence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">lst</span> <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SeqUtils.max_with_unique_check"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.SeqUtils.max_with_unique_check">[docs]</a>    <span class="k">def</span> <span class="nf">max_with_unique_check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Return the maximum from a sequence, based on a key, but verify</span>
+<span class="sd">        that there is a unique maximum.</span>
+
+<span class="sd">        This is designed to be used when the</span>
+<span class="sd">        key generates integers.&quot;&quot;&quot;</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">collection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sorted_seq</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">key</span><span class="p">(</span><span class="n">sorted_seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="n">key</span><span class="p">(</span><span class="n">sorted_seq</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">sorted_seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="is_iterable"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.is_iterable">[docs]</a><span class="k">def</span> <span class="nf">is_iterable</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns True if an object can be iterated over by using iter(obj)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">iter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+</div>
+<div class="viewcode-block" id="merge_dictionaries"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.merge_dictionaries">[docs]</a><span class="k">def</span> <span class="nf">merge_dictionaries</span><span class="p">(</span><span class="n">dictionaries</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Merge a sequence of dictionaries safely.</span>
+
+<span class="sd">    This function merges dictionaries together, but ensures that there are</span>
+<span class="sd">    not same keys which point to different values. That is,</span>
+<span class="sd">    merge_dictionaries({&#39;alpha&#39;:True}, {&#39;alpha&#39;:True}) is OK, but</span>
+<span class="sd">    merge_dictionaries({&#39;alpha&#39;:True}, {&#39;alpha&#39;:False}) will raise an</span>
+<span class="sd">    exception</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">dct</span> <span class="ow">in</span> <span class="n">dictionaries</span><span class="p">:</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">res</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">v</span>
+            <span class="n">res</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+</div>
+<div class="viewcode-block" id="check_cstyle_varname"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.check_cstyle_varname">[docs]</a><span class="k">def</span> <span class="nf">check_cstyle_varname</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Check a string conforms to a C-style variable name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">__class__</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Invalid Name - Not String!&#39;</span><span class="p">)</span>
+    <span class="n">valid_regex</span> <span class="o">=</span> <span class="s">&#39;^[a-zA-Z][_a-zA-Z0-9]*$&#39;</span>
+    <span class="n">match_obj</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">valid_regex</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match_obj</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Invalid Name: _</span><span class="si">%s</span><span class="s">_&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span>
+
+
+<span class="c"># Deprecated:</span>
+<span class="c"># =========================</span>
+</div>
+<div class="viewcode-block" id="is_float"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.is_float">[docs]</a><span class="k">def</span> <span class="nf">is_float</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deprecated&quot;&quot;&quot;</span>
+
+    <span class="c"># We are getting rid of the only function calling this &#39;./morphforge/src/morphforge/core/quantities/fromcore.py&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+</div>
+<div class="viewcode-block" id="is_int"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.is_int">[docs]</a><span class="k">def</span> <span class="nf">is_int</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deprecated&quot;&quot;&quot;</span>
+
+    <span class="c"># We are getting rid of the only function calling this &#39;./morphforge/src/morphforge/core/quantities/fromcore.py&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+</div>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="c"># Lets not buffer any output:</span>
+
+<div class="viewcode-block" id="flushfile"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.flushfile">[docs]</a><span class="k">class</span> <span class="nc">flushfile</span><span class="p">(</span><span class="nb">file</span><span class="p">):</span>
+
+<div class="viewcode-block" id="flushfile.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.flushfile.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+</div>
+<div class="viewcode-block" id="flushfile.write"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.flushfile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+
+<span class="c"># sys.stdout = flushfile(sys.stdout)</span>
+<span class="c"># sys.stderr = flushfile(sys.stderr)</span>
+</div></div>
+<div class="viewcode-block" id="benchmark"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.benchmark">[docs]</a><span class="k">class</span> <span class="nc">benchmark</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="benchmark.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.benchmark.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</div>
+<div class="viewcode-block" id="benchmark.__enter__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.benchmark.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="benchmark.__exit__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.benchmark.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> : </span><span class="si">%0.3f</span><span class="s"> seconds&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+</div></div>
+<div class="viewcode-block" id="TracePrints"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.TracePrints">[docs]</a><span class="k">class</span> <span class="nc">TracePrints</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TracePrints.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.TracePrints.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+</div>
+<div class="viewcode-block" id="TracePrints.write"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.TracePrints.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Writing </span><span class="si">%r</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_stack</span><span class="p">(</span><span class="nb">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+
+
+<span class="c"># sys.stdout = TracePrints()</span>
+
+
+
+
+</div></div>
+<span class="n">sweep_size</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="ParameterSweepValues"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues">[docs]</a><span class="k">class</span> <span class="nc">ParameterSweepValues</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterSweepValues.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+
+</div>
+<div class="viewcode-block" id="ParameterSweepValues._short_iter"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues._short_iter">[docs]</a>    <span class="k">def</span> <span class="nf">_short_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sweep_size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">sweep_size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">False</span>
+
+</div>
+<div class="viewcode-block" id="ParameterSweepValues.__iter__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sweep_size</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_short_iter</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="ParameterSweepValues.__getitem__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">sweep_size</span><span class="o">==</span><span class="bp">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="ParameterSweepValues.__len__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforge.core.html#morphforge.core.misc.ParameterSweepValues.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">sweep_size</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sweep_size</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

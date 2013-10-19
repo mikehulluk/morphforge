@@ -1,0 +1,159 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Simulation Layer &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" />
+    <link rel="up" title="Morphforge Users Guide" href="../../index_api_new.html" />
+    <link rel="next" title="SimulationAnalysis Layer" href="simulation_analysis.html" />
+    <link rel="prev" title="Morphology Layer" href="morphology.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>Simulation Layer</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="morphology.html">Morphology Layer</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="simulation_analysis.html">SimulationAnalysis Layer</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="simulation-layer">
+<h1>Simulation Layer</h1>
+<p>Morphforge-contrib currently defines the following types of channels:</p>
+<div class="section" id="channel-types">
+<h2>Channel-Types</h2>
+<div class="section" id="stdchlleak">
+<h3>StdChlLeak</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak" title="morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak"><tt class="xref py py-class docutils literal"><span class="pre">StdChlLeak</span></tt></a> is a leak channel consisting of a constant reversal potential and conductance density.</p>
+</div>
+<div class="section" id="stdchlalphabeta">
+<h3>StdChlAlphaBeta</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta" title="morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta"><tt class="xref py py-class docutils literal"><span class="pre">StdChlAlphaBeta</span></tt></a> is a HodgkinHuxley type channel that can be constructed directly in Python. The form of the rate constants are:</p>
+<div class="math">
+<p><img src="../../_images/math/86f29a87832d8bb285b547b09faa629d37f4c6d2.png" alt="\alpha(V),\beta(V) = \frac{ A+BV}{ C+ exp( (D+V)/E) }"/></p>
+</div><p>where A,B,C,D &amp; E are constants.</p>
+</div>
+<div class="section" id="stdchlalphabetabeta">
+<h3>StdChlAlphaBetaBeta</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.hh_style.core.html#morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta" title="morphforgecontrib.simulation.channels.hh_style.core.mmalphabetabeta.StdChlAlphaBetaBeta"><tt class="xref py py-class docutils literal"><span class="pre">StdChlAlphaBetaBeta</span></tt></a> is similar to StdChlAlphaBeta, except that different forms for <img class="math" src="../../_images/math/fdb63b9e51abe6bbb16acfb5d7b773ddbb5bf4a8.png" alt="\beta"/> can be used for different values for V. (See for example Dale-95)</p>
+</div>
+<div class="section" id="simulatorspecificchannel">
+<h3>SimulatorSpecificChannel</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.exisitingmodfile.html#morphforgecontrib.simulation.channels.exisitingmodfile.core.SimulatorSpecificChannel" title="morphforgecontrib.simulation.channels.exisitingmodfile.core.SimulatorSpecificChannel"><tt class="xref py py-class docutils literal"><span class="pre">SimulatorSpecificChannel</span></tt></a> also MODL code to be use directly within with a NEURON simulation.</p>
+</div>
+<div class="section" id="neurounits">
+<h3>NeuroUnits</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.neurounits.html#morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge.NeuroUnitEqnsetMechanism" title="morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge.NeuroUnitEqnsetMechanism"><tt class="xref py py-class docutils literal"><span class="pre">NeuroUnitEqnsetMechanism</span></tt></a> allows channels specified in NeuroUnits as strings to be used in morphforge</p>
+</div>
+<div class="section" id="neuroml-via-xsl-channel">
+<h3>NeuroML_Via_XSL_Channel</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.neuroml_via_xsl.html#morphforgecontrib.simulation.channels.neuroml_via_xsl.neuroml_via_xsl_core.NeuroML_Via_XSL_Channel" title="morphforgecontrib.simulation.channels.neuroml_via_xsl.neuroml_via_xsl_core.NeuroML_Via_XSL_Channel"><tt class="xref py py-class docutils literal"><span class="pre">NeuroML_Via_XSL_Channel</span></tt></a> allows channels specified in NeuroUnits as strings to be used in morphforge.</p>
+</div>
+<div class="section" id="neuroml-via-neurounits-channel">
+<h3>NeuroML_Via_NeuroUnits_Channel</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.channels.neuroml_via_neurounits.html#morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_core.NeuroML_Via_NeuroUnits_Channel" title="morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_core.NeuroML_Via_NeuroUnits_Channel"><tt class="xref py py-class docutils literal"><span class="pre">NeuroML_Via_NeuroUnits_Channel</span></tt></a> is for internal use for testing a conversion from NeuroML to Neurounits to ensure they give the same simulation results.</p>
+</div>
+</div>
+<div class="section" id="presynaptictrigger-types">
+<h2>PreSynapticTrigger-Types</h2>
+<div class="section" id="synaptictriggerattimes">
+<h3>SynapticTriggerAtTimes</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforge.simulation.base.synaptictriggers.html#morphforge.simulation.base.synaptictriggers.SynapticTriggerAtTimes" title="morphforge.simulation.base.synaptictriggers.SynapticTriggerAtTimes"><tt class="xref py py-class docutils literal"><span class="pre">SynapticTriggerAtTimes</span></tt></a> causes PostSynaptic objects to be triggered at specific times.</p>
+</div>
+<div class="section" id="synaptictriggerbyvoltagethreshold">
+<h3>SynapticTriggerByVoltageThreshold</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforge.simulation.base.synaptictriggers.html#morphforge.simulation.base.synaptictriggers.SynapticTriggerByVoltageThreshold" title="morphforge.simulation.base.synaptictriggers.SynapticTriggerByVoltageThreshold"><tt class="xref py py-class docutils literal"><span class="pre">SynapticTriggerByVoltageThreshold</span></tt></a> causes PostSynaptic objects to be triggered when the voltage at a presynaptic location crosses a particular threshold.</p>
+</div>
+</div>
+<div class="section" id="postsynaptictemplate-types">
+<h2>PostSynapticTemplate-Types</h2>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">THIS!</p>
+</div>
+<div class="section" id="id1">
+<h3>NeuroUnits</h3>
+</div>
+<div class="section" id="postsynapticmech-expsyn-base">
+<h3>PostSynapticMech_ExpSyn_Base</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.html#morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core.PostSynapticMech_ExpSyn_Base" title="morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core.PostSynapticMech_ExpSyn_Base"><tt class="xref py py-class docutils literal"><span class="pre">PostSynapticMech_ExpSyn_Base</span></tt></a></p>
+</div>
+<div class="section" id="postsynapticmech-exp2syn-base">
+<h3>PostSynapticMech_Exp2Syn_Base</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.html#morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core.PostSynapticMech_Exp2Syn_Base" title="morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core.PostSynapticMech_Exp2Syn_Base"><tt class="xref py py-class docutils literal"><span class="pre">PostSynapticMech_Exp2Syn_Base</span></tt></a></p>
+</div>
+<div class="section" id="postsynapticmech-exp2synnmda-base">
+<h3>PostSynapticMech_Exp2SynNMDA_Base</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.html#morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core.PostSynapticMech_Exp2SynNMDA_Base" title="morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core.PostSynapticMech_Exp2SynNMDA_Base"><tt class="xref py py-class docutils literal"><span class="pre">PostSynapticMech_Exp2SynNMDA_Base</span></tt></a></p>
+</div>
+</div>
+<div class="section" id="stimuli-types">
+<h2>Stimuli-Types</h2>
+<div class="section" id="currentclampstepchange">
+<h3>CurrentClampStepChange</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.CurrentClampStepChange" title="morphforge.simulation.base.stimulation.CurrentClampStepChange"><tt class="xref py py-class docutils literal"><span class="pre">CurrentClampStepChange</span></tt></a></p>
+</div>
+<div class="section" id="currentclampsinwave">
+<h3>CurrentClampSinwave</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforgecontrib.simulation.stimulation.currentclamps.sinwave.html#morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core.CurrentClampSinwave" title="morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core.CurrentClampSinwave"><tt class="xref py py-class docutils literal"><span class="pre">CurrentClampSinwave</span></tt></a></p>
+</div>
+<div class="section" id="voltageclampstepchange">
+<h3>VoltageClampStepChange</h3>
+<p><a class="reference internal" href="../../apidoc/mfi-core/morphforge.simulation.base.stimulation.html#morphforge.simulation.base.stimulation.VoltageClampStepChange" title="morphforge.simulation.base.stimulation.VoltageClampStepChange"><tt class="xref py py-class docutils literal"><span class="pre">VoltageClampStepChange</span></tt></a></p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="morphology.html">Morphology Layer</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="simulation_analysis.html">SimulationAnalysis Layer</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.morphology.core.array &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.morphology.core" href="../core.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.morphology.core.array</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.morphology.core.array</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="sd">&quot;&quot;&quot;Vertex-based object-model of morphologies.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">In this scheme, each *node* has a position :math:`$(x,y,z)$`, and a radius denoted by the green line.</span>
+<span class="s">Each node, except one, has a single parent.</span>
+
+
+<span class="s">.. image:: /img_srcs/morphology_overview_simpledetails.svg</span>
+<span class="s">    :align: center</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">morphforge.morphology.core.base</span> <span class="kn">import</span> <span class="n">MorphologyBase</span>
+
+
+<div class="viewcode-block" id="MorphologyArray"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray">[docs]</a><span class="k">class</span> <span class="nc">MorphologyArray</span><span class="p">(</span><span class="n">MorphologyBase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.morphology.conversion</span> <span class="kn">import</span> <span class="n">MorphologyConverter</span>
+        <span class="k">return</span> <span class="n">MorphologyConverter</span><span class="o">.</span><span class="n">array_to_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MorphologyArray.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">connectivity</span><span class="p">,</span> <span class="n">dummy_vertex_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">section_types</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c">#MorphologyBase.__init__(self, region_number_to_name_bidict=region_number_to_name_bidict, name=name, metadata=metadata)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MorphologyArray</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">region_number_to_name_bidict</span><span class="o">=</span><span class="n">region_number_to_name_bidict</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        
+        <span class="c"># Save the data in the correct formats:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">connectivity</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_section_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">section_types</span><span class="p">)</span> <span class="k">if</span> <span class="n">section_types</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">connectivity</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dummy_vertex_index</span> <span class="o">=</span> <span class="n">dummy_vertex_index</span>
+
+        <span class="c"># Some Error Checking:</span>
+
+        <span class="k">assert</span> <span class="n">N</span> <span class="o">==</span> <span class="n">M</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;N != M-1 (N:</span><span class="si">%d</span><span class="s">, M:</span><span class="si">%d</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_directed</span><span class="p">():</span>
+            <span class="c"># Lets check connectivity forms a tree:</span>
+            <span class="k">pass</span>
+
+        <span class="c"># If we store the data in arrays, then we no longer store which</span>
+        <span class="c"># is our dummy vertex, which we will need for generating trees</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.get_leaf_vertices_indices"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.get_leaf_vertices_indices">[docs]</a>    <span class="k">def</span> <span class="nf">get_leaf_vertices_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertex_connections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">))</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span><span class="p">:</span>
+            <span class="n">vertex_connections</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertex_connections</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">vertex_connections</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vertex_connections</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">leaf_vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vertex_connections</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">leaf_vertices</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.is_directed"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.is_directed">[docs]</a>    <span class="k">def</span> <span class="nf">is_directed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dummy_vertex_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.get_vertex_by_index"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.get_vertex_by_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_vertex_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.get_connection_by_index"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.get_connection_by_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_connection_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.__len__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the number of cylinders in the morphology</span>
+<span class="sd">        (Chosen over the number for vertices, in order to maintain compatibility with MorphologyTree,</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.connections_to_index"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.connections_to_index">[docs]</a>    <span class="k">def</span> <span class="nf">connections_to_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span> <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">pid</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">pid</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="MorphologyArray.index_of_connection"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.morphology.core.html#morphforge.morphology.core.array.MorphologyArray.index_of_connection">[docs]</a>    <span class="k">def</span> <span class="nf">index_of_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">pid</span><span class="p">):</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_connectivity</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">_id</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="n">pid</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">index</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">pid</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">==</span> <span class="n">_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">index</span>
+        <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&#39; Connection not found&#39;</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

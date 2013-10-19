@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforgecontrib.traces.traceselectorpiecewise &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforgecontrib.traces.traceselectorpiecewise</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforgecontrib.traces.traceselectorpiecewise</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.tracepiecewise</span> <span class="kn">import</span> <span class="n">TracePieceFunctionLinear</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.tracepiecewise</span> <span class="kn">import</span> <span class="n">TracePiecewise</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces.tracetypes.tracepiecewise</span> <span class="kn">import</span> <span class="n">TracePieceFunctionFlat</span>
+<span class="kn">from</span> <span class="nn">morphforge.units</span> <span class="kn">import</span> <span class="n">qty</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<div class="viewcode-block" id="LevelToken"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelToken">[docs]</a><span class="k">class</span> <span class="nc">LevelToken</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LevelToken.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelToken.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+</div>
+<div class="viewcode-block" id="LevelToken.does_consume"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelToken.does_consume">[docs]</a>    <span class="k">def</span> <span class="nf">does_consume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="LevelToken.record_time_in_symbol"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelToken.record_time_in_symbol">[docs]</a>    <span class="k">def</span> <span class="nf">record_time_in_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span>
+</div>
+<div class="viewcode-block" id="LevelToken.does_match"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelToken.does_match">[docs]</a>    <span class="k">def</span> <span class="nf">does_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+</div></div>
+<div class="viewcode-block" id="LevelSelector"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelector">[docs]</a><span class="k">class</span> <span class="nc">LevelSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LevelSelector.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelector.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_selector</span><span class="p">,</span> <span class="n">data_selector</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_selector</span> <span class="o">=</span> <span class="n">time_selector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_selector</span> <span class="o">=</span> <span class="n">data_selector</span>
+</div>
+<div class="viewcode-block" id="LevelSelector.does_match"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelector.does_match">[docs]</a>    <span class="k">def</span> <span class="nf">does_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_selector</span><span class="o">.</span><span class="n">does_match</span><span class="p">(</span><span class="n">level</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_selector</span><span class="o">.</span><span class="n">does_match</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="LevelSelector.does_consume"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelector.does_consume">[docs]</a>    <span class="k">def</span> <span class="nf">does_consume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="LevelSelector.record_time_in_symbol"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelector.record_time_in_symbol">[docs]</a>    <span class="k">def</span> <span class="nf">record_time_in_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+</div></div>
+<div class="viewcode-block" id="DataSelector"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.DataSelector">[docs]</a><span class="k">class</span> <span class="nc">DataSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DataSelector.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.DataSelector.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minvalue</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">maxvalue</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minvalue</span> <span class="o">=</span> <span class="n">minvalue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxvalue</span> <span class="o">=</span> <span class="n">maxvalue</span>
+</div>
+<div class="viewcode-block" id="DataSelector.does_match"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.DataSelector.does_match">[docs]</a>    <span class="k">def</span> <span class="nf">does_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="n">l_bound_ok</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minvalue</span> <span class="o">&lt;</span> <span class="n">level</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minvalue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">u_bound_ok</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxvalue</span> <span class="o">&gt;</span> <span class="n">level</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxvalue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l_bound_ok</span> <span class="ow">and</span> <span class="n">u_bound_ok</span></div></div>
+<div class="viewcode-block" id="TimeSelector"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.TimeSelector">[docs]</a><span class="k">class</span> <span class="nc">TimeSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="TimeSelector.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.TimeSelector.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minduration</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">maxduration</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minduration</span> <span class="o">=</span> <span class="n">minduration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxduration</span> <span class="o">=</span> <span class="n">maxduration</span></div>
+<div class="viewcode-block" id="TimeSelector.does_match"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.TimeSelector.does_match">[docs]</a>    <span class="k">def</span> <span class="nf">does_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="n">l_bound_ok</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minduration</span> <span class="o">&lt;</span> <span class="n">level</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minduration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="n">u_bound_ok</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maxduration</span> <span class="o">&gt;</span> <span class="n">level</span><span class="o">.</span><span class="n">get_duration</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxduration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l_bound_ok</span> <span class="ow">and</span> <span class="n">u_bound_ok</span>
+
+</div></div>
+<div class="viewcode-block" id="MatchObject"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.MatchObject">[docs]</a><span class="k">class</span> <span class="nc">MatchObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="MatchObject.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.MatchObject.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span></div>
+<div class="viewcode-block" id="MatchObject.set_symbol"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.MatchObject.set_symbol">[docs]</a>    <span class="k">def</span> <span class="nf">set_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+<div class="viewcode-block" id="MatchObject.__getattr__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.MatchObject.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="MatchObject.__str__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.MatchObject.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;MatchObject: &quot;</span><span class="o">+</span> <span class="s">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())])</span> <span class="o">+</span> <span class="s">&quot;&gt;&quot;</span>
+
+
+</div></div>
+<div class="viewcode-block" id="LevelSelectorGroup"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup">[docs]</a><span class="k">class</span> <span class="nc">LevelSelectorGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LevelSelectorGroup.__init__"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">xunit</span><span class="p">,</span> <span class="n">yunit</span><span class="p">):</span>
+        <span class="c"># Parse the expression:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expr</span> <span class="o">=</span> <span class="n">LevelSelectorGroup</span><span class="o">.</span><span class="n">parse_expr</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">xunit</span><span class="p">,</span> <span class="n">yunit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xunit</span> <span class="o">=</span> <span class="n">xunit</span>
+</div>
+<div class="viewcode-block" id="LevelSelectorGroup.matchall"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup.matchall">[docs]</a>    <span class="k">def</span> <span class="nf">matchall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_set</span><span class="p">):</span>
+        <span class="n">pieces</span> <span class="o">=</span> <span class="n">level_set</span><span class="o">.</span><span class="n">pieces</span>
+
+        <span class="c"># From [A, B, C, D, ..]</span>
+        <span class="c"># return [[A, B, C, D], [B, C, D], [C, D], [D]...]</span>
+        <span class="n">subgroups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pieces</span><span class="p">)):</span>
+            <span class="n">subgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pieces</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">test_match</span><span class="p">(</span><span class="n">sg</span><span class="p">)</span> <span class="k">for</span> <span class="n">sg</span> <span class="ow">in</span> <span class="n">subgroups</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="LevelSelectorGroup.test_match"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup.test_match">[docs]</a>    <span class="k">def</span> <span class="nf">test_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_pieces</span><span class="p">):</span>
+
+        <span class="c"># Check the lengths, so I don&#39;t need to worry about it later:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">level_pieces</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">([</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr</span>
+                                   <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">does_consume</span><span class="p">()]):</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="n">m</span> <span class="o">=</span> <span class="n">MatchObject</span><span class="p">()</span>
+        <span class="n">level_piece_iter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">level_pieces</span><span class="p">),</span> <span class="p">[</span><span class="bp">None</span><span class="p">])</span>
+        <span class="n">level_piece_next</span> <span class="o">=</span> <span class="n">level_piece_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+
+        <span class="n">current_time</span> <span class="o">=</span> <span class="n">level_piece_next</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr</span><span class="p">:</span>
+
+            <span class="c"># Do we need to record the current time?</span>
+            <span class="n">rec</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">record_time_in_symbol</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">rec</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">set_symbol</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">current_time</span><span class="o">.</span><span class="n">rescale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xunit</span><span class="p">))</span>
+
+            <span class="c"># Does match?</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">t</span><span class="o">.</span><span class="n">does_match</span><span class="p">(</span><span class="n">level_piece_next</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">None</span>
+
+            <span class="c"># Next term:</span>
+            <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">does_consume</span><span class="p">():</span>
+                <span class="n">level_piece_next</span> <span class="o">=</span> <span class="n">level_piece_iter</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">level_piece_next</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">current_time</span> <span class="o">=</span> <span class="n">level_pieces</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_max_time</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">current_time</span> <span class="o">=</span> <span class="n">level_piece_next</span><span class="o">.</span><span class="n">get_min_time</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">m</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="LevelSelectorGroup.parse_expr"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup.parse_expr">[docs]</a>    <span class="k">def</span> <span class="nf">parse_expr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">xunit</span><span class="p">,</span> <span class="n">yunit</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">LevelSelectorGroup</span><span class="o">.</span><span class="n">parse_term</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xunit</span><span class="p">,</span> <span class="n">yunit</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="LevelSelectorGroup.parse_term"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.LevelSelectorGroup.parse_term">[docs]</a>    <span class="k">def</span> <span class="nf">parse_term</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">xunit</span><span class="p">,</span> <span class="n">yunit</span><span class="p">):</span>
+        <span class="n">r_marker</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&quot;&quot;&quot;(?P&lt;name&gt;[a-zA-Z0-9]+)&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+        <span class="n">t_marker</span> <span class="o">=</span> \
+            <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&quot;&quot;&quot;{ (?P&lt;t0&gt;[-]?\d+)? : (?P&lt;t1&gt;[-]?\d+)? @  (?P&lt;d0&gt;[-]?\d+)? : (?P&lt;d1&gt;[-]?\d+)? }&quot;&quot;&quot;</span>
+                       <span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+        <span class="n">r_m</span> <span class="o">=</span> <span class="n">r_marker</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r_m</span><span class="p">:</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="n">r_m</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">LevelToken</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
+
+        <span class="n">t_m</span> <span class="o">=</span> <span class="n">t_marker</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">t_m</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">False</span><span class="p">,</span> <span class="s">&quot;Can&#39;t parse: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">st</span>
+
+        <span class="n">g</span> <span class="o">=</span> <span class="n">t_m</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+        <span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s">&#39;t0&#39;</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="s">&#39;t1&#39;</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="s">&#39;d0&#39;</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="s">&#39;d1&#39;</span><span class="p">])</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t0</span><span class="p">)</span> <span class="o">*</span> <span class="n">xunit</span> <span class="k">if</span> <span class="n">t0</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">*</span> <span class="n">xunit</span> <span class="k">if</span> <span class="n">t1</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">d0</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span> <span class="o">*</span> <span class="n">yunit</span> <span class="k">if</span> <span class="n">d0</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span> <span class="o">*</span> <span class="n">yunit</span> <span class="k">if</span> <span class="n">d1</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">LevelSelector</span><span class="p">(</span><span class="n">data_selector</span><span class="o">=</span><span class="n">DataSelector</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">),</span>
+                             <span class="n">time_selector</span><span class="o">=</span><span class="n">TimeSelector</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span> <span class="n">t1</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../apidoc/mfi-core/morphforgecontrib.traces.html#morphforgecontrib.traces.traceselectorpiecewise.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+	<span class="n">l1</span> <span class="o">=</span> <span class="n">TracePiecewise</span><span class="p">(</span><span class="n">pieces</span> <span class="o">=</span> <span class="p">[</span>
+		                            <span class="n">TracePieceFunctionFlat</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0:pA&quot;</span><span class="p">)),</span>
+		                            <span class="n">TracePieceFunctionFlat</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;110:pA&quot;</span><span class="p">)),</span>
+		                            <span class="n">TracePieceFunctionFlat</span><span class="p">(</span><span class="n">time_window</span><span class="o">=</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">350</span><span class="p">)</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;0:pA&quot;</span><span class="p">)),</span>
+		                               <span class="p">])</span>
+
+
+
+	<span class="n">sel1</span> <span class="o">=</span> <span class="n">LevelSelectorGroup</span><span class="p">(</span><span class="s">&quot; A, { 10:65 @ -1:1 }, B, { 10: @ 90:111 }, C&quot;</span><span class="p">,</span> <span class="n">xunit</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;ms&quot;</span><span class="p">),</span> <span class="n">yunit</span><span class="o">=</span><span class="n">qty</span><span class="p">(</span><span class="s">&quot;pA&quot;</span><span class="p">))</span>
+
+	<span class="n">matches</span> <span class="o">=</span> <span class="n">sel1</span><span class="o">.</span><span class="n">matchall</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+		<span class="k">print</span> <span class="n">m</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+	<span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

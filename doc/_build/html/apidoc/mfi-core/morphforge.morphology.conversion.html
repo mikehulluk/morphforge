@@ -1,0 +1,137 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>conversion Package &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>conversion Package</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="conversion-package">
+<h1>conversion Package</h1>
+<div class="section" id="id1">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">conversion</span></tt> Package</h2>
+<span class="target" id="module-morphforge.morphology.conversion"></span></div>
+<div class="section" id="module-morphforge.morphology.conversion.internal_representation_converter">
+<span id="internal-representation-converter-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">internal_representation_converter</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter">
+<em class="property">class </em><tt class="descname">MorphologyConverter</tt><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/internal_representation_converter.html#MorphologyConverter"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="classmethod">
+<dt id="morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter.array_to_tree">
+<em class="property">classmethod </em><tt class="descname">array_to_tree</tt><big>(</big><em>array</em>, <em>region_number_to_name_bidict=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/internal_representation_converter.html#MorphologyConverter.array_to_tree"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="morphforge.morphology.conversion.internal_representation_converter.MorphologyConverter.tree_to_array">
+<em class="property">classmethod </em><tt class="descname">tree_to_array</tt><big>(</big><em>tree</em>, <em>region_number_to_name_bidict=None</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/internal_representation_converter.html#MorphologyConverter.tree_to_array"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-morphforge.morphology.conversion.region_to_int_bimap">
+<span id="region-to-int-bimap-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">region_to_int_bimap</span></tt> Module</h2>
+<dl class="class">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.AutoRegionToIntMapTable">
+<em class="property">class </em><tt class="descname">AutoRegionToIntMapTable</tt><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#AutoRegionToIntMapTable"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap" title="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap"><tt class="xref py py-class docutils literal"><span class="pre">morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap</span></tt></a></p>
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.AutoRegionToIntMapTable.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#AutoRegionToIntMapTable.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.AutoRegionToIntMapTable.int_to_region_name">
+<tt class="descname">int_to_region_name</tt><big>(</big><em>_int</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#AutoRegionToIntMapTable.int_to_region_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.AutoRegionToIntMapTable.region_name_to_int">
+<tt class="descname">region_name_to_int</tt><big>(</big><em>regionname</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#AutoRegionToIntMapTable.region_name_to_int"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap">
+<em class="property">class </em><tt class="descname">RegionToIntMapBiMap</tt><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#RegionToIntMapBiMap"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#RegionToIntMapBiMap.__init__"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap.add_mapping">
+<tt class="descname">add_mapping</tt><big>(</big><em>regionname</em>, <em>_int</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#RegionToIntMapBiMap.add_mapping"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap.int_to_region_name">
+<tt class="descname">int_to_region_name</tt><big>(</big><em>_int</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#RegionToIntMapBiMap.int_to_region_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="morphforge.morphology.conversion.region_to_int_bimap.RegionToIntMapBiMap.region_name_to_int">
+<tt class="descname">region_name_to_int</tt><big>(</big><em>regionname</em><big>)</big><a class="reference internal" href="../../_modules/morphforge/morphology/conversion/region_to_int_bimap.html#RegionToIntMapBiMap.region_name_to_int"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

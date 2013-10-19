@@ -50,8 +50,9 @@ import numpy as np
 
 
 from core import MM_InfTauInterpolatedChannel
-from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
-from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
+#from morphforge.simulationanalysis.summaries.stdlimits import StdLimits
+#from morphforge.simulationanalysis.summaries.summariser_library import SummariserLibrary
+from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 from morphforge.stdimports import units
 
@@ -112,7 +113,7 @@ class Summarise_MM_InfTauInterpolatedChannel(object):
 
             return
 
-            V = StdLimits.get_default_voltage_array().rescale("mV")
+            V = np.linspace(-70,50, num=10) #StdLimits.get_default_voltage_array().rescale("mV")
 
             alpha, beta = cls.getResolvedInfTauInterpolatedCurves(V, chl, state)
 

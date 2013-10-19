@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.simulation.neuron.core.neuronsimulation &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../../index.html" />
+    <link rel="up" title="morphforge.simulation.neuron" href="../../neuron.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.simulation.neuron.core.neuronsimulation</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.simulation.neuron.core.neuronsimulation</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">FileIO</span>
+<span class="kn">from</span> <span class="nn">morphforge.core</span> <span class="kn">import</span> <span class="n">RCMgr</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base</span> <span class="kn">import</span> <span class="n">Simulation</span><span class="p">,</span> <span class="n">SimulationResult</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.base.simulationmetadatabundle.builders</span> <span class="kn">import</span> <span class="n">MetaDataBundleBuilder</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.objects</span> <span class="kn">import</span> <span class="n">NeuronSimSetupObj</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHocFile</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MHocFileData</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.simulationdatacontainers</span> <span class="kn">import</span> <span class="n">MModFileSet</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron.misc</span> <span class="kn">import</span> <span class="n">NeuronSimulationConstants</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.core.mgrs.logmgr</span> <span class="kn">import</span> <span class="n">LogMgr</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces</span> <span class="kn">import</span> <span class="n">TraceVariableDT</span>
+<span class="kn">from</span> <span class="nn">morphforge.core.mockcontrol</span> <span class="kn">import</span> <span class="n">MockControl</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.simulationanalysis.summaries_new</span> <span class="kn">import</span> <span class="n">SimulationMRedoc</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">cStringIO</span>
+
+<div class="viewcode-block" id="_random_walk"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation._random_walk">[docs]</a><span class="k">def</span> <span class="nf">_random_walk</span><span class="p">(</span><span class="n">t_steps</span><span class="p">,</span> <span class="n">std_dev</span><span class="p">):</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">t_steps</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">std_dev</span>
+    <span class="n">walk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">walk</span>
+
+
+</div>
+<div class="viewcode-block" id="redirect_stdout"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.redirect_stdout">[docs]</a><span class="k">class</span> <span class="nc">redirect_stdout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="redirect_stdout.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.redirect_stdout.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stdout_stream</span><span class="p">,</span> <span class="n">stderr_stream</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_save_stream</span> <span class="o">=</span> <span class="n">stdout_stream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_save_stream</span> <span class="o">=</span> <span class="n">stderr_stream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_prev</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_prev</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="o">=</span><span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="redirect_stdout.__enter__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.redirect_stdout.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_save_stream</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stderr_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_save_stream</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_save_stream</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_save_stream</span>
+</div>
+<div class="viewcode-block" id="redirect_stdout.__exit__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.redirect_stdout.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">active</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_prev</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_prev</span>
+
+        <span class="c"># If we catch an exception, then lets print out what happened:</span>
+        <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_save_stream</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdout_save_stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_save_stream</span><span class="p">:</span>
+                <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">stderr_save_stream</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+
+
+
+</div></div>
+<div class="viewcode-block" id="NEURONSimulation"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation">[docs]</a><span class="k">class</span> <span class="nc">NEURONSimulation</span><span class="p">(</span><span class="n">Simulation</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NEURONSimulation._sim_desc_str"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation._sim_desc_str">[docs]</a>    <span class="k">def</span> <span class="nf">_sim_desc_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sname</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="NEURONSimulation.__init__"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NEURONSimulation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">environment</span><span class="o">=</span><span class="n">environment</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">NeuronSimSetupObj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simsettings</span><span class="p">,</span>
+                                   <span class="n">simulation</span><span class="o">=</span><span class="bp">self</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hocfilename</span> <span class="o">=</span> <span class="bp">None</span>
+
+
+
+
+
+
+
+</div>
+<div class="viewcode-block" id="NEURONSimulation.run"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_spawn</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+
+        <span class="c"># Some sanity checks:</span>
+        <span class="c"># Are we simulating anything?</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cells</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;No Cells in simulation!&#39;</span>
+
+
+        <span class="k">if</span> <span class="n">do_spawn</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_spawn</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_no_spawn</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">res</span>
+
+
+
+
+</div>
+<div class="viewcode-block" id="NEURONSimulation._run_spawn"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation._run_spawn">[docs]</a>    <span class="k">def</span> <span class="nf">_run_spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">LogMgr</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;_run_spawn() [Pickling Sim]&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">resfilename</span><span class="p">)</span> <span class="o">=</span> <span class="n">MetaDataBundleBuilder</span><span class="o">.</span><span class="n">build_std_pickler</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">_bundlefname</span><span class="p">,</span> <span class="n">sim_cmd</span><span class="p">)</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="n">write_to_file_and_get_exec_string</span><span class="p">()</span>
+
+        <span class="c"># if Exists(resfilename):</span>
+        <span class="c">#    os.unlink(resfilename)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">resfilename</span><span class="p">):</span>
+
+            <span class="c"># Setup the LD_LIBRARY PATH:</span>
+            <span class="c"># It may be nessesary to add the following to .mfrc</span>
+            <span class="c"># ld_library_path_suffix = /home/michael/hw/morphforge/src/morphforgecontrib/neuron_gsl/cpp</span>
+            <span class="n">ld_path_additions</span> <span class="o">=</span> <span class="n">RCMgr</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;Neuron&#39;</span><span class="p">,</span> <span class="s">&#39;ld_library_path_suffix&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">old_ld_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;LD_LIBRARY_PATH&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;LD_LIBRARY_PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;:&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">old_ld_path</span><span class="p">]</span> <span class="o">+</span> <span class="n">ld_path_additions</span><span class="p">)</span>
+
+            <span class="n">LogMgr</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;_run_spawn() [Spawning subprocess]&#39;</span><span class="p">)</span>
+            <span class="n">ret_code</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">sim_cmd</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ret_code</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to simulate </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">LogMgr</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;_run_spawn() [Finished spawning subprocess]&#39;</span><span class="p">)</span>
+
+        <span class="c"># Load back the results:</span>
+        <span class="n">LogMgr</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;_run_spawn() [Loading results]&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">SimulationResult</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">resfilename</span><span class="p">)</span>
+        <span class="n">LogMgr</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;_run_spawn() [Finished loading results]&#39;</span><span class="p">)</span>
+
+        <span class="c"># We have to do this so that the simulation object</span>
+        <span class="c"># within the result is correct!!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">simulation</span> <span class="o">=</span> <span class="bp">self</span>
+
+
+        <span class="c"># Save the simulation summary:</span>
+        <span class="n">do_summary</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">do_summary</span><span class="p">:</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;~/Desktop/pdfs/</span><span class="si">%s</span><span class="s">.pdf&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sim_desc_str</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
+            <span class="n">summary</span> <span class="o">=</span> <span class="n">SimulationMRedoc</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">to_pdf</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+        <span class="c"># And unlink the old files (so we don&#39;t go mad on disk space)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">resfilename</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">_bundlefname</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.run_return_random_walks"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.run_return_random_walks">[docs]</a>    <span class="k">def</span> <span class="nf">run_return_random_walks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Create the HOC and ModFiles:</span>
+        <span class="n">hoc_data</span> <span class="o">=</span> <span class="n">MHocFile</span><span class="p">()</span>
+        <span class="n">mod_files</span> <span class="o">=</span> <span class="n">MModFileSet</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sim_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="p">:</span>
+            <span class="n">sim_obj</span><span class="o">.</span><span class="n">build_hoc</span><span class="p">(</span><span class="n">hoc_data</span><span class="p">)</span>
+            <span class="n">sim_obj</span><span class="o">.</span><span class="n">build_mod</span><span class="p">(</span><span class="n">mod_files</span><span class="p">)</span>
+
+
+        <span class="n">time_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="o">*</span> <span class="n">NeuronSimulationConstants</span><span class="o">.</span><span class="n">TimeUnit</span>
+        <span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">hoc_data</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Recordables</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+            <span class="n">data_array</span> <span class="o">=</span> <span class="n">_random_walk</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_array</span><span class="p">),</span> <span class="mf">0.05</span><span class="p">)</span> <span class="o">*</span> <span class="n">rec</span><span class="o">.</span><span class="n">get_unit</span><span class="p">()</span>
+
+            <span class="n">tr</span> <span class="o">=</span> <span class="n">TraceVariableDT</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">rec</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                 <span class="n">comment</span><span class="o">=</span><span class="n">rec</span><span class="o">.</span><span class="n">get_description</span><span class="p">(),</span>
+                                 <span class="n">time</span><span class="o">=</span><span class="n">time_array</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_array</span><span class="p">,</span>
+                                 <span class="n">tags</span><span class="o">=</span><span class="n">rec</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())</span>
+            <span class="n">traces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">SimulationResult</span><span class="p">(</span><span class="n">traces</span><span class="o">=</span><span class="n">traces</span><span class="p">,</span> <span class="n">evsets</span><span class="o">=</span><span class="p">[],</span> <span class="n">simulation</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_result_post_processing</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation._run_no_spawn"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation._run_no_spawn">[docs]</a>    <span class="k">def</span> <span class="nf">_run_no_spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c"># Generate Random data:</span>
+        <span class="k">if</span> <span class="bp">False</span> <span class="ow">or</span> <span class="n">MockControl</span><span class="o">.</span><span class="n">is_mock_simulation</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_return_random_walks</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">nrn</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">return_value</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">return_value</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;nrn Command Failed&#39;</span><span class="p">)</span>
+
+
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">cStringIO</span><span class="o">.</span><span class="n">StringIO</span> <span class="p">()</span>
+        <span class="k">with</span> <span class="n">redirect_stdout</span><span class="p">(</span><span class="n">stdout_stream</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span> <span class="n">stderr_stream</span><span class="o">=</span><span class="n">stdout</span><span class="p">)</span> <span class="k">as</span> <span class="n">display_output</span><span class="p">:</span>
+
+
+            <span class="c"># Create the HOC and ModFiles:</span>
+            <span class="n">hoc_data</span> <span class="o">=</span> <span class="n">MHocFile</span><span class="p">()</span>
+            <span class="n">mod_files</span> <span class="o">=</span> <span class="n">MModFileSet</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">sim_obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="p">:</span>
+                <span class="c"># print &#39;BUILDING HOC:&#39;, sim_obj</span>
+                <span class="n">sim_obj</span><span class="o">.</span><span class="n">build_hoc</span><span class="p">(</span><span class="n">hoc_data</span><span class="p">)</span>
+                <span class="c"># print &#39;BUILDING MOD:&#39;, sim_obj</span>
+                <span class="n">sim_obj</span><span class="o">.</span><span class="n">build_mod</span><span class="p">(</span><span class="n">mod_files</span><span class="p">)</span>
+
+            <span class="n">t_mod_build_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">mod_files</span><span class="o">.</span><span class="n">build_all</span><span class="p">()</span>
+            <span class="n">time_taken</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_mod_build_start</span>
+            <span class="c">#print &#39;Time for Building Mod-Files: &#39;, time_taken</span>
+
+            <span class="c"># Open Neuron:</span>
+            <span class="kn">import</span> <span class="nn">neuron</span>
+
+            <span class="c"># Insert the mod-files:</span>
+            <span class="k">for</span> <span class="n">modfile</span> <span class="ow">in</span> <span class="n">mod_files</span><span class="p">:</span>
+                <span class="n">nrn</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">nrn_load_dll</span><span class="p">,</span> <span class="n">modfile</span><span class="o">.</span><span class="n">get_built_filename_full</span><span class="p">())</span>
+
+            <span class="c"># Write the HOC file:</span>
+            <span class="n">t_sim_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">hoc_filename</span> <span class="o">=</span> <span class="n">FileIO</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">hoc_data</span><span class="p">),</span> 
+                            <span class="n">suffix</span><span class="o">=</span><span class="s">&#39;.hoc&#39;</span><span class="p">)</span>
+
+            <span class="n">nrn</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">load_file</span><span class="p">,</span> <span class="n">hoc_filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hocfilename</span> <span class="o">=</span> <span class="n">hoc_filename</span>
+
+            <span class="k">class</span> <span class="nc">UpdateEvent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+                <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="mf">5.0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fih</span> <span class="o">=</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">FInitializeHandler</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+                <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                    <span class="c">#print display_output</span>
+                    <span class="c">#display_output.stdout_prev.write(&#39;Simulating: t=%.0f/%.0fms \r&#39; % (neuron.h.t, float(neuron.h.tstop)))</span>
+                    <span class="c">#display_output.stdout_prev.flush()</span>
+                    <span class="n">time_elapsed</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">seconds</span>
+                    <span class="n">expected_time</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="n">remaining_time</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="k">if</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+                        <span class="n">expected_time</span> <span class="o">=</span> <span class="n">time_elapsed</span>  <span class="o">*</span> <span class="p">(</span> <span class="nb">float</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">tstop</span><span class="p">)</span> <span class="o">/</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span>  <span class="p">)</span>
+                        <span class="n">remaining_time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="n">expected_time</span> <span class="o">-</span> <span class="n">time_elapsed</span><span class="p">)</span>
+
+
+                    <span class="n">sys</span><span class="o">.</span><span class="n">__stdout__</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Simulating: t=</span><span class="si">%.0f</span><span class="s">/</span><span class="si">%.0f</span><span class="s">ms (Remaining:</span><span class="si">%s</span><span class="s"> s)     </span><span class="se">\r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">tstop</span><span class="p">),</span> <span class="n">remaining_time</span><span class="p">))</span>
+                    <span class="n">sys</span><span class="o">.</span><span class="n">__stdout__</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">&lt;</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">tstop</span><span class="p">:</span>
+                        <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">cvode</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">)</span>
+
+            <span class="n">UpdateEvent</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s">&#39;Running Simulation&#39;</span>
+            <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">tstop</span>
+
+
+
+        <span class="k">print</span> <span class="s">&#39;Time for Simulation: &#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_sim_start</span>
+
+        <span class="c"># Extract the values back out:</span>
+        <span class="n">time_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="n">NeuronSimulationConstants</span><span class="o">.</span><span class="n">TimeVectorName</span><span class="p">))</span> <span class="o">*</span> <span class="n">NeuronSimulationConstants</span><span class="o">.</span><span class="n">TimeUnit</span>
+
+        <span class="n">t_trace_read_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">hoc_data</span><span class="p">[</span><span class="n">MHocFileData</span><span class="o">.</span><span class="n">Recordables</span><span class="p">]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">record_obj</span><span class="p">,</span> <span class="n">hoc_details</span><span class="p">)</span> <span class="ow">in</span> <span class="n">records</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+
+            <span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">neuron</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">__getattribute__</span><span class="p">(</span><span class="n">hoc_details</span><span class="p">[</span><span class="s">&quot;recVecName&quot;</span><span class="p">]))</span> <span class="o">*</span> <span class="n">record_obj</span><span class="o">.</span><span class="n">get_unit</span><span class="p">()</span>
+
+            <span class="n">tr</span> <span class="o">=</span> <span class="n">TraceVariableDT</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">record_obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                 <span class="n">comment</span><span class="o">=</span><span class="n">record_obj</span><span class="o">.</span><span class="n">get_description</span><span class="p">(),</span>
+                                 <span class="n">time</span><span class="o">=</span><span class="n">time_array</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_array</span><span class="p">,</span>
+                                 <span class="n">tags</span><span class="o">=</span><span class="n">record_obj</span><span class="o">.</span><span class="n">get_tags</span><span class="p">())</span>
+            <span class="n">traces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&#39;Time for Extracting Data: (</span><span class="si">%d</span><span class="s"> records)&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">),</span> \
+            <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_trace_read_start</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">SimulationResult</span><span class="p">(</span><span class="n">traces</span><span class="o">=</span><span class="n">traces</span><span class="p">,</span> <span class="n">evsets</span><span class="o">=</span><span class="p">[],</span> <span class="n">simulation</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_result_post_processing</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span>
+
+    <span class="c"># NEW API:</span></div>
+<div class="viewcode-block" id="NEURONSimulation.add_cell_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_cell_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_cell_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.add_currentclamp_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_currentclamp_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_currentclamp_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.add_voltageclamp_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_voltageclamp_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_voltageclamp_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.add_synapse_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_synapse_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_synapse_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">synapse</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">synapse</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.add_gapjunction_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_gapjunction_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_gapjunction_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gapjunction</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gapjunction</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NEURONSimulation.add_recordable_backend_specific"><a class="viewcode-back" href="../../../../../apidoc/mfi-core/morphforge.simulation.neuron.core.html#morphforge.simulation.neuron.core.neuronsimulation.NEURONSimulation.add_recordable_backend_specific">[docs]</a>    <span class="k">def</span> <span class="nf">add_recordable_backend_specific</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recordable</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simulation_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recordable</span><span class="p">)</span>
+
+    <span class="c">#def add_recordable(self, recordable):</span>
+    <span class="c">#    if recordable.name in self.recordable_names:</span>
+    <span class="c">#        assert False, &#39;Duplicate recordable name added&#39;</span>
+    <span class="c">#    self.recordable_names[recordable.name] = recordable</span>
+    <span class="c">#    self.simulation_objects.append(recordable)</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

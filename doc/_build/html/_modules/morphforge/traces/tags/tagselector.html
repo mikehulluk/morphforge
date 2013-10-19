@@ -1,0 +1,179 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.traces.tags.tagselector &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../../../index.html" />
+    <link rel="up" title="morphforge.traces.tags" href="../tags.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.traces.tags.tagselector</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.traces.tags.tagselector</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="TagSelector"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector">[docs]</a><span class="k">class</span> <span class="nc">TagSelector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelector.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+</div>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">morphforge.traces.tags.tagselectorstringparser</span> <span class="kn">import</span> <span class="n">parse_tagselector_string</span>
+        <span class="k">return</span> <span class="n">parse_tagselector_string</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TagSelector.filter"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traces</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">trace</span> <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">traces</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call__</span><span class="p">(</span><span class="n">trace</span><span class="p">)]</span>
+
+    <span class="c"># Operator Overloading:</span></div>
+<div class="viewcode-block" id="TagSelector.__and__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector.__and__">[docs]</a>    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">TagSelector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TagSelectorAnd</span><span class="p">(</span><span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TagSelector.__or__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector.__or__">[docs]</a>    <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rhs</span><span class="p">,</span> <span class="n">TagSelector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TagSelectorOr</span><span class="p">(</span><span class="n">lhs</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="o">=</span><span class="n">rhs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TagSelector.select"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelector.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">trace</span> <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="n">trs</span> <span class="k">if</span> <span class="bp">self</span><span class="p">(</span><span class="n">trace</span><span class="p">)]</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorAny"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAny">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorAny</span><span class="p">(</span><span class="n">TagSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorAny.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAny.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TagSelectorAny</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TagSelectorAny.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAny.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorAll"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAll">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorAll</span><span class="p">(</span><span class="n">TagSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorAll.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAll.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tags</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TagSelectorAll</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TagSelectorAll.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAll.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">tags</span><span class="p">))</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorBinary"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorBinary">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorBinary</span><span class="p">(</span><span class="n">TagSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorBinary.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorBinary.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TagSelectorBinary</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lhs</span> <span class="o">=</span> <span class="n">lhs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span> <span class="o">=</span> <span class="n">rhs</span></div>
+<div class="viewcode-block" id="TagSelectorBinary.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorBinary.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorOr"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorOr">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorOr</span><span class="p">(</span><span class="n">TagSelectorBinary</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorOr.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorOr.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lhs</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorAnd"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAnd">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorAnd</span><span class="p">(</span><span class="n">TagSelectorBinary</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorAnd.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorAnd.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lhs</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelectorNot"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorNot">[docs]</a><span class="k">class</span> <span class="nc">TagSelectorNot</span><span class="p">(</span><span class="n">TagSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelectorNot.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorNot.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rhs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TagSelectorNot</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span> <span class="o">=</span> <span class="n">rhs</span>
+</div>
+<div class="viewcode-block" id="TagSelectorNot.__call__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelectorNot.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhs</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="TagSelect"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelect">[docs]</a><span class="k">class</span> <span class="nc">TagSelect</span><span class="p">(</span><span class="n">TagSelectorAll</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TagSelect.__init__"><a class="viewcode-back" href="../../../../apidoc/mfi-core/morphforge.traces.tags.html#morphforge.traces.tags.tagselector.TagSelect.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TagSelect</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+</pre></div></div></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

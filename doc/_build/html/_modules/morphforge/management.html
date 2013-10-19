@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>morphforge.management &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>morphforge.management</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for morphforge.management</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="c"># ---------------------------------------------------------------------</span>
+<span class="c"># Copyright (c) 2012 Michael Hull.</span>
+<span class="c"># All rights reserved.</span>
+<span class="c">#</span>
+<span class="c"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c"># modification, are permitted provided that the following conditions</span>
+<span class="c"># are met:</span>
+<span class="c">#</span>
+<span class="c">#  - Redistributions of source code must retain the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer.</span>
+<span class="c">#  - Redistributions in binary form must reproduce the above copyright</span>
+<span class="c">#    notice, this list of conditions and the following disclaimer in</span>
+<span class="c">#    the documentation and/or other materials provided with the</span>
+<span class="c">#    distribution.</span>
+<span class="c">#</span>
+<span class="c"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span class="c"># &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span>
+<span class="c"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span>
+<span class="c"># HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span>
+<span class="c"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span>
+<span class="c"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span>
+<span class="c"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span>
+<span class="c"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span>
+<span class="c"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c">#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+<span class="c"># ----------------------------------------------------------------------</span>
+
+<span class="kn">from</span> <span class="nn">morphforge.simulation.neuron</span> <span class="kn">import</span> <span class="n">NEURONEnvironment</span>
+<span class="kn">from</span> <span class="nn">morphforge.simulationanalysis.summaries_new</span> <span class="kn">import</span> <span class="n">SummariserLibrary</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">mredoc</span> <span class="kn">as</span> <span class="nn">mrd</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Unable to import mredoc, you will be unable to produce pdf/html summaries&#39;</span>
+
+
+<div class="viewcode-block" id="empty_str_matrix"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.empty_str_matrix">[docs]</a><span class="k">def</span> <span class="nf">empty_str_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[[</span><span class="s">&#39;&#39;</span> <span class="k">for</span> <span class="n">_m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+
+</div>
+<span class="k">def</span> <span class="nf">to_symbol</span><span class="p">(</span><span class="n">chl</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s">&#39;X&#39;</span> <span class="k">if</span> <span class="n">chl</span> <span class="ow">in</span> <span class="n">env</span> <span class="k">else</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PluginMgr"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr">[docs]</a><span class="k">class</span> <span class="nc">PluginMgr</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">_environments</span> <span class="o">=</span> <span class="p">[</span><span class="n">NEURONEnvironment</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr._get_all_from_envs"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr._get_all_from_envs">[docs]</a>    <span class="k">def</span> <span class="nf">_get_all_from_envs</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">extract_functor</span><span class="p">):</span>
+        <span class="n">objs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">env</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_environments</span><span class="p">:</span>
+            <span class="n">objs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">extract_functor</span><span class="p">(</span><span class="n">env</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.get_all_chls"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.get_all_chls">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_chls</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_from_envs</span><span class="p">(</span>
+                <span class="n">extract_functor</span><span class="o">=</span><span class="k">lambda</span> <span class="n">env</span><span class="p">:</span><span class="n">env</span><span class="o">.</span><span class="n">channels</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.get_all_iclamps"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.get_all_iclamps">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_iclamps</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_from_envs</span><span class="p">(</span>
+                <span class="n">extract_functor</span><span class="o">=</span><span class="k">lambda</span> <span class="n">env</span><span class="p">:</span><span class="n">env</span><span class="o">.</span><span class="n">currentclamps</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.get_all_vclamps"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.get_all_vclamps">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_vclamps</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_from_envs</span><span class="p">(</span>
+                <span class="n">extract_functor</span><span class="o">=</span><span class="k">lambda</span> <span class="n">env</span><span class="p">:</span><span class="n">env</span><span class="o">.</span><span class="n">voltageclamps</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">)</span></div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.get_all_presynmechs"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.get_all_presynmechs">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_presynmechs</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_from_envs</span><span class="p">(</span>
+                <span class="n">extract_functor</span><span class="o">=</span><span class="k">lambda</span> <span class="n">env</span><span class="p">:</span><span class="n">env</span><span class="o">.</span><span class="n">presynapticmechanisms</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.get_all_postsynmechs"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.get_all_postsynmechs">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_postsynmechs</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_from_envs</span><span class="p">(</span>
+                <span class="n">extract_functor</span><span class="o">=</span><span class="k">lambda</span> <span class="n">env</span><span class="p">:</span><span class="n">env</span><span class="o">.</span><span class="n">postsynapticmechanisms</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">)</span>
+
+
+
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_all"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_all">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_all</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">SectionNewPage</span><span class="p">(</span><span class="s">&#39;Morphforge Configuration&#39;</span><span class="p">,</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_channels</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_currentclamps</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_voltageclamps</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_presynapticmechs</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_postsynapticmechs</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_tracemethods</span><span class="p">(),</span>
+                <span class="p">)</span>
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_channels"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_channels">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_channels</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">obj_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_all_chls</span><span class="p">()</span>
+        <span class="n">col1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Channel Name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[[</span><span class="n">env</span><span class="o">.</span><span class="n">_env_name</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> <span class="k">for</span> <span class="n">env</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_environments</span><span class="p">]</span>
+        <span class="n">col_</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Summary&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">SummariserLibrary</span><span class="o">.</span><span class="n">summarisers</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> 
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_</span><span class="p">]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Channels&#39;</span><span class="p">,</span> <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_currentclamps"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_currentclamps">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_currentclamps</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">obj_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_all_iclamps</span><span class="p">()</span>
+        <span class="n">col1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Clamp Name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[[</span><span class="n">env</span><span class="o">.</span><span class="n">_env_name</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">currentclamps</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> <span class="k">for</span> <span class="n">env</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_environments</span><span class="p">]</span>
+        <span class="n">col_</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Summary&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">SummariserLibrary</span><span class="o">.</span><span class="n">summarisers</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> 
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_</span><span class="p">]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Current Clamps&#39;</span><span class="p">,</span> <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_voltageclamps"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_voltageclamps">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_voltageclamps</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">obj_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_all_vclamps</span><span class="p">()</span>
+        <span class="n">col1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Clamp Name&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[[</span><span class="n">env</span><span class="o">.</span><span class="n">_env_name</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">voltageclamps</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> <span class="k">for</span> <span class="n">env</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_environments</span><span class="p">]</span>
+        <span class="n">col_</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Summary&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">SummariserLibrary</span><span class="o">.</span><span class="n">summarisers</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> 
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_</span><span class="p">]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Voltage Clamps&#39;</span><span class="p">,</span> <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_presynapticmechs"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_presynapticmechs">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_presynapticmechs</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">obj_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_all_presynmechs</span><span class="p">()</span>
+        <span class="n">col1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;PreSynMech&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">__name__</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[[</span><span class="n">env</span><span class="o">.</span><span class="n">_env_name</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">presynapticmechanisms</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> <span class="k">for</span> <span class="n">env</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_environments</span><span class="p">]</span>
+        <span class="n">col_</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Summary&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">to_symbol</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">SummariserLibrary</span><span class="o">.</span><span class="n">summarisers</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_types</span><span class="p">]</span> 
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col1</span><span class="p">]</span> <span class="o">+</span> <span class="n">cols</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_</span><span class="p">]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Presynaptic Mechanisms&#39;</span><span class="p">,</span> <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_postsynapticmechs"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_postsynapticmechs">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_postsynapticmechs</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="c">#obj_types = cls.get_all_postsynmechs()</span>
+        <span class="c">#col1 = [&#39;PostSynMech&#39;] + [obj.__name__ for obj in obj_types]</span>
+        <span class="c">#cols = [[env._env_name] + [to_symbol(obj, env.postsynapticmechanisms) for obj in obj_types] for env in cls._environments]</span>
+        <span class="c">#col_ = [&#39;Summary&#39;] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] </span>
+        <span class="c">#cols = [col1] + cols + [col_]</span>
+        <span class="c">#rows = zip(*cols)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Postsynaptic Mechanisms&#39;</span><span class="p">,</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Paragraph</span><span class="p">(</span><span class="s">&#39;To Bring Up to Date&#39;</span><span class="p">)</span> <span class="p">)</span> <span class="c"># mrd.VerticalColTable(rows[0], rows[1:]))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginMgr.summarise_tracemethods"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.PluginMgr.summarise_tracemethods">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_tracemethods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">TraceLibSummariser</span><span class="o">.</span><span class="n">summarise_all</span><span class="p">()</span>
+
+
+</div></div>
+<span class="kn">from</span> <span class="nn">morphforge.traces</span> <span class="kn">import</span> <span class="n">TraceFixedDT</span><span class="p">,</span> <span class="n">TraceVariableDT</span><span class="p">,</span> <span class="n">TracePiecewise</span>
+<span class="kn">from</span> <span class="nn">morphforge.traces</span> <span class="kn">import</span> <span class="n">TraceOperatorCtrl</span><span class="p">,</span> <span class="n">TraceMethodCtrl</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+
+<span class="n">operators</span> <span class="o">=</span> <span class="p">((</span><span class="n">operator</span><span class="o">.</span><span class="n">__add__</span><span class="p">,</span> <span class="s">&#39;+&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__sub__</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__mul__</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__div__</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">__pow__</span><span class="p">,</span> <span class="s">r&#39;$\textrm{exp}$&#39;</span><span class="p">)</span> <span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="TraceLibSummariser"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser">[docs]</a><span class="k">class</span> <span class="nc">TraceLibSummariser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="n">_trace_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">TraceFixedDT</span><span class="p">,</span> <span class="n">TraceVariableDT</span><span class="p">,</span> <span class="n">TracePiecewise</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceLibSummariser.summarise_all"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser.summarise_all">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_all</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;Traces&#39;</span><span class="p">,</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_methods</span><span class="p">(),</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">summarise_operators</span><span class="p">(),</span>
+                <span class="n">mrd</span><span class="o">.</span><span class="n">Paragraph</span><span class="p">(</span><span class="s">&#39;asda&#39;</span><span class="p">))</span>
+
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceLibSummariser._get_all_operator_types"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser._get_all_operator_types">[docs]</a>    <span class="k">def</span> <span class="nf">_get_all_operator_types</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">_operator_type</span><span class="p">,</span> <span class="n">lhs_type</span><span class="p">,</span> <span class="n">rhs_type</span><span class="p">)</span> <span class="ow">in</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">:</span>
+            <span class="n">types</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">lhs_type</span><span class="p">)</span>
+            <span class="n">types</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rhs_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">types</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">:(</span><span class="n">obj</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_trace_types</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceLibSummariser._get_all_trace_method_names"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser._get_all_trace_method_names">[docs]</a>    <span class="k">def</span> <span class="nf">_get_all_trace_method_names</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">methods</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">_trace_type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">:</span>
+            <span class="n">methods</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">methods</span><span class="p">))</span></div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceLibSummariser.summarise_operators"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser.summarise_operators">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_operators</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+
+        <span class="n">all_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_operator_types</span><span class="p">()</span>
+        <span class="n">trace_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_trace_types</span>
+        <span class="n">summary_matrix</span> <span class="o">=</span> <span class="n">empty_str_matrix</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_types</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_types</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tp1</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_types</span><span class="p">):</span>
+            <span class="n">summary_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tp1</span><span class="o">.</span><span class="n">__name__</span>
+            <span class="n">summary_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">tp1</span><span class="o">.</span><span class="n">__name__</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">tp2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_types</span><span class="p">):</span>
+
+                <span class="c"># Neither of the operand is a trace_type:</span>
+                <span class="k">if</span> <span class="n">tp1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trace_types</span> <span class="ow">and</span> <span class="n">tp2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trace_types</span><span class="p">:</span>
+                    <span class="n">summary_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;===&#39;</span>
+                    <span class="k">continue</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">sym</span><span class="p">)</span> <span class="ow">in</span> <span class="n">operators</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">tp1</span><span class="p">,</span> <span class="n">tp2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">TraceOperatorCtrl</span><span class="o">.</span><span class="n">trace_operators_all</span><span class="p">:</span>
+                        <span class="n">summary_matrix</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">sym</span>
+
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;TraceOperators&#39;</span><span class="p">,</span>
+                           <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">summary_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">summary_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">caption</span><span class="o">=</span><span class="s">&#39;Operators&#39;</span><span class="p">)</span>
+                           <span class="p">)</span>
+
+
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TraceLibSummariser.summarise_methods"><a class="viewcode-back" href="../../apidoc/mfi-core/morphforge.management.html#morphforge.management.TraceLibSummariser.summarise_methods">[docs]</a>    <span class="k">def</span> <span class="nf">summarise_methods</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">trace_types</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_trace_types</span>
+        <span class="n">method_names</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">_get_all_trace_method_names</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">get_argments</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">trace_type</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">has_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">None</span>
+            <span class="n">functor</span> <span class="o">=</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">get_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">varkw</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">functor</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">formatargspec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">varargs</span><span class="o">=</span><span class="n">varargs</span><span class="p">,</span> <span class="n">varkw</span><span class="o">=</span><span class="n">varkw</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">get_argments_TraceFixedDT</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_argments</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">TraceFixedDT</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">get_docstring</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+            <span class="n">trace_type</span> <span class="o">=</span> <span class="n">TraceFixedDT</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">has_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s">&#39;&lt;None&gt;&#39;</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">get_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_support_for_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span> <span class="ow">in</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">registered_methods</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">&#39;X&#39;</span>
+            <span class="k">if</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">TraceMethodCtrl</span><span class="o">.</span><span class="n">fallback_to_fixedtrace_methods</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">&#39;&lt;via fixed&gt;&#39;</span>
+
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_argments_TraceFixedDT</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">method_names</span><span class="p">]</span>
+        <span class="n">docstrings</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_docstring</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">method_names</span><span class="p">]</span>
+
+        <span class="n">col1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">method_names</span>
+        <span class="n">col2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">trace_type</span><span class="o">.</span><span class="n">__name__</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">_support_for_method</span><span class="p">(</span><span class="n">trace_type</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span> <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">method_names</span><span class="p">]</span> <span class="k">for</span> <span class="n">trace_type</span> <span class="ow">in</span> <span class="n">trace_types</span><span class="p">]</span>
+        <span class="n">col_args</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;args&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">arguments</span>
+        <span class="n">col_docstrings</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;docstring&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">docstrings</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col1</span><span class="p">]</span> <span class="o">+</span> <span class="n">col2</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_args</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">col_docstrings</span><span class="p">]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">cols</span><span class="p">)</span>
+        <span class="n">tbl</span> <span class="o">=</span> <span class="n">mrd</span><span class="o">.</span><span class="n">VerticalColTable</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">caption</span><span class="o">=</span><span class="s">&#39;Operators&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mrd</span><span class="o">.</span><span class="n">Section</span><span class="p">(</span><span class="s">&#39;TraceMethods&#39;</span><span class="p">,</span> <span class="n">tbl</span><span class="p">)</span></div></div>
+</pre></div>
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>

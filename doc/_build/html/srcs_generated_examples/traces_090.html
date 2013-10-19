@@ -1,0 +1,114 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>24. &lt;Missing Docstring&gt; &mdash; morphforge</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1-alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="morphforge" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>morphforge</span></a></h1>
+        <h2 class="heading"><span>24. &lt;Missing Docstring&gt;</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="missing-docstring">
+<h1>24. &lt;Missing Docstring&gt;</h1>
+<div class="section" id="code">
+<h2>Code</h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">morphforge.stdimports</span> <span class="kn">as</span> <span class="nn">mf</span>
+<span class="kn">from</span>  <span class="nn">morphforge.traces.generation</span>  <span class="kn">import</span> <span class="n">TraceStringParser</span>
+<span class="kn">from</span> <span class="nn">morphforge</span> <span class="kn">import</span> <span class="n">units</span>
+
+<span class="kn">from</span> <span class="nn">mhlibs.quantities_plot</span> <span class="kn">import</span> <span class="n">QuantitiesFigure</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;{d:pA} FLAT(1) FOR 100ms THEN RAMPTO(50) UNTIL 130ms THEN FLAT(0) THEN AT 150ms FLAT(120) FOR 20ms THEN  FLAT(0) UNTIL 180ms&quot;&quot;&quot;</span>
+
+<span class="n">tr</span> <span class="o">=</span> <span class="n">TraceStringParser</span><span class="o">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+
+<span class="n">trFix</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">convert_to_fixed</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="mf">01.</span><span class="o">*</span><span class="n">units</span><span class="o">.</span><span class="n">ms</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;t1:&#39;</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;t2:&#39;</span><span class="p">,</span> <span class="n">trFix</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">QuantitiesFigure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+
+
+<span class="n">trFixSquared</span> <span class="o">=</span> <span class="n">trFix</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="k">print</span> <span class="n">trFixSquared</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="p">(</span><span class="n">tr</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">integrate</span><span class="p">()</span>
+
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plotTrace</span><span class="p">(</span><span class="n">trFix</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plotTrace</span><span class="p">(</span><span class="n">trFixSquared</span><span class="p">)</span>
+
+
+
+
+
+
+
+<span class="kn">import</span> <span class="nn">pylab</span>
+<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output</h2>
+<div class="highlight-bash"><div class="highlight"><pre>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2012, Mike Hull.
+    </div>
+  </body>
+</html>
