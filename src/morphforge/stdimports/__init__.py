@@ -34,6 +34,7 @@
 # (don't complain about wildcard imports)
 
 
+import os
 
 try:
     import pylab
@@ -42,6 +43,7 @@ except ImportError:
     print 'Problem importing Numpy or Matplotlib'
 
 
+import neurounits
 
 
 
@@ -103,10 +105,6 @@ from morphforge.morphology.conventions import SWCRegionCodes
 
 
 
-#assert False
-import neurounits
-
-import os
 
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID
@@ -157,7 +155,7 @@ from mreorg import PM
 # WE CAN PROBABLY DO THIS BY INSERTING ANOTHER CALL VERY EARLY ON DURING STARTUP
 # AND ALSO CACHING WHAT IS CALLED IN THAT!
 # WITH THE CURRENT CACHING, IF INITITAILISATION CODE CHANHGES A Variable that it later
-# read, we don't pick this ut!
+# read, we don't pick this up!
 
 
 import trace,hashlib, sys, os

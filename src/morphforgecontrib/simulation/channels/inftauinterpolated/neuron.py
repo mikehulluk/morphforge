@@ -142,8 +142,6 @@ class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base)
 
     def get_recordable(self, what, **kwargs):
 
-        print 'Getting Reordable', what
-        print kwargs
 
         recorders = {
             MM_InfTauInterpolatedChannel.Recordables.CurrentDensity: NEURONChl_InfTauInterpolated_CurrentDensityRecord,
@@ -152,8 +150,6 @@ class NEURONChl_InfTauInterpolated(MM_InfTauInterpolatedChannel, NEURONChl_Base)
             MM_InfTauInterpolatedChannel.Recordables.StateVarSteadyState: NEURONChl_InfTauInterpolated_StateVariableInfRecord,
             MM_InfTauInterpolatedChannel.Recordables.StateVarTimeConstant: NEURONChl_InfTauInterpolated_StateVariableTauRecord,
             }
-        print 'Getting Reordable', what, recorders[what]
-        print kwargs
 
         return recorders[what](alphabeta_chl=self, **kwargs)
 

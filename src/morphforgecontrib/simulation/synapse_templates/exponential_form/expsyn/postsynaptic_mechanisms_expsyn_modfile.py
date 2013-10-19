@@ -43,10 +43,13 @@ DERIVATIVE state {
 	g' = -g/tau
 }
 
+UNITSOFF
 NET_RECEIVE(weight (uS)) {
     weight = 1.0
 	g = g + weight * peak_conductance
-}"""
+}
+UNITSON
+"""
 
 def getExpSynModfile():
     return _mod_txt

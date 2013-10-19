@@ -163,8 +163,9 @@ $(cell_name).internalsections [$section_index] {
         txt =  base_writer.generate_modfile()
 
         # TODO: Remove hard dependancy here
-        additional_compile_flags = "-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
-        additional_link_flags = "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
+        from morphforge.stdimports import RCMgr
+        additional_compile_flags = RCMgr.get('Neuron','additional_compile_flags')  #"-I/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp"
+        additional_link_flags = RCMgr.get('Neuron','additional_link_flags') # "-L/home/michael/hw_to_come/morphforge/src/morphforgecontrib/simulation/neuron_gsl/cpp -lgslwrapper -lgsl -lgslcblas"
         mod_file =  ModFile(name=alphabeta_chl.name, modtxt=txt, additional_compile_flags=additional_compile_flags, additional_link_flags=additional_link_flags)
         modfile_set.append(mod_file)
 

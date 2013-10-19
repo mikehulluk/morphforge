@@ -122,7 +122,6 @@ class Summarise_MM_AlphaBetaChannel(object):
             }
         (plot_what, y_label, y_unit) = plot_what_lut[curve]
 
-            # print kwargs
 
         if isinstance(ax, QuantitiesAxisNew):
 

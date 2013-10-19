@@ -103,6 +103,8 @@ class PostSynapticTemplateLibrary(object):
                     for k,v in syn_vars_dict.iteritems():
                         if isinstance(v, (float, types.BooleanType )):
                             continue
+                        print template_type, synapsetype
+
                         syn_vars_dict[k] = v.rescale(template_type.get_preferred_unit(k))
 
 

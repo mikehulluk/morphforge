@@ -37,7 +37,6 @@ from morphforge.core.misc import StrUtils
 class NEURONChl_Base(object):
 
     def __init__(self, **kwargs):
-        print 'KWARGS', kwargs
         super(NEURONChl_Base, self).__init__(**kwargs)
         self.mm_neuronNumber = None 
         self.cachedNeuronSuffix = None

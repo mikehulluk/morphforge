@@ -42,9 +42,9 @@ from modelling.sensory_pathway import *
 fname = '~/Desktop/morphforge_registered_templates.pdf'
 
 mredoc.Section('Summary',
-#    CellLibrary.summary_table(),
+    CellLibrary.summary_table(),
     ChannelLibrary.summary_table(),
-#    MorphologyLibrary.summary_table(),
+    MorphologyLibrary.summary_table(),
     PostSynapticTemplateLibrary.summary_table(),
 
     ).to_pdf(fname)

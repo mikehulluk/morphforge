@@ -157,7 +157,6 @@ class SimulationMRedoc(object):
     def build(cls, obj, result=None, options=None):
         if options is None:
             options = SummariserOptions()
-            assert False
 
         sim_redoc = SimulationMRedoc(obj, options=options).mredoc
 
@@ -389,8 +388,8 @@ class SimulationMRedoc(object):
         #return 'Blah: %s' % syn.name
         sumcls = SummariserLibrary.get_summarisier(syn_tmpl)
         if not sumcls:
-            return mrd.Section('Summary of synaptic-template: %s <!! Summariser Missing !!>' % syn.name,
-                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(chl))
+            return mrd.Section('Summary of synaptic-template: %s <!! Summariser Missing !!>' % syn_tmpl.name,
+                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(syn_tmpl))
                 )
 
         return sumcls.build(syn_tmpl)
@@ -436,7 +435,6 @@ class SimulationMRedoc(object):
             from morphforge.morphology.ui import MatPlotLibViewer
             fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7, 7)}).fig
             child_sections.append( mrd.Image(fig) )
-            assert False
 
 
         return mrd.HierachyScope(*child_sections) #section_table, region_table, mrd.Image(fig), )
@@ -643,7 +641,7 @@ class DOTWriter(object):
             # Create the connectivity graph:
             connectivity_graph_figure = build_connectivity_graph(synpop)
             fname = fig_out + '/synpop%d.png' % synpopindex
-            pylab.savefig(fname, transparent=True, dpi=400, bb_inches='tight')
+            pylab.savefig(fname, dpi=400, bb_inches='tight')
 
 
             n = pydot.Node(synpop.synapse_pop_name+'im', label='', image=fname, **dict(kwargs_general.items() + kwargs_synpop_img.items()))

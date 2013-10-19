@@ -73,6 +73,7 @@ ASSIGNED {
         i (nA)
 }
 
+UNITSOFF
 BREAKPOINT {
     at_time(del)
     at_time(del + dur)
@@ -148,6 +149,7 @@ class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
         hoc_txt = Template(ccSinWaveHOCTmpl, data).respond()
         hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps, hoc_txt)
         hocfile_obj[MHocFileData.CurrentClamps][self] = data
+
 
 
     def build_mod(self, modfile_set):

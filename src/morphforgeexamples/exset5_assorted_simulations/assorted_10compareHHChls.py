@@ -180,14 +180,14 @@ def apply_hh_chls_neuroml_xsl(env, cell, sim):
           )
 
     na_chl = env.Channel(NeuroML_Via_XSL_Channel,
-        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/NaChannel_HH.xml"),
-        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/NaChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/ChannelML_v1.8.1_NEURONmod.xsl"),
 
        )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
-        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/KChannel_HH.xml"),
-        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/KChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/ChannelML_v1.8.1_NEURONmod.xsl"),
        )
 
     cell.apply_channel( na_chl)
@@ -213,13 +213,13 @@ def apply_hh_chls_neuroml_neurounits(env, cell, sim):
                            )
 
     na_chl = env.Channel(NeuroML_Via_NeuroUnits_Channel,
-                                            xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/NaChannel_HH.xml"),
+                                            xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/NaChannel_HH.xml"),
 
                                            )
 
     k_chl = env.Channel(NeuroML_Via_XSL_Channel,
-        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/KChannel_HH.xml"),
-        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/ChannelML_v1.8.1_NEURONmod.xsl"),
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/KChannel_HH.xml"),
+        xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/ChannelML_v1.8.1_NEURONmod.xsl"),
                                            )
 
     cell.apply_channel( na_chl)

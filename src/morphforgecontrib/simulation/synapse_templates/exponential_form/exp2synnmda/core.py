@@ -52,6 +52,7 @@ class PostSynapticMech_Exp2SynNMDA_Base(object):
                 'e_rev':e_rev, 'popening':popening, 'peak_conductance':peak_conductance, 'eta':eta, 'gamma':gamma, 'mg2conc':mg2conc, 'limit_conductance':limit_conductance}
 
 
+    @classmethod
     def get_preferred_unit(cls, varname):
         _units = {
                 'tau_open': units.ms,
