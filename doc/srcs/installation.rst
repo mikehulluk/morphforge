@@ -22,18 +22,15 @@ Overview
 Package Dependancies
 --------------------
 
-morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it.
 
-morphforge has the following hard dependancies:
+morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it. morphforge has the following hard dependancies on:
 
  * numpy
  * matplotlib
  * `python-lex-yacc (python-ply) <http://www.dabeaz.com/ply/>`_
  * `quantities <https://github.com/python-quantities/python-quantities>`_
  * `cheetah <http://www.cheetahtemplate.org/>`_
- * `NeuroUnits <http://neurounit.readthedocs.org/>_`
-
-
+ * `NeuroUnits <http://neurounit.readthedocs.org/>`_ (Neurounits is a library for working with quantities and equations involving units, which builds on the quantities package)
 
 And the following soft-dependancies 
 
@@ -42,11 +39,16 @@ And the following soft-dependancies
  * NEURON (including the python bindings) (Note: NEURON needs the *readline* and *ncurses* development libraries)
     * `Manual Compilation Instructions <http://www.davison.webfactional.com/notes/installation-neuron-python/>`_
     * `Debian Package <http://neuralensemble.org/people/eilifmuller/>`_
-
+ * MayaVI
+ * `mreorg <http://mreorg.readthedocs.org/en/latest/>`_
+ * `mredoc <http://mredoc.readthedocs.org/en/latest/>`_
+ * Latex
 
 If you want to build the documentation locally, you will need
  * `Sphinx <http://sphinx.pocoo.org/>`_
  * make 
+
+
 
 
 Installing the packages on a debian-based system (Ubuntu)
@@ -67,7 +69,7 @@ install what you need.
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-pip
+      libreadline-dev python-pip python-setuptools
       
     # Install python-quantities
     # and check it installed OK:
@@ -83,6 +85,30 @@ install what you need.
     $ source ~/.bashrc
     $ python -c 'import neurounits'
     $ # <No output displayed means everything is OK>
+
+
+Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatically save figures created with matplotlib to files and to supress the display of GUI windows, which is important for running batches of scripts and for running the example files with make. mredoc is a library for build html and pdf files from equations, figures, text and tables from within python. Neither of these libraries are essential for morphforge to run.
+
+.. code-block:: bash
+
+    # Install mreorg and mredoc using easy install
+    $ easy-install --prefix=~/.local/ mreorg mredoc
+
+    # Test out mreorg:
+    $ ipython -c 'import mreorg'
+    $ #< Should throw an error - mreorg expects an environmental variable to be set: >
+    $ export MREORG_CONFIG=''; ipython -c 'import mreorg'
+    $ # <No output displayed means everything is OK>
+
+    $ Test out mredoc
+    $ ipython
+    >>> doc = mredoc.Section('Test Document',mredoc.Section('Equations', r"""$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$""" ))
+    >>> doc.to_html("~/mredoc_test_out/")
+    >>> doc.to_pdf("~/mredoc_test.pdf")
+    >>> quit
+    $ chromium-browser ~/mredoc_test_out/index.html
+    $ evince ~/mredoc_test_out.pdf
+     
     
     
 .. code-block:: bash
@@ -209,18 +235,54 @@ they are running using :program:`make`:
 .. code-block:: bash
 
     $ cd ~/hw/morphforge/src/morphforgeexamples/
-    $ make examples 
+    $ make examples
+
+This will run all the examples, and the figures will be found in the _output/<script-name> folders within each directory.
     
     
 
 Running the Tests
 -----------------
 
-.. todo::
+Morphforge has been tested with the Simulator-TestData repository. `<https://github.com/mikehulluk/simulator-test-data>`_
 
-    Upload the tests to the repo and document how to run them.
+To run the tests:
+
+.. code-block:: bash
+
+    $ Install python-glob2 (allows recusrive globbing in python)
+    $ easy_install --prefix=~/.local/ glob2 
+
+    # Clone the repository:
+    $ cd ~/hw
+    $ git clone git@github.com:mikehulluk/simulator-test-data.git
+    $ cd simulator-test-data
+
+    # Download waf:
+    # (as per: http://docs.waf.googlecode.com/git/book_16/single.html#_download_and_installation )
+    $ wget http://waf.googlecode.com/files/waf-1.6.11 && mv waf-1.6.11 waf && chmod +x waf
+
+    # Configure waf
+    ./waf configure
+
+    # Run the simulations
+    # By default, the repository will run all the simulations it finds with all the simulators. (May take a long time)
+    ./waf generate
+    
+    # (This can be reduced by setting the following environmental variables:
+    export STD_SIMS='morphforge;NEURON';
+    export STD_SCENS='022; 5??; 62[12]'; # (Using regular expression syntax)
+    export STD_SHORT='TRUE';
+    ./waf generate
 
 
+    # Once the simulations have run, the results can be summarised with:
+    ./waf compare
+
+    # which will create summary documents of the tests that have been run in
+    # ./test_results/
+    $ chromium-browser ./test_results/index.html
+    
 
 
 

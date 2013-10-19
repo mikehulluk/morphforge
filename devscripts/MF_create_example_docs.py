@@ -181,7 +181,6 @@ def run_example(index, filename):
     env['MREORG_CONFIG'] = "BATCHRUN"
 
     args = shlex.split("""python %s"""%newFilename)
-    #print 'Launching child process', args
     result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
 
     # Split the output to get at the docstring:
@@ -206,5 +205,8 @@ clear_directory(examples_dst_dir_images)
 
 for index, fName in enumerate(example_srcs):
     fName_full = os.path.join(examples_src_dir, fName)
-    run_example(index, fName_full)
+    try:
+        run_example(index, fName_full)
+    except subprocess.CalledProcessError:
+        print '  ** Error Running file'
 

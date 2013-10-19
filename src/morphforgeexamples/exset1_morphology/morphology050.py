@@ -41,7 +41,7 @@ import pylab
 testSrcsPath = mf.LocMgr().get_test_srcs_path()
 srcMorphMLFile = mf.Join(testSrcsPath, "neuroml/morphml/CablesIncluded.xml")
 m = mf.MorphologyTree.fromMorphML(src=open(srcMorphMLFile),
-mf.MayaViRenderer(m).show_as_points_interpolated()
+#mf.MayaViRenderer(m).show_as_points_interpolated()
 
 
 

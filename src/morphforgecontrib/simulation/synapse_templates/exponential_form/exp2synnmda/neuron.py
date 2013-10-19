@@ -146,8 +146,6 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
 
         assert not instance in hocfile_obj[MHocFileData.Synapses]
         hocfile_obj[MHocFileData.Synapses][instance] = data
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
 
     def template_build_mod(self, modfile_set):
