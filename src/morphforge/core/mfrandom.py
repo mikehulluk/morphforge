@@ -66,5 +66,7 @@ class MFRandom(object):
         numpy.random.seed(cls._seed)
 
 
-# Randomly initialise the seed:
-MFRandom.seed(random.randint(0, 100000))
+import os
+if not os.environ.get('READTHEDOCS', None) == 'True':
+    # Randomly initialise the seed:
+    MFRandom.seed(random.randint(0, 100000))
