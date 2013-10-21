@@ -17,6 +17,16 @@ Overview
     to expected certain paths in mod-file compilation, so there
     might be a problem runnning NEURON simulations on OSX. This
     is not insurmountable, I just haven't done it!
+
+
+
+.. warning::
+
+    The packages morphforge, neurounits, mredoc and mreorg contain potential security holes.
+    All these packages write intermediate files to temporary locations, which are then used
+    by other tools. It might be possible to edit these files to cause the execution of arbitary
+    code and therefore **these tools should only be used in trusted environments**.
+
     
 
 Package Dependancies
@@ -88,11 +98,13 @@ install what you need.
 
 Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatically save figures created with matplotlib to files and to supress the display of GUI windows, which is important for running batches of scripts and for running the example files with make. mredoc is a library for build html and pdf files from equations, figures, text and tables from within python. Neither of these libraries are essential for morphforge to run.
 
+
+
 .. code-block:: bash
 
     # It might be best to install django (mreorg dependancy)
     # through the package manager:
-    $ sudo apt-get install texlive python-django python-django-dajax
+    $ sudo apt-get install texlive-full python-django python-django-dajax
 
     # Install mreorg and mredoc using easy install
     $ easy_install --prefix=~/.local/ mreorg mredoc
@@ -105,6 +117,7 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
 
     $ Test out mredoc
     $ ipython
+    >>> import mredoc
     >>> doc = mredoc.Section('Test Document',mredoc.Section('Equations', r"""$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$""" ))
     >>> doc.to_html("~/mredoc_test_out/")
     >>> doc.to_pdf("~/mredoc_test.pdf")
