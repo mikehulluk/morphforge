@@ -60,6 +60,8 @@ install what you need.
 
 
 
+
+
 .. code-block:: bash
 
     $ mkdir ~/hw
@@ -70,21 +72,13 @@ install what you need.
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
       libreadline-dev python-pip python-setuptools
-      
-    # Install python-quantities
-    # and check it installed OK:
-    $ sudo pip install quantities
-    $ python -c 'import quantities'
-    $ # <No output displayed means everything is OK>
-    
-    # Install NeuroUnits
-    $ cd ~/hw
-    $ git clone git://github.com/mikehulluk/NeuroUnits.git
-    # Add something like this to the end of your login script (eg ~/.bashrc):
-    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/NeuroUnits/src/"
-    $ source ~/.bashrc
+    #  
+    # Install neurounits, (which will automatically install 'quantities')
+    $ easy_install install --prefix=~/.local/ neurounits
     $ python -c 'import neurounits'
     $ # <No output displayed means everything is OK>
+    $ python -c 'import neurounits'
+
 
 
 Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatically save figures created with matplotlib to files and to supress the display of GUI windows, which is important for running batches of scripts and for running the example files with make. mredoc is a library for build html and pdf files from equations, figures, text and tables from within python. Neither of these libraries are essential for morphforge to run.
@@ -108,8 +102,10 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
     >>> quit
     $ chromium-browser ~/mredoc_test_out/index.html
     $ evince ~/mredoc_test_out.pdf
-     
-    
+
+
+
+Install NEURON and python bindings:
     
 .. code-block:: bash
 
@@ -284,6 +280,46 @@ To run the tests:
     $ chromium-browser ./test_results/index.html
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. code-asdablock:: bash
+
+    $ mkdir ~/hw
+    $ cd hw  
+    
+    # Most dependancies satisfied by package manager:
+    $ sudo apt-get install git ipython python-numpy python-scipy \
+      python-matplotlib python-scipy python-ply python-cheetah \
+      python-reportlab python-sphinx make libncurses5-dev \
+      libreadline-dev python-pip python-setuptools
+      
+    # Install python-quantities
+    # and check it installed OK:
+    $ sudo pip install quantities
+    $ python -c 'import quantities'
+    $ # <No output displayed means everything is OK>
+    
+    # Install NeuroUnits
+    $ cd ~/hw
+    $ git clone git://github.com/mikehulluk/NeuroUnits.git
+    # Add something like this to the end of your login script (eg ~/.bashrc):
+    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/NeuroUnits/src/"
+    $ source ~/.bashrc
+    $ python -c 'import neurounits'
+    $ # <No output displayed means everything is OK>
 
 
 
