@@ -40,7 +40,8 @@ from morphforge.units.util import parse_unit_str
 
 
 # Import all the units from quantities:
-from quantities import *
+#from quantities import *
+from quantities import pA
 
 
 # Import some commonly-used neuroscience units:
