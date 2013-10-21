@@ -45,6 +45,7 @@ from quantities import pV, nV, uV, mV, V
 from quantities import Quantity, UnitConstant, UnitQuantity, Dimensionless
 
 
+import os
 if not 'READTHEDOCS' in os.environ:
     from quantities import *
 
