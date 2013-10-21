@@ -71,10 +71,15 @@ install what you need.
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-pip python-setuptools
-    #  
+      libreadline-dev python-setuptools
+     
+    $ Lets install all packages locally, to ~/.local/
+    $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
+    $ echo export PYTHONPATH="$PYTHONPATH:~/.local//lib/python2.7/site-packages/" >> ~/.bashrc
+    $ source ~/.bashrc
+ 
     # Install neurounits, (which will automatically install 'quantities')
-    $ easy_install install --prefix=~/.local/ neurounits
+    $ easy_install --prefix=~/.local/ neurounits
     $ python -c 'import neurounits'
     $ # <No output displayed means everything is OK>
     $ python -c 'import neurounits'
@@ -85,8 +90,12 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
 
 .. code-block:: bash
 
+    # It might be best to install django (mreorg dependancy)
+    # through the package manager:
+    $ sudo apt-get install python-django
+
     # Install mreorg and mredoc using easy install
-    $ easy-install --prefix=~/.local/ mreorg mredoc
+    $ easy_install --prefix=~/.local/ mreorg mredoc
 
     # Test out mreorg:
     $ ipython -c 'import mreorg'
@@ -304,7 +313,7 @@ To run the tests:
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-pip python-setuptools
+      libreadline-dev python-setuptools
       
     # Install python-quantities
     # and check it installed OK:
