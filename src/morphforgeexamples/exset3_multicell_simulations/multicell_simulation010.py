@@ -103,5 +103,7 @@ def simulate_chls_on_neuron():
 
 
 results = simulate_chls_on_neuron()
+SimulationMRedoc.build( results ).to_pdf(__file__ + '.pdf')
+
 TagViewer(results, timerange=(95, 200)*units.ms, show=True)
 

@@ -111,3 +111,4 @@ class EventSet(object):
         return np.array( [ float(t.rescale('ms') ) for t in self.times] )
 
 
+    

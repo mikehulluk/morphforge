@@ -115,6 +115,9 @@ sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = 
 # run the simulation
 results = sim.run()
 
+# Create an output .pdf
+SimulationMRedoc.build( sim ).to_pdf(__file__ + '.pdf')
+
 # Display the results:
 TagViewer([results], timerange=(50, 250)*units.ms, show=True)
 

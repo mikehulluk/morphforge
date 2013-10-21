@@ -271,7 +271,7 @@ To run the tests:
 
 .. code-block:: bash
 
-    $ Install python-glob2 (allows recusrive globbing in python)
+    # Install python-glob2 (allows recusrive globbing in python)
     $ easy_install --prefix=~/.local/ glob2 
 
     # Clone the repository:

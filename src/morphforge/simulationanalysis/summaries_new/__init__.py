@@ -154,7 +154,20 @@ class _DotSummaryUtils(object):
 class SimulationMRedoc(object):
 
     @classmethod
-    def build(cls, obj, result=None, options=None):
+    def build(cls, obj, options=None):
+        from morphforge.simulation.base import SimulationResult
+        from morphforge.stdimports import TagViewer
+
+        result = None
+        if isinstance( obj, SimulationResult):
+            result = obj
+            obj = obj.simulation
+        elif isinstance( obj, Simulation):
+            pass
+        else:
+            assert False, "Unexpected object passed to SimulationMRedoc: %s" %(obj)
+
+
         if options is None:
             options = SummariserOptions()
 
@@ -164,9 +177,11 @@ class SimulationMRedoc(object):
             return sim_redoc
 
         else:
-            return mrd.Section('Simulation Results:',
-                    mrd.Image(result.fig.fig, auto_adjust=False),
+            return mrd.Section('Simulation Summary',
                     sim_redoc,
+                    mrd.Section("Results",
+                        mrd.Image( TagViewer(result, fig_kwargs={'figsize':(6,3) }).fig.fig, auto_adjust=True),
+                        )
                     )
 
 

@@ -82,7 +82,8 @@ sim.recordall(lk_chl, cell_location=cell.soma)
 results = sim.run()
 
 # Create an output .pdf
-#SimulationSummariser(simulationresult=results, filename="Simulation010Output.pdf", make_graphs=True)
+SimulationMRedoc.build( sim ).to_pdf(__file__ + '.pdf')
+
 
 # Display the results:
 TagViewer([results], figtitle="The response of a neuron to step current injection", timerange=(95, 200)*units.ms, show=True)

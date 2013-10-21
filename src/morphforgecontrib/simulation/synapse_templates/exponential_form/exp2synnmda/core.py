@@ -73,3 +73,9 @@ class PostSynapticMech_Exp2SynNMDA_Base(object):
         return [ 'tau_open', 'tau_close', 'popening', 'e_rev', 'vdep',
                  'peak_conductance', 'gamma', 'eta', 'mg2conc', 'limit_conductance' ]
 
+
+
+    def get_summary_description(self, instance):
+        return "Exp2Syn"
+
+

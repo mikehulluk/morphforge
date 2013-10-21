@@ -79,6 +79,8 @@ sim.record(cc, what=mf.StandardTags.Current)
 
 res = sim.run()
 
+# Create an output .pdf
+SimulationMRedoc.build( sim ).to_pdf(__file__ + '.pdf')
 
 mf.TagViewer(res)
 
