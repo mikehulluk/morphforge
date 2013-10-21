@@ -25,6 +25,7 @@ from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
 
 def _pca(X):
+    from numpy.linalg import eig
 
     # Refactored out 'map' in August 2012
     # x_mean = array(map(sum, X.T)) / len(X)
@@ -32,7 +33,7 @@ def _pca(X):
 
     x_ = X - x_mean
     x_t = np.dot(x_.T, x_) / len(X)
-    (lam, vec) = linalg.eig(x_t)
+    (lam, vec) = eig(x_t)
     ans = zip(lam, vec.T)
     print ans
     try:
@@ -48,6 +49,7 @@ class PCAAxes(object):
 
     def __init__(self, morph):
         from numpy.linalg import norm
+        from numpy.linalg import inv
 
         axes = _pca(SectionVistorFactory.array3_all_points(morph)())
 
@@ -56,7 +58,7 @@ class PCAAxes(object):
         eigenvec3 = axes[2][1] / norm(axes[2][1])
 
         self.eigen_matrix = np.array((eigenvec1, eigenvec2, eigenvec3)).T
-        self.inv_mat = linalg.inv(self.eigen_matrix)
+        self.inv_mat = inv(self.eigen_matrix)
 
 
 class PointOperator(object):

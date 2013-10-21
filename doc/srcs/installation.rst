@@ -78,7 +78,7 @@ install what you need.
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-setuptools
+      libreadline-dev python-setuptools python-mako python-lxml
      
     $ Lets install all packages locally, to ~/.local/
     $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
@@ -136,13 +136,18 @@ Install NEURON and python bindings:
     See http://www.neuron.yale.edu/credits.html
     $ #<If you see the above banner, everything is good!>
 
+    # And lets add the binaries to the PATH. ARCH is your architecture,
+    # (probably 'x86_64' or 'i686')
+    $ echo export PATH="$PATH:/opt/nrn/ARCH/bin" >> ~/.bashrc
+    $ source ~/.bashrc
+
 .. code-block:: bash
 
     # Check all NEURON dependancies satisfied for building mod files:
     $ mkdir ~/mf_jnk   
     $ cd ~/mf_jnk
     $ cp /opt/nrn/share/nrn/examples/nrniv/netcon/ampa.mod .
-    $ export PATH="$PATH:/opt/nrn/ARCH/bin"  # (where ARCH is your architecture.)
+    
     $ nrnivmodl
     <.... lots of output...>
     Successfully created x86_64/special
@@ -239,8 +244,7 @@ Running the Examples
 If everything is set up correctly, you should now be able to run your first example:
 
 .. code-block:: bash
-
-    $ cd ~/hw/morphforge/src/morphforgeexamples/singlecell_simulation/
+    $ cd ~/hw/morphforge/src/morphforgeexamples/exset2_singlecell_simulations/
     $ python singlecell_simulation010.py
     # < If everything is OK, the script should run and you should be 
     # presented with some graphs!
