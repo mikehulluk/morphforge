@@ -44,7 +44,7 @@ from quantities import pA, nA, uA, mA, A
 from quantities import mV, V
 from quantities import Quantity, UnitConstant, UnitQuantity, Dimensionless
 from quantities import millivolt, volt
-from quantities import picoamp, nanoamp, microamp, milliamp, amp
+from quantities import picoamp, nanoamp, milliamp, amp
 from quantities import second, millisecond
 
 import os
