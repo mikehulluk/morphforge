@@ -50,7 +50,7 @@ class Mock(object):
             return Mock()
 
 
-MOCK_MODULES = ['numpy', 'pylab', 'scipy', 'mredoc', 'mreorg', 'quantities']
+MOCK_MODULES = ['numpy', 'pylab', 'scipy', 'mredoc', 'mreorg', ]
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock
 
