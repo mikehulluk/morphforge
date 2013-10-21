@@ -34,10 +34,10 @@ import os
 
 from morphforge.core.misc import is_float
 
-import quantities as pq
 
 
 def factorise_units_from_list(seq):
+    import quantities as pq
     assert len(seq) > 0
 
     for obj in seq:
@@ -50,6 +50,7 @@ def factorise_units_from_list(seq):
 
 
 def parse_unit_str(s):
+    import quantities as pq
     if not s.strip():
         return pq.dimensionless
 
@@ -88,6 +89,7 @@ def qty(s):
 
 
 def _qty(s):
+    import quantities as pq
     if isinstance(s, pq.quantity.Quantity):
         return s
 
@@ -113,6 +115,7 @@ def _qty(s):
 
 
 def parse_unit(s):
+    import quantities as pq
 
 
     on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
