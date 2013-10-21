@@ -92,7 +92,7 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
 
     # It might be best to install django (mreorg dependancy)
     # through the package manager:
-    $ sudo apt-get install python-django
+    $ sudo apt-get install texlive python-django python-django-dajax
 
     # Install mreorg and mredoc using easy install
     $ easy_install --prefix=~/.local/ mreorg mredoc
