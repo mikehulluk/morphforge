@@ -33,7 +33,7 @@
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 #from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
-from random import randint, choice
+from random import randint
 import pylab
 
 
@@ -504,12 +504,13 @@ class SimulationMRedoc(object):
 
 
 
-from matplotlib.ticker import MaxNLocator
 
 
 
 
 def build_connectivity_graph(synapse_pop, size=0.75):
+    import pylab
+    from matplotlib.ticker import MaxNLocator
 
     prepop = synapse_pop.presynaptic_population
     #if prepop:
@@ -533,7 +534,6 @@ def build_connectivity_graph(synapse_pop, size=0.75):
     postpop_len = len(postpop)
     max_len = max( (prepop_len, postpop_len) )
 
-    import pylab
     figsize_raw =(size * (float(prepop_len)/max_len), size*(float(postpop_len)/max_len))
     figsize = figsize_raw #figsize_raw[0]+0.75, figsize_raw[1]+0.75
     print figsize
