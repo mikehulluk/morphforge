@@ -28,76 +28,76 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
-import os
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+#import os
+#on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-if not on_rtd:
+#if not on_rtd:
 
-    import quantities as pq
+import quantities as pq
 
-    # Conductances:
-    mS = pq.UnitQuantity('milli-Siemen', pq.milli * pq.siemens, symbol='mS')
-    uS = pq.UnitQuantity('micro-Siemen', pq.micro * pq.siemens, symbol='uS')
-    nS = pq.UnitQuantity('nano-Siemen', pq.nano * pq.siemens, symbol='nS')
-    pS = pq.UnitQuantity('pico-Siemen', pq.pico * pq.siemens, symbol='pS')
+# Conductances:
+mS = pq.UnitQuantity('milli-Siemen', pq.milli * pq.siemens, symbol='mS')
+uS = pq.UnitQuantity('micro-Siemen', pq.micro * pq.siemens, symbol='uS')
+nS = pq.UnitQuantity('nano-Siemen', pq.nano * pq.siemens, symbol='nS')
+pS = pq.UnitQuantity('pico-Siemen', pq.pico * pq.siemens, symbol='pS')
 
-    # Capacitances:
-    mF = pq.UnitQuantity('millifarad', pq.milli * pq.farad, symbol='mF')
-    uF = pq.UnitQuantity('microfarad', pq.micro * pq.farad, symbol='uF')
-    nF = pq.UnitQuantity('nanofarad', pq.nano * pq.farad, symbol='nF')
-    pF = pq.UnitQuantity('picofarad', pq.pico * pq.farad, symbol='pF')
+# Capacitances:
+mF = pq.UnitQuantity('millifarad', pq.milli * pq.farad, symbol='mF')
+uF = pq.UnitQuantity('microfarad', pq.micro * pq.farad, symbol='uF')
+nF = pq.UnitQuantity('nanofarad', pq.nano * pq.farad, symbol='nF')
+pF = pq.UnitQuantity('picofarad', pq.pico * pq.farad, symbol='pF')
 
-    # Areas:
-    um2 = pq.UnitQuantity('micrometer-squared', pq.um ** 2, symbol='um2')
-    cm2 = pq.UnitQuantity('centimeter-squared', pq.cm ** 2, symbol='cm2')
-    mm2 = pq.UnitQuantity('micrometer-squared', pq.mm ** 2, symbol='mm2')
-    m2 = pq.UnitQuantity('meter-squared', pq.m ** 2, symbol='m2')
+# Areas:
+um2 = pq.UnitQuantity('micrometer-squared', pq.um ** 2, symbol='um2')
+cm2 = pq.UnitQuantity('centimeter-squared', pq.cm ** 2, symbol='cm2')
+mm2 = pq.UnitQuantity('micrometer-squared', pq.mm ** 2, symbol='mm2')
+m2 = pq.UnitQuantity('meter-squared', pq.m ** 2, symbol='m2')
 
-    areas = [m2, cm2, mm2, um2]
+areas = [m2, cm2, mm2, um2]
 
-    currents = [pq.amp, pq.milliamp, pq.microampere, pq.nanoamp, pq.picoamp]
-    conductances = [pq.S, mS, uS, nS, pS]
-    capacitances = [pq.F, mF, uF, nF, pF]
+currents = [pq.amp, pq.milliamp, pq.microampere, pq.nanoamp, pq.picoamp]
+conductances = [pq.S, mS, uS, nS, pS]
+capacitances = [pq.F, mF, uF, nF, pF]
 
-    # Create the possible densities:
-    for a in areas:
-        for i in currents:
-            pq.UnitQuantity('%s per %s' % (i.name, a.name), 
-                            i / a,
-                            symbol='%s/%s' % (i, a))
+# Create the possible densities:
+for a in areas:
+    for i in currents:
+        pq.UnitQuantity('%s per %s' % (i.name, a.name), 
+                        i / a,
+                        symbol='%s/%s' % (i, a))
 
-        for g in conductances:
-            pq.UnitQuantity('%s per %s' % (g.name, a.name), 
-                            g / a,
-                            symbol='%s/%s' % (g, a))
+    for g in conductances:
+        pq.UnitQuantity('%s per %s' % (g.name, a.name), 
+                        g / a,
+                        symbol='%s/%s' % (g, a))
 
-        for c in capacitances:
-            pq.UnitQuantity('%s per %s' % (c.name, a.name), 
-                            c / a,
-                            symbol='%s/%s' % (c, a))
+    for c in capacitances:
+        pq.UnitQuantity('%s per %s' % (c.name, a.name), 
+                        c / a,
+                        symbol='%s/%s' % (c, a))
 
-    ## Molar Quanities:
-    # http://en.wikipedia.org/wiki/Mole_(unit)#Related_units
-    molar = pq.UnitQuantity('M', pq.mol / pq.liter)
-    millimolar = pq.UnitQuantity('mM', pq.milli * molar)
-    micromolar = pq.UnitQuantity('uM', pq.micro * molar)
-    nanomolar = pq.UnitQuantity('nM', pq.nano * molar)
-
-
-    # Specials:
-    ohmcm = pq.UnitQuantity('ohmcm', pq.ohm * pq.centimeter, symbol='ohmcm')
-    MOhm = pq.UnitQuantity('megaOhm', pq.ohm * pq.mega, symbol='MOhm')
+## Molar Quanities:
+# http://en.wikipedia.org/wiki/Mole_(unit)#Related_units
+molar = pq.UnitQuantity('M', pq.mol / pq.liter)
+millimolar = pq.UnitQuantity('mM', pq.milli * molar)
+micromolar = pq.UnitQuantity('uM', pq.micro * molar)
+nanomolar = pq.UnitQuantity('nM', pq.nano * molar)
 
 
+# Specials:
+ohmcm = pq.UnitQuantity('ohmcm', pq.ohm * pq.centimeter, symbol='ohmcm')
+MOhm = pq.UnitQuantity('megaOhm', pq.ohm * pq.mega, symbol='MOhm')
 
 
-    # Per XX
-    per_mV = pq.UnitQuantity('per_mV', 1/pq.millivolt)
-    per_mM = pq.UnitQuantity('per_mM', 1/millimolar)
 
 
-    # Aliases:
-    mV = pq.millivolt
-    mM = millimolar
-    uM = micromolar
+# Per XX
+per_mV = pq.UnitQuantity('per_mV', 1/pq.millivolt)
+per_mM = pq.UnitQuantity('per_mM', 1/millimolar)
+
+
+# Aliases:
+mV = pq.millivolt
+mM = millimolar
+uM = micromolar
 
