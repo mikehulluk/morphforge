@@ -40,9 +40,9 @@ from morphforge.units.util import parse_unit_str
 
 
 # Import all the units from quantities:
-import os
-if not 'READTHEDOCS' in os.environ:
-    from quantities import *
+#import os
+#if not 'READTHEDOCS' in os.environ:
+from quantities import *
 
 
 # Import some commonly-used neuroscience units:
