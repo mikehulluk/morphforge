@@ -31,13 +31,10 @@
 
 #from morphforgecontrib.simulation.channels import inftauinterpolated
 
+import numpy as np
 
 from morphforgecontrib.simulation.channels.hh_style import StdChlAlphaBeta
 from morphforgecontrib.simulation.channels.hh_style import StdChlAlphaBetaBeta
-from numpy.core.function_base import linspace
-#from morphforgecontrib.simulation.channels.hh_style.summarisers import MM_InfTauInterpolatedChannel, \
-#    InfTauInterpolation
-#from morphforgecontrib.simulation.channels.hh_style.summarisers.util import InfTauCalculator
 from morphforge.units import qty
 from morphforge import units
 
@@ -66,7 +63,7 @@ class ChannelConverter(object):
             # Interpolation voltages:
             # voltage_interpolation_values=voltage_interpolation_values
             if _voltage_interpolation_values is None:
-                _voltage_interpolation_values = linspace(-80, 60, 10) * qty('mV')
+                _voltage_interpolation_values = np.linspace(-80, 60, 10) * qty('mV')
 
                         # Copy the state variables
             new_state_vars = {}

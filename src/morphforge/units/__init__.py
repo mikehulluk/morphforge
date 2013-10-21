@@ -43,7 +43,9 @@ from morphforge.units.util import parse_unit_str
 from quantities import pA, nA, uA, mA, A
 from quantities import pV, nV, uV, mV, V
 from quantities import Quantity, UnitConstant, UnitQuantity, Dimensionless
-
+from quantities import picovolt, nanovolt, microvolt, millivolt, volt
+from quantities import picoamp, nanoamp, microamp, milliamp, amp
+from quantities import second, millisecond
 
 import os
 if not 'READTHEDOCS' in os.environ:
