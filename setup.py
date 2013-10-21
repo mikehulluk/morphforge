@@ -19,29 +19,31 @@ import glob
 
 
 locs = [
-        "srcs/morphforge/__init__.py",
-        "srcs/morphforge/*/__init__.py",
-        "srcs/morphforge/*/*/__init__.py",
-        "srcs/morphforge/*/*/*/__init__.py",
-        "srcs/morphforge/*/*/*/*/__init__.py",
-        "srcs/morphforge/*/*/*/*/*/__init__.py",
-        "srcs/morphforge/*/*/*/*/*/*/__init__.py",
-        "srcs/morphforge/*/*/*/*/*/*/*/__init__.py",
-        "srcs/morphforgecontrib/__init__.py",
-        "srcs/morphforgecontrib/*/__init__.py",
-        "srcs/morphforgecontrib/*/*/__init__.py",
-        "srcs/morphforgecontrib/*/*/*/__init__.py",
-        "srcs/morphforgecontrib/*/*/*/*/__init__.py",
-        "srcs/morphforgecontrib/*/*/*/*/*/__init__.py",
-        "srcs/morphforgecontrib/*/*/*/*/*/__init__.py",
+        "src/morphforge/__init__.py",
+        "src/morphforge/*/__init__.py",
+        "src/morphforge/*/*/__init__.py",
+        "src/morphforge/*/*/*/__init__.py",
+        "src/morphforge/*/*/*/*/__init__.py",
+        "src/morphforge/*/*/*/*/*/__init__.py",
+        "src/morphforge/*/*/*/*/*/*/__init__.py",
+        "src/morphforge/*/*/*/*/*/*/*/__init__.py",
+        "src/morphforgecontrib/__init__.py",
+        "src/morphforgecontrib/*/__init__.py",
+        "src/morphforgecontrib/*/*/__init__.py",
+        "src/morphforgecontrib/*/*/*/__init__.py",
+        "src/morphforgecontrib/*/*/*/*/__init__.py",
+        "src/morphforgecontrib/*/*/*/*/*/__init__.py",
+        "src/morphforgecontrib/*/*/*/*/*/*/__init__.py",
+        "src/morphforgecontrib/*/*/*/*/*/*/*/__init__.py",
         ]
 glob_pkgs =itertools.chain( *[glob.glob(loc) for loc in locs] )
-glob_pkgs = [ l.replace("srcs/","").replace("__init__.py","") for l in glob_pkgs]
+glob_pkgs = [ l.replace("src/","").replace("/__init__.py","").replace("/",".") for l in glob_pkgs]
 
 pkgs = [
 'mhlibs',
 'mhlibs.quantities_plot',
 ] + glob_pkgs
+
 
 
 
