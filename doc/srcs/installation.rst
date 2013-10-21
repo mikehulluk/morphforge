@@ -73,10 +73,7 @@ install what you need.
 
 
 .. code-block:: bash
-
-    $ mkdir ~/hw
-    $ cd hw  
-    
+  
     # Most dependancies satisfied by package manager:
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
@@ -90,9 +87,8 @@ install what you need.
  
     # Install neurounits, (which will automatically install 'quantities')
     $ easy_install --prefix=~/.local/ neurounits
-    $ python -c 'import neurounits'
+    $ ipython -c 'import neurounits'
     $ # <No output displayed means everything is OK>
-    $ python -c 'import neurounits'
 
 
 
@@ -115,7 +111,7 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
     $ export MREORG_CONFIG=''; ipython -c 'import mreorg'
     $ # <No output displayed means everything is OK>
 
-    $ Test out mredoc
+    # Test out mredoc by creating a simple doc:
     $ ipython
     >>> import mredoc
     >>> doc = mredoc.Section('Test Document',mredoc.Section('Equations', r"""$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$""" ))
@@ -123,7 +119,7 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
     >>> doc.to_pdf("~/mredoc_test.pdf")
     >>> quit
     $ chromium-browser ~/mredoc_test_out/index.html
-    $ evince ~/mredoc_test_out.pdf
+    $ evince ~/mredoc_test.pdf
 
 
 
@@ -134,7 +130,7 @@ Install NEURON and python bindings:
     # Install NEURON with Python bindings (thanks to Eilif Muller)
     # Download from here: http://neuralensemble.org/people/eilifmuller/
     # Install the deb package.
-    $ python -c 'import neuron'
+    $ ipython -c 'import neuron'
     NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
     Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
     See http://www.neuron.yale.edu/credits.html
@@ -169,8 +165,11 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     # Clone the repo:
     $ git clone git://github.com/mikehulluk/morphforge.git
         
-    # Add something like this to the end of your login script (eg ~/.bashrc):
-    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/morphforge/src/"
+    # Lets add this to the PYTHONPATH (eg ~/.bashrc):
+    $ echo export PYTHONPATH="$PYTHONPATH:~/hw/morphforge/src/" >> ~/.bashrc
+
+    # And also, lets set the flags for mreorg to automatically save all images:
+    $ echo export MREORG_CONFIG="SAVEALL" >> ~/.bashrc
     $ source ~/.bashrc
 
     # Try it out:
