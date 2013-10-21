@@ -40,8 +40,15 @@ from morphforge.units.util import parse_unit_str
 
 
 # Import all the units from quantities:
-from quantities import *
-#from quantities import pA
+from quantities import pA, nA, uA, mA, A
+from quantities import pV, nV, uV, mV, V
+from quantities import Quantity, UnitConstant, UnitQuantity, Dimensionless
+
+
+if not 'READTHEDOCS' in os.environ:
+    from quantities import *
+
+
 
 
 # Import some commonly-used neuroscience units:
