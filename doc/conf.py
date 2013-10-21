@@ -30,15 +30,31 @@ import os
 
 # To allow stuff to build on RTD
 import sys
+class MockType(type):
+
+    def __getattr__(cls, name):
+        if name in ('__file__', '__path__'):
+            return '/dev/null'
+        elif name[0] == name[0].upper():
+            mockType = type(name, (), {})
+            mockType.__module__ = __name__
+            return mockType
+        else:
+            return Mock()
+
+    def __str__(cls):
+        return 'custom str for %s' % (cls.__name__,)
 
 class Mock(object):
+    __metaclass__ = MockType
+
     def __init__(self, *args, **kwargs):
         pass
 
     def __call__(self, *args, **kwargs):
         return Mock()
 
-    @classmethod
+    #@classmethod
     def __getattr__(cls, name):
         if name in ('__file__', '__path__'):
             return '/dev/null'
