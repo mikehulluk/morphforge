@@ -19,7 +19,7 @@ Overview
 .. warning::
 
     I have only tested morphforge on Python 2.7 on Ubuntu.
-    It should work fine on other -nix, although it is hardwired 
+    It should work fine on other -nix, although it is hardwired
     to expected certain paths in mod-file compilation, so there
     might be a problem running NEURON simulations on OSX. This
     is not insurmountable, I just haven't done it!
@@ -33,7 +33,7 @@ Overview
     by other tools. It might be possible to edit these files to cause the execution of arbitrary
     code and therefore **these tools should only be used in trusted environments**.
 
-    
+
 
 Package Dependancies
 --------------------
@@ -48,7 +48,7 @@ morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to do
  * `cheetah <http://www.cheetahtemplate.org/>`_
  * `NeuroUnits <http://neurounit.readthedocs.org/>`_ (Neurounits is a library for working with quantities and equations involving units, which builds on the quantities package)
 
-And the following soft-dependancies 
+And the following soft-dependancies
 
  * scipy
  * Reportlab
@@ -62,7 +62,7 @@ And the following soft-dependancies
 
 If you want to build the documentation locally, you will need
  * `Sphinx <http://sphinx.pocoo.org/>`_
- * make 
+ * make
 
 
 
@@ -71,7 +71,7 @@ Installing the packages on a debian-based system (Ubuntu)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-If you are using a debian based system, the following should 
+If you are using a debian based system, the following should
 install what you need.
 
 
@@ -79,18 +79,18 @@ install what you need.
 
 
 .. code-block:: bash
-  
+
     # Most dependancies satisfied by package manager:
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
       libreadline-dev python-setuptools python-mako python-lxml
-     
-    $ Lets install all packages locally, to ~/.local/
+
+    # Lets install all packages locally, to ~/.local/
     $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
     $ echo export PYTHONPATH="$PYTHONPATH:~/.local//lib/python2.7/site-packages/" >> ~/.bashrc
     $ source ~/.bashrc
- 
+
     # Install neurounits, (which will automatically install 'quantities')
     $ easy_install --prefix=~/.local/ neurounits=v0.1
     $ ipython -c 'import neurounits'
@@ -135,7 +135,7 @@ of these libraries are essential for morphforge to run.
 
 
 Install NEURON and python bindings:
-    
+
 .. code-block:: bash
 
     # Install NEURON with Python bindings (thanks to Eilif Muller)
@@ -155,32 +155,32 @@ Install NEURON and python bindings:
 .. code-block:: bash
 
     # Check all NEURON dependancies satisfied for building mod files:
-    $ mkdir ~/mf_jnk   
+    $ mkdir ~/mf_jnk
     $ cd ~/mf_jnk
     $ cp /opt/nrn/share/nrn/examples/nrniv/netcon/ampa.mod .
-    
+
     $ nrnivmodl
     <.... lots of output...>
     Successfully created x86_64/special
     $ #<Great, NEURON can build .modfiles!>
-   
 
 
-Cloning the Repository 
+
+Cloning the Repository
 ----------------------
 
-In the following code, the user is :file:`michaeltest`, and we are going to 
+In the following code, the user is :file:`michaeltest`, and we are going to
 install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
 
 
 .. code-block:: bash
 
     $ mkdir ~/hw
-    $ cd hw  
-    
+    $ cd hw
+
     # Clone the repo:
     $ git clone git://github.com/mikehulluk/morphforge.git v0.2
-        
+
     # Lets add this to the PYTHONPATH (eg ~/.bashrc):
     $ echo export PYTHONPATH="$PYTHONPATH:~/hw/morphforge/src/" >> ~/.bashrc
 
@@ -191,26 +191,26 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     # Try it out:
     $ cd ~
     $ python -c 'import morphforge'
-    
+
 
 
 Configuring .morphforgerc
 -------------------------
 
-morphforge needs to know the locations of various directories and tools 
-for interacting with simulators. This is controlled through a configuration 
-file in the home directory, :file:`~/.morphforgerc` , which is in the python 
+morphforge needs to know the locations of various directories and tools
+for interacting with simulators. This is controlled through a configuration
+file in the home directory, :file:`~/.morphforgerc` , which is in the python
 `ConfigParser <http://docs.python.org/library/configparser.html>`_ syntax.
 
 To get going, you should specify a temporary directory, and specify the
-locations of various tools and locations for compiling mod-files. A 
+locations of various tools and locations for compiling mod-files. A
 sample :download:`.morphforgerc.sample </../etc/morphforgerc.sample>`,
 you might need to edit the platform-architecture from **i686** to **x86_64**.
 You can find the location of binaries using a command like:
 
 .. code-block:: bash
 
-    $ which nocmodl 
+    $ which nocmodl
     /opt/nrn/x86_64/bin//nocmodl
 
 In which case your ~/.morphforgerc file should look something like:
@@ -220,7 +220,7 @@ In which case your ~/.morphforgerc file should look something like:
     $ cat ~/.morphforgerc
     [Locations]
     tmpdir= /home/michaeltest/mftmp/
-    
+
     [Neuron]
     nrnprefix=/opt/nrn/
     nrnbin=%(nrnprefix)s/x86_64/bin
@@ -236,16 +236,16 @@ In which case your ~/.morphforgerc file should look something like:
 
     additional_link_libraries=%(rootdir)s/morphforgecontrib/simulation/neuron_gsl/cpp/libgslwrapper
     ld_library_path_suffix=%(rootdir)s/morphforgecontrib/simulation/neuron_gsl/cpp/
- 
+
 More information about .~/morphforgerc configuration can be found :doc:`here </srcs/morphforgerc>`
 
 
 .. warning::
-    
-    morphforge will overwrite files in the directory specified by 
+
+    morphforge will overwrite files in the directory specified by
     :file:`tmpdir` without asking. Make sure there is nothing important
     in there!
-        
+
 
 
 Running the Examples
@@ -257,11 +257,11 @@ If everything is set up correctly, you should now be able to run your first exam
 .. code-block:: bash
     $ cd ~/hw/morphforge/src/morphforgeexamples/exset2_singlecell_simulations/
     $ python singlecell_simulation010.py
-    # < If everything is OK, the script should run and you should be 
+    # < If everything is OK, the script should run and you should be
     # presented with some graphs!
 
 
-All examples can be found in this directory and can be checked that 
+All examples can be found in this directory and can be checked that
 they are running using :program:`make`:
 
 .. code-block:: bash
@@ -270,8 +270,8 @@ they are running using :program:`make`:
     $ make examples
 
 This will run all the examples, and the figures will be found in the _output/<script-name> folders within each directory.
-    
-    
+
+
 
 Running the Tests
 -----------------
@@ -283,7 +283,7 @@ To run the tests:
 .. code-block:: bash
 
     # Install python-glob2 (allows recusrive globbing in python)
-    $ easy_install --prefix=~/.local/ glob2 
+    $ easy_install --prefix=~/.local/ glob2
 
     # Clone the repository:
     $ cd ~/hw
@@ -300,7 +300,7 @@ To run the tests:
     # Run the simulations
     # By default, the repository will run all the simulations it finds with all the simulators. (May take a long time)
     ./waf generate
-    
+
     # (This can be reduced by setting the following environmental variables:
     export STD_SIMS='morphforge;NEURON';
     export STD_SCENS='022; 5??; 62[12]'; # (Using regular expression syntax)
