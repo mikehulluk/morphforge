@@ -30,7 +30,7 @@ Consider the following example:
 	
 	The neurons should be connected by gap junctions, distributed according to algorithm X, with resistances of 1GOhm ± 500MOhm. The neurons also self-excite other neurons in the population with AMPA  synapses, with a probability of connections between any pair of neurons of 20%. I would like to stimulate this network with NMDA synaptic input to ~50% of the neurons at fixed times, as well as different levels of step current injections to cell 12, and measure plot graphs of the ionic currents flowing across the membrane of cells 2, 12, and any cells that spike, as well as the membrane voltage of all the neurons. I want to compare against with the case when the gap junctions have been blocked.”
 
-The morphforge allows the specification of this complete simulation and visualisation of the results in a single python scripts of less than 100?? lines, only requiring a single command to run. It is designed to make it possible to specify connection algorithms, morphologies, channel descriptions and simulation parameters as high-level objects, such that they can be reused in across other simulations, without the need to copy and paste code. Units are handled transparently, reports of the simulation setup can be automatically generated, and a clean separation between of simulation and visualisation is achieved through a mechanism of *tagging* in the framework. The library is built on standard Python libraries, (Numpy, matplotlib), making it easy to integrate with other libraries.
+The morphforge allows the specification of this complete simulation and visualisation of the results in a single python scripts of less than 100 lines, only requiring a single command to run. It is designed to make it possible to specify connection algorithms, morphologies, channel descriptions and simulation parameters as high-level objects, such that they can be reused in across other simulations, without the need to copy and paste code. Units are handled transparently, reports of the simulation setup can be automatically generated, and a clean separation between of simulation and visualisation is achieved through a mechanism of *tagging* in the framework. The library is built on standard Python libraries, (Numpy, matplotlib), making it easy to integrate with other libraries.
 
 The framework is under active development, with a NEURON backend, currently supporting everything in the above example.		
 
@@ -66,7 +66,7 @@ Setting up and Running Morphforge
     somewhere in the code and the **wrong thing might be deleted** by mistake. I
     have never had a problem with this  (I have been running this package on my
     computer for the last 2 years with absolutely no problems), but it is a
-    still possiblity, especially under different operating systems.
+    still possibility, especially under different operating systems.
 
 .. warning::
 
@@ -76,8 +76,11 @@ Setting up and Running Morphforge
     
 .. warning::
 
-    **Morphforge and related packages may not be secure!**. morphforge uses lots of code-generation,
-    and reloads files from filesystem, which could be a vector for a malicious attack depending on where temporary files are stored.. ** only use morphforge in 'safe' environments. If in doubt, use a sandbox! **
+    **Morphforge and related packages may not be secure!**. morphforge uses
+    lots of code-generation, and reloads files from filesystem, which could be
+    a vector for a malicious attack depending on where temporary files are
+    stored. **only use morphforge in 'safe' environments. If in doubt, use a
+    sandbox!**
     
 .. note::
 

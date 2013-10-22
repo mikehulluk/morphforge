@@ -173,7 +173,7 @@ class NEURONSimulation(Simulation):
 
 
         # Save the simulation summary:
-        do_summary = True
+        do_summary = False
         if do_summary:
             fname = '~/Desktop/pdfs/%s.pdf' % (self._sim_desc_str().replace(' ', ''))
             summary = SimulationMRedoc.build(self)

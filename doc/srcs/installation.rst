@@ -18,10 +18,10 @@ Overview
 
 .. warning::
 
-    I have only tested morphforge on Python 2.7 on Ubuntu 11.10.
+    I have only tested morphforge on Python 2.7 on Ubuntu.
     It should work fine on other -nix, although it is hardwired 
     to expected certain paths in mod-file compilation, so there
-    might be a problem runnning NEURON simulations on OSX. This
+    might be a problem running NEURON simulations on OSX. This
     is not insurmountable, I just haven't done it!
 
 
@@ -30,7 +30,7 @@ Overview
 
     The packages morphforge, neurounits, mredoc and mreorg contain potential security holes.
     All these packages write intermediate files to temporary locations, which are then used
-    by other tools. It might be possible to edit these files to cause the execution of arbitary
+    by other tools. It might be possible to edit these files to cause the execution of arbitrary
     code and therefore **these tools should only be used in trusted environments**.
 
     
@@ -39,7 +39,7 @@ Package Dependancies
 --------------------
 
 
-morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it. morphforge has the following hard dependancies on:
+morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it. morphforge has the following hard dependencies on:
 
  * numpy
  * matplotlib
@@ -98,7 +98,12 @@ install what you need.
 
 
 
-Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatically save figures created with matplotlib to files and to supress the display of GUI windows, which is important for running batches of scripts and for running the example files with make. mredoc is a library for build html and pdf files from equations, figures, text and tables from within python. Neither of these libraries are essential for morphforge to run.
+Optionally, install mreorg and mredoc. Briefly, mreorg allows you to
+automatically save figures created with matplotlib to files and to suppress the
+display of GUI windows, which is important for running batches of scripts and
+for running the example files with make. mredoc is a library for build html and
+pdf files from equations, figures, text and tables from within python. Neither
+of these libraries are essential for morphforge to run.
 
 
 
@@ -193,7 +198,7 @@ Configuring .morphforgerc
 -------------------------
 
 morphforge needs to know the locations of various directories and tools 
-for interacting with simulators. This is controlled through a config 
+for interacting with simulators. This is controlled through a configuration 
 file in the home directory, :file:`~/.morphforgerc` , which is in the python 
 `ConfigParser <http://docs.python.org/library/configparser.html>`_ syntax.
 
@@ -201,7 +206,7 @@ To get going, you should specify a temporary directory, and specify the
 locations of various tools and locations for compiling mod-files. A 
 sample :download:`.morphforgerc.sample </../etc/morphforgerc.sample>`,
 you might need to edit the platform-architecture from **i686** to **x86_64**.
-You can find the location of binaries using a commmand like:
+You can find the location of binaries using a command like:
 
 .. code-block:: bash
 
@@ -309,48 +314,8 @@ To run the tests:
     # which will create summary documents of the tests that have been run in
     # ./test_results/
     $ chromium-browser ./test_results/index.html
-    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.. code-asdablock:: bash
-
-    $ mkdir ~/hw
-    $ cd hw  
-    
-    # Most dependancies satisfied by package manager:
-    $ sudo apt-get install git ipython python-numpy python-scipy \
-      python-matplotlib python-scipy python-ply python-cheetah \
-      python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-setuptools
-      
-    # Install python-quantities
-    # and check it installed OK:
-    $ sudo pip install quantities
-    $ python -c 'import quantities'
-    $ # <No output displayed means everything is OK>
-    
-    # Install NeuroUnits
-    $ cd ~/hw
-    $ git clone git://github.com/mikehulluk/NeuroUnits.git
-    # Add something like this to the end of your login script (eg ~/.bashrc):
-    export PYTHONPATH="$PYTHONPATH:/home/michaeltest/hw/NeuroUnits/src/"
-    $ source ~/.bashrc
-    $ python -c 'import neurounits'
-    $ # <No output displayed means everything is OK>
 
 
 
