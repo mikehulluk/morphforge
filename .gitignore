@@ -2478,3 +2478,8 @@ _output/
 !src/morphforgeexamples/exset8_traces
 !src/morphforgeexamples/exset8_traces/traces_*.py
 /src/morphforge/management/__init__.pyc
+
+*.py.out
+*.py.pdf
+
+doc/_build/*
