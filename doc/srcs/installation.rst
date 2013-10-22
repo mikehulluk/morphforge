@@ -178,8 +178,11 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     $ mkdir ~/hw
     $ cd hw
 
-    # Clone the repo:
-    $ git clone git://github.com/mikehulluk/morphforge.git v0.2
+    # Clone the repo, and checkout version 0.2
+    $ git clone git://github.com/mikehulluk/morphforge.git
+    $ cd morphforge
+    $ git checkout v0.2
+    # (Ignore warning about being in detached HEAD state)
 
     # Lets add this to the PYTHONPATH (eg ~/.bashrc):
     $ echo export PYTHONPATH="$PYTHONPATH:~/hw/morphforge/src/" >> ~/.bashrc
