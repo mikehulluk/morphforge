@@ -92,7 +92,7 @@ install what you need.
     $ source ~/.bashrc
 
     # Install neurounits, (which will automatically install 'quantities')
-    $ easy_install --prefix=~/.local/ neurounits=v0.1
+    $ easy_install --prefix=~/.local/ neurounits==0.1
     $ ipython -c 'import neurounits'
     $ # <No output displayed means everything is OK>
 
