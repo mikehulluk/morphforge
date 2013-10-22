@@ -92,7 +92,7 @@ install what you need.
     $ source ~/.bashrc
  
     # Install neurounits, (which will automatically install 'quantities')
-    $ easy_install --prefix=~/.local/ neurounits
+    $ easy_install --prefix=~/.local/ neurounits=v0.1
     $ ipython -c 'import neurounits'
     $ # <No output displayed means everything is OK>
 
@@ -109,7 +109,7 @@ Optionally, install mreorg and mredoc. Briefly, mreorg allows you to automatical
     $ sudo apt-get install texlive-full python-django python-django-dajax
 
     # Install mreorg and mredoc using easy install
-    $ easy_install --prefix=~/.local/ mreorg mredoc
+    $ easy_install --prefix=~/.local/ mreorg==0.1.1 mredoc==0.1
 
     # Test out mreorg:
     $ ipython -c 'import mreorg'

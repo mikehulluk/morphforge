@@ -25,3 +25,11 @@ simulatorbuiltin Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`sim_builtin_summariser` Module
+------------------------------------
+
+.. automodule:: morphforgecontrib.simulation.channels.simulatorbuiltin.sim_builtin_summariser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

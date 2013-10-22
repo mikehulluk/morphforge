@@ -49,7 +49,7 @@ Setting up and Running Morphforge
 
 .. warning::
 
- *  As of July 2012; morphforge is **currently undergoing major API 
+ *  As of Autumn 2013; morphforge is **currently undergoing major API 
     changes**! Although the package is unlikely to change conceptually, 
     please be aware that class/method/parameter/package names
     will probably change from commit-to-commit, as the packages are tidied!
@@ -74,6 +74,10 @@ Setting up and Running Morphforge
     running *morphforge* within a sandboxed environment; such as a VirtualBox,
     in case there are any issues that cause files to be delete unexpectedly!**
     
+.. warning::
+
+    **Morphforge and related packages may not be secure!**. morphforge uses lots of code-generation,
+    and reloads files from filesystem, which could be a vector for a malicious attack depending on where temporary files are stored.. ** only use morphforge in 'safe' environments. If in doubt, use a sandbox! **
     
 .. note::
 
@@ -81,7 +85,7 @@ Setting up and Running Morphforge
     Please contribute useful functions you have written, any example scripts, ideas for improving the documentation
     or general feedback about using it.
     
-    Mike Hull, Edinburgh/Bristol, UK. (July 2012)
+    Mike Hull, Edinburgh/Bristol/Cambridge, UK. (October 2013)
     
     P.S. I have started a googlegroup for morphforge at http://groups.google.com/group/morphforge. Sign up for 
     latest development news!

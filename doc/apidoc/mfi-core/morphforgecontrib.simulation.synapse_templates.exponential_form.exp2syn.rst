@@ -33,3 +33,11 @@ exp2syn Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`summariser` Module
+------------------------
+
+.. automodule:: morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.summariser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

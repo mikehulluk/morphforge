@@ -1,10 +1,11 @@
- import morphforge.stdimports as mf
- from sim_builtin_core import BuiltinChannel
+import morphforge.stdimports as mf
+from sim_builtin_core import BuiltinChannel
 
 
 class BuiltinChlSummariser(object):
     @classmethod
     def build(cls, obj):
+        import mredoc as mrd
         return mrd.Section('Summary of %s (Existing Modfile)' % obj.name,
                "(Builtin Channelcd )"
                 )

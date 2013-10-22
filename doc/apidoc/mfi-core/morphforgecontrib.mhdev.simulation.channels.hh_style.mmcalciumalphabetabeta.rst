@@ -33,11 +33,3 @@ mmcalciumalphabetabeta Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`summarisermmcalciumalphabetabeta` Module
-----------------------------------------------
-
-.. automodule:: morphforgecontrib.mhdev.simulation.channels.hh_style.mmcalciumalphabetabeta.summarisermmcalciumalphabetabeta
-    :members:
-    :undoc-members:
-    :show-inheritance:
-

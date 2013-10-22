@@ -25,3 +25,11 @@ exisitingmodfile Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`summarisers` Module
+-------------------------
+
+.. automodule:: morphforgecontrib.simulation.channels.exisitingmodfile.summarisers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

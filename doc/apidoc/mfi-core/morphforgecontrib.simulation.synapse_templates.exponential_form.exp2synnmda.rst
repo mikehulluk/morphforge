@@ -33,3 +33,11 @@ exp2synnmda Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`summariser` Module
+------------------------
+
+.. automodule:: morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.summariser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

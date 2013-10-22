@@ -17,5 +17,4 @@ Subpackages
     morphforgecontrib.simulation.channels.hh_style.core
     morphforgecontrib.simulation.channels.hh_style.neuron
     morphforgecontrib.simulation.channels.hh_style.summarisers
-    morphforgecontrib.simulation.channels.hh_style.summarisers_old
 
