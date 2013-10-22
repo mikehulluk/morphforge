@@ -31,3 +31,5 @@
 
 import sim_builtin_core
 import sim_builtin_neuron
+import sim_builtin_summariser
+

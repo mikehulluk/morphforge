@@ -38,7 +38,6 @@ class PostSynapticMech_Exp2SynNMDA_Base(object):
     def __init__(self, tau_open, tau_close, e_rev, popening, peak_conductance, eta=None, mg2conc=None, gamma=None, vdep=True, limit_conductance=False, **kwargs):
 
         # TODO: THESE SHOULD BE SPECIFIED, and should not default:
-
         if gamma is None:
             gamma = 0.08 * units.per_mV
         if eta is None:
@@ -73,9 +72,11 @@ class PostSynapticMech_Exp2SynNMDA_Base(object):
         return [ 'tau_open', 'tau_close', 'popening', 'e_rev', 'vdep',
                  'peak_conductance', 'gamma', 'eta', 'mg2conc', 'limit_conductance' ]
 
+    def get_defaults(self):
+        return self._default_parameters
 
 
     def get_summary_description(self, instance):
-        return "Exp2Syn"
+        return "Exp2Syn-NMDA"
 
 

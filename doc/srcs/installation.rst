@@ -4,6 +4,12 @@ Installation
 Overview
 --------
 
+
+.. note::
+
+    morphforge uses Python version 2.8, not 3.X
+
+
 .. note::
 
     Microsoft Windows is not supported; I have never tried it.

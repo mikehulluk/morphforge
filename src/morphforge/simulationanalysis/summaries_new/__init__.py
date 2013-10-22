@@ -116,9 +116,6 @@ class SummariserLibrary(object):
 
     @classmethod
     def register_summariser(cls, channel_baseclass, summariser_class):
-        # Check it has a to_report_lab Method:
-        # Todo: Replace this with 'hasattr'
-        # assert 'to_report_lab' in summariser_class.__dict__
 
         # Add it to the dictionary of summarisers:
         cls.summarisers[channel_baseclass] = summariser_class
@@ -195,11 +192,8 @@ class SimulationMRedoc(object):
         self.options = options
         self.mredoc = self.build_simulation()
 
-    #def build_simulationresult(self, sim):
-    #    pass
 
     def build_simulation(self):
-        #from morphforge.management import PluginMgr
 
         title = 'Simulation Summary: %s'%self.sim._sim_desc_str()
 
@@ -414,7 +408,7 @@ class SimulationMRedoc(object):
         synaptic_templates = self.sim.postsynaptic_templates
 
         return mrd.SectionNewPage('Synaptic Template Details',
-                *( [ self._build_details_synaptic_templ(syntemplate) for syntemplate in synaptic_templates]  )
+                *[ self._build_details_synaptic_templ(syntemplate) for syntemplate in synaptic_templates]
                 )
 
 

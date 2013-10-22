@@ -31,3 +31,4 @@
 
 from core import SimulatorSpecificChannel
 from neuron import NEURONChl_SimulatorSpecificChannel
+import summarisers

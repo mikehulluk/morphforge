@@ -53,3 +53,5 @@ class PostSynapticMech_ExpSyn_Base(object):
 
 
 
+    def get_summary_description(self, instance):
+        return "Exp1Syn"
