@@ -179,7 +179,7 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
     $ cd hw  
     
     # Clone the repo:
-    $ git clone git://github.com/mikehulluk/morphforge.git
+    $ git clone git://github.com/mikehulluk/morphforge.git v0.2
         
     # Lets add this to the PYTHONPATH (eg ~/.bashrc):
     $ echo export PYTHONPATH="$PYTHONPATH:~/hw/morphforge/src/" >> ~/.bashrc
