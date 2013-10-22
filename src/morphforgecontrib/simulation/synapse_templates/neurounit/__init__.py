@@ -44,7 +44,6 @@ from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplate
 from morphforge.stdimports import SummariserLibrary
 
 
-import mredoc as mrd
 
 
 from neurounits.neurounitparser import NeuroUnitParser
@@ -93,22 +92,21 @@ class NeuroUnitEqnsetPostSynaptic(object):
 
 
 class NeuroUnitEqnsetPostSynapticSummariser(object):
-    
+
     @classmethod
     def build(cls, obj):
-        #child_elements = []
-        
-        
-        
+        import mredoc as mrd
+
         eqnset_redoc = obj.eqnset.to_redoc()
-        return mrd.Section('%s (Neurounit Synaptic-Template)' %obj.name, 
-                eqnset_redoc, 
+        return mrd.Section('%s (Neurounit Synaptic-Template)' %obj.name,
+                eqnset_redoc,
                 cls._build_default_parameters(obj),
                 mrd.Section('Source', mrd.VerbatimBlock(obj.eqnset.library_manager.src_text, caption='Source code for template: %s'% obj.name) )
                 )
-        
+
     @classmethod
     def _build_default_parameters(cls, obj):
+        import mredoc as mrd
         tbl = mrd.VerticalColTable('Parameter| Default Value',
             [ '%s|%s'%(str(k), str(v)) for (k,v) in obj._default_parameters.items() ] )
         return mrd.Section('Default Parameters', tbl)
@@ -183,6 +181,6 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(
-        NeuroUnitEqnsetPostSynaptic, 
+        NeuroUnitEqnsetPostSynaptic,
         NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic )
-        
+

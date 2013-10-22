@@ -4,7 +4,6 @@ import morphforge.stdimports as mf
 
 from ..core import StdChlAlphaBeta
 
-import mredoc as mrd
 import numpy as np
 import pylab
 import matplotlib as mpl
@@ -45,11 +44,10 @@ def plot_sv(ax, sv_name, sv_coeffs, what, plot_kwargs=None):
 
 
 class AlphaBetaSummariser(object):
-    pass
 
     @classmethod
     def build(cls, obj):
-        pass
+        import mredoc as mrd
         param_tbl= mrd.VerticalColTable( ['Parameter','Value'],
                 [
                     ('Conductance (gmax)', str(obj.conductance.rescale('mS/cm2')) ),

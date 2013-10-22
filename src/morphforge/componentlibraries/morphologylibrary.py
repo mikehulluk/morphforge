@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 
 class MorphologyLibrary(object):
 
@@ -52,6 +51,7 @@ class MorphologyLibrary(object):
 
     @classmethod
     def summary_table(cls, ):
+        import mredoc
         summary_data = []
         for ((modelsrc,celltype), functor) in sorted(cls._morphology_functors.iteritems()):
             summary_data.append( ( modelsrc, celltype ))# , functor.__file__)

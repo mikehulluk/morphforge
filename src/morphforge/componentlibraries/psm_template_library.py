@@ -30,7 +30,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc as mrd
 import types
 
 
@@ -79,6 +78,7 @@ class PostSynapticTemplateLibrary(object):
 
     @classmethod
     def summary_table(cls):
+        import mredoc as mrd
         modelsrcs = sorted( set([ modelsrc for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ]) )
 
         # We are going to make one table per synapse_type per modelsrc:

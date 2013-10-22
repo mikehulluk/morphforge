@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 
 class cached_functor(object):
 
@@ -81,6 +80,7 @@ class ChannelLibrary(object):
 
     @classmethod
     def summary_table(cls, ):
+        import mredoc
         summary_data = []
         for ((modelsrc,celltype, channel_type), functor) in sorted(cls._channels.iteritems()):
             summary_data.append( ( modelsrc, celltype, channel_type ))# , functor.__file__)
