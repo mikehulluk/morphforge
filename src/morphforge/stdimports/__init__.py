@@ -130,7 +130,10 @@ from morphforge.simulationanalysis.summaries_new import SummariserOptions
 
 
 
-from mreorg import PM
+try:
+    from mreorg import PM
+except ImportError:
+    pass
 
 
 
