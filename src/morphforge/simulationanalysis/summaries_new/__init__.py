@@ -164,6 +164,8 @@ class SimulationMRedoc(object):
             obj = obj.simulation
         elif isinstance( obj, Simulation):
             pass
+        elif isinstance(list):
+            assert False
         else:
             assert False, "Unexpected object passed to SimulationMRedoc: %s" %(obj)
 
@@ -180,7 +182,7 @@ class SimulationMRedoc(object):
             return mrd.Section('Simulation Summary',
                     sim_redoc,
                     mrd.Section("Results",
-                        mrd.Image( TagViewer(result, fig_kwargs={'figsize':(6,3) }).fig.fig, auto_adjust=True),
+                        mrd.Image( TagViewer(result).fig.fig, fig_size=(6,3),  max_font_size=7, subplots_adjust={'left':0.25,'right':0.95}),
                         )
                     )
 
@@ -193,9 +195,8 @@ class SimulationMRedoc(object):
         self.options = options
         self.mredoc = self.build_simulation()
 
-    # Todo:
-    def build_simulationresult(self, sim):
-        pass
+    #def build_simulationresult(self, sim):
+    #    pass
 
     def build_simulation(self):
         #from morphforge.management import PluginMgr

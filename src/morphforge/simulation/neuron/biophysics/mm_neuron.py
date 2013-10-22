@@ -31,7 +31,6 @@
 
 import cPickle as pickle
 from morphforge.core.misc import StrUtils
-#from morphforge.core import ObjectLabeller
 
 
 class NEURONChl_Base(object):

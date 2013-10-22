@@ -100,7 +100,7 @@ class NEURONSimulation(Simulation):
 
     def _sim_desc_str(self):
         sname = sys.argv[0]
-        return '%s: %s' % (sname, self.name.replace(' ', ''))
+        return '%s: %s' % (sname, self.name.replace(' ', ''),  )
 
 
     def __init__(self, name=None, environment=None, **kwargs):
@@ -173,7 +173,7 @@ class NEURONSimulation(Simulation):
 
 
         # Save the simulation summary:
-        do_summary = False
+        do_summary = True
         if do_summary:
             fname = '~/Desktop/pdfs/%s.pdf' % (self._sim_desc_str().replace(' ', ''))
             summary = SimulationMRedoc.build(self)

@@ -35,7 +35,7 @@ from morphforge.simulation.base.biophysics.channel import Channel
 class SimulatorSpecificChannel(Channel):
 
     def __init__(self):
-        pass
+        super(SimulatorSpecificChannel, self).__init__()
 
     def get_variables(self):
         # MUST BE OVERRIDDEN
