@@ -84,7 +84,7 @@ install what you need.
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-setuptools python-mako python-lxml
+      libreadline-dev python-setuptools python-mako python-lxml python-pydot
 
     # Lets install all packages locally, to ~/.local/
     $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
@@ -98,12 +98,13 @@ install what you need.
 
 
 
-Optionally, install mreorg and mredoc. Briefly, mreorg allows you to
+Install mreorg and mredoc. Briefly, mreorg allows you to
 automatically save figures created with matplotlib to files and to suppress the
 display of GUI windows, which is important for running batches of scripts and
 for running the example files with make. mredoc is a library for build html and
 pdf files from equations, figures, text and tables from within python. Neither
-of these libraries are essential for morphforge to run.
+of these libraries are essential for morphforge to run, but they are needed to
+run the examples.
 
 
 
@@ -208,7 +209,8 @@ file in the home directory, :file:`~/.morphforgerc` , which is in the python
 To get going, you should specify a temporary directory, and specify the
 locations of various tools and locations for compiling mod-files. A
 sample :download:`.morphforgerc.sample </../etc/morphforgerc.sample>`,
-you might need to edit the platform-architecture from **i686** to **x86_64**.
+you might need to edit the platform-architecture from **i686** to **x86_64** in
+*all* of the paths.
 You can find the location of binaries using a command like:
 
 .. code-block:: bash
@@ -263,6 +265,7 @@ If everything is set up correctly, you should now be able to run your first exam
     # < If everything is OK, the script should run and you should be
     # presented with some graphs!
 
+( If there is a problem, double check that the correct architecture is set *everywhere* in ~/.morphforgerc.)
 
 All examples can be found in this directory and can be checked that
 they are running using :program:`make`:
@@ -270,7 +273,7 @@ they are running using :program:`make`:
 .. code-block:: bash
 
     $ cd ~/hw/morphforge/src/morphforgeexamples/
-    $ make examples
+    $ make
 
 This will run all the examples, and the figures will be found in the _output/<script-name> folders within each directory.
 

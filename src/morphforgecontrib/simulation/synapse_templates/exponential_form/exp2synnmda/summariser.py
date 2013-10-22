@@ -21,7 +21,7 @@ class PostSynapticMech_Exp2SynNMDA_BaseSummariser(object):
             mrd.Equation(r"""vdep^{Mg2+} &= \frac{1}{1+eta * exp(- \gamma * V)}"""),
             mrd.Equation(r"""\frac{d}{dt}A &= -A / tau_{open}"""),
             mrd.Equation(r"""\frac{d}{dt}B &= -B / tau_{close} """),
-            mrd.Equation(r"""tc_{max} &= \textrm{(scaling term to make take account for openning and closing time in calculation of peak conductance)}"""),
+            mrd.Equation(r"""tc_{max} &= \textrm{scaling term to make take account for openning and closing time in calculation of peak conductance}"""),
 
 
             ]

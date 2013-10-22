@@ -20,7 +20,7 @@ class PostSynapticMech_Exp2Syn_BaseSummariser(object):
             mrd.Equation(r"""i &= g_{peak}  * (B-A) * \frac{1}{tc_{max}} * (V-E_{rev})"""),
             mrd.Equation(r"""\frac{d}{dt}A &= -A / tau_{open}"""),
             mrd.Equation(r"""\frac{d}{dt}B &= -B / tau_{close} """),
-            mrd.Equation(r"""tc_{max} &= \textrm{(scaling term to make take account for openning and closing time in calculation of peak conductance)}"""),
+            mrd.Equation(r"""tc_{max} &= \textrm{scaling term to make take account for openning and closing time in calculation of peak conductance}"""),
             
             
             ]
