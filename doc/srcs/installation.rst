@@ -193,7 +193,7 @@ install morphforge into a directory :file:`/home/michaeltest/hw/morphforge`
 
     # Try it out:
     $ cd ~
-    $ python -c 'import morphforge'
+    $ ipython -c 'import morphforge'
 
 
 

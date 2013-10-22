@@ -34,9 +34,12 @@
 import os
 _ON_RTD = os.environ.get('READTHEDOCS', None) == 'True'
 if not _ON_RTD:
-    import mreorg
-    # By default, lets save all figures:
-    mreorg.ScriptFlags.MREORG_SAVEALL = True
+    try:
+        import mreorg
+        # By default, lets save all figures:
+        mreorg.ScriptFlags.MREORG_SAVEALL = True
+    except ImportError:
+        print 'Unable to import mreorg'
 
 # Import quantities, so that custom quantities are registered appropriately.
 import morphforge.units
