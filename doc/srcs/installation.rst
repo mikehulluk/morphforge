@@ -39,7 +39,7 @@ Package Dependancies
 --------------------
 
 
-morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it. morphforge has the following hard dependencies on:
+morphforge is hosted on github, you will need `git <http://git-scm.com/>`_ to download it. morphforge has the following hard dependencies:
 
  * numpy
  * matplotlib
