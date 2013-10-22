@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 
 class CellLibrary(object):
 
@@ -56,6 +55,7 @@ class CellLibrary(object):
 
     @classmethod
     def summary_table(cls, ):
+        import mredoc
         summary_data = []
         for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
             summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
