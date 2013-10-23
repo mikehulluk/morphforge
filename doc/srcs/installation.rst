@@ -89,10 +89,11 @@ install what you need.
     # Lets install all packages locally, to ~/.local/
     $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
     $ echo export PYTHONPATH="$PYTHONPATH:~/.local//lib/python2.7/site-packages/" >> ~/.bashrc
+    $ echo export PATH="$PATH:~/.local/bin" >> ~/.bashrc
     $ source ~/.bashrc
 
     # Install neurounits, (which will automatically install 'quantities')
-    $ easy_install --prefix=~/.local/ neurounits==0.1
+    $ easy_install --prefix=~/.local/ neurounits==0.1.2
     $ ipython -c 'import neurounits'
     $ # <No output displayed means everything is OK>
 
