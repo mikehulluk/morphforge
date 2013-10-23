@@ -84,7 +84,8 @@ install what you need.
     $ sudo apt-get install git ipython python-numpy python-scipy \
       python-matplotlib python-scipy python-ply python-cheetah \
       python-reportlab python-sphinx make libncurses5-dev \
-      libreadline-dev python-setuptools python-mako python-lxml python-pydot
+      libreadline-dev python-setuptools python-mako python-lxml \
+      python-networkx python-pydot
 
     # Lets install all packages locally, to ~/.local/
     $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
