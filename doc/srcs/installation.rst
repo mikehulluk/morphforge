@@ -88,8 +88,8 @@ install what you need.
       python-networkx python-pydot
 
     # Lets install all packages locally, to ~/.local/
-    $ mkdir -p /home/mh/.local//lib/python2.7/site-packages/
-    $ echo export PYTHONPATH="$PYTHONPATH:~/.local//lib/python2.7/site-packages/" >> ~/.bashrc
+    $ mkdir -p /home/mh/.local/lib/python2.7/site-packages/
+    $ echo export PYTHONPATH="$PYTHONPATH:~/.local/lib/python2.7/site-packages/" >> ~/.bashrc
     $ echo export PATH="$PATH:~/.local/bin" >> ~/.bashrc
     $ source ~/.bashrc
 
@@ -218,7 +218,7 @@ You can find the location of binaries using a command like:
 .. code-block:: bash
 
     $ which nocmodl
-    /opt/nrn/x86_64/bin//nocmodl
+    /opt/nrn/x86_64/bin/nocmodl
 
 In which case your ~/.morphforgerc file should look something like:
 
@@ -295,7 +295,8 @@ To run the tests:
 
     # Clone the repository:
     $ cd ~/hw
-    $ git clone git@github.com:mikehulluk/simulator-test-data.git
+    $ git clone git://github.com/mikehulluk/simulator-test-data.git
+
     $ cd simulator-test-data
 
     # Download waf:
