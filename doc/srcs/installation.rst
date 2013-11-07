@@ -304,21 +304,21 @@ To run the tests:
     $ wget http://waf.googlecode.com/files/waf-1.6.11 && mv waf-1.6.11 waf && chmod +x waf
 
     # Configure waf
-    ./waf configure
+    $ ./waf configure
 
     # Run the simulations
     # By default, the repository will run all the simulations it finds with all the simulators. (May take a long time)
-    ./waf generate
+    $ ./waf generate
 
     # (This can be reduced by setting the following environmental variables:
-    export STD_SIMS='morphforge;NEURON';
-    export STD_SCENS='022; 5??; 62[12]'; # (Using regular expression syntax)
-    export STD_SHORT='TRUE';
-    ./waf generate
+    $ export STD_SIMS='morphforge;NEURON';
+    $ export STD_SCENS='022; 5??; 62[12]'; # (Using regular expression syntax)
+    $ export STD_SHORT='TRUE';
+    $ ./waf generate
 
 
     # Once the simulations have run, the results can be summarised with:
-    ./waf compare
+    $ ./waf compare
 
     # which will create summary documents of the tests that have been run in
     # ./test_results/

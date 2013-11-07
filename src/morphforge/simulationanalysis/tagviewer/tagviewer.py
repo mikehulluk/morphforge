@@ -103,6 +103,7 @@ class TagViewer(object):
         show_xticklabels='only-once',
         show_xticklabels_with_units=True,
         show_xaxis_position='bottom',
+        xticklabel_quantisation = False,
         xticks=None
 
         ):
@@ -160,6 +161,8 @@ class TagViewer(object):
         self.show_xticklabels = show_xticklabels
         self.show_xticklabels_with_units = show_xticklabels_with_units
         self.show_xaxis_position = show_xaxis_position
+        #self.xticks_as_ints = xticks_as_ints
+        self.xticklabel_quantisation = xticklabel_quantisation
         self.xticks=xticks
         assert self.show_xlabel in self._options_show_xlabel, 'Invalid'
         assert self.show_xticklabels in self._options_show_xticklabels, 'Invalid: %s' % show_xticklabels
@@ -167,6 +170,8 @@ class TagViewer(object):
         assert self.show_xaxis_position in self._options_show_xaxis_position
         if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
             self.xticks = [ xtick*units.ms for xtick in self.xticks]
+        #if is_iterable( self.xticks ) and all([isinstance(xtick, (int, float)) for xtick in self.xticks]):
+        #    assert self.xticks_as_ints == True, 'Perhaps you should set all x_ticks_as_ints'
         assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ qty(xtick) for xtick in self.xticks] )
 
 
@@ -222,12 +227,11 @@ class TagViewer(object):
                             time_range=self.timerange,
                             linkage=self.linkage,
                             decimate_points=self.decimate_points,
-                            #plot_xaxis_details=plot_xaxis_details,
-
                             show_xlabel = self.show_xlabel,
                             show_xticklabels = self.show_xticklabels,
                             show_xticklabels_with_units = self.show_xticklabels_with_units,
                             show_xaxis_position = self.show_xaxis_position,
+                            xticklabel_quantisation=self.xticklabel_quantisation,
                             is_top_plot = (i==0),
                             is_bottom_plot = (i==n_plots-1),
                             xticks = self.xticks
