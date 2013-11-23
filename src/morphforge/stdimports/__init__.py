@@ -270,9 +270,10 @@ def is_cache_clean(cache):
         return False
 
     for cachefile in cache:
-        print cachefile
         if not cachefile.is_clean():
+            print 'No! ( Out of date: %s )' % cachefile
             return False
+    print 'Yes (No changes detected in %d files)' % len(cache) 
     return True
 
 
@@ -287,6 +288,13 @@ def get_arg_string_hash(args, kwargs):
 
 def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):#'./_cache/cache'):
     if cachefilenamebase is None:
+        if RCMgr.has('Locations', 'simulation_cache'):
+            cachefilenamebase = RCMgr.get( 'Locations', 'simulation_cache' )
+        else:
+            print 'Unable to find suitable cache-directory. Either pass it as an option to this function, or add to the morphforge config file in Locations:simulation_cache'
+            print
+            assert False
+
         #cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
         cachefilenamebase = '/local/scratch/mh735/tmp/mf_cache/'
 

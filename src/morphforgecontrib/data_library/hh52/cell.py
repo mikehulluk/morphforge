@@ -40,13 +40,13 @@ from morphforgecontrib.data_library.stdmodels import StandardModels
 from morphforge.morphology.builders import MorphologyBuilder
 
 
-def build_hh_cell(sim, cell_area=None):
+def build_hh_cell(sim, cell_area=None, name=None):
     
     if cell_area is None:
         cell_area = qty('5000:um2')
     
     morphology = MorphologyBuilder.get_single_section_soma(area = cell_area)
-    cell = sim.create_cell(morphology=morphology)
+    cell = sim.create_cell(morphology=morphology,name=name)
 
     # Apply the channels uniformly over the cell
     env = sim.environment

@@ -100,7 +100,7 @@ class YAxisConfig(object):
 
 
         # NOTE: ynticks is deprecated! It shoudl be moved into yticks.
-        self.yticks = (yticks if yticks is not None else 5)
+        self.yticks = (yticks if yticks is not None else 4)
 
         self.yticklabels = yticklabels
         self.ymargin = ymargin
@@ -170,6 +170,7 @@ class TagPlot(object):
                                          ymargin=ymargin,
                                          show_yticklabels=show_yticklabels,
                                          show_yticklabels_with_units=show_yticklabels_with_units,
+                                         show_ylabel_with_units = not show_yticklabels_with_units,
                                          yticklabel_quantisation=yticklabel_quantisation
                                          )
         else:
@@ -259,7 +260,7 @@ class TagPlot(object):
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, xticklabel_quantisation, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None, decimate_points=False ) :
+    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, xticklabel_quantisation, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None, decimate_points=False, xlabel=None ) :
 
         if self.time_range is not None:
             time_range = self.time_range
@@ -327,9 +328,8 @@ class TagPlot(object):
 
         # Plot the axis-label, if
         # show_ticklabels=='all' OR show_ticklabels=='only-once' AND xaxis_position is not None:
-        if show_xlabel == 'all' or show_xlabel == 'only-once' \
-            and xaxis_position is not None:
-            ax.set_xlabel('Time')
+        if show_xlabel == 'all' or show_xlabel == 'only-once' and xaxis_position is not None and xlabel:
+            ax.set_xlabel(xlabel)
         else:
             ax.set_xlabel('')
 

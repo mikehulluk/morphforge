@@ -274,7 +274,7 @@ class SimulationMRedoc(object):
     @classmethod
     def _build_cell_table(cls, cell_list):
 
-        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections/segments|Regions(SA(um2):nseg)|\#Pre/Post-Synapse|\#GapJunctions|Chls',
+        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections(\#segs)|Regions(SA(um2):nseg)|\#Pre/post-synapse|\#Gap-juncs|Chls',
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
@@ -443,7 +443,7 @@ class SimulationMRedoc(object):
         # Include a picture with matplotlib?
         if self.options.include_details_indvidual_neuron_morphology_mpl:
             from morphforge.morphology.ui import MatPlotLibViewer
-            fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7, 7)}).fig
+            fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(4, 4)}).fig
             child_sections.append( mrd.Image(fig) )
 
 
@@ -763,7 +763,7 @@ class DOTWriter(object):
 
 
 
-        graph.write_raw('example_cluster2.dot')
+        #graph.write_raw('example_cluster2.dot')
 
         # Put the stimulations on:
 

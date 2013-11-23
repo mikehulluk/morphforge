@@ -44,10 +44,11 @@ import morphforge.units as units
 # (Suppress warning about 'unnessesary lambda functions')
 
 
+from decimal import Decimal
 
 class DefaultTagPlots(object):
-    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*units.mV, 50*units.mV), yunit=units.mV )
-    CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=units.milliamp / units.cm2 )
+    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*units.mV, 50*units.mV), yunit=units.mV  )
+    CurrentDensity =     TagPlot("CurrentDensity", ylabel='Current\nDensity', yunit=units.picoamp / units.um2 )
     Current =            TagPlot("Current", ylabel='Current', yunit=units.picoamp)
     Conductance =        TagPlot("Conductance", ylabel="Conductance", yunit=units.pS)
     ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=units.mS / units.cm2 )
@@ -104,9 +105,11 @@ class TagViewer(object):
         show_xticklabels_with_units=True,
         show_xaxis_position='bottom',
         xticklabel_quantisation = False,
-        xticks=None
-
+        xticks=None,
+        xlabel='Time'
         ):
+
+        self.xlabel = xlabel
 
         if fig_kwargs is None:
             fig_kwargs = self._default_fig_kwargs
@@ -170,8 +173,6 @@ class TagViewer(object):
         assert self.show_xaxis_position in self._options_show_xaxis_position
         if is_iterable( self.xticks ) and all( [isinstance(xtick, (int, float)) for xtick in self.xticks]):
             self.xticks = [ xtick*units.ms for xtick in self.xticks]
-        #if is_iterable( self.xticks ) and all([isinstance(xtick, (int, float)) for xtick in self.xticks]):
-        #    assert self.xticks_as_ints == True, 'Perhaps you should set all x_ticks_as_ints'
         assert self.xticks is None or isinstance(self.xticks, int) or ( is_iterable(self.xticks) and [ qty(xtick) for xtick in self.xticks] )
 
 
@@ -234,7 +235,8 @@ class TagViewer(object):
                             xticklabel_quantisation=self.xticklabel_quantisation,
                             is_top_plot = (i==0),
                             is_bottom_plot = (i==n_plots-1),
-                            xticks = self.xticks
+                            xticks = self.xticks,
+                            xlabel=self.xlabel,
 
                             )
 

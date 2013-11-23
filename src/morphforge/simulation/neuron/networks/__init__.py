@@ -71,7 +71,9 @@ class NEURONSynapse(NEURONObject, Synapse):
         if what in [Synapse.Recordables.SynapticCurrent,
                     Synapse.Recordables.SynapticConductance,
                     StandardTags.NMDAVoltageDependancy,
-                    StandardTags.NMDAVoltageDependancySS]:
+                    StandardTags.NMDAVoltageDependancySS,
+                    StandardTags.NMDAConductanceWithVDep
+                    ]:
             return self._post_synaptic_mechanism.get_recordable(what=what,
                     **kwargs)
         if what in ['g']:

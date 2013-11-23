@@ -87,20 +87,21 @@ class LinkageRuleTagRegex(object):
 from morphforge.traces.tags import TagSelector
 
 class LinkageRuleTag(object):
-    def __init__(self, tagselector):
+    def __init__(self, tagselector, preferred_color=None):
         if isinstance(tagselector, basestring):
             self._tagselector = TagSelector.from_string(tagselector)
-
         else:
             self._tagselector = tagselector
 
+        self.preferred_color = preferred_color
+
+    def match(self, trace):
+        return self._tagselector(trace)
 
     def __call__(self, all_traces):
-        matches = [trace for trace in all_traces if self._tagselector(trace)]
+        matches = [trace for trace in all_traces if self.match(trace)]
         if len(matches) in [0, len(all_traces)]:
-            assert False, 'All or none selected, an error has probably been made!'
-        #print 'matches', matches
-        #assert False
+            assert False, 'All or none selected, an error has probably been made! (%s)' % (self._tagselector)
         return [matches]
 
 
@@ -159,19 +160,27 @@ class StandardLinkages(object):
 
         1/ We build a graph, in which each node represents trace, and edges represent 'linkage'
         2/ We look at the connected components, i.e. the traces that should all have the same color_indices
-        3/ If we have more groups than colours, then we allocate 'color indices to these groups based 
+        3/ If we have more groups than colours, then we allocate 'color indices to these groups based
         on mimising color collisions the plots.
-        
+
         ## TODO: 4/ Actual colour is assigned by the color_assigner.
 
         """
 
         import networkx
 
+
+        new_colors = [ linkage_rule.preferred_color for linkage_rule in self.linkage_rules if linkage_rule.preferred_color]
+        new_colors = [c for c in new_colors if not c in self._color_cycle]
+        colors = new_colors + self._color_cycle
+
+
+
+
         all_traces = set(chain(*plotspec_to_traces_dict.values()))
 
         allocated_trace_colors = {}
-        color_indices = range(len(self._color_cycle))
+        color_indices = range(len(colors))
 
         G = networkx.Graph()
         # Add a node per trace:
@@ -208,16 +217,21 @@ class StandardLinkages(object):
         # Make the allocation from index to colors:
         self._color_allocations = {}
         for trace in all_traces:
-            self._color_allocations[trace] = self._color_cycle[allocated_trace_colors[trace]]
+
+            # Normal behaviour:
+            color_index = allocated_trace_colors[trace]
+            self._color_allocations[trace] = self._color_cycle[color_index % len(self._color_cycle)   ]
+
+            # Allow overriding:
+            for l in self.linkage_rules:
+                if l.match(trace) and l.preferred_color:
+                    self._color_allocations[trace] = l.preferred_color
 
 
 
 
 
-#l = StandardLinkages(linkages_explicit = [(trI1, trV1, trG1), (trI2, trV2, trG2)])
-#
-##TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=None)
-#TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=l)
-#TagViewer([trI1, trV1, trG1, trI2, trV2, trG2], linkage=StandardLinkages(linkage_rules=[LinkageRuleTagRegex("Sim(\d+)")]) )
+
+
 
 

@@ -61,6 +61,7 @@ NEURON {
     NONSPECIFIC_CURRENT i
 
     RANGE g
+    RANGE gtot
     RANGE popening
     RANGE voltage_dependancy
     RANGE is_vdep_on
@@ -102,6 +103,7 @@ ASSIGNED {
     v (mV)
     i (nA)
     g (uS)
+    gtot (uS)
     factor
     voltage_dependancy
 }
@@ -147,7 +149,8 @@ BREAKPOINT {
     SOLVE state METHOD cnexp
     voltage_dependancy = vdep_func(v, is_vdep_on)
     g = (B - A)
-    i = g*(v - e) * voltage_dependancy
+    gtot = g*voltage_dependancy
+    i = gtot*(v - e)
 
 }
 

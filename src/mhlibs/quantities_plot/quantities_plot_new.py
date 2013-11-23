@@ -84,11 +84,7 @@ class ScalarFormatterWithUnit(object):
         d = Decimal(str(x))
 
         if self.ticklabel_quantisation is not None:
-            print 'Rounding'
-            print 'Before:', d
             d = d.quantize(self.ticklabel_quantisation, rounding= ROUND_DOWN)
-            print 'After:', d
-            print
 
         num_str = "%s" % d.to_eng_string()
 

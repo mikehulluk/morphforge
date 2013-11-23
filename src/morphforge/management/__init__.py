@@ -81,7 +81,7 @@ class PluginMgr(object):
     @classmethod
     def get_all_postsynmechs(cls):
         return cls._get_all_from_envs(
-                extract_functor=lambda env:env.postsynapticmechanisms.keys() )
+                extract_functor=lambda env:env.synapse_psm_template_type.keys() )
 
 
 
@@ -90,24 +90,24 @@ class PluginMgr(object):
     @classmethod
     def summarise_all(cls):
         return mrd.SectionNewPage('Morphforge Configuration',
-                cls.summarise_channels(),
-                cls.summarise_currentclamps(),
-                cls.summarise_voltageclamps(),
-                cls.summarise_presynapticmechs(),
-                cls.summarise_postsynapticmechs(),
+                cls.summarise_channeltypes(),
+                cls.summarise_currentclamptypes(),
+                cls.summarise_voltageclamptypes(),
+                cls.summarise_presynaptictriggertypes(),
+                cls.summarise_postsynaptictemplatetypes(),
                 cls.summarise_tracemethods(),
                 )
 
 
     @classmethod
-    def summarise_channels(cls):
+    def summarise_channeltypes(cls):
         obj_types = cls.get_all_chls()
         col1 = ['Channel Name'] + [obj.__name__ for obj in obj_types]
         cols = [[env._env_name] + [to_symbol(obj, env.channels) for obj in obj_types] for env in cls._environments]
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Channels', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Channels Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_currentclamps(cls):
@@ -117,37 +117,37 @@ class PluginMgr(object):
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Current Clamps', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Current Clamps Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
-    def summarise_voltageclamps(cls):
+    def summarise_voltageclamptypes(cls):
         obj_types = cls.get_all_vclamps()
         col1 = ['Clamp Name'] + [obj.__name__ for obj in obj_types]
         cols = [[env._env_name] + [to_symbol(obj, env.voltageclamps) for obj in obj_types] for env in cls._environments]
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Voltage Clamps', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Voltage Clamp Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
-    def summarise_presynapticmechs(cls):
+    def summarise_presynaptictriggertypes(cls):
         obj_types = cls.get_all_presynmechs()
         col1 = ['PreSynMech'] + [obj.__name__ for obj in obj_types]
         cols = [[env._env_name] + [to_symbol(obj, env.presynapticmechanisms) for obj in obj_types] for env in cls._environments]
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Presynaptic Mechanisms', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Presynaptic Trigger Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
-    def summarise_postsynapticmechs(cls):
-        #obj_types = cls.get_all_postsynmechs()
-        #col1 = ['PostSynMech'] + [obj.__name__ for obj in obj_types]
-        #cols = [[env._env_name] + [to_symbol(obj, env.postsynapticmechanisms) for obj in obj_types] for env in cls._environments]
-        #col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
-        #cols = [col1] + cols + [col_]
-        #rows = zip(*cols)
-        return mrd.Section('Postsynaptic Mechanisms', mrd.Paragraph('To Bring Up to Date') ) # mrd.VerticalColTable(rows[0], rows[1:]))
+    def summarise_postsynaptictemplatetypes(cls):
+        obj_types = cls.get_all_postsynmechs()
+        col1 = ['PostSynMech'] + [obj.__name__ for obj in obj_types]
+        cols = [[env._env_name] + [to_symbol(obj, env.synapse_psm_template_type) for obj in obj_types] for env in cls._environments]
+        col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
+        cols = [col1] + cols + [col_]
+        rows = zip(*cols)
+        return mrd.Section('Postsynaptic Template Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_tracemethods(cls):

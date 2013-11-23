@@ -47,6 +47,7 @@ class StandardTags(object):
 
     NMDAVoltageDependancy = 'NMDAVoltageDependancy'
     NMDAVoltageDependancySS = 'NMDAVoltageDependancySS'
+    NMDAConductanceWithVDep = 'NMDAConductanceWithVDep'
 
     Event = 'Event'
 

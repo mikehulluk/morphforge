@@ -56,6 +56,7 @@ class TagSelector(object):
         return [trace for trace in trs if self(trace)]
 
 
+
 class TagSelectorAny(TagSelector):
 
     def __init__(self, tags):
@@ -65,6 +66,8 @@ class TagSelectorAny(TagSelector):
     def __call__(self, tr):
         return not set(self.tags).isdisjoint(tr.tags)
 
+    def __repr__(self):
+        return "ANY:{%s}" % ",".join(self.tags)
 
 class TagSelectorAll(TagSelector):
 
@@ -74,6 +77,9 @@ class TagSelectorAll(TagSelector):
 
     def __call__(self, tr):
         return self.tags.issubset(set(tr.tags))
+    
+    def __repr__(self):
+        return "ALL:{%s}" % ",".join(self.tags)
 
 
 class TagSelectorBinary(TagSelector):
@@ -90,12 +96,16 @@ class TagSelectorOr(TagSelectorBinary):
 
     def __call__(self, tr):
         return self.lhs(tr) or self.rhs(tr)
+    def __repr__(self):
+        return "(%s OR %s) " % (repr(self.lhs), repr(self.rhs))
 
 
 class TagSelectorAnd(TagSelectorBinary):
 
     def __call__(self, tr):
         return self.lhs(tr) and self.rhs(tr)
+    def __repr__(self):
+        return "(%s AND %s) " % (repr(self.lhs), repr(self.rhs))
 
 
 class TagSelectorNot(TagSelector):
@@ -106,6 +116,8 @@ class TagSelectorNot(TagSelector):
 
     def __call__(self, tr):
         return not self.rhs(tr)
+    def __repr__(self):
+        return "(NOT %s) " % (repr(self.rhs) )
 
 
 class TagSelect(TagSelectorAll):
