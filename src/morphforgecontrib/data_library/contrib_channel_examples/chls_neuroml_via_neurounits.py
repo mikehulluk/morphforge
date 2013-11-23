@@ -1,4 +1,4 @@
-#!/usr/bin/python
+  #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,38 +29,23 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-
-class CellLibrary(object):
-
-    _cells = dict()
-
-    @classmethod
-    def register_cell(cls, cell_builder):
-        celltype = cell_builder.get_cell_type()
-        modelsrc = cell_builder.get_model()
-        cls._cells[(modelsrc, celltype)] = cell_builder
-
-    @classmethod
-    def register(cls, celltype, modelsrc, cell_functor):
-        cls._cells[(modelsrc, celltype)] = cell_functor
-
-    @classmethod
-    def get_cellfunctor(cls, modelsrc, celltype):
-        return cls._cells[(modelsrc, celltype)]
-
-    @classmethod
-    def create_cell(cls, sim,  modelsrc, celltype=None, **kwargs):
-        cell_functor= cls.get_cellfunctor(modelsrc, celltype)
-        return cell_functor(sim=sim, **kwargs)
+import os
+from morphforge.stdimports import ChannelLibrary, LocMgr
+from morphforgecontrib.stdimports import NeuroML_Via_NeuroUnits_Channel
+xsl_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/ChannelML_v1.8.1_NEURONmod.xsl")
 
 
-    @classmethod
-    def summary_table(cls, ):
-        import mredoc
-        summary_data = []
-        for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
-            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
-        summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
-        return mredoc.Section('Cell Library Summary', summary_table )
+def apply_hh_chls_neuroml_neurounits_na(env):
+    return env.Channel(NeuroML_Via_NeuroUnits_Channel,
+            xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/NaChannel_HH.xml"),
+            )
+    
+def apply_hh_chls_neuroml_neurounits_k(env):
+    return env.Channel(NeuroML_Via_NeuroUnits_Channel,
+        xml_filename = os.path.join(LocMgr.get_test_srcs_path(), "neuroml/channelml/KChannel_HH.xml"),
+        )
 
 
+
+ChannelLibrary.register_channel(modelsrc="_test_neuroml_via_neurounits_HH52", channeltype='Na', chl_functor=apply_hh_chls_neuroml_neurounits_na)
+ChannelLibrary.register_channel(modelsrc="_test_neuroml_via_neurounits_HH52", channeltype='K', chl_functor=apply_hh_chls_neuroml_neurounits_k)

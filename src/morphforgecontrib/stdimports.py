@@ -84,8 +84,6 @@ from morphforgecontrib.simulation.synapse_templates.exponential_form.expsyn.core
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2syn.core import * 
 from morphforgecontrib.simulation.synapse_templates.exponential_form.exp2synnmda.core import * 
 
-# Constants for accessing standard models:
-from morphforgecontrib.data_library.stdmodels import StandardModels
 
 
 from morphforgecontrib.simulation.postprocessors import FirstSpikeFinderPostProcessor, AddEventSetPostProcessor
@@ -96,3 +94,7 @@ from morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_ne
 
 
 from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
+
+
+# Constants for accessing standard models:
+from morphforgecontrib.data_library.stdmodels import StandardModels

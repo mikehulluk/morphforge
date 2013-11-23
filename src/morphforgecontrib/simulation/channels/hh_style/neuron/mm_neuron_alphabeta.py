@@ -154,6 +154,9 @@ class NEURONChl_AlphaBeta(StdChlAlphaBeta, NEURONChl_Base):
             kwargs['state'] = what
             what = StdChlAlphaBeta.Recordables.StateVar
 
+        print 
+        print what
+        print kwargs
         recorders = {
             StdChlAlphaBeta.Recordables.CurrentDensity: NEURONChl_AlphaBeta_CurrentDensityRecord,
             StdChlAlphaBeta.Recordables.ConductanceDensity: NEURONChl_AlphaBeta_ConductanceDensityRecord,

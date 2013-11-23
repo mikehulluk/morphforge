@@ -30,3 +30,5 @@
 # ----------------------------------------------------------------------
 
 import chls_neurounits
+import chls_neuroml_via_neurounits
+import chls_neuroml_via_xsl

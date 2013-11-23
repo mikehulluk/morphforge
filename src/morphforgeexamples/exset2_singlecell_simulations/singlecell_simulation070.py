@@ -92,13 +92,6 @@ sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.StateVariable, s
 
 
 # Also:
-#sim.record(na_chl, where = cell.soma, what=StandardTags.StateTimeConstant, state="m")
-#sim.record(na_chl, where = cell.soma, what=StandardTags.StateTimeConstant, state="h")
-#sim.record(k_chl,  where = cell.soma, what=StandardTags.StateTimeConstant, state="n")
-
-#sim.record(na_chl, where = cell.soma, what=StandardTags.StateSteadyState, state="m")
-#sim.record(na_chl, where = cell.soma, what=StandardTags.StateSteadyState, state="h")
-#sim.record(k_chl,  where = cell.soma, what=StandardTags.StateSteadyState, state="n")
 
 
 # run the simulation
