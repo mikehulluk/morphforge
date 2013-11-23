@@ -115,6 +115,6 @@ class PostSynapticTemplateLibrary(object):
 
             sects.append( mrd.Section('ModelSrc: %s' %(modelsrc), *subsect) )
 
-        return  mrd.Section('Synaptic Templates', *sects)
+        return  mrd.Section('PostSynaptic Templates', *sects)
         #'return sect
 

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+ #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # ---------------------------------------------------------------------
@@ -29,13 +29,4 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import stdmodels
-from stdmodels import StandardModels
-
-
-import hh52
-import passive_cell
-import contrib_channel_examples
-
-
-
+import chls_neurounits

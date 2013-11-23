@@ -89,13 +89,26 @@ class PluginMgr(object):
 
     @classmethod
     def summarise_all(cls):
-        return mrd.SectionNewPage('Morphforge Configuration',
+        from morphforge.stdimports import PostSynapticTemplateLibrary, CellLibrary, ChannelLibrary, MorphologyLibrary
+
+        types = mrd.SectionNewPage('Available class types',
                 cls.summarise_channeltypes(),
                 cls.summarise_currentclamptypes(),
                 cls.summarise_voltageclamptypes(),
                 cls.summarise_presynaptictriggertypes(),
                 cls.summarise_postsynaptictemplatetypes(),
                 cls.summarise_tracemethods(),
+                )
+        libraries = mrd.SectionNewPage('Library Contents',
+                ChannelLibrary.summary_table(),
+                MorphologyLibrary.summary_table(),
+                PostSynapticTemplateLibrary.summary_table(),
+                CellLibrary.summary_table()
+                )
+
+        return mrd.SectionNewPage('Morphforge Configuration',
+                types,
+                libraries,
                 )
 
 
@@ -107,17 +120,17 @@ class PluginMgr(object):
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Channels Types', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Channel Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
-    def summarise_currentclamps(cls):
+    def summarise_currentclamptypes(cls):
         obj_types = cls.get_all_iclamps()
         col1 = ['Clamp Name'] + [obj.__name__ for obj in obj_types]
         cols = [[env._env_name] + [to_symbol(obj, env.currentclamps) for obj in obj_types] for env in cls._environments]
         col_ = ['Summary'] + [to_symbol(obj, SummariserLibrary.summarisers) for obj in obj_types] 
         cols = [col1] + cols + [col_]
         rows = zip(*cols)
-        return mrd.Section('Current Clamps Types', mrd.VerticalColTable(rows[0], rows[1:]))
+        return mrd.Section('Current Clamp Types', mrd.VerticalColTable(rows[0], rows[1:]))
 
     @classmethod
     def summarise_voltageclamptypes(cls):
