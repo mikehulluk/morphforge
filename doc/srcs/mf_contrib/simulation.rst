@@ -5,6 +5,8 @@ Simulation Layer
 Morphforge-contrib currently defines the following types of channels:
 
 
+.. _section_mfchanneltypes:
+
 Channel-Types
 -------------
 

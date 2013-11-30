@@ -48,8 +48,12 @@ from quantities import picoamp, nanoamp, milliamp, amp
 from quantities import second, millisecond
 
 import os
+
+print sorted(os.environ.keys())
 if not 'READTHEDOCS' in os.environ:
     from quantities import *
+#else:
+#    from quantities import *
 
 
 

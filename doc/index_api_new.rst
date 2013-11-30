@@ -55,6 +55,7 @@ morphforge-core
     
     /srcs/mf_core/morphology.rst
     /srcs/mf_core/simulation.rst
+    /srcs/mf_core/simulation_neuron.rst
     /srcs/mf_core/simulationanalysis.rst
     /srcs/mf_core/misc.rst
 

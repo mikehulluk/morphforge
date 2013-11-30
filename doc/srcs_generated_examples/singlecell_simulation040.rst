@@ -1,6 +1,8 @@
 
-10. Investigating the rheobase of a neuron with a parameter sweep
-=================================================================
+.. _example_singlecell_simulation040:
+
+Example 10. Investigating the rheobase of a neuron with a parameter sweep
+=========================================================================
 
 
 Investigating the rheobase of a neuron with a parameter sweep
@@ -123,7 +125,13 @@ Code
     
     
     # Display the results:
-    results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
+    #results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
+    results = [simulate(current_inj_level='%d:pA' % i) for i in [50]  ]
+    
+    
+    # Create an output .pdf of the first simulation:
+    SimulationMRedoc.build( results[0] ).to_pdf(__file__ + '.pdf')
+    
     TagViewer(results, timerange=(95, 200)*units.ms, show=True)
     
     
@@ -137,11 +145,46 @@ Figures
 ~~~~~~~~
 
 
+.. figure:: /srcs_generated_examples/images/singlecell_simulation040_out6.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out6.png>`
+
+
+.. figure:: /srcs_generated_examples/images/singlecell_simulation040_out2.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out2.png>`
+
+
 .. figure:: /srcs_generated_examples/images/singlecell_simulation040_out1.png
     :width: 3in
     :figwidth: 4in
 
     Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out1.png>`
+
+
+.. figure:: /srcs_generated_examples/images/singlecell_simulation040_out4.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out4.png>`
+
+
+.. figure:: /srcs_generated_examples/images/singlecell_simulation040_out5.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out5.png>`
+
+
+.. figure:: /srcs_generated_examples/images/singlecell_simulation040_out3.png
+    :width: 3in
+    :figwidth: 4in
+
+    Download :download:`Figure </srcs_generated_examples/images/singlecell_simulation040_out3.png>`
 
 
 
@@ -153,159 +196,371 @@ Output
 
 .. code-block:: bash
 
-        No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:12,263 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:12,263 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:13,866 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:13,866 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+        WARNING: Symbol 'quantity_expr' is unreachable
+    WARNING: Symbol 'quantity_term' is unreachable
+    WARNING: Symbol 'quantity_factor' is unreachable
+    Generating LALR tables
+    WARNING: 1 shift/reduce conflict
+    WARNING: 1 reduce/reduce conflict
+    WARNING: reduce/reduce conflict in state 97 resolved using rule (empty -> <empty>)
+    WARNING: rejected rule (alphanumtoken -> ALPHATOKEN) in state 97
+    ConfigOoptins {'BATCHRUN': None}
+    ['BLUESPEC', 'BLUESPECDIR', 'CDPATH', 'COLORTERM', 'DBUS_SESSION_BUS_ADDRESS', 'DEFAULTS_PATH', 'DESKTOP_SESSION', 'DISPLAY', 'EAGLEDIR', 'ECAD', 'ECAD_LICENSES', 'ECAD_LOCAL', 'EDITOR', 'GDMSESSION', 'GNOME_KEYRING_CONTROL', 'GNOME_KEYRING_PID', 'GREP_COLOR', 'GREP_OPTIONS', 'GRIN_ARGS', 'HISTFILE', 'HISTSIZE', 'HOME', 'INFANDANGO_CONFIGFILE', 'INFANDANGO_ROOT', 'KRB5CCNAME', 'LANG', 'LANGUAGE', 'LC_CTYPE', 'LD_LIBRARY_PATH', 'LD_RUN_PATH', 'LESS', 'LM_LICENSE_FILE', 'LOGNAME', 'LSCOLORS', 'MAKEFLAGS', 'MAKELEVEL', 'MANDATORY_PATH', 'MFLAGS', 'MGLS_LICENSE_FILE', 'MREORG_CONFIG', 'OLDPWD', 'PAGER', 'PATH', 'PRINTER', 'PWD', 'PYTHONPATH', 'QUARTUS_64BIT', 'QUARTUS_BIT_TYPE', 'QUARTUS_ROOTDIR', 'SHELL', 'SHLVL', 'SOPC_KIT_NIOS2', 'SSH_AGENT_PID', 'SSH_AUTH_SOCK', 'TEMP', 'TERM', 'TMP', 'UBUNTU_MENUPROXY', 'USER', 'WINDOWID', 'XAUTHORITY', 'XDG_CACHE_HOME', 'XDG_CONFIG_DIRS', 'XDG_DATA_DIRS', 'XDG_SEAT_PATH', 'XDG_SESSION_COOKIE', 'XDG_SESSION_PATH', '_', '_JAVA_AWT_WM_NONREPARENTING']
+    Parsing: library std.math {
+    pi = 3.141592653;
+    e =  2.718281828;
+    sin(x) = __sin__(x);
+    cos(x) = __cos__(x);
+    tan(x) = __tan__(x);
+    sinh(x) = __sinh__(x);
+    cosh(x) = __cosh__(x);
+    tanh(x) = __tanh__(x);
+    asin(x) = __asin__(x);
+    acos(x) = __acos__(x);
+    atan(x) = __atan__(x);
+    atan2(x,y) = __atan2__(x=x,y=y);
+    exp(x) = __exp__(x);
+    ln(x) = __ln__(x);
+    log2(x) = __log2__(x);
+    log10(x) = __log10__(x);
+    abs(x) = __abs__(x);
+    pow(base,exp) = __pow__(base=base,exp=exp);
+    ceil(x) = __ceil__(x);
+    fabs(x) = __fabs__(x);
+    floor(x) = __floor__(x);
+    };
+    library std.geom {
+    from std.math import pi;
+    area_of_sphere(r:{m}) = 4 * pi * r*r;
+    volume_of_sphere(r:{m}) = 4.0/3.0 * pi * r*r *r;
+    };
+    library std.neuro {
+    from std.math import pi,pow;
+    r_a(R_i:{ohm m}, d:{m}) = (4*R_i)/(pi*d*d);
+    space_constant(Rm:{ohm m2},Ri:{ohm m},d:{m}) = pow(base=(( (Rm/Ri)*(d/4) )/{1m2}),exp=0.5) * {1m};
+    Rinf_sealed_end(Rm:{ohm m2},d:{m}) = (4*Rm/(pi*d*d) );
+    RateConstant5(V:{V},a1:{s-1} ,a2:{V-1 s-1}, a3:{},a4:{V},a5:{V} ) = (a1 + a2*V)/(a3+std.math.exp( (V+a4)/a5) );
+    };
+    library std.physics {
+    F = 96485.3365 coulomb mole-1;
+    Na = 6.02214129e23 mole-1;
+    k = 1.380648e-23 joule kelvin-1;
+    e =  1.602176565 coulomb;
+    R = 8.3144621 J mole-1 kelvin-1;
+    };
+    p_lhs! <ConstValue [id:52882640] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:52882960] Value: '2.718281828' >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52908240] {__sin__( <id:x:52883344>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52908816] {__cos__( <id:x:52908176>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52909392] {__tan__( <id:x:52908752>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52909968] {__sinh__( <id:x:52909328>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52910544] {__cosh__( <id:x:52909904>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52911120] {__tanh__( <id:x:52910480>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:52911696] {__asin__( <id:x:52911056>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55394512] {__acos__( <id:x:52911632>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55395088] {__atan__( <id:x:55394448>)} >
+    p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55395792] {__atan2__( <id:y:55395664,x:55395600>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55396560] {__exp__( <id:x:55395984>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55397136] {__ln__( <id:x:55396496>)} >
+    p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
+    WARNING: Symbol 'time_derivative' is unreachable
+    WARNING: Symbol 'ns_name_list' is unreachable
+    WARNING: Symbol 'import_target_list' is unreachable
+    WARNING: Symbol 'compound_line' is unreachable
+    WARNING: Symbol 'multiport_direction' is unreachable
+    WARNING: Symbol 'on_transition' is unreachable
+    WARNING: Symbol 'quantity_expr' is unreachable
+    WARNING: Symbol 'nineml_file' is unreachable
+    WARNING: Symbol 'rv_modes' is unreachable
+    WARNING: Symbol 'quantity_term' is unreachable
+    WARNING: Symbol 'func_call_params_l3' is unreachable
+    WARNING: Symbol 'componentlinecontents' is unreachable
+    WARNING: Symbol 'function_def_param' is unreachable
+    WARNING: Symbol 'open_transition_scope' is unreachable
+    WARNING: Symbol 'compoundport_event_param' is unreachable
+    WARNING: Symbol 'magnitude' is unreachable
+    WARNING: Symbol 'transition_actions' is unreachable
+    WARNING: Symbol 'event_call_param_l3' is unreachable
+    WARNING: Symbol 'library_name' is unreachable
+    WARNING: Symbol 'bool_term' is unreachable
+    WARNING: Symbol 'localsymbol' is unreachable
+    WARNING: Symbol 'open_funcdef_scope' is unreachable
+    WARNING: Symbol 'externalsymbol' is unreachable
+    WARNING: Symbol 'function_call_l3' is unreachable
+    WARNING: Symbol 'regime_block' is unreachable
+    WARNING: Symbol 'libraryline' is unreachable
+    WARNING: Symbol 'import' is unreachable
+    WARNING: Symbol 'library_def' is unreachable
+    WARNING: Symbol 'component_name' is unreachable
+    WARNING: Symbol 'compound_port_def' is unreachable
+    WARNING: Symbol 'rhs_term' is unreachable
+    WARNING: Symbol 'ar_model' is unreachable
+    WARNING: Symbol 'compound_port_def_line' is unreachable
+    WARNING: Symbol 'librarycontents' is unreachable
+    WARNING: Symbol 'on_event_def_param' is unreachable
+    WARNING: Symbol 'rhs_generic' is unreachable
+    WARNING: Symbol 'random_variable' is unreachable
+    WARNING: Symbol 'compoundcontents' is unreachable
+    WARNING: Symbol 'crosses_expr' is unreachable
+    WARNING: Symbol 'rt_name' is unreachable
+    WARNING: Symbol 'lhs_symbol' is unreachable
+    WARNING: Symbol 'component_def' is unreachable
+    WARNING: Symbol 'transition_action' is unreachable
+    WARNING: Symbol 'alphanumtoken' is unreachable
+    WARNING: Symbol 'compound_port_def_contents' is unreachable
+    WARNING: Symbol 'empty' is unreachable
+    WARNING: Symbol 'namespace_def' is unreachable
+    WARNING: Symbol 'compound_port_inst' is unreachable
+    WARNING: Symbol 'bool_expr' is unreachable
+    WARNING: Symbol 'namespace_name' is unreachable
+    WARNING: Symbol 'regimecontents' is unreachable
+    WARNING: Symbol 'rv_param' is unreachable
+    WARNING: Symbol 'rtgraph_contents' is unreachable
+    WARNING: Symbol 'namespaceblocks' is unreachable
+    WARNING: Symbol 'compoundport_event_param_list' is unreachable
+    WARNING: Symbol 'ns_name' is unreachable
+    WARNING: Symbol 'initial_block' is unreachable
+    WARNING: Symbol 'compound_port_def_direction_arrow' is unreachable
+    WARNING: Symbol 'rv_mode' is unreachable
+    WARNING: Symbol 'initial_expr_block' is unreachable
+    WARNING: Symbol 'regime_name' is unreachable
+    WARNING: Symbol 'top_level_block' is unreachable
+    WARNING: Symbol 'compound_port_inst_constents' is unreachable
+    WARNING: Symbol 'transition_to' is unreachable
+    WARNING: Symbol 'on_event_def_params' is unreachable
+    WARNING: Symbol 'regimecontentsline' is unreachable
+    WARNING: Symbol 'namespace' is unreachable
+    WARNING: Symbol 'rv_params' is unreachable
+    WARNING: Symbol 'compound_component_def' is unreachable
+    WARNING: Symbol 'function_def_params' is unreachable
+    WARNING: Symbol 'function_def' is unreachable
+    WARNING: Symbol 'assignment' is unreachable
+    WARNING: Symbol 'componentcontents' is unreachable
+    WARNING: Symbol 'rhs_variable' is unreachable
+    WARNING: Symbol 'event_call_params_l3' is unreachable
+    WARNING: Symbol 'compondport_inst_line' is unreachable
+    WARNING: Symbol 'func_call_param_l3' is unreachable
+    WARNING: Symbol 'rhs_symbol' is unreachable
+    WARNING: Symbol 'quantity_factor' is unreachable
+    WARNING: Symbol 'rhs_quantity_expr' is unreachable
+    WARNING: Symbol 'quantity' is unreachable
+    Generating LALR tables
+    2013-11-30 17:30:43,766 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 17:30:43,766 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
+    WARNING: Symbol 'quantity_expr' is unreachable
+    WARNING: Symbol 'quantity_term' is unreachable
+    WARNING: Symbol 'quantity_factor' is unreachable
+    Generating LALR tables
+    WARNING: 1 shift/reduce conflict
+    WARNING: 1 reduce/reduce conflict
+    WARNING: reduce/reduce conflict in state 97 resolved using rule (empty -> <empty>)
+    WARNING: rejected rule (alphanumtoken -> ALPHATOKEN) in state 97
+    ConfigOoptins {'BATCHRUN': None}
+    ['BLUESPEC', 'BLUESPECDIR', 'CDPATH', 'COLORTERM', 'DBUS_SESSION_BUS_ADDRESS', 'DEFAULTS_PATH', 'DESKTOP_SESSION', 'DISPLAY', 'EAGLEDIR', 'ECAD', 'ECAD_LICENSES', 'ECAD_LOCAL', 'EDITOR', 'GDMSESSION', 'GNOME_KEYRING_CONTROL', 'GNOME_KEYRING_PID', 'GREP_COLOR', 'GREP_OPTIONS', 'GRIN_ARGS', 'HISTFILE', 'HISTSIZE', 'HOME', 'INFANDANGO_CONFIGFILE', 'INFANDANGO_ROOT', 'KRB5CCNAME', 'LANG', 'LANGUAGE', 'LC_CTYPE', 'LD_LIBRARY_PATH', 'LD_RUN_PATH', 'LESS', 'LM_LICENSE_FILE', 'LOGNAME', 'LSCOLORS', 'MAKEFLAGS', 'MAKELEVEL', 'MANDATORY_PATH', 'MFLAGS', 'MGLS_LICENSE_FILE', 'MREORG_CONFIG', 'OLDPWD', 'PAGER', 'PATH', 'PRINTER', 'PWD', 'PYTHONPATH', 'QUARTUS_64BIT', 'QUARTUS_BIT_TYPE', 'QUARTUS_ROOTDIR', 'SHELL', 'SHLVL', 'SOPC_KIT_NIOS2', 'SSH_AGENT_PID', 'SSH_AUTH_SOCK', 'TEMP', 'TERM', 'TMP', 'UBUNTU_MENUPROXY', 'USER', 'WINDOWID', 'XAUTHORITY', 'XDG_CACHE_HOME', 'XDG_CONFIG_DIRS', 'XDG_DATA_DIRS', 'XDG_SEAT_PATH', 'XDG_SESSION_COOKIE', 'XDG_SESSION_PATH', '_', '_JAVA_AWT_WM_NONREPARENTING']
+    Parsing: library std.math {
+    pi = 3.141592653;
+    e =  2.718281828;
+    sin(x) = __sin__(x);
+    cos(x) = __cos__(x);
+    tan(x) = __tan__(x);
+    sinh(x) = __sinh__(x);
+    cosh(x) = __cosh__(x);
+    tanh(x) = __tanh__(x);
+    asin(x) = __asin__(x);
+    acos(x) = __acos__(x);
+    atan(x) = __atan__(x);
+    atan2(x,y) = __atan2__(x=x,y=y);
+    exp(x) = __exp__(x);
+    ln(x) = __ln__(x);
+    log2(x) = __log2__(x);
+    log10(x) = __log10__(x);
+    abs(x) = __abs__(x);
+    pow(base,exp) = __pow__(base=base,exp=exp);
+    ceil(x) = __ceil__(x);
+    fabs(x) = __fabs__(x);
+    floor(x) = __floor__(x);
+    };
+    library std.geom {
+    from std.math import pi;
+    area_of_sphere(r:{m}) = 4 * pi * r*r;
+    volume_of_sphere(r:{m}) = 4.0/3.0 * pi * r*r *r;
+    };
+    library std.neuro {
+    from std.math import pi,pow;
+    r_a(R_i:{ohm m}, d:{m}) = (4*R_i)/(pi*d*d);
+    space_constant(Rm:{ohm m2},Ri:{ohm m},d:{m}) = pow(base=(( (Rm/Ri)*(d/4) )/{1m2}),exp=0.5) * {1m};
+    Rinf_sealed_end(Rm:{ohm m2},d:{m}) = (4*Rm/(pi*d*d) );
+    RateConstant5(V:{V},a1:{s-1} ,a2:{V-1 s-1}, a3:{},a4:{V},a5:{V} ) = (a1 + a2*V)/(a3+std.math.exp( (V+a4)/a5) );
+    };
+    library std.physics {
+    F = 96485.3365 coulomb mole-1;
+    Na = 6.02214129e23 mole-1;
+    k = 1.380648e-23 joule kelvin-1;
+    e =  1.602176565 coulomb;
+    R = 8.3144621 J mole-1 kelvin-1;
+    };
+    p_lhs! <ConstValue [id:75467088] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:75467408] Value: '2.718281828' >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75468048] {__sin__( <id:x:75467792>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75468624] {__cos__( <id:x:75467984>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75477456] {__tan__( <id:x:75477264>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75478032] {__sinh__( <id:x:75477392>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75478608] {__cosh__( <id:x:75477968>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75479184] {__tanh__( <id:x:75478544>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75479760] {__asin__( <id:x:75479120>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75480336] {__acos__( <id:x:75479696>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75480912] {__atan__( <id:x:75480272>)} >
+    p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75469392] {__atan2__( <id:y:75469264,x:75469328>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75470160] {__exp__( <id:x:75469584>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75470736] {__ln__( <id:x:75470096>)} >
+    p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
+    WARNING: Symbol 'time_derivative' is unreachable
+    WARNING: Symbol 'ns_name_list' is unreachable
+    WARNING: Symbol 'import_target_list' is unreachable
+    WARNING: Symbol 'compound_line' is unreachable
+    WARNING: Symbol 'multiport_direction' is unreachable
+    WARNING: Symbol 'on_transition' is unreachable
+    WARNING: Symbol 'quantity_expr' is unreachable
+    WARNING: Symbol 'nineml_file' is unreachable
+    WARNING: Symbol 'rv_modes' is unreachable
+    WARNING: Symbol 'quantity_term' is unreachable
+    WARNING: Symbol 'func_call_params_l3' is unreachable
+    WARNING: Symbol 'componentlinecontents' is unreachable
+    WARNING: Symbol 'function_def_param' is unreachable
+    WARNING: Symbol 'open_transition_scope' is unreachable
+    WARNING: Symbol 'compoundport_event_param' is unreachable
+    WARNING: Symbol 'magnitude' is unreachable
+    WARNING: Symbol 'transition_actions' is unreachable
+    WARNING: Symbol 'event_call_param_l3' is unreachable
+    WARNING: Symbol 'library_name' is unreachable
+    WARNING: Symbol 'bool_term' is unreachable
+    WARNING: Symbol 'localsymbol' is unreachable
+    WARNING: Symbol 'open_funcdef_scope' is unreachable
+    WARNING: Symbol 'externalsymbol' is unreachable
+    WARNING: Symbol 'function_call_l3' is unreachable
+    WARNING: Symbol 'regime_block' is unreachable
+    WARNING: Symbol 'libraryline' is unreachable
+    WARNING: Symbol 'import' is unreachable
+    WARNING: Symbol 'library_def' is unreachable
+    WARNING: Symbol 'component_name' is unreachable
+    WARNING: Symbol 'compound_port_def' is unreachable
+    WARNING: Symbol 'rhs_term' is unreachable
+    WARNING: Symbol 'ar_model' is unreachable
+    WARNING: Symbol 'compound_port_def_line' is unreachable
+    WARNING: Symbol 'librarycontents' is unreachable
+    WARNING: Symbol 'on_event_def_param' is unreachable
+    WARNING: Symbol 'rhs_generic' is unreachable
+    WARNING: Symbol 'random_variable' is unreachable
+    WARNING: Symbol 'compoundcontents' is unreachable
+    WARNING: Symbol 'crosses_expr' is unreachable
+    WARNING: Symbol 'rt_name' is unreachable
+    WARNING: Symbol 'lhs_symbol' is unreachable
+    WARNING: Symbol 'component_def' is unreachable
+    WARNING: Symbol 'transition_action' is unreachable
+    WARNING: Symbol 'alphanumtoken' is unreachable
+    WARNING: Symbol 'compound_port_def_contents' is unreachable
+    WARNING: Symbol 'empty' is unreachable
+    WARNING: Symbol 'namespace_def' is unreachable
+    WARNING: Symbol 'compound_port_inst' is unreachable
+    WARNING: Symbol 'bool_expr' is unreachable
+    WARNING: Symbol 'namespace_name' is unreachable
+    WARNING: Symbol 'regimecontents' is unreachable
+    WARNING: Symbol 'rv_param' is unreachable
+    WARNING: Symbol 'rtgraph_contents' is unreachable
+    WARNING: Symbol 'namespaceblocks' is unreachable
+    WARNING: Symbol 'compoundport_event_param_list' is unreachable
+    WARNING: Symbol 'ns_name' is unreachable
+    WARNING: Symbol 'initial_block' is unreachable
+    WARNING: Symbol 'compound_port_def_direction_arrow' is unreachable
+    WARNING: Symbol 'rv_mode' is unreachable
+    WARNING: Symbol 'initial_expr_block' is unreachable
+    WARNING: Symbol 'regime_name' is unreachable
+    WARNING: Symbol 'top_level_block' is unreachable
+    WARNING: Symbol 'compound_port_inst_constents' is unreachable
+    WARNING: Symbol 'transition_to' is unreachable
+    WARNING: Symbol 'on_event_def_params' is unreachable
+    WARNING: Symbol 'regimecontentsline' is unreachable
+    WARNING: Symbol 'namespace' is unreachable
+    WARNING: Symbol 'rv_params' is unreachable
+    WARNING: Symbol 'compound_component_def' is unreachable
+    WARNING: Symbol 'function_def_params' is unreachable
+    WARNING: Symbol 'function_def' is unreachable
+    WARNING: Symbol 'assignment' is unreachable
+    WARNING: Symbol 'componentcontents' is unreachable
+    WARNING: Symbol 'rhs_variable' is unreachable
+    WARNING: Symbol 'event_call_params_l3' is unreachable
+    WARNING: Symbol 'compondport_inst_line' is unreachable
+    WARNING: Symbol 'func_call_param_l3' is unreachable
+    WARNING: Symbol 'rhs_symbol' is unreachable
+    WARNING: Symbol 'quantity_factor' is unreachable
+    WARNING: Symbol 'rhs_quantity_expr' is unreachable
+    WARNING: Symbol 'quantity' is unreachable
+    Generating LALR tables
+    2013-11-30 17:30:45,402 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 17:30:45,403 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
     NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
     Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
     See http://www.neuron.yale.edu/credits.html
     
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/a2/a26b9f834d42fb9df2b663d2fd1fdba7.bundle (11k) : 0.794 seconds
+    nctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75471312] {__log2__( <id:x:75471248>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75471888] {__log10__( <id:x:75471824>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75472464] {__abs__( <id:x:75470672>)} >
+    p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
+    <FunctionDefBuiltInInstantiation [id:75473232] {__pow__( <id:base:75473168,exp:75472976>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75474000] {__ceil__( <id:x:75473424>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75474576] {__fabs__( <id:x:75473936>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:75475152] {__floor__( <id:x:75474512>)} >
+    p_lhs! <MulOp [id:75481296] [??] >
+    p_lhs! <MulOp [id:77504848] [??] >
+    p_lhs! <DivOp [id:77497232] [??] >
+    p_lhs! <MulOp [id:77498832] [??] >
+    p_lhs! <DivOp [id:77498384] [??] >
+    p_lhs! <DivOp [id:77484624] [??] >
+    p_lhs! <ConstValue [id:77521040] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:77524432] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:77521360] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:77524816] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:77524688] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    Parsing: ms
+    Parsing: ms
+    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/88/8835b80c712620cddbccfabc0a218255.bundle (11k) : 0.789 seconds
     set(['conductance', 'reversalpotential'])
     __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
     
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_8c985bc4d78348c5e6b5020db7c84b33.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_4a11c42a24cf8094e8128eb36ed4454b.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_d441f583160e57ff5401cbe672e7a2fc.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_f840dc4d53912ca489cb83065e2ac90a.so
-    	1 
-    	1 
-    	0.01 
-    	0 
-    	1 
-    	50000 
-    	1 
-    	50000 
-    	1 
-    Running Simulation
-    Time for Extracting Data: (2 records) 0.00105500221252
-    Running simulation : 0.131 seconds
-    Post-processing : 0.002 seconds
-    Entire load-run-save time : 0.927 seconds
-    Suceeded
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:15,614 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:15,615 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
-    
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/a5/a5f2760136d0500d16e585edd8781b53.bundle (11k) : 0.798 seconds
-    set(['conductance', 'reversalpotential'])
-    __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
-    
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_8c985bc4d78348c5e6b5020db7c84b33.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_4a11c42a24cf8094e8128eb36ed4454b.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_d441f583160e57ff5401cbe672e7a2fc.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_f840dc4d53912ca489cb83065e2ac90a.so
-    	1 
-    	1 
-    	0.01 
-    	0 
-    	1 
-    	50000 
-    	1 
-    	50000 
-    	1 
-    Running Simulation
-    Time for Extracting Data: (2 records) 0.0010449886322
-    Running simulation : 0.119 seconds
-    Post-processing : 0.003 seconds
-    Entire load-run-save time : 0.920 seconds
-    Suceeded
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:17,343 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:17,343 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
-    
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/a1/a149219849962767fc3ba050fe64fcb0.bundle (11k) : 0.798 seconds
-    set(['conductance', 'reversalpotential'])
-    __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
-    
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_3491b26d83ce944c4a48bec588249988.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_10db04e695bde49229cd91f80837e678.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_a7e581760ab76fb7fd4364df6a5cb525.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_cdb90d18701a6ac6f42dafa8f8d2b68b.so
-    	1 
-    	1 
-    	0.01 
-    	0 
-    	1 
-    	50000 
-    	1 
-    	50000 
-    	1 
-    Running Simulation
-    Time for Extracting Data: (2 records) 0.00107979774475
-    Running simulation : 0.118 seconds
-    Post-processing : 0.002 seconds
-    Entire load-run-save time : 0.918 seconds
-    Suceeded
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:19,067 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:19,067 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
-    
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/b7/b718a0d40179ae8cd838abaf66951199.bundle (11k) : 0.787 seconds
-    set(['conductance', 'reversalpotential'])
-    __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
-    
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_bb71ec78e6dab19dcf87e15fc17561eb.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_788287c244f7438044a89398129f898b.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_7408cd406bc1adf0811143f9ef2231f3.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_0b6ff728b56729ca8f05449ed9e44a97.so
-    	1 
-    	1 
-    	0.01 
-    	0 
-    	1 
-    	50000 
-    	1 
-    	50000 
-    	1 
-    Running Simulation
-    Time for Extracting Data: (2 records) 0.00105285644531
-    Running simulation : 0.308 seconds
-    Post-processing : 0.003 seconds
-    Entire load-run-save time : 1.098 seconds
-    Suceeded
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:20,988 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:20,989 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
-    
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/da/da53d39cbdc1efb254446b84a99fc168.bundle (11k) : 0.785 seconds
-    set(['conductance', 'reversalpotential'])
-    __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
-    
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_7610f582ad2abbe48c35a53ca9916058.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_316a63d7a1569a19442d0738a9081666.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_5b95d930087f6bce4c78cdc261821c6a.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_2f3f9ea398f72a5862674d83f114a245.so
+    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_01a0996bbc60b0f6ccc56fc1fe23decf.so
+    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_66865290056d853214a4339e4e4b6b9e.so
+    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_12f4e83b7e2718e973deebd1a23b15e1.so
+    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_7600478d01e0b9510e7cb196c284fe70.so
     	1 
     	1 
     	0.01 
@@ -317,47 +572,60 @@ Output
     	1 
     Running Simulation
     Time for Extracting Data: (2 records) 0.00104308128357
-    Running simulation : 0.118 seconds
-    Post-processing : 0.003 seconds
-    Entire load-run-save time : 0.906 seconds
+    Running simulation : 0.126 seconds
+    Post-processing : 0.002 seconds
+    Entire load-run-save time : 0.917 seconds
     Suceeded
-    No handlers could be found for logger "neurounits"
-    2013-10-19 15:40:22,789 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-10-19 15:40:22,790 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
-    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
+    /usr/bin/pdflatex
+    nctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55397712] {__log2__( <id:x:55397648>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55398288] {__log10__( <id:x:55398224>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55443984] {__abs__( <id:x:55443792>)} >
+    p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
+    <FunctionDefBuiltInInstantiation [id:55444688] {__pow__( <id:base:55444048,exp:55444432>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55445456] {__ceil__( <id:x:55444880>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55446032] {__fabs__( <id:x:55445392>)} >
+    p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
+    <FunctionDefBuiltInInstantiation [id:55446608] {__floor__( <id:x:55445968>)} >
+    p_lhs! <MulOp [id:52274384] [??] >
+    p_lhs! <MulOp [id:54985616] [??] >
+    p_lhs! <DivOp [id:54987600] [??] >
+    p_lhs! <MulOp [id:55036368] [??] >
+    p_lhs! <DivOp [id:55036176] [??] >
+    p_lhs! <DivOp [id:55063120] [??] >
+    p_lhs! <ConstValue [id:54902928] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:54906320] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:54903248] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:54906704] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:54906576] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    Parsing: ms
+    Parsing: ms
+    Parsing: ms
+    Parsing: ms
+    Parsing: um2
+    Parsing: uF/cm2
+    Parsing: ms
+    Warning: node 'Cell1', graph 'graphname' size too small for label
+    Warning: node 'AnonObj0001', graph 'graphname' size too small for label
     
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/c6/c6bc427811a04eb29cb45f46c697a32d.bundle (11k) : 0.799 seconds
-    set(['conductance', 'reversalpotential'])
-    __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(9.19125) * S/m**2}
-    
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_762ecdcc92fc56510ed63f453d729fcd.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_c5a5a97cc17f8f6d60395eae5a0c67ed.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_3ccc28a6e495081d0fd8d62d7dc20e60.so
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_c489958483f5e120000734ea6f939099.so
-    	1 
-    	1 
-    	0.01 
-    	0 
-    	1 
-    	50000 
-    	1 
-    	50000 
-    	1 
-    Running Simulation
-    Time for Extracting Data: (2 records) 0.00104308128357
-    Running simulation : 0.127 seconds
-    Post-processing : 0.003 seconds
-    Entire load-run-save time : 0.929 seconds
-    Suceeded
-    Openning ScriptFlags
-    /auto/homes/mh735/hw/NeuroUnits/ext_deps
-    Loading StdLib file: /auto/homes/mh735/hw/NeuroUnits/src/neurounits/../stdlib/stdlib.eqn
-    PlotMnager:Saving  _output/figures/singlecell_simulation040/{png,svg}/fig000_Autosave_figure_1.{png,svg}
+    [(100.0, array([ 1.,  0.,  0.])), (0.0, array([ 0.,  1.,  0.])), (0.0, array([ 0.,  0.,  1.]))]
+    Saving figure /home/mh735/.mredoc/build/figs/opfile0002
+    Saving figure /home/mh735/.mredoc/build/figs/opfile0003
+    Saving figure /home/mh735/.mredoc/build/figs/opfile0004
+    Saving figure /home/mh735/.mredoc/build/figs/opfile0005
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig000_Autosave_figure_1.{png,svg}
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig001_Autosave_figure_2.{png,svg}
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig002_Autosave_figure_3.{png,svg}
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig003_Autosave_figure_4.{png,svg}
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig004_Autosave_figure_5.{png,svg}
+    Saving figure /home/mh735/.mredoc/build/figs/opfile0006
+    Tex File: /home/mh735/.mredoc/build/pdflatex/eqnset.tex
+    Successfully written PDF to:  /local/scratch/mh735/tmp/morphforge/tmp/mf_doc_build/singlecell_simulation040.py.pdf
+    PlotManger saving:  _output/figures/singlecell_simulation040/{png,svg}/fig005_Autosave_figure_6.{png,svg}
 
 
 
