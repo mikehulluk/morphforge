@@ -39,9 +39,7 @@ In this simulation, we create a cell with a long axon. We put HH-channels over i
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
-
+from morphforgecontrib.stdimports import StdChlLeak,StdChlAlphaBeta
 
 # Create the environment:
 env = NEURONEnvironment()

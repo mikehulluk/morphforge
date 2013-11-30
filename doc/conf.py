@@ -343,5 +343,7 @@ def setup(app):
 templates_path = ["_templates",]
 
 
-
+rst_prolog = r"""
+.. |MHThesis| replace:: :download:`Mike Hull's Ph.D Thesis </static/MHThesis.pdf>`
+"""
 

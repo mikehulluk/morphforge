@@ -1,7 +1,7 @@
 
 .. _example_poster1:
 
-Example 19. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits
+Example 21. Simulation of a HodgkinHuxley-type neuron specified through NeuroUnits
 ==================================================================================
 
 
@@ -198,32 +198,32 @@ Output
     e =  1.602176565 coulomb;
     R = 8.3144621 J mole-1 kelvin-1;
     };
-    p_lhs! <ConstValue [id:66125392] Value: '3.141592653' >
-    p_lhs! <ConstValue [id:66125712] Value: '2.718281828' >
+    p_lhs! <ConstValue [id:68288080] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:68288400] Value: '2.718281828' >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69124688] {__sin__( <id:x:69124432>)} >
+    <FunctionDefBuiltInInstantiation [id:71287376] {__sin__( <id:x:71287120>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69125264] {__cos__( <id:x:69124624>)} >
+    <FunctionDefBuiltInInstantiation [id:71287952] {__cos__( <id:x:71287312>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69125840] {__tan__( <id:x:69125200>)} >
+    <FunctionDefBuiltInInstantiation [id:71288528] {__tan__( <id:x:71287888>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69126416] {__sinh__( <id:x:69125776>)} >
+    <FunctionDefBuiltInInstantiation [id:71289104] {__sinh__( <id:x:71288464>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69126992] {__cosh__( <id:x:69126352>)} >
+    <FunctionDefBuiltInInstantiation [id:71289680] {__cosh__( <id:x:71289040>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69127568] {__tanh__( <id:x:69126928>)} >
+    <FunctionDefBuiltInInstantiation [id:71290256] {__tanh__( <id:x:71289616>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:69128144] {__asin__( <id:x:69127504>)} >
+    <FunctionDefBuiltInInstantiation [id:71290832] {__asin__( <id:x:71290192>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66138704] {__acos__( <id:x:66138192>)} >
+    <FunctionDefBuiltInInstantiation [id:68297296] {__acos__( <id:x:68296784>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66139280] {__atan__( <id:x:66138640>)} >
+    <FunctionDefBuiltInInstantiation [id:68297872] {__atan__( <id:x:68297232>)} >
     p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66139984] {__atan2__( <id:y:66139856,x:66139792>)} >
+    <FunctionDefBuiltInInstantiation [id:68298576] {__atan2__( <id:y:68298448,x:68298384>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66140752] {__exp__( <id:x:66140176>)} >
+    <FunctionDefBuiltInInstantiation [id:68299344] {__exp__( <id:x:68298768>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66141328] {__ln__( <id:x:66140688>)} >
+    <FunctionDefBuiltInInstantiation [id:68299920] {__ln__( <id:x:68299280>)} >
     p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
     WARNING: Symbol 'time_derivative' is unreachable
     WARNING: Symbol 'ns_name_list' is unreachable
@@ -308,30 +308,30 @@ Output
     WARNING: Symbol 'quantity' is unreachable
     Generating LALR tables
     nctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66141904] {__log2__( <id:x:66141840>)} >
+    <FunctionDefBuiltInInstantiation [id:68300496] {__log2__( <id:x:68300432>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66142544] {__log10__( <id:x:66142480>)} >
+    <FunctionDefBuiltInInstantiation [id:68309328] {__log10__( <id:x:68309264>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66143120] {__abs__( <id:x:66142416>)} >
+    <FunctionDefBuiltInInstantiation [id:68309904] {__abs__( <id:x:68309200>)} >
     p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
-    <FunctionDefBuiltInInstantiation [id:66143824] {__pow__( <id:base:66142608,exp:66143568>)} >
+    <FunctionDefBuiltInInstantiation [id:68310608] {__pow__( <id:base:68309392,exp:68310352>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66144592] {__ceil__( <id:x:66144016>)} >
+    <FunctionDefBuiltInInstantiation [id:68311376] {__ceil__( <id:x:68310800>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66145168] {__fabs__( <id:x:66144528>)} >
+    <FunctionDefBuiltInInstantiation [id:68311952] {__fabs__( <id:x:68311312>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:66145744] {__floor__( <id:x:66145104>)} >
-    p_lhs! <MulOp [id:68293392] [??] >
-    p_lhs! <MulOp [id:68293904] [??] >
-    p_lhs! <DivOp [id:68294928] [??] >
-    p_lhs! <MulOp [id:68284112] [??] >
-    p_lhs! <DivOp [id:68176400] [??] >
-    p_lhs! <DivOp [id:68175696] [??] >
-    p_lhs! <ConstValue [id:68170256] Value: '96485.3365e0 s  A  mol ' >
-    p_lhs! <ConstValue [id:68173648] Value: '6.02214129e+23e0 mol ' >
-    p_lhs! <ConstValue [id:68171088] Value: '1.380648e-23e0 m 2 kg  s  K ' >
-    p_lhs! <ConstValue [id:68172624] Value: '1.602176565e0 s  A ' >
-    p_lhs! <ConstValue [id:68172880] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    <FunctionDefBuiltInInstantiation [id:68312528] {__floor__( <id:x:68311888>)} >
+    p_lhs! <MulOp [id:70390544] [??] >
+    p_lhs! <MulOp [id:70391056] [??] >
+    p_lhs! <DivOp [id:70392080] [??] >
+    p_lhs! <MulOp [id:70336208] [??] >
+    p_lhs! <DivOp [id:70425104] [??] >
+    p_lhs! <DivOp [id:70424400] [??] >
+    p_lhs! <ConstValue [id:70468112] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:70471504] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:70468944] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:70470480] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:70470736] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
     Parsing: ms
     Parsing: ms
     Parsing: mA/cm2
@@ -365,72 +365,72 @@ Output
     <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} };
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} };
     };
-    p_lhs! <MulOp [id:76475088] [??] >
-    p_lhs! <DivOp [id:76473488] [??] >
-    p_lhs! <DivOp [id:76474128] [??] >
-    p_lhs! <DivOp [id:76472528] [??] >
-    p_lhs! <DivOp [id:76474448] [??] >
-    p_lhs! <DivOp [id:76475600] [??] >
-    p_lhs! <DivOp [id:76475216] [??] >
-    p_lhs! <DivOp [id:76489424] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76490640] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76491472] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76492304] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76497168] [??] >
-    p_lhs! <ConstValue [id:76497744] Value: '-4.0e3 s ' >
-    p_lhs! <ConstValue [id:76499344] Value: '-0.1e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76498832] Value: '-1.0' >
-    p_lhs! <ConstValue [id:76499280] Value: '40.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76497936] Value: '-10.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76498640] Value: '4.0e3 s ' >
-    p_lhs! <ConstValue [id:76500944] Value: '0.0e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76500560] Value: '0.0' >
-    p_lhs! <ConstValue [id:76498448] Value: '65.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76499472] Value: '18.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76498960] Value: '0.07e3 s ' >
-    p_lhs! <ConstValue [id:76501520] Value: '0.0e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76501776] Value: '0.0' >
-    p_lhs! <ConstValue [id:76501136] Value: '65.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76501584] Value: '20.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76501840] Value: '1.0e3 s ' >
-    p_lhs! <ConstValue [id:76504208] Value: '0.0e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76503824] Value: '1.0' >
-    p_lhs! <ConstValue [id:76504144] Value: '35.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76502608] Value: '-10.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76504912] Value: '50.0e-3 m 2 kg  s  A ' >
+    p_lhs! <MulOp [id:78637776] [??] >
+    p_lhs! <DivOp [id:78636176] [??] >
+    p_lhs! <DivOp [id:78636816] [??] >
+    p_lhs! <DivOp [id:78635216] [??] >
+    p_lhs! <DivOp [id:78637136] [??] >
+    p_lhs! <DivOp [id:78638288] [??] >
+    p_lhs! <DivOp [id:78637904] [??] >
+    p_lhs! <DivOp [id:78652112] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78653328] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78654160] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78654992] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78659856] [??] >
+    p_lhs! <ConstValue [id:78660432] Value: '-4.0e3 s ' >
+    p_lhs! <ConstValue [id:78662032] Value: '-0.1e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78661520] Value: '-1.0' >
+    p_lhs! <ConstValue [id:78661968] Value: '40.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78660624] Value: '-10.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78661328] Value: '4.0e3 s ' >
+    p_lhs! <ConstValue [id:78663632] Value: '0.0e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78663248] Value: '0.0' >
+    p_lhs! <ConstValue [id:78661136] Value: '65.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78662160] Value: '18.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78661648] Value: '0.07e3 s ' >
+    p_lhs! <ConstValue [id:78664208] Value: '0.0e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78664464] Value: '0.0' >
+    p_lhs! <ConstValue [id:78663824] Value: '65.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78664272] Value: '20.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78664528] Value: '1.0e3 s ' >
+    p_lhs! <ConstValue [id:78666896] Value: '0.0e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78666512] Value: '1.0' >
+    p_lhs! <ConstValue [id:78666832] Value: '35.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78665296] Value: '-10.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78667600] Value: '50.0e-3 m 2 kg  s  A ' >
     Parsing: (S/m2)
     Parsing: (A/m2)
     Parsing: V
     CHECKING
-    <Parameter [id:76514256] Symbol: 'g' >
+    <Parameter [id:78676944] Symbol: 'g' >
     g
     iii 1.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
     iiii 1200.0 s**3*A**2/(kg*m**4) <class 'quantities.quantity.Quantity'>
     OK
     
-    Output <StateVariable [id:76502160] Symbol: 'h' >
+    Output <StateVariable [id:78664848] Symbol: 'h' >
     None
-    Output <StateVariable [id:76504720] Symbol: 'm' >
+    Output <StateVariable [id:78667408] Symbol: 'm' >
     None
-    Output <AssignedVariable [id:76510992] Symbol: 'h_alpha_rate' >
+    Output <AssignedVariable [id:78673680] Symbol: 'h_alpha_rate' >
     None
-    Output <AssignedVariable [id:76510800] Symbol: 'h_beta_rate' >
+    Output <AssignedVariable [id:78673488] Symbol: 'h_beta_rate' >
     None
-    Output <AssignedVariable [id:76513488] Symbol: 'h_inf' >
+    Output <AssignedVariable [id:78676176] Symbol: 'h_inf' >
     None
-    Output <AssignedVariable [id:76502224] Symbol: 'h_tau' >
+    Output <AssignedVariable [id:78664912] Symbol: 'h_tau' >
     None
-    Output <AssignedVariable [id:76513872] Symbol: 'i' >
+    Output <AssignedVariable [id:78676560] Symbol: 'i' >
     {u'mf': {u'role': u'TRANSMEMBRANECURRENT'}}
-    Output <AssignedVariable [id:76512144] Symbol: 'm_alpha_rate' >
+    Output <AssignedVariable [id:78674832] Symbol: 'm_alpha_rate' >
     None
-    Output <AssignedVariable [id:76514064] Symbol: 'm_beta_rate' >
+    Output <AssignedVariable [id:78676752] Symbol: 'm_beta_rate' >
     None
-    Output <AssignedVariable [id:76501200] Symbol: 'm_inf' >
+    Output <AssignedVariable [id:78663888] Symbol: 'm_inf' >
     None
-    Output <AssignedVariable [id:76510608] Symbol: 'm_tau' >
+    Output <AssignedVariable [id:78673296] Symbol: 'm_tau' >
     None
-    input <SuppliedValue [id:76514704] Symbol: 'v' >
+    input <SuppliedValue [id:78677392] Symbol: 'v' >
     {u'mf': {u'role': u'MEMBRANEVOLTAGE'}}
     g <class 'neurounits.ast.astobjects.Parameter'>
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
@@ -446,43 +446,43 @@ Output
     m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
+    T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
+    v <class 'neurounits.ast.astobjects.SuppliedValue'>
     m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
-    v <class 'neurounits.ast.astobjects.SuppliedValue'>
     h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     h_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76514000] Symbol: i >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78676688] Symbol: i >
     g <class 'neurounits.ast.astobjects.Parameter'>
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
     m <class 'neurounits.ast.astobjects.StateVariable'>
     h <class 'neurounits.ast.astobjects.StateVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76514192] Symbol: m_beta_rate >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78676880] Symbol: m_beta_rate >
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76510928] Symbol: h_beta_rate >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78673616] Symbol: h_beta_rate >
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76511120] Symbol: h_alpha_rate >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78673808] Symbol: h_alpha_rate >
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76504528] Symbol: h_tau >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78667216] Symbol: h_tau >
     h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     h_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76513616] Symbol: h_inf >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78676304] Symbol: h_inf >
     h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     h_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     h_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76512272] Symbol: m_alpha_rate >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78674960] Symbol: m_alpha_rate >
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76502992] Symbol: m_inf >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78665680] Symbol: m_inf >
     m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76510736] Symbol: m_tau >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78673424] Symbol: m_tau >
     m_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     m_inf <class 'neurounits.ast.astobjects.AssignedVariable'>
@@ -516,40 +516,40 @@ Output
     <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} };
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} };
     };
-    p_lhs! <MulOp [id:76537744] [??] >
-    p_lhs! <DivOp [id:76534992] [??] >
-    p_lhs! <DivOp [id:76536528] [??] >
-    p_lhs! <DivOp [id:76535440] [??] >
-    p_lhs! <DivOp [id:76559184] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76560400] [??] >
-    p_lhs! <FunctionDefUserInstantiation [id:76561232] [??] >
-    p_lhs! <ConstValue [id:76561680] Value: '-0.55e3 s ' >
-    p_lhs! <ConstValue [id:76562256] Value: '-0.01e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76561872] Value: '-1.0' >
-    p_lhs! <ConstValue [id:76562832] Value: '55.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76563664] Value: '-10.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76563216] Value: '0.125e3 s ' >
-    p_lhs! <ConstValue [id:76565072] Value: '0.0e6 m  kg  s 2 A ' >
-    p_lhs! <ConstValue [id:76564688] Value: '0.0' >
-    p_lhs! <ConstValue [id:76565008] Value: '65.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76562512] Value: '80.0e-3 m 2 kg  s  A ' >
-    p_lhs! <ConstValue [id:76563344] Value: '36.0e1 m  kg  s 3 A 2' >
-    p_lhs! <ConstValue [id:76565648] Value: '-77.0e-3 m 2 kg  s  A ' >
+    p_lhs! <MulOp [id:78700432] [??] >
+    p_lhs! <DivOp [id:78697680] [??] >
+    p_lhs! <DivOp [id:78699216] [??] >
+    p_lhs! <DivOp [id:78698128] [??] >
+    p_lhs! <DivOp [id:78721872] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78723088] [??] >
+    p_lhs! <FunctionDefUserInstantiation [id:78723920] [??] >
+    p_lhs! <ConstValue [id:78724368] Value: '-0.55e3 s ' >
+    p_lhs! <ConstValue [id:78724944] Value: '-0.01e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78724560] Value: '-1.0' >
+    p_lhs! <ConstValue [id:78725520] Value: '55.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78726352] Value: '-10.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78725904] Value: '0.125e3 s ' >
+    p_lhs! <ConstValue [id:78727760] Value: '0.0e6 m  kg  s 2 A ' >
+    p_lhs! <ConstValue [id:78727376] Value: '0.0' >
+    p_lhs! <ConstValue [id:78727696] Value: '65.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78725200] Value: '80.0e-3 m 2 kg  s  A ' >
+    p_lhs! <ConstValue [id:78726032] Value: '36.0e1 m  kg  s 3 A 2' >
+    p_lhs! <ConstValue [id:78728336] Value: '-77.0e-3 m 2 kg  s  A ' >
     Parsing: (A/m2)
     Parsing: V
-    Output <StateVariable [id:76566352] Symbol: 'n' >
+    Output <StateVariable [id:78729040] Symbol: 'n' >
     None
-    Output <AssignedVariable [id:76571152] Symbol: 'i' >
+    Output <AssignedVariable [id:78733840] Symbol: 'i' >
     {u'mf': {u'role': u'TRANSMEMBRANECURRENT'}}
-    Output <AssignedVariable [id:76563536] Symbol: 'n_alpha_rate' >
+    Output <AssignedVariable [id:78726224] Symbol: 'n_alpha_rate' >
     None
-    Output <AssignedVariable [id:76572880] Symbol: 'n_beta_rate' >
+    Output <AssignedVariable [id:78735568] Symbol: 'n_beta_rate' >
     None
-    Output <AssignedVariable [id:76570704] Symbol: 'n_inf' >
+    Output <AssignedVariable [id:78733392] Symbol: 'n_inf' >
     None
-    Output <AssignedVariable [id:76572496] Symbol: 'n_tau' >
+    Output <AssignedVariable [id:78735184] Symbol: 'n_tau' >
     None
-    input <SuppliedValue [id:76573072] Symbol: 'v' >
+    input <SuppliedValue [id:78735760] Symbol: 'v' >
     {u'mf': {u'role': u'MEMBRANEVOLTAGE'}}
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
     n <class 'neurounits.ast.astobjects.StateVariable'>
@@ -565,15 +565,15 @@ Output
     n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76571280] Symbol: i >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78733968] Symbol: i >
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
     n <class 'neurounits.ast.astobjects.StateVariable'>
     n <class 'neurounits.ast.astobjects.StateVariable'>
     n <class 'neurounits.ast.astobjects.StateVariable'>
     n <class 'neurounits.ast.astobjects.StateVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76573008] Symbol: n_beta_rate >
-    T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounit2013-11-30 17:32:08,378 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-11-30 17:32:08,378 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
+    Writing assignment for:  <EqnAssignmentByRegime [id:78735696] Symbol: n_beta_rate >
+    T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounit2013-11-30 18:14:50,952 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 18:14:50,953 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
     WARNING: Symbol 'quantity_expr' is unreachable
     WARNING: Symbol 'quantity_term' is unreachable
     WARNING: Symbol 'quantity_factor' is unreachable
@@ -626,32 +626,32 @@ Output
     e =  1.602176565 coulomb;
     R = 8.3144621 J mole-1 kelvin-1;
     };
-    p_lhs! <ConstValue [id:58546512] Value: '3.141592653' >
-    p_lhs! <ConstValue [id:58546832] Value: '2.718281828' >
+    p_lhs! <ConstValue [id:67479888] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:67480208] Value: '2.718281828' >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58547472] {__sin__( <id:x:58547216>)} >
+    <FunctionDefBuiltInInstantiation [id:67480848] {__sin__( <id:x:67480592>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58548048] {__cos__( <id:x:58547408>)} >
+    <FunctionDefBuiltInInstantiation [id:67481424] {__cos__( <id:x:67480784>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58573264] {__tan__( <id:x:58573072>)} >
+    <FunctionDefBuiltInInstantiation [id:67506640] {__tan__( <id:x:67506448>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58573840] {__sinh__( <id:x:58573200>)} >
+    <FunctionDefBuiltInInstantiation [id:67507216] {__sinh__( <id:x:67506576>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58574416] {__cosh__( <id:x:58573776>)} >
+    <FunctionDefBuiltInInstantiation [id:67507792] {__cosh__( <id:x:67507152>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58574992] {__tanh__( <id:x:58574352>)} >
+    <FunctionDefBuiltInInstantiation [id:67508368] {__tanh__( <id:x:67507728>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58575568] {__asin__( <id:x:58574928>)} >
+    <FunctionDefBuiltInInstantiation [id:67508944] {__asin__( <id:x:67508304>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58576144] {__acos__( <id:x:58575504>)} >
+    <FunctionDefBuiltInInstantiation [id:67509520] {__acos__( <id:x:67508880>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58576720] {__atan__( <id:x:58576080>)} >
+    <FunctionDefBuiltInInstantiation [id:67510096] {__atan__( <id:x:67509456>)} >
     p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58585680] {__atan2__( <id:y:58585552,x:58585616>)} >
+    <FunctionDefBuiltInInstantiation [id:67490384] {__atan2__( <id:y:67490256,x:67490320>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58586448] {__exp__( <id:x:58585872>)} >
+    <FunctionDefBuiltInInstantiation [id:67491152] {__exp__( <id:x:67490576>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58587024] {__ln__( <id:x:58586384>)} >
+    <FunctionDefBuiltInInstantiation [id:67491728] {__ln__( <id:x:67491088>)} >
     p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
     WARNING: Symbol 'time_derivative' is unreachable
     WARNING: Symbol 'ns_name_list' is unreachable
@@ -735,33 +735,37 @@ Output
     WARNING: Symbol 'rhs_quantity_expr' is unreachable
     WARNING: Symbol 'quantity' is unreachable
     Generating LALR tables
-    2013-11-30 17:32:10,067 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-11-30 17:32:10,067 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+    2013-11-30 18:14:52,656 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 18:14:52,656 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+    NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
+    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
+    See http://www.neuron.yale.edu/credits.html
+    
     nctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58587600] {__log2__( <id:x:58587536>)} >
+    <FunctionDefBuiltInInstantiation [id:67492304] {__log2__( <id:x:67492240>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58588176] {__log10__( <id:x:58588112>)} >
+    <FunctionDefBuiltInInstantiation [id:67492880] {__log10__( <id:x:67492816>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58588752] {__abs__( <id:x:58586960>)} >
+    <FunctionDefBuiltInInstantiation [id:67493456] {__abs__( <id:x:67491664>)} >
     p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
-    <FunctionDefBuiltInInstantiation [id:58560848] {__pow__( <id:base:58560784,exp:58560592>)} >
+    <FunctionDefBuiltInInstantiation [id:67502416] {__pow__( <id:base:67502352,exp:67502160>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58561616] {__ceil__( <id:x:58561040>)} >
+    <FunctionDefBuiltInInstantiation [id:67503184] {__ceil__( <id:x:67502608>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58562192] {__fabs__( <id:x:58561552>)} >
+    <FunctionDefBuiltInInstantiation [id:67503760] {__fabs__( <id:x:67503120>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:58562768] {__floor__( <id:x:58562128>)} >
-    p_lhs! <MulOp [id:58568912] [??] >
-    p_lhs! <MulOp [id:60588368] [??] >
-    p_lhs! <DivOp [id:60531600] [??] >
-    p_lhs! <MulOp [id:60533200] [??] >
-    p_lhs! <DivOp [id:60532752] [??] >
-    p_lhs! <DivOp [id:60629584] [??] >
-    p_lhs! <ConstValue [id:60592272] Value: '96485.3365e0 s  A  mol ' >
-    p_lhs! <ConstValue [id:60595664] Value: '6.02214129e+23e0 mol ' >
-    p_lhs! <ConstValue [id:60592592] Value: '1.380648e-23e0 m 2 kg  s  K ' >
-    p_lhs! <ConstValue [id:60596048] Value: '1.602176565e0 s  A ' >
-    p_lhs! <ConstValue [id:60595920] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    <FunctionDefBuiltInInstantiation [id:67504336] {__floor__( <id:x:67503696>)} >
+    p_lhs! <MulOp [id:67485904] [??] >
+    p_lhs! <MulOp [id:69525840] [??] >
+    p_lhs! <DivOp [id:69497744] [??] >
+    p_lhs! <MulOp [id:69499344] [??] >
+    p_lhs! <DivOp [id:69498896] [??] >
+    p_lhs! <DivOp [id:69501520] [??] >
+    p_lhs! <ConstValue [id:69529744] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:69533136] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:69530064] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:69533520] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:69533392] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
     Parsing: ms
     Parsing: ms
     Parsing: mA/cm2
@@ -769,23 +773,7 @@ Output
     Parsing: mV
     Parsing: ms
     Parsing: K
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/bc/bcc8613a1216adcbe661dea39a68de8f.bundle (134k) : 0.840 seconds
-    Executing: /opt/nrn//x86_64/bin/modlunit /local/scratch/mh735/tmp/morphforge/tmp/tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.mod
-    /local/scratch/mh735/tmp/morphforge/tmp/modbuild_11634
-    Executing: /opt/nrn//x86_64/bin/nocmodl tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.mod
-    Executing: /opt/nrn//share/nrn/libtool --mode=compile gcc -DHAVE_CONFIG_H   -I"."  -I".."  -I"/opt/nrn//include/nrn"  -I"/opt/nrn//x86_64/lib"    -g -O2 -c -o tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.lo tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.c  
-    Executing: /opt/nrn//share/nrn/libtool --mode=link gcc -module  -g -O2  -shared  -o tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.la  -rpath /opt/nrn//x86_64/libs  tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.lo  -L/opt/nrn//x86_64/lib -L/opt/nrn//x86_64/lib  /opt/nrn//x86_64/lib/libnrniv.la  -lnrnoc -loc -lmemacs -lnrnmpi -lscopmath -lsparse13 -lreadline -lncurses -livoc -lneuron_gnu -lmeschach -lsundials -lm -ldl   
-    OP1: libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I.. -I/opt/nrn//include/nrn -I/opt/nrn//x86_64/lib -g -O2 -c tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.c  -fPIC -DPIC -o .libs/tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.o
-    
-    OP2: libtool: link: gcc -shared  .libs/tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.o   -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -Wl,-rpath -Wl,/opt/nrn/x86_64/lib -L/opt/nrn//x86_64/lib /opt/nrn/x86_64/lib/libnrniv.so /opt/nrn/x86_64/lib/libnrnoc.so /opt/nrn/x86_64/lib/liboc.so /opt/nrn/x86_64/lib/libmemacs.so /opt/nrn/x86_64/lib/libnrnmpi.so /opt/nrn/x86_64/lib/libscopmath.so /opt/nrn/x86_64/lib/libsparse13.so -lreadline -lncurses /opt/nrn/x86_64/lib/libivoc.so /opt/nrn/x86_64/lib/libneuron_gnu.so /opt/nrn/x86_64/lib/libmeschach.so /opt/nrn/x86_64/lib/libsundials.so -lm -ldl    -pthread -Wl,-soname -Wl,tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0 -o .libs/tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0.0.0
-    libtool: link: (cd ".libs" && rm -f "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0" && ln -s "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0.0.0" "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0")
-    libtool: link: (cd ".libs" && rm -f "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so" && ln -s "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so.0.0.0" "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.so")
-    libtool: link: ( cd ".libs" && rm -f "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.la" && ln -s "../tmp_dc5e6a2b56fc20eNEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
-    Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
-    See http://www.neuron.yale.edu/credits.html
-    
-    25c4cc1bfb787fc10.la" "tmp_dc5e6a2b56fc20e25c4cc1bfb787fc10.la" )
-    
+    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/6a/6a792e82eee5750bfbc7e621c8d277e5.bundle (134k) : 0.849 seconds
     loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_8b0cfbe4ec3aad90f380f38517ef9a08.so
     loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_19bfa6e73111b8588a042e7d0c71ae10.so
     loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_b710d7b3064eaabef925f2922f85b448.so
@@ -805,21 +793,21 @@ Output
     	50000 
     	1 
     Running Simulation
-    Time for Extracting Data: (5 records) 0.00265884399414
-    Running simulation : 0.548 seconds
-    Post-processing : 0.021 seconds
-    Entire load-run-save time : 1.409 seconds
+    Time for Extracting Data: (5 records) 0.00252985954285
+    Running simulation : 0.107 seconds
+    Post-processing : 0.020 seconds
+    Entire load-run-save time : 0.976 seconds
     Suceeded
     s.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76563856] Symbol: n_alpha_rate >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78726544] Symbol: n_alpha_rate >
     T [<class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SymbolicConstant'>, <class 'neurounits.ast.astobjects.SuppliedValue'>]
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76571088] Symbol: n_inf >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78733776] Symbol: n_inf >
     n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76572624] Symbol: n_tau >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78735312] Symbol: n_tau >
     n_alpha_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_beta_rate <class 'neurounits.ast.astobjects.AssignedVariable'>
     n_inf <class 'neurounits.ast.astobjects.AssignedVariable'>
@@ -840,15 +828,15 @@ Output
     <=> OUTPUT    i:(A/m2)  METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} };
     <=> INPUT     v: V      METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} };
     };
-    p_lhs! <MulOp [id:76593616] [??] >
+    p_lhs! <MulOp [id:78756304] [??] >
     Parsing: (A/m2)
     Parsing: V
-    Output <AssignedVariable [id:76592208] Symbol: 'i' >
+    Output <AssignedVariable [id:78754896] Symbol: 'i' >
     {u'mf': {u'role': u'TRANSMEMBRANECURRENT'}}
-    input <SuppliedValue [id:76595024] Symbol: 'v' >
+    input <SuppliedValue [id:78757712] Symbol: 'v' >
     {u'mf': {u'role': u'MEMBRANEVOLTAGE'}}
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
-    Writing assignment for:  <EqnAssignmentByRegime [id:76595088] Symbol: i >
+    Writing assignment for:  <EqnAssignmentByRegime [id:78757776] Symbol: i >
     v <class 'neurounits.ast.astobjects.SuppliedValue'>
     Parsing: ms
     PlotManger saving:  _output/figures/poster1/{png,svg}/fig000_Autosave_figure_1.{png,svg}

@@ -42,8 +42,8 @@ Note that the neurons reseting potentials have been shifted from 0mV to -65mV.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
+from morphforgecontrib.stdimports import StdChlLeak
+from morphforgecontrib.stdimports import StdChlAlphaBeta
 
 
 # Create the environment:

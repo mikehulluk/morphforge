@@ -3,6 +3,9 @@ Simulation Layer
 
 
 
+.. comment sdfsadf fasdf
+    .. |MHThesis| replace:: :download:`Mike Hull's Ph.D Thesis </static/MHThesis.pdf>`
+
 
 
 .. |Morphology| replace:: :class:`Morphology <morphforge.morphology.core.MorphologyTree>`
@@ -58,6 +61,12 @@ Environments & Simulations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 |Environment| and |Simulation| object are central objects in building simulations, but in most cases, they should be simple to use. Briefly |Environment| objects are factories for producing objects in a simulation for particular  backends. This allows a clear separation between abstract concepts, such as |Cell| and |Channel|, and the particular NEURON implementation code (e.g. |NEURONCell| and |NEURONChannel|). |Simulation| objects can be created from |Environment| objects, and encapsulate an entire simulation. This allows multiple simulations to be created within a single script unambiguously, for example to run parameter-sweeps ( e.g. :ref:`example_singlecell_simulation020` ), or to investigate how stochastic variation in parameters affects the results of simulations.
 
+.. seealso::
+
+    |MHThesis|
+        * Appendix D (Pg. 215)
+        
+        
 
 
 Cells
@@ -85,7 +94,12 @@ As with the simulation objects, this is achieved by inheritance. For example, Ne
     Examples scripts:
 
         * :ref:`example_singlecell_simulation020`
-        * :ref:`example_singlecell_simulation020`
+        * :ref:`example_singlecell_simulation050`
+        * :ref:`example_assorted_10compareHHChls`
+        * :ref:`example_poster1`
+
+    |MHThesis|
+       * Appendix D (Pg. 217)
 
 
 
@@ -112,6 +126,21 @@ To resolve these conflicts, each Targeter object has a priority level associated
 
 
 
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_singlecell_simulation080`
+        
+    |MHThesis|
+       * Appendix D.2 (Pg. 225; 236)
+
+
+
+
+
+
+
 .. _segmentation:
 
 Segmentation
@@ -121,7 +150,18 @@ Segmentation
 
     A brief overview of segmentation objects
 
-.. seealso:: :ref:`segmentation`
+
+
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_singlecell_simulation090`
+        
+    |MHThesis|
+       * Appendix D.2 (Pg. 222)
+       
+
 
 Stimuli
 ~~~~~~~~
@@ -129,6 +169,16 @@ Stimuli
 .. todo::
 
     A brief overview of cell objects
+
+
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_singlecell_simulation100`
+        
+    
+    
     
 
 Recording
@@ -162,6 +212,13 @@ location, then a Recordable object is returned that knows the name of the conduc
 
 A Recordable object can have a name (e. g. Listing D.9 line 14), which can be used to access the corresponding Trace object after the simulation has been run (see next sec- tion). A Recordable object can also take a set of additional user-defined tags, which will be attached to the Trace object (see Section D.1.2). The units of the recordings are automatically handled, for example, when the user requests the Trace object corresponding to the record() statement on line 14 of Listing D.9, it will automatically have the units of millivolts.
 
+
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_singlecell_simulation080`
+        
 
 
 
@@ -209,11 +266,30 @@ Morphforge takes an explicit approach to constructing multiple synapses of the s
         )
 
 
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_multicell_simulation010`
+        * :ref:`example_poster2`
+
+    |MHThesis|
+       * (???!)
+       
 
 Electrical Synapses
 -------------------
 
-(See examples)
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_multicell_simulation020`
+
+    |MHThesis|
+       * (???!)
+
+
 
 
 NeuronPopulations and SynapticPopulations

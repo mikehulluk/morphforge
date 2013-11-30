@@ -1,8 +1,22 @@
 Simulation Layer
 ================
 
+.. comment::
+    # Run this:
+    cd /local/scratch/mh735/hw/morphforge
+    grep -l 'StdChlAlphaBetaBeta' doc/srcs_generated_examples/*.rst | sed 's;doc/srcs_generated_examples/;  * :ref:`example_;g' | sed 's/$/`/g' 
 
-Morphforge-contrib currently defines the following types of channels:
+
+
+Morphforge-contrib defines the following types of objects:
+
+
+.. contents:: mf-types
+    :depth: 2
+    
+
+
+
 
 
 .. _section_mfchanneltypes:
@@ -15,15 +29,39 @@ StdChlLeak
 :py:class:`~morphforgecontrib.simulation.channels.hh_style.core.mmleak.StdChlLeak` is a leak channel consisting of a constant reversal potential and conductance density.
 
 
+.. seealso::
+
+
+    * :ref:`example_singlecell_simulation010`
+    * :ref:`example_singlecell_simulation020`
+    * :ref:`example_singlecell_simulation030`
+    * :ref:`example_singlecell_simulation040`
+    * :ref:`example_singlecell_simulation060`
+    * :ref:`example_singlecell_simulation065`
+    * :ref:`example_singlecell_simulation090`
+    * :ref:`example_assorted_10compareHHChls`
+
+    
+
 StdChlAlphaBeta
 ~~~~~~~~~~~~~~~
-:py:class:`~morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta` is a HodgkinHuxley type channel that can be constructed directly in Python. The form of the rate constants are:
+:py:class:`~morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta.StdChlAlphaBeta` is a Hodgkin-Huxley type channel that can be constructed directly in Python. The form of the rate constants are:
 
 .. math::
 
     \alpha(V),\beta(V) = \frac{ A+BV}{ C+ exp( (D+V)/E) }
 
 where A,B,C,D & E are constants.
+
+.. seealso::
+
+    * :ref:`example_singlecell_simulation020`
+    * :ref:`example_singlecell_simulation030`
+    * :ref:`example_singlecell_simulation040`
+    * :ref:`example_singlecell_simulation060`
+    * :ref:`example_singlecell_simulation065`
+    * :ref:`example_assorted_10compareHHChls`
+
 
 
 StdChlAlphaBetaBeta
@@ -36,20 +74,35 @@ SimulatorSpecificChannel
 :py:class:`~morphforgecontrib.simulation.channels.exisitingmodfile.core.SimulatorSpecificChannel` also MODL code to be use directly within with a NEURON simulation.
 
 
+
 NeuroUnits
 ~~~~~~~~~~
 :py:class:`~morphforgecontrib.simulation.channels.neurounits.neuro_units_bridge.NeuroUnitEqnsetMechanism` allows channels specified in NeuroUnits as strings to be used in morphforge
+
+.. seealso::
+
+  * :ref:`example_assorted_10compareHHChls`
+  * :ref:`example_poster1`
+
 
 
 NeuroML_Via_XSL_Channel
 ~~~~~~~~~~~~~~~~~~~~~~~
 :py:class:`~morphforgecontrib.simulation.channels.neuroml_via_xsl.neuroml_via_xsl_core.NeuroML_Via_XSL_Channel` allows channels specified in NeuroUnits as strings to be used in morphforge.
 
+.. seealso::
+
+  * :ref:`example_assorted_10compareHHChls`
+
 
 
 NeuroML_Via_NeuroUnits_Channel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :py:class:`~morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_neurounits_core.NeuroML_Via_NeuroUnits_Channel` is for internal use for testing a conversion from NeuroML to Neurounits to ensure they give the same simulation results.
+
+.. seealso::
+
+  * :ref:`example_assorted_10compareHHChls`
 
 
 

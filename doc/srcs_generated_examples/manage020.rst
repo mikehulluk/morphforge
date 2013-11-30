@@ -1,7 +1,7 @@
 
 .. _example_manage020:
 
-Example 22. Summarise the cells and channels that are registered to an environment
+Example 24. Summarise the cells and channels that are registered to an environment
 ==================================================================================
 
 
@@ -102,32 +102,32 @@ Output
     e =  1.602176565 coulomb;
     R = 8.3144621 J mole-1 kelvin-1;
     };
-    p_lhs! <ConstValue [id:54045200] Value: '3.141592653' >
-    p_lhs! <ConstValue [id:54045520] Value: '2.718281828' >
+    p_lhs! <ConstValue [id:55503376] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:55503696] Value: '2.718281828' >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54046160] {__sin__( <id:x:54045904>)} >
+    <FunctionDefBuiltInInstantiation [id:55504336] {__sin__( <id:x:55504080>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54157392] {__cos__( <id:x:54046096>)} >
+    <FunctionDefBuiltInInstantiation [id:55529552] {__cos__( <id:x:55504272>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54157968] {__tan__( <id:x:54157456>)} >
+    <FunctionDefBuiltInInstantiation [id:55530128] {__tan__( <id:x:55529616>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54158544] {__sinh__( <id:x:54157904>)} >
+    <FunctionDefBuiltInInstantiation [id:55530704] {__sinh__( <id:x:55530064>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54159120] {__cosh__( <id:x:54158480>)} >
+    <FunctionDefBuiltInInstantiation [id:55531280] {__cosh__( <id:x:55530640>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54159696] {__tanh__( <id:x:54159056>)} >
+    <FunctionDefBuiltInInstantiation [id:55531856] {__tanh__( <id:x:55531216>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54160272] {__asin__( <id:x:54159632>)} >
+    <FunctionDefBuiltInInstantiation [id:55532432] {__asin__( <id:x:55531792>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54160848] {__acos__( <id:x:54160208>)} >
+    <FunctionDefBuiltInInstantiation [id:55533008] {__acos__( <id:x:55532368>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54108240] {__atan__( <id:x:54160784>)} >
+    <FunctionDefBuiltInInstantiation [id:55480400] {__atan__( <id:x:55532944>)} >
     p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54108944] {__atan2__( <id:y:54108816,x:54108880>)} >
+    <FunctionDefBuiltInInstantiation [id:55481104] {__atan2__( <id:y:55480976,x:55481040>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54109712] {__exp__( <id:x:54109136>)} >
+    <FunctionDefBuiltInInstantiation [id:55481872] {__exp__( <id:x:55481296>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54110288] {__ln__( <id:x:54109648>)} >
+    <FunctionDefBuiltInInstantiation [id:55482448] {__ln__( <id:x:55481808>)} >
     p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
     WARNING: Symbol 'time_derivative' is unreachable
     WARNING: Symbol 'ns_name_list' is unreachable
@@ -213,30 +213,30 @@ Output
     Generating LALR tables
     /home/mh735/.local/lib/python2.7/site-packages/setuptools-1.1.5-py2.7.egg/pkg_resources.py:979: UserWarning: /home/mh735/.python-eggs is writable by group/others and vulnerable to attack when used with get_resource_filename. Consider a more secure location (set with .set_extraction_path or the PYTHON_EGG_CACHE environment variable).
     nctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54110864] {__log2__( <id:x:54110800>)} >
+    <FunctionDefBuiltInInstantiation [id:55483024] {__log2__( <id:x:55482960>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54111440] {__log10__( <id:x:54111376>)} >
+    <FunctionDefBuiltInInstantiation [id:55483600] {__log10__( <id:x:55483536>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54112016] {__abs__( <id:x:54110224>)} >
+    <FunctionDefBuiltInInstantiation [id:55484176] {__abs__( <id:x:55482384>)} >
     p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
-    <FunctionDefBuiltInInstantiation [id:54055440] {__pow__( <id:base:54055376,exp:54055184>)} >
+    <FunctionDefBuiltInInstantiation [id:55427600] {__pow__( <id:base:55427536,exp:55427344>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54056208] {__ceil__( <id:x:54055632>)} >
+    <FunctionDefBuiltInInstantiation [id:55428368] {__ceil__( <id:x:55427792>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54056784] {__fabs__( <id:x:54056144>)} >
+    <FunctionDefBuiltInInstantiation [id:55428944] {__fabs__( <id:x:55428304>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:54057360] {__floor__( <id:x:54056720>)} >
-    p_lhs! <MulOp [id:55045136] [??] >
-    p_lhs! <MulOp [id:54137168] [??] >
-    p_lhs! <DivOp [id:55040336] [??] >
-    p_lhs! <MulOp [id:55048336] [??] >
-    p_lhs! <DivOp [id:55049552] [??] >
-    p_lhs! <DivOp [id:55055952] [??] >
-    p_lhs! <ConstValue [id:55058064] Value: '96485.3365e0 s  A  mol ' >
-    p_lhs! <ConstValue [id:55058192] Value: '6.02214129e+23e0 mol ' >
-    p_lhs! <ConstValue [id:55059792] Value: '1.380648e-23e0 m 2 kg  s  K ' >
-    p_lhs! <ConstValue [id:55059984] Value: '1.602176565e0 s  A ' >
-    p_lhs! <ConstValue [id:55062288] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    <FunctionDefBuiltInInstantiation [id:55429520] {__floor__( <id:x:55428880>)} >
+    p_lhs! <MulOp [id:56417296] [??] >
+    p_lhs! <MulOp [id:55509328] [??] >
+    p_lhs! <DivOp [id:56412496] [??] >
+    p_lhs! <MulOp [id:56420496] [??] >
+    p_lhs! <DivOp [id:56421712] [??] >
+    p_lhs! <DivOp [id:56428112] [??] >
+    p_lhs! <ConstValue [id:56430224] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:56430352] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:56431952] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:56432144] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:56434448] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
     Parsing: ms
     Parsing: ms
     Parsing: mA/cm2

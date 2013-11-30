@@ -49,8 +49,8 @@ lots of channel definitions.
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
+from morphforgecontrib.stdimports import StdChlLeak,StdChlAlphaBeta
+
 
 
 

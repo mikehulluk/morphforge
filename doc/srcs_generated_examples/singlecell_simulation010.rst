@@ -158,32 +158,32 @@ Output
     e =  1.602176565 coulomb;
     R = 8.3144621 J mole-1 kelvin-1;
     };
-    p_lhs! <ConstValue [id:71830288] Value: '3.141592653' >
-    p_lhs! <ConstValue [id:71830608] Value: '2.718281828' >
+    p_lhs! <ConstValue [id:46488336] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:46488656] Value: '2.718281828' >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71831248] {__sin__( <id:x:71830992>)} >
+    <FunctionDefBuiltInInstantiation [id:46489296] {__sin__( <id:x:46489040>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74834256] {__cos__( <id:x:74834064>)} >
+    <FunctionDefBuiltInInstantiation [id:47018320] {__cos__( <id:x:47018128>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74834832] {__tan__( <id:x:74834192>)} >
+    <FunctionDefBuiltInInstantiation [id:47018896] {__tan__( <id:x:47018256>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74835408] {__sinh__( <id:x:74834768>)} >
+    <FunctionDefBuiltInInstantiation [id:47019472] {__sinh__( <id:x:47018832>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74835984] {__cosh__( <id:x:74835344>)} >
+    <FunctionDefBuiltInInstantiation [id:47020048] {__cosh__( <id:x:47019408>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74836560] {__tanh__( <id:x:74835920>)} >
+    <FunctionDefBuiltInInstantiation [id:47020624] {__tanh__( <id:x:47019984>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74837136] {__asin__( <id:x:74836496>)} >
+    <FunctionDefBuiltInInstantiation [id:47021200] {__asin__( <id:x:47020560>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:74837712] {__acos__( <id:x:74837072>)} >
+    <FunctionDefBuiltInInstantiation [id:47021776] {__acos__( <id:x:47021136>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71819600] {__atan__( <id:x:71819408>)} >
+    <FunctionDefBuiltInInstantiation [id:46526800] {__atan__( <id:x:46526608>)} >
     p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71820304] {__atan2__( <id:y:71820176,x:71820112>)} >
+    <FunctionDefBuiltInInstantiation [id:46527504] {__atan2__( <id:y:46527376,x:46527312>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71821072] {__exp__( <id:x:71820496>)} >
+    <FunctionDefBuiltInInstantiation [id:46528272] {__exp__( <id:x:46527696>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71821648] {__ln__( <id:x:71821008>)} >
+    <FunctionDefBuiltInInstantiation [id:46528848] {__ln__( <id:x:46528208>)} >
     p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
     WARNING: Symbol 'time_derivative' is unreachable
     WARNING: Symbol 'ns_name_list' is unreachable
@@ -267,8 +267,8 @@ Output
     WARNING: Symbol 'rhs_quantity_expr' is unreachable
     WARNING: Symbol 'quantity' is unreachable
     Generating LALR tables
-    2013-11-30 17:30:23,210 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-11-30 17:30:23,210 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
+    2013-11-30 18:12:59,655 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 18:12:59,656 - DISABLEDLOGGING - INFO - _run_spawn() [Pickling Sim]
     WARNING: Symbol 'quantity_expr' is unreachable
     WARNING: Symbol 'quantity_term' is unreachable
     WARNING: Symbol 'quantity_factor' is unreachable
@@ -321,32 +321,32 @@ Output
     e =  1.602176565 coulomb;
     R = 8.3144621 J mole-1 kelvin-1;
     };
-    p_lhs! <ConstValue [id:65005904] Value: '3.141592653' >
-    p_lhs! <ConstValue [id:65006224] Value: '2.718281828' >
+    p_lhs! <ConstValue [id:75696464] Value: '3.141592653' >
+    p_lhs! <ConstValue [id:75696784] Value: '2.718281828' >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65006864] {__sin__( <id:x:65006608>)} >
+    <FunctionDefBuiltInInstantiation [id:75697424] {__sin__( <id:x:75697168>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65007440] {__cos__( <id:x:65006800>)} >
+    <FunctionDefBuiltInInstantiation [id:75698000] {__cos__( <id:x:75697360>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65049040] {__tan__( <id:x:65048848>)} >
+    <FunctionDefBuiltInInstantiation [id:75723216] {__tan__( <id:x:75723024>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65049616] {__sinh__( <id:x:65048976>)} >
+    <FunctionDefBuiltInInstantiation [id:75723792] {__sinh__( <id:x:75723152>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65050192] {__cosh__( <id:x:65049552>)} >
+    <FunctionDefBuiltInInstantiation [id:75724368] {__cosh__( <id:x:75723728>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65050768] {__tanh__( <id:x:65050128>)} >
+    <FunctionDefBuiltInInstantiation [id:75724944] {__tanh__( <id:x:75724304>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65051344] {__asin__( <id:x:65050704>)} >
+    <FunctionDefBuiltInInstantiation [id:75725520] {__asin__( <id:x:75724880>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65051920] {__acos__( <id:x:65051280>)} >
+    <FunctionDefBuiltInInstantiation [id:75726096] {__acos__( <id:x:75725456>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65052496] {__atan__( <id:x:65051856>)} >
+    <FunctionDefBuiltInInstantiation [id:75726672] {__atan__( <id:x:75726032>)} >
     p_lhs! params: {'y': <FunctionDefParameterInstantiation: y >, 'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65040976] {__atan2__( <id:y:65040848,x:65040912>)} >
+    <FunctionDefBuiltInInstantiation [id:75698768] {__atan2__( <id:y:75698640,x:75698704>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65041744] {__exp__( <id:x:65041168>)} >
+    <FunctionDefBuiltInInstantiation [id:75699536] {__exp__( <id:x:75698960>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65042320] {__ln__( <id:x:65041680>)} >
+    <FunctionDefBuiltInInstantiation [id:75700112] {__ln__( <id:x:75699472>)} >
     p_lhs! params: {'x': <FuWARNING: Symbol 'ns_dot_name' is unreachable
     WARNING: Symbol 'time_derivative' is unreachable
     WARNING: Symbol 'ns_name_list' is unreachable
@@ -430,44 +430,44 @@ Output
     WARNING: Symbol 'rhs_quantity_expr' is unreachable
     WARNING: Symbol 'quantity' is unreachable
     Generating LALR tables
-    2013-11-30 17:30:24,814 - morphforge.core.logmgr - INFO - Logger Started OK
-    2013-11-30 17:30:24,814 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
+    2013-11-30 18:13:01,314 - morphforge.core.logmgr - INFO - Logger Started OK
+    2013-11-30 18:13:01,315 - DISABLEDLOGGING - INFO - Ensuring Modfile is built
     NEURON -- Release 7.1 (359:7f113b76a94b) 2009-10-26
     Duke, Yale, and the BlueBrain Project -- Copyright 1984-2008
     See http://www.neuron.yale.edu/credits.html
     
     nctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65042896] {__log2__( <id:x:65042832>)} >
+    <FunctionDefBuiltInInstantiation [id:75700688] {__log2__( <id:x:75700624>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65043472] {__log10__( <id:x:65043408>)} >
+    <FunctionDefBuiltInInstantiation [id:75701264] {__log10__( <id:x:75701200>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65044048] {__abs__( <id:x:65042256>)} >
+    <FunctionDefBuiltInInstantiation [id:75701840] {__abs__( <id:x:75700048>)} >
     p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
-    <FunctionDefBuiltInInstantiation [id:65016144] {__pow__( <id:base:65016080,exp:65015888>)} >
+    <FunctionDefBuiltInInstantiation [id:75718992] {__pow__( <id:base:75718928,exp:75718736>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65016912] {__ceil__( <id:x:65016336>)} >
+    <FunctionDefBuiltInInstantiation [id:75719760] {__ceil__( <id:x:75719184>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65017488] {__fabs__( <id:x:65016848>)} >
+    <FunctionDefBuiltInInstantiation [id:75720336] {__fabs__( <id:x:75719696>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:65018064] {__floor__( <id:x:65017424>)} >
-    p_lhs! <MulOp [id:65020112] [??] >
-    p_lhs! <MulOp [id:67023184] [??] >
-    p_lhs! <DivOp [id:67027856] [??] >
-    p_lhs! <MulOp [id:67029456] [??] >
-    p_lhs! <DivOp [id:67029008] [??] >
-    p_lhs! <DivOp [id:67056208] [??] >
-    p_lhs! <ConstValue [id:67109008] Value: '96485.3365e0 s  A  mol ' >
-    p_lhs! <ConstValue [id:67112400] Value: '6.02214129e+23e0 mol ' >
-    p_lhs! <ConstValue [id:67109328] Value: '1.380648e-23e0 m 2 kg  s  K ' >
-    p_lhs! <ConstValue [id:67112784] Value: '1.602176565e0 s  A ' >
-    p_lhs! <ConstValue [id:67112656] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    <FunctionDefBuiltInInstantiation [id:75720912] {__floor__( <id:x:75720272>)} >
+    p_lhs! <MulOp [id:75710672] [??] >
+    p_lhs! <MulOp [id:77676880] [??] >
+    p_lhs! <DivOp [id:77722512] [??] >
+    p_lhs! <MulOp [id:77724112] [??] >
+    p_lhs! <DivOp [id:77723664] [??] >
+    p_lhs! <DivOp [id:77771344] [??] >
+    p_lhs! <ConstValue [id:77688976] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:77692368] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:77689296] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:77692752] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:77692624] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
     Parsing: ms
     Parsing: ms
-    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/02/02f5897636ee212f03f8ea695312212a.bundle (10k) : 0.793 seconds
+    Loading Bundle from: /local/scratch/mh735/tmp/morphforge/tmp/simulationresults/a7/a76a57e0cb3856226e1d204147018970.bundle (10k) : 0.804 seconds
     set(['conductance', 'reversalpotential'])
     __dict__ {'mm_neuronNumber': None, 'cachedNeuronSuffix': None, 'reversalpotential': array(-51.0) * mV, '_name': 'LkChl', '_simulation': None, 'conductance': array(2.5) * s**3*A**2/(kg*m**4)}
     
-    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_dcfb640b25d60eb0f3cf3eaf68cac906.so
+    loading membrane mechanisms from /local/scratch/mh735/tmp/morphforge/tmp/modout/mod_e19740798a726d39afe0970dc7c309c4.so
     	1 
     	1 
     	0.01 
@@ -482,37 +482,37 @@ Output
     Running Simulation
     Parsing: S/cm2
     Parsing: mA/cm2
-    Time for Extracting Data: (3 records) 0.00604009628296
-    Running simulation : 0.105 seconds
+    Time for Extracting Data: (3 records) 0.00488209724426
+    Running simulation : 0.127 seconds
     Post-processing : 0.002 seconds
-    Entire load-run-save time : 0.900 seconds
+    Entire load-run-save time : 0.933 seconds
     Suceeded
     /usr/bin/pdflatex
     nctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71822224] {__log2__( <id:x:71822160>)} >
+    <FunctionDefBuiltInInstantiation [id:46529424] {__log2__( <id:x:46529360>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71822800] {__log10__( <id:x:71822736>)} >
+    <FunctionDefBuiltInInstantiation [id:46530000] {__log10__( <id:x:46529936>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71823440] {__abs__( <id:x:71821584>)} >
+    <FunctionDefBuiltInInstantiation [id:43937872] {__abs__( <id:x:46528784>)} >
     p_lhs! params: {'base': <FunctionDefParameterInstantiation: base >, 'exp': <FunctionDefParameterInstantiation: exp >}
-    <FunctionDefBuiltInInstantiation [id:71824144] {__pow__( <id:base:71824080,exp:71823888>)} >
+    <FunctionDefBuiltInInstantiation [id:43938576] {__pow__( <id:base:43938512,exp:43938320>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71824912] {__ceil__( <id:x:71824336>)} >
+    <FunctionDefBuiltInInstantiation [id:43939344] {__ceil__( <id:x:43938768>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71825488] {__fabs__( <id:x:71824848>)} >
+    <FunctionDefBuiltInInstantiation [id:43939920] {__fabs__( <id:x:43939280>)} >
     p_lhs! params: {'x': <FunctionDefParameterInstantiation: x >}
-    <FunctionDefBuiltInInstantiation [id:71826064] {__floor__( <id:x:71825424>)} >
-    p_lhs! <MulOp [id:73870608] [??] >
-    p_lhs! <MulOp [id:73880208] [??] >
-    p_lhs! <DivOp [id:73882128] [??] >
-    p_lhs! <MulOp [id:73910864] [??] >
-    p_lhs! <DivOp [id:73910736] [??] >
-    p_lhs! <DivOp [id:73873168] [??] >
-    p_lhs! <ConstValue [id:73872848] Value: '96485.3365e0 s  A  mol ' >
-    p_lhs! <ConstValue [id:73915024] Value: '6.02214129e+23e0 mol ' >
-    p_lhs! <ConstValue [id:73913232] Value: '1.380648e-23e0 m 2 kg  s  K ' >
-    p_lhs! <ConstValue [id:73914640] Value: '1.602176565e0 s  A ' >
-    p_lhs! <ConstValue [id:73915792] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
+    <FunctionDefBuiltInInstantiation [id:43940496] {__floor__( <id:x:43939856>)} >
+    p_lhs! <MulOp [id:45944080] [??] >
+    p_lhs! <MulOp [id:46039696] [??] >
+    p_lhs! <DivOp [id:46041616] [??] >
+    p_lhs! <MulOp [id:46037584] [??] >
+    p_lhs! <DivOp [id:46037456] [??] >
+    p_lhs! <DivOp [id:46077712] [??] >
+    p_lhs! <ConstValue [id:46077392] Value: '96485.3365e0 s  A  mol ' >
+    p_lhs! <ConstValue [id:46086800] Value: '6.02214129e+23e0 mol ' >
+    p_lhs! <ConstValue [id:46085008] Value: '1.380648e-23e0 m 2 kg  s  K ' >
+    p_lhs! <ConstValue [id:46086416] Value: '1.602176565e0 s  A ' >
+    p_lhs! <ConstValue [id:46087568] Value: '8.3144621e0 m 2 kg  s  K  mol ' >
     Parsing: ms
     Parsing: ms
     Parsing: mA/cm2

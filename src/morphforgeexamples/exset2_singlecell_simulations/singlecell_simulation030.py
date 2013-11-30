@@ -49,9 +49,7 @@ TODO: THIS IS NOT WORKING  - DISABLED TO ALLOW runnnign during pdf gen refactor
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
-
+from morphforgecontrib.stdimports import StdChlLeak, StdChlAlphaBeta
 
 # Create the environment:
 env = NEURONEnvironment()

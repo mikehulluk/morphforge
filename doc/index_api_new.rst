@@ -3,12 +3,13 @@
 Morphforge Users Guide
 ======================
 
+.. |MHThesis| replace:: :download:`Mike Hull's Ph.D Thesis </static/MHThesis.pdf>`
 
 
 Introduction
 ============
 
-morphforge is described in Mike Hull's Ph.D thesis (link) and this paper(link)
+morphforge is described in |MHThesis| and this paper(link)
 
 Modern simulators such as NEURON support a range of features; from modelling the internal diffusion of ions within a multicompartmental neuron to the calculation of extracellular potentials. It would require huge number of resources to implement a new interface that was the superset of these features. Rather than try to define a single monolithic system, the approach taken in morphforge is to provide a collection of classes and interfaces which form the core infrastructure, and then use a system of plugins which can be written to implement particular features. For example, morphforge is agnostic to how a synapse model is defined. The core of morphforge defines a minimal interface, and then plugins can be written, which allow a synapse specified in Python or MODL for example to be used with NEURON. This means morphforge naturally splits into two parts, morphforge-core, which contains the core infrastructure, and morphforge-contrib, which contains for example the plugins that define how a synapse model specified in a particular format is mapped to a particular simulator backend.
 
@@ -55,9 +56,12 @@ morphforge-core
     
     /srcs/mf_core/morphology.rst
     /srcs/mf_core/simulation.rst
-    /srcs/mf_core/simulation_neuron.rst
+
     /srcs/mf_core/simulationanalysis.rst
     /srcs/mf_core/misc.rst
+
+
+
 
 
 
@@ -71,6 +75,17 @@ morphforge-contrib
     /srcs/mf_contrib/morphology.rst
     /srcs/mf_contrib/simulation.rst
     /srcs/mf_contrib/simulation_analysis.rst
+
+
+morphforge-NEURON
+=================
+
+.. toctree::
+    :maxdepth: 2
+
+    /srcs/mf_core/neuron.rst
+
+
 
 Reference
 =========

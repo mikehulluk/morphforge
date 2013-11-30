@@ -1,2 +1,0 @@
-Simulation-Layer (Neuron-Specific)
-==================================
