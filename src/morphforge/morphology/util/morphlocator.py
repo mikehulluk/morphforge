@@ -52,7 +52,6 @@ class MorphLocator(object):
             if section.is_a_root_section():
 
                 if distance < dist_to_section_distal[section]:
-                    #assert False, 'Not implemented'
                     locations.append(MorphLocation(section=section, sectionpos=distance/dist_to_section_distal[section]) )
 
                 else:
@@ -63,12 +62,10 @@ class MorphLocator(object):
                 distal_dist = dist_to_section_distal[section]
 
                 # Does a distance fall on this section:
-                if proximal_dist < distance < distal_dist:
+                if proximal_dist <= distance < distal_dist:
                     prop = (distance - proximal_dist) / (distal_dist - proximal_dist)
                     assert 0.0 <= prop <= 1.0
                     locations.append(MorphLocation(section=section, sectionpos=prop))
-                else:
-                    pass
 
 
         dummy = MorphLocation(morphology.get_dummy_section().children[0], 0.0)

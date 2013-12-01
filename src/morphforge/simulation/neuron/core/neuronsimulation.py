@@ -311,7 +311,7 @@ class NEURONSimulation(Simulation):
                                  tags=record_obj.get_tags())
 
             # Simplify traces
-            if self.simsettings.simplify_traces:
+            if self.simsettings['simplify_traces']:
                 print 'CVODE:?', self.simsettings['cvode']
                 assert self.simsettings['cvode'] is False
                 tr = tr.simplify(self.simsettings.simplify_traces)

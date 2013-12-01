@@ -35,6 +35,9 @@
 
 
 import os
+from decimal import Decimal
+
+
 
 try:
     import pylab
@@ -288,9 +291,6 @@ def get_arg_string_hash(args, kwargs):
 
 def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):
     if cachefilenamebase is None:
-<<<<<<< HEAD
-        cachefilenamebase = '/home/michael/mf_tmp/_cache/cache'
-=======
         if RCMgr.has('Locations', 'simulation_cache'):
             cachefilenamebase = RCMgr.get( 'Locations', 'simulation_cache' )
         else:
@@ -299,8 +299,7 @@ def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):
             assert False
 
         #cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
-        cachefilenamebase = '/local/scratch/mh735/tmp/mf_cache/'
->>>>>>> 20b7cd426bd104a9b9c0382734f104d9ebbc6122
+        #cachefilenamebase = '/local/scratch/mh735/tmp/mf_cache/'
 
     # Hash up the arguments:
     if not args:
