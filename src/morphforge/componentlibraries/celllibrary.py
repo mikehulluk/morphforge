@@ -58,7 +58,7 @@ class CellLibrary(object):
     def summary_table(cls, ):
         summary_data = []
         for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
-            summary_data.append( ( modelsrc, celltype ))# , functor.__file__)
+            summary_data.append( ( modelsrc, celltype ))
         summary_table = mredoc.VerticalColTable( ('Model','CellType'), summary_data)
         return mredoc.Section('Cell Library Summary', summary_table )
 

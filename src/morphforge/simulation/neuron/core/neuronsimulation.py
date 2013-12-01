@@ -47,7 +47,7 @@ from morphforge.simulation.neuron.simulationdatacontainers import MModFileSet
 from morphforge.simulation.neuron.misc import NeuronSimulationConstants
 
 from morphforge.core.mgrs.logmgr import LogMgr
-from morphforge.traces import TraceVariableDT
+from morphforge.traces import TraceVariableDT, TraceFixedDT
 from morphforge.core.mockcontrol import MockControl
 
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
@@ -164,6 +164,7 @@ class NEURONSimulation(Simulation):
 
         # Load back the results:
         LogMgr.info('_run_spawn() [Loading results]')
+        print '_run_spawn() [Loading results from %s ]' % resfilename 
         self.result = SimulationResult.load_from_file(resfilename)
         LogMgr.info('_run_spawn() [Finished loading results]')
 
@@ -191,8 +192,8 @@ class NEURONSimulation(Simulation):
             sim_obj.build_hoc(hoc_data)
             sim_obj.build_mod(mod_files)
 
-
-        time_array = np.linspace(0, 2000, num=1000) * NeuronSimulationConstants.TimeUnit
+        tstop = float(self.simsettings['tstop'].rescale('ms').magnitude)
+        time_array = np.linspace(0, tstop, num=1000) * NeuronSimulationConstants.TimeUnit
         traces = []
         records = hoc_data[MHocFileData.Recordables]
         for rec in records.keys():
@@ -212,6 +213,7 @@ class NEURONSimulation(Simulation):
     def _run_no_spawn(self):
 
         # Generate Random data:
+        #MockControl.is_mock_simulation = True
         if False or MockControl.is_mock_simulation:
             return self.run_return_random_walks()
 
@@ -252,6 +254,7 @@ class NEURONSimulation(Simulation):
                             str(hoc_data), 
                             suffix='.hoc')
 
+            print 'Running Hoc File: %s' % hoc_filename
             nrn(neuron.h.load_file, hoc_filename)
             self.hocfilename = hoc_filename
 
@@ -298,10 +301,19 @@ class NEURONSimulation(Simulation):
 
             data_array = np.array(neuron.h.__getattribute__(hoc_details["recVecName"])) * record_obj.get_unit()
 
-            tr = TraceVariableDT(name=record_obj.name,
+            trace_type = TraceVariableDT if self.simsettings['cvode'] else TraceFixedDT
+            tr = trace_type(name=record_obj.name,
                                  comment=record_obj.get_description(),
                                  time=time_array, data=data_array,
                                  tags=record_obj.get_tags())
+
+            # Simplify traces
+            if self.simsettings.simplify_traces:
+                print 'CVODE:?', self.simsettings['cvode']
+                assert self.simsettings['cvode'] is False
+                tr = tr.simplify(self.simsettings.simplify_traces)
+
+
             traces.append(tr)
         print 'Time for Extracting Data: (%d records)' % len(records), \
             time.time() - t_trace_read_start
