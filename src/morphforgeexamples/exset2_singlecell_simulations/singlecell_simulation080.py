@@ -43,15 +43,12 @@ then tell the TagViewer to plot everything with a tag 'SIMY'
 
 
 from morphforge.stdimports import *
-#from morphforgecontrib.data_library.stdmodels import StandardModels
 from morphforgecontrib.stdimports import StandardModels
 
 
 def sim(glk_multiplier, gna_multiplier, tag):
-    # Create the environment:
+    
     env = NEURONEnvironment()
-
-    # Create the simulation:
     sim = env.Simulation()
 
     # Create a cell:

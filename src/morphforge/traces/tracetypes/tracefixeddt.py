@@ -33,8 +33,7 @@ import numpy as np
 
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
-import scipy
-import scipy.interpolate
+
 #import numpy as np
 
 class TraceFixedDT(TracePointBased):
@@ -66,6 +65,8 @@ class TraceFixedDT(TracePointBased):
 
     # TO MOVE:
     def simplify(self, npoints):
+        import scipy
+        import scipy.interpolate
 
         
         def moving_average(a, n=3) :

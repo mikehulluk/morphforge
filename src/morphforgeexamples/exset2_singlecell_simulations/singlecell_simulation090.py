@@ -54,6 +54,7 @@ along the axon. In each simulation, we change the number of compartments of the 
 "CellSegmenter_MaxLengthByID" allows us to specify the maximum length of 
 a compartment based on the Section ID. We see that as the length of the 
 compartments goes up, the number of distinct recordings goes down.
+When there are very few compartments, the action potential does not propogate.
 
 
 Custom cell-segmentation algorithms can be written by subclassing 

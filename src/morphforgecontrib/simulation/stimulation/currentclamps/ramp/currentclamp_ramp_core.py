@@ -29,6 +29,17 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+from morphforge.simulation.base.stimulation import CurrentClamp
 
-import currentclamp_sinwave_core
-import currentclamp_sinwave_neuron
+
+class CurrentClampRamp(CurrentClamp):
+    def __init__(self, amp0, amp1, time0, time1, time2, **kwargs):
+        super(CurrentClampRamp, self).__init__(**kwargs)
+        self.amp0 = amp0
+        self.amp1 = amp1
+        self.time0 = time0
+        self.time1 = time1
+        self.time2 = time2
+        
+        
+

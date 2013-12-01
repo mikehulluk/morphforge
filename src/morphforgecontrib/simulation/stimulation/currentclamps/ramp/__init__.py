@@ -30,5 +30,5 @@
 # ----------------------------------------------------------------------
 
 
-import currentclamp_sinwave_core
-import currentclamp_sinwave_neuron
+import currentclamp_ramp_core
+import currentclamp_ramp_neuron

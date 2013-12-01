@@ -94,6 +94,7 @@ from morphforgecontrib.simulation.channels.neuroml_via_neurounits.neuroml_via_ne
 
 
 from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
+from morphforgecontrib.simulation.stimulation.currentclamps.ramp.currentclamp_ramp_core import CurrentClampRamp
 
 
 # Constants for accessing standard models:

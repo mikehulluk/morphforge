@@ -67,7 +67,7 @@ class CurrentClampCurrentRecord(NEURONRecordable):
         pass
 
     def get_description(self):
-        return 'Current Clamp Injection: %s' % self.cclamp.name
+        return 'Step CurrentClamp Injection: %s' % self.cclamp.name
 
 
 

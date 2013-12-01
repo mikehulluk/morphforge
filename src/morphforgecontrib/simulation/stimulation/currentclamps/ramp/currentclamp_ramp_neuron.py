@@ -34,7 +34,7 @@ from morphforge.constants.standardtags import StandardTags
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
-from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp_sinwave_core import CurrentClampSinwave
+from morphforgecontrib.simulation.stimulation.currentclamps.ramp.currentclamp_ramp_core import CurrentClampRamp
 from morphforge.simulation.neuron.objects.neuronobject import NEURONObject
 from morphforge.units import qty
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
@@ -43,15 +43,15 @@ from morphforge.core import ObjectLabeller
 
 
 
-currentclampsinwaveTxt = """
+currentclamprampTxt = """
 COMMENT
 TODO: ATTRIBUTION.
 ENDCOMMENT
 
 
 NEURON {
-        POINT_PROCESS CurrentClampSinWave
-        RANGE del, dur, pkamp, freq, phase, bias
+        POINT_PROCESS CurrentClampRamp
+        RANGE amp0, amp1, time0, time1, time2
         ELECTRODE_CURRENT i
 }
 
@@ -60,13 +60,12 @@ UNITS {
              }
 
 PARAMETER {
-        del=5   (ms)
-        dur=1000   (ms)
-        pkamp=10 (nA)
-        freq=10  (Hz)
-        phase=0 (rad)
-        bias=0  (nA)
-        PI=3.14159265358979323846
+        amp0=0   (nA)
+        amp1=0   (nA)
+        time0=1  (ms)
+        time1=2  (ms)
+        time2=3  (ms)
+        
 }
 
 ASSIGNED {
@@ -75,40 +74,49 @@ ASSIGNED {
 
 UNITSOFF
 BREAKPOINT {
-    at_time(del)
-    at_time(del + dur)
+    at_time(time0)
+    at_time(time1)
+    at_time(time2)
+    
 
-    if (t < del) {
+    if (t < time0) {
           i=0
-       }else{
-                if (t < del+dur) {
-               i = pkamp*sin(2*PI*freq*(t-del)/1000+phase)+bias
+       }else{ 
+          if (t < time1) {
+               i = (t-time0) /(time1-time0) * (amp1-amp0) + amp0
           }else{
-               i = 0
+            if (t < time2) {
+               i=amp1
+            }
+        else{
+            i=0
+            }
+        
 }}}
 """
 
 
 
 
-ccSinWaveHOCTmpl = """
+ccRampHOCTmpl = """
 // Post-Synapse [$stimname]
 objref $stimname
-${cellname}.internalsections[$sectionindex] $stimname = new CurrentClampSinWave ($sectionpos)
-${stimname}.freq =     $freq.rescale("Hz").magnitude
-${stimname}.pkamp =      $amp.rescale("nA").magnitude
-${stimname}.del =    $delay.rescale("ms").magnitude
-${stimname}.bias = $bias.rescale("nA").magnitude
-${stimname}.dur = $duration.rescale("ms").magnitude
+${cellname}.internalsections[$sectionindex] $stimname = new CurrentClampRamp ($sectionpos)
+${stimname}.amp0 =   $amp0.rescale("nA").magnitude
+${stimname}.amp1 =   $amp1.rescale("nA").magnitude
+
+${stimname}.time0 =   $time0.rescale("ms").magnitude
+${stimname}.time1 =   $time1.rescale("ms").magnitude
+${stimname}.time2 =   $time2.rescale("ms").magnitude
 
 """
 from morphforge import units
 
 
-class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
+class NeuronRampCurrentClampCurrentRecord(NEURONRecordable):
 
     def __init__(self, cclamp, **kwargs):
-        super(NeuronSinwaveCurrentClampCurrentRecord, self).__init__(**kwargs)
+        super(NeuronRampCurrentClampCurrentRecord, self).__init__(**kwargs)
         self.cclamp = cclamp
 
     def get_unit(self):
@@ -123,15 +131,14 @@ class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
 
     def build_mod(self, modfile_set):
         pass
-    
     def get_description(self):
-        return 'Sinwave CurrentClamp Injection: %s' % self.cclamp.name
+        return 'Ramp CurrentClamp Injection: %s' % self.cclamp.name
 
 
-class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
+class NEURONCurrentClampRamp(CurrentClampRamp, NEURONObject):
 
     def __init__(self, **kwargs):
-        super(NEURONCurrentClampSinwave, self).__init__(**kwargs)
+        super(NEURONCurrentClampRamp, self).__init__(**kwargs)
 
     def build_hoc(self, hocfile_obj):
         cell = self.cell_location.cell
@@ -144,33 +151,34 @@ class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
             'cellname': cell_hoc['cell_name'],
             'sectionindex': cell_hoc['section_indexer'][section],
             'sectionpos': self.cell_location.morphlocation.sectionpos,
-            'freq': self.freq,
-            'amp': self.amp,
-            'delay': self.delay,
-            'bias': self.bias,
-            'duration': self.duration,
+            
+            'amp0': self.amp0,
+            'amp1': self.amp1,
+            'time0': self.time0,
+            'time1': self.time1,
+            'time2': self.time2,
             }
 
-        hoc_txt = Template(ccSinWaveHOCTmpl, data).respond()
+        hoc_txt = Template(ccRampHOCTmpl, data).respond()
         hocfile_obj.add_to_section(MHOCSections.InitCurrentClamps, hoc_txt)
         hocfile_obj[MHocFileData.CurrentClamps][self] = data
 
 
 
     def build_mod(self, modfile_set):
-        modfile = ModFile(modtxt=currentclampsinwaveTxt,
-                          name='NeuronSinWaveCurrentClmap')
+        modfile = ModFile(modtxt=currentclamprampTxt,
+                          name='NeuronRampCurrentClamp')
         modfile_set.append(modfile)
 
     def get_recordable(self, what, **kwargs):
         if what == StandardTags.Current:
-            return NeuronSinwaveCurrentClampCurrentRecord(cclamp=self,
+            return NeuronRampCurrentClampCurrentRecord(cclamp=self,
                     **kwargs)
         assert False
 
 
 from morphforge.stdimports import NEURONEnvironment
-NEURONEnvironment.currentclamps.register_plugin(CurrentClampSinwave, NEURONCurrentClampSinwave)
+NEURONEnvironment.currentclamps.register_plugin(CurrentClampRamp, NEURONCurrentClampRamp)
 
 
 
