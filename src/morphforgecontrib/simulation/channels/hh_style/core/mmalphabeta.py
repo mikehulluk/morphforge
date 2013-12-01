@@ -50,7 +50,7 @@ class StdChlAlphaBeta(Channel):
                StateVarSteadyState, StateVarTimeConstant]
 
 
-    def __init__(self, name, equation, conductance, reversalpotential, statevars=None, ion=None, **kwargs):
+    def __init__(self, equation, conductance, reversalpotential, statevars=None, name=None, ion=None, **kwargs):
         super(StdChlAlphaBeta, self).__init__(name=name, **kwargs)
         # TODO: FIXED DEFAULT PARAMETER 'statevars'
         if statevars is None:
