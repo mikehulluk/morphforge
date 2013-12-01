@@ -31,10 +31,6 @@
 
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
-#import numpy as np
-#import scipy
-#import scipy.interpolate
-
 class TraceVariableDT(TracePointBased):
 
     def __init__(self, time, data, name=None, comment=None, tags=None):
@@ -44,9 +40,5 @@ class TraceVariableDT(TracePointBased):
         return '<Trace: %s (Variable dt)(N. Points: %d)(Min-Max: %s-%s)>' \
             % (self.name, self.get_n(), self.get_min_time(),
                self.get_max_time())
-
-
-
-
 
 

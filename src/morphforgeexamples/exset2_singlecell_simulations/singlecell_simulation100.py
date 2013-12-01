@@ -30,22 +30,17 @@
 # ----------------------------------------------------------------------
 
 
-"""Spcifiying the different types of current clamps
-TODO!
+"""Specifying the different types of current clamps.
+A simulation in which a passve neuron is stimulated with different
+types of current-clamps.
 """
-
-
 
 from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
 
-
-
-
 # Create the environment:
 env = NEURONEnvironment()
 sim = env.Simulation()
-
 
 # Create a cell:
 m1 = MorphologyTree.fromDictionary({'root': {'length': 20, 'diam': 40, 'id':'soma'} })
@@ -73,18 +68,10 @@ cc5 = sim.create_currentclamp(protocol=CurrentClampRamp, name='CC5',
             amp0=-50*units.pA, amp1=-100*units.pA, 
             time0=300*units.ms, time1=330*units.ms, time2=340*units.ms, cell_location=cell.soma)
 
-
-
-
 for cc in [cc0,cc1,cc2,cc3, cc4, cc5]:
     sim.record(cc, what=StandardTags.Current)
 sim.record(cell, what=StandardTags.Voltage, cell_location = cell.soma)
 
-
-
 results = sim.run()
-
-
-
-TagViewer([results], timerange=(30, 500)*units.ms )
+TagViewer(results, timerange=(30, 500)*units.ms )
 
