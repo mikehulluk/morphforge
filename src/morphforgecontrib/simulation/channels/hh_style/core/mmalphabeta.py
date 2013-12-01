@@ -57,7 +57,6 @@ class StdChlAlphaBeta(Channel):
             statevars = {}
         
         self.ion = ion
-        #assert self.ion is None
         self.eqn = equation
         self.conductance = qty(conductance)
         self.statevars = dict([(s, (sDict['alpha'], sDict['beta'])) for s, sDict in statevars.iteritems()])
@@ -79,6 +78,17 @@ class StdChlAlphaBeta(Channel):
                 'e_rev': units.mV, 
                 'gScale': units.dimensionless
                 }
+
+    def record_all(self, sim, cell_location):
+        sim.record(self, what=StdChlAlphaBeta.Recordables.ConductanceDensity,cell_location=cell_location)
+        sim.record(self, what=StdChlAlphaBeta.Recordables.CurrentDensity,cell_location=cell_location)
+        for sv in self.statevars.keys():
+            sim.record(self, what=StdChlAlphaBeta.Recordables.StateVar, state=sv,cell_location=cell_location)
+            sim.record(self, what=StdChlAlphaBeta.Recordables.StateVarSteadyState, state=sv,cell_location=cell_location)
+            sim.record(self, what=StdChlAlphaBeta.Recordables.StateVarTimeConstant, state=sv,cell_location=cell_location)
+
+
+
 
     def get_state_variables(self):
         return self.statevars.keys()

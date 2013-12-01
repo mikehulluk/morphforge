@@ -45,9 +45,7 @@ class TraceConverter(object):
 
     @classmethod
     def rebase_to_fixed_dt(cls, original_trace, dt):
-        print 'dt', dt
         from morphforge.units.wrappers import NpPqWrappers
-        print original_trace
         time = NpPqWrappers.arange(start=original_trace.get_min_time(), stop=original_trace.get_max_time(), step=dt)
         data = original_trace.get_values(time)
         return TraceFixedDT(time, data, name=original_trace.name, comment=original_trace.comment, tags=original_trace.tags)

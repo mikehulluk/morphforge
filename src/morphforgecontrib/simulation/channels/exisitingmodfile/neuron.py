@@ -54,7 +54,7 @@ class NEURONChl_SimulatorSpecificChannel(NEURONChl_Base, SimulatorSpecificChanne
             self.mod_text = modtxt
 
 
-
+    
 
         r = re.compile(r"""^[^:]* SUFFIX \s* (?P<suffix>[a-zA-Z0-9_]+) (\s+:.*)? $ """, re.VERBOSE | re.MULTILINE |re.DOTALL)
 

@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-#from morphforge.simulation.base.networks import PostSynapticMech
 from morphforge.stdimports import units
 
 class PostSynapticMech_Exp2Syn_Base(object):
@@ -55,3 +54,6 @@ class PostSynapticMech_Exp2Syn_Base(object):
                 }
         return _units[varname]
 
+
+    def get_summary_description(self, instance):
+        return "Exp2Syn"

@@ -44,10 +44,11 @@ import morphforge.units as units
 # (Suppress warning about 'unnessesary lambda functions')
 
 
+from decimal import Decimal
 
 class DefaultTagPlots(object):
-    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*units.mV, 50*units.mV), yunit=units.mV )
-    CurrentDensity =     TagPlot("CurrentDensity", ylabel='CurrentDensity', yunit=units.milliamp / units.cm2 )
+    Voltage =            TagPlot("Voltage", ylabel='Voltage', yrange=(-80*units.mV, 50*units.mV), yunit=units.mV  )
+    CurrentDensity =     TagPlot("CurrentDensity", ylabel='Current\nDensity', yunit=units.picoamp / units.um2 )
     Current =            TagPlot("Current", ylabel='Current', yunit=units.picoamp)
     Conductance =        TagPlot("Conductance", ylabel="Conductance", yunit=units.pS)
     ConductanceDensity = TagPlot("ConductanceDensity", ylabel="ConductanceDensity", yunit=units.mS / units.cm2 )
@@ -103,9 +104,12 @@ class TagViewer(object):
         show_xticklabels='only-once',
         show_xticklabels_with_units=True,
         show_xaxis_position='bottom',
-        xticks=None
-
+        xticklabel_quantisation = False,
+        xticks=None,
+        xlabel='Time'
         ):
+
+        self.xlabel = xlabel
 
         if fig_kwargs is None:
             fig_kwargs = self._default_fig_kwargs
@@ -160,6 +164,8 @@ class TagViewer(object):
         self.show_xticklabels = show_xticklabels
         self.show_xticklabels_with_units = show_xticklabels_with_units
         self.show_xaxis_position = show_xaxis_position
+        #self.xticks_as_ints = xticks_as_ints
+        self.xticklabel_quantisation = xticklabel_quantisation
         self.xticks=xticks
         assert self.show_xlabel in self._options_show_xlabel, 'Invalid'
         assert self.show_xticklabels in self._options_show_xticklabels, 'Invalid: %s' % show_xticklabels
@@ -222,15 +228,15 @@ class TagViewer(object):
                             time_range=self.timerange,
                             linkage=self.linkage,
                             decimate_points=self.decimate_points,
-                            #plot_xaxis_details=plot_xaxis_details,
-
                             show_xlabel = self.show_xlabel,
                             show_xticklabels = self.show_xticklabels,
                             show_xticklabels_with_units = self.show_xticklabels_with_units,
                             show_xaxis_position = self.show_xaxis_position,
+                            xticklabel_quantisation=self.xticklabel_quantisation,
                             is_top_plot = (i==0),
                             is_bottom_plot = (i==n_plots-1),
-                            xticks = self.xticks
+                            xticks = self.xticks,
+                            xlabel=self.xlabel,
 
                             )
 

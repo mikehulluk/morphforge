@@ -30,7 +30,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc as mrd
 import types
 
 
@@ -79,6 +78,7 @@ class PostSynapticTemplateLibrary(object):
 
     @classmethod
     def summary_table(cls):
+        import mredoc as mrd
         modelsrcs = sorted( set([ modelsrc for (modelsrc, synapsetype) in cls._postsynaptic_template_functor_info.keys() ]) )
 
         # We are going to make one table per synapse_type per modelsrc:
@@ -103,6 +103,8 @@ class PostSynapticTemplateLibrary(object):
                     for k,v in syn_vars_dict.iteritems():
                         if isinstance(v, (float, types.BooleanType )):
                             continue
+                        print template_type, synapsetype
+
                         syn_vars_dict[k] = v.rescale(template_type.get_preferred_unit(k))
 
 
@@ -113,6 +115,6 @@ class PostSynapticTemplateLibrary(object):
 
             sects.append( mrd.Section('ModelSrc: %s' %(modelsrc), *subsect) )
 
-        return  mrd.Section('Synaptic Templates', *sects)
+        return  mrd.Section('PostSynaptic Templates', *sects)
         #'return sect
 

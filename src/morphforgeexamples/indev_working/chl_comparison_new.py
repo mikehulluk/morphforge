@@ -38,14 +38,14 @@ from os.path import join as Join
 from Cheetah.Template import Template
 from mhlibs.test_data.neuroml import NeuroMLDataLibrary
 from neurounits.importers.neuroml.errors import NeuroUnitsImportNeuroMLNotImplementedException
-html_output_dir = "/home/michael/Desktop/chl_comp"
+html_output_dir = "~/Desktop/chl_comp"
 from morphforge.core import LocMgr
 
 import lxml.etree as etree
 
 import pylab
 
-from morphforge.stdimports import NEURONEnvironment, MorphologyTree, unit
+from morphforge.stdimports import NEURONEnvironment, MorphologyTree #, unit
 from morphforge.stdimports import PassiveProperty 
 from morphforge.stdimports import  units
 from morphforge.stdimports import  StandardTags
@@ -438,21 +438,6 @@ def main():
     data = []
     for xmlfile in NeuroMLDataLibrary.get_channelMLV1FilesWithSingleChannel():
 
-
-        #class NeuroMLDataLibrary(object):
-#
-#            def get_channelMLV1Files(self):
-
-
-        #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/GranCellLayer_NeuroML/Golgi_NaF_CML.xml":
-        #        continue
-
-
-        #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/MainenEtAl_PyramidalCell_NeuroML/K_ChannelML.xml":
-        #        continue
-        #if xmlfile != "/home/michael/hw_to_come/morphforge/src/test_data/NeuroML/V1/example_simulations/CA1PyramidalCell_NeuroML/kdr.xml":
-        #    continue
-
         # Compare:
         data.append(compareNeuroMLChl(xmlfile))
 
@@ -461,6 +446,7 @@ def main():
             f.write(Template(root_html_tmpl, {'data': data}).respond())
 
         #break
+    print 'Done'
 
 
 

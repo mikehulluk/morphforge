@@ -33,6 +33,21 @@
 # pylint: disable=W0611
 # (don't complain about wildcard imports)
 
+
+import os
+
+try:
+    import pylab
+    import numpy as np
+except ImportError:
+    print 'Problem importing Numpy or Matplotlib'
+
+
+import neurounits
+
+
+
+
 # Units:
 import morphforge.units as units
 from morphforge.units import qty
@@ -65,6 +80,7 @@ from morphforge.morphology import *
 from morphforge.morphology.core import *
 from morphforge.morphology.builders import *
 from morphforge.morphology.visitor import *
+from morphforge.morphology.ui import *
 from morphforge.morphology.util.morphlocator import MorphLocator
 
 # SIMULATION
@@ -76,40 +92,30 @@ from morphforge.simulation.base.synaptictriggers import SynapticTriggerAtTimes
 from morphforge.simulation.base.synaptictriggers import SynapticTriggerByVoltageThreshold
 
 
-# Simulation Analysis
-#from morphforge.simulationanalysis.summaries import *
 
 from morphforge.componentlibraries import *
+from morphforge.componentlibraries.psm_template_library import PostSynapticTemplateLibrary
+from morphforge.componentlibraries.channellibrary import cached_functor
 
-
+# Import to ensure that they are registered with the plugin-system:
 import morphforge.simulation.neuron.objects.obj_cclamp
 import morphforge.simulation.neuron.objects.obj_vclamp
 
 from morphforge.morphology.conventions import SWCRegionCodes
 
-try:
-    import pylab
-    import numpy as np
-except ImportError:
-    print 'Problem importing Numpy or Matplotlib'
 
-import neurounits
 
-import os
 
 from morphforge.morphology.core.tree import MorphPath
 from morphforge.simulation.base.segmentation.cellsegmenter import CellSegmenter_MaxLengthByID
 
-#from morphforge import units
 
 
 from morphforge.management import PluginMgr
 from morphforge.simulationanalysis.summaries_new import SimulationMRedoc
 
-from morphforge.componentlibraries.channellibrary import cached_functor
 
 
-from morphforge.componentlibraries.psm_template_library import PostSynapticTemplateLibrary
 
 
 class MembraneMechanismSummariser(object):
@@ -124,8 +130,10 @@ from morphforge.simulationanalysis.summaries_new import SummariserOptions
 
 
 
-from mreorg import PM
-
+try:
+    from mreorg import PM
+except ImportError:
+    pass
 
 
 
@@ -150,7 +158,7 @@ from mreorg import PM
 # WE CAN PROBABLY DO THIS BY INSERTING ANOTHER CALL VERY EARLY ON DURING STARTUP
 # AND ALSO CACHING WHAT IS CALLED IN THAT!
 # WITH THE CURRENT CACHING, IF INITITAILISATION CODE CHANHGES A Variable that it later
-# read, we don't pick this ut!
+# read, we don't pick this up!
 
 
 import trace,hashlib, sys, os
@@ -239,6 +247,8 @@ def _run_and_cache(func, args, kwargs):
     for (filename, linenumber) in sorted(trace_obj.results().counts):
         if filename .startswith('/usr'):
             continue
+        if filename.startswith("build/bdist.linux-x86_64/egg/"):
+            continue
 
         if not filename in _accessed_functions:
             _accessed_functions[filename] = []
@@ -260,9 +270,10 @@ def is_cache_clean(cache):
         return False
 
     for cachefile in cache:
-        print cachefile
         if not cachefile.is_clean():
+            print 'No! ( Out of date: %s )' % cachefile
             return False
+    print 'Yes (No changes detected in %d files)' % len(cache) 
     return True
 
 
@@ -277,7 +288,19 @@ def get_arg_string_hash(args, kwargs):
 
 def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):
     if cachefilenamebase is None:
+<<<<<<< HEAD
         cachefilenamebase = '/home/michael/mf_tmp/_cache/cache'
+=======
+        if RCMgr.has('Locations', 'simulation_cache'):
+            cachefilenamebase = RCMgr.get( 'Locations', 'simulation_cache' )
+        else:
+            print 'Unable to find suitable cache-directory. Either pass it as an option to this function, or add to the morphforge config file in Locations:simulation_cache'
+            print
+            assert False
+
+        #cachefilenamebase = '/mnt/sdb5/home/michael/mftmp/_cache/cache'
+        cachefilenamebase = '/local/scratch/mh735/tmp/mf_cache/'
+>>>>>>> 20b7cd426bd104a9b9c0382734f104d9ebbc6122
 
     # Hash up the arguments:
     if not args:

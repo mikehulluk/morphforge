@@ -26,6 +26,7 @@ doc_src_dir = os.path.normpath( os.path.join(root, "doc") )
 
 examples_dst_dir =  os.path.join(root, "doc/srcs_generated_examples")
 examples_dst_dir_images =  os.path.join(root, "doc/srcs_generated_examples/images/")
+examples_dst_dir_python =  os.path.join(root, "doc/srcs_generated_examples/python_srcs")
 
 examples_build_dir = os.path.join( LocMgr.get_tmp_path(), "mf_doc_build")
 examples_build_dir_image_out = os.path.join( examples_build_dir,  "images/")
@@ -64,6 +65,8 @@ def parse_src_file(filename, docstring):
 
 
 rstTmpl = """
+.. _example_${examples_filename}:
+
 $title
 $titleunderline
 
@@ -129,16 +132,22 @@ def make_rst_output(index, examples_filename, src_code, output_images, docstring
 
     title = title or '<Missing Docstring>'
 
+
+    # Clean up the output (especially the '\r's iduring simulation
+    output = output.strip()
+    output = '\n'.join( [ l for l in output.split('\n') if not '\r' in l] )
+
     # Prefix the title:
-    title = "%d. "%(index+1) +title
+    title = "Example %d. "%(index+1) +title
     # Create the rst:
     context = {
                 'title':title,
                 'titleunderline':"="*len(title),
                 'docstring': docstring,
-                'code' : "\n".join( ["\t"+l for l in src_code.split("\n")] ),
+                'code' : "\n".join( ["    "+l for l in src_code.split("\n")] ),
                 'figures':im_names,
-                'output' : "\n".join( ["\t"+l for l in output.split("\n")] ),
+                'output' : "\n".join( ["    "+l for l in output.split("\n")] ),
+                'examples_filename': os.path.basename( examples_filename ).replace(".py",""),
                 }
     s = Template(rstTmpl, context).respond()
 
@@ -178,14 +187,17 @@ def run_example(index, filename):
 
     # Turn off plotting:
     env = os.environ.copy()
-    env['MREORG_BATCHRUN'] = "True"
+    env['MREORG_CONFIG'] = "BATCHRUN"
 
     args = shlex.split("""python %s"""%newFilename)
-    #print 'Launching child process', args
-    result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
+
+    try:
+        result = subprocess.check_output(args, stderr=subprocess.STDOUT, env=env)
+    except subprocess.CalledProcessError:
+        print '  ** Error Running file'
+        result = ''
 
     # Split the output to get at the docstring:
-    output = result
     docstring = mreorg.utils.extract_docstring_from_fileobj( open(filename))
 
     # Get the images:
@@ -195,7 +207,12 @@ def run_example(index, filename):
     src_code = parse_src_file(filename, docstring)
 
     # Create the Output RST File:
-    make_rst_output( index=index, examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=output)
+    make_rst_output( index=index, examples_filename=filename, src_code=src_code, output_images=images, docstring=docstring, output=result)
+    
+    # Copy the file accross to the output directory:
+    with open( os.path.join( examples_dst_dir_python, os.path.basename(filename) ), 'w') as f:
+        f.write( src_code )
+
 
 
 
@@ -203,8 +220,10 @@ def run_example(index, filename):
 # Start with an empty directory:
 clear_directory(examples_dst_dir)
 clear_directory(examples_dst_dir_images)
+clear_directory(examples_dst_dir_python)
 
 for index, fName in enumerate(example_srcs):
     fName_full = os.path.join(examples_src_dir, fName)
     run_example(index, fName_full)
+    
 

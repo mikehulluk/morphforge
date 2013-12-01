@@ -33,22 +33,14 @@
 
 """Investigating the rheobase of a neuron with a parameter sweep
 
-WARNING: The automatic naming and linkage between grpah colors is currently under a refactor;
-what is done in this script is not representing the best possible solution, or even something that
-will reliably work in the future!
+WARNING: The automatic naming and linkage between grpah colors is currently under a refactor; what is done in this script is not representing the best possible solution, or even something that will reliably work in the future!
 
 The aim of this script is just to show that it is possible to run multiple simulations from a single script!
-
-
-
-
 """
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
-
+from morphforgecontrib.stdimports import StdChlLeak, StdChlAlphaBeta
 
 
 @cached_functor
@@ -147,7 +139,13 @@ def simulate(current_inj_level):
 
 
 # Display the results:
-results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
+#results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
+results = [simulate(current_inj_level='%d:pA' % i) for i in [50]  ]
+
+
+# Create an output .pdf of the first simulation:
+SimulationMRedoc.build( results[0] ).to_pdf(__file__ + '.pdf')
+
 TagViewer(results, timerange=(95, 200)*units.ms, show=True)
 
 

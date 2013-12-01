@@ -51,11 +51,17 @@ class StdChlLeak(Channel):
         self.conductance = qty(conductance)
         self.reversalpotential = qty(reversalpotential)
 
+    def record_all(self, sim, cell_location):
+        sim.record(self, what=StdChlLeak.Recordables.ConductanceDensity,cell_location=cell_location)
+        sim.record(self, what=StdChlLeak.Recordables.CurrentDensity,cell_location=cell_location)
+
+
     def get_variables(self):
         return ['gLk', 'eLk', 'gScale']
 
     def get_defaults(self):
-        return {'gLk': self.conductance, 'eLk': self.reversalpotential,
+        return {'gLk': self.conductance, 
+                'eLk': self.reversalpotential,
                 'gScale': qty('1.0')}
 
     def get_prefered_units(self):

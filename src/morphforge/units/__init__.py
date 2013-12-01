@@ -40,7 +40,22 @@ from morphforge.units.util import parse_unit_str
 
 
 # Import all the units from quantities:
-from quantities import *
+from quantities import pA, nA, uA, mA, A
+from quantities import mV, V
+from quantities import Quantity, UnitConstant, UnitQuantity, Dimensionless
+from quantities import millivolt, volt
+from quantities import picoamp, nanoamp, milliamp, amp
+from quantities import second, millisecond
+
+import os
+
+print sorted(os.environ.keys())
+if not 'READTHEDOCS' in os.environ:
+    from quantities import *
+#else:
+#    from quantities import *
+
+
 
 
 # Import some commonly-used neuroscience units:

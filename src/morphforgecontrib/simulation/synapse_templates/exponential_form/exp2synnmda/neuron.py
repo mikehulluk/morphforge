@@ -61,6 +61,8 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
         super(Neuron_PSM_Std_NMDAVoltageDependanceRecord, self).__init__(**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
+        self._description="MyDesc!!"
+
     def get_unit(self):
         return parse_unit_str('')
 
@@ -75,6 +77,26 @@ class Neuron_PSM_Std_NMDAVoltageDependanceRecord(NEURONRecordable):
     def build_mod(self, modfile_set):
         pass
 
+class Neuron_PSM_Std_NMDAConductanceWithVoltageDependanceRecord(NEURONRecordable):
+
+    def __init__(self, neuron_syn_post, **kwargs):
+
+        super(Neuron_PSM_Std_NMDAConductanceWithVoltageDependanceRecord, self).__init__(**kwargs)
+        self.neuron_syn_post = neuron_syn_post
+
+    def get_unit(self):
+        return parse_unit_str('uS')
+
+    def get_std_tags(self):
+        return [StandardTags.NMDAConductanceWithVDep]
+
+    def build_hoc(self, hocfile_obj):
+        assert len(self.neuron_syn_post.synapses) == 1
+        obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post]["synnamepost"]
+        HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s" % self.name, objname=obj_name_hoc, objvar="gtot", recordobj=self)
+
+    def build_mod(self, modfile_set):
+        pass
 
 
 exp2HOCTmpl = """
@@ -146,8 +168,6 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
 
         assert not instance in hocfile_obj[MHocFileData.Synapses]
         hocfile_obj[MHocFileData.Synapses][instance] = data
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        #hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
 
 
     def template_build_mod(self, modfile_set):
@@ -162,6 +182,10 @@ class NEURONPostSynapticMechTemplate_Exp2SynNMDA(PostSynapticMech_Exp2SynNMDA_Ba
             return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance, **kwargs)
         if what == StandardTags.NMDAVoltageDependancy:
             return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=instance, **kwargs)
+        if what == StandardTags.NMDAVoltageDependancy:
+            return Neuron_PSM_Std_NMDAVoltageDependanceRecord(neuron_syn_post=instance, **kwargs)
+        if what == StandardTags.NMDAConductanceWithVDep:
+            return Neuron_PSM_Std_NMDAConductanceWithVoltageDependanceRecord(neuron_syn_post=instance, **kwargs)
         assert False
 
 

@@ -47,6 +47,7 @@ class MayaViRenderer(object):
 
     def __init__(self, morph=None, morphs=None, scalefactor=1.0):
         self.colormap = 'copper'
+        self.colormap = 'Oranges'
         self.scale_factor = scalefactor
 
         assert morph or morphs
@@ -87,7 +88,7 @@ class MayaViRenderer(object):
         """
 
         # MonkeyPatchMayaVi()
-        import enthought.mayavi.mlab as mlab
+        #import enthought.mayavi.mlab as mlab
         from mayavi import mlab
 
         @mlab.show

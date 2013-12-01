@@ -32,17 +32,23 @@
 from morphforge.simulation.neuron.biophysics.mm_neuron import NEURONChl_Base
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
 from morphforge.simulation.base.biophysics.channel import Channel
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
 from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
 from morphforge.simulation.neuron.hocmodbuilders.hocmodutils import HocModUtils
 from morphforgecontrib.simulation.channels.common.neuron import build_hoc_default
-from neurounits.neurounitparser import NeuroUnitParser
 from morphforge.core import ObjectLabeller
+
+import neurounits
+from neurounits.neurounitparser import NeuroUnitParser
+from neurounits.codegen.nmodl import WriteToNMODL
+from neurounits.codegen.nmodl.neuron_constants import MechanismType
+
+
+from morphforge.simulationanalysis.summaries_new import SummariserObject
+from morphforge.simulationanalysis.summaries_new import SummariserLibrary
 
 
 class RecordableData(object):
-
     def __init__(self, standard_tags=None):
         self.standard_tags = standard_tags or []
 
@@ -88,9 +94,13 @@ class NeuroUnitEqnsetMechanism(Channel):
         super(NeuroUnitEqnsetMechanism, self).__init__( **kwargs)
 
         if isinstance(eqnset, basestring):
-            eqnset = NeuroUnitParser.EqnSet(eqnset)
+            eqnset = NeuroUnitParser.Parse9MLFile(eqnset)
 
-        #self.name = name if name is not None else ObjectLabeller.get_next_unamed_object_name(NeuroUnitEqnsetMechanism)
+        if isinstance(eqnset, neurounits.LibraryManager):
+            comps = eqnset.components
+            assert len(comps) == 1
+            eqnset = comps[0]
+
         self._parameters = default_parameters
         self.eqnset = eqnset
         self.recordables_map = recordables_map or {}
@@ -114,18 +124,11 @@ class NeuroUnitEqnsetMechanism(Channel):
 
 
 
-from morphforge.simulationanalysis.summaries_new import SummariserObject
-from morphforge.simulationanalysis.summaries_new import SummariserLibrary
-from neurounits.writers import MRedocWriterVisitor
-import mredoc as mrd
 
-#import mredoc as mrd
 class NeuroUnitEqnsetMechanismSummariser(SummariserObject):
     @classmethod
     def build(cls, obj):
-        return mrd.HierachyScope(
-                MRedocWriterVisitor.build(obj.eqnset)
-                )
+        return obj.eqnset.to_mredoc()
 
 SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetMechanismSummariser)
 
@@ -139,7 +142,6 @@ SummariserLibrary.register_summariser(NeuroUnitEqnsetMechanism, NeuroUnitEqnsetM
 class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def __init__(self, **kwargs):
         super(Neuron_NeuroUnitEqnsetMechanism, self).__init__(**kwargs)
-
         self.nmodl_txt, self.buildparameters = WriteToNMODL(self.eqnset, neuron_suffix="NRNEQNSET"+ObjectLabeller.get_next_unamed_object_name(Neuron_NeuroUnitEqnsetMechanism, prefix=""))
 
 
@@ -160,7 +162,6 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
     def create_modfile(self, modfile_set):
         modfile_set.append(ModFile(name=self.name, modtxt=self.nmodl_txt, strict_modlunit=True))
 
-
     def get_mod_file_changeables(self):
         change_attrs = set([ "nmodl_txt", 'recordables_map', 'buildparameters', 'units', 'recordables_data'])
         fixed_attrs = set(['_name','_simulation', 'mm_neuronNumber', 'cachedNeuronSuffix', 'eqnset', '_parameters'])
@@ -173,7 +174,7 @@ class Neuron_NeuroUnitEqnsetMechanism(NEURONChl_Base, NeuroUnitEqnsetMechanism):
         assert False
 
     def _get_recordable_symbols(self):
-        return [s.symbol for s in list(self.eqnset.states)
+        return [s.symbol for s in list(self.eqnset.state_variables)
                 + list(self.eqnset.assignedvalues)
                 + list(self.eqnset.suppliedvalues)
                 + list(self.eqnset.parameters)]

@@ -75,3 +75,5 @@ class SynapticTriggerAtTimes(SynapticTrigger):
         return PreSynapticTypes.FixedTiming
 
 
+    def get_summary_string(self):
+        return 'At times: %s (ms)'%( self.time_list.times_in_np_array_ms() )

@@ -30,4 +30,12 @@
 # ----------------------------------------------------------------------
 
 
-"""[*] Specifying the compartmentalisation of neurons"""
+"""Spcifiying the compartmentalisation of multicompartmental morphologies.
+TODO!
+"""
+
+
+
+from morphforge.stdimports import *
+from morphforgecontrib.stdimports import StdChlLeak
+

@@ -35,5 +35,7 @@ from stdmodels import StandardModels
 
 import hh52
 import passive_cell
+import contrib_channel_examples
+
 
 

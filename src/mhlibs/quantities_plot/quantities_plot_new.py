@@ -32,7 +32,7 @@
 
 import quantities as pq
 
-from decimal import Decimal
+from decimal import Decimal, ROUND_DOWN
 
 from morphforge.units import qty
 
@@ -65,9 +65,10 @@ def get_max_rounding_list(nums):
 
 
 class ScalarFormatterWithUnit(object):
-    def __init__(self, scaling, symbol=None, ax=None, mode=None,xy=None):
+    def __init__(self, scaling, symbol=None, ax=None, mode=None,xy=None, ticklabel_quantisation=None):
         self.scaling = scaling
         self.symbol = symbol
+        self.ticklabel_quantisation = ticklabel_quantisation
 
         assert ax is not None
         self.ax = ax
@@ -81,6 +82,10 @@ class ScalarFormatterWithUnit(object):
         x = x * float(self.scaling)
 
         d = Decimal(str(x))
+
+        if self.ticklabel_quantisation is not None:
+            d = d.quantize(self.ticklabel_quantisation, rounding= ROUND_DOWN)
+
         num_str = "%s" % d.to_eng_string()
 
 
@@ -113,15 +118,15 @@ class QuantitiesAxisNew(object):
             return ''
         return '%s'%s
 
-    def xTickFormatGenerator(self, scaling, symbol, ):
+    def xTickFormatGenerator(self, scaling, symbol, ticklabel_quantisation):
 
         from matplotlib.ticker import FuncFormatter
-        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='x'))
+        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='x', ticklabel_quantisation=ticklabel_quantisation))
 
-    def yTickFormatGenerator(self, scaling, symbol, ):
+    def yTickFormatGenerator(self, scaling, symbol, ticklabel_quantisation ):
 
         from matplotlib.ticker import FuncFormatter
-        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='y'))
+        return FuncFormatter(ScalarFormatterWithUnit(scaling=scaling, symbol=symbol, ax=self, xy='y',ticklabel_quantisation=ticklabel_quantisation))
 
 
 
@@ -187,7 +192,7 @@ class QuantitiesAxisNew(object):
             # Update the axis ticks:
             symbol = self.getSymbolFromUnit(self.xyUnitDisplay[0])
             scaling = (self.xyUnitBase[0]/self.xyUnitDisplay[0]).rescale(pq.dimensionless)
-            xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol)
+            xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol, ticklabel_quantisation=None)
             self.ax.xaxis.set_major_formatter(xFormatterFunc)
 
         if unitY is not None:
@@ -196,7 +201,7 @@ class QuantitiesAxisNew(object):
 
             symbol = self.getSymbolFromUnit(self.xyUnitDisplay[1])
             scaling = (self.xyUnitBase[1]/self.xyUnitDisplay[1]).rescale(pq.dimensionless)
-            yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol)
+            yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol, ticklabel_quantisation=None)
             self.ax.yaxis.set_major_formatter(yFormatterFunc)
 
         # Update the labels
@@ -269,7 +274,7 @@ class QuantitiesAxisNew(object):
         return self.ax.get_yaxis().set_visible(visible)
 
 
-    def set_xticklabel_mode(self, show_ticklabels=None, include_units=None, ):
+    def set_xticklabel_mode(self, show_ticklabels=None, include_units=None, ticklabel_quantisation=None  ):
         assert show_ticklabels in [None,True,False]
         assert include_units in [None,True,False]
         symbol = self.getSymbolFromUnit(self.xyUnitDisplay[0])
@@ -285,11 +290,11 @@ class QuantitiesAxisNew(object):
         self._update_labels()
 
         # Update the axis ticks:
-        xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol)
+        xFormatterFunc = self.xTickFormatGenerator(scaling=scaling, symbol=symbol, ticklabel_quantisation=ticklabel_quantisation)
         self.ax.xaxis.set_major_formatter(xFormatterFunc)
 
 
-    def set_yticklabel_mode(self, show_ticklabels=None, include_units=None ):
+    def set_yticklabel_mode(self, show_ticklabels=None, include_units=None, ticklabel_quantisation=None ):
         assert show_ticklabels in [None,True,False]
         assert include_units in [None,True,False]
         symbol = self.getSymbolFromUnit(self.xyUnitDisplay[1])
@@ -305,7 +310,7 @@ class QuantitiesAxisNew(object):
         self._update_labels()
 
         # Update the axis ticks:
-        yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol)
+        yFormatterFunc = self.yTickFormatGenerator(scaling=scaling, symbol=symbol, ticklabel_quantisation=ticklabel_quantisation)
         self.ax.yaxis.set_major_formatter(yFormatterFunc)
 
 

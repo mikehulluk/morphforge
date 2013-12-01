@@ -87,16 +87,20 @@ class YAxisConfig(object):
 
         show_yticklabels=True,
         show_yticklabels_with_units=False,
+        show_ylabel_with_units=False,
+        yticklabel_quantisation=None,
         ):
         self.yrange = yrange
         self.yunit = yunit
         self.ylabel = ylabel
+        self.yticklabel_quantisation=yticklabel_quantisation
         self.show_yticklabels=show_yticklabels
         self.show_yticklabels_with_units=show_yticklabels_with_units
+        self.show_ylabel_with_units=show_ylabel_with_units
 
 
         # NOTE: ynticks is deprecated! It shoudl be moved into yticks.
-        self.yticks = (yticks if yticks is not None else 5)
+        self.yticks = (yticks if yticks is not None else 4)
 
         self.yticklabels = yticklabels
         self.ymargin = ymargin
@@ -123,7 +127,10 @@ class YAxisConfig(object):
             else:
                 assert False
 
-        ax.set_yticklabel_mode(show_ticklabels=self.show_yticklabels, include_units=self.show_yticklabels_with_units)
+        if self.yticklabels is not None:
+            ax.set_yticklabels(self.yticklabels)
+        else:
+            ax.set_yticklabel_mode(show_ticklabels=self.show_yticklabels, include_units=self.show_yticklabels_with_units, ticklabel_quantisation=self.yticklabel_quantisation)
 
         #TODO: Something funky is going on and this is not making a difference
         if self.ymargin is not None:
@@ -150,6 +157,7 @@ class TagPlot(object):
 
         show_yticklabels=True,
         show_yticklabels_with_units=True, ##
+        yticklabel_quantisation=None,
 
         overlay_traces = None
         ):
@@ -162,6 +170,8 @@ class TagPlot(object):
                                          ymargin=ymargin,
                                          show_yticklabels=show_yticklabels,
                                          show_yticklabels_with_units=show_yticklabels_with_units,
+                                         show_ylabel_with_units = not show_yticklabels_with_units,
+                                         yticklabel_quantisation=yticklabel_quantisation
                                          )
         else:
             self.yaxisconfig = yaxisconfig
@@ -250,7 +260,7 @@ class TagPlot(object):
 
 
 
-    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None, decimate_points=False) :
+    def plot(self, ax, all_traces,  all_eventsets,  show_xlabel, show_xticklabels, show_xticklabels_with_units, show_xaxis_position, xticklabel_quantisation, is_top_plot, is_bottom_plot, xticks, time_range=None, linkage=None, decimate_points=False, xlabel=None ) :
 
         if self.time_range is not None:
             time_range = self.time_range
@@ -276,7 +286,6 @@ class TagPlot(object):
             plt_tr = ax.plotTrace(tr, linewidth=4, alpha=0.4)
 
 
-            # ax.set_ylim(((-0.5) * units.dimensionless, (len(eventsets)+0.5) * units.dimensionless))
 
         if len(trcs) == 0:
             padding = 0.5
@@ -319,15 +328,14 @@ class TagPlot(object):
 
         # Plot the axis-label, if
         # show_ticklabels=='all' OR show_ticklabels=='only-once' AND xaxis_position is not None:
-        if show_xlabel == 'all' or show_xlabel == 'only-once' \
-            and xaxis_position is not None:
-            ax.set_xlabel('Time')
+        if show_xlabel == 'all' or show_xlabel == 'only-once' and xaxis_position is not None and xlabel:
+            ax.set_xlabel(xlabel)
         else:
             ax.set_xlabel('')
 
         # Similarly, plot the axis-ticklabel, if
         show_xticks = show_xticklabels == 'all' or (show_xticklabels == 'only-once' and xaxis_position is not None)
-        ax.set_xticklabel_mode(show_ticklabels=show_xticks, include_units=show_xticklabels_with_units)
+        ax.set_xticklabel_mode(show_ticklabels=show_xticks, include_units=show_xticklabels_with_units, ticklabel_quantisation=xticklabel_quantisation)
 
         # Setup the y-axis:
         self.yaxisconfig.format_axes(ax)

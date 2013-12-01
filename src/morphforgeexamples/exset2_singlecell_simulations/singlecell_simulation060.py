@@ -33,17 +33,13 @@
 
 
 """Visualising action potential propagation along an axon
-In this simulation, we create a cell with a long axon. We put HH-channels over its surface
-and give it a short current injection into the soma. We look at the voltage at various points
-along the axon, and see it propogate.
+In this simulation, we create a cell with a long axon. We put HH-channels over its surface and give it a short current injection into the soma. We look at the voltage at various points along the axon, and see it propogate.
 
 """
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.simulation.channels.hh_style.core.mmleak import StdChlLeak
-from morphforgecontrib.simulation.channels.hh_style.core.mmalphabeta import StdChlAlphaBeta
-
+from morphforgecontrib.stdimports import StdChlLeak,StdChlAlphaBeta
 
 # Create the environment:
 env = NEURONEnvironment()

@@ -33,7 +33,6 @@ from morphforge.stdimports import CurrentClamp, Cell, qty, StandardTags
 from morphforge.stdimports import NEURONEnvironment
 #from morphforge.stdimports import factorise_units_from_list
 
-import scipy.stats as stats
 
 import numpy as np
 from mhlibs.quantities_plot import QuantitiesFigure
@@ -454,6 +453,7 @@ class CellAnalysis_IVCurve(object):
 
         if not len(iv[low_v, 0]):
             return
+        import scipy.stats as stats
         (a_s, b_s, r, tt, stderr) = stats.linregress(iv[low_v, 0], iv[low_v, 1])
         input_resistance = (a_s * (v_units / i_units)).rescale('MOhm')
         reversal_potential = b_s * v_units

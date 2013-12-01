@@ -35,28 +35,19 @@
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHocFileData
 from morphforge.simulation.neuron.simulationdatacontainers.mhocfile import MHOCSections
 from morphforge.simulation.neuron.core.neuronsimulationenvironment import NEURONEnvironment
-
-from neurounits.tools.nmodl import WriteToNMODL, MechanismType
 from morphforge.simulation.neuron.biophysics.modfile import ModFile
-from neurounits.neurounitparser import NeuroUnitParser
 
 from morphforge.core import ObjectLabeller
 from Cheetah.Template import Template
 
-
 from morphforge.simulation.neuron.networks import NEURONPostSynapticMechTemplateForwardToTemplate
-
-
 from morphforge.stdimports import SummariserLibrary
 
 
 
 
-
-import mredoc as mrd
-
-
-
+from neurounits.neurounitparser import NeuroUnitParser
+from neurounits.codegen.nmodl import WriteToNMODL, MechanismType
 
 
 
@@ -65,7 +56,7 @@ class NeuroUnitEqnsetPostSynaptic(object):
         super(NeuroUnitEqnsetPostSynaptic, self).__init__(**kwargs)
 
         if isinstance(eqnset, basestring):
-            eqnset = NeuroUnitParser.EqnSet(eqnset)
+            eqnset = NeuroUnitParser.Parse9MLFile(eqnset).get_component()
 
         self.eqnset = eqnset
         self._default_parameters = default_parameters or {}
@@ -101,22 +92,21 @@ class NeuroUnitEqnsetPostSynaptic(object):
 
 
 class NeuroUnitEqnsetPostSynapticSummariser(object):
-    
+
     @classmethod
     def build(cls, obj):
-        child_elements = []
-        
-        
-        
+        import mredoc as mrd
+
         eqnset_redoc = obj.eqnset.to_redoc()
-        return mrd.Section('%s (Neurounit Synaptic-Template)' %obj.name, 
-                eqnset_redoc, 
+        return mrd.Section('%s (Neurounit Synaptic-Template)' %obj.name,
+                eqnset_redoc,
                 cls._build_default_parameters(obj),
                 mrd.Section('Source', mrd.VerbatimBlock(obj.eqnset.library_manager.src_text, caption='Source code for template: %s'% obj.name) )
                 )
-        
+
     @classmethod
     def _build_default_parameters(cls, obj):
+        import mredoc as mrd
         tbl = mrd.VerticalColTable('Parameter| Default Value',
             [ '%s|%s'%(str(k), str(v)) for (k,v) in obj._default_parameters.items() ] )
         return mrd.Section('Default Parameters', tbl)
@@ -191,6 +181,6 @@ class NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic(NeuroUnitEqnse
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(
-        NeuroUnitEqnsetPostSynaptic, 
+        NeuroUnitEqnsetPostSynaptic,
         NEURONPostSynapticTemplate_NeuroUnitEquationSetPostSynaptic )
-        
+

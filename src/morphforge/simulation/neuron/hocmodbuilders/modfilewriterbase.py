@@ -165,7 +165,7 @@ mod_tmpl_procedure = """
 PROCEDURE ${updatefunctionname}(v(mV)) {
 
 #set $locals = [r[0][0] for r in $rates.values() if r[0][0]]
-#set $localString = "LOCAL " + ",".join(locals) if $locals else ""
+#set $localString = "LOCAL " + ",".join($locals) if $locals else ""
     $localString
 UNITSOFF
 

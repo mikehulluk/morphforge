@@ -33,7 +33,7 @@
 from morphforge.core import LocMgr
 from morphforge.morphology.visitor import SectionIndexerDF
 #from morphforge.simulation.neuron.objects.neuronrecordable import NEURONRecordableOnLocation
-from random import randint, choice
+from random import randint
 import pylab
 
 
@@ -116,9 +116,6 @@ class SummariserLibrary(object):
 
     @classmethod
     def register_summariser(cls, channel_baseclass, summariser_class):
-        # Check it has a to_report_lab Method:
-        # Todo: Replace this with 'hasattr'
-        # assert 'to_report_lab' in summariser_class.__dict__
 
         # Add it to the dictionary of summarisers:
         cls.summarisers[channel_baseclass] = summariser_class
@@ -154,10 +151,24 @@ class _DotSummaryUtils(object):
 class SimulationMRedoc(object):
 
     @classmethod
-    def build(cls, obj, result=None, options=None):
+    def build(cls, obj, options=None):
+        from morphforge.simulation.base import SimulationResult
+        from morphforge.stdimports import TagViewer
+
+        result = None
+        if isinstance( obj, SimulationResult):
+            result = obj
+            obj = obj.simulation
+        elif isinstance( obj, Simulation):
+            pass
+        elif isinstance(list):
+            assert False
+        else:
+            assert False, "Unexpected object passed to SimulationMRedoc: %s" %(obj)
+
+
         if options is None:
             options = SummariserOptions()
-            assert False
 
         sim_redoc = SimulationMRedoc(obj, options=options).mredoc
 
@@ -165,9 +176,11 @@ class SimulationMRedoc(object):
             return sim_redoc
 
         else:
-            return mrd.Section('Simulation Results:',
-                    mrd.Image(result.fig.fig, auto_adjust=False),
+            return mrd.Section('Simulation Summary',
                     sim_redoc,
+                    mrd.Section("Results",
+                        mrd.Image( TagViewer(result).fig.fig, fig_size=(6,3),  max_font_size=7, subplots_adjust={'left':0.25,'right':0.95}),
+                        )
                     )
 
 
@@ -179,12 +192,8 @@ class SimulationMRedoc(object):
         self.options = options
         self.mredoc = self.build_simulation()
 
-    # Todo:
-    def build_simulationresult(self, sim):
-        pass
 
     def build_simulation(self):
-        #from morphforge.management import PluginMgr
 
         title = 'Simulation Summary: %s'%self.sim._sim_desc_str()
 
@@ -265,7 +274,7 @@ class SimulationMRedoc(object):
     @classmethod
     def _build_cell_table(cls, cell_list):
 
-        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections/segments|Regions(SA(um2):nseg)|\#Pre/Post-Synapse|\#GapJunctions|Chls',
+        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections(\#segs)|Regions(SA(um2):nseg)|\#Pre/post-synapse|\#Gap-juncs|Chls',
                 [(cell.name,
                   cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
@@ -389,8 +398,8 @@ class SimulationMRedoc(object):
         #return 'Blah: %s' % syn.name
         sumcls = SummariserLibrary.get_summarisier(syn_tmpl)
         if not sumcls:
-            return mrd.Section('Summary of synaptic-template: %s <!! Summariser Missing !!>' % syn.name,
-                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(chl))
+            return mrd.Section('Summary of synaptic-template: %s <!! Summariser Missing !!>' % syn_tmpl.name,
+                    mrd.Paragraph('<Summariser Missing for type: %s>' % type(syn_tmpl))
                 )
 
         return sumcls.build(syn_tmpl)
@@ -399,7 +408,7 @@ class SimulationMRedoc(object):
         synaptic_templates = self.sim.postsynaptic_templates
 
         return mrd.SectionNewPage('Synaptic Template Details',
-                *( [ self._build_details_synaptic_templ(syntemplate) for syntemplate in synaptic_templates]  )
+                *[ self._build_details_synaptic_templ(syntemplate) for syntemplate in synaptic_templates]
                 )
 
 
@@ -434,9 +443,8 @@ class SimulationMRedoc(object):
         # Include a picture with matplotlib?
         if self.options.include_details_indvidual_neuron_morphology_mpl:
             from morphforge.morphology.ui import MatPlotLibViewer
-            fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(7, 7)}).fig
+            fig = MatPlotLibViewer(nrn.morphology, fig_kwargs={'figsize':(4, 4)}).fig
             child_sections.append( mrd.Image(fig) )
-            assert False
 
 
         return mrd.HierachyScope(*child_sections) #section_table, region_table, mrd.Image(fig), )
@@ -506,12 +514,13 @@ class SimulationMRedoc(object):
 
 
 
-from matplotlib.ticker import MaxNLocator
 
 
 
 
 def build_connectivity_graph(synapse_pop, size=0.75):
+    import pylab
+    from matplotlib.ticker import MaxNLocator
 
     prepop = synapse_pop.presynaptic_population
     #if prepop:
@@ -535,7 +544,6 @@ def build_connectivity_graph(synapse_pop, size=0.75):
     postpop_len = len(postpop)
     max_len = max( (prepop_len, postpop_len) )
 
-    import pylab
     figsize_raw =(size * (float(prepop_len)/max_len), size*(float(postpop_len)/max_len))
     figsize = figsize_raw #figsize_raw[0]+0.75, figsize_raw[1]+0.75
     print figsize
@@ -643,7 +651,7 @@ class DOTWriter(object):
             # Create the connectivity graph:
             connectivity_graph_figure = build_connectivity_graph(synpop)
             fname = fig_out + '/synpop%d.png' % synpopindex
-            pylab.savefig(fname, transparent=True, dpi=400, bb_inches='tight')
+            pylab.savefig(fname, dpi=400, bb_inches='tight')
 
 
             n = pydot.Node(synpop.synapse_pop_name+'im', label='', image=fname, **dict(kwargs_general.items() + kwargs_synpop_img.items()))
@@ -755,7 +763,7 @@ class DOTWriter(object):
 
 
 
-        graph.write_raw('example_cluster2.dot')
+        #graph.write_raw('example_cluster2.dot')
 
         # Put the stimulations on:
 

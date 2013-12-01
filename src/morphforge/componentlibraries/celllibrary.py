@@ -29,7 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-import mredoc
 
 class CellLibrary(object):
 
@@ -51,11 +50,13 @@ class CellLibrary(object):
 
     @classmethod
     def create_cell(cls, sim,  modelsrc, celltype=None, **kwargs):
-        return cls.get_cellfunctor(modelsrc, celltype)(sim, **kwargs)
+        cell_functor= cls.get_cellfunctor(modelsrc, celltype)
+        return cell_functor(sim=sim, **kwargs)
 
 
     @classmethod
     def summary_table(cls, ):
+        import mredoc
         summary_data = []
         for ((modelsrc,celltype), functor) in sorted(cls._cells.iteritems()):
             summary_data.append( ( modelsrc, celltype ))

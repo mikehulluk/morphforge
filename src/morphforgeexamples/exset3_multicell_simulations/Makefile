@@ -11,6 +11,6 @@ clean:
 	rm -rf *.out _output/
 	
 %.py.out: %.py
-	export MREORG_BATCHRUN="TRUE"; python $< > $@ 2>&1
+	export MREORG_CONFIG="BATCHRUN"; python $< > $@ 2>&1
 
 

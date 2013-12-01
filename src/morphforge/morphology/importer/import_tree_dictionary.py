@@ -44,19 +44,17 @@ class DictionaryLoader(object):
 
     @classmethod
     def load(cls, morph_dict, name=None, metadata=None):
-        """ Load a morphology from a recursive dictionary such as:
+        """
+        Load a morphology from a recursive dictionary such as:
         {'root': {'length': 20, 'diam': 20, 'sections':
             [
                 {'absangle': 120, 'length': 40, 'diam': 5, 'region': 'dendrite'},
                 {'absangle': 240, 'length': 40, 'diam': 5, 'sections':
-                    [
+                   [
                         {'region': 'dendrite', 'diam': 5, 'relangle': 240, 'length': 40}
                    ], 'region': 'dendrite'},
                 {'absangle': 5, 'length': 500, 'diam': 0.29999999999999999, 'region': 'axon'}],
             'region': 'soma'}}
-
-            If addRootSection is true, then we make the root section, by adding in a fake section:
-
         """
 
         if not morph_dict or not morph_dict.has_key('root'):

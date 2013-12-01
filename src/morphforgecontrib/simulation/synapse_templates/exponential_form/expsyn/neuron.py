@@ -81,7 +81,7 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
-        syn_name_post = instance.synapse.get_name() + 'Post'
+        syn_name_post = instance.name + 'Post'
         hoc_data_cell = hocfile_obj[MHocFileData.Cells][cell]
         data = {
                "synnamepost": syn_name_post,
@@ -99,8 +99,8 @@ class NEURONPostSynapticMechTemplate_ExpSyn(PostSynapticMech_ExpSyn_Base, NEURON
         hocfile_obj.add_to_section(MHOCSections.InitSynapsesChemPost,
                                    Template(_expr_tmpl, data).respond())
 
-        hocfile_obj[MHocFileData.Synapses][instance.synapse] = {}
-        hocfile_obj[MHocFileData.Synapses][instance.synapse]['POST'] = data
+        hocfile_obj[MHocFileData.Synapses][instance] = data
+        #hocfile_obj[MHocFileData.Synapses][instance]['POST'] = data
 
 
     def template_build_mod(self, modfile_set):

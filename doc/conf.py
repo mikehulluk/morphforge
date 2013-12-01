@@ -27,6 +27,77 @@ import os
 
 
 
+
+# To allow stuff to build on RTD
+import sys
+class MockType(type):
+
+    def __init__(cls, name, bases, dct ):
+        super(MockType, cls).__init__(name, bases, dct)
+        pass
+
+    def __getattr__(cls, name):
+        return Mock()
+
+    def __str__(cls):
+        return 'custom str for %s' % (cls.__name__,)
+
+class Mock(object):
+    __metaclass__ = MockType
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return Mock()
+
+    #@classmethod
+    def __getattr__(cls, name):
+        if name in ('__file__', '__path__'):
+            return '/dev/null'
+        elif name[0] == name[0].upper():
+            mockType = type(name, (), {})
+            mockType.__module__ = __name__
+            return mockType
+        else:
+            return Mock()
+
+    def __getitem__(self, key):
+        return Mock()
+
+    def __add__(self, rhs):
+        return Mock()
+    def __sub__(self, rhs):
+        return Mock()
+    def __mul__(self, rhs):
+        return Mock()
+    def __div__(self, rhs):
+        return Mock()
+    def __radd__(self, rhs):
+        return Mock()
+    def __rsub__(self, rhs):
+        return Mock()
+    def __rmul__(self, rhs):
+        return Mock()
+    def __rdiv__(self, rhs):
+        return Mock()
+    def __pow__(self, rhs):
+        return Mock()
+
+
+MOCK_MODULES = ['numpy', 'pylab', 'scipy', 'mredoc', 'mreorg', 'quantities', 'matplotlib']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = Mock
+
+
+#URL to clean Read-The_Docs build dir:
+#https://readthedocs.org/wipe/morphforge/latest/
+
+
+
+
+
+
 sys.path.append('../src/')
 
 
@@ -272,5 +343,7 @@ def setup(app):
 templates_path = ["_templates",]
 
 
-
+rst_prolog = r"""
+.. |MHThesis| replace:: :download:`Mike Hull's Ph.D Thesis </static/MHThesis.pdf>`
+"""
 

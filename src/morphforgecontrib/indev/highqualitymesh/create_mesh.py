@@ -31,7 +31,6 @@
 
 import numpy as np
 import os
-from scipy.spatial.distance import pdist, squareform
 from morphforge.morphology.mesh.mesh import TriangleMesh
 
 
@@ -106,6 +105,7 @@ class MeshFromGTS(object):
 
     @classmethod
     def only_pts_at_min_dist(cls, pts, min_dist):
+        from scipy.spatial.distance import pdist, squareform
 
         pts = np.array(pts)
 

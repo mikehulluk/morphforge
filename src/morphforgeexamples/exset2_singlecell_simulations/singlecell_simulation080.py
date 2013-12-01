@@ -32,9 +32,7 @@
 
 
 """Applying different channel densities over a cell.
-We start with a cell with a long axon, and then apply Hodgkin-Huxley channels over the surface.
-We look at the effect of changing the density of leak and sodium channels in just the axon
-of the neuron (not the soma)
+We start with a cell with a long axon, and then apply Hodgkin-Huxley channels over the surface. We look at the effect of changing the density of leak and sodium channels in just the axon of the neuron (not the soma)
 
 This example also shows the use of tags; 300 traces are recorded in this experiment; but we don't ever need to get
 involved in managing them directly. We can just specify that all traces recorded on simulation X should be tagged with "SIMY", and
@@ -45,7 +43,8 @@ then tell the TagViewer to plot everything with a tag 'SIMY'
 
 
 from morphforge.stdimports import *
-from morphforgecontrib.data_library.stdmodels import StandardModels
+#from morphforgecontrib.data_library.stdmodels import StandardModels
+from morphforgecontrib.stdimports import StandardModels
 
 
 def sim(glk_multiplier, gna_multiplier, tag):

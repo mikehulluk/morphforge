@@ -4,10 +4,6 @@ Note: [*] denotes the example is missing.
 Morphology Examples
 ===================
 
- * Using the MorphologyTree object model (motivation; finding branch points?)
- * Steves analysis example
- * Loading in a XY file and adding the Z coordinate 
- 
 
 .. toctree::
    :maxdepth: 1
@@ -20,15 +16,6 @@ Morphology Examples
 
 Single Cell Simulation Examples
 ================================
-
- * Pulling out traces by hand and plotting with matplotlib
- * Using Randomness
- * Using Units
- 
- * Trace & Event Sets?
-
- * Sin-wave current clamp injection
-
 
 .. toctree::
    :maxdepth: 1
@@ -51,35 +38,25 @@ Multiple Cell Simulation Examples
    /srcs_generated_examples/multicell_simulation*
    
 
-More Advanced Topics
-====================
-
-
- * Chaco example.
- 
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-   
-   /srcs_generated_examples/howto*
       
       
       
       
-      
-Assorted Examples:
+Assorted Examples
 ===================
+
+In this example, we show how channels can be specified using MODL files, NeuroUnits, Python classes and NeuroML files to simulate a Hodgkin-Huxley type neuron.
 
 .. toctree::
    :maxdepth: 1
    :glob:
    
    /srcs_generated_examples/assorted_*
+   /srcs_generated_examples/manage010*
    
 
       
-From OCNS-2012 Poster:
+From OCNS-2012 Poster
 =======================
 
 .. toctree::
@@ -87,3 +64,23 @@ From OCNS-2012 Poster:
    :glob:
    
    /srcs_generated_examples/poster*
+
+
+
+(To Add)
+========
+
+ * Using the MorphologyTree object model (motivation; finding branch points?)
+ * Steves analysis example
+ * Loading in a XY file and adding the Z coordinate
+ * Pulling out traces by hand and plotting with matplotlib
+ * Using Randomness
+ * Using Units
+ * Trace & Event Sets?
+ * Sin-wave current clamp injection
+ * Specifying the compartmentalisation of neurons
+ * Configuring the TagViewer
+ *  Writing an new maths channel
+ *  Working with traces
+ *  Small CPG network [Sautoius et al?]
+ *  Working with traces & component libraries

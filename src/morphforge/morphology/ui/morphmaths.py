@@ -13,10 +13,11 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # -------------------------------------------------------------------------------
 
-import numpy
-from numpy import array
-from numpy import linalg
-from numpy.linalg import norm
+#print 
+import numpy as np
+#import numpy.linalg
+#from numpy import array
+#from numpy import linalg
 
 from morphforge.core import LogMgr
 
@@ -24,14 +25,15 @@ from morphforge.morphology.visitor.visitorfactory import SectionVistorFactory
 
 
 def _pca(X):
+    from numpy.linalg import eig
 
     # Refactored out 'map' in August 2012
     # x_mean = array(map(sum, X.T)) / len(X)
-    x_mean = array([sum(col) for col in X.T])/len(X)
+    x_mean = np.array([sum(col) for col in X.T])/len(X)
 
     x_ = X - x_mean
-    x_t = numpy.dot(x_.T, x_) / len(X)
-    (lam, vec) = linalg.eig(x_t)
+    x_t = np.dot(x_.T, x_) / len(X)
+    (lam, vec) = eig(x_t)
     ans = zip(lam, vec.T)
     print ans
     try:
@@ -46,6 +48,8 @@ def _pca(X):
 class PCAAxes(object):
 
     def __init__(self, morph):
+        from numpy.linalg import norm
+        from numpy.linalg import inv
 
         axes = _pca(SectionVistorFactory.array3_all_points(morph)())
 
@@ -53,8 +57,8 @@ class PCAAxes(object):
         eigenvec2 = axes[1][1] / norm(axes[1][1])
         eigenvec3 = axes[2][1] / norm(axes[2][1])
 
-        self.eigen_matrix = numpy.array((eigenvec1, eigenvec2, eigenvec3)).T
-        self.inv_mat = linalg.inv(self.eigen_matrix)
+        self.eigen_matrix = np.array((eigenvec1, eigenvec2, eigenvec3)).T
+        self.inv_mat = inv(self.eigen_matrix)
 
 
 class PointOperator(object):
@@ -75,7 +79,7 @@ class PointRotator(object):
         self.transMatrix = transMatrix
 
     def __call__(self, pt):
-        return numpy.dot(self.transMatrix, pt)
+        return np.dot(self.transMatrix, pt)
 
 
 class Pointtranslater(object):
@@ -94,8 +98,7 @@ class MorphologyMeanCenterer(Pointtranslater):
         X = PtSrc(morph)
         
         # Refactored out 'map' in August 2012
-        # offset = array(map(numpy.sum, X.T)) / len(X)
-        offset = array([sum(col) for col in X.T]) / len(X)
+        offset = np.array([sum(col) for col in X.T]) / len(X)
 
         # _get_mean(PtSrc(morph)) * -1.0
         super(MorphologyMeanCenterer, self).__init__(offset)

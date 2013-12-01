@@ -30,5 +30,11 @@
 # ----------------------------------------------------------------------
 
 
+"""Spcifiying the different types of current clamps
+TODO!
+"""
 
-"""[*] Configuring the TagViewer"""
+
+
+from morphforge.stdimports import *
+from morphforgecontrib.stdimports import *

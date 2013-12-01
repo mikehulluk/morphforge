@@ -46,6 +46,7 @@ class Channel(NamedSimulationObject):
     def get_default(self, key):
         return self.get_defaults()[key]
 
-
+    def record_all(self, sim, cell_location):
+        raise NotImplementedError()
 
 

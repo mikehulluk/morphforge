@@ -29,7 +29,11 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
-assert False, 'Do not use this module ~ currently in development'
+#assert False, 'Do not use this module ~ currently in development'
+import warnings 
+warnings.warn('MorphML code in development')
+
+
 
 from morphforge.core.misc import SeqUtils
 import string
@@ -278,13 +282,13 @@ class NeuroMLSegment(object):
 class MorphMLLoader(object):
 
     @classmethod
-    def load(cls, neuroMLFileObj, regions = None):
+    def load(cls, src, regions = None):
 
         """regions is a dictionary, which maps cable-groups to a Region name; this handles the
         case when there are multiple group tags in a MorphML document, since morphforge does not allow multiple regions'
         """
 
-        doc = XML.parse(neuroMLFileObj).documentElement
+        doc = XML.parse(src).documentElement
         assert doc.tagName in ('morphml', 'neuroml')
 
         # Do the action:
@@ -357,6 +361,8 @@ class MorphMLLoader(object):
 
             if group_nodes:
                 if regions:
+                    #for n in group_nodes:
+                    #    print get_text(n)
                     metaGroupNode = SeqUtils.filter_expect_single(group_nodes, lambda e: get_text(e) in regions)
                     region_name = regions[get_text(metaGroupNode)]
                 else:
@@ -429,6 +435,7 @@ class MorphMLLoader(object):
 
         # Now we have read the file and created the dictionaries:
         return (cableIDToRegionName, segmentListInfo)
+
 
 
 MorphologyImporter.register(method_name='fromMorphML',

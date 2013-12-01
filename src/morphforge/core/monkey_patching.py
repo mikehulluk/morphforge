@@ -30,6 +30,10 @@
 # ----------------------------------------------------------------------
 
 # Set-up the default priting:
-import numpy as np
-np.set_printoptions(precision=2)
+
+try:
+    import numpy as np
+    np.set_printoptions(precision=2)
+except:
+    pass
 

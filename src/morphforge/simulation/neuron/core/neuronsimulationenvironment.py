@@ -76,12 +76,12 @@ class NEURONEnvironment(SimulationEnvironment):
         return tmpl_functor(**kwargs)
 
 
-    def CurrentClamp(self, form=CurrentClampStepChange, **kwargs):
-        current_clamp = self.currentclamps.get_plugin(form)
+    def CurrentClamp(self, protocol=CurrentClampStepChange, **kwargs):
+        current_clamp = self.currentclamps.get_plugin(protocol)
         return current_clamp(**kwargs)
 
-    def VoltageClamp(self, form=VoltageClampStepChange, **kwargs):
-        voltage_clamp = self.voltageclamps.get_plugin(form)
+    def VoltageClamp(self, protocol=VoltageClampStepChange, **kwargs):
+        voltage_clamp = self.voltageclamps.get_plugin(protocol)
         return voltage_clamp(**kwargs)
 
     def GapJunction(self, **kwargs):

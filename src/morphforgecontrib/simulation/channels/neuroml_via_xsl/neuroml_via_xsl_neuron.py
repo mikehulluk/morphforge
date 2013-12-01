@@ -56,7 +56,6 @@ class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
         self.modtxt = str(xsl_transform(xml_root))
         nrnsuffix = ModFile.extract_nrn_suffix_from_text(self.modtxt)
 
-        #self.name = nrnsuffix
         self.nrnsuffix = nrnsuffix
         self.NRNSUFFIX = nrnsuffix
 
@@ -103,7 +102,6 @@ class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
     # No Internal recording or adjusting of parameters for now:
     class Recordables:
-
         all = []
 
     def get_variables(self):
@@ -114,6 +112,10 @@ class NeuroML_Via_XSL_ChannelNEURON(NEURONChl_Base, NeuroML_Via_XSL_Channel):
 
     def get_recordable(self, what, cell_location, nrn_unit, **kwargs):
         return NEURONChl_RecGen(src_chl=self, modvar=what, cell_location=cell_location, unit_in_nrn=nrn_unit, std_tags=[], **kwargs)
+
+
+    def record_all(self, sim, cell_location):
+        return 
 
 
 

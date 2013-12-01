@@ -79,7 +79,7 @@ cell3 = build_cell(name="cell3", sim=sim)
 
 # Connect with a synapse:
 simple_ampa_syn = """
-eqnset syn_simple {
+define_component syn_simple {
 
     g' = - g/g_tau
     i = gmax * (v-erev) * g
@@ -91,7 +91,7 @@ eqnset syn_simple {
     <=> INPUT     v: mV       METADATA {"mf":{"role":"MEMBRANEVOLTAGE"} }
     <=> OUTPUT    i:(mA)      METADATA {"mf":{"role":"TRANSMEMBRANECURRENT"} }
     <=> PARAMETER scale:()
-    ==>> on_event() {
+    on on_event(){
         g = g + 1.0
     }
 }

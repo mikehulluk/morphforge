@@ -53,7 +53,6 @@ class Neuron_PSM_Std_CurrentRecord(NEURONRecordable):
 
     def build_hoc(self, hocfile_obj):
         assert len(self.neuron_syn_post.synapses) == 1, ' Trying to record from a super imposed synapse'
-        #obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapses[0]]["POST"]["synnamepost"]
         obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post]["synnamepost"]
         HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s" % self.name, objname=obj_name_hoc, objvar="i", recordobj=self)
 
@@ -75,7 +74,7 @@ class Neuron_PSM_Std_ConductanceRecord(NEURONRecordable):
 
     def build_hoc(self, hocfile_obj):
         assert len(self.neuron_syn_post.synapses) == 1, ' Trying to record from a super imposed synapse'
-        #obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post.synapses[0]]["POST"]["synnamepost"]
+
         obj_name_hoc = hocfile_obj[MHocFileData.Synapses][self.neuron_syn_post]["synnamepost"]
         HocModUtils.create_record_from_object(hocfile_obj=hocfile_obj, vecname="RecVec%s" % self.name, objname=obj_name_hoc, objvar="g", recordobj=self)
 

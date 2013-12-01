@@ -28,6 +28,10 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
+#import os
+#on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+#if not on_rtd:
 
 import quantities as pq
 
