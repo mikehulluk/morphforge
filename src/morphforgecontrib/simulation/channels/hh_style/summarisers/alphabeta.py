@@ -88,8 +88,10 @@ class AlphaBetaSummariser(object):
             ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(5))
             ax.set_ylabel(ax_name)
 
+
         set_fontsize(sv_fig, 8)
         img_caption = 'The rate constants and resulting steady-state activation and time constants for %s' % ','.join( obj.statevars.keys() )
+        mpl_fig = mrd.Figure( mrd.Image(sv_fig, fig_size=(6,4), subplots_adjust={'left':0.25, 'right':0.95}, max_font_size=7), caption=img_caption )
 
         return mrd.Section('Summary of %s (StdChlAlphaBeta)' % obj.name,
                 mrd.EquationBlock(
@@ -101,10 +103,10 @@ class AlphaBetaSummariser(object):
                     ),
                 param_tbl,
                 sv_tbls,
-                mrd.Figure( mrd.Image(sv_fig, fig_size=(6,4), subplots_adjust={'left':0.25, 'right':0.95}, max_font_size=7), caption=img_caption  ),
+                mpl_fig
+                 ),
 
 
-                )
 
 
 #assert False

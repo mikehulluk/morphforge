@@ -31,9 +31,9 @@
 
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
-import numpy as np
-import scipy
-import scipy.interpolate
+#import numpy as np
+#import scipy
+#import scipy.interpolate
 
 class TraceVariableDT(TracePointBased):
 
