@@ -146,11 +146,18 @@ To resolve these conflicts, each Targeter object has a priority level associated
 Segmentation
 ~~~~~~~~~~~~~
 
-.. todo::
-
-    A brief overview of segmentation objects
-
-
+Morphforge uses the name notation as NEURON to refer to Sections
+and segments. Briefly, a Section represents an unbranched region of 
+membrane, which can be further subdivided into segments to improve 
+accuracy during simulations.
+Rather than specify the number of each segments per Section directly,
+Morphforge allow a Segmenter object to be specified for a cell. This object 
+is expected implement method: get_num_segments(self, section), which 
+returns the number of segments that the 'section' should have. 
+Two compartmentalisation algorithms are provided:
+CellSegmenter_MaxCompartmentLength, which specifies the maximum length of
+any compartment in the morphology, and CellSegmenter_MaxLengthByID which allows
+the maximum length of compartments to be defined per Section.
 
 .. seealso::
 
@@ -166,10 +173,11 @@ Segmentation
 Stimuli
 ~~~~~~~~
 
-.. todo::
-
-    A brief overview of cell objects
-
+Morphforge allows different types of currentclamps and voltage clamps to be
+used in a simulation. By default, 'step' type clamps are created, but more complex
+stimulations, such as sine-waves and ramps can also be defined and used by specifying
+the 'protocol' argument to the Simulation.create_currentclamp method. Examples of 
+these can be seen in the examples.
 
 .. seealso::
 
@@ -286,14 +294,22 @@ Electrical Synapses
     
         * :ref:`example_multicell_simulation020`
 
-    |MHThesis|
-       * (???!)
+
 
 
 
 
 NeuronPopulations and SynapticPopulations
 -----------------------------------------
+
+Morphforge supports creating multiple neurons of the same type and grouping them as a population by using NeuronPopulation objects. These populations can then be connected together using SynapsePopulations objects, using algorithms similar to those found in PyNN, such as AllToAll connectors.
+An example is given.
+
+.. seealso::
+
+    Examples scripts:
+    
+        * :ref:`example_multicell_simulation050`
 
 
 SimulationResult objects
