@@ -30,6 +30,13 @@
 # ----------------------------------------------------------------------
 
 
+"""Defining populations of neurons.
+
+"""
+
+
+import numpy as np
+from functools import partial
 
 from morphforge.stdimports import *
 from morphforgecontrib.stdimports import *
@@ -42,99 +49,72 @@ from morphforge.units import *
 # ##########
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='tIN-dIN-AMPA',
         template_type = PostSynapticMech_Exp2Syn_Base,
-        tau_open = 0.2 * units.ms, tau_close=3.0*units.ms, e_rev=0 * units.mV, popening=0.5, peak_conductance=0.25*nS)
+        tau_open = 0.2 * ms, tau_close=3.0*ms, e_rev=0 * mV, popening=0.5, peak_conductance=0.25*nS)
 
 
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='tIN-dIN-NMDA',
         template_type = PostSynapticMech_Exp2SynNMDA_Base,
-        tau_open=5.0*units.ms,  tau_close=80*units.ms, e_rev=0*mV,  popening=0.5, peak_conductance=0.300*nS, vdep=True,
+        tau_open=5.0*ms, tau_close=80*ms, e_rev=0*mV, popening=0.5, peak_conductance=0.300*nS, vdep=True,
         )
 
 # dIN-> dIN
 # ----------
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='dIN-dIN-AMPA',
         template_type = PostSynapticMech_Exp2Syn_Base,
-        tau_open = 0.2 * units.ms, tau_close=3.0*units.ms, e_rev=0 * units.mV, popening=1.0, peak_conductance=0.300*nS,
+        tau_open = 0.2 * ms, tau_close=3.0*ms, e_rev=0 * mV, popening=1.0, peak_conductance=0.300*nS,
         )
 
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='dIN-dIN-NMDA',
         template_type = PostSynapticMech_Exp2SynNMDA_Base,
-        tau_open=5.0*units.ms,  tau_close=80.0*units.ms, e_rev=0*mV,  popening=1.0, peak_conductance=0.3*nS, vdep=True,
+        tau_open=5.0*ms, tau_close=80.0*ms, e_rev=0*mV, popening=1.0, peak_conductance=0.3*nS, vdep=True,
         )
 
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='dIN-dIN-Background-NMDA',
         template_type = PostSynapticMech_Exp2SynNMDA_Base,
-        tau_open=5.0*units.ms,  tau_close=10000*units.ms, e_rev=0*mV,  popening=1.0, peak_conductance=0.300*nS, vdep=True,
+        tau_open=5.0*ms, tau_close=10000*ms, e_rev=0*mV, popening=1.0, peak_conductance=0.300*nS, vdep=True,
         )
 
 # MHR -> dIN
 # -----------
 PostSynapticTemplateLibrary.register_template_specialisation( modelsrc='HULL10', synapsetype='MHR-dIN-Inhib',
         template_type = PostSynapticMech_Exp2Syn_Base,
-        tau_open=1.5*units.ms,  tau_close=20*units.ms, e_rev=-70*mV,  popening=1.0, peak_conductance=2.0*nS,
+        tau_open=1.5*ms, tau_close=20*ms, e_rev=-70*mV, popening=1.0, peak_conductance=2.0*nS,
         )
-
-
-
-
-
 
 
 # tIN -> dIN
 # ==============
-def create_synapse_tIN_to_dIN_AMPA_spike_times_new( sim, times, postsynaptic, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-AMPA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
 
-def create_synapse_tIN_to_dIN_NMDA_spike_times_new( sim, times, postsynaptic, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-NMDA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
-
-def create_synapse_tIN_to_dIN_AMPA_new( sim, presynaptic, postsynaptic, delay=None, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-AMPA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger( SynapticTriggerByVoltageThreshold,
-                                    cell_location =  presynaptic.soma,
-                                    voltage_threshold = 0*units.mV,
-                                    delay=1.0*units.ms,
-                                    ),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
-
-def create_synapse_tIN_to_dIN_NMDA_new( sim, presynaptic, postsynaptic, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-NMDA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger( SynapticTriggerByVoltageThreshold,
-                                    cell_location =  presynaptic.soma,
-                                    voltage_threshold = 0*units.mV,
-                                    delay=1.0*units.ms,
-                                    ),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
-
-def create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new(sim, times, postsynaptic, multiplier=1.0, ampa_multiplier=1.0, nmda_multiplier=1.0, parameter_overrides=None ):
+def create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new(sim, times, postsynaptic, parameter_overrides=None ):
     parameter_overrides = parameter_overrides or {}
-    down_factor = 1.0
-    s1 = create_synapse_tIN_to_dIN_AMPA_spike_times_new( sim, times, postsynaptic, parameter_multipliers={'peak_conductance':multiplier*down_factor * ampa_multiplier},parameter_overrides=parameter_overrides  )
-    s2 = create_synapse_tIN_to_dIN_NMDA_spike_times_new( sim, times, postsynaptic, parameter_multipliers={'peak_conductance':multiplier*down_factor * nmda_multiplier},parameter_overrides=parameter_overrides  )
+
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-AMPA', sim=sim)
+    s1 = sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, parameter_overrides=parameter_overrides))
+
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-NMDA', sim=sim)
+    s2 = sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, parameter_overrides=parameter_overrides)) 
     return [s1,s2]
 
-def create_synapse_tIN_to_dIN_AMPANMDA_new(sim, times, postsynaptic,multiplier=1.0, ampa_multiplier=1.0, nmda_multiplier=1.0, parameter_overrides=None):
+def create_synapse_tIN_to_dIN_AMPANMDA_new(sim, times, postsynaptic, parameter_overrides=None):
     parameter_overrides = parameter_overrides or {}
-    down_factor = 1.0
-    s1 = create_synapse_tIN_to_dIN_AMPA_new( sim, times, postsynaptic, parameter_multipliers = {'peak_conductance':multiplier*down_factor * ampa_multiplier},parameter_overrides=parameter_overrides )
-    s2 = create_synapse_tIN_to_dIN_NMDA_new( sim, times, postsynaptic, parameter_multipliers = {'peak_conductance':multiplier*down_factor * nmda_multiplier},parameter_overrides=parameter_overrides )
-    return s1,s2
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-AMPA', sim=sim)
+    s1 =  sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger( SynapticTriggerByVoltageThreshold,
+                                    cell_location = presynaptic.soma,
+                                    voltage_threshold = 0*mV, delay=1.0*ms,),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma,parameter_overrides=parameter_overrides ))
+
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='tIN-dIN-NMDA', sim=sim)
+    s2 = sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger( SynapticTriggerByVoltageThreshold,
+                                    cell_location = presynaptic.soma,
+                                    voltage_threshold = 0*mV, delay=1.0*ms),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma,parameter_overrides=parameter_overrides  ))
+    return [s1,s2]
 
 
 
@@ -142,81 +122,42 @@ def create_synapse_tIN_to_dIN_AMPANMDA_new(sim, times, postsynaptic,multiplier=1
 
 
 def create_synapse_dIN_to_dIN_AMPA_spike_times_new( sim, times, postsynaptic, **kwargs ):
-    env = sim.environment
     psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-AMPA', sim=sim)
     return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
 def create_synapse_dIN_to_dIN_NMDA_spike_times_new( sim, times, postsynaptic, **kwargs ):
-    env = sim.environment
     psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-NMDA', sim=sim)
     return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
-def create_synapse_dIN_to_dIN_AMPA_new( sim, presynaptic, postsynaptic, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-AMPA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger( SynapticTriggerByVoltageThreshold,
-                                    cell_location =  presynaptic.soma,
-                                    voltage_threshold = 0*units.mV,
-                                    delay=1.0*units.ms,
-                                    ),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
-
-def create_synapse_dIN_to_dIN_NMDA_new( sim, presynaptic, postsynaptic, **kwargs ):
-    env = sim.environment
-    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-NMDA', sim=sim)
-    return sim.create_synapse(
-                trigger=env.SynapticTrigger( SynapticTriggerByVoltageThreshold,
-                                    cell_location =  presynaptic.soma,
-                                    voltage_threshold = 0*units.mV,
-                                    delay=1.0*units.ms,
-                                    ),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
-
-def create_synapse_background_NMDA_spike_times_new( sim, times,  postsynaptic, **kwargs):
-    env = sim.environment
+def create_synapse_background_NMDA_spike_times_new( sim, times, postsynaptic, **kwargs):
     psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-Background-NMDA', sim=sim)
     return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
 def create_synapse_mhr_to_dIN_inhib_spike_times_new( sim, times, postsynaptic, **kwargs ):
-    env = sim.environment
     psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='MHR-dIN-Inhib', sim=sim)
     return sim.create_synapse(
-                trigger=env.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
-                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs)
-                )
+                trigger=sim.environment.SynapticTrigger(SynapticTriggerAtTimes, time_list=times),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
+def create_synapse_dIN_to_dIN_AMPA_new( sim, presynaptic, postsynaptic, **kwargs ):
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-AMPA', sim=sim)
+    return sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger( SynapticTriggerByVoltageThreshold, cell_location = presynaptic.soma,
+                                    voltage_threshold = 0*mV, delay=1.0*ms,),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
-
-
-
-
-
-#def create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new(sim, times, postsynaptic, multiplier=1.0, ampa_multiplier=1.0, nmda_multiplier=1.0, parameter_overrides=None ):
-#    parameter_overrides = parameter_overrides or {}
-#    down_factor = 1.0
-#    s1 = create_synapse_tIN_to_dIN_AMPA_spike_times_new( sim, times, postsynaptic, parameter_multipliers={'peak_conductance':multiplier*down_factor * ampa_multiplier},parameter_overrides=parameter_overrides  )
-#    s2 = create_synapse_tIN_to_dIN_NMDA_spike_times_new( sim, times, postsynaptic, parameter_multipliers={'peak_conductance':multiplier*down_factor * nmda_multiplier},parameter_overrides=parameter_overrides  )
-#    return [s1,s2]
-#
-#def create_synapse_tIN_to_dIN_AMPANMDA_new(sim, times, postsynaptic,multiplier=1.0, ampa_multiplier=1.0, nmda_multiplier=1.0, parameter_overrides=None):
-#    parameter_overrides = parameter_overrides or {}
-#    down_factor = 1.0
-#    s1 = create_synapse_tIN_to_dIN_AMPA_new( sim, times, postsynaptic, parameter_multipliers = {'peak_conductance':multiplier*down_factor * ampa_multiplier},parameter_overrides=parameter_overrides )
-#    s2 = create_synapse_tIN_to_dIN_NMDA_new( sim, times, postsynaptic, parameter_multipliers = {'peak_conductance':multiplier*down_factor * nmda_multiplier},parameter_overrides=parameter_overrides )
-#    return s1,s2
-
+def create_synapse_dIN_to_dIN_NMDA_new( sim, presynaptic, postsynaptic, **kwargs ):
+    psm_tmpl = PostSynapticTemplateLibrary.get_template( modelsrc='HULL10', synapsetype='dIN-dIN-NMDA', sim=sim)
+    return sim.create_synapse(
+                trigger=sim.environment.SynapticTrigger( SynapticTriggerByVoltageThreshold, cell_location = presynaptic.soma,
+                                    voltage_threshold = 0*mV, delay=1.0*ms,),
+                postsynaptic_mech=psm_tmpl.instantiate(cell_location=postsynaptic.soma, **kwargs))
 
 
 
@@ -225,21 +166,14 @@ def create_synapse_mhr_to_dIN_inhib_spike_times_new( sim, times, postsynaptic, *
 
 
 
-"""Defining populations of neurons.
 
-"""
 
-from morphforge.stdimports import *
-from morphforgecontrib.stdimports import *
 
-import itertools
-import random
 
-import numpy as np
-import pickle
-import os
-import pylab
-from functools import partial
+
+
+
+
 
 
 
@@ -258,8 +192,8 @@ from functools import partial
 
 @cached_functor
 def get_leak_chls(env):
-    lk_chl = env.Channel(
-			StdChlLeak, name='LkChl',
+    lk_chl = env.Channel( StdChlLeak,
+            name='LkChl',
             conductance=qty('0.3:mS/cm2'),
             reversalpotential=qty('-54.3:mV'),)
     return lk_chl
@@ -298,7 +232,7 @@ def get_k_chls(env):
         ion='k',
         equation='n*n*n*n',
         conductance=qty('36:mS/cm2'),
-        reversalpotential=-77*mV,#qty('-77:mV'),
+        reversalpotential=-77*mV,
         statevars=k_state_vars,
         )
     return k_chl
@@ -319,10 +253,10 @@ class UserTags:
 
 
 
-def _run_sim(i, stim_level, nmda_multiplier_feedback):
+def _run_sim(i):
 
     env = NEURONEnvironment()
-    sim = env.Simulation(cvode=True, tstop=1600 * units.ms, dt=0.10 * units.ms)
+    sim = env.Simulation(cvode=True, tstop=1600 * ms)
 
     R_dINs = NeuronPopulation(sim=sim, n=30, neuron_functor=makehh, pop_name="RHS_dIN" )
 
@@ -336,21 +270,21 @@ def _run_sim(i, stim_level, nmda_multiplier_feedback):
 
 
     # Connect tIN -> dIN:
-    tINSpikeTimesRHS = EventSet( np.random.normal(100,1,40) * units.ms )
+    tINSpikeTimesRHS = EventSet( np.random.normal(100,1,40) * ms )
     synapses_tIN_to_dIN1 = Connectors.times_to_all( sim=sim,
                                                  syncronous_times=tINSpikeTimesRHS,
                                                  postsynaptic_population=R_dINs,
-                                                 connect_functor = partial( create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new, multiplier=1.0, nmda_multiplier=1.0, parameter_overrides={'popening':1.0} ),
+                                                 connect_functor = partial( create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new, parameter_overrides={'popening':1.0} ),
                                                  synapse_pop_name = "dIN_NMDA_background",)
 
-    tINSpikeTimesRHS = EventSet( np.random.normal(600,1,40) * units.ms )
+    tINSpikeTimesRHS = EventSet( np.random.normal(600,1,40) * ms )
     synapses_tIN_to_dIN2 = Connectors.times_to_all( sim=sim,
                                                  syncronous_times=tINSpikeTimesRHS,
                                                  postsynaptic_population=R_dINs,
-                                                 connect_functor = partial( create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new, multiplier=1.0, nmda_multiplier=1.0, parameter_overrides={'popening':1.0} ),
+                                                 connect_functor = partial( create_synapse_tIN_to_dIN_AMPANMDA_spike_times_new, parameter_overrides={'popening':1.0} ),
                                                  synapse_pop_name = "dIN_NMDA_background2",)
     # Connect MHR -> dIN:
-    MHRSpikeTimesRHS = EventSet( np.random.normal(300,2,3) * units.ms )
+    MHRSpikeTimesRHS = EventSet( np.random.normal(300,2,5) * ms )
     synapses_MHR_to_dIN1 = Connectors.times_to_all( sim=sim,
                                                  syncronous_times=MHRSpikeTimesRHS,
                                                  postsynaptic_population=R_dINs,
@@ -358,7 +292,7 @@ def _run_sim(i, stim_level, nmda_multiplier_feedback):
                                                  synapse_pop_name = "mhr_inhib",
                                                )
     # Connect MHR -> dIN:
-    MHRSpikeTimesRHS = EventSet( np.random.normal(1400,2,3) * units.ms )
+    MHRSpikeTimesRHS = EventSet( np.random.normal(1400,2,5) * ms )
     synapses_MHR_to_dIN2 = Connectors.times_to_all( sim=sim,
                                                  syncronous_times=MHRSpikeTimesRHS,
                                                  postsynaptic_population=R_dINs,
@@ -374,7 +308,7 @@ def _run_sim(i, stim_level, nmda_multiplier_feedback):
     synapses_dIN_to_dIN = Connectors.all_to_all(sim,
                             presynaptic_population=R_dINs,
                             postsynaptic_population=R_dINs,
-                            connect_functor = exec_with_prob(0.15, partial(create_synapse_dIN_to_dIN_NMDA_new, parameter_multipliers={'peak_conductance':nmda_multiplier_feedback})))
+                            connect_functor = exec_with_prob(0.15, partial(create_synapse_dIN_to_dIN_NMDA_new, parameter_multipliers={'peak_conductance':1.5})))
 
 
     # Record from the tIN -> dIN population:
@@ -388,8 +322,8 @@ def _run_sim(i, stim_level, nmda_multiplier_feedback):
 
 
 
-def testSingleSynapseAMPANMDA(i,stim_level, nmda_multiplier_feedback):
-    res, tINSpikeTimesRHS = _run_sim(i=i, stim_level=stim_level, nmda_multiplier_feedback=nmda_multiplier_feedback )
+def testSingleSynapseAMPANMDA(i):
+    res, tINSpikeTimesRHS = _run_sim(i=i)
 
     first_spikes = PopAnalSpiking.evset_first_spike( res=res, tag_selector=TagSelector.from_string("ALL{dINs,Voltage}"), comment="dIN First Spike" )
     all_spikes = PopAnalSpiking.evset_all_spikes( res=res, tag_selector=TagSelector.from_string("ALL{dINs,Voltage}"), comment="dIN All Spikes" )
@@ -399,39 +333,39 @@ def testSingleSynapseAMPANMDA(i,stim_level, nmda_multiplier_feedback):
     for i in range(0, 30):
         if i % 4 != 0:
             continue
-        nrn_all_spikes = PopAnalSpiking.evset_all_spikes( res=res, tag_selector=TagSelector.from_string("ALL{dINs,Voltage, RHS_dIN_%d}"%i ),  )
+        nrn_all_spikes = PopAnalSpiking.evset_all_spikes( res=res, tag_selector=TagSelector.from_string("ALL{dINs,Voltage, RHS_dIN_%d}"%i ))
         nrn_all_spikes.tags.add("SpikesFor%d"%i)
         nrn_all_spikes.tags.add("Raster")
         rasters.append( nrn_all_spikes)
 
     ps = [
           TagPlot( "ALL{Conductance,POSTCELL:RHS_dIN_0} AND ANY{PREPOP:RHS_mhrs,PREPOP:RHS_tINs}",
-                    yunit=units.nS,
+                    yunit=nS,
                     ylabel='Conductance',
-                    yticks=(0,15)*units.nS,
-                    yrange=(0,20)*units.nS,
+                    yticks=(0,15)*nS,
+                    yrange=(0,20)*nS,
                     legend_labeller=None,
                     show_yticklabels_with_units=True,
                     yticklabel_quantisation=Decimal('1'),
           ),
           TagPlot( "ALL{Voltage, RHS_dIN_10}",
-                    yunit=units.mV,
+                    yunit=mV,
                     colors=['blue'],
                     ylabel='Voltage (dIN #10)',
                     legend_labeller=None,
-                    yticks=(-80,-40,0,40)*units.mV,
+                    yticks=(-80,-40,0,40)*mV,
                     show_yticklabels_with_units=True,
                     yticklabel_quantisation=Decimal('1')
           ),
-          TagPlot( "ALL{Raster}", ylabel='Spike\nraster',legend_labeller=None, show_yticklabels=False   ),
+          TagPlot( "ALL{Raster}", ylabel='Spike\nraster',legend_labeller=None, show_yticklabels=False),
           ]
 
 
 
     TagViewer( [res, tINSpikeTimesRHS,first_spikes, all_spikes] + rasters,
                     plots=ps,
-                    timerange=(50,1600)*units.ms,
-                    xticks=(200,600,1000,1400,)*units.ms,
+                    timerange=(50,1600)*ms,
+                    xticks=(200,600,1000,1400,)*ms,
                     show_xlabel = False,
                     show_xticklabels = 'only-once',
                     show_xaxis_position = 'top',
@@ -444,17 +378,10 @@ def testSingleSynapseAMPANMDA(i,stim_level, nmda_multiplier_feedback):
                                                 ])
                     )
 
-    #t = TagViewer(
-    #        [res, tINSpikeTimesRHS,first_spikes, all_spikes] + rasters,
-    #        timerange=(200,300)*units.ms,
-    #        show_xlabel=False,
-    #        xticks=[200,250,300]*units.ms,
-    #        plots=[TagPlot( "ALL{Raster}", ylabel='Spike\nraster',legend_labeller=None),],
-    #        )
 
 
 MFRandom.seed(1000)
-testSingleSynapseAMPANMDA(i=0, stim_level=130,nmda_multiplier_feedback=1.5)
+testSingleSynapseAMPANMDA(i=0)
 
 
 
