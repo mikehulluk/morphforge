@@ -41,8 +41,11 @@ from morphforge.simulation.base.networks import Synapse
 
 class Neuron_PSM_Std_CurrentRecord(NEURONRecordable):
 
-    def __init__(self, neuron_syn_post, **kwargs):
-        super(Neuron_PSM_Std_CurrentRecord, self).__init__(**kwargs)
+    def __init__(self, neuron_syn_post, description=None, **kwargs):
+        if not description:
+            description = 'Current of %s' % (neuron_syn_post.get_summary_description() ) 
+        
+        super(Neuron_PSM_Std_CurrentRecord, self).__init__(description=description, **kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):
@@ -60,10 +63,13 @@ class Neuron_PSM_Std_CurrentRecord(NEURONRecordable):
         pass
 
 
+
 class Neuron_PSM_Std_ConductanceRecord(NEURONRecordable):
 
-    def __init__(self, neuron_syn_post, **kwargs):
-        super(Neuron_PSM_Std_ConductanceRecord, self).__init__(**kwargs)
+    def __init__(self, neuron_syn_post, description=None, **kwargs):
+        if not description:
+            description = 'Conductance of %s' % (neuron_syn_post.get_summary_description() ) 
+        super(Neuron_PSM_Std_ConductanceRecord, self).__init__(description=description,**kwargs)
         self.neuron_syn_post = neuron_syn_post
 
     def get_unit(self):

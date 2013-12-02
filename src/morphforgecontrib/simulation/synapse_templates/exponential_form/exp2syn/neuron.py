@@ -83,7 +83,6 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
 
         cell = instance.cell_location.cell
         section = instance.cell_location.morphlocation.section
-        #syn_name_post = instance.synapse.get_name() + 'Post'
         syn_name_post = instance.name + 'Post'
         hoc_data_cell = hocfile_obj[MHocFileData.Cells][cell]
         data = {
@@ -121,6 +120,7 @@ class NEURONPostSynapticMechTemplate_Exp2Syn(PostSynapticMech_Exp2Syn_Base, NEUR
         if what == NEURONSynapse.Recordables.SynapticConductance:
             return Neuron_PSM_Std_ConductanceRecord(neuron_syn_post=instance, **kwargs)
         assert False
+
 
 
 NEURONEnvironment.synapse_psm_template_type.register_plugin(PostSynapticMech_Exp2Syn_Base, NEURONPostSynapticMechTemplate_Exp2Syn)

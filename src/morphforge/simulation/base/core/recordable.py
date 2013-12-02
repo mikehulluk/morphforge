@@ -52,12 +52,6 @@ class Recordable(NamedSimulationObject):
     def get_std_tags(self):
         raise NotImplementedError()
 
-    @property
-    def _mh_decription(self):
-        assert False
-        return (self._description if self._description else self.get_description())
-
-    #description = property(_get_desc)
 
     def get_description(self):
         if self._description is not None:

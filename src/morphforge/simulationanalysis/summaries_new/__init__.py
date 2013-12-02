@@ -179,7 +179,7 @@ class SimulationMRedoc(object):
             return mrd.Section('Simulation Summary',
                     sim_redoc,
                     mrd.Section("Results",
-                        mrd.Image( TagViewer(result).fig.fig, fig_size=(6,3),  max_font_size=7, subplots_adjust={'left':0.25,'right':0.95}),
+                        mrd.Image( TagViewer(result).fig.fig, fig_size=(6,3),  max_font_size=8, subplots_adjust={'left':0.25,'right':0.95}),
                         )
                     )
 
@@ -274,9 +274,9 @@ class SimulationMRedoc(object):
     @classmethod
     def _build_cell_table(cls, cell_list):
 
-        table = mrd.VerticalColTable('Name|Type|SA(um2)|\#sections(\#segs)|Regions(SA(um2):nseg)|\#Pre/post-synapse|\#Gap-juncs|Chls',
+        table = mrd.VerticalColTable('Name|SA(um2)|\#sections(\#segs)|Regions(SA(um2):nseg)|\#Pre/post-synapse|\#Gap-juncs|Chls',
                 [(cell.name,
-                  cell.cell_type_str,
+                  #cell.cell_type_str,
                   "%.0f" % (cell.morphology.surface_area),
                   "%d:%d" % (len(cell.morphology), cell.segmenter.get_num_segment_total(cell)),
                   " ".join(["%s(%d:%d)" % (rgn.name, rgn.surface_area, cell.segmenter.get_num_segment_region(rgn)) for rgn in cell.morphology.regions]),
@@ -291,22 +291,12 @@ class SimulationMRedoc(object):
     @classmethod
     def _build_synapse_table(cls, synapses_list):
 
-        #for syn in synapses_list:
-        #    print syn.name
-        #    print syn.get_trigger().get_summary_string()
-        #    print syn.get_postsynaptic_mechanism().cell_location.get_location_description_str()
-        #    print syn.get_postsynaptic_mechanism()
-        #    print syn.__dict__
-        ##assert False
 
-        table = mrd.VerticalColTable('Name|Type|Trigger| PostSynaptic Cell|Receptor',
+        table = mrd.VerticalColTable('Name|Trigger| PostSynaptic Cell|Receptor',
                 [(syn.name,
-                  '<?>', #syn.syn_type_str,
                   '%s'%( syn.get_trigger().get_summary_string() ),
                   '%s'%(syn.get_postsynaptic_mechanism().cell_location.get_location_description_str() ),
                   '%s'%(syn.get_postsynaptic_mechanism().get_summary_description() ),
-
-                  #'None',
                  ) for syn in synapses_list])
 
         return table
@@ -607,7 +597,19 @@ class DOTWriter(object):
         kwargs_synpop_img = {'shape':'square', 'labelloc':'b',   'scale':'false', 'fixedsize': 'true'}
         kwargs_synpop_edge = {'penwidth':'3', 'color':'green', 'minlen':'50' }
 
-        kwargs_syn = { 'color':'darkgreen',  'penwidth':'1', 'arrowhead':'"tee"' }
+        kwargs_syn_post = { 'color':'darkgreen',  'penwidth':'1', 'arrowhead':'"tee"' }
+        kwargs_syn_pre_times = { 'color':'darkgreen',
+                'penwidth':'1',
+                'arrowhead':'"tee"' ,
+                'shape':'circle', 
+                'color':'lightsalmon',
+                'style':'filled', 
+                'width': '0.25',
+                'height': '0.25',
+                'fontsize': fontsize,
+                'fixedsize': 'True',
+            'fontname':'Helvetica'
+                }
 
         # Map Simulation objects into dot objects:
         obj2nodedict = {}
@@ -698,8 +700,9 @@ class DOTWriter(object):
 
             if not pre_cell:
                 pre_n = pydot.Node(name='SpikeTimes%d' % i,
-                                   shape='point', color='lightsalmon',
-                                   style='filled', **kwargs_general)
+                                   label='Spike-times',
+                                   **kwargs_syn_pre_times
+                                   )
                 graph.add_node(pre_n)
             else:
                 pre_n = obj2nodedict[pre_cell]
@@ -707,7 +710,7 @@ class DOTWriter(object):
 
             syn_name = '%s' % synapse.name
             e = pydot.Edge(pre_n, post_n, label=syn_name,
-                           **dict(kwargs_general.items() + kwargs_syn.items() ) )
+                           **dict(kwargs_general.items() + kwargs_syn_post.items() ) )
             graph.add_edge(e)
 
 
@@ -732,45 +735,7 @@ class DOTWriter(object):
             e = pydot.Edge(n, cell_node, label='', color='red', arrowhead='vee', arrowsize='0.75')  # **kwargs)
             graph.add_edge(e)
 
-        ## Records:
-        #records = {}
-        #for record in self.sim.recordables:
-        #    name = record.name
-        #    # label = '"Record: %s\\n %s"' % (name, record.location_summary_dot_str )
-        #    label = '"Record: %s\\n"' % name  # , record.location_summary_dot_str )
-        #    n = pydot.Node(
-        #        name,
-        #        shape='circle',
-        #        style='filled',
-        #        width='0.05',
-        #        fixedsize='True',
-        #        label=label,
-        #        fontsize=fontsize,
-        #        )
-        #    records[record] = n
-        #    graph.add_node(n)
-
-        #    # Make the edge:
-        #    if isinstance(record, NEURONRecordableOnLocation):
-        #        post_node = obj2nodedict[record.cell_location.cell]
-        #        e = pydot.Edge(n, post_node, label='', color='green')
-        #        graph.add_edge(e)
-
-        #    # cell_node = obj2nodedict[record.cell_location.cell]
-
-
-
-
-
-
-        #graph.write_raw('example_cluster2.dot')
-
-        # Put the stimulations on:
-
-        #fname = _DotSummaryUtils.save_dot(graph, prog='dot')
         fname = _DotSummaryUtils.save_dot(graph, format='pdf', prog='fdp')
-        #fname = _DotSummaryUtils.save_dot(graph, prog='osage')
-        #fname = _DotSummaryUtils.save_dot(graph, prog='neato')
         return mrd.Section(
                 'Diagram Overview',
                 mrd.Figure(mrd.Image(fname))

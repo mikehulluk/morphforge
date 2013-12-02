@@ -54,6 +54,9 @@ class PostSynapticMech_Exp2Syn_Base(object):
                 }
         return _units[varname]
 
+    def get_defaults(self):
+        return self._default_parameters
 
     def get_summary_description(self, instance):
-        return "Exp2Syn"
+        return "Exp2Syn (onto %s)" % instance.cell_location.get_location_description_str()
+

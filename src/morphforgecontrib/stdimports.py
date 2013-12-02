@@ -100,3 +100,8 @@ from morphforgecontrib.simulation.stimulation.currentclamps.sinwave.currentclamp
 
 # Constants for accessing standard models:
 from morphforgecontrib.data_library.stdmodels import StandardModels
+
+
+
+# And some alias to make the code a bit neater:
+from morphforgecontrib.fake_namespaces import *
