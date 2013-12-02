@@ -37,12 +37,6 @@ The same simulation of the HodgkinHuxley52 neuron as before, but by adding
 a single line, we can generate a pdf output of the simulation! (You can do this
 on any simulation.)
 
-.. code-block:: python
-
-    SimulationSummariser(simulationresult=results, filename="SimulationOutput.pdf", make_graphs=True)
-
-
-TODO: THIS IS NOT WORKING  - DISABLED TO ALLOW runnnign during pdf gen refactor
 """
 
 

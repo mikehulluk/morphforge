@@ -43,7 +43,6 @@ then tell the TagViewer to plot everything with a tag 'SIMY'
 
 
 from morphforge.stdimports import *
-#from morphforgecontrib.data_library.stdmodels import StandardModels
 from morphforgecontrib.stdimports import StandardModels
 
 

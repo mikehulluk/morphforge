@@ -45,11 +45,13 @@ from morphology.util import MorphologyTranslator
 
 
 # Pre synaptic mechanisms
-#from morphforgecontrib.simulation.presynapticmechanisms.core import SynapticTriggerAtTimes
-#from morphforgecontrib.simulation.presynapticmechanisms.core import SynapticTriggerByVoltageThreshold
 from morphforge.stdimports import SynapticTriggerAtTimes
 from morphforge.stdimports import SynapticTriggerByVoltageThreshold
 
+
+#from morph
+import morphforgecontrib.morphology.importers.import_tree_morphml
+import morphforgecontrib.morphology.importers.import_tree_xyz
 
 
 # Traces tagging:

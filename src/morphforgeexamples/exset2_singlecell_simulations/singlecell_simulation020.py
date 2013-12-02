@@ -33,10 +33,9 @@
 
 """Hodgkin-Huxley '52 neuron simulation.
 
-A simulation of the HodgkinHuxley52 neuron. We create 3 channels, Lk, Na, and K channels and apply them over the neuron.
-The morphforge backend takes care of building/compiling .mod-files from these,
-and runs the simulation.
-Note that the neurons reseting potentials have been shifted from 0mV to -65mV.
+A simulation of the HodgkinHuxley-52 neuron. We create 3 channels, Leak (Lk), Sodium (Na), and Potassium (K) channels and apply them over the neuron.
+The morphforge backend takes care of building/compiling .mod-files from these, and runs the simulation.
+Note that the neuron's resting potentials have been shifted from 0mV to -65mV.
 """
 
 
@@ -115,8 +114,6 @@ sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = 
 # run the simulation
 results = sim.run()
 
-# Create an output .pdf
-SimulationMRedoc.build( sim ).to_pdf(__file__ + '.pdf')
 
 # Display the results:
 TagViewer([results], timerange=(50, 250)*units.ms, show=True)

@@ -37,11 +37,6 @@ In this script, we load in an .swc which has 2 regions; "apicaldendrite"
 and "dendrite" declared in its .swc file, then look at its surface area, and how
 the radius of the region types becomes smaller as we move away from the soma.
 
-.. warning::
-
-    I have not written tests for the surface area and volume functions,
-    so don't trust them yet!  This is proof of concept code!
-
 """
 import morphforge.stdimports as mf
 import pylab

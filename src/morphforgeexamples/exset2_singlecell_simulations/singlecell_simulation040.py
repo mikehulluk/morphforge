@@ -31,11 +31,12 @@
 
 
 
-"""Investigating the rheobase of a neuron with a parameter sweep
+"""Investigating the rheobase of a neuron with a parameter sweep.
+The aim of this script is to show that it is possible to run multiple simulations from a single script
 
-WARNING: The automatic naming and linkage between grpah colors is currently under a refactor; what is done in this script is not representing the best possible solution, or even something that will reliably work in the future!
+WARNING: The automatic naming and linkage between graph colors is currently under a refactor, and likely to change soon.
 
-The aim of this script is just to show that it is possible to run multiple simulations from a single script!
+
 """
 
 
@@ -139,8 +140,8 @@ def simulate(current_inj_level):
 
 
 # Display the results:
-#results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
-results = [simulate(current_inj_level='%d:pA' % i) for i in [50]  ]
+results = [simulate(current_inj_level='%d:pA' % i) for i in [50,100,150,200, 250, 300]  ]
+#results = [simulate(current_inj_level='%d:pA' % i) for i in [50]  ]
 
 
 # Create an output .pdf of the first simulation:

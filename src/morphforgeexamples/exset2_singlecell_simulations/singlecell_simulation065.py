@@ -38,7 +38,7 @@ We define functions that produce morphology and channel objects for our simulati
 We could stop here, and simply import and use the functions in our simulations, but
 we go a step further, and register them with  "ChannelLibrary" and "MorphologyLibrary".
 These are basically glorified dictionaries, that do the lookup for the appropriate functors
-based on a key from the tuple~(modelsrc, celltype, channeltype). The advantage for doing this is that
+based on a key from the tuple (modelsrc, celltype, channeltype). The advantage for doing this is that
 there is single repository for morphologies and channels.
 
 There is not really anythin clever going on here, and you can run simulations completely ignorantly
@@ -56,10 +56,8 @@ from morphforgecontrib.stdimports import StdChlLeak,StdChlAlphaBeta
 
 # This can be put into a file that is loaded on
 # you path somewhere:
-
 # ======================================================
 def getSimpleMorphology():
-
     mDict  = {'root': { 'length': 17.5, 'diam': 17.5, 'id':'soma', 'region':'soma',   } }
     return  MorphologyTree.fromDictionary(mDict)
 

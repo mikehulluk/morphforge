@@ -33,8 +33,10 @@
 
 
 """Visualising action potential propagation along an axon
-In this simulation, we create a cell with a long axon. We put HH-channels over its surface and give it a short current injection into the soma. We look at the voltage at various points along the axon, and see it propogate.
-
+In this simulation, we create a neuron with a long axon. We apply HH-channels 
+over its surface and give it a short current injection into the soma. We 
+look at the voltage at various points along the axon, and can see it
+propogating in the resulting trace.
 """
 
 

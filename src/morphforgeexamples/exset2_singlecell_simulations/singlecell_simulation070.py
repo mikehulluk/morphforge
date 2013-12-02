@@ -56,27 +56,22 @@ m1 = MorphologyTree.fromDictionary(morphDict1)
 cell = sim.create_cell(name="Cell1", morphology=m1)
 
 
+# Apply the channels uniformly over the cell
 lk_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Lk", env=env)
 na_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="Na", env=env)
 k_chl = ChannelLibrary.get_channel(modelsrc=StandardModels.HH52, channeltype="K", env=env)
 
-
-# Apply the channels uniformly over the cell
 cell.apply_channel( lk_chl)
 cell.apply_channel( na_chl)
 cell.apply_channel( k_chl)
 cell.set_passive( PassiveProperty.SpecificCapacitance, qty('1.0:uF/cm2'))
 
-# Get a cell_location on the cell:
-
-
 # Create the stimulus and record the injected current:
 cc = sim.create_currentclamp(name="Stim1", amp=qty("250:pA"), dur=qty("100:ms"), delay=qty("100:ms"), cell_location=cell.soma)
 sim.record(cc, what=StandardTags.Current)
+
 # Define what to record:
 sim.record(cell, what=StandardTags.Voltage, name="SomaVoltage", cell_location = cell.soma)
-
-
 sim.record(lk_chl, cell_location = cell.soma, what=StandardTags.ConductanceDensity)
 sim.record(na_chl, cell_location = cell.soma, what=StandardTags.ConductanceDensity)
 sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.ConductanceDensity)
@@ -85,14 +80,9 @@ sim.record(lk_chl, cell_location = cell.soma, what=StandardTags.CurrentDensity)
 sim.record(na_chl, cell_location = cell.soma, what=StandardTags.CurrentDensity)
 sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.CurrentDensity)
 
-
 sim.record(na_chl, cell_location = cell.soma, what=StandardTags.StateVariable, state="m")
 sim.record(na_chl, cell_location = cell.soma, what=StandardTags.StateVariable, state="h")
 sim.record(k_chl,  cell_location = cell.soma, what=StandardTags.StateVariable, state="n")
-
-
-# Also:
-
 
 # run the simulation
 results = sim.run()
