@@ -34,6 +34,8 @@ import numpy as np
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
 
+#import numpy as np
+
 class TraceFixedDT(TracePointBased):
 
     @classmethod
@@ -58,5 +60,76 @@ class TraceFixedDT(TracePointBased):
     def __str__(self):
         return 'TraceFixedDT: ' + self.name + ' Shape:'  + str(self._time.shape)
 
+
+
+
+    # TO MOVE:
+    def simplify(self, npoints):
+        import scipy
+        import scipy.interpolate
+
+        
+        def moving_average(a, n=3) :
+            ret = np.cumsum(a, dtype=float)
+            return (ret[n - 1:] - ret[:1 - n]) / n
+
+
+        t = self.time_pts_ms
+        d = self.data_pts_np
+
+        d_interpolator =  scipy.interpolate.interp1d(t, d, kind='linear')
+
+
+        # Take the absolute value of the second derivative, which tells us
+        # where the curve changes the most:
+        d_dd = np.fabs(np.gradient(np.gradient(d) ) )
+
+
+        # Process the gradients:
+        # 1. Filter it:
+        filter_len = 13
+        fil = np.ones( (filter_len,) ) / filter_len
+        d_dd = np.convolve(d_dd, fil ,'same' ) 
+
+        # 2. Sqrt it, to reduce the effects of the peaks:
+        d_dd = np.sqrt(d_dd)
+
+        # 3. Add 10% of its value 'all-over'. This helps ensure that we
+        # get a distrubtion of points all over the curve, not just at the 
+        # regions of high change:
+        tot = np.trapz(d_dd) / t.shape[0]
+        d_dd = d_dd + 0.1 * tot
+        
+        # Now, convert this 'pdf' into a cdf so we can sample points from it:
+        cn = np.cumsum(d_dd)
+        cn /= cn[-1]
+
+        # Make sure ends are clamped at 0,1:
+        cn[0] = 0.0
+        cn[-1] = 1.0
+
+        # Sample from the cdf:
+        sample_pts = np.linspace(0.0,1.0,num=100)
+        interp_pts = scipy.interpolate.interp1d(cn, t, kind='linear')
+        new_times = interp_pts(sample_pts)
+        new_data = d_interpolator(new_times)
+
+
+        from tracevariabledt import TraceVariableDT
+        import quantities as pq
+
+
+        return TraceVariableDT(
+                time=new_times * pq.ms, 
+                data=new_data*self.data_unit,
+                name=self.name, 
+                comment=self.comment,
+                tags=self.tags)
+        #ax1.plot( new_times, new_data,'o',)
+        #ax1.plot( new_times, new_times*0.-55.,'o',)
+
+
+        #ax4.plot( new_times, new_data,)
+        #pylab.show()
 
 

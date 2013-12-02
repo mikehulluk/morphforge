@@ -76,9 +76,9 @@ class PopAnalSpiking(object):
         traces = [trace for trace in res.get_traces()
                   if tag_selector(trace)]
 
-        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0,
-                      firingthres=None) for tr in traces]
+        spike_list = [SpikeFinder.find_spikes(tr, crossingthresh=0, firingthres=None) for tr in traces]
         spike_list = list(itertools.chain(*spike_list) )
+        #print ' -- SL', spike_list
 
         comment='%s (All Spike)' if not comment else comment
         if comment_incl_nspikes:

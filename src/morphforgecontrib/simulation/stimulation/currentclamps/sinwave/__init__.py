@@ -29,3 +29,6 @@
 #  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # ----------------------------------------------------------------------
 
+
+import currentclamp_sinwave_core
+import currentclamp_sinwave_neuron

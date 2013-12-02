@@ -36,11 +36,6 @@ class AbstCellSegmenter(object):
     def __init__(self, cell=None, **kwargs):
         super(AbstCellSegmenter,self).__init__(**kwargs)
         assert cell is None, 'CellSegmenters no longer contain references to cells, to allow for sharing'
-        #self.cell = cell
-
-    #def connect_to_cell(self, cell):
-    #    assert self.cell is None
-    #    self.cell = cell
 
     def get_num_segments(self, section):
         raise NotImplementedError()
@@ -70,8 +65,6 @@ class CellSegmenter_MaxCompartmentLength(CellSegmenterStd):
     def __init__(self, max_segment_length=5, **kwargs):
         super(CellSegmenter_MaxCompartmentLength, self).__init__(**kwargs)
 
-        # TODO: MAKE SURE THIS
-        #if isinstance(max_segment_length)
         self.max_segment_length = max_segment_length
 
     def _get_n_segments(self, section):

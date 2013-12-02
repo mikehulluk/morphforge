@@ -77,6 +77,7 @@ class MetaDataBundleBuilder(object):
 
         FileIO.write_to_file(txt=simstring, filename=simfilename)
 
+
         bundle = SimMetaDataBundle(sim)
         return bundle
 

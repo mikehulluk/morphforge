@@ -99,6 +99,7 @@ ${stimname}.freq =     $freq.rescale("Hz").magnitude
 ${stimname}.pkamp =      $amp.rescale("nA").magnitude
 ${stimname}.del =    $delay.rescale("ms").magnitude
 ${stimname}.bias = $bias.rescale("nA").magnitude
+${stimname}.dur = $duration.rescale("ms").magnitude
 
 """
 from morphforge import units
@@ -122,6 +123,9 @@ class NeuronSinwaveCurrentClampCurrentRecord(NEURONRecordable):
 
     def build_mod(self, modfile_set):
         pass
+    
+    def get_description(self):
+        return 'Sinwave CurrentClamp Injection: %s' % self.cclamp.name
 
 
 class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
@@ -144,6 +148,7 @@ class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
             'amp': self.amp,
             'delay': self.delay,
             'bias': self.bias,
+            'duration': self.duration,
             }
 
         hoc_txt = Template(ccSinWaveHOCTmpl, data).respond()
@@ -164,6 +169,8 @@ class NEURONCurrentClampSinwave(CurrentClampSinwave, NEURONObject):
         assert False
 
 
+from morphforge.stdimports import NEURONEnvironment
+NEURONEnvironment.currentclamps.register_plugin(CurrentClampSinwave, NEURONCurrentClampSinwave)
 
 
 

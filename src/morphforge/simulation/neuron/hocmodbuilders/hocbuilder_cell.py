@@ -50,6 +50,7 @@ begintemplate $cell_template_name
         #for $section in $cell.morphology:
         internalsections[$section_indexer[$section]] {
 
+            // Section ID: $section.idtag
 
             // Section Geometry:
             L = $section.get_length

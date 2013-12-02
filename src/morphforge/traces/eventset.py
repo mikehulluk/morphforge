@@ -54,11 +54,6 @@ class EventSet(object):
         if tags is None:
             # Find tags common to all sets:
             tags = eventsets[0].tags.intersection(*[evset.tags for evset in eventsets])
-        #if not tags:
-        #    communal_tags = None
-        #    for ev_set in eventsets:
-        #        communal_tags = set(ev_set.tags) if communal_tags is None else communal_tags & set(ev_set.tags)
-        #    tags = communal_tags
 
         return EventSet(itertools.chain(*eventsets), tags=tags, comment=comment, name=name)
 

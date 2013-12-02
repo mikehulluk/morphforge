@@ -40,7 +40,8 @@ class NEURONSimulationSettings(object):
     reltol = 'reltol'
     abstol = 'abstol'
     strict_modlunit='strict_modlunit'
-    allparams = (dt, tstop, cvode, reltol, abstol, strict_modlunit)
+    simplify_traces='simplify_traces'
+    allparams = (dt, tstop, cvode, reltol, abstol, strict_modlunit, simplify_traces)
 
     @classmethod
     def get_defaults(cls):
@@ -51,7 +52,10 @@ class NEURONSimulationSettings(object):
                 #NEURONSimulationSettings.reltol: 1e-12,
                 #NEURONSimulationSettings.abstol: 1e-12,
                 NEURONSimulationSettings.cvode: True,
-                NEURONSimulationSettings.strict_modlunit: True
+                NEURONSimulationSettings.strict_modlunit: True,
+                # This options automatically simplifies traces after recoding,
+                # which can make intermediate files much smaller.
+                NEURONSimulationSettings.simplify_traces: None
                 }
 
         # Check we have defaults for all parameters:

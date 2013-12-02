@@ -31,7 +31,6 @@
 
 from morphforge.traces.tracetypes.tracepointbased import TracePointBased
 
-
 class TraceVariableDT(TracePointBased):
 
     def __init__(self, time, data, name=None, comment=None, tags=None):

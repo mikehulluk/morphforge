@@ -272,12 +272,12 @@ class TagPlot(object):
 
         # Sort and plot:
         for index, trace in enumerate(self._sort_traces(trcs)):
-            #color = linkage.color_allocations.get(trace, None) if linkage else None
             color = linkage.get_trace_color(trace) if linkage else None
             self._plot_trace(trace, ax=ax, index=index, color=color, decimate_points=decimate_points)
 
 
         for index, event_set in enumerate(self._sort_eventsets(eventsets)):
+            #print 'Plotting', event_set, len(event_set)
             self._plot_eventset(event_set,  ax=ax, index=index+len(trcs))
 
 

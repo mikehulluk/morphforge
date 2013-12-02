@@ -47,10 +47,8 @@ from morphforgecontrib.stdimports import StandardModels
 
 
 def sim(glk_multiplier, gna_multiplier, tag):
-    # Create the environment:
+    
     env = NEURONEnvironment()
-
-    # Create the simulation:
     sim = env.Simulation()
 
     # Create a cell:
@@ -106,7 +104,7 @@ TagViewer(results_a, timerange=(97.5, 140)*units.ms, show=False,
 results_b = [
     sim(gna_multiplier=0.1,  glk_multiplier=1.0, tag="SIM6"),
     sim(gna_multiplier=0.5,  glk_multiplier=1.0, tag="SIM7"),
-    sim(gna_multiplier=0.75,  glk_multiplier=1.0, tag="SIM8"),
+    sim(gna_multiplier=0.75, glk_multiplier=1.0, tag="SIM8"),
     sim(gna_multiplier=1.0,  glk_multiplier=1.0, tag="SIM9"),
 ]
 

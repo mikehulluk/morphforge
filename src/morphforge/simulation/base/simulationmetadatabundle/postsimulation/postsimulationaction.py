@@ -30,6 +30,7 @@
 # ----------------------------------------------------------------------
 
 import cPickle
+import os
 
 from morphforge.core import FileIO
 
@@ -51,5 +52,6 @@ class PostSimulationActionPickleSimulation(object):
         filename = self.filename
         resstring = cPickle.dumps(result)
         FileIO.write_to_file(txt=resstring, filename=filename)
+        print "Size of results file: %.1f (MB)" % (os.path.getsize(filename)/1.e6)
 
 
