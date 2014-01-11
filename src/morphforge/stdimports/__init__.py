@@ -69,7 +69,9 @@ from morphforge.traces.eventset import EventSet, Event
 
 from morphforge.simulationanalysis.tagviewer import TagViewer
 from morphforge.simulationanalysis.tagviewer import TagPlot
+from morphforge.simulationanalysis.tagviewer import TagPlot as PlotSpec
 from morphforge.simulationanalysis.tagviewer import DefaultTagPlots
+from morphforge.simulationanalysis.tagviewer import DefaultTagPlots as DefaultPlotSpecs
 from morphforge.simulationanalysis.tagviewer.linkage import StandardLinkages
 from morphforge.simulationanalysis.tagviewer.linkage import LinkageRuleTagRegex
 from morphforge.simulationanalysis.tagviewer.linkage import LinkageRuleTag

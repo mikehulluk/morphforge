@@ -245,6 +245,7 @@ class CellAnalysis_ReboundResponse(object):
         plot_all=False,
         sim_kwargs=None,
         tagviewer_kwargs=None,
+        title=True
         ):
         self.cell_functor = cell_functor
         self.currents_base = currents_base
@@ -253,6 +254,7 @@ class CellAnalysis_ReboundResponse(object):
         self.sim_kwargs = sim_kwargs or {}
         self.tagviewer_kwargs = tagviewer_kwargs or {}
         self.result_traces = {}
+        self.title = title
 
         self.cell_description = cell_description
         self.plot_all = plot_all
@@ -287,8 +289,11 @@ class CellAnalysis_ReboundResponse(object):
                     continue
                 trs.extend(self.result_traces[(current1, current2)])
 
-            title = "%s- (Response to Current Injections [BaseCurrent %s pA])"%(self.cell_description, current1)
-            TagViewer(trs, show=False, figtitle=title, **self.tagviewer_kwargs)
+            if self.title == True:
+                self.title = "%s- (Response to Current Injections [BaseCurrent %s pA])"%(self.cell_description, current1)
+
+            
+            TagViewer(trs, show=False, figtitle=self.title, **self.tagviewer_kwargs)
 
 
 
