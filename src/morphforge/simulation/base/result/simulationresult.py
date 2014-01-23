@@ -70,6 +70,10 @@ class SimulationResult(object):
         else:
             assert False
 
+    def get_trace_by_tagselection(self, ts):
+        import morphforge
+        selector = morphforge.stdimports.TagSelector.from_string(ts)
+        return SeqUtils.filter_expect_single(self.traces, selector)
 
     def get_traces(self):
         return self.traces
