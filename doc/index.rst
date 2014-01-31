@@ -94,6 +94,14 @@ Setting up and Running Morphforge
     latest development news!
     
 
+.. warning::
+
+    I am shortly about to leave to go cycling in Asia and will not be on the
+    internet. I will be back in the summer - feel free to use morphforge, but
+    just be aware I will not be able to help with problems or fixing bugs until
+    I return!
+
+    Mike - Jan 2014
 
 
 Installing Morphforge
