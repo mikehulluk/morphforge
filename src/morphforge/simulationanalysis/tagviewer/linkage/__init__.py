@@ -217,6 +217,7 @@ class StandardLinkages(object):
         # Make the allocation from index to colors:
         self._color_allocations = {}
         for trace in all_traces:
+            self._color_allocations[trace] = self._color_cycle[allocated_trace_colors[trace]]
 
             # Normal behaviour:
             color_index = allocated_trace_colors[trace]
@@ -226,10 +227,6 @@ class StandardLinkages(object):
             for l in self.linkage_rules:
                 if l.match(trace) and l.preferred_color:
                     self._color_allocations[trace] = l.preferred_color
-
-
-
-
 
 
 
