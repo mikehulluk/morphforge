@@ -312,6 +312,8 @@ def run_with_cache(func, args=None, kwargs=None, cachefilenamebase=None):
     script_filename = inspect.stack()[-1][1]
     script_filename_clean = script_filename.replace('/','__').replace(' ','__').replace('.', '_')
     cachefilename = cachefilenamebase + '_' + script_filename_clean + '_' + arg_hash + '.pickle'
+    print(cachefilename)
+    print("\n")
 
     return_value, cache = load_cache(cachefilename=cachefilename)
     if not is_cache_clean(cache):
