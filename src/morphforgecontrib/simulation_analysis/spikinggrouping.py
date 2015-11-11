@@ -108,14 +108,25 @@ class DBScan(object):
 
 
     @classmethod
-    def calculate_mean_frequency(cls, cluster_sets):
+    def calculate_mean_frequency(cls, cluster_sets, mean_time_min = 200):
 
 
         mean_times = [np.mean([t.rescale('ms') for t in c.times]) for c in cluster_sets if len(c) != 0]
-        mean_times = np.array([mt for mt in mean_times if mt > 200])
+
+        dbg=False
+        if dbg:
+            import pylab
+            f,ax = pylab.subplots(nrows=1,ncols=1)
+            M=np.array(mean_times)
+            ax.scatter( M, M*0+1) 
+            pylab.show()
+
+        if mean_time_min is not None:
+            mean_times = np.array([mt for mt in mean_times if mt > mean_time_min])
 
         np.sort(mean_times)
         mean_times.sort()
+
         print mean_times
 
         isi = np.diff(mean_times)

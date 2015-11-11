@@ -126,11 +126,12 @@ class YAxisConfig(object):
                 ax.set_yaxis_fixedlocator(self.yticks)
             else:
                 assert False
+            # If we set yticks manually, then we might also set yticklabels.
+            if self.yticklabels is not None:
+                ax.set_yticklabels(self.yticklabels)
 
-        if self.yticklabels is not None:
-            ax.set_yticklabels(self.yticklabels)
-        else:
-            ax.set_yticklabel_mode(show_ticklabels=self.show_yticklabels, include_units=self.show_yticklabels_with_units, ticklabel_quantisation=self.yticklabel_quantisation)
+        if self.yticklabels is None:
+            ax.set_yticklabel_mode(show_ticklabels=self.show_yticklabels, include_units=self.show_yticklabels_with_units)
 
         #TODO: Something funky is going on and this is not making a difference
         if self.ymargin is not None:
@@ -272,6 +273,7 @@ class TagPlot(object):
 
         # Sort and plot:
         for index, trace in enumerate(self._sort_traces(trcs)):
+            #color = linkage.color_allocations.get(trace, None) if linkage else None
             color = linkage.get_trace_color(trace) if linkage else None
             self._plot_trace(trace, ax=ax, index=index, color=color, decimate_points=decimate_points)
 
@@ -286,6 +288,7 @@ class TagPlot(object):
             plt_tr = ax.plotTrace(tr, linewidth=4, alpha=0.4)
 
 
+            # ax.set_ylim(((-0.5) * units.dimensionless, (len(eventsets)+0.5) * units.dimensionless))
 
         if len(trcs) == 0:
             padding = 0.5
